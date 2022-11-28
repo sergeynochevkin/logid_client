@@ -11,7 +11,7 @@ export const FilterSelect = observer(({ fieldName, inputHandler, defaultvalue, s
         <Select
             value={FilterAndSort[filterSet][ComponentFunction.Function][fieldName]}
             onChange={e => inputHandler(e)}
-            style={{ minWidth: '100px', fontSize: '10px' }}
+            style={{ minWidth: '50px', fontSize: '10px' }}
             name={fieldName}
         >
             <option hidden>{defaultvalue}</option>
