@@ -316,9 +316,9 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
               <FilterAndSortComponentForServer parent={'orders'} setFetchStart={setFetchStart} setFetchPartnersStart={setFetchPartnersStart} />
               <HorizontalContainer>
 
-                {order &&
+                {order.group &&
                   <>
-                    {order.group && order.group.length !== 0 ?
+                    {order.group.length !== 0 ?
                       <HorizontalContainer
                         style={{
                           marginTop: '5px',
