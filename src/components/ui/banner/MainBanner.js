@@ -33,7 +33,7 @@ z-index:-1;
 max-width:700px;
 `
 const Slogan = styled.div`
-font-size:52px;
+font-size:32px;
 color:black;
 text-align:center;
 `
