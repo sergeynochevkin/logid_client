@@ -11,7 +11,7 @@ z-index:-1;
 background-color: white;
 `
 const Slogan = styled.div`
-font-size:42px;
+font-size:32px;
 color:black;
 `
 
