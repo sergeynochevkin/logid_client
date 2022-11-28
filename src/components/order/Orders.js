@@ -318,7 +318,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
 
                 {order &&
                   <>
-                    {order.group.length !== 0 ?
+                    {order.group && order.group.length !== 0 ?
                       <HorizontalContainer
                         style={{
                           marginTop: '5px',

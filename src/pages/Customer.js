@@ -26,6 +26,7 @@ import { fetchSubscription } from '../http/subscriptionApi'
 import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { fetchUserLimits } from '../http/limitApi'
+import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
 
 
 
@@ -130,8 +131,7 @@ const Customer = observer(() => {
               <UserInfoForm />
             </FlexContainer>
             :
-            <>
-
+            <HorizontalContainer>
               <BookMark onClick={() => {
                 ComponentFunction.setOrdersComponentFunction('orderList')
                 order.setOrders([])
@@ -177,7 +177,7 @@ const Customer = observer(() => {
               }} style={{
                 color: ComponentFunction.PageFunction === 'settings' ? 'lightgrey' : 'black',
               }}>Настройки</BookMark>
-            </>
+            </HorizontalContainer>
 
           }
 
