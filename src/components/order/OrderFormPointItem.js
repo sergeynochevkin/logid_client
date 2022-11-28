@@ -52,7 +52,9 @@ useEffect(()=>{
     }
 
     useEffect(() => {
+        if(Adress.country){
         initAutocomplete(pointItem.id, Adress.country.google_code)
+        }
     }, [])
 
     useEffect(() => {
