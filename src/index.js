@@ -50,7 +50,7 @@ const Global = createGlobalStyle`
 *{
   margin:0;
   padding:0;
-  font-family: 'Questrial', sans-serif;      
+  font-family: 'Didact gothic', sans-serif;      
      }
      
 `
