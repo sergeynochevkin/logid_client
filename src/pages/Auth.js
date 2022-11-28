@@ -257,7 +257,7 @@ const Auth = observer(() => {
         <HorizontalContainer>
           <Button
             disabled={
-              formData.email.notValid || (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) || (formData.role.notValid && isRegister) || (formData.password.value !== comparePassword && (isRegister || (isRecovery && codeSend))) /*|| !reCapchaChecked*/ || (isRecovery && codeSend && formData.code.isEmpty)}
+              formData.email.notValid || (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) || (formData.role.notValid && isRegister) || (formData.password.value !== comparePassword && (isRegister || (isRecovery && codeSend))) || !reCapchaChecked || (isRecovery && codeSend && formData.code.isEmpty)}
             onClick={(event) => {
               event.preventDefault()
               if (isRegister || isLogin) {
