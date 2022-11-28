@@ -318,6 +318,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
 
                 {order &&
                   <>
+                  {/* eslint-disable-next-line no-undef */}
                     {order.group.length !== 0 ?
                       <HorizontalContainer
                         style={{
