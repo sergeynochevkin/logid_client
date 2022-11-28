@@ -1,0 +1,71 @@
+.dragCotainer{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    align-items: center;
+}
+
+.dragZone {
+    width: 300px;
+    height: 150px;
+    background-color: rgb(245, 245, 245, 0.8);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.dragLabel.error, .dragZone.error{
+    cursor: no-drop;
+}
+
+.drop {
+    background-color: rgb(255, 253, 231, 0.8);
+}
+
+.dragInput {
+display: none;
+}
+
+.dragLabel {
+    width: 100px;
+        cursor:pointer;
+    background-color: rgb(105, 105, 105, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;    
+}
+
+.errorMessage{
+       font-size:10px;
+color:rgb(254, 111, 103,0.8);
+}
+
+.previewContainer {
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    gap:3px;
+}
+
+.deletePreview {
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.deletePreview:hover {
+    color: silver;
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
