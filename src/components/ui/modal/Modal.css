@@ -12,6 +12,7 @@
     pointer-events: none;
     transition: 0.2s;
     z-index: 1;
+    overflow-y: auto;
 }
 
 .modal.active {
@@ -26,7 +27,8 @@
     transform: scale(0.5);
     transition: 0.2s all;
     border-radius: 10px 30px 10px 10px;
-    cursor: default
+    cursor: default;
+    overflow-y: initial !important
 }
 
 .modalContent.active {
