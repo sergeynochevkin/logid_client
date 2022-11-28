@@ -58,7 +58,9 @@ useEffect(()=>{
     }, [])
 
     useEffect(() => {
+        if(Adress.country){
         initAutocomplete(pointItem.id, Adress.country.google_code)
+        }
     }, [pointFormData.length, Setting.bounds_limit])
 
 
