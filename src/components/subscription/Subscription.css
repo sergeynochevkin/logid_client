@@ -19,7 +19,7 @@
 .options_container {
     display: flex;
     flex-direction: column;
-    min-height: 300px;
+    min-height: 100px;
     margin-top: 20px;
 }
 
@@ -32,14 +32,14 @@
     display: flex;
     gap: 5px;
     width: 200px;
-    min-height: 500px;
+    min-height: 300px;
     border-radius: 10px;
     align-items: center;
     padding: 10px;
     flex-direction: column;
 }
 .plan_item_container:hover{
-    min-height: 520px;
+    min-height: 320px;
 }
 
 .plan_item_container.height.padding {
