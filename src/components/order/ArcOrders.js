@@ -12,6 +12,7 @@ import ArcOrderItem from './ArcOrderItem'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import FilterAndSortComponentForServer from '../FilterAndSortComponentForServer'
 import useDebounce from '../../hooks/useDebounce'
+import './Order.css'
 
 const ArcOrders = observer(({ setComponentFunction }) => {
   const { order } = useContext(OrderContext)
@@ -46,7 +47,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   );
 
   const [fetching, error] = useFetching(async () => {
-    await fetchOrders(user.user.id, user.user.role, user.user.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, [], [], [], [], ComponentFunction.Function === 'arc' ? 'arc': ComponentFunction.Function === 'pattern' ? 'pattern'  : '', FilterAndSort.filters).then(data => {
+    await fetchOrders(user.user.id, user.user.role, user.user.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, [], [], [], [], ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(data => {
       setResults(data)
       setTotalCount(data.count)
       order.setOrders(data.rows)
@@ -99,41 +100,45 @@ const ArcOrders = observer(({ setComponentFunction }) => {
         <VerticalContainer
           style={{
             gap: '10px',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
-          {order.totalCount.arc > 0 || order.totalCount.pattern > 0?
+          {order.totalCount.arc > 0 || order.totalCount.pattern > 0 ?
             <>
               <FilterAndSortComponentForServer parent={'orders'} />
-              <table >
-                {order.orders.length !== 0 ?
-                  <tbody>
-                    <tr>
-                      <OrderTh>Заказ</OrderTh>
-                      <OrderTh>Тип заказа</OrderTh>
-                      <OrderTh>Откуда</OrderTh>
-                      <OrderTh>Время подачи</OrderTh>
-                      <OrderTh>Последняя точка</OrderTh>
-                      <OrderTh>Тип транспорта</OrderTh>
-                      <OrderTh>Стоимость</OrderTh>
-                      {ComponentFunction.Function === 'arc' ?
-                        <OrderTh>Последний статус</OrderTh>
-                        : <></>}
-                    </tr>
-                  </tbody> :
-                  <></>
-                }
-                <tbody>
-                  {
-                    order.orders.map(oneArcOrder => <ArcOrderItem
-                      setFetchStart={setFetchStart}
-                      key={oneArcOrder.id}
-                      oneArcOrder={oneArcOrder}
-                      thisPoints={Point.points.filter(el => el.orderIntegrationId === oneArcOrder.pointsIntegrationId)}
-                    />)
+              <div className={'scroll_content_container'}>
+                <table className={'order_table'}>
+                  {order.orders.length !== 0 ?
+                    <tbody>
+                      <tr>
+                        <OrderTh>Заказ</OrderTh>
+                        <OrderTh>Тип заказа</OrderTh>
+                        <OrderTh>Откуда</OrderTh>
+                        <OrderTh>Время подачи</OrderTh>
+                        <OrderTh>Последняя точка</OrderTh>
+                        <OrderTh>Тип транспорта</OrderTh>
+                        <OrderTh>Стоимость</OrderTh>
+                        {ComponentFunction.Function === 'arc' ?
+                          <OrderTh>Последний статус</OrderTh>
+                          : <></>}
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </tbody> :
+                    <></>
                   }
-                </tbody>
-              </table>
+                  <tbody>
+                    {
+                      order.orders.map(oneArcOrder => <ArcOrderItem
+                        setFetchStart={setFetchStart}
+                        key={oneArcOrder.id}
+                        oneArcOrder={oneArcOrder}
+                        thisPoints={Point.points.filter(el => el.orderIntegrationId === oneArcOrder.pointsIntegrationId)}
+                      />)
+                    }
+                  </tbody>
+                </table>
+              </div>
             </>
             :
             <div

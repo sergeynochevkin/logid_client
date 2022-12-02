@@ -10,8 +10,7 @@ const App = observer(() => {
     <BrowserRouter>
       <NavBar />
       <AppRouter>
-        <div className="App">
-        </div>
+        <div className="App"></div>
       </AppRouter>
       <Footer />
     </BrowserRouter>

@@ -131,7 +131,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     }}>вернуться к списку заказов</AddDeleteFieldButton>
                     : <></>}
 
-                <VerticalContainer>
+                <VerticalContainer style={{ gap: '3px' }}>
 
                     <CardRow>
                         {(user.user.role === 'carrier' && thisOrder.order_status === 'new') || (thisOrder.order_status === 'inWork') ?
@@ -167,22 +167,16 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     </CardRow>
 
                     <CardRow>
-                        <CardColName>Заказ</CardColName>
+                        <CardColName
+                        >{
+                                thisOrder.order_type === "order" ? 'Заказ' :
+                                    thisOrder.order_type === "auction" ? 'Аукцион' :
+                                        <></>
+                            }</CardColName>
                         <CardColValue>{thisOrder.id}</CardColValue>
                         <CardColName>Статус</CardColName>
                         <CardColValue>{SetTranslate(thisOrder.order_status)}</CardColValue>
                     </CardRow>
-
-                    {user.user.role === 'customer' ?
-                        <CardRow>
-                            <CardColName>Тип заказа</CardColName>
-                            <CardColValue>{
-                                thisOrder.order_type === "order" ? 'Заказ' :
-                                    thisOrder.order_type === "auction" ? 'Аукцион' :
-                                        <></>
-                            }</CardColValue>
-                        </CardRow>
-                        : <></>}
 
                     {onePartnerInfo ?
                         <>
@@ -245,28 +239,33 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     </CardRow> : <></>}
 
                     <CardRow>
-                        <CardColName>Тип транспорта</CardColName>
+                        <CardColName>Транспорт</CardColName>
                         <CardColValue>{SetTranslate(thisOrder.type)}</CardColValue>
-                        {thisOrder.side_type && <CardColValue> {SetTranslate(thisOrder.side_type)}</CardColValue>}
-                        {thisOrder.load_capacity && <CardColValue> {SetTranslate(thisOrder.load_capacity)}</CardColValue>}
                     </CardRow>
-
+                    {(thisOrder.side_type || thisOrder.load_capacity) &&
+                        <CardRow>
+                            {thisOrder.side_type && <CardColValue> {SetTranslate(thisOrder.side_type)}</CardColValue>}
+                            {thisOrder.load_capacity && <CardColValue> {SetTranslate(thisOrder.load_capacity)}</CardColValue>}
+                        </CardRow>
+                    }
                     <CardRow>
                         <CardColName>Стоимость</CardColName>
                         <CardColValue>{thisOrder.cost === 0 ? 'не указана' : thisOrder.cost}</CardColValue>
                     </CardRow>
 
-                    <CardRow>
-                        <CardColName>Доступен</CardColName>
-                        {user.user.role === 'customer' && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
-                            <CardColValue>
-                                {for_group.length === 0 && for_partner.length === 0 ? 'всем' : for_group.length !== 0 ? `группе ${groups}` : for_partner.length !== 0 ? `партнеру ${partnerNames}` : ''}
-                            </CardColValue> :
-                            user.user.role === 'carrier' && thisOrder.order_status === 'new' ?
+                    {(ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') &&
+                        <CardRow>
+                            <CardColName>Доступен</CardColName>
+                            {user.user.role === 'customer' && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
                                 <CardColValue>
-                                    {for_group.length === 0 && for_partner.length === 0 ? 'всем' : for_group.length !== 0 ? `вашей группе` : for_partner.length !== 0 ? `вам` : ''}
-                                </CardColValue> : <></>}
-                    </CardRow>
+                                    {for_group.length === 0 && for_partner.length === 0 ? 'всем' : for_group.length !== 0 ? `группе ${groups}` : for_partner.length !== 0 ? `партнеру ${partnerNames}` : ''}
+                                </CardColValue> :
+                                user.user.role === 'carrier' && thisOrder.order_status === 'new' ?
+                                    <CardColValue>
+                                        {for_group.length === 0 && for_partner.length === 0 ? 'всем' : for_group.length !== 0 ? `вашей группе` : for_partner.length !== 0 ? `вам` : ''}
+                                    </CardColValue> : <></>}
+                        </CardRow>
+                    }
 
                     <EquipmentRow>
                         {thisOrder.thermo_bag === true ? <CardEquipment>{SetTranslate('thermo_bag')}</CardEquipment> : <></>}

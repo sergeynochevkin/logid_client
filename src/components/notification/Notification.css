@@ -97,12 +97,13 @@
     color: white
 }
 
+/* возможно иконку чуть освободить в большом варианте */
 .notification_icon {
     width: 30px;
     height: auto;
     position: fixed;
-    right: 50px;
-    top: 60px;
+    right: 30px;
+    top: 10px;
 }
 
 .notification_icon.active {

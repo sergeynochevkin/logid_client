@@ -7,24 +7,6 @@ import { observer } from 'mobx-react-lite'
 import { BookMark } from '../ui/button/BookMark'
 
 
-const Container = styled.div`
-display:flex;
-flex-wrap:wrap;
-gap:5px;
-border-radius:5px;
-justify-content:center;
-`
-const NumberOfOrders = styled.div`
-position:relative;
-font-size:10px;
-border-radius:5px;
-width:30px;
-height:30px;
-display:flex;
-align-items:center;
-justify-content:center;
-top:-35px
-`
 const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
@@ -36,9 +18,9 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
   return (
     <>
       {Object.keys(UserInfo.userInfo).length !== 0 ?
-        <>
-          <Container
-          >
+
+        <div className='scroll_content_container'>
+          <div className='bookmark_bar_container'>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'new') {
                 order.setOrders([])
@@ -50,11 +32,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
             }} style={{
               color: ComponentFunction.Function === 'new' ? 'lightgrey' : 'black',
             }}>Новые
-              <NumberOfOrders
-                style={{
-                  left: '40px',
-                }}
-              >{order.totalCount.new}</NumberOfOrders>
+              <div className='number_of_orders'>{order.totalCount.new}</div>
             </BookMark>
             {
               user.user.role === 'customer' ?
@@ -69,11 +47,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                 }} style={{
                   color: ComponentFunction.Function === 'postponed' ? 'lightgrey' : 'black',
                 }}>Отложенные
-                  <NumberOfOrders
-                    style={{
-                      left: '95px',
-                    }}
-                  >{order.totalCount.postponed}</NumberOfOrders>
+                  <div className='number_of_orders'>{order.totalCount.postponed}</div>
                 </BookMark>
                 : <></>
             }
@@ -88,11 +62,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
             }} style={{
               color: ComponentFunction.Function === 'inWork' ? 'lightgrey' : 'black',
             }}>В работе
-              <NumberOfOrders
-                style={{
-                  left: '65px',
-                }}
-              >{order.totalCount.inWork}</NumberOfOrders>
+              <div className='number_of_orders' >{order.totalCount.inWork}</div>
             </BookMark>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'completed') {
@@ -105,11 +75,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
             }} style={{
               color: ComponentFunction.Function === 'completed' ? 'lightgrey' : 'black',
             }}>Выполненные
-              <NumberOfOrders
-                style={{
-                  left: '100px',
-                }}
-              >{order.totalCount.completed}</NumberOfOrders>
+              <div className='number_of_orders' >{order.totalCount.completed}</div>
             </BookMark>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'canceled') {
@@ -122,11 +88,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
             }} style={{
               color: ComponentFunction.Function === 'canceled' ? 'lightgrey' : 'black',
             }}>Отмененные
-              <NumberOfOrders
-                style={{
-                  left: '95px',
-                }}
-              >{order.totalCount.canceled}</NumberOfOrders>
+              <div className='number_of_orders' >{order.totalCount.canceled}</div>
             </BookMark>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'arc') {
@@ -139,11 +101,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
             }} style={{
               color: ComponentFunction.Function === 'arc' ? 'lightgrey' : 'black',
             }}>Архив
-              <NumberOfOrders
-                style={{
-                  left: '40px',
-                }}
-              >{order.totalCount.arc}</NumberOfOrders>
+              <div className='number_of_orders'  >{order.totalCount.arc}</div>
             </BookMark>
 
             {user.user.role === 'customer' ?
@@ -158,15 +116,12 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               }} style={{
                 color: ComponentFunction.Function === 'pattern' ? 'lightgrey' : 'black',
               }}>Шаблоны
-                <NumberOfOrders
-                  style={{
-                    left: '70px',
-                  }}
-                >{order.totalCount.pattern}</NumberOfOrders>
+                <div className='number_of_orders' >{order.totalCount.pattern}</div>
               </BookMark> : <></>}
-          </Container>
+          </div>
+        </div>
 
-        </> : <></>}
+        : <></>}
 
       {
         ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork' ||

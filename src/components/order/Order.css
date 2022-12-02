@@ -1,0 +1,45 @@
+.scroll_content_container {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 3px;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    /* Remove scrollbar space */
+    background: transparent;
+    height: 2px;
+    /* Optional: just make scrollbar invisible */
+}
+
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: whitesmoke;
+}
+
+@media screen and (max-width: 425px) {
+    .scroll_content_container {
+        width: 400px;
+    }
+}
+.order_table {
+    min-width: max-content;
+    margin-bottom: 5px;
+}
+
+.bookmark_bar_container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    min-width: max-content;
+    width: 100%;
+}
+
+.number_of_orders {
+    display: inline-block;
+    position: relative;
+    font-size: 10px;   
+    top: -10px;    
+}

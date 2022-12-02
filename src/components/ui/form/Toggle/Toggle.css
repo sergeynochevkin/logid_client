@@ -11,7 +11,7 @@
 
 .toggle label h2 {
     position: absolute;
-    top: -9px;
+    top: -13px;
     left: 16px;
     font-weight: bold;
     font-size: 35px;
@@ -22,11 +22,11 @@
 
 .toggle label h1 {
     position: absolute;
-    top: -9px;
+    top: -13px;
     left: -4px;
     font-weight: bold;
     font-size: 35px;
-    color: #0E35D8;
+    color:black;
     text-shadow: 0px 2px 0px RGB(193 205 255/15%);
     transform: scale(0.3, 0.3);
 }
@@ -47,9 +47,9 @@
     }
 
 .toggle input:checked+label:before {
-    background: #385dff;
-    box-shadow: inset 10px 10px 20px #2945bd;
-    box-shadow: inset -10px -10px -10px 20px #4775ff;
+    background: whitesmoke;
+    box-shadow: inset 10px 10px 20px grey;
+    box-shadow: inset -10px -10px -10px 20px black;
     transform: scale(0.3, 0.3);
 }
 
@@ -72,9 +72,9 @@
 
 .toggle input:checked+label:after {
     transform: translateX(1.8rem) scale(0.3, 0.3);
-    background: linear-gradient(145deg, #3254e6, #3c64ff);
-    box-shadow: 5px 5px 9px #2945bd;
-    box-shadow: -1px -1px -1px #385dff;
+    background: linear-gradient(145deg, grey,lightgrey);
+    box-shadow: 5px 5px 9px grey;
+    box-shadow: -1px -1px -1px lightgrey;
   }
 
 /* 

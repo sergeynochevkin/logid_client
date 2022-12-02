@@ -42,7 +42,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
                 }
 
             }}>
-            <CardColName> {onePoint.sequence ==1 ? 'Первый адрес' : onePoint.sequence !==50 ?  `Адрес ${onePoint.sequence}` : 'Последний адрес'}</CardColName>
+            <CardColName> {onePoint.sequence ==1 ? 'Подача' : onePoint.sequence !==50 ?  `Адрес ${onePoint.sequence}` : 'Завершение'}</CardColName>
             <CardColValue
                 pointStatus={onePoint.status}
             >{onePoint.point}</CardColValue>

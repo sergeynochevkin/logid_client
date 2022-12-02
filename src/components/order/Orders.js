@@ -135,11 +135,12 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         fetching()
       }, 20000);
       return () => clearInterval(interval);
-    }
+    }    
   }, [fetchStart, ComponentFunction.Function])
 
   useEffect(() => {
-    setFetchStart(true)
+    fetching()
+    // setFetchStart(true)
   }, [ComponentFunction.Function])
 
   useEffect(() => {

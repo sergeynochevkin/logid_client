@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useJsApiLoader} from '@react-google-maps/api'
+import { useJsApiLoader } from '@react-google-maps/api'
 import styled from 'styled-components'
 import { Area50 } from '../components/ui/area/Area50'
 import PageBanner from '../components/ui/banner/PageBanner'
@@ -47,9 +47,9 @@ const Carrier = observer(() => {
   const { Limit } = useContext(LimitContext)
 
   const [fetching, error] = useFetching(async () => {
-if(Object.keys(UserInfo.userInfo).length !== 0){
-    Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
-  }    
+    if (Object.keys(UserInfo.userInfo).length !== 0) {
+      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
+    }
     if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
       if ((ComponentFunction.PageFunction === 'customers' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
         await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
@@ -139,43 +139,47 @@ if(Object.keys(UserInfo.userInfo).length !== 0){
 
             :
 
-            <>
-              <BookMark onClick={() => {
-                ComponentFunction.setPageFunction('orderList'); ComponentFunction.setFunction('inWork');
-                ComponentFunction.setOrdersComponentFunction('orderList')
-                order.setOrders([])
-                order.setOrder({})
 
-              }} style={{
-                color: ComponentFunction.PageFunction === 'orderList' ? 'lightgrey' : 'black',
-              }}>Заказы</BookMark>
+            <div className='scroll_content_container'>
+              <div className='bookmark_bar_container'>
+                <BookMark onClick={() => {
+                  ComponentFunction.setPageFunction('orderList'); ComponentFunction.setFunction('inWork');
+                  ComponentFunction.setOrdersComponentFunction('orderList')
+                  order.setOrders([])
+                  order.setOrder({})
 
-              <BookMark onClick={() => {
-                ComponentFunction.setPageFunction('transport')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'transport' ? 'lightgrey' : 'black',
-              }}>Способы доставки</BookMark>
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'orderList' ? 'lightgrey' : 'black',
+                }}>Заказы</BookMark>
 
-              <BookMark onClick={() => {
-                ComponentFunction.setPageFunction('customers')
-                ComponentFunction.setFunction('partners')
-                ComponentFunction.setOrdersComponentFunction('orderList')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'customers' ? 'lightgrey' : 'black',
-              }}>Заказчики</BookMark>
+                <BookMark onClick={() => {
+                  ComponentFunction.setPageFunction('transport')
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'transport' ? 'lightgrey' : 'black',
+                }}>Способы доставки</BookMark>
 
-              <BookMark onClick={() => {
-                ComponentFunction.setPageFunction('account'); ComponentFunction.setOrdersComponentFunction('orderList')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'account' ? 'lightgrey' : 'black',
-              }}>Аккаунт</BookMark>
+                <BookMark onClick={() => {
+                  ComponentFunction.setPageFunction('customers')
+                  ComponentFunction.setFunction('partners')
+                  ComponentFunction.setOrdersComponentFunction('orderList')
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'customers' ? 'lightgrey' : 'black',
+                }}>Заказчики</BookMark>
 
-              <BookMark onClick={() => {
-                ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'settings' ? 'lightgrey' : 'black',
-              }}>Настройки</BookMark>
-            </>
+                <BookMark onClick={() => {
+                  ComponentFunction.setPageFunction('account'); ComponentFunction.setOrdersComponentFunction('orderList')
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'account' ? 'lightgrey' : 'black',
+                }}>Аккаунт</BookMark>
+
+                <BookMark onClick={() => {
+                  ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'settings' ? 'lightgrey' : 'black',
+                }}>Настройки</BookMark>
+              </div>
+            </div>
+
 
           }
 
@@ -183,7 +187,7 @@ if(Object.keys(UserInfo.userInfo).length !== 0){
 
         {
           ComponentFunction.PageFunction === 'orderList' ? <OrderList setFetchPartnersStart={setFetchPartnersStart} /> :
-            ComponentFunction.PageFunction === 'account' ? <Account setFetchPartnersStart={setFetchPartnersStart}  /> :
+            ComponentFunction.PageFunction === 'account' ? <Account setFetchPartnersStart={setFetchPartnersStart} /> :
               ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
                 ComponentFunction.PageFunction === 'customers' ? <Partners setFetchPartnersStart={setFetchPartnersStart} /> :
                   ComponentFunction.PageFunction === 'settings' ? <SettingsComponent /> :

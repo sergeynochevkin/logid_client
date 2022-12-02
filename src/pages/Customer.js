@@ -131,54 +131,55 @@ const Customer = observer(() => {
               <UserInfoForm />
             </FlexContainer>
             :
-            <HorizontalContainer>
-              <BookMark onClick={() => {
-                ComponentFunction.setOrdersComponentFunction('orderList')
-                order.setOrders([])
-                ComponentFunction.setFunction('inWork');
-                ComponentFunction.setPageFunction('orderList')
-                ComponentFunction.setOrderFormFunction('newOrder')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'orderList' ? 'lightgrey' : 'black',
-              }}>Заказы</BookMark>
-
-              <BookMark onClick={() => {
-                ComponentFunction.setOrdersComponentFunction('orderList')
-                ComponentFunction.setPageFunction('orderForm')
-                order.setOrders([])
-                if (ComponentFunction.orderFormFunction !== 'edit') {
+            <div className='scroll_content_container'>
+              <div className='bookmark_bar_container'>
+                <BookMark onClick={() => {
+                  ComponentFunction.setOrdersComponentFunction('orderList')
+                  order.setOrders([])
+                  ComponentFunction.setFunction('inWork');
+                  ComponentFunction.setPageFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
-                }
-                order.setIntegrationId()
-              }} style={{
-                color: ComponentFunction.PageFunction === 'orderForm' ? 'lightgrey' : 'black',
-              }}>{ComponentFunction.orderFormFunction === 'edit' ? 'Редактирование' : 'Новый заказ'}</BookMark>
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'orderList' ? 'lightgrey' : 'black',
+                }}>Заказы</BookMark>
 
-              <BookMark onClick={() => {
-                ComponentFunction.setOrdersComponentFunction('orderList')
-                ComponentFunction.setFunction('partners')
-                ComponentFunction.setPageFunction('carriers')
-                ComponentFunction.setOrderFormFunction('newOrder')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'carriers' ? 'lightgrey' : 'black',
-              }}>Перевозчики</BookMark>
+                <BookMark onClick={() => {
+                  ComponentFunction.setOrdersComponentFunction('orderList')
+                  ComponentFunction.setPageFunction('orderForm')
+                  order.setOrders([])
+                  if (ComponentFunction.orderFormFunction !== 'edit') {
+                    ComponentFunction.setOrderFormFunction('newOrder')
+                  }
+                  order.setIntegrationId()
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'orderForm' ? 'lightgrey' : 'black',
+                }}>{ComponentFunction.orderFormFunction === 'edit' ? 'Редактирование' : 'Новый заказ'}</BookMark>
 
-              <BookMark onClick={() => {
-                ComponentFunction.setOrdersComponentFunction('orderList')
-                ComponentFunction.setPageFunction('account')
-                ComponentFunction.setOrderFormFunction('newOrder')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'account' ? 'lightgrey' : 'black',
-              }}>Аккаунт</BookMark>
+                <BookMark onClick={() => {
+                  ComponentFunction.setOrdersComponentFunction('orderList')
+                  ComponentFunction.setFunction('partners')
+                  ComponentFunction.setPageFunction('carriers')
+                  ComponentFunction.setOrderFormFunction('newOrder')
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'carriers' ? 'lightgrey' : 'black',
+                }}>Перевозчики</BookMark>
 
-              <BookMark onClick={() => {
-                ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
-                ComponentFunction.setOrderFormFunction('newOrder')
-              }} style={{
-                color: ComponentFunction.PageFunction === 'settings' ? 'lightgrey' : 'black',
-              }}>Настройки</BookMark>
-            </HorizontalContainer>
+                <BookMark onClick={() => {
+                  ComponentFunction.setOrdersComponentFunction('orderList')
+                  ComponentFunction.setPageFunction('account')
+                  ComponentFunction.setOrderFormFunction('newOrder')
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'account' ? 'lightgrey' : 'black',
+                }}>Аккаунт</BookMark>
 
+                <BookMark onClick={() => {
+                  ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
+                  ComponentFunction.setOrderFormFunction('newOrder')
+                }} style={{
+                  color: ComponentFunction.PageFunction === 'settings' ? 'lightgrey' : 'black',
+                }}>Настройки</BookMark>
+              </div>
+            </div>
           }
 
         </Container>
