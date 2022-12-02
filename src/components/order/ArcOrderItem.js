@@ -6,6 +6,8 @@ import { SetTranslate } from '../../modules/SetTranslate'
 import { CardButton } from '../ui/button/CardButton'
 import { OrderTd } from '../ui/table/OrderTd'
 import { v4 } from "uuid";
+import close_grey from '../../../src/assets/close_grey.png';
+import repeat_order from '../../../src/assets/repeat_order.png';
 
 const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { order } = useContext(OrderContext)
@@ -47,31 +49,39 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
 
             {user.user.role === 'customer' ?
                 <td>
-
-                    <CardButton
-                        onClick={() => {
-                            order.setPattern(JSON.stringify(oneArcOrder))
-                            Point.setPattern(JSON.stringify(thisPoints))
-                            order.setIntegrationId()
-                            if (ComponentFunction.Function === 'arc') {
-                                ComponentFunction.setOrderFormFunction('arc')
-                            } else {
-                                ComponentFunction.setOrderFormFunction('pattern')
-                            }
-                            localStorage.removeItem('orderFormData')
-                            ComponentFunction.setPageFunction('orderForm')
-                            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы открыли форму из ${ComponentFunction.Function === 'arc' ? 'заказа' : 'шаблона'} ${oneArcOrder.id}, проверьте доступность для партнеров и время в заказе перед отправкой` }])
-                        }}
-                    > {ComponentFunction.Function === 'arc' ? 'Повторить' : 'Повторить'}</CardButton>
+                    <div className='order_list_icon_container'>
+                        <img src={repeat_order}
+                            onClick={() => {
+                                order.setPattern(JSON.stringify(oneArcOrder))
+                                Point.setPattern(JSON.stringify(thisPoints))
+                                order.setIntegrationId()
+                                if (ComponentFunction.Function === 'arc') {
+                                    ComponentFunction.setOrderFormFunction('arc')
+                                } else {
+                                    ComponentFunction.setOrderFormFunction('pattern')
+                                }
+                                localStorage.removeItem('orderFormData')
+                                ComponentFunction.setPageFunction('orderForm')
+                                Notification.addNotification([{ id: v4(), type: 'success', message: `Вы открыли форму из ${ComponentFunction.Function === 'arc' ? 'заказа' : 'шаблона'} ${oneArcOrder.id}, проверьте доступность для партнеров и время в заказе перед отправкой` }])
+                            }}
+                            className={'order_list_icon'}
+                            alt='repeat order'
+                        ></img>
+                    </div>
                 </td>
                 : <></>}
 
             <td>
-                {ComponentFunction.Function === 'pattern' || (ComponentFunction.Function === 'arc' && oneArcOrder.order_final_status === 'canceled') ?
-                    <CardButton
-                        onClick={deleteClick}
-                    >Удалить</CardButton>
-                    : <></>}
+                <div className='order_list_icon_container'>
+                    {ComponentFunction.Function === 'pattern' || (ComponentFunction.Function === 'arc' && oneArcOrder.order_final_status === 'canceled') ?
+                        <><img src={close_grey}
+                            onClick={deleteClick}
+                            className={'order_list_icon'}
+                            alt='delete order'
+                        ></img>
+                        </>
+                        : <></>}
+                </div>
             </td>
         </tr>
     )
