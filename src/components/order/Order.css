@@ -15,18 +15,18 @@
 
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-    background:  rgb(105, 105, 105, 0.8);
+    background:  black;
 }
 
-@media screen and (max-width: 768) {
+/* @media screen and (max-width: 768) {
     .scroll_bar_container {
         width: 740;
     }
-}
+} */
 
 @media screen and (max-width: 425px) {
     .scroll_bar_container {
-        width: 380px;
+        width: 425px;
     }
 }
 
