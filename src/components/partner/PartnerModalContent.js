@@ -95,13 +95,7 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
                 </CardRow>
                 : <></>}
             <CardRow>
-                <CardColName>Город</CardColName><CardColValue> {onePartnerInfo.city === 'krasnodar' ? 'Краснодар' :
-                    onePartnerInfo.city === 'sevastopol' ? 'Севастополь' :
-                        onePartnerInfo.city === 'simferopol' ? 'Симферополь' :
-                            onePartnerInfo.city === 'novorossiysk' ? 'Новороссийск' :
-                                onePartnerInfo.city === 'rostov_on_don' ? 'Ростов на Дону' :
-                                    onePartnerInfo.city === 'gelendzhik' ? 'Геленджик' :
-                                        onePartnerInfo.city === 'anapa' ? 'Анапа' : <></>}</CardColValue>
+                <CardColName>Город</CardColName><CardColValue> {onePartnerInfo.city}</CardColValue>
             </CardRow>
             <CardRow>
                 <CardColName>Адрес</CardColName><CardColValue>{onePartnerInfo.company_adress}</CardColValue>

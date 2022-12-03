@@ -93,4 +93,9 @@
     cursor: not-allowed
 }
 
+.custom_button_dark:hover {
+    color: black;
+    background-color: rgb(255, 255, 255, 0.5);
+    box-shadow: none;
+}
 

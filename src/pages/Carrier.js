@@ -150,13 +150,13 @@ const Carrier = observer(() => {
                   order.setOrder({})
 
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'orderList' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'orderList' && 'lightgrey',
                 }}>Заказы</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('transport')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'transport' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'transport' && 'lightgrey',
                 }}>Способы доставки</BookMark>
 
                 <BookMark onClick={() => {
@@ -164,19 +164,19 @@ const Carrier = observer(() => {
                   ComponentFunction.setFunction('partners')
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'customers' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'customers' && 'lightgrey',
                 }}>Заказчики</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('account'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'account' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
                 }}>Аккаунт</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'settings' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
                 }}>Настройки</BookMark>
               </div>
             </div>

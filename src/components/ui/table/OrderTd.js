@@ -1,10 +1,14 @@
-import styled from 'styled-components'
+import React, { useContext } from 'react'
+import { SettingContext } from '../../..'
+import '../../order/Order.css'
 
-export const OrderTd = styled.td`
-background-color:rgb(210, 219, 236, 0.8);
-padding:5px 10px 5px 5px;
-font-size:10px;
-border-radius:5px;
-text-align:center;
-box-shadow: 0px 2.5px 5px 0px rgba(0, 0, 0, 0.5)
-`
+const OrderTd = ({children, ...props}) => {
+
+const {Setting} = useContext(SettingContext)
+
+  return (
+    <td className={Setting.app_theme === 'light' ? 'order_td' : 'order_td order_td_dark'} {...props}>{children}</td>
+  )
+}
+
+export  {OrderTd}
