@@ -1,10 +1,25 @@
-import styled from 'styled-components'
+import React, { useContext } from 'react'
+import { SettingContext } from '../../..'
+import './Page.css'
 
-export const PageContainer = styled.div`
-    width:100%;
-    min-height:80vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding-top:50px;
-`
+const PageContainer = ({ children }) => {
+    const { Setting } = useContext(SettingContext)
+
+    return (
+        <div className={Setting.app_theme === 'light' ? 'page_container' : 'page_container dark'}>{children}</div>
+    )
+}
+
+export default PageContainer
+
+
+
+
+
+
+
+
+
+
+
+

@@ -21,6 +21,10 @@
     text-align: center;
 }
 
+.dragZone_dark{
+    background-color:#2b2b2b ;
+}
+
 .dragLabel.error, .dragZone.error{
     cursor: no-drop;
 }

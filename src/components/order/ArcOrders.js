@@ -106,7 +106,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
           {order.totalCount.arc > 0 || order.totalCount.pattern > 0 ?
             <>
               <FilterAndSortComponentForServer parent={'orders'} />
-              <div className={'scroll_content_container'}>
+              <div className={'scroll_bar_container'}>
                 <table className={'order_table'}>
                   {order.orders.length !== 0 ?
                     <tbody>

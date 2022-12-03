@@ -6,34 +6,24 @@ import { AddDeleteFieldButton } from '../ui/form/AddDeleteFieldButton'
 import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
+import '../ui/form/Form.css'
 
-const PointContainer = styled.div`
-display:flex;
-flex-direction:column;
-gap:5px;
-padding:10px;
-border-radius:10px 10px 10px 20px;
-align-items:center;
-cursor: grab;
-box-shadow:0px 5px 10px 0px rgba(0, 0, 0, 0.5);
-background-color: rgb(245, 245, 245, 0.8)
-`
 
-const OrderFormPointItem = observer(({  Adress, pointFormData, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate }) => {
+const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate }) => {
 
     const { UserInfo } = useContext(UserInfoContext)
-    const { Setting }= useContext(SettingContext)
-   
-useEffect(()=>{
-    Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
-    Setting.setBounds({
-        north: Setting.center.lat + parseFloat(Setting.bounds_limit),
-        south: Setting.center.lat - parseFloat(Setting.bounds_limit),
-        east: Setting.center.lng + parseFloat(Setting.bounds_limit) * 2,
-        west: Setting.center.lng - parseFloat(Setting.bounds_limit) * 2,
-    }
-    )   
-},[])
+    const { Setting } = useContext(SettingContext)
+
+    useEffect(() => {
+        Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
+        Setting.setBounds({
+            north: Setting.center.lat + parseFloat(Setting.bounds_limit),
+            south: Setting.center.lat - parseFloat(Setting.bounds_limit),
+            east: Setting.center.lng + parseFloat(Setting.bounds_limit) * 2,
+            west: Setting.center.lng - parseFloat(Setting.bounds_limit) * 2,
+        }
+        )
+    }, [])
 
     let autocomplete
     function initAutocomplete(id, country) {
@@ -52,14 +42,14 @@ useEffect(()=>{
     }
 
     useEffect(() => {
-        if(Adress.country){
-        initAutocomplete(pointItem.id, Adress.country.google_code)
+        if (Adress.country) {
+            initAutocomplete(pointItem.id, Adress.country.google_code)
         }
     }, [])
 
     useEffect(() => {
-        if(Adress.country){
-        initAutocomplete(pointItem.id, Adress.country.google_code)
+        if (Adress.country) {
+            initAutocomplete(pointItem.id, Adress.country.google_code)
         }
     }, [pointFormData.length, Setting.bounds_limit])
 
@@ -89,11 +79,11 @@ useEffect(()=>{
         data[index].city = ''
         data[index].point.isEmptyError = true
         setPointFormData(data)
-        autocomplete.set('place',null);//надо ли?
+        autocomplete.set('place', null);//надо ли?
     }
 
     return (
-        <PointContainer
+        <div className={Setting.app_theme === 'light' ? 'point_container' : 'point_container point_container_dark'}
             onDragStart={(e) => dragStartHandler(e, pointItem)}
             onDragLeave={(e) => dragLeaveHandler(e)}
             onDragEnd={(e) => dragEndHandler(e)}
@@ -183,7 +173,7 @@ useEffect(()=>{
             {pointFormData.length > 2 && (index !== 0 && index !== pointFormData.length - 1) ? <AddDeleteFieldButton onClick={() => {
                 removeField(index)
             }}>удалить адрес</AddDeleteFieldButton> : <></>}
-        </PointContainer>
+        </div>
     )
 })
 

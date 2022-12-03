@@ -3,11 +3,11 @@ import { ComponentFunctionContext, NotificationContext, OrderContext, PointConte
 import { deleteOrder, updateOrder } from '../../http/orderApi'
 import { setTime } from '../../modules/setTime'
 import { SetTranslate } from '../../modules/SetTranslate'
-import { CardButton } from '../ui/button/CardButton'
 import { OrderTd } from '../ui/table/OrderTd'
 import { v4 } from "uuid";
 import close_grey from '../../../src/assets/close_grey.png';
 import repeat_order from '../../../src/assets/repeat_order.png';
+import './Order.css'
 
 const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { order } = useContext(OrderContext)
@@ -32,7 +32,7 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
         formatedFirstPointTime = setTime(new Date(firstPoint.time), 0, 'show')
     }
     return (
-        <tr >
+        <tr className='arc_table_row'>
             <OrderTd>{oneArcOrder.id}</OrderTd>
             <OrderTd>{SetTranslate(oneArcOrder.order_type)}</OrderTd>
             {firstPoint ?

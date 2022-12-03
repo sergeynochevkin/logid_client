@@ -1,12 +1,14 @@
-import styled from 'styled-components'
+import './Form.css'
+import React, { useContext } from 'react'
+import { SettingContext } from '../../..'
 
-export const Input = styled.input`
-    min-width: 300px;
-    padding: 5px;
-    background-color: rgb(255, 255, 255, 0.8);
-    border:lightgrey solid 1px ;
-    border-radius: 5px;
-    min-height: 18px;
-    font-size:12px;
-`
+const Input = ({ children, ...props }) => {
 
+    const {Setting} = useContext(SettingContext)
+
+    return (
+        <input className={Setting.app_theme === 'light' ? 'custom_input' : 'custom_input custom_input_dark'} {...props}>{children}</input>
+    )
+}
+
+export { Input }

@@ -452,19 +452,19 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                 <div className={'map_info_container'}>
                     <div className={'button_container'}>
                         <button
-                            className={'map_button'}
+                            className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={calculateRoute}
                             disabled={pointsNotValid}
                         >Рассчитать маршрут</button>
                         <button
-                            className={'map_button'}
+                          className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={clearRoute}
                             disabled={!directionsResponse}
                         >Очистить маршрут</button>
                     </div>
 
                     {distance &&
-                        <div className='calculated_data_container'>
+                        <div className={Setting.app_theme === 'light' ? 'calculated_data_container' : 'calculated_data_container calculated_data_container_dark'}>
                             <div className='calculated_data'>{`Расстояние ${setDistance(distance)}`}
                             </div>
                             <div className='calculated_data'>{`Продолжительность 
@@ -478,7 +478,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                             {mapScaleSteps.map(step =>
                                 <div className='button_row' key={step}>
                                     <button
-                                        className={Setting.user_map_scale !== step ? 'map_scale_button' : 'map_scale_button active'}
+                                        className={Setting.user_map_scale === step ? 'map_scale_button active' : Setting.app_theme ==='light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark' }
                                         onClick={() => {
                                             Setting.setUserMapScale(step)
                                             Setting.setBoundsLimit(step / 100)

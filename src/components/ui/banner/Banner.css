@@ -1,0 +1,20 @@
+.page_banner {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    /* background-color: white; */
+    z-index: 1;
+}
+
+.page_banner_slogan {
+    font-size: 32px;
+    /* color: black; */
+    color: inherit;
+}
+
+.page_banner_slogan_white {
+    color: white;
+}

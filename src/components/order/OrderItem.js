@@ -113,14 +113,14 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     Partner.setPartnerInfo(thisPartnerInfo)
                     ComponentFunction.setOrdersComponentFunction('orderItem')
                 }}
-
-                style={{
-                    boxShadow: `0px 5px 10px 0px ${order.group.includes(thisOrder.id) ? 'grey' : useColor(thisOrder.order_status)}`,
-                    minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
-                    marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
-                    cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
-                    backgroundColor: State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? 'rgb(255, 253, 231, 0.8)' : ''
-                }}
+                thisOrder={thisOrder}
+                // style={{                    
+                //     boxShadow: `0px 5px 10px 0px ${order.group.includes(thisOrder.id) ? 'grey' : useColor(thisOrder.order_status)}`,
+                //     minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
+                //     marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
+                //     cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
+                //     backgroundColor: State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? 'rgb(255, 253, 231, 0.8)' : ''
+                // }}
             >
                 {ComponentFunction.OrdersComponentFunction === 'orderItem' ?
                     <AddDeleteFieldButton onClick={(event) => {

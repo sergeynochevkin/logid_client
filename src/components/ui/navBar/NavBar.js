@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import styled from 'styled-components';
-import { AdressContext, EquipmentTypeContext, OrderContext, StateContext, SubscriptionContext, TranslateContext, TransportTypeContext, UserContext, UserInfoContext } from '../../..';
+import { AdressContext, EquipmentTypeContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportTypeContext, UserContext, UserInfoContext } from '../../..';
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../../utils/consts';
 import { observer } from 'mobx-react-lite';
@@ -10,37 +9,14 @@ import { fetchUserInfo } from '../../../http/userInfoApi';
 import { useFetching } from '../../../hooks/useFetching';
 import { fetchDefaultData } from '../../../http/defaultDataApi';
 import { fetchUserState } from '../../../http/stateApi';
+import './NavBar.css'
 
-const Container = styled.div`
-width:100%;
-min-height:50px;
-background-color:rgb(245, 245, 245, 0.8);
-display:flex;
-gap:10px;
-align-items:center;
-justify-content:center;
-flex-wrap:wrap;
-position:fixed;
-`
-const Logo = styled.div`
-font-weight:bold;
-padding-right:20px;
-padding-left:20px;
-cursor:pointer;
-`
-const Item = styled.div`
-cursor:pointer;
-text-align:center;
-font-size:14px;
-&:hover{
-  color:grey;
-}
-`
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
   const { order } = useContext(OrderContext)
   const navigate = useNavigate()
   const { UserInfo } = useContext(UserInfoContext)
+  const {Setting} = useContext(SettingContext)
 
   const { Subscription } = useContext(SubscriptionContext)
   const { State } = useContext(StateContext)
@@ -96,39 +72,39 @@ const NavBar = observer(() => {
 
   return (
 
-    <Container>
+    <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
       <NotificationComponent />
-      <Logo onClick={() =>
-        navigate(MAIN_ROUTE)}>logid</Logo>
+      <div className='nav_bar_logo' onClick={() =>
+        navigate(MAIN_ROUTE)}>logid</div>
       {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Главная</Item> */}
 
       {user.user.role === "customer" && user.isAuth ?
-        <Item onClick={() =>
-          navigate(CUSTOMER_ROUTE)}>Кабинет заказчика</Item> :
+        <div className='nav_bar_item' onClick={() =>
+          navigate(CUSTOMER_ROUTE)}>Кабинет заказчика</div> :
         <></>
       }
 
       {user.user.role === "carrier" && user.isAuth ?
-        <Item onClick={() =>
-          navigate(CARRIER_ROUTE)}>Кабинет перевозчика</Item> :
+        <div className='nav_bar_item' onClick={() =>
+          navigate(CARRIER_ROUTE)}>Кабинет перевозчика</div> :
         <></>
       }
 
       {user.user.role === "manager" && user.isAuth ?
-        <Item onClick={() =>
-          navigate(MANAGER_ROUTE)}>Кабинет менеджера</Item> :
+        <div className='nav_bar_item' onClick={() =>
+          navigate(MANAGER_ROUTE)}>Кабинет менеджера</div> :
         <></>
       }
 
       {user.user.role === "admin" && user.isAuth ?
-        <Item onClick={() =>
-          navigate(ADMIN_ROUTE)}>Кабинет администратора</Item> :
+        <div className='nav_bar_item' onClick={() =>
+          navigate(ADMIN_ROUTE)}>Кабинет администратора</div> :
         <></>
       }
 
       {user.isAuth ?
-        <Item onClick={
+        <div className='nav_bar_item' onClick={
           async () => {
             await logout()
             order.setOrders([]);
@@ -136,11 +112,11 @@ const NavBar = observer(() => {
             user.setUser({});
             UserInfo.setUserInfo({})
             localStorage.clear()
-          }}>Выйти</Item> :
-        <Item onClick={() =>
-          navigate(LOGIN_ROUTE)}>Войти</Item>
+          }}>Выйти</div> :
+        <div className='nav_bar_item' onClick={() =>
+          navigate(LOGIN_ROUTE)}>Войти</div>
       }
-    </Container>
+    </div>
 
   )
 })

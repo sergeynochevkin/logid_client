@@ -6,6 +6,7 @@ import { SettingContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchSettings } from '../../http/settingApi'
 import SettingItem from './SettingItem'
+import './Setting.css'
 
 const Container = styled.div`
 display:flex;
@@ -37,11 +38,11 @@ const SettingsComponent = observer(() => {
     }, [])      
 
     return (
-        <Container
-            style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', minHeight: '500px', marginTop: '10px' }}>
+        <div className={Setting.app_theme==='light' ? 'setting_container' : 'setting_container setting_container_dark' }>
+                       
             {Setting.user_settings.slice().sort(sortSetings).map(setting =>
                 <SettingItem id={setting.id} key={setting.id} name={setting.name} value={setting.value}  />)}
-        </Container>
+        </div>
     )
 })
 

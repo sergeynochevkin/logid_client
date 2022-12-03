@@ -1,22 +1,12 @@
 import React, { useContext } from 'react'
 import './Modal.css'
 import styled from 'styled-components';
-import { UserContext } from '../../..';
-
-const StyledModalContainer = styled.div`
-display:flex;
-flex-direction: column;
-align-items:center;
-justify-content:center;
-min-width:400px;
-min-height:200px;
-gap:5px;
-
-`
+import { SettingContext, UserContext } from '../../..';
 
 const Modal = ({ modalActive, setModalActive, children, parent, formReset, ComponentFunction }) => {
 
   const { user } = useContext(UserContext)
+  const {Setting} = useContext(SettingContext)
 
   return (
     <div className={modalActive ? "modal active" : "modal"} onClick={(event) => {
@@ -29,10 +19,10 @@ const Modal = ({ modalActive, setModalActive, children, parent, formReset, Compo
       }
       setModalActive(false)
     }}>
-      <div className={modalActive ? "modalContent active" : "modalContent"} onClick={e => e.stopPropagation()}>
-        <StyledModalContainer>
+      <div className={modalActive && Setting.app_theme === 'light' ? "modalContent active" : modalActive ? "modalContent modalContent_dark active" :  "modalContent"} onClick={e => e.stopPropagation()}>
+        <div className='modal_container'>
           {children}
-        </StyledModalContainer>
+        </div>
       </div>
     </div>
   )

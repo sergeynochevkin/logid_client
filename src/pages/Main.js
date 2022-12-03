@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
 import { NotificationContext } from '..'
 import MainBanner from '../components/ui/banner/MainBanner'
-import { PageContainer } from '../components/ui/page/PageContainer'
+import  PageContainer  from '../components/ui/page/PageContainer'
 import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../http/notificationApi'
 

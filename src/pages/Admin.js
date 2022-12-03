@@ -1,7 +1,7 @@
 import React from 'react'
 import OrderList from '../components/order/OrderList'
 import { Area50 } from '../components/ui/area/Area50'
-import { PageContainer } from '../components/ui/page/PageContainer'
+import PageContainer from '../components/ui/page/PageContainer'
 
 const Admin = () => {
   return (

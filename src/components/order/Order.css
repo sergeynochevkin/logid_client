@@ -1,7 +1,8 @@
-.scroll_content_container {
+.scroll_bar_container {
     display: flex;
     overflow-x: auto;
     margin-bottom: 3px;
+    padding-bottom: 5px;
 }
 
 ::-webkit-scrollbar {
@@ -17,31 +18,43 @@
     background: whitesmoke;
 }
 
+@media screen and (max-width: 768) {
+    .scroll_bar_container {
+        width: 740;
+    }
+}
+
 @media screen and (max-width: 425px) {
-    .scroll_content_container {
+    .scroll_bar_container {
         width: 400px;
     }
 }
+
 .order_table {
     min-width: max-content;
-    margin-bottom: 5px;
 }
 
-.bookmark_bar_container {
+.scroll_content_container {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 5px;
-    min-width: max-content;
+    /* min-width: max-content; */
     width: 100%;
+}
+
+@media screen and (max-width: 425px) {
+    .scroll_content_container {
+        flex-wrap: nowrap;
+    }
 }
 
 .number_of_orders {
     display: inline-block;
     position: relative;
-    font-size: 10px;   
-    top: -10px;    
+    font-size: 10px;
+    top: -10px;
 }
 
 .order_list_icon {
@@ -50,10 +63,16 @@
     cursor: pointer;
 }
 
-.order_list_icon_container{
+.order_list_icon_container {
     display: flex;
     height: 100%;
     width: 100%;
     justify-content: center;
     align-items: center;
 }
+
+.arc_table_row :hover {
+    background-color: whitesmoke;
+    /* cursor: pointer; */
+}
+

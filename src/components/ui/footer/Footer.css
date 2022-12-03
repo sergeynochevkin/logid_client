@@ -6,6 +6,10 @@
     display: flex;
 }
 
+.footer_container_dark {
+    background-color: black;
+}
+
 .footer_logo {
     color: white;
     padding-left: 50px;

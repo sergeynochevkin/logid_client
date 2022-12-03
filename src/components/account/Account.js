@@ -15,14 +15,8 @@ import SubscriptionStatusComponent from '../subscription/SubscriptionStatusCompo
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUser } from '../../http/userAPI'
 import AccountActivationStatus from './AccountActivationStatus'
+import './Account.css'
 
-
-const Container = styled.div`
-display:flex;
-flex-direction:column;
-gap:5px;
-align-items:left;
-`
 
 const Account = observer(({ setFetchPartnersStart }) => {
     const { user } = useContext(UserContext)
@@ -33,6 +27,7 @@ const Account = observer(({ setFetchPartnersStart }) => {
     const [loginEditable, setLoginEditable] = useState(false)
     const [cityEditable, setCityEditable] = useState(false)
     const [adressEditable, setAdressEditable] = useState(false)
+    const { Setting } = useContext(SettingContext)
 
     const { Translate } = useContext(TranslateContext)
 
@@ -46,6 +41,8 @@ const Account = observer(({ setFetchPartnersStart }) => {
         fetching()
     }, [fetchStart])
 
+    const containerClassName = Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'
+
     return (<>
         {Translate.translation.length > 0 ?
             <HorizontalContainer
@@ -54,21 +51,21 @@ const Account = observer(({ setFetchPartnersStart }) => {
                     <SubscriptionForm setFetchPartnersStart={setFetchPartnersStart} setModalActive={setModalActive} />
                 </Modal>
                 <VerticalContainer>
-                    <AccountActivationStatus />
-                    <Container
-                        style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', minHeight: '100px' }}>
+                    <AccountActivationStatus containerClassName={containerClassName} />
+                    <div
+                        className={containerClassName}>
                         <AccountItem fieldName='Электронная почта для авторизации' fieldValue={user.user.email} editable={true} attachedField={'authEmail'} setFetchStart={setFetchStart} loginEditable={loginEditable} setLoginEditable={setLoginEditable} passwordEditable={passwordEditable} setPasswordEditable={setPasswordEditable} />
                         <AccountItem fieldName='Пароль' fieldValue={'****************'} editable={true} attachedField={'password'} setFetchStart={setFetchStart} loginEditable={loginEditable} setLoginEditable={setLoginEditable} passwordEditable={passwordEditable} setPasswordEditable={setPasswordEditable} />
-                    </Container>
-                    <Container
-                        style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', minHeight: '100px' }}>
+                    </div>
+                    <div
+                        className={containerClassName}>
                         <FieldName>Ваш рейтинг</FieldName>
                         <RatingView user={user} onePartnerInfo={UserInfo.userInfo} parent='account' />
-                    </Container>
+                    </div>
                 </VerticalContainer>
                 <VerticalContainer>
-                    <Container
-                        style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', alignItems: 'flex-start', justifyContent: 'start' }}>
+                    <div
+                        className={containerClassName}>
                         <AccountItem fieldName='id' fieldValue={UserInfo.userInfo.id} editable={false} />
 
                         <AccountItem fieldName='Фамилия, имя, отчество' fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} setFetchStart={setFetchStart} />
@@ -83,15 +80,15 @@ const Account = observer(({ setFetchPartnersStart }) => {
                             cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable}
                         /> : <></>}
                         {UserInfo.userInfo.type_of_customer ? <AccountItem fieldName='Вам нужна доставка для' fieldValue={SetTranslate(UserInfo.userInfo.type_of_customer)} editable={true} attachedField={'type_of_customer'} setFetchStart={setFetchStart} /> : <></>}
-                    </Container>
-                    <Container
-                        style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', minHeight: '50px' }}>
+                    </div>
+                    <div
+                        className={containerClassName}>
                         <AccountItem fieldName='Партнер может добавить вас с помощью кода' fieldValue={UserInfo.userInfo.uuid} editable={false} attachedField={''} setFetchStart={setFetchStart} />
-                    </Container>
+                    </div>
                 </VerticalContainer>
                 <VerticalContainer>
-                    <Container
-                        style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', alignItems: 'flex-start', justifyContent: 'start' }}>
+                    <div
+                        className={containerClassName}>
                         {UserInfo.userInfo.legal === 'sole_trader' || UserInfo.userInfo.legal === 'entity' ? <>
                             {UserInfo.userInfo.legal ? <AccountItem fieldName='Вы' fieldValue={SetTranslate(UserInfo.userInfo.legal)} editable={true} attachedField={'legal'} setFetchStart={setFetchStart} /> : <></>}
                             {UserInfo.userInfo.company_name ? <AccountItem fieldName='Название компании' fieldValue={UserInfo.userInfo.company_name} editable={true} attachedField={'company_name'} setFetchStart={setFetchStart} /> : <></>}
@@ -104,12 +101,12 @@ const Account = observer(({ setFetchPartnersStart }) => {
                             {UserInfo.userInfo.passport_date_of_issue ? <AccountItem fieldName='Дата выдачи' fieldValue={UserInfo.userInfo.passport_date_of_issue} editable={true} attachedField={'passport_date_of_issue'} setFetchStart={setFetchStart} /> : <></>}
                             {UserInfo.userInfo.passport_issued_by ? <AccountItem fieldName='Кем выдан' fieldValue={UserInfo.userInfo.passport_issued_by} editable={true} attachedField={'passport_issued_by'} setFetchStart={setFetchStart} /> : <></>}
                         </> : <></>}
-                    </Container>
-                    <Container
-                        style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', minHeight: '110px' }}>
+                    </div>
+                    <div
+                        className={containerClassName}>
                         <FieldName>Состояние подписки</FieldName>
                         <SubscriptionStatusComponent setModalActive={setModalActive} />
-                    </Container>
+                    </div>
                 </VerticalContainer>
             </HorizontalContainer> : <></>
         }

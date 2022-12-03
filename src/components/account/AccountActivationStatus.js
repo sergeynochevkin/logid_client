@@ -5,10 +5,11 @@ import { Button } from '../ui/button/Button'
 import { useColor } from '../../hooks/useColor'
 import { SetTranslate } from '../../modules/SetTranslate'
 import { observer } from 'mobx-react-lite'
-import { NotificationContext, UserContext } from '../..'
+import { NotificationContext, SettingContext, UserContext } from '../..'
 import { restoreLink } from '../../http/userAPI'
 import { v4 } from "uuid";
 import { FieldName } from '../ui/page/FieldName'
+import './Account.css'
 
 const Container = styled.div`
 display:flex;
@@ -19,9 +20,10 @@ align-items:left;
 
 
 
-const AccountActivationStatus = observer(() => {
+const AccountActivationStatus = observer(({ containerClassName }) => {
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
+    const { Setting } = useContext(SettingContext)
 
     const generateLinkAction = async () => {
         try {
@@ -32,12 +34,11 @@ const AccountActivationStatus = observer(() => {
     }
 
     return (
-        <Container
-            style={{ boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.5)', padding: '20px 20px 20px 20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', alignItems: 'flex-start', justifyContent: 'start' }}
-        >
+        <div
+            className={containerClassName}>
             <FieldName>Статус аккаунта</FieldName>
             <div
-                style={{ boxShadow: `0px 5px 10px 0px ${useColor(`${user.user.isActivated ? 'activated' : 'not_activated'}`)}`, padding: '10px 20px 10px 20px', borderRadius: '10px', backgroundColor: 'rgb(245, 245, 245, 0.8)', alignItems: 'flex-start', justifyContent: 'start', width: '270px' }}>
+                style={{ boxShadow: `0px 5px 10px 0px ${useColor(`${user.user.isActivated ? 'activated' : 'not_activated'}`)}`, padding: '10px 20px 10px 20px', borderRadius: '10px', backgroundColor: Setting.app_theme !== 'light' && '#141414', alignItems: 'flex-start', justifyContent: 'start', width: '270px' }}>
                 <HorizontalContainer
                     style={{ justifyContent: 'center', display: 'flex', width: '100%', gap: '20px', alignItems: 'center', minHeight: '50px' }}
                 >
@@ -52,7 +53,7 @@ const AccountActivationStatus = observer(() => {
                         >Отправить ссылку</Button>}
                 </HorizontalContainer>
             </div>
-        </Container>
+        </div>
     )
 })
 

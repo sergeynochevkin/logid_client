@@ -1,8 +1,13 @@
-const { default: styled } = require("styled-components");
+import React, { useContext } from 'react'
+import { SettingContext } from '../../..'
 
-export const CardColName = styled.div`
-background-color:rgb(210, 219, 236, 0.8);
-padding:5px 10px 5px 5px;
-font-size:10px;
-border-radius:5px 5px 5px 10px;
-`
+const CardColName = ({ children, ...props }) => {
+
+    const { Setting } = useContext(SettingContext)
+
+    return (
+        <div{...props} className={ Setting.app_theme === 'light' ? 'card_col_name' :'card_col_name card_col_name_dark'}>{children}</ div>
+    )
+}
+
+export { CardColName }

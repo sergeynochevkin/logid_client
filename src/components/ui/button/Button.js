@@ -1,27 +1,14 @@
-import styled from 'styled-components'
+import React from 'react'
+import { useContext } from 'react'
+import {  SettingContext } from '../../..';
 
-export const Button = styled.button`
-    height: 30px;
-    background-color: black;
-    color: white;
-    border: black 1px solid;
-    vertical-align: center;
-    font-size: 12px;
-    padding: 5px 20px 5px 20px;
-    text-align: center;
-    border-radius: 5px;
-    cursor:pointer;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5); 
-    &:hover {
-    color: black;
-    background-color: rgb(255, 255, 255,0.5);
-    box-shadow: none; 
-  
+const Button = ({ children, ...props }) => {
+
+    const {Setting} = useContext(SettingContext)
+
+    return (
+        <button className={Setting.app_theme === 'light' ? 'custom_button' : 'custom_button_dark'} {...props}>{children}</button>
+    )
 }
-&:disabled {
-        background-color: lightgrey;
-        border: lightgrey 1px solid;
-        color: grey;    
-        cursor:not-allowed
-}
-`
+
+export { Button }

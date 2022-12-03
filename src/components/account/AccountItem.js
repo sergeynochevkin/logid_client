@@ -109,28 +109,28 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             )
                 .then(
                     setFormData(initialValue),
-                    setCityEditable(false),
-                    setAdressEditable(false),
-                    setFieldEditable(false),
-                    clearCity(),
-                    setFetchPartnersStart(),
+                    // attachedField === 'company_adress' && setAdressEditable(false),                   
+                    (attachedField === 'city' && user.user.role === 'carrier') ? clearCity() : setFieldEditable(false),
+                    attachedField === 'city' && setCityEditable(false),
+                    attachedField === 'company_adress' && setAdressEditable(false),
+                    // setFetchPartnersStart(true),
                     setFetchStart(true),
                     Notification.addNotification([{ id: v4(), type: 'success', message: ` Вы изменили ${message}` }])
                 )
-
         } catch (e) {
-            alert(e.response.data.message)
+            Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
     }
 
     function clearCity() {
-        if (attachedField === 'city' && user.user.role === 'carrier') {
-            for (const city of State.user_state.user_map_cities) {
-                if (parseFloat(city.lat) === formData.city_latitude && parseFloat(city.lng) === formData.city_longitude) {
-                    let data = [...Setting.user_map_cities]
-                    Setting.setUserMapCities(data.filter(el => parseFloat(el.lat) !== parseFloat(city.lat) && parseFloat(el.lng) !== parseFloat(city.lng)))
-                    State.setUserStateField(Setting.user_map_cities, 'user_map_cities', UserInfo.userInfo.id)
-                }              
+        setAdressEditable(false)
+        setFieldEditable(false)
+        console.log(cityEditable);
+        for (const city of State.user_state.user_map_cities) {
+            if (parseFloat(city.lat) === formData.city_latitude && parseFloat(city.lng) === formData.city_longitude) {
+                let data = [...Setting.user_map_cities]
+                Setting.setUserMapCities(data.filter(el => parseFloat(el.lat) !== parseFloat(city.lat) && parseFloat(el.lng) !== parseFloat(city.lng)))
+                State.setUserStateField(Setting.user_map_cities, 'user_map_cities', UserInfo.userInfo.id)
             }
         }
     }
@@ -162,7 +162,8 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             <FieldName>{attachedField === 'city' && cityEditable ? 'Город и адрес' : fieldName}</FieldName>
             <HorizontalContainer
                 style={{ alignItems: 'center' }}>
-                {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ? <Field>{fieldValue}
+                {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ?
+                 <Field style= {{backgroundColor: Setting.app_theme !== 'light'  && '#141414', borderColor: Setting.app_theme !== 'light'  && '#414141'}}>{fieldValue}
                     {editable ?
                         <div>
                             {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ?

@@ -93,7 +93,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
             {((Transport.transports.map(el => el.type).includes('car') || Transport.transports.map(el => el.type).includes('truck') || Transport.transports.map(el => el.type).includes('minibus') || Transport.transports.map(el => el.type).includes('combi')) && Setting.user_map_cities.length >= 1) &&
                 <div className='button_row'>
                     <div
-                        className={!FilterAndSort.filters.intercity ? 'map_scale_button' : 'map_scale_button active'}
+                        className={FilterAndSort.filters.intercity ? 'map_scale_button_active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
                         onClick={() => {
                             if (!FilterAndSort.filters.intercity) {
                                 FilterAndSort.setFilters(true, 'intercity')
@@ -110,7 +110,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
             {Setting.user_map_cities.length >= 1 &&
                 <div className='button_row'>
                     <div
-                        className={!Setting.all_cities ? 'map_scale_button' : 'map_scale_button active'}
+                        className={Setting.all_cities ? 'map_scale_button_active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
                         onClick={() => {
                             if (Setting.all_cities === false) {
                                 calcAllCities()
@@ -126,7 +126,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
 
             <div className='button_row'>
                 <div
-                    className={State.user_state.user_map_city && State.user_state.user_map_city.lat === userCity.lat && State.user_state.user_map_city.lng === userCity.lng && Setting.all_cities !== true ? 'map_scale_button active' : 'map_scale_button'}
+                    className={State.user_state.user_map_city && State.user_state.user_map_city.lat === userCity.lat && State.user_state.user_map_city.lng === userCity.lng && Setting.all_cities !== true ? 'map_scale_button active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
                     onClick={() => {
                         Setting.setUserMapCity(userCity)
                         State.setUserStateField(userCity, 'user_map_city', UserInfo.userInfo.id)
@@ -139,7 +139,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                     key={city.name}
                 >
                     <div
-                        className={State.user_state.user_map_city && State.user_state.user_map_city.lat === city.lat && State.user_state.user_map_city.lng === city.lng && Setting.all_cities !== true ? 'map_scale_button active' : 'map_scale_button'}
+                        className={State.user_state.user_map_city && State.user_state.user_map_city.lat === city.lat && State.user_state.user_map_city.lng === city.lng && Setting.all_cities !== true ? 'map_scale_button active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
                         onClick={() => {
                             Setting.setUserMapCity(city)
                             State.setUserStateField(city, 'user_map_city', UserInfo.userInfo.id)

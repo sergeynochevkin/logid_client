@@ -1,0 +1,13 @@
+.page_container {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.dark {
+    background-color: #121212;
+    color: white;
+}

@@ -6,7 +6,7 @@ import OrderList from '../components/order/OrderList'
 import { Area50 } from '../components/ui/area/Area50'
 import PageBanner from '../components/ui/banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
-import { PageContainer } from '../components/ui/page/PageContainer'
+import PageContainer  from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
 import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext } from '..'
 import { observer } from 'mobx-react-lite'
@@ -131,8 +131,8 @@ const Customer = observer(() => {
               <UserInfoForm />
             </FlexContainer>
             :
-            <div className='scroll_content_container'>
-              <div className='bookmark_bar_container'>
+            <div className='scroll_bar_container'>
+              <div className='scroll_content_container'>
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                   order.setOrders([])
@@ -140,7 +140,7 @@ const Customer = observer(() => {
                   ComponentFunction.setPageFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'orderList' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'orderList' && 'lightgrey',
                 }}>Заказы</BookMark>
 
                 <BookMark onClick={() => {
@@ -152,7 +152,7 @@ const Customer = observer(() => {
                   }
                   order.setIntegrationId()
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'orderForm' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'orderForm' && 'lightgrey',
                 }}>{ComponentFunction.orderFormFunction === 'edit' ? 'Редактирование' : 'Новый заказ'}</BookMark>
 
                 <BookMark onClick={() => {
@@ -161,7 +161,7 @@ const Customer = observer(() => {
                   ComponentFunction.setPageFunction('carriers')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'carriers' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'carriers'&& 'lightgrey',
                 }}>Перевозчики</BookMark>
 
                 <BookMark onClick={() => {
@@ -169,14 +169,14 @@ const Customer = observer(() => {
                   ComponentFunction.setPageFunction('account')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'account' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
                 }}>Аккаунт</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'settings' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
                 }}>Настройки</BookMark>
               </div>
             </div>

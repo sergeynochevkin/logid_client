@@ -6,7 +6,7 @@ import { Form } from '../components/ui/form/Form'
 import { Input } from '../components/ui/form/Input'
 import { Name } from '../components/ui/text/Name'
 import { Select } from '../components/ui/form/Select'
-import { PageContainer } from '../components/ui/page/PageContainer'
+import PageContainer  from '../components/ui/page/PageContainer'
 import { Comment } from '../components/ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, CUSTOMER_ROUTE, CARRIER_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE } from '../../src/utils/consts';

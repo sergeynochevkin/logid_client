@@ -19,8 +19,8 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
     <>
       {Object.keys(UserInfo.userInfo).length !== 0 ?
 
-        <div className='scroll_content_container'>
-          <div className='bookmark_bar_container'>
+        <div className='scroll_bar_container'>
+          <div className='scroll_content_container'>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'new') {
                 order.setOrders([])
@@ -30,7 +30,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setFunction('new')
             }} style={{
-              color: ComponentFunction.Function === 'new' ? 'lightgrey' : 'black',
+              color: ComponentFunction.Function === 'new' && 'lightgrey',
             }}>Новые
               <div className='number_of_orders'>{order.totalCount.new}</div>
             </BookMark>
@@ -45,7 +45,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                   FilterAndSort.filters[ComponentFunction.Function].limit = 10
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
-                  color: ComponentFunction.Function === 'postponed' ? 'lightgrey' : 'black',
+                  color: ComponentFunction.Function === 'postponed' && 'lightgrey',
                 }}>Отложенные
                   <div className='number_of_orders'>{order.totalCount.postponed}</div>
                 </BookMark>
@@ -60,7 +60,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'inWork' ? 'lightgrey' : 'black',
+              color: ComponentFunction.Function === 'inWork' && 'lightgrey',
             }}>В работе
               <div className='number_of_orders' >{order.totalCount.inWork}</div>
             </BookMark>
@@ -73,7 +73,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'completed' ? 'lightgrey' : 'black',
+              color: ComponentFunction.Function === 'completed' && 'lightgrey',
             }}>Выполненные
               <div className='number_of_orders' >{order.totalCount.completed}</div>
             </BookMark>
@@ -86,7 +86,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'canceled' ? 'lightgrey' : 'black',
+              color: ComponentFunction.Function === 'canceled' && 'lightgrey',
             }}>Отмененные
               <div className='number_of_orders' >{order.totalCount.canceled}</div>
             </BookMark>
@@ -99,7 +99,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 30
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'arc' ? 'lightgrey' : 'black',
+              color: ComponentFunction.Function === 'arc' && 'lightgrey',
             }}>Архив
               <div className='number_of_orders'  >{order.totalCount.arc}</div>
             </BookMark>
@@ -114,7 +114,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                 FilterAndSort.filters[ComponentFunction.Function].limit = 30
                 ComponentFunction.setOrdersComponentFunction('orderList')
               }} style={{
-                color: ComponentFunction.Function === 'pattern' ? 'lightgrey' : 'black',
+                color: ComponentFunction.Function === 'pattern' && 'lightgrey',
               }}>Шаблоны
                 <div className='number_of_orders' >{order.totalCount.pattern}</div>
               </BookMark> : <></>}

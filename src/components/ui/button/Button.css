@@ -1,0 +1,96 @@
+.bookmark {
+    color: black;
+    border: none;
+    vertical-align: center;
+    font-size: 16px;
+    padding: 0px 5px 0px 5px;
+    text-align: center;
+    background-color: white;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.bookmark_dark {
+    color: white;
+    background-color: #121212;
+
+}
+
+.bookmark:hover {
+    color: grey;
+}
+
+.card_button {
+    color: black;
+    border: none;
+    vertical-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 0px 5px 0px 5px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card_button:disabled {
+    color: grey;
+    cursor: not-allowed
+}
+
+.card_button:hover {
+    color: grey;
+}
+
+.card_button_dark {
+    color: white;
+}
+
+.custom_button {
+    height: 30px;
+    background-color: black;
+    color: white;
+    border: black 1px solid;
+    vertical-align: center;
+    font-size: 12px;
+    padding: 5px 20px 5px 20px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.custom_button_dark {
+    height: 30px;
+    background-color: black;
+    color: white;
+    border: black 1px solid;
+    vertical-align: center;
+    font-size: 12px;
+    padding: 5px 20px 5px 20px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.custom_button:hover {
+    color: black;
+    background-color: rgb(255, 255, 255, 0.5);
+    box-shadow: none;
+}
+
+.custom_button:disabled {
+    background-color: lightgrey;
+    border: lightgrey 1px solid;
+    color: grey;
+    cursor: not-allowed
+}
+
+.custom_button_dark:disabled {
+    background-color: #2b2b2b;
+    border: #2b2b2b 1px solid;
+    color: grey;
+    cursor: not-allowed
+}
+
+

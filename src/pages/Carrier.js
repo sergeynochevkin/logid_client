@@ -3,7 +3,7 @@ import { useJsApiLoader } from '@react-google-maps/api'
 import styled from 'styled-components'
 import { Area50 } from '../components/ui/area/Area50'
 import PageBanner from '../components/ui/banner/PageBanner'
-import { PageContainer } from '../components/ui/page/PageContainer'
+import PageContainer from '../components/ui/page/PageContainer'
 import { BookMark } from '../components/ui/button/BookMark'
 import OrderList from '../components/order/OrderList'
 import UserInfoForm from '../components/account/UserInfoForm'
@@ -140,8 +140,8 @@ const Carrier = observer(() => {
             :
 
 
-            <div className='scroll_content_container'>
-              <div className='bookmark_bar_container'>
+            <div className='scroll_bar_container'>
+              <div className='scroll_content_container'>
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('orderList'); ComponentFunction.setFunction('inWork');
                   ComponentFunction.setOrdersComponentFunction('orderList')

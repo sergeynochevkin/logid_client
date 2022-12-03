@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { v4 } from "uuid";
-import { NotificationContext } from '../..';
+import { NotificationContext, SettingContext } from '../..';
 
 import './DragDropUpload.css'
 
 const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
     const { Notification } = useContext(NotificationContext)
+    const { Setting } = useContext(SettingContext)
     const [drag, setDrag] = useState(false)
     const [files, setFiles] = useState([])
     const [pairs, setPairs] = useState([])
@@ -110,7 +111,7 @@ const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
     return (
         <div className={'dragCotainer'}>
             {drag === false ?
-                <div className={'dragZone'}
+                <div className={Setting.app_theme === 'light' ? 'dragZone' : 'dragZone dragZone_dark'}
                     onDragStart={e => dragStartHandler(e)}
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}

@@ -1,21 +1,16 @@
-import styled from 'styled-components'
+import './Button.css'
 
-export const CardButton = styled.button`    
-    background-color: transparent;
-    color: black;
-    border: none;
-    vertical-align: center;
-    font-size: 10px;
-    font-weight:bold;
-    padding: 0px 5px 0px 5px;
-    text-align: center;
-    border-radius: 5px;
-    cursor:pointer;
-    &:hover {
-        color: grey;
+import React from 'react'
+import { useContext } from 'react'
+import { SettingContext } from '../../..'
+
+const CardButton = ({ children, ...props }) => {
+
+        const { Setting } = useContext(SettingContext)
+
+        return (
+                <div className={Setting.app_theme === 'light' ? 'card_button' : 'card_button card_button_dark'} {...props}>{children}</div>
+        )
 }
-&:disabled {
-        color: grey;    
-        cursor:not-allowed
-}
-`
+
+export { CardButton }
