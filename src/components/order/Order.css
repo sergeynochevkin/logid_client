@@ -15,7 +15,7 @@
 
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-    background: whitesmoke;
+    background:  rgb(105, 105, 105, 0.8);
 }
 
 @media screen and (max-width: 768) {
@@ -26,7 +26,7 @@
 
 @media screen and (max-width: 425px) {
     .scroll_bar_container {
-        width: 400px;
+        width: 380px;
     }
 }
 
