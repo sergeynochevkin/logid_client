@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, FilterAndSortContext, PartnerContext, UserContext } from '..'
+import { ComponentFunctionContext, FilterAndSortContext, PartnerContext, SettingContext, UserContext } from '..'
 import PartnerGroupItem from './partner/PartnerGroupItem'
 import FilterInput from './ui/form/FilterInput'
 import { FilterSelect } from './ui/form/FilterSelect'
@@ -15,6 +15,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
     const [timeToOnFocus, setTimeToOnFocus] = useState(false)
     const { Partner } = useContext(PartnerContext)
     const { user } = useContext(UserContext)
+    const {Setting} = useContext(SettingContext)
 
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
     return (
 
         <VerticalContainer>
-            <div className='scroll_bar_container'>
+               <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
             <div className='scroll_content_container'>
                     <FilterInput
                         fieldName='id'

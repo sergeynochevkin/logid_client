@@ -3,9 +3,16 @@
     overflow-x: auto;
     margin-bottom: 3px;
     padding-bottom: 5px;
+    padding-top: 3px;
 }
 
-::-webkit-scrollbar {
+@media screen and (max-width: 425px) {
+    .scroll_bar_container {
+        max-width: 380px;
+    }
+}
+
+.scroll_bar_container::-webkit-scrollbar {
     width: 0;
     /* Remove scrollbar space */
     background: transparent;
@@ -14,8 +21,35 @@
 }
 
 /* Optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
-    background:  rgb(31, 31, 31, 0.8);
+.scroll_bar_container::-webkit-scrollbar-thumb {
+    background: rgb(245, 245, 245, 0.8);
+}
+
+.scroll_bar_container_dark {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 3px;
+    padding-bottom: 5px;
+    padding-top: 3px;
+}
+
+@media screen and (max-width: 425px) {
+    .scroll_bar_container_dark {
+        max-width: 380px;
+    }
+}
+
+.scroll_bar_container_dark::-webkit-scrollbar {
+    width: 0;
+    /* Remove scrollbar space */
+    background: transparent;
+    height: 2px;
+    /* Optional: just make scrollbar invisible */
+}
+
+/* Optional: show position indicator in red */
+.scroll_bar_container_dark::-webkit-scrollbar-thumb {
+    background: rgb(31, 31, 31, 0.8);
 }
 
 /* @media screen and (max-width: 768) {
@@ -23,12 +57,6 @@
         width: 740;
     }
 } */
-
-@media screen and (max-width: 425px) {
-    .scroll_bar_container {
-        width: 425px;
-    }
-}
 
 .order_table {
     min-width: max-content;

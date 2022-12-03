@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import Orders from './Orders'
 import ArcOrders from './ArcOrders'
-import { UserContext, OrderContext, ComponentFunctionContext, UserInfoContext, FilterAndSortContext } from '../../index'
+import { UserContext, OrderContext, ComponentFunctionContext, UserInfoContext, FilterAndSortContext, SettingContext } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { BookMark } from '../ui/button/BookMark'
 
@@ -14,12 +14,13 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
   const [fetchStart, setFetchStart] = useState(false)
+  const {Setting} = useContext(SettingContext)
 
   return (
     <>
       {Object.keys(UserInfo.userInfo).length !== 0 ?
 
-        <div className='scroll_bar_container'>
+        <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
           <div className='scroll_content_container'>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'new') {

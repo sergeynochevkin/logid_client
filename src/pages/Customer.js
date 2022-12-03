@@ -8,7 +8,7 @@ import PageBanner from '../components/ui/banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer  from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext } from '..'
+import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import { fetchUserInfos } from '../http/userInfoApi'
@@ -47,6 +47,7 @@ const Customer = observer(() => {
   const { State } = useContext(StateContext)
   const { Adress } = useContext(AdressContext)
   const { Limit } = useContext(LimitContext)
+const {Setting} = useContext(SettingContext)
 
   const [fetching, error] = useFetching(async () => {
     if (Object.keys(UserInfo.userInfo).length !== 0) {
@@ -131,7 +132,7 @@ const Customer = observer(() => {
               <UserInfoForm />
             </FlexContainer>
             :
-            <div className='scroll_bar_container'>
+            <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
               <div className='scroll_content_container'>
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
