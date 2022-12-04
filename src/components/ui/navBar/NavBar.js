@@ -10,6 +10,7 @@ import { useFetching } from '../../../hooks/useFetching';
 import { fetchDefaultData } from '../../../http/defaultDataApi';
 import { fetchUserState } from '../../../http/stateApi';
 import './NavBar.css'
+import { SetTranslate } from '../../../modules/SetTranslate';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -35,7 +36,7 @@ const NavBar = observer(() => {
         Subscription.setPlans(data.subscripton_plans)
         Subscription.setOptions(data.subscripton_options)
         Subscription.setOptionsByPlans(data.subscripton_options_by_plans)
-        Translate.setTranslation(data.translation)
+        // Translate.setTranslation(data.translation)
         TransportType.setTypes(data.transport_types)
         TransportType.setSideTypes(data.transport_side_types)
         TransportType.setLoadCapacities(data.transport_load_capacities)
@@ -81,25 +82,25 @@ const NavBar = observer(() => {
 
       {user.user.role === "customer" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CUSTOMER_ROUTE)}>Кабинет заказчика</div> :
+          navigate(CUSTOMER_ROUTE)}>{SetTranslate('customers_office')}</div> :
         <></>
       }
 
       {user.user.role === "carrier" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CARRIER_ROUTE)}>Кабинет перевозчика</div> :
+          navigate(CARRIER_ROUTE)}>{SetTranslate('carriers_office')}</div> :
         <></>
       }
 
       {user.user.role === "manager" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(MANAGER_ROUTE)}>Кабинет менеджера</div> :
+          navigate(MANAGER_ROUTE)}>{SetTranslate('managers_office')}</div> :
         <></>
       }
 
       {user.user.role === "admin" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(ADMIN_ROUTE)}>Кабинет администратора</div> :
+          navigate(ADMIN_ROUTE)}>{SetTranslate('administrators_office')}</div> :
         <></>
       }
 
@@ -112,9 +113,9 @@ const NavBar = observer(() => {
             user.setUser({});
             UserInfo.setUserInfo({})
             localStorage.clear()
-          }}>Выйти</div> :
+          }}>{SetTranslate('sign_out')}</div> :
         <div className='nav_bar_item' onClick={() =>
-          navigate(LOGIN_ROUTE)}>Войти</div>
+          navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</div>
       }
     </div>
 

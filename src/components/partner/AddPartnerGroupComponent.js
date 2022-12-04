@@ -35,7 +35,8 @@ const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGrou
                     <HorizontalContainer>
                         <CardButton
                             onClick={createNewGroup}
-                            disabled={formData.groupName.isEmpty || formData.groupName.notValid}
+                            disabled={formData.groupName.isEmpty || formData.groupName.notValid} 
+                            // не работает валидация
                         >Добавить</CardButton>
                         <CardButton
                             onClick={() => {

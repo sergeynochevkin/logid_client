@@ -26,6 +26,7 @@ import { fetchSubscription } from '../http/subscriptionApi'
 import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { fetchUserLimits } from '../http/limitApi'
+import { SetTranslate } from '../modules/SetTranslate'
 
 
 const Container = styled.div`
@@ -112,7 +113,7 @@ const Carrier = observer(() => {
 
     return (
       <PageContainer>
-        <title>Кабинет перевозчика</title>
+        <title>{SetTranslate('carriers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -125,7 +126,7 @@ const Carrier = observer(() => {
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>Кабинет перевозчика</PageBanner>
+        <PageBanner>{SetTranslate('carriers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -134,7 +135,7 @@ const Carrier = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>Заполните аккаунт и начнем</BookMark>
+              <BookMark>{SetTranslate('fill_account')}</BookMark>
               <UserInfoForm />
             </FlexContainer>
 
@@ -151,13 +152,13 @@ const Carrier = observer(() => {
 
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'lightgrey',
-                }}>Заказы</BookMark>
+                }}>{SetTranslate('orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('transport')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'transport' && 'lightgrey',
-                }}>Способы доставки</BookMark>
+                }}>{SetTranslate('transports')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('customers')
@@ -165,19 +166,19 @@ const Carrier = observer(() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'customers' && 'lightgrey',
-                }}>Заказчики</BookMark>
+                }}>{SetTranslate('customers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('account'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
-                }}>Аккаунт</BookMark>
+                }}>{SetTranslate('account')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>Настройки</BookMark>
+                }}>{SetTranslate('settings')}</BookMark>
               </div>
             </div>
 

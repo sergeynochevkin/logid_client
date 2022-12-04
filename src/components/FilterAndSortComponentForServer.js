@@ -7,6 +7,7 @@ import { FilterSelect } from './ui/form/FilterSelect'
 import { HorizontalContainer } from './ui/page/HorizontalContainer'
 import { VerticalContainer } from './ui/page/VerticalContainer'
 import './order/Order.css'
+import { SetTranslate } from '../modules/SetTranslate'
 
 const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFetchPartnersStart }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -15,7 +16,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
     const [timeToOnFocus, setTimeToOnFocus] = useState(false)
     const { Partner } = useContext(PartnerContext)
     const { user } = useContext(UserContext)
-    const {Setting} = useContext(SettingContext)
+    const { Setting } = useContext(SettingContext)
 
 
     useEffect(() => {
@@ -36,8 +37,8 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
     return (
 
         <VerticalContainer>
-               <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
-            <div className='scroll_content_container'>
+            <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
+                <div className='scroll_content_container'>
                     <FilterInput
                         fieldName='id'
                         inputHandler={inputHandler}
@@ -102,15 +103,15 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                             inputHandler={inputHandler}
                             defaultvalue='Сортировка'
                             sortOptions={[
-                                { value: 'default', name: 'По умолчанию' },
-                                { value: 'auctionFirst', name: 'Сначала аукционы' },
-                                { value: 'orderFirst', name: 'Сначала заказы' },
-                                { value: 'finalStatus', name: 'По последнему статусу' },
-                                { value: 'transportType', name: 'По типу транспорта' },
-                                { value: 'costUp', name: 'По возрастанию стоимости' },
-                                { value: 'costDown', name: 'По убыванию стоимости' },
-                                { value: 'firstCreated', name: 'От новых к старым' },
-                                { value: 'lastCreated', name: 'От старых к новым' },
+                                { value: 'default', name: SetTranslate('default') },
+                                { value: 'auctionFirst', name: SetTranslate('from_auctions') },
+                                { value: 'orderFirst', name: SetTranslate('from_orders') },
+                                { value: 'finalStatus', name: SetTranslate('latest_status') },
+                                { value: 'transportType', name: SetTranslate('transport_type') },
+                                { value: 'costUp', name: SetTranslate('ascending_cost') },
+                                { value: 'costDown', name: SetTranslate('descending_cost') },
+                                { value: 'firstCreated', name: SetTranslate('new_old') },
+                                { value: 'lastCreated', name: SetTranslate('old_new') },
                             ]}
                             filterSet={'filters'}
                         >

@@ -69,7 +69,7 @@ const UserInfoForm = observer(() => {
     formData.legal = useInput('', { isEmpty: true })
     formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, 'email')
     formData.passport_date_of_issue = useInput('', { isEmpty: true }, 'дата выдачи паспорта')
-    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 40 }, 'кем выдан паспорт')
+    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, 'кем выдан паспорт')
     const validPassportNumber = /^[а-яА-ЯёЁa-zA-Z0-9]+$/
     formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, 'номер паспорта')
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/

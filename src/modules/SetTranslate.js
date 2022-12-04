@@ -1,8 +1,9 @@
 import { useContext } from 'react'
-import { TranslateContext } from '..'
+import { SettingContext, TranslateContext } from '..'
 
 export const SetTranslate = (value) => {
     const { Translate } = useContext(TranslateContext)
+
     if (value) {
 
         let translatedValue = Translate.translation.find(el => el.service === value)[Translate.language]
@@ -12,7 +13,7 @@ export const SetTranslate = (value) => {
         }
 
         return translatedValue
-        
+
     } else {
         return ''
     }

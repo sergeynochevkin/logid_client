@@ -33,14 +33,14 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                 formData.finished_time,
                 formData.role
             )
-            .then(Notification.addNotification([{
-                id: v4(), type: 'success', message: `Вы ${formData.status === 'postponed' ? 'отложили' :
-                    formData.status === 'canceled' ? 'отменили' :
-                        formData.status === 'inWork' ? 'взяли в работу' :
-                            formData.status === 'new' ? 'восстановили' : 'завершили'}
-                точку ${onePoint.sequence} заказа ${order.order.id}`
-            }])
-            )
+                .then(Notification.addNotification([{
+                    id: v4(), type: 'success', message: `Вы ${formData.status === 'postponed' ? 'отложили' :
+                        formData.status === 'canceled' ? 'отменили' :
+                            formData.status === 'inWork' ? 'взяли в работу' :
+                                formData.status === 'new' ? 'восстановили' : 'завершили'}
+                            ${onePoint.sequence === 50 ? 'последнюю' : ''} точку ${onePoint.sequence !== 50 ? onePoint.sequence : ''} заказа ${order.order.id}`
+                }])
+                )
             setModalActive(false)
             setPointFetchStart(true)
             formReset()
@@ -48,7 +48,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
             alert(e.response.data.message)
         }
     }
-    
+
 
     return (
         <VerticalContainer>

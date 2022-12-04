@@ -8,9 +8,7 @@ export default class StateStore {
         this._user_map_city = {}
         this._user_map_cities = []
         this._all_cities = false
-
         this._app_theme = 'lght'
-
         this._center = {}
         this._bounds = {}
         this._bounds_limit = undefined
@@ -48,51 +46,39 @@ export default class StateStore {
     get user_map_cities() {
         return this._user_map_cities
     }
-
     setCenter(value) {
         this._center = value
     }
-
     get center() {
         return this._center
     }
-
     setAppTheme(value) {
         this._app_theme = value
     }
-
     get app_theme() {
         return this._app_theme
     }
-
     setBounds(value) {
         this._bounds = value
     }
-
     get bounds() {
         return this._bounds
     }
-
     setZoom(value) {
         this._zoom = value
     }
-
     get zoom() {
         return this._zoom
     }
-
     setBoundsLimit(value) {
         this._bounds_limit = value
     }
-
     get bounds_limit() {
         return this._bounds_limit
     }
-
     setAllCities(value) {
         this._all_cities = value
     }
-
     get all_cities() {
         return this._all_cities
     }

@@ -5,6 +5,7 @@ import ArcOrders from './ArcOrders'
 import { UserContext, OrderContext, ComponentFunctionContext, UserInfoContext, FilterAndSortContext, SettingContext } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { BookMark } from '../ui/button/BookMark'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 
 const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
@@ -32,7 +33,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setFunction('new')
             }} style={{
               color: ComponentFunction.Function === 'new' && 'lightgrey',
-            }}>Новые
+            }}>{SetTranslate('new_bookmark')}
               <div className='number_of_orders'>{order.totalCount.new}</div>
             </BookMark>
             {
@@ -47,7 +48,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.Function === 'postponed' && 'lightgrey',
-                }}>Отложенные
+                }}>{SetTranslate('postponed_bookmark')}
                   <div className='number_of_orders'>{order.totalCount.postponed}</div>
                 </BookMark>
                 : <></>
@@ -62,7 +63,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'inWork' && 'lightgrey',
-            }}>В работе
+            }}>{SetTranslate('inWork_bookmark')}
               <div className='number_of_orders' >{order.totalCount.inWork}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -75,7 +76,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'completed' && 'lightgrey',
-            }}>Выполненные
+            }}>{SetTranslate('completed_bookmark')}
               <div className='number_of_orders' >{order.totalCount.completed}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -88,7 +89,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'canceled' && 'lightgrey',
-            }}>Отмененные
+            }}>{SetTranslate('canceled_bookmark')}
               <div className='number_of_orders' >{order.totalCount.canceled}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -101,7 +102,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'arc' && 'lightgrey',
-            }}>Архив
+            }}>{SetTranslate('arc_bookmark')}
               <div className='number_of_orders'  >{order.totalCount.arc}</div>
             </BookMark>
 
@@ -116,7 +117,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                 ComponentFunction.setOrdersComponentFunction('orderList')
               }} style={{
                 color: ComponentFunction.Function === 'pattern' && 'lightgrey',
-              }}>Шаблоны
+              }}>{SetTranslate('templates_bookmark')}
                 <div className='number_of_orders' >{order.totalCount.pattern}</div>
               </BookMark> : <></>}
           </div>

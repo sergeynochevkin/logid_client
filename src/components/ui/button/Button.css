@@ -30,6 +30,7 @@
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .card_button:disabled {
@@ -44,6 +45,9 @@
 .card_button_dark {
     color: white;
 }
+
+
+
 
 .custom_button {
     height: 30px;

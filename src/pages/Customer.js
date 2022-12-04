@@ -6,7 +6,7 @@ import OrderList from '../components/order/OrderList'
 import { Area50 } from '../components/ui/area/Area50'
 import PageBanner from '../components/ui/banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
-import PageContainer  from '../components/ui/page/PageContainer'
+import PageContainer from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
 import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext } from '..'
 import { observer } from 'mobx-react-lite'
@@ -27,6 +27,7 @@ import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { fetchUserLimits } from '../http/limitApi'
 import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
+import { SetTranslate } from '../modules/SetTranslate'
 
 
 
@@ -47,7 +48,7 @@ const Customer = observer(() => {
   const { State } = useContext(StateContext)
   const { Adress } = useContext(AdressContext)
   const { Limit } = useContext(LimitContext)
-const {Setting} = useContext(SettingContext)
+  const { Setting } = useContext(SettingContext)
 
   const [fetching, error] = useFetching(async () => {
     if (Object.keys(UserInfo.userInfo).length !== 0) {
@@ -106,7 +107,7 @@ const {Setting} = useContext(SettingContext)
 
     return (
       <PageContainer>
-        <title>Кабинет заказчика</title>
+        <title>{SetTranslate('customers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -119,7 +120,7 @@ const {Setting} = useContext(SettingContext)
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>Кабинет заказчика</PageBanner>
+        <PageBanner>{SetTranslate('customers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -128,7 +129,7 @@ const {Setting} = useContext(SettingContext)
                 gap: '0px'
               }}
             >
-              <BookMark>Заполните аккаунт и начнем</BookMark>
+              <BookMark>{SetTranslate('fill_account')}</BookMark>
               <UserInfoForm />
             </FlexContainer>
             :
@@ -142,7 +143,7 @@ const {Setting} = useContext(SettingContext)
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'lightgrey',
-                }}>Заказы</BookMark>
+                }}>{SetTranslate('orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -154,7 +155,7 @@ const {Setting} = useContext(SettingContext)
                   order.setIntegrationId()
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderForm' && 'lightgrey',
-                }}>{ComponentFunction.orderFormFunction === 'edit' ? 'Редактирование' : 'Новый заказ'}</BookMark>
+                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetTranslate('order_editing') : SetTranslate('create_order')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -162,8 +163,8 @@ const {Setting} = useContext(SettingContext)
                   ComponentFunction.setPageFunction('carriers')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'carriers'&& 'lightgrey',
-                }}>Перевозчики</BookMark>
+                  color: ComponentFunction.PageFunction === 'carriers' && 'lightgrey',
+                }}>{SetTranslate('carriers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -171,14 +172,14 @@ const {Setting} = useContext(SettingContext)
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
-                }}>Аккаунт</BookMark>
+                }}>{SetTranslate('account')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>Настройки</BookMark>
+                }}>{SetTranslate('settings')}</BookMark>
               </div>
             </div>
           }

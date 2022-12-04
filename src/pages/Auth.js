@@ -6,7 +6,7 @@ import { Form } from '../components/ui/form/Form'
 import { Input } from '../components/ui/form/Input'
 import { Name } from '../components/ui/text/Name'
 import { Select } from '../components/ui/form/Select'
-import PageContainer  from '../components/ui/page/PageContainer'
+import PageContainer from '../components/ui/page/PageContainer'
 import { Comment } from '../components/ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, CUSTOMER_ROUTE, CARRIER_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE } from '../../src/utils/consts';
@@ -22,6 +22,7 @@ import { v4 } from "uuid";
 import { NotificationContext } from '../index'
 import ReCAPTCHA from "react-google-recaptcha";
 import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
+import { SetTranslate } from '../modules/SetTranslate'
 
 
 const Auth = observer(() => {
@@ -50,10 +51,18 @@ const Auth = observer(() => {
 
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/
 
-  formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, 'email')
-  formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, 'пароль')
+  let password = SetTranslate('password')
+  let email = SetTranslate('email')
+  let confirmation_code = SetTranslate('confirmation_code')
+  let code_sent = SetTranslate('code_sent')
+  let password_changed = SetTranslate('password_changed')
+  let logged_in = SetTranslate('logged_in')
+  let registered = SetTranslate('registered')
+
+  formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, email)
+  formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, password)
   formData.role = useInput('', { isEmpty: true })
-  formData.code = useInput('', { isEmpty: true }, 'код подтверждения')
+  formData.code = useInput('', { isEmpty: true }, confirmation_code)
 
 
   const [fetching, error] = useFetching(async () => {
@@ -63,7 +72,7 @@ const Auth = observer(() => {
   const sendCodeAction = async () => {
     try {
       let data = await code(formData.email.value)
-      Notification.addNotification([{ id: v4(), type: 'success', message: 'Код отправлен' }])
+      Notification.addNotification([{ id: v4(), type: 'success', message: code_sent }])
       setCodeSend(true)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -77,7 +86,7 @@ const Auth = observer(() => {
       user.setUser(data)
       UserInfo.setUserInfo({})
       fetching()
-      Notification.addNotification([{ id: v4(), type: 'success', message: 'Пароль изиенен, доступ восстановлен, вы авторизованы' }])
+      Notification.addNotification([{ id: v4(), type: 'success', message: password_changed }])
       user.setIsAuth(true)
       if (user.user.role === 'carrier') { navigate(CARRIER_ROUTE) }
       else if (user.user.role === 'customer') { navigate(CUSTOMER_ROUTE) }
@@ -92,14 +101,14 @@ const Auth = observer(() => {
       let data;
       if (isLogin) {
         data = await login(formData.email.value, formData.password.value)
-        user.setUser(data)        
-        Notification.addNotification([{ id: v4(), type: 'success', message: 'Вы авторизованы' }])
+        user.setUser(data)
+        Notification.addNotification([{ id: v4(), type: 'success', message: logged_in }])
         fetching()
       }
       else {
         data = await registration(formData.email.value, formData.password.value, formData.role.value)
         user.setUser(data)
-        Notification.addNotification([{ id: v4(), type: 'success', message: 'Вы зарегистрированы, ссылка для активации аккаунта отрправлена на указанный email' }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: registered }])
       }
       user.setIsAuth(true)
       if (user.user.role === 'carrier') { navigate(CARRIER_ROUTE) }
@@ -116,17 +125,17 @@ const Auth = observer(() => {
 
   return (
     <PageContainer>
-      {isLogin ? <title>Авторизация</title> : isRegister ? <title>Регистрация</title> : isRecovery ? <title>Восстановление пароля</title> : <></>}
+      {isLogin ? <title>{SetTranslate('authorization')}</title> : isRegister ? <title>{SetTranslate('registration')}</title> : isRecovery ? <title>{SetTranslate('password_recovery')}</title> : <></>}
       <Area50></Area50>
 
       <Form>
-        <Name>{isLogin ? 'Авторизация' : isRegister ? 'Регистрация' : isRecovery ? 'Восстановление пароля' : ''} </Name>
+        <Name>{isLogin ? SetTranslate('authorization') : isRegister ? SetTranslate('registration') : isRecovery ? SetTranslate('password_recovery') : ''} </Name>
 
         {(isRecovery && !codeSend) || isLogin || isRegister ?
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder="Ваш email"
+            <Input placeholder={SetTranslate('your_email')}
               value={formData.email.value}
               style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
               onChange={(e) => formData.email.onChange(e)}
@@ -152,7 +161,7 @@ const Auth = observer(() => {
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder="Ваш пароль"
+            <Input placeholder={SetTranslate('your_password')}
               style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.password.value}
               onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
@@ -176,7 +185,7 @@ const Auth = observer(() => {
             <VerticalContainer
               style={{ gap: '0px' }}
             >
-              <Input placeholder="Пароль еще раз" value={comparePassword} onChange={(e) => {
+              <Input placeholder={SetTranslate('password_repeat')} value={comparePassword} onChange={(e) => {
                 setComparePassword(e.target.value)
                 setComparePasswordActive(true)
               }}
@@ -190,7 +199,7 @@ const Auth = observer(() => {
                 }}
               >
                 {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
-                  'пароли не совпадают' : ''
+                  SetTranslate('compare_passwords') : ''
                 }
               </FieldName>
             </VerticalContainer>
@@ -206,9 +215,9 @@ const Auth = observer(() => {
                   name="role" id="role"
                   style={{ borderLeft: formData.role.notValid || formData.role.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                  <option disabled hidden value={formData.role.value}>Вы заказчик или перевозчик?</option>
-                  <option value='customer'>Заказчик</option>
-                  <option value='carrier'>Перевозчик</option>
+                  <option disabled hidden value={formData.role.value}>{SetTranslate('who_are_you')}</option>
+                  <option value='customer'>{SetTranslate('customer')}</option>
+                  <option value='carrier'>{SetTranslate('carrier')}</option>
                 </Select>
                 <FieldName
                   style={{
@@ -217,7 +226,7 @@ const Auth = observer(() => {
                   }}
                 >
                   {formData.role.isEmpty && formData.role.isDirty ?
-                    'выберите роль' :
+                    SetTranslate('select_role') :
                     ''
                   }
                 </FieldName>
@@ -230,7 +239,7 @@ const Auth = observer(() => {
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder="Код подтверждения"
+            <Input placeholder={SetTranslate('Сonfirmation_code')}
               style={{ borderLeft: formData.code.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.code.value}
               onChange={(e) => formData.code.onChange(e)} onBlur={e => formData.code.onBlur(e)} type="text" name="code" id="code"
@@ -272,7 +281,7 @@ const Auth = observer(() => {
                 updatePasswordAction()
               }
             }}
-          >{isLogin ? 'Войти' : isRegister ? 'Зарегистрироваться' : (isRecovery && !codeSend) ? 'Отправить код' : (isRecovery && codeSend) ? 'Сохранить и войти' : ''}</Button>
+          >{isLogin ? SetTranslate('sign_in') : isRegister ? SetTranslate('sign_up') : (isRecovery && !codeSend) ? SetTranslate('send_code') : (isRecovery && codeSend) ? SetTranslate('save_and_sign_in') : ''}</Button>
           {isRecovery && codeSend ?
             <Button
               onClick={() => {
@@ -283,7 +292,7 @@ const Auth = observer(() => {
                 formData.password.setDirty(false)
                 setComparePassword('')
               }}
-            >Запросить новый код</Button> : <></>}
+            >{SetTranslate('send_new_code')}</Button> : <></>}
         </HorizontalContainer>
 
         {isLogin ?
@@ -291,21 +300,21 @@ const Auth = observer(() => {
             style={{ display: 'flex', gap: '5px' }}>
 
             <Link onClick={() =>
-              navigate(REGISTRATION_ROUTE)}>Регистрация</Link>
+              navigate(REGISTRATION_ROUTE)}>{SetTranslate('registration')}</Link>
             <Link onClick={() =>
-              navigate(RECOVERY_ROUTE)}>Восстановление пароля</Link>
+              navigate(RECOVERY_ROUTE)}>{SetTranslate('password_recovery')}</Link>
           </div>
           : isRegister ?
-            <Comment>Есть аккаунт? <Link onClick={() =>
-              navigate(LOGIN_ROUTE)}>Войдите</Link></Comment>
+            <Comment>{SetTranslate('have_an_account')}<Link onClick={() =>
+              navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</Link></Comment>
             : isRecovery ?
               <div
                 style={{ display: 'flex', gap: '5px' }}>
 
                 <Link onClick={() =>
-                  navigate(REGISTRATION_ROUTE)}>Регистрация</Link>
+                  navigate(REGISTRATION_ROUTE)}>{SetTranslate('registration')}</Link>
                 <Link onClick={() =>
-                  navigate(LOGIN_ROUTE)}>Вход</Link>
+                  navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</Link>
               </div>
               : <></>
         }

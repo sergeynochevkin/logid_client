@@ -19,6 +19,7 @@ import { CardButton } from '../ui/button/CardButton'
 import OrderStatusButtons from './OrderStatusButtons'
 import { fetchUserState } from '../../http/stateApi'
 import MapComponent from '../map/MapComponent'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPartnersStart, fetchStart, setFetchStart }) => {
   const { order } = useContext(OrderContext)
@@ -135,7 +136,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         fetching()
       }, 20000);
       return () => clearInterval(interval);
-    }    
+    }
   }, [fetchStart, ComponentFunction.Function])
 
   useEffect(() => {
@@ -165,7 +166,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
     if (Object.keys(order.added).length > 0) {
       if (order.added.new.length > 0) {
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.new.length > 1 ? 'Поступили новые заказы:' : 'Поступил новый заказ'} ${order.added.new.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.new.length > 1 ? SetTranslate('new_orders_received') : SetTranslate('new_order_received')} ${order.added.new.map(el => el.id).toString()}` }])
         }
         // if (user.user.role === 'customer') {
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.new.length > 1 ? 'Отправлены заказы:' : 'Отправлен заказ'} ${order.added.new.map(el => el.id).toString()}` }])
@@ -173,13 +174,13 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
       }
       if (order.added.inWork.length > 0) {
         if (user.user.role === 'customer' && order.added.inWork[0].updated_by_role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? 'Взяты в работу заказы:' : 'Взят в работу заказ'} ${order.added.inWork.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? SetTranslate('orders_taken') : SetTranslate('order_taken')} ${order.added.inWork.map(el => el.id).toString()}` }])
         }
         if (user.user.role === 'customer' && order.added.inWork[0].updated_by_role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? 'Вы приняли предложения по аукционам:' : 'Вы приняли предложение по аукциону'} ${order.added.inWork.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? SetTranslate('offers_accepted') : SetTranslate('offer_accepted')} ${order.added.inWork.map(el => el.id).toString()}` }])
         }
         if (user.user.role === 'carrier' && order.added.inWork[0].updated_by_role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? 'Принято ваше предложение по аукционам:' : 'Принято ваше предложение по аукциону'} ${order.added.inWork.map(el => el.id).toString()} можете приступать к выполнению` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? SetTranslate('offers_accepted_carrier') : SetTranslate('offer_accepted_carrier')} ${order.added.inWork.map(el => el.id).toString()}, ${SetTranslate('start_doing')}` }])
         }
         // if (user.user.role === 'carrier') {
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? 'Вы взяли в работу заказы:' : 'Вы взяли в работу заказ'} ${order.added.inWork.map(el => el.id).toString()}` }])
@@ -190,12 +191,12 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? 'Вы отложили заказы:' : 'Вы отложили заказ'} ${order.added.postponed.map(el => el.id).toString()}` }])
         // } 
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? 'Отложены заказы:' : 'Отложен заказ'} ${order.added.postponed.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? SetTranslate('postponed_orders') : SetTranslate('postponed_order')} ${order.added.postponed.map(el => el.id).toString()}` }])
         }
       }
       if (order.added.postponed.filter(el => el.disrupted_by !== '').length > 0) {
         if (user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? 'Вы восстановили заказы:' : 'Вы восстановили заказ'} ${order.added.postponed.map(el => el.id).toString()}, он находится в отложенных, можете отправить его после проверки` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? SetTranslate('restored_orders') : SetTranslate('restored_order')} ${order.added.postponed.map(el => el.id).toString()}, ${SetTranslate('check_restored')}` }])
         }
       }
       if (order.added.canceled.filter(el => el.disrupted_by === '').length > 0) {
@@ -203,20 +204,20 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.canceled.length > 1 ? 'Вы отменили заказы:' : 'Вы отменили заказ'} ${order.added.canceled.map(el => el.id).toString()}` }])
         // } 
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? 'Отменены заказы:' : 'Отменен заказ'} ${order.added.canceled.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? SetTranslate('orders_canceled') : SetTranslate('order_canceled')} ${order.added.canceled.map(el => el.id).toString()}` }])
         }
       }
       else if (order.added.canceled.filter(el => el.disrupted_by !== '').length > 0) {
         if (order.added.canceled.filter(el => el.disrupted_by === 'carrier').length > 0 && user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? 'Вы отменили сорванные заказы:' : 'Вы отменили сорванный заказ'} ${order.added.canceled.map(el => el.id).toString()}, восстановите его для повторной отправки. Это повлияет на рейтинг перевозчика` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? SetTranslate('canceled_disrupted_orders') : SetTranslate('canceled_disrupted_order')} ${order.added.canceled.map(el => el.id).toString()}, ${SetTranslate('restore_to_resend')}. ${SetTranslate('affect_carrier_rating')}` }])
         } if (order.added.canceled.filter(el => el.disrupted_by === 'carrier' && el.carrierId === UserInfo.userInfo.id).length > 0 && user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `В связи с неподачей ${order.added.canceled.length > 1 ? 'отменены заказы:' : 'отменен заказ'} ${order.added.canceled.map(el => el.id).toString()} обратите внимание, это влияет на ваш рейтинг` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${SetTranslate('non_arrival')} ${order.added.canceled.length > 1 ? SetTranslate('orders_canceled').toLowerCase() : SetTranslate('order_canceled').toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${SetTranslate('affect_your_rating')}` }])
         }
         if (order.added.canceled.filter(el => el.disrupted_by === 'customer').length > 0 && user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `В связи с незагрузкой ${order.added.canceled.length > 1 ? 'отменены заказы:' : 'отменен заказ'} ${order.added.canceled.map(el => el.id).toString()} обратите внимание, это влияет на ваш рейтинг` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${SetTranslate('not_loading')} ${order.added.canceled.length > 1 ? SetTranslate('orders_canceled').toLowerCase() : SetTranslate('order_canceled').toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${SetTranslate('affect_your_rating')}` }])
         }
         if (order.added.canceled.filter(el => el.disrupted_by === 'customer').length > 0 && user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `В связи с незагрузкой ${order.added.canceled.length > 1 ? 'отменены заказы:' : 'отменен заказ'} ${order.added.canceled.map(el => el.id).toString()} это повлияет на рейтинг заказчика` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${SetTranslate('not_loading')} ${order.added.canceled.length > 1 ? SetTranslate('orders_canceled').toLowerCase() : SetTranslate('order_canceled').toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${SetTranslate('affect_customer_rating').toLowerCase()}` }])
         }
       }
       if (order.added.completed.filter(el => el.updated_by_role === 'customer').length > 0) {
@@ -224,7 +225,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? 'Вы завершили заказы:' : 'Вы завершили заказ'} ${order.added.completed.map(el => el.id).toString()}` }])
         // }
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? 'Заказчик завершил заказы:' : 'Заказчик завершил заказ'} ${order.added.completed.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? SetTranslate('customer_completed_orders') : SetTranslate('customer_completed_order')} ${order.added.completed.map(el => el.id).toString()}` }])
         }
       }
       if (order.added.completed.filter(el => el.updated_by_role === 'carrier').length > 0) {
@@ -232,17 +233,17 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? 'Вы завершили заказы:' : 'Вы завершили заказ'} ${order.added.completed.map(el => el.id).toString()}` }])
         // }
         if (user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? 'Завершены заказы:' : 'Завершен заказ'} ${order.added.completed.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? SetTranslate('completed_orders') : SetTranslate('completed_order')} ${order.added.completed.map(el => el.id).toString()}` }])
         }
       }
       if (order.added.newType.filter(el => el.order_type === 'auction').length > 0) {
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? 'Заказы:' : 'Заказ'} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? 'преобразованы:' : 'преобразован'} в аукцион` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? SetTranslate('orders_notifications') : SetTranslate('order_notifications')} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? SetTranslate('converted_many') : SetTranslate('converted_one')} ${SetTranslate('to_auction')}` }])
         }
       }
       if (order.added.newType.filter(el => el.order_type === 'order').length > 0) {
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? 'Аукционы:' : 'Аукцион'} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? 'преобразованы:' : 'преобразован'} в заказ вы можете взять его в работу на текущих условиях` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? SetTranslate('auctions_notifications') : SetTranslate('auction_notifications')} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? SetTranslate('converted_many') : SetTranslate('converted_one')} ${SetTranslate('to_auction')} ${SetTranslate('can_take_it')}` }])
         }
       }
     }
@@ -250,48 +251,48 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
   useEffect(() => {
     if (Object.keys(Offer.changes).length > 0) {
       if (Offer.changes.new.length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.new.length > 1 ? 'Поступили новые предложения к аукционам' : 'Поступило новое предложение к аукциону'} ${Offer.changes.new.map(el => el.orderId).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.new.length > 1 ? SetTranslate('new_offers') : SetTranslate('new_offer')} ${Offer.changes.new.map(el => el.orderId).toString()}` }])
       }
       if (Offer.changes.updated.length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.updated.length > 1 ? 'Измемены предложения к аукционам' : 'Измемено предложение к аукциону'} ${Offer.changes.updated.map(el => el.orderId).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.updated.length > 1 ? SetTranslate('changed_offers') : SetTranslate('changed_offer')} ${Offer.changes.updated.map(el => el.orderId).toString()}` }])
       }
       if (Offer.changes.deleted.length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.deleted.length > 1 ? 'Удалены предложения к аукционам' : 'Удалено предложение к аукциону'} ${Offer.changes.deleted.map(el => el.orderId).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.deleted.length > 1 ? SetTranslate('removed_offers') : SetTranslate('removed_offer')} ${Offer.changes.deleted.map(el => el.orderId).toString()}` }])
       }
     }
   }, [Offer.changes])
   useEffect(() => {
     if (Object.keys(Point.added).length > 0) {
       if (Point.added.postponed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? 'Отложены точки' : 'Отложена точка'} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? SetTranslate('postponed_points') : SetTranslate('postponed_point')} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.canceled.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? 'Отменены точки' : 'Отменена точка'} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? SetTranslate('canceled_points') : SetTranslate('canceled_point')} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.new.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role === 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? 'Восстановлены точки' : 'Восстановлена точка'} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? SetTranslate('restored_points') : SetTranslate('restored_point')} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.completed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.completed.length > 1 ? 'Завершены точки' : 'Завершена точка'} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.completed.length > 1 ? SetTranslate('completed_points') : SetTranslate('completed_point')} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.in_work.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.in_work.length > 1 ? 'Взяты в работу точки' : 'Взята в работу точка'} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.in_work.length > 1 ? SetTranslate('in_work_points') : SetTranslate('in_work_point')} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
 
       if (Point.added.postponed.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `Заказчиком ${Point.added.postponed.length > 1 ? 'отложены точки' : 'отложена точка'} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? SetTranslate('postponed_points') : SetTranslate('postponed_point')} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.canceled.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `Заказчиком ${Point.added.canceled.length > 1 ? 'отменены точки' : 'отменена точка'} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? SetTranslate('canceled_points') : SetTranslate('canceled_point')} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.new.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `Заказчиком ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? 'восстановлены точки' : 'восстановлена точка'} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? SetTranslate('restored_points') : SetTranslate('restored_point')} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.completed.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `Заказчиком ${Point.added.completed.length > 1 ? 'завершены точки' : 'завершена точка'} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.completed.length > 1 ? SetTranslate('completed_points') : SetTranslate('completed_point')} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.in_work.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `Заказчиком ${Point.added.in_work.length > 1 ? 'взяты в работу точки' : 'взята в работу точка'} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? 'по заказам' : 'по заказу'} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.in_work.length > 1 ? SetTranslate('in_work_points') : SetTranslate('in_work_point')} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
     }
   }, [Point.added])
@@ -319,7 +320,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
 
                 {order &&
                   <>
-                  {/* eslint-disable-next-line no-undef */}
+                    {/* eslint-disable-next-line no-undef */}
                     {order.group.length !== 0 ?
                       <HorizontalContainer
                         style={{
@@ -332,17 +333,17 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                           borderRadius: '5px',
                         }}
                       >
-                        {`Выбрано заказов ${order.group.length}`}
+                        {`${SetTranslate('selected_orders')} ${order.group.length}`}
                         <OrderStatusButtons parent={'selector'} thisOrder={thisOrder} setFetchStart={setFetchStart} />
                         {user.user.role === 'carrier' && ComponentFunction.Function === 'new' ? <></> :
                           <>
                             {order.group.length < order.orders.length ?
                               <CardButton
                                 onClick={() => { order.setGroup(order.orders.map(el => el.id)) }}
-                              >Выбрать все</CardButton> :
+                              >{SetTranslate('select_all')}</CardButton> :
                               <CardButton
                                 onClick={() => { order.setGroup([]) }}
-                              >Сбросить</CardButton>
+                              >{SetTranslate('reset')}</CardButton>
                             }
                           </>}
                       </HorizontalContainer>
@@ -369,7 +370,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                           FilterAndSort.setFilters(State.user_state.favorite_order_state, 'selected')
                           setFetchStart(true)
                         }}
-                      >Только избранное</CardButton>
+                      >{SetTranslate('just_favorites')}</CardButton>
                       : <></>}
                     {FilterAndSort.filters.selected.length > 0 ?
                       <CardButton
@@ -377,7 +378,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                           FilterAndSort.setFilters([], 'selected')
                           setFetchStart(true)
                         }}
-                      >Все</CardButton>
+                      >{SetTranslate('reset_favorites')}</CardButton>
                       : <></>}
                     <CardButton
                       onClick={() => {
@@ -385,7 +386,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                         FilterAndSort.setFilters([], 'selected')
                         setFetchStart(true)
                       }}
-                    >Очистить избранное</CardButton>
+                    >{SetTranslate('clear_favorites')}</CardButton>
                   </HorizontalContainer>
                   : <></>}
 
@@ -414,7 +415,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                   marginTop: '10vh',
                   fontSize: '20px'
                 }}
-              >Нет заказов</div>}
+              >{SetTranslate('no_orders')}</div>}
           </VerticalContainer> :
           ComponentFunction.OrdersComponentFunction === 'orderItem' ?
             <>
