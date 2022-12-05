@@ -114,13 +114,13 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     ComponentFunction.setOrdersComponentFunction('orderItem')
                 }}
                 thisOrder={thisOrder}
-                // style={{                    
-                //     boxShadow: `0px 5px 10px 0px ${order.group.includes(thisOrder.id) ? 'grey' : useColor(thisOrder.order_status)}`,
-                //     minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
-                //     marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
-                //     cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
-                //     backgroundColor: State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? 'rgb(255, 253, 231, 0.8)' : ''
-                // }}
+            // style={{                    
+            //     boxShadow: `0px 5px 10px 0px ${order.group.includes(thisOrder.id) ? 'grey' : useColor(thisOrder.order_status)}`,
+            //     minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
+            //     marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
+            //     cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
+            //     backgroundColor: State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? 'rgb(255, 253, 231, 0.8)' : ''
+            // }}
             >
                 {ComponentFunction.OrdersComponentFunction === 'orderItem' ?
                     <AddDeleteFieldButton onClick={(event) => {
@@ -128,7 +128,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                         ComponentFunction.setFunction(thisOrder.order_status)
                         ComponentFunction.setOrdersComponentFunction('orderList')
                         setFetchStart(true)
-                    }}>вернуться к списку заказов</AddDeleteFieldButton>
+                    }}>{SetTranslate('back_to_order_list')}</AddDeleteFieldButton>
                     : <></>}
 
                 <VerticalContainer style={{ gap: '3px' }}>
@@ -146,7 +146,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                                             order.setGroup(order.group.filter(el => el !== thisOrder.id))
                                         }
                                     }}
-                                >{!order.group.includes(thisOrder.id) ? 'Выбрать' : 'Отменить выбор'}</CardButton>
+                                >{!order.group.includes(thisOrder.id) ? SetTranslate('select') : SetTranslate('deselect')}</CardButton>
                                 : <></>
                         }
 
@@ -161,7 +161,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                                     setFetchStart(true)
                                 }
                             }}
-                        >{State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(thisOrder.id) ? 'В избранное' : 'Убрать из избранного'}
+                        >{State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(thisOrder.id) ? SetTranslate('to_favorites') : SetTranslate('from_favorites')}
                         </CardButton>
 
                     </CardRow>
@@ -169,12 +169,12 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     <CardRow>
                         <CardColName
                         >{
-                                thisOrder.order_type === "order" ? 'Заказ' :
-                                    thisOrder.order_type === "auction" ? 'Аукцион' :
+                                thisOrder.order_type === "order" ? SetTranslate('order') :
+                                    thisOrder.order_type === "auction" ? SetTranslate('auction') :
                                         <></>
                             }</CardColName>
                         <CardColValue>{thisOrder.id}</CardColValue>
-                        <CardColName>Статус</CardColName>
+                        <CardColName>{SetTranslate('status')}</CardColName>
                         <CardColValue>{SetTranslate(thisOrder.order_status)}</CardColValue>
                     </CardRow>
 
@@ -187,8 +187,8 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                                     setModalActive(true)
                                 }}>
                                 <CardColName>
-                                    {user.user.role === 'carrier' ? 'Заказчик' :
-                                        user.user.role === 'customer' ? 'Перевозчик' : ''}
+                                    {user.user.role === 'carrier' ? SetTranslate('customer') :
+                                        user.user.role === 'customer' ? SetTranslate('carrier') : ''}
                                 </CardColName>
 
                                 {onePartnerInfo.legal === 'person' ?
@@ -208,7 +208,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     {ComponentFunction.OrdersComponentFunction === 'orderItem' && (thisOrder.order_status !== 'new' && thisOrder.order_status !== 'postponed' && thisOrder.order_status !== 'canceled') && thisPartnerInfo ?
                         <>
                             <CardRow>
-                                <CardColName>Телефон</CardColName>
+                                <CardColName>{SetTranslate('phone')}</CardColName>
                                 <CardColValue>{thisPartnerInfo.phone}</CardColValue>
                             </CardRow>
                         </>
@@ -234,12 +234,12 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                         : <></>}
 
                     {thisOrder.order_comment !== '' ? <CardRow>
-                        <CardColName>Комментарий к заказу</CardColName>
+                        <CardColName>{SetTranslate('order_comment')}</CardColName>
                         <CardColValue>{thisOrder.order_comment}</CardColValue>
                     </CardRow> : <></>}
 
                     <CardRow>
-                        <CardColName>Транспорт</CardColName>
+                        <CardColName>{SetTranslate('transport')}</CardColName>
                         <CardColValue>{SetTranslate(thisOrder.type)}</CardColValue>
                     </CardRow>
                     {(thisOrder.side_type || thisOrder.load_capacity) &&
@@ -249,20 +249,20 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                         </CardRow>
                     }
                     <CardRow>
-                        <CardColName>Стоимость</CardColName>
-                        <CardColValue>{thisOrder.cost === 0 ? 'не указана' : thisOrder.cost}</CardColValue>
+                        <CardColName>{SetTranslate('cost')}</CardColName>
+                        <CardColValue>{thisOrder.cost === 0 ? SetTranslate('not_specified') : thisOrder.cost}</CardColValue>
                     </CardRow>
 
                     {(ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') &&
                         <CardRow>
-                            <CardColName>Доступен</CardColName>
+                            <CardColName>{SetTranslate('available')}</CardColName>
                             {user.user.role === 'customer' && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
                                 <CardColValue>
-                                    {for_group.length === 0 && for_partner.length === 0 ? 'всем' : for_group.length !== 0 ? `группе ${groups}` : for_partner.length !== 0 ? `партнеру ${partnerNames}` : ''}
+                                    {for_group.length === 0 && for_partner.length === 0 ? SetTranslate('to_all') : for_group.length !== 0 ? `${SetTranslate('to_group')} ${groups}` : for_partner.length !== 0 ? `${SetTranslate('to_partner')} ${partnerNames}` : ''}
                                 </CardColValue> :
                                 user.user.role === 'carrier' && thisOrder.order_status === 'new' ?
                                     <CardColValue>
-                                        {for_group.length === 0 && for_partner.length === 0 ? 'всем' : for_group.length !== 0 ? `вашей группе` : for_partner.length !== 0 ? `вам` : ''}
+                                        {for_group.length === 0 && for_partner.length === 0 ? SetTranslate('to_all') : for_group.length !== 0 ? SetTranslate('your_group') : for_partner.length !== 0 ? SetTranslate('to_you') : ''}
                                     </CardColValue> : <></>}
                         </CardRow>
                     }

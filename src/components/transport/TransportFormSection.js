@@ -11,6 +11,7 @@ import { FieldName } from '../ui/page/FieldName'
 import { CardButton } from '../ui/button/CardButton'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { useInput } from '../../hooks/useInput'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const Container = styled.div`
 display:flex;
@@ -19,7 +20,7 @@ align-items:center;
 flex-direction:column;`
 
 
-const TransportFormSection = observer(({ setFormData, formData, click, parent, setModalActive, formReset, setFiles, setPair, orderPattern, calculateRoute,setCalculate}) => {
+const TransportFormSection = observer(({ setFormData, formData, click, parent, setModalActive, formReset, setFiles, setPair, orderPattern, calculateRoute, setCalculate }) => {
   const { TransportType } = useContext(TransportTypeContext)
   const { EquipmentType } = useContext(EquipmentTypeContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -46,11 +47,11 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
       formData.thermo_van
     ])
 
-  //сделать ограничение не пересчитывать если меняется авто на авто
+  //make the restriction not recalculate if car changes to car
   useEffect(() => {
     if (user.user.role === 'customer') {
       if (formData.type.value !== '') {
-                setCalculate(true)
+        setCalculate(true)
       }
     }
   }, [formData.type.value])
@@ -70,9 +71,9 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
             style={{ borderLeft: (formData.type.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
             name="type" id="type"
           >
-            <option defaultValue hidden>Способ доставки</option>
+            <option defaultValue hidden>{SetTranslate('transports')}</option>
             {TransportType.types.map(type =>
-              <option value={type.type} key={type.id}>{type.name}</option>
+              <option value={type.type} key={type.id}>{SetTranslate(type.type)}</option>
             )}
           </Select>
           <FieldName
@@ -82,7 +83,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
             }}
           >
             {(formData.type.isEmpty && formData.type.isDirty) ?
-              'выберите тип транспорта' :
+              SetTranslate('select_transport_type')  :
               ''
             }
           </FieldName>
@@ -101,7 +102,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                   }}></input>
 
                   <>
-                    <label key={equipment.id}>{equipment.name}</label>
+                    <label key={equipment.id}>{SetTranslate(equipment.type)}</label>
                   </>
                 </CheckBoxSection>
               </CheckBoxContainer>
@@ -121,9 +122,9 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
               style={{ borderLeft: (formData.load_capacity.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
               name="load_capacity" id="load_capacity"
             >
-              <option defaultValue hidden>Грузоподъемность</option>
+              <option defaultValue hidden>{SetTranslate('load_capacity')}</option>
               {TransportType.load_capacities.slice(0, 2).map(load_capacity =>
-                <option value={load_capacity.capacity} key={load_capacity.id}>{load_capacity.name}</option>
+                <option value={load_capacity.capacity} key={load_capacity.id}>{SetTranslate(load_capacity.capacity)}</option>
               )}
             </Select>
             <FieldName
@@ -132,7 +133,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                 color: 'rgb(254, 111, 103,0.8)'
               }}>
               {(formData.load_capacity.isEmpty && formData.load_capacity.isDirty) ?
-                'выберите грузоподъемность' :
+                SetTranslate('select_load_capacity')  :
                 ''
               }
             </FieldName>
@@ -152,7 +153,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                         formData.thermo_van === false ? setFormData({ ...formData, thermo_van: true }) :
                           setFormData({ ...formData, thermo_van: false })
                       }}></input>
-                      <label key={equipment.id}>{equipment.name}</label>
+                      <label key={equipment.id}>{SetTranslate(equipment.type)}</label>
                     </> :
                     equipment.type === 'refrigerator_minus' ?
                       <>
@@ -160,7 +161,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                           formData.refrigerator_minus === false ? setFormData({ ...formData, refrigerator_minus: true }) :
                             setFormData({ ...formData, refrigerator_minus: false })
                         }}></input>
-                        <label key={equipment.id}>{equipment.name}</label>
+                        <label key={equipment.id}>{SetTranslate(equipment.type)}</label>
                       </> :
                       equipment.type === 'refrigerator_plus' ?
                         <>
@@ -168,7 +169,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                             formData.refrigerator_plus === false ? setFormData({ ...formData, refrigerator_plus: true }) :
                               setFormData({ ...formData, refrigerator_plus: false })
                           }}></input>
-                          <label key={equipment.id}>{equipment.name}</label>
+                          <label key={equipment.id}>{SetTranslate(equipment.type)}</label>
                         </> : <></>
                   }
 
@@ -191,9 +192,9 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                 style={{ borderLeft: (formData.side_type.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 name="side_type" id="side_type"
               >
-                <option defaultValue hidden>Тип кузова</option>
+                <option defaultValue hidden>{SetTranslate('side_type')}</option>
                 {TransportType.side_types.map(side_type =>
-                  <option value={side_type.type} key={side_type.id}>{side_type.name}</option>
+                  <option value={side_type.type} key={side_type.id}>{SetTranslate(side_type.type)}</option>
                 )}
               </Select>
               <FieldName
@@ -203,7 +204,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                 }}
               >
                 {(formData.side_type.isEmpty && formData.side_type.isDirty) ?
-                  'выберите тип кузова' :
+                  SetTranslate('select_side_type') :
                   ''
                 }
               </FieldName>
@@ -219,9 +220,9 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                 style={{ borderLeft: (formData.load_capacity.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 name="load_capacity" id="load_capacity"
               >
-                <option defaultValue hidden>Грузоподъемность</option>
+                <option defaultValue hidden>{SetTranslate('load_capacity')}</option>
                 {TransportType.load_capacities.map(load_capacity =>
-                  <option value={load_capacity.capacity} key={load_capacity.id}>{load_capacity.name}</option>
+                  <option value={load_capacity.capacity} key={load_capacity.id}>{SetTranslate(load_capacity.capacity)}</option>
                 )}
               </Select>
               <FieldName
@@ -230,7 +231,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                   color: 'rgb(254, 111, 103,0.8)'
                 }}>
                 {(formData.load_capacity.isEmpty && formData.load_capacity.isDirty) ?
-                  'выберите грузоподъемность' :
+                  SetTranslate('select_load_capacity')  :
                   ''
                 }
               </FieldName>
@@ -246,19 +247,19 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                           <><input type='checkbox' value={formData.thermo_van} key={equipment.id} onChange={() => {
                             formData.thermo_van === false ? setFormData({ ...formData, thermo_van: true }) :
                               setFormData({ ...formData, thermo_van: false })
-                          }}></input><label>{equipment.name}</label></>
+                          }}></input><label>{SetTranslate(equipment.type)}</label></>
                           :
                           equipment.type === 'refrigerator_minus' & formData.side_type.value !== 'open_side' ?
                             <> <input type='checkbox' value={formData.refrigerator_minus} key={equipment.id} onChange={() => {
                               formData.refrigerator_minus === false ? setFormData({ ...formData, refrigerator_minus: true }) :
                                 setFormData({ ...formData, refrigerator_minus: false })
-                            }}></input><label>{equipment.name}</label></>
+                            }}></input><label>{SetTranslate(equipment.type)}</label></>
                             :
                             equipment.type === 'refrigerator_plus' & formData.side_type.value !== 'open_side' ?
                               <><input type='checkbox' value={formData.refrigerator_plus} key={equipment.id} onChange={() => {
                                 formData.refrigerator_plus === false ? setFormData({ ...formData, refrigerator_plus: true }) :
                                   setFormData({ ...formData, refrigerator_plus: false })
-                              }}></input><label>{equipment.name}</label></> : <></>
+                              }}></input><label>{SetTranslate(equipment.type)}</label></> : <></>
                         }
                       </>
                       : <></>
@@ -269,19 +270,19 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                         <><input type='checkbox' value={formData.hydraulic_platform} key={equipment.id} onChange={() => {
                           formData.hydraulic_platform === false ? setFormData({ ...formData, hydraulic_platform: true }) :
                             setFormData({ ...formData, hydraulic_platform: false })
-                        }}></input><label>{equipment.name}</label></>
+                        }}></input><label>{SetTranslate(equipment.type)}</label></>
                         :
                         equipment.type === 'glass_stand' ?
                           <><input type='checkbox' value={formData.glass_stand} key={equipment.id} onChange={() => {
                             formData.glass_stand === false ? setFormData({ ...formData, glass_stand: true }) :
                               setFormData({ ...formData, glass_stand: false })
-                          }}></input><label>{equipment.name}</label></>
+                          }}></input><label>{SetTranslate(equipment.type)}</label></>
                           :
                           equipment.type === 'side_loading' ?
                             <><input type='checkbox' value={formData.side_loading} key={equipment.id} onChange={() => {
                               formData.side_loading === false ? setFormData({ ...formData, side_loading: true }) :
                                 setFormData({ ...formData, side_loading: false })
-                            }}></input><label>{equipment.name}</label></> :
+                            }}></input><label>{SetTranslate(equipment.type)}</label></> :
                             <></>
                     }
                   </CheckBoxContainer>
@@ -297,14 +298,14 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
           <HorizontalContainer>
             <CardButton
               disabled={formData.type.notValid || formData.tag.notValid || (formData.side_type.notValid && formData.type.value === 'truck') || (formData.load_capacity.notValid && (formData.type.value === 'truck' || formData.type.value === 'minibus'))}
-              onClick={click}>Добавить</CardButton>
+              onClick={click}>{SetTranslate('add')}</CardButton>
             <CardButton
               onClick={(event) => {
                 event.preventDefault()
                 setModalActive(false)
                 formReset()
               }}
-            >Закрыть окно</CardButton>
+            >{SetTranslate('сlose')}</CardButton>
           </HorizontalContainer>
           : <></>}
 

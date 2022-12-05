@@ -42,7 +42,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                     <FilterInput
                         fieldName='id'
                         inputHandler={inputHandler}
-                        placeHolder='id'
+                        placeHolder={SetTranslate('filter_id')}
                         type='number'
                         filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
                     />
@@ -50,7 +50,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterInput
                             fieldName='name'
                             inputHandler={inputHandler}
-                            placeHolder='Адрес'
+                            placeHolder={SetTranslate('adress')}
                             type='text'
                             filterSet={'filters'}
                         />
@@ -59,7 +59,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                     <FilterInput
                         fieldName='partnerName'
                         inputHandler={inputHandler}
-                        placeHolder='Партнер'
+                        placeHolder={SetTranslate('partner')}
                         type='text'
                         filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
                     />
@@ -67,21 +67,21 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterInput
                             fieldName='costFrom'
                             inputHandler={inputHandler}
-                            placeHolder='Стоимость от'
+                            placeHolder={SetTranslate('cost_from')}
                             type='number'
                             filterSet={'filters'}
                         />
                         <FilterInput
                             fieldName='costTo'
                             inputHandler={inputHandler}
-                            placeHolder='стоимость до'
+                            placeHolder={SetTranslate('cost_to')}
                             type='number'
                             filterSet={'filters'}
                         />
                         <FilterInput
                             fieldName='timeFrom'
                             inputHandler={inputHandler}
-                            placeHolder='Дата от'
+                            placeHolder={SetTranslate('date_from')}
                             type={FilterAndSort.filters[ComponentFunction.Function].timeFrom === '' && timeFromOnFocus === false ? 'text' : timeFromOnFocus === true ? 'datetime-local' : 'datetime-local'}
                             onFocus={() => setTimeFromOnFocus(true)}
                             onBlur={() => setTimeFromOnFocus(false)}
@@ -91,7 +91,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterInput
                             fieldName='timeTo'
                             inputHandler={inputHandler}
-                            placeHolder='Дата до'
+                            placeHolder={SetTranslate('date_to')}
                             type={FilterAndSort.filters[ComponentFunction.Function].timeTo === '' && timeToOnFocus === false ? 'text' : timeFromOnFocus === true ? 'datetime-local' : 'datetime-local'}
                             onFocus={() => setTimeToOnFocus(true)}
                             onBlur={() => setTimeToOnFocus(false)}
@@ -101,7 +101,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterSelect
                             fieldName='selectedSort'
                             inputHandler={inputHandler}
-                            defaultvalue='Сортировка'
+                            defaultvalue={SetTranslate('sorting')}
                             sortOptions={[
                                 { value: 'default', name: SetTranslate('default') },
                                 { value: 'auctionFirst', name: SetTranslate('from_auctions') },
@@ -120,12 +120,12 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterSelect FilterSelect
                             fieldName='selectedSort'
                             inputHandler={inputHandler}
-                            defaultvalue='Сортировка'
+                            defaultvalue={SetTranslate('sorting')}
                             sortOptions={[
-                                { value: 'default', name: 'По умолчанию' },
-                                { value: 'name', name: 'По наименованию' },
-                                { value: 'ratingUp', name: 'По возрастанию рейтинга' },
-                                { value: 'ratingDown', name: 'По убыванию рейтинга' }
+                                { value: 'default', name: SetTranslate('default') },
+                                { value: 'name', name: SetTranslate('by_partner_name') },
+                                { value: 'ratingUp', name: SetTranslate('rating_up') },
+                                { value: 'ratingDown', name: SetTranslate('rating_down') }
                             ]}
                             filterSet={'partnerFilters'}
                         ></FilterSelect>

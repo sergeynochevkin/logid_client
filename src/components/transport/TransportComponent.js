@@ -9,6 +9,7 @@ import TransportForm from './TransportForm'
 import TransportList from './TransportList'
 import { Button } from '../ui/button/Button'
 import Modal from '../ui/modal/Modal'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const Container = styled.div`
 display:flex;
@@ -69,7 +70,7 @@ const TransportComponent = observer(() => {
           setModalActive(true)
         }}
         style={{ marginTop: '10px' }}
-      >Добавить транспорт</Button>
+      >{SetTranslate('add')}</Button>
       <Modal
         parent={parent}
         formReset={formReset}

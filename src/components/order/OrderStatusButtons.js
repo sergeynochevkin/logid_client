@@ -10,6 +10,7 @@ import { sendMail } from '../../http/mailApi'
 import { createPartner } from '../../http/partnerApi'
 import OrderRatingComponent from '../rating/OrderRatingComponent'
 import { createPoint } from '../../http/pointApi'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints, setFetchPartnersStart }) => {
     const { user } = useContext(UserContext)
@@ -20,13 +21,29 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const { Point } = useContext(PointContext)
     const { State } = useContext(StateContext)
 
+    const Auction = SetTranslate('auction')
+    const Order = SetTranslate('order')
+    const to_order = SetTranslate('to_order')
+    const to_auction = SetTranslate('to_auction')
+    const you_converted = SetTranslate('you_converted')
+    const you_postponed = SetTranslate('you_postponed')
+    const you_canceled = SetTranslate('you_canceled')
+    const you_send = SetTranslate('you_send')
+    const you_took = SetTranslate('you_took')
+    const you_finished = SetTranslate('you_finished')
+    const you_moved_to_arc = SetTranslate('you_moved_to_arc')
+    const you_opened = SetTranslate('you_opened')
+    const the = SetTranslate('the')
+    const orders_notification = SetTranslate('orders_notification')
+    const form_from_auction = SetTranslate('form_from_auction')
+    const for_editing = SetTranslate('for_editing')
+    const form_from_order = SetTranslate('form_from_order')
 
     const toAuction = async (event) => {
         await updateOrder('', 'auction', thisOrder.id, user.user.role, thisOrder.order_status)
             .then(sendMail(user.user.role, thisOrder.id, 'order_type', 'auction'))
             .then(event.stopPropagation());
-        Notification.addNotification([{ id: v4(), type: 'success', message: `Вы преобразовали заказ ${thisOrder.id} в аукцион` }])
-        // ComponentFunction.setOrdersComponentFunction('orderList')
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${you_converted} ${Order.toLowerCase()} ${thisOrder.id} ${to_auction}` }])
         ComponentFunction.setFunction(thisOrder.order_status)
         setFetchStart(true)
     }
@@ -35,8 +52,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
         await updateOrder('', 'order', thisOrder.id, user.user.role, thisOrder.order_status)
             .then(sendMail(user.user.role, thisOrder.id, 'order_type', 'order'))
             .then(event.stopPropagation());
-        Notification.addNotification([{ id: v4(), type: 'success', message: `Вы преобразовали аукцион ${thisOrder.id} в заказ` }])
-        // ComponentFunction.setOrdersComponentFunction('orderList')
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${you_converted} ${Auction.toLowerCase()} ${thisOrder.id} ${to_order}` }])
         ComponentFunction.setFunction(thisOrder.order_status)
 
         setFetchStart(true)
@@ -50,7 +66,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы отложили ${thisOrder.order_type === 'order' ? `заказ` : `аукцион`} ${thisOrder.id}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_postponed} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
 
         if (parent === 'selector') {
@@ -60,7 +76,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(user.user.role, order.group, 'order_status', 'postponed', '')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы отложили заказы ${order.group.toString()}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_postponed} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
     }
@@ -73,7 +89,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
-            Notification.addNotification([{ id: v4(), type: 'error', message: `Вы отменили ${thisOrder.order_type === 'order' ? `заказ` : `аукцион`} ${thisOrder.id}` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${you_canceled} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         };
         if (parent === 'selector') {
             order.group.forEach(async element => {
@@ -82,7 +98,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(user.user.role, order.group, 'order_status', 'canceled', '')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы отменили заказы ${order.group.toString()}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_canceled} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
     }
@@ -95,7 +111,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы отправили ${thisOrder.order_type === 'order' ? `заказ` : `аукцион`} ${thisOrder.id}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_send} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
         if (parent === 'selector') {
             order.group.forEach(async element => {
@@ -104,10 +120,9 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(user.user.role, order.group, 'order_status', 'new', '')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы отправили заказы ${order.group.toString()}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_send} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
-
     }
 
     const inWork = async (event) => {
@@ -115,19 +130,18 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
         if (parent === 'order') {
             try {
                 await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id)
-                await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//на сервер
-                await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//на сервер
-                await sendMail(user.user.role, thisOrder.id, 'order_status', 'inWork')                
+                await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
+                await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
+                await sendMail(user.user.role, thisOrder.id, 'order_status', 'inWork')
                 order.setGroup(order.group.filter(el => el !== thisOrder.id))
                 ComponentFunction.setOrdersComponentFunction('orderList')
                 setFetchStart(true)
-                Notification.addNotification([{ id: v4(), type: 'success', message: `Вы взяли в работу ${thisOrder.order_type === 'order' ? `заказ` : `аукцион`} ${thisOrder.id}` }])
+                Notification.addNotification([{ id: v4(), type: 'success', message: `${you_took} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
             } catch (e) {
                 Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
             }
-        }     
+        }
     }
-
 
     const completed = async (event) => {
         if (parent === 'order') {
@@ -137,7 +151,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы завершили ${thisOrder.order_type === 'order' ? `заказ` : `аукцион`} ${thisOrder.id}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
         if (parent === 'selector') {
             order.group.forEach(async element => {
@@ -146,7 +160,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(user.user.role, order.group, 'order_status', 'completed', '')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы завершили заказы ${order.group.toString()}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
     }
@@ -159,7 +173,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                     order.setGroup(order.group.filter(el => el !== thisOrder.id)),
                     State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id),
                     ComponentFunction.setOrdersComponentFunction('orderList'),
-                    Notification.addNotification([{ id: v4(), type: 'success', message: `${thisOrder.order_type === 'order' ? `Заказ` : `Аукцион`} ${thisOrder.id} в архиве` }])
+                    Notification.addNotification([{ id: v4(), type: 'success', message: `${thisOrder.order_type === 'order' ? Order : Auction} ${thisOrder.id} ${you_moved_to_arc}` }])
                 ).then(event.stopPropagation());
         }
         if (parent === 'selector') {
@@ -170,12 +184,11 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(user.user.role, order.group, 'order_status', 'arc', '')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Заказы ${order.group.toString()} в архиве` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${orders_notification} ${order.group.toString()} ${you_moved_to_arc}` }])
             setFetchStart(true)
         };
     }
 
-    // не делал массовой обработки так как это неподача, недоступно для заказов в работе
     const disrupt = async (event) => {
         State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
         if (parent === 'order') {
@@ -184,7 +197,6 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 .then(setFetchStart(true))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
-            // Notification.addNotification([{ id: v4(), type: 'error', message: `Вы отменили ${thisOrder.order_type === 'order' ? `заказ` : `аукцион`} ${thisOrder.id} в связи ${user.user.role === 'carrier' ? 'c незагрузкой, это повлияет на рейтинг заказчика' : user.user.role === 'customer' ? 'с неподачей, это повлияет на рейтинг перевозчика' : ''}` }])
             ComponentFunction.setOrdersComponentFunction('orderList')
         }
     }
@@ -197,7 +209,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
             order.setIntegrationId()
             ComponentFunction.setOrderFormFunction('pattern')
             ComponentFunction.setPageFunction('orderForm')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы открыли форму из ${thisOrder.order_type === 'order' ? 'заказа' : 'аукциона'} ${thisOrder.id}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${thisOrder.order_type === 'order' ? form_from_order : form_from_auction} ${thisOrder.id}` }])
         }
     }
 
@@ -210,7 +222,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
             localStorage.removeItem('orderFormData')
             ComponentFunction.setOrderFormFunction('edit')
             ComponentFunction.setPageFunction('orderForm')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы открыли ${thisOrder.order_type === 'order' ? 'заказ' : 'аукцион'} ${thisOrder.id} для редактирования` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id} ${for_editing}` }])
         }
     }
 
@@ -223,10 +235,10 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
             {
                 user.user.role === 'customer' && thisOrder.order_status === 'new' ?
                     <><CardRow>
-                        <CardButton onClick={postpone}>Отложить</CardButton>
-                        <CardButton onClick={cancel}>Отменить</CardButton>
+                        <CardButton onClick={postpone}>{SetTranslate('postpone')}</CardButton>
+                        <CardButton onClick={cancel}>{SetTranslate('cancel')}</CardButton>
 
-                        {thisOrder.order_type === 'auction' ? <CardButton onClick={toOrder}> Заказ</CardButton> : thisOrder.order_type === 'order' ? <CardButton onClick={toAuction}>Аукцион</CardButton> : <></>}
+                        {thisOrder.order_type === 'auction' ? <CardButton onClick={toOrder}> {SetTranslate('order')}</CardButton> : thisOrder.order_type === 'order' ? <CardButton onClick={toAuction}>{SetTranslate('auction')}</CardButton> : <></>}
 
                     </CardRow>
                         {parent === 'order' ?
@@ -239,13 +251,11 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                     user.user.role === 'customer' && thisOrder.order_status === 'postponed' ?
                         <>
                             <CardRow>
-                                <CardButton onClick={toNew}>Отправить</CardButton>
-                                <CardButton onClick={cancel}>Отменить</CardButton>
+                                <CardButton onClick={toNew}>{SetTranslate('send')}</CardButton>
+                                <CardButton onClick={cancel}>{SetTranslate('cancel')}</CardButton>
                                 {parent !== 'selector' ?
-                                    <CardButton onClick={edit}>Редактировать</CardButton>
-                                    : <></>}
-                                {/* {thisOrder.order_type === 'auction' ? <CardButton onClick={toOrder}> Заказ</CardButton> : thisOrder.order_type === 'order' ? <CardButton onClick={toAuction}>Аукцион</CardButton> : <></>} */}
-
+                                    <CardButton onClick={edit}>{SetTranslate('edit')}</CardButton>
+                                    : <></>}    
                             </CardRow>
                             {parent === 'order' ?
                                 <OfferComponent thisOrder={thisOrder} thisOrderOffers={thisOrderOffers} setFetchStart={setFetchStart} thisOrderNoPartners={thisOrderNoPartners} thisCarrierOffer={thisCarrierOffer}
@@ -254,13 +264,13 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                         :
                         user.user.role === 'customer' && thisOrder.order_status === 'inWork' ?
                             <CardRow>
-                                <CardButton onClick={disrupt}>Неподача</CardButton>
-                                <CardButton onClick={completed}>Завершить</CardButton>
+                                <CardButton onClick={disrupt}>{SetTranslate('not_arrival')}</CardButton>
+                                <CardButton onClick={completed}>{SetTranslate('finish')}</CardButton>
                             </CardRow>
                             :
                             user.user.role === 'customer' && thisOrder.order_status === 'completed' ?
                                 <CardRow>
-                                    <CardButton onClick={arc}>В архив</CardButton>
+                                    <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
                                     {parent !== 'selector' ?
                                         <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo} setFetchPartnersStart={setFetchPartnersStart} />
                                         : <></>}
@@ -270,37 +280,36 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                                     user.user.role === 'customer' && thisOrder.order_status === 'canceled' ?
                                         <CardRow>
                                             {thisOrder.disrupted_by !== '' && parent === 'order' && thisOrder.restored !== 'restored' ?
-                                                <CardButton onClick={restore}>Восстановить</CardButton> :
+                                                <CardButton onClick={restore}>{SetTranslate('restore')}</CardButton> :
                                                 <></>
                                             }
-                                            <CardButton onClick={arc}>В архив</CardButton>
+                                            <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
                                         </CardRow> :
                                         thisOrder.order_status === 'new' ?
                                             <CardRow>
-                                                {thisOrder.order_type === 'order' ? <CardButton onClick={inWork}>Взять в работу</CardButton> :
+                                                {thisOrder.order_type === 'order' ? <CardButton onClick={inWork}>{SetTranslate('take')}</CardButton> :
                                                     thisOrder.order_type === 'auction' && parent === 'order' ? <OfferComponent thisOrder={thisOrder} thisOrderOffers={thisOrderOffers} setFetchStart={setFetchStart} thisOrderNoPartners={thisOrderNoPartners} thisCarrierOffer={thisCarrierOffer} firstPoint={ComponentFunction.OrdersComponentFunction === 'orderItem' ? Point.thisOrderPoints.find(el => el.sequence === 1) : thisOrderPoints.find(el => el.sequence === 1)} /> :
                                                         <></>
                                                 }
                                             </CardRow> :
                                             user.user.role === 'carrier' && thisOrder.order_status === 'inWork' ?
                                                 <CardRow>
-                                                    <CardButton onClick={disrupt}>Незагрузка</CardButton>
-                                                    <CardButton onClick={completed}>Завершить</CardButton>
+                                                    <CardButton onClick={disrupt}>{SetTranslate('not_loading')}</CardButton>
+                                                    <CardButton onClick={completed}>{SetTranslate('finish')}</CardButton>
                                                 </CardRow> :
                                                 user.user.role === 'carrier' && thisOrder.order_status === 'completed' ?
                                                     <CardRow>
-                                                        <CardButton onClick={arc}>В архив</CardButton>
+                                                        <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
                                                         {parent !== 'selector' ?
                                                             <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo} setFetchPartnersStart={setFetchPartnersStart} />
                                                             : <></>}
                                                     </CardRow> :
                                                     user.user.role === 'carrier' && thisOrder.order_status === 'canceled' ?
                                                         <CardRow>
-                                                            <CardButton onClick={arc}>В архив</CardButton>
+                                                            <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
                                                         </CardRow> :
                                                         <></>
             }
-
         </>
 
     )

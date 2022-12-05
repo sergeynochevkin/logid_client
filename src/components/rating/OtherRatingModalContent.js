@@ -8,6 +8,7 @@ import { VerticalContainer } from './ui/page/VerticalContainer'
 import { v4 } from "uuid";
 import { NotificationContext, UserContext } from '../index'
 import { useContext } from 'react'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const OtherRatingModalContent = observer(({ formData, setFormData, setModalActive, onePartnerInfo, UserInfo, setFetchPartnersStart, onePartner, onePartnerOtherRatingByThisUserInfo, formReset }) => {
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -15,6 +16,8 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
     const { user } = useContext(UserContext)
     formData.raterUserInfoId = UserInfo.userInfo.id
     formData.ratedUserInfoId = onePartnerInfo.id
+    const rated_customer_solvency = SetTranslate('rated_customer_solvency')
+    const rated_carrier_solvency = SetTranslate('rated_carrier_solvency')
 
     const click = async () => {
         try {
@@ -22,7 +25,7 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
             data = await updateOtherRating(
                 formData
             )
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы оценили платежеспособность ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${user.user.role === 'carrier' ? rated_customer_solvency : rated_carrier_solvency}` }])
             setFetchPartnersStart(true)
             setModalActive(false)
         } catch (e) {
@@ -50,7 +53,7 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
 
             </CardRow>
             <CardRow>
-                <CardColName>Платежеспособность</CardColName>
+                <CardColName>{SetTranslate('solvency')}</CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
                         value={formData.solvency}
@@ -70,13 +73,13 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
             <CardRow>
                 <CardButton
                     onClick={click}
-                >Оценить</CardButton>
+                >{SetTranslate('rate')}</CardButton>
                 <CardButton
                     onClick={() => {
                         setModalActive(false)
                         formReset()
                     }}
-                >Закрыть</CardButton>
+                >{SetTranslate('close')}</CardButton>
             </CardRow>
 
         </VerticalContainer>

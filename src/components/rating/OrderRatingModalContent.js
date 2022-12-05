@@ -8,13 +8,20 @@ import { CardRow } from '../ui/card/CardRow'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
 import { NotificationContext } from '../../index'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const OrderRatingModalContent = observer(({ setModalActive, formData, setFormData, setFetchStart, oneOrder, setFetchPartnersStart, formReset }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
 
+    const rated_carrier = SetTranslate('rated_carrier')
+    const rated_customer = SetTranslate('rated_customer')
+    const on_order = SetTranslate('on_order')
+    const on_auction = SetTranslate('on_auction')
+
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
 
     formData.orderId = oneOrder.id
     formData.raterUserInfoId = UserInfo.userInfo.id
@@ -27,7 +34,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
             data = await createOrderRating(
                 formData
             ).then(
-                Notification.addNotification([{ id: v4(), type: 'success', message: `Вы оценили ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'} по ${oneOrder.order_type === 'order' ? `заказу` : `аукциону`} ${oneOrder.id}` }])
+                Notification.addNotification([{ id: v4(), type: 'success', message: `${user.user.role === 'carrier' ? rated_customer : rated_carrier} ${oneOrder.order_type === 'order' ? on_order : on_auction} ${oneOrder.id}` }])
             ).then(formReset())
             setFetchStart(true)
             setFetchPartnersStart(true)
@@ -40,7 +47,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
     return (
         <VerticalContainer>
             <CardRow>
-                <CardColName>Вежливость</CardColName>
+                <CardColName>{SetTranslate('politeness')}</CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
                         value={formData.politeness}
@@ -61,8 +68,8 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
             <CardRow>
                 <CardColName>
-                    {user.user.role === 'carrier' ? 'Отсутствие простоя по вине заказчика' :
-                        user.user.role === 'customer' ? 'Своевременная подача и выполнение' : ''}
+                    {user.user.role === 'carrier' ? SetTranslate('no_downtime') :
+                        user.user.role === 'customer' ? SetTranslate('submission_fulfillment') : ''}
                 </CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
@@ -84,8 +91,8 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
             <CardRow>
                 <CardColName>
-                    {user.user.role === 'carrier' ? 'Организация погрузки и выгрузки' :
-                        user.user.role === 'customer' ? 'Качество транспорта' : ''}
+                    {user.user.role === 'carrier' ? SetTranslate('loading_unloading') :
+                        user.user.role === 'customer' ? SetTranslate('transport_quality') : ''}
                 </CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
@@ -105,15 +112,15 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
             </CardRow>
             <CardRow>
                 <CardButton
-                disabled = {!formData.politeness || !formData.facilities || !formData.in_time}
+                    disabled={!formData.politeness || !formData.facilities || !formData.in_time}
                     onClick={click}
-                >Оценить</CardButton>
+                >{SetTranslate('rate')}</CardButton>
                 <CardButton
                     onClick={() => {
                         setModalActive(false)
                         formReset()
                     }}
-                >Закрыть</CardButton>
+                >{SetTranslate('close')}</CardButton>
             </CardRow>
         </VerticalContainer>
     )

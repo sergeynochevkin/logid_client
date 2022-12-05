@@ -5,6 +5,7 @@ import OtherRatingModalContent from './OtherRatingModalContent'
 import { CardColName } from './ui/card/CardColName'
 import Modal from './ui/modal/Modal'
 import { HorizontalContainer } from './ui/page/HorizontalContainer'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingByThisUserInfo, setFetchPartnersStart, onePartner }) => {
     const { user } = useContext(UserContext)
@@ -26,7 +27,7 @@ const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingBy
     }
 
     return (
-        <>         
+        <>
             {user.user.role === 'carrier' && onePartnerOtherRatingByThisUserInfo ?
                 <HorizontalContainer>
                     <CardColName
@@ -37,7 +38,7 @@ const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingBy
                             setModalActive(true)
                         }}
                     >
-                        {onePartnerOtherRatingByThisUserInfo.solvency === 0 ? 'Можно оценить платежеспособность' : 'Можно изменить оценку платежеспособности'}
+                        {onePartnerOtherRatingByThisUserInfo.solvency === 0 ? SetTranslate('rate_solvency') : SetTranslate('change_solvency')}
                     </CardColName>
                     <div>{onePartnerOtherRatingByThisUserInfo.solvensy}</div>
 

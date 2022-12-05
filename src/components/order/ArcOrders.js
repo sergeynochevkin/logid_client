@@ -13,6 +13,7 @@ import { VerticalContainer } from '../ui/page/VerticalContainer'
 import FilterAndSortComponentForServer from '../FilterAndSortComponentForServer'
 import useDebounce from '../../hooks/useDebounce'
 import './Order.css'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const ArcOrders = observer(({ setComponentFunction }) => {
   const { order } = useContext(OrderContext)
@@ -33,11 +34,11 @@ const ArcOrders = observer(({ setComponentFunction }) => {
 
   useEffect(
     () => {
-      // Убедиться что у нас есть значение (пользователь ввел что-то)
+      // Make sure we have a value (user entered something)
       if (debouncedSearchTerm) {
-        // Выставить состояние isSearching
+        // Set state isSearching
         setIsSearching(true);
-        // Сделать запрос к АПИ
+        // Made API request
         setFetchStart(true)
       } else {
         setResults([]);
@@ -111,15 +112,15 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                   {order.orders.length !== 0 ?
                     <tbody>
                       <tr>
-                        <OrderTh>Заказ</OrderTh>
-                        <OrderTh>Тип заказа</OrderTh>
-                        <OrderTh>Откуда</OrderTh>
-                        <OrderTh>Время подачи</OrderTh>
-                        <OrderTh>Последняя точка</OrderTh>
-                        <OrderTh>Тип транспорта</OrderTh>
-                        <OrderTh>Стоимость</OrderTh>
+                        <OrderTh>{SetTranslate('id')}</OrderTh>
+                        <OrderTh>{SetTranslate('order_type')}</OrderTh>
+                        <OrderTh>{SetTranslate('start')}</OrderTh>
+                        <OrderTh>{SetTranslate('time')}</OrderTh>
+                        <OrderTh>{SetTranslate('finish')}</OrderTh>
+                        <OrderTh>{SetTranslate('transport')}</OrderTh>
+                        <OrderTh>{SetTranslate('cost')}</OrderTh>
                         {ComponentFunction.Function === 'arc' ?
-                          <OrderTh>Последний статус</OrderTh>
+                          <OrderTh>{SetTranslate('last_order_status')}</OrderTh>
                           : <></>}
                         <th></th>
                         <th></th>
@@ -146,7 +147,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                 marginTop: '10vh',
                 fontSize: '20px'
               }}
-            >Нет заказов</div>
+            >{SetTranslate('no_orders')}</div>
           }
 
         </VerticalContainer>

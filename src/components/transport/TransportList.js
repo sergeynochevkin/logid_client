@@ -3,6 +3,8 @@ import React, { useContext } from 'react'
 import { TransportContext } from '../..'
 import TransportItem from './TransportItem'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
+import { SetTranslate } from '../../modules/SetTranslate'
+
 
 const TransportList = observer(({ setFetchStart }) => {
   const { Transport } = useContext(TransportContext)
@@ -25,7 +27,7 @@ const TransportList = observer(({ setFetchStart }) => {
             marginTop: '10vh',
             fontSize: '20px',
           }}
-        >Нет траспорта, добавьте, чтобы получать заказы</div>}
+        >{SetTranslate('no_transport')}</div>}
 
     </HorizontalContainer>
   )

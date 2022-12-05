@@ -3,6 +3,7 @@ import { useInput } from '../../hooks/useInput'
 import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const TransportFormTag = ({formData}) => {
 
@@ -13,7 +14,7 @@ const TransportFormTag = ({formData}) => {
             style={{ gap: '0px' }}
         >
             <Input value={formData.tag.value}
-                placeholder='Название или государственный знак'
+                placeholder={SetTranslate('transport_tag')}
                 onChange={(e) => formData.tag.onChange(e)}
                 onBlur={e => formData.tag.onBlur(e)}
                 style={{ borderLeft: (formData.tag.notValid || formData.tag.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}

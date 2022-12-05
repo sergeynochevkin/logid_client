@@ -7,6 +7,7 @@ import { CardColName } from '../ui/card/CardColName'
 import CardColValue from '../ui/card/CardColValue'
 import { CardRow } from '../ui/card/CardRow'
 import Modal from '../ui/modal/Modal'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
     const [modalActive, setModalActive] = useState(false)
@@ -21,7 +22,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
         updated_by: '',
         updated_time: undefined,
         finished_time: undefined,
-        role:''
+        role: ''
     }
 
     const [formData, setFormData] = useState(initialValue)
@@ -42,7 +43,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
                 }
 
             }}>
-            <CardColName> {onePoint.sequence ==1 ? 'Подача' : onePoint.sequence !==50 ?  `Адрес ${onePoint.sequence}` : 'Завершение'}</CardColName>
+            <CardColName> {onePoint.sequence === 1 ? SetTranslate('start') : onePoint.sequence !== 50 ? `${SetTranslate('adress_field_name')} ${onePoint.sequence}` : SetTranslate('finish')}</CardColName>
             <CardColValue
                 pointStatus={onePoint.status}
             >{onePoint.point}</CardColValue>
@@ -56,7 +57,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
         </CardRow>
         {onePoint.time && (onePoint.sequence === 1 || onePoint.sequence === 50) ?
             <CardRow>
-                <CardColName>Время</CardColName>
+                <CardColName>{SetTranslate('time')}</CardColName>
                 <CardColValue>{formattedEstimatedTime}</CardColValue>
                 {onePoint.finished_time ?
                     <CardColValue>{formattedFinishedTime}</CardColValue> : <></>}

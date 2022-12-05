@@ -7,6 +7,8 @@ import { CardContainer } from '../ui/card/CardContainer'
 import { CardEquipment } from '../ui/card/CardEquipment'
 import { CardRow } from '../ui/card/CardRow'
 import { EquipmentRow } from '../ui/card/EquipmentRow'
+import { SetTranslate } from '../../modules/SetTranslate'
+
 
 const TransportItem = ({ oneTransport, setFetchStart, files }) => {
   const deleteClick = async () => {
@@ -15,51 +17,27 @@ const TransportItem = ({ oneTransport, setFetchStart, files }) => {
   }
 
   return (
-    <CardContainer
-      style={{
-        borderColor: oneTransport.type === 'walk' ? 'rgb(129, 199, 132,0.8)' :
-          oneTransport.type === 'bike' ? 'rgb(254, 111, 103,0.8)' :
-            oneTransport.type === 'electric_scooter' ? 'rgb(210,219,236, 0.8)' :
-              oneTransport.type === 'car' ? 'rgb(214,232,255,0.8)' :
-                oneTransport.type === 'combi' ? 'rgb(254, 145, 40,0.8)' :
-                  oneTransport.type === 'minibus' ? 'rgb(254, 145, 40,0.8)' :
-                    oneTransport.type === 'truck' ? 'rgb(224, 224, 224, 0.8)' :
-                      oneTransport.type === 'scooter' ? 'rgb(224, 100, 224, 0.8)' :
-                        '',
-      }}>
+    <CardContainer>
       <CardRow>
-        <CardColName>ID</CardColName>
+        <CardColName>{SetTranslate('id')}</CardColName>
         <CardColValue>{oneTransport.id}</CardColValue>
       </CardRow>
       <CardRow>
-        <CardColName>Название</CardColName>
+        <CardColName>{SetTranslate('transport_tag_field_name')}</CardColName>
         <CardColValue>{oneTransport.tag}</CardColValue>
       </CardRow>
       <CardRow>
-        <CardColName>Способ доставки</CardColName>
+        <CardColName>{SetTranslate('transport_type_field_name')}</CardColName>
         <CardColValue>
-          {oneTransport.type === 'walk' ? 'Пешком' :
-            oneTransport.type === 'bike' ? 'Велосипед' :
-              oneTransport.type === 'electric_scooter' ? 'Электросамокат' :
-                oneTransport.type === 'scooter' ? 'Мопед' :
-                  oneTransport.type === 'car' ? 'Легковой автомобиль' :
-                    oneTransport.type === 'combi' ? 'Автомобиль комби' :
-                      oneTransport.type === 'minibus' ? 'Микроавтобус' :
-                        oneTransport.type === 'truck' ? 'Грузовой автомобиль' :
-                          ''}
+          {SetTranslate(oneTransport.type)}
         </CardColValue>
       </CardRow>
       {oneTransport.type === 'minibus' || oneTransport.type === 'truck' ?
 
         <CardRow>
-          <CardColName>Грузоподъемность</CardColName>
+          <CardColName>{SetTranslate('load_capacity')}</CardColName>
           <CardColValue>
-            {oneTransport.load_capacity === '1.5' ? '1.5 тонны' :
-              oneTransport.load_capacity === '3' ? '3 тонны' :
-                oneTransport.load_capacity === '5' ? '5 тонн' :
-                  oneTransport.load_capacity === '10' ? '10 тонн' :
-                    oneTransport.load_capacity === '15' ? '15 тонн' :
-                      oneTransport.load_capacity === '20' ? '20 тонн' : ''}
+            {SetTranslate(oneTransport.load_capacity)}
           </CardColValue>
         </CardRow>
         :
@@ -68,31 +46,27 @@ const TransportItem = ({ oneTransport, setFetchStart, files }) => {
 
       {oneTransport.type === 'truck' ?
         <CardRow>
-          <CardColName>Тип кузова</CardColName>
+          <CardColName>{SetTranslate('side_type')}</CardColName>
           <CardColValue>
-            {oneTransport.side_type === 'open_side' ? 'Открытый борт' :
-              oneTransport.side_type === 'awing' ? 'Тент' :
-                oneTransport.side_type === 'hard_top' ? 'Фургон' : ''}
+            {SetTranslate(oneTransport.side_type)}
           </CardColValue>
         </CardRow>
         :
         <></>
       }
       <EquipmentRow>
-        {oneTransport.thermo_bag === true ? <CardEquipment>Термосумка</CardEquipment> : <></>}
-        {oneTransport.thermo_van === true ? <CardEquipment>Изотермический фургон</CardEquipment> : <></>}
-        {oneTransport.refrigerator_minus === true ? <CardEquipment>Рефрежиратор -7</CardEquipment> : <></>}
-        {oneTransport.refrigerator_plus === true ? <CardEquipment>Рефрежиратор +7</CardEquipment> : <></>}
-        {oneTransport.hydraulic_platform === true ? <CardEquipment>Гидавлическая платформа</CardEquipment> : <></>}
-        {oneTransport.side_loading === true ? <CardEquipment>Боковая загрузка</CardEquipment> : <></>}
-        {oneTransport.glass_stand === true ? <CardEquipment>Стойка для стекол</CardEquipment> : <></>}
+        {oneTransport.thermo_bag === true ? <CardEquipment>{SetTranslate('thermo_bag')}</CardEquipment> : <></>}
+        {oneTransport.thermo_van === true ? <CardEquipment>{SetTranslate('thermo_van')}</CardEquipment> : <></>}
+        {oneTransport.refrigerator_minus === true ? <CardEquipment>{SetTranslate('refrigerator_minus')}</CardEquipment> : <></>}
+        {oneTransport.refrigerator_plus === true ? <CardEquipment>{SetTranslate('refrigerator_plus')}</CardEquipment> : <></>}
+        {oneTransport.hydraulic_platform === true ? <CardEquipment>{SetTranslate('hydraulic_platform')}</CardEquipment> : <></>}
+        {oneTransport.side_loading === true ? <CardEquipment>{SetTranslate('side_loading')}</CardEquipment> : <></>}
+        {oneTransport.glass_stand === true ? <CardEquipment>{SetTranslate('glass_stand')}</CardEquipment> : <></>}
       </EquipmentRow>
-
-      {/* вывод картинок из массива url надо сформировать такой массив для этого получить из multer имена*/}
+      {/* output images from the url array, you need to form such an array to do this, get names from multer*/}
       <img src={oneTransport.image}></img>
-
       <CardRow>
-        <CardButton onClick={deleteClick}>Удалить</CardButton>
+        <CardButton onClick={deleteClick}>{SetTranslate('delete')}</CardButton>
       </CardRow>
     </CardContainer>
   )

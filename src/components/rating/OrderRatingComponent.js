@@ -4,6 +4,7 @@ import { RatingContext, UserContext } from '../..'
 import OrderRatingModalContent from './OrderRatingModalContent'
 import { CardButton } from '../ui/button/CardButton'
 import Modal from '../ui/modal/Modal'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInfo, setFetchPartnersStart }) => {
     const { user } = useContext(UserContext)
@@ -27,15 +28,15 @@ const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInf
         setFormData(initialValue)
     }
 
-    let ratings = Rating.orderRatings  
+    let ratings = Rating.orderRatings
 
     return (
         <>
-            {Rating.orderRatings.filter(el => el.orderId === oneOrder.id).length>0 ?
+            {Rating.orderRatings.filter(el => el.orderId === oneOrder.id).length > 0 ?
                 <>
                     <CardButton disabled style={{ color: 'lightgray', cursor: 'default' }}>
-                        {user.user.role === 'carrier' ? `Вы оценили заказчика` :
-                            user.user.role === 'customer' ? 'Вы оценили перевозчика' : ''}
+                        {user.user.role === 'carrier' ? SetTranslate('rated_customer') :
+                            user.user.role === 'customer' ? SetTranslate('rated_carrier') : ''}
                     </CardButton>
 
                 </>
@@ -47,8 +48,8 @@ const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInf
                             setModalActive(true)
                         }}
                     >
-                        {user.user.role === 'carrier' ? 'Оцените заказчика' :
-                            user.user.role === 'customer' ? 'Оцените перевозчика' : ''}
+                        {user.user.role === 'carrier' ? SetTranslate('rate_customer') :
+                            user.user.role === 'customer' ? SetTranslate('rate_carrier') : ''}
                     </CardButton>
                     <Modal
                         modalActive={modalActive}

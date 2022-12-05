@@ -16,10 +16,20 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { Notification } = useContext(NotificationContext)
     const { user } = useContext(UserContext)
 
+    const the = SetTranslate('the')
+    const you_deleted = SetTranslate('you_deleted')
+    const you_opened = SetTranslate('you_opened')
+    const Order = SetTranslate('order')
+    const Template = SetTranslate('template')
+    const form_from_template = SetTranslate('form_from_template')
+    const check_restored_arc = SetTranslate('check_restored_arc')
+    const form_from_order = SetTranslate('form_from_order')
+
+
     const deleteClick = async () => {
         await deleteOrder(oneArcOrder.pointsIntegrationId);
         setFetchStart(true)
-        Notification.addNotification([{ id: v4(), type: 'error', message: `Вы удалили ${ComponentFunction.Function === 'arc' ? 'заказ' : 'шаблон'} ${oneArcOrder.id}` }])
+        Notification.addNotification([{ id: v4(), type: 'error', message: `${you_deleted} ${the.toLowerCase()} ${ComponentFunction.Function === 'arc' ? Order.toLowerCase() : Template.toLowerCase()} ${oneArcOrder.id}` }])
     }
 
     let pointsArray = thisPoints.map(el => el.sequence)
@@ -43,7 +53,7 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
                 </>
                 : <></>}
             <OrderTd>{SetTranslate(oneArcOrder.type)}</OrderTd>
-            <OrderTd>{oneArcOrder.cost === 0 ? 'не указана' : oneArcOrder.cost}</OrderTd>
+            <OrderTd>{oneArcOrder.cost === 0 ? SetTranslate('not_specified') : oneArcOrder.cost}</OrderTd>
             {ComponentFunction.Function === 'arc' ?
                 <OrderTd>{SetTranslate(oneArcOrder.order_final_status)}</OrderTd> : <></>}
 
@@ -62,7 +72,7 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
                                 }
                                 localStorage.removeItem('orderFormData')
                                 ComponentFunction.setPageFunction('orderForm')
-                                Notification.addNotification([{ id: v4(), type: 'success', message: `Вы открыли форму из ${ComponentFunction.Function === 'arc' ? 'заказа' : 'шаблона'} ${oneArcOrder.id}, проверьте доступность для партнеров и время в заказе перед отправкой` }])
+                                Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${ComponentFunction.Function === 'arc' ? form_from_order : form_from_template} ${oneArcOrder.id}, ${check_restored_arc}` }])
                             }}
                             className={'order_list_icon'}
                             alt='repeat order'

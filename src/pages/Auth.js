@@ -51,7 +51,7 @@ const Auth = observer(() => {
 
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/
 
-  let password = SetTranslate('password')
+  let password = SetTranslate('password').toLowerCase()
   let email = SetTranslate('email')
   let confirmation_code = SetTranslate('confirmation_code')
   let code_sent = SetTranslate('code_sent')

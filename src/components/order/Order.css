@@ -2,8 +2,7 @@
     display: flex;
     overflow-x: auto;
     margin-bottom: 3px;
-    padding-bottom: 5px;
-    padding-top: 3px;
+    padding: 5px;
 }
 
 @media screen and (max-width: 425px) {
@@ -29,8 +28,7 @@
     display: flex;
     overflow-x: auto;
     margin-bottom: 3px;
-    padding-bottom: 5px;
-    padding-top: 3px;
+    padding: 5px;
 }
 
 @media screen and (max-width: 425px) {
@@ -100,7 +98,7 @@
 }
 
 .arc_table_row :hover {
-    background-color: rgb(31, 31, 31, 0.8); 
+    background-color: rgb(31, 31, 31, 0.8);
     color: white;
     /* cursor: pointer; */
 }
@@ -128,5 +126,5 @@
 }
 
 .order_th_dark {
-    background-color: rgb(31, 31, 31, 0.8);   
+    background-color: rgb(31, 31, 31, 0.8);
 }

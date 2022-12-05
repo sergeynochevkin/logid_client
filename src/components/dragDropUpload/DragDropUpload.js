@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { v4 } from "uuid";
 import { NotificationContext, SettingContext } from '../..';
-
+import { SetTranslate } from '../../modules/SetTranslate'
 import './DragDropUpload.css'
 
 const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
@@ -26,7 +26,7 @@ const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
     let doubleFiles = []
 
 
-    // + сжатие
+    // + compression + check limits when order or transport editing
     function validateFiles(allNewFiles, files, length) {
         allNewFiles.forEach(file => {
             let fileExtention = getExtension(file.name).toLowerCase()
@@ -44,10 +44,10 @@ const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
             setErrors({ ...errors, quantity: true })
         }
         if (notValidFiles.length > 0 && (allNewFiles.length + files.length) <= length) {
-            Notification.addNotification([{ id: v4(), type: 'error', message: `${notValidFiles.toString()} недопустимый формат ${notValidFiles.length === 1 ? 'файла' : 'файлов'}` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${notValidFiles.toString()} ${notValidFiles.length === 1 ? SetTranslate('invalid_file_format') : SetTranslate('invalid_files_format')}` }])
         }
         if (doubleFiles.length > 0 && (allNewFiles.length + files.length) <= length) {
-            Notification.addNotification([{ id: v4(), type: 'error', message: `${doubleFiles.toString()} уже есть` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${doubleFiles.toString()} ${SetTranslate('already_there')}` }])
         }
     }
 
@@ -117,8 +117,8 @@ const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
                 >
-                    {parent === 'transportForm' ? 'Перетащите сюда или выберите фотографии транспорта и экипировки' : 'Перетащите сюда или выберите фотографии груза или ориентиры на местности'}
-                    <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>Выбрать
+                    {parent === 'transportForm' ? SetTranslate('drag_drop_transport') : SetTranslate('drag_drop_order')}
+                    <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetTranslate('select')}
                         <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='images' disabled={pairs.length === length}></input>
                     </label>
                 </div> :
@@ -127,11 +127,11 @@ const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
-                >Отпустите файлы для загрузки
+                >{SetTranslate('drop_to_upload')}
                 </div>}
             <div className={'errorMessage'}>
                 {(errors.quantity === true) ?
-                    `Максимум ${length} изображений` :
+                    `${SetTranslate('maximum')} ${length} ${SetTranslate('images')}` :
                     ''
                 }
             </div>
@@ -150,7 +150,7 @@ const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
                                 setErrors({ ...errors, quantity: false })
                             }
                         }}
-                    >удалить</div>
+                    >{SetTranslate('delete')}</div>
                 </div>)}
             </div>
         </div>
