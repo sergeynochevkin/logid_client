@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 export default class TranslateStore {
     constructor() {
-        this._language = 'english'
+        this._language = 'russian'
 
         this._translation = [
             { service: 'russia', russian: 'Россия', english: 'Russia', spain: '', color: '', type: 'country' },
@@ -52,7 +52,7 @@ export default class TranslateStore {
             { service: 'combi', russian: 'Автомобиль комби', english: 'Combi car', spain: '', color: '', type: 'transport' },
             { service: 'minibus', russian: 'Микроавтобуc', english: 'Minibus', spain: '', color: '', type: 'transport' },
             { service: 'truck', russian: 'Грузовой автомобиль', english: 'Truck', spain: '', color: '', type: 'transport' },
-            // обдумать единицы измерения
+
             { service: '1.5', russian: '1.5 тонны', english: ' 1.5 tons', spain: '', color: '', type: 'transport' },
             { service: '3', russian: '3 тонны', english: '3 tons', spain: '', color: '', type: 'transport' },
             { service: '5', russian: '5 тонн', english: '5 tons', spain: '', color: '', type: 'transport' },
@@ -75,7 +75,6 @@ export default class TranslateStore {
             { service: 'side_loading', russian: 'Боковая загрузка', english: 'Side loading', spain: '', color: '', type: 'equipment' },
             { service: 'thermo_van', russian: 'Изотермический фургон', english: 'Thermo van', spain: '', color: '', type: 'equipment' },
 
-            //пока не востребовано
             { service: 'normal', russian: '', english: '', spain: '', color: 'rgb(241,196,15,0.8)', type: 'partner' },
             { service: 'priority', russian: '', english: '', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'partner' },
             { service: 'blocked', russian: '', english: '', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'partner' },
@@ -110,7 +109,7 @@ export default class TranslateStore {
             { service: 'create', russian: 'Создать', english: 'Create', spain: '', color: '', type: 'button' },
             { service: 'delete', russian: 'Удалить', english: 'Delete', spain: '', color: '', type: 'button' },
             { service: 'delete_point', russian: 'Удалить точку', english: 'Delete point', spain: '', color: '', type: 'button' },
-            { service: 'сlose', russian: 'Закрыть', english: 'Close', spain: '', color: '', type: 'button' },
+            { service: 'close', russian: 'Закрыть', english: 'Close', spain: '', color: '', type: 'button' },
             { service: 'all_cities', russian: 'Все города', english: 'All cities', spain: '', color: '', type: 'button' },
             { service: 'intercity_only', russian: 'Только межгород', english: 'Intercity only', spain: '', color: '', type: 'button' },
             { service: 'send_code', russian: 'Отправить код', english: 'Send code', spain: '', color: '', type: 'button' },
@@ -124,7 +123,7 @@ export default class TranslateStore {
             { service: 'order_editing', russian: 'Редактирование заказа', english: 'Order editing', spain: '', color: '', type: 'button' },
             { service: 'settings', russian: 'Настройки', english: 'Settings', spain: '', color: '', type: 'button' },
             { service: 'transports', russian: 'Транспорт', english: 'Transports', spain: '', color: '', type: 'button' },
-            { service: 'arc_bookmark', russian: 'Архиве', english: 'Archived', spain: '', color: 'rgb(210,219,236, 0.8)', type: 'button' },
+            { service: 'arc_bookmark', russian: 'Архив', english: 'Archived', spain: '', color: 'rgb(210,219,236, 0.8)', type: 'button' },
             { service: 'new_bookmark', russian: 'Новые', english: 'New', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'button' },
             { service: 'postponed_bookmark', russian: 'Отложенные', english: 'Postponed', spain: '', color: 'rgb(241,196,15,0.8)', type: 'button' },
             { service: 'canceled_bookmark', russian: 'Отмененые', english: 'Canceled', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'button' },
@@ -147,9 +146,18 @@ export default class TranslateStore {
             { service: 'rate_carrier', russian: 'Оцените перевозчика', english: 'Rate the carrier', spain: '', color: '', type: 'button' },
             { service: 'add', russian: 'Добавить', english: 'Add', spain: '', color: '', type: 'button' },
             { service: 'add_point', russian: 'добавить точку', english: 'add point', spain: '', color: '', type: 'button' },
+            { service: 'partners_list', russian: 'Список', english: 'List', spain: '', color: '', type: 'button' },
+            { service: 'groups', russian: 'Группы', english: 'Groups', spain: '', color: '', type: 'button' },
+            { service: 'add_partner_by_id', russian: 'Добавить партнера по id', english: 'Add partner by id', spain: '', color: '', type: 'button' },
+            { service: 'partner_to_normal', russian: 'Удалить из избранного', english: 'Delete from favorite', spain: '', color: '', type: 'button' },
+            { service: 'partner_to_blocked', russian: 'Заблокировать', english: 'Block', spain: '', color: '', type: 'button' },
+            { service: 'partner_from_blocked', russian: 'Разблокировать', english: 'Unblock', spain: '', color: '', type: 'button' },
+            { service: 'partner_to_favorite', russian: 'В избранное', english: 'To favorites', spain: '', color: '', type: 'button' },
+            { service: 'clear', russian: 'Очистить', english: 'Clear', spain: '', color: '', type: 'button' },
+            { service: 'subscribe', russian: 'Оформить', english: 'Subscribe', spain: '', color: '', type: 'button' },
+            { service: 'renew', russian: 'Продлить', english: 'Renew', spain: '', color: '', type: 'button' },
+            { service: 'switch', russian: 'Перейти', english: 'Switch', spain: '', color: '', type: 'button' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'button' },
-            // { service: '', russian: '', english: '', spain: '', color: '', type: 'button' },
-
 
             { service: 'default', russian: 'По умолчанию', english: 'Default', spain: '', color: '', type: 'sorting' },
             { service: 'from_auctions', russian: 'Сначала аукционы', english: 'Auctions at first', spain: '', color: '', type: 'sorting' },
@@ -188,6 +196,7 @@ export default class TranslateStore {
             { service: 'password_recovery', russian: 'Восстановление пароля', english: 'Password recovery', spain: '', color: '', type: 'header' },
             { service: 'have_an_account', russian: 'Есть аккаунт? ', english: 'Have an account? ', spain: '', color: '', type: 'header' },
             { service: 'fill_account', russian: 'Заполните аккаунт и начнем', english: 'Fill in your account details and let`s get started.', spain: '', color: '', type: 'header' },
+            { service: 'choose_subscription_plan', russian: 'Выберите подходящий тарифный план', english: 'Choose the right plan', spain: '', color: '', type: 'header' },
 
             { service: 'no_orders', russian: 'Нет заказов', english: 'No orders', spain: '', color: '', type: 'content' },
             { service: 'password', russian: 'Пароль', english: 'Password', spain: '', color: '', type: 'content' },
@@ -234,14 +243,19 @@ export default class TranslateStore {
             { service: 'drag_drop_transport', russian: 'Перетащите сюда или выберите фотографии транспорта и экипировки', english: 'Drag and drop here or select photos of transport and equipment', spain: '', color: '', type: 'content' },
             { service: 'drag_drop_order', russian: 'Перетащите сюда или выберите фотографии груза или ориентиры на местности', english: 'Drag and drop here or select cargo photos or landmarks', spain: '', color: '', type: 'content' },
             { service: 'drop_to_upload', russian: 'Отпустите файлы для загрузки', english: 'Drop files to upload', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
+            { service: 'partner_normal', russian: 'Нормальный', english: 'Normal', spain: '', color: '', type: 'content' },
+            { service: 'partner_blocked', russian: 'Заблокирован', english: 'Blocked', spain: '', color: '', type: 'content' },
+            { service: 'partner_favorite', russian: 'В избранном', english: 'Favorite', spain: '', color: '', type: 'content' },
+            { service: 'no_groups', russian: 'Нет групп', english: 'No groups', spain: '', color: '', type: 'content' },
+            { service: 'legal_partner_info', russian: 'Организационно правовая форма', english: 'Organization legal form', spain: '', color: '', type: 'content' },
+            { service: 'type_of_customer_content', russian: 'Вид деятельности', english: 'Kind of activity', spain: '', color: '', type: 'content' },
+            { service: 'can_choose_groups', russian: 'Можно выбрать', english: 'You can choose', spain: '', color: '', type: 'content' },
+            { service: 'no_ratings', russian: 'Нет оценок', english: 'No ratings', spain: '', color: '', type: 'content' },
+
+            { service: 'no_partners', russian: 'Нет партнеров, они добавятся автоматически из заказов в работе, или добавьте их по id', english: 'There are no partners, they will be added automatically from orders in progress, or add them by id', spain: '', color: '', type: 'content' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
 
             { service: 'status', russian: 'Статус', english: 'Status', spain: '', color: '', type: 'field_name' },
             { service: 'phone', russian: 'Телефон', english: 'Phone', spain: '', color: '', type: 'field_name' },
@@ -258,17 +272,17 @@ export default class TranslateStore {
             { service: 'last_order_status', russian: 'Последний статус', english: 'Last status', spain: '', color: '', type: 'field_name' },
             { service: 'transport_tag_field_name', russian: 'Название', english: 'Name', spain: '', color: '', type: 'content' },
             { service: 'transport_type_field_name', russian: 'Способ доставки', english: 'Transport type', spain: '', color: '', type: 'field_name' },
+            { service: 'partner_name', russian: 'Наименование', english: 'Name', spain: '', color: '', type: 'field_name' },
+            { service: 'number_of_members', russian: 'Количество участников', english: 'Number of members', spain: '', color: '', type: 'field_name' },
+            { service: 'groups_field_name', russian: 'Группы', english: 'Groups', spain: '', color: '', type: 'field_name' },
+            { service: 'rating_field_name', russian: 'Рейтинг', english: 'Rating', spain: '', color: '', type: 'field_name' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'field_name' },
-
-
-            // { service: '', russian: '', english: '', spain: '', color: '', type: 'page_title' },
-            // { service: '', russian: '', english: '', spain: '', color: '', type: 'page_title' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'field_name' },
 
             { service: 'carrier', russian: 'Перевозчик', english: 'Carrier', spain: '', color: '', type: 'role' },
             { service: 'customer', russian: 'Заказчик', english: 'Customer', spain: '', color: '', type: 'role' },
             { service: 'manager', russian: 'Менеджер', english: 'Manager', spain: '', color: '', type: 'role' },
             { service: 'administrator', russian: 'Администратор', english: 'Administrator', spain: '', color: '', type: 'role' },
-
 
             { service: 'not_empty', russian: 'не может быть пустым', english: 'can`t be empty', spain: '', color: '', type: 'validation' },
             { service: 'to_short', russian: 'не может быть короче', english: 'can`t be shorter than', spain: '', color: '', type: 'validation' },
@@ -301,6 +315,12 @@ export default class TranslateStore {
             { service: 'comment_cannot_be_longer', russian: 'комментарий не может быть длиннее', english: '', spain: 'comment can`t be longer than', color: '', type: 'validation' },
             { service: 'arrival_time', russian: 'время подачи не может быть пустым', english: 'arrival time cannot be empty', spain: '', color: '', type: 'validation' },
             { service: 'finish_time', russian: 'время выполнения не может быть пустым', english: 'finish time cannot be empty', spain: '', color: '', type: 'validation' },
+            { service: 'id_36', russian: 'длина id должна быть 36 симовлов', english: 'id length must be 36 characters', spain: '', color: '', type: 'validation' },
+            { service: 'id_not_empty', russian: 'id не может быть пустым', english: 'id can`t be empty', spain: '', color: '', type: 'validation' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
@@ -313,7 +333,7 @@ export default class TranslateStore {
             { service: 'transport_tag', russian: 'Название иои государственный регистрационный знак', english: 'Name or license plate', spain: '', color: '', type: 'place_holder' },
             { service: 'enter_city', russian: 'Введите город', english: 'Type your city name', spain: '', color: '', type: 'place_holder' },
             { service: 'phone_place_holder', russian: 'Телефон', english: 'Phone', spain: '', color: '', type: 'place_holder' },
-            { service: 'legal_place_holder', russian: 'Феизическое лицо или бизнес', english: 'Individual or business', spain: '', color: '', type: 'place_holder' },
+            { service: 'legal_place_holder', russian: 'Физическое лицо или бизнес', english: 'Individual or business', spain: '', color: '', type: 'place_holder' },
             { service: 'delivery_for_place_holder', russian: 'Для чего вам доставка', english: 'Why do you need delivery', spain: '', color: '', type: 'place_holder' },
             { service: 'company_name_place_holder', russian: 'Название компании', english: 'Company name', spain: '', color: '', type: 'place_holder' },
             { service: 'website_place_holder', russian: 'Сайт компании', english: 'Website', spain: '', color: '', type: 'place_holder' },
@@ -331,6 +351,9 @@ export default class TranslateStore {
             { service: 'select_group', russian: 'Выберите группу', english: 'Select group', spain: '', color: '', type: 'place_holder' },
             { service: 'select_partner', russian: 'Выберите партнера', english: 'Select partner', spain: '', color: '', type: 'place_holder' },
             { service: 'enter_plase', russian: 'Введите местоположение', english: 'Enter place', spain: '', color: '', type: 'place_holder' },
+            { service: 'enter_id', russian: 'Введите полученный от партнера id', english: 'Enter the id received from the partner', spain: '', color: '', type: 'place_holder' },
+            { service: 'group_name', russian: 'Название группы', english: 'Group name', spain: '', color: '', type: 'place_holder' },
+            // { service: '', russian: '', english: '', spain: '', color: '', type: 'place_holder' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'place_holder' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'place_holder' },
 
@@ -434,18 +457,21 @@ export default class TranslateStore {
             { service: 'edited', russian: 'Отредактирован', english: 'Edited', spain: '', color: '', type: 'notification' },
             { service: 'created_and_send', russian: 'создан и отправлен', english: 'created and send', spain: '', color: '', type: 'notification' },
             { service: 'created_and_postponed', russian: 'создан и отложен', english: 'created and postponed', spain: '', color: '', type: 'notification' },
-             { service: 'created', russian: 'Создан', english: 'Created', spain: '', color: '', type: 'notification' },
-            //  { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
-            //  { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
-            //  { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
-            //  { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
-            //  { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
-            //  { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
-            //  { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
-
-
-
-
+            { service: 'created', russian: 'Создан', english: 'Created', spain: '', color: '', type: 'notification' },
+            { service: 'partner_added', russian: 'Вы добавили партнера', english: 'You have added a partner', spain: '', color: '', type: 'notification' },
+            { service: 'group_created', russian: 'Вы создали группу', english: 'Created group:', spain: '', color: '', type: 'notification' },
+            { service: 'group_deleted', russian: 'Вы удалили группу', english: 'Deleted group:', spain: '', color: '', type: 'notification' },
+            { service: 'you_added', russian: 'Вы добавили', english: 'You added', spain: '', color: '', type: 'notification' },
+            { service: 'you_blocked', russian: 'Вы заблокировали', english: 'You blocked', spain: '', color: '', type: 'notification' },
+            { service: 'you_have_changed_status', russian: 'Вы изменили статус', english: 'You have changed status of', spain: '', color: '', type: 'notification' },
+            { service: 'customer_notification', russian: 'заказчика', english: 'customer', spain: '', color: '', type: 'notification' },
+            { service: 'carrier_notification', russian: 'перевозчика', english: 'carrier', spain: '', color: '', type: 'notification' },
+            { service: 'to_favorite_notification', russian: 'в избранное', english: 'to favorites', spain: '', color: '', type: 'notification' },
+            { service: 'to_normal_notification', russian: 'на наормальный', english: 'to normal', spain: '', color: '', type: 'notification' },
+            { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
+            { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
+            { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
+            { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
         ]
 
         makeAutoObservable(this)

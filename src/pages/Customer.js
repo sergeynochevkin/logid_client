@@ -173,13 +173,13 @@ const Customer = observer(() => {
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
                 }}>{SetTranslate('account')}</BookMark>
-
+{/* 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>{SetTranslate('settings')}</BookMark>
+                }}>{SetTranslate('settings')}</BookMark> */}
               </div>
             </div>
           }

@@ -43,7 +43,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
         <>
             {plan ?
                 <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.id === Subscription.subscription.planId ? 'plan_item_container current' : 'plan_item_container'} style={{ boxShadow: `0px 5px 10px 0px ${useColor(plan.name)}` }}>
-                    <div  className={'plan_name_container'}>
+                    <div className={'plan_name_container'}>
                         <div className={'plan_item_name'}>{SetTranslate(plan.name)}</div>
                         <div className={'plan_item_name_bage'}>{plan.bage}</div>
                     </div>
@@ -58,6 +58,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                         {plan.price ?
                             <div className='price_and_validity'>
                                 <div className={'plan_item_name_bage'}>рублей</div>
+                                {/* set currency by country settings */}
                                 {plan.id === Subscription.subscription.planId ?
                                     <div className={'plan_item_name_bage'}>{`Активна до ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
                                     : <></>}
@@ -65,16 +66,16 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                             : <></>}
                     </>
 
-                    { parent !== 'status' && plan.id === 1  ? <></> :
-                    <Button
-                        onClick={() => {
-                            if (parent === 'status') {
-                                setModalActive(true)
-                            } else {
-                                updateSubscriptionAction()
-                            }
-                        }}
-                    >{Subscription.subscription.planId === 1 ? 'Оформить' : plan.id === Subscription.subscription.planId ? 'Продлить' : 'Перейти'}</Button> 
+                    {parent !== 'status' && plan.id === 1 ? <></> :
+                        <Button
+                            onClick={() => {
+                                if (parent === 'status') {
+                                    setModalActive(true)
+                                } else {
+                                    updateSubscriptionAction()
+                                }
+                            }}
+                        >{Subscription.subscription.planId === 1 ? SetTranslate('subscribe') : plan.id === Subscription.subscription.planId ? SetTranslate('renew') : SetTranslate('switch')}</Button>
                     }
                 </div> : <></>}
         </>

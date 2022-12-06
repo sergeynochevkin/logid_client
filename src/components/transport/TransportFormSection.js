@@ -305,7 +305,7 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
                 setModalActive(false)
                 formReset()
               }}
-            >{SetTranslate('сlose')}</CardButton>
+            >{SetTranslate('close')}</CardButton>
           </HorizontalContainer>
           : <></>}
 

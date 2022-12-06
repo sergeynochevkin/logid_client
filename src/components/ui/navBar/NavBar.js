@@ -11,13 +11,15 @@ import { fetchDefaultData } from '../../../http/defaultDataApi';
 import { fetchUserState } from '../../../http/stateApi';
 import './NavBar.css'
 import { SetTranslate } from '../../../modules/SetTranslate';
+import dark_mode from '../../../assets/dark_mode.png';
+import light_mode from '../../../assets/light_mode.png';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
   const { order } = useContext(OrderContext)
   const navigate = useNavigate()
   const { UserInfo } = useContext(UserInfoContext)
-  const {Setting} = useContext(SettingContext)
+  const { Setting } = useContext(SettingContext)
 
   const { Subscription } = useContext(SubscriptionContext)
   const { State } = useContext(StateContext)
@@ -45,7 +47,7 @@ const NavBar = observer(() => {
       })
     }
     fetchData();
-    UserInfo.setUserInfo({})   
+    UserInfo.setUserInfo({})
   }, [])
 
   useEffect(() => {
@@ -55,9 +57,9 @@ const NavBar = observer(() => {
           let data = await check()
           user.setUser(data)
           await fetching()
-          user.setIsAuth(true)      
-          await fetchUserState(UserInfo.userInfo.id).then(data => State.setUserState(JSON.parse(data.state)))    
-          if (user.user.role === "carrier") {
+          user.setIsAuth(true)          
+          await fetchUserState(UserInfo.userInfo.id).then(data => State.setUserState(JSON.parse(data.state)))
+          if (user.user.role === "carrier") {            
             navigate(CARRIER_ROUTE)
           }
           if (user.user.role === "customer") {
@@ -75,6 +77,7 @@ const NavBar = observer(() => {
 
     <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
       <NotificationComponent />
+
       <div className='nav_bar_logo' onClick={() =>
         navigate(MAIN_ROUTE)}>logid</div>
       {/* <Item onClick={() =>
@@ -117,6 +120,27 @@ const NavBar = observer(() => {
         <div className='nav_bar_item' onClick={() =>
           navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</div>
       }
+
+      <img
+        className='dark_mode_image'
+        src={Setting.app_theme === 'light' ? dark_mode : light_mode}
+        onClick={() => {
+          if (Setting.app_theme === 'dark') {
+            Setting.setAppTheme('light')
+          } else {
+            Setting.setAppTheme('dark')
+          }
+        }}
+      />
+      <div className='nav_bar_item language_switch'
+        onClick={() => {
+          if (Translate.language === 'russian') {
+            Translate.setLanguage('english')
+          } else {
+            Translate.setLanguage('russian')
+          }
+        }}
+      >{Translate.language === 'russian' ? 'EN' : 'RU'}</div>
     </div>
 
   )

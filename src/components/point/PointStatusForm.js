@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { OrderContext, UserContext, UserInfoContext } from '../..'
+import { OrderContext, UserContext, UserInfoContext, SettingContext } from '../..'
 import { useInput } from '../../hooks/useInput'
 import { updatePoint } from '../../http/pointApi'
 import { CardButton } from '../ui/button/CardButton'
@@ -11,12 +11,14 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
 import { NotificationContext } from '../../index'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart, formData, setFormData, formReset }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Notification } = useContext(NotificationContext)
     const { order } = useContext(OrderContext)
+    const { Setting } = useContext(SettingContext)
 
     formData.role = user.user.role
     formData.carrier_comment = useInput('', { isEmpty: true, minLength: 3, maxLength: 20 }, 'комментарий')
@@ -50,10 +52,11 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
     }
 
 
+
     return (
         <VerticalContainer>
-            <FieldName>Адрес</FieldName>
-            <Field style={{ cursor: 'default' }}>{onePoint.point}</Field>
+            <FieldName>{SetTranslate('adress')}</FieldName>
+            <Field style={{ cursor: 'default', backgroundColor: Setting.app_theme === 'dark' ? 'black' : '', border: Setting.app_theme === 'dark' ? 'none' : '' }}>{onePoint.point}</Field>
 
 
             {(onePoint.status !== 'completed' && onePoint.status !== 'canceled') && user.user.role !== 'customer' ?
@@ -62,7 +65,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                 >
                     <Input placeholder='Комментарий'
                         value={formData.carrier_comment.value}
-                        style={{ borderLeft: (formData.carrier_comment.notValid || formData.carrier_comment.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                        style={{ borderLeft: (formData.carrier_comment.notValid || formData.carrier_comment.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '', backgroundColor: Setting.app_theme === 'dark' ? 'black' : '', border: Setting.app_theme === 'dark' ? 'none' : '' }}
                         onChange={(e) => formData.carrier_comment.onChange(e)}
                         onBlur={e => formData.carrier_comment.onBlur(e)}
                     ></Input>
@@ -91,7 +94,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         click()
                     }}
                         disabled={formData.carrier_comment.minLengthError || formData.carrier_comment.maxLengthError}
-                    >Завершить</CardButton>
+                    >{SetTranslate('finish')}</CardButton>
                     : <></>}
 
                 {onePoint.status === null || onePoint.status === 'new' ?
@@ -102,7 +105,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         click()
                     }}
                         disabled={formData.carrier_comment.notValid && user.user.role === 'carrier'}
-                    >Отложить</CardButton>
+                    >{SetTranslate('postpone')}</CardButton>
                     : <></>}
 
                 {onePoint.status === null || onePoint.status === 'new' || onePoint.status === 'postponed' ?
@@ -121,7 +124,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         else (alert('Укажите причину в комментарии'))
                     }}
                         disabled={formData.carrier_comment.notValid && user.user.role === 'carrier'}
-                    >Отменить</CardButton>
+                    >{SetTranslate('cancel')}</CardButton>
                     : <></>}
                 {onePoint.status === null || onePoint.status === 'new' || onePoint.status === 'postponed' ?
                     <><CardButton onClick={() => {
@@ -131,7 +134,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         click()
                     }}
                         disabled={formData.carrier_comment.minLengthError || formData.carrier_comment.maxLengthError}
-                    >В работу</CardButton>
+                    >{SetTranslate('take')}</CardButton>
                     </>
                     : <></>}
                 {user.user.role === 'customer' && (onePoint.status === 'canceled' || onePoint.status === 'completed') ?
@@ -141,13 +144,13 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         formData.updated_by = UserInfo.userInfo.id;
                         formData.updated_time = new Date();
                         click()
-                    }}>Восстановить</CardButton>
+                    }}>{SetTranslate('restore')}</CardButton>
                     : <></>}
 
                 <CardButton onClick={() => {
                     setModalActive(false)
                     formReset()
-                }}>Закрыть окно</CardButton>
+                }}>{SetTranslate('close')}</CardButton>
             </HorizontalContainer>
         </VerticalContainer>
     )

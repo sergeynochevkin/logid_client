@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useInput } from '../../../hooks/useInput'
 import { SetTranslate } from '../../../modules/SetTranslate'
@@ -5,7 +6,7 @@ import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const OrderType = ({ formData, setFormData }) => {
+const OrderType = observer( ({ formData, setFormData }) => {
 
     return (
 
@@ -37,6 +38,6 @@ const OrderType = ({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-}
+})
 
 export default OrderType

@@ -7,6 +7,7 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { ComponentFunctionContext } from '../..'
 import { observer } from 'mobx-react-lite'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const Partners = observer(({ setFetchPartnersStart }) => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -17,23 +18,23 @@ const Partners = observer(({ setFetchPartnersStart }) => {
 
       <HorizontalContainer>
         <BookMark
-          style={{ color: ComponentFunction.partnersComponentFunction === 'list' && 'lightgrey'  }}
+          style={{ color: ComponentFunction.partnersComponentFunction === 'list' && 'lightgrey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('list')
           }}
-        >Список</BookMark>
+        >{SetTranslate('partners_list')}</BookMark>
         <BookMark
           style={{ color: ComponentFunction.partnersComponentFunction === 'groups' && 'lightgrey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('groups')
           }}
-        >Группы</BookMark>
+        >{SetTranslate('groups')}</BookMark>
         <BookMark
           style={{ color: ComponentFunction.partnersComponentFunction === 'add' && 'lightgrey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('add')
           }}
-        >Добавить партнера по id</BookMark>
+        >{SetTranslate('add_partner_by_id')}</BookMark>
       </HorizontalContainer>
 
       {ComponentFunction.partnersComponentFunction === 'list' ?

@@ -29,3 +29,13 @@ color: white;
 .nav_bar_item:hover{
     color:grey;
 }
+
+.dark_mode_image{
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+}
+
+.language_switch{
+    font-size: 12px;
+}

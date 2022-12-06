@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useInput } from '../../../hooks/useInput'
 import { SetTranslate } from '../../../modules/SetTranslate'
@@ -5,7 +6,7 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Cost = ({ formData, setFormData }) => {
+const Cost = observer(({ formData, setFormData }) => {
 
     return (
 
@@ -34,6 +35,6 @@ const Cost = ({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-}
+})
 
 export default Cost

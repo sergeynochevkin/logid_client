@@ -12,6 +12,7 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import { v4 } from "uuid";
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModalActive, modalActive, onePartnerInfo }) => {
     const { UserInfo } = useContext(UserInfoContext)
@@ -19,6 +20,8 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
     const { Notification } = useContext(NotificationContext)
     const initialValue = { userInfoId: UserInfo.userInfo.id, groupName: '' }
     const [formData, setFormData] = useState(initialValue)
+
+    const group_created = SetTranslate('group_created')
 
     useEffect(() => {
         if (parent === 'groupModal') {
@@ -28,12 +31,12 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
 
     const [selectedGroups, setSelectedGroups] = useState([])
 
-    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, 'название группы')
+    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, SetTranslate('group_name').toLowerCase())
     formData.userInfoId = UserInfo.userInfo.id
 
     const createNewGroup = async (event) => {
         event.preventDefault()
-        await createGroup(formData.userInfoId, formData.groupName.value).then(data =>Notification.addNotification([{ id: v4(), type: 'success', message: `Вы создали группу ${data[0].name}` }]))
+        await createGroup(formData.userInfoId, formData.groupName.value).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: `${group_created} ${data[0].name}` }]))
         formReset()
         setFetchPartnersStart(true)
         setModalActive(false)
@@ -63,7 +66,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                     onClick={() => {
                         setModalActive(true)
                     }}
-                >Добавить группу</Button>
+                >{SetTranslate('add')}</Button>
                 : <></>}
 
             <VerticalContainer
@@ -85,8 +88,8 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                             <table>
                                 <tbody>
                                     <tr>
-                                        <OrderTh>Группа</OrderTh>
-                                        <OrderTh>Участники</OrderTh>
+                                        <OrderTh>{SetTranslate('group_name')}</OrderTh>
+                                        <OrderTh>{SetTranslate('number_of_members')}</OrderTh>
                                     </tr>
                                 </tbody>
                                 <tbody>
@@ -105,7 +108,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                                         marginTop: '10vh',
                                         fontSize: '20px'
                                     }}
-                                >Нет групп</div> : <></>}
+                                >{SetTranslate('no_groups')}</div> : <></>}
 
             </VerticalContainer>
             {parent === 'groupModal' ?
@@ -115,13 +118,13 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                 >
                     <CardButton
                         onClick={updateAllGroups}
-                    >Сохранить</CardButton>
+                    >{SetTranslate('save')}</CardButton>
                     <CardButton
                         onClick={() => {
                             setSelectedGroups(Partner.groups.filter(el => el.partners.includes(onePartnerInfo.id)).map(el => el.dataValues.id))
                             setModalActive(false)
                         }}
-                    >Заркыть</CardButton>
+                    >{SetTranslate('close')}</CardButton>
                 </HorizontalContainer>
                 : <></>
             }

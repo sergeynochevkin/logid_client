@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { FilterAndSortContext, NotificationContext } from '../..'
+import { FilterAndSortContext, NotificationContext, SettingContext } from '../..'
 import { deleteGroup } from '../../http/partnerApi'
 import GroupPartnerList from './GroupPartnerList'
 import { CardButton } from '../ui/button/CardButton'
@@ -11,16 +11,20 @@ import { v4 } from "uuid";
 import { observer } from 'mobx-react-lite'
 import close_grey from '../../../src/assets/close_grey.png';
 import '../order/Order.css'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 
 const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selectedGroups, setSelectedGroups, setFetchStart }) => {
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const [modalActive, setModalActive] = useState(false)
     const { Notification } = useContext(NotificationContext)
+    const {Setting} = useContext(SettingContext)
+
+    const group_deleted = SetTranslate('group_deleted')
 
     const deleteGroupAction = async () => {
         await deleteGroup(group.dataValues.id)
-        Notification.addNotification([{ id: v4(), type: 'error', message: `Вы удалили группу ${group.dataValues.name}` }])
+        Notification.addNotification([{ id: v4(), type: 'error', message: `${group_deleted} ${group.dataValues.name}` }])
         setFetchPartnersStart(true)
     }
 
@@ -35,11 +39,22 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
                     <CardColName
                         style={{
                             cursor: parent === 'partnerList' || parent === 'orders' || parent === 'groupModal' ? 'pointer' : '',
+
+
+
                             backgroundColor: parent !== 'partnerList' && parent !== 'orders' && selectedGroups.includes(group.dataValues.id) ? 'rgb(241,196,15,0.8)' :
-                                parent === 'partnerList' || parent === 'orders' ? 'white' : '',
+                            
+                                (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'light' ? 'white' :                                
+                                (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'dark' ? 'black'
+                                 : '',
+
+                                                                                                 
                             border: parent === 'partnerList' && FilterAndSort.partnerFilters.partnersByGroups.includes(group.dataValues.id) ? 'solid black 1px' :
                                 parent === 'orders' && FilterAndSort.filters.partnersByGroups.includes(group.dataValues.id) ? 'solid black 1px' :
+
                                     parent === 'partnerList' || parent === 'orders' ? 'solid lightgrey 1px' : '',
+
+
 
                             borderRadius: parent === 'partnerList' || parent === 'orders' ? '5px' : ''
                         }}
@@ -83,7 +98,7 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
                     >{group.dataValues.name}</CardColName>
                     {parent !== 'groupModal' && parent !== 'partnerList' && parent !== 'orders' ?
                         <CardColName
-                        >{group.partners.length === 0 ? 'Нет участников' : `Участников ${group.partners.length}`}</CardColName> : <></>}
+                        >{group.partners.length === 0 ? 0 : group.partners.length}</CardColName> : <></>}
                 </CardRow>
                 :
                 <tr>
@@ -98,7 +113,7 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
                             cursor: group.partners.length > 0 ? 'pointer' : 'default',
                             backgroundColor: group.partners.length > 0 ? 'rgb(241,196,15,0.8)' : ''
                         }}
-                    >{group.partners.length === 0 ? 'Нет участников' : `Участников ${group.partners.length}`}</OrderTd>
+                    >{group.partners.length === 0 ? 0 : group.partners.length}</OrderTd>
                     <td>
                         <div className='order_list_icon_container'>
                             <img src={close_grey}

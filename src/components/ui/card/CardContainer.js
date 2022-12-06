@@ -3,8 +3,9 @@ import { ComponentFunctionContext, OrderContext, SettingContext, StateContext } 
 import './Card.css'
 import { useColor } from '../../../hooks/useColor'
 import '../../../hooks/useColor'
+import { observer } from 'mobx-react-lite'
 
-const CardContainer = ({ children, thisOrder, ...props }) => {
+const CardContainer = observer( ({ children, thisOrder, ...props }) => {
   const { Setting } = useContext(SettingContext)
   const { State } = useContext(StateContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -40,5 +41,5 @@ const CardContainer = ({ children, thisOrder, ...props }) => {
     </>
   )
 }
-
+)
 export { CardContainer }

@@ -11,21 +11,31 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
 import { NotificationContext } from '../../index'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartner, setFetchPartnersStart }) => {
     const { user } = useContext(UserContext)
-     const { Notification } = useContext(NotificationContext)
+    const { Notification } = useContext(NotificationContext)
+
+    const you_added = SetTranslate('you_added')
+    const you_blocked = SetTranslate('you_blocked')
+    const you_have_changed_status = SetTranslate('you_have_changed_status')
+    const customer_notification = SetTranslate('customer_notification')
+    const carrier_notification = SetTranslate('carrier_notification')
+    const to_favorite_notification = SetTranslate('to_favorite_notification')
+    const to_normal_notification = SetTranslate('to_normal_notification')
 
     const priority = async () => {
         if (user.user.role === 'carrier') {
             await updatePartner(onePartner.id, 'priority')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы добавили ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'} в избранное` }])
+            const to_favorite_notification = SetTranslate('to_favorite_notification')
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_added} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_favorite_notification}` }])
             setFetchPartnersStart(true)
             setModalActive(false)
         }
         if (user.user.role === 'customer') {
             await updatePartner(onePartner.id, 'priority')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы добавили ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'} в избранное` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_added} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_favorite_notification}` }])
             setFetchPartnersStart(true)
             setModalActive(false)
         }
@@ -34,12 +44,12 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
     const blocked = async () => {
         if (user.user.role === 'carrier') {
             await updatePartner(onePartner.id, 'blocked')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы заблокировали ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_blocked} ${user.user.role === 'carrier' ? customer_notification : carrier_notification}` }])
             setFetchPartnersStart(true)
             setModalActive(false)
         }
         if (user.user.role === 'customer') {
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы заблокировали ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_blocked} ${user.user.role === 'carrier' ? customer_notification : carrier_notification}` }])
             await updatePartner(onePartner.id, 'blocked')
             setFetchPartnersStart(true)
             setModalActive(false)
@@ -49,13 +59,13 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
     const normal = async () => {
         if (user.user.role === 'carrier') {
             await updatePartner(onePartner.id, 'normal')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы изменили статус ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'} на нормальный` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_have_changed_status} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_normal_notification}` }])
             setFetchPartnersStart(true)
             setModalActive(false)
         }
         if (user.user.role === 'customer') {
             await updatePartner(onePartner.id, 'normal')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы изменили статус ${user.user.role === 'carrier' ? 'заказчика' : 'перевозчика'} на нормальный` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_have_changed_status} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_normal_notification}` }])
             setFetchPartnersStart(true)
             setModalActive(false)
         }
@@ -86,70 +96,62 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
 
             {onePartnerInfo.type_of_customer ?
                 <CardRow>
-                    <CardColName>Вид деятельности</CardColName><CardColValue>{onePartnerInfo.type_of_customer === 'retail' ? 'Розничная торговля' :
-                        onePartnerInfo.type_of_customer === 'wholesale' ? 'Оптовая торговля' :
-                            onePartnerInfo.type_of_customer === 'food_delivery' ? 'Доставка продуктов' :
-                                onePartnerInfo.type_of_customer === 'ready_food_delivery' ? 'Доставка готовых блюд' :
-                                    onePartnerInfo.type_of_customer === 'electronics_repair' ? 'Ремонт электроники' :
-                                        onePartnerInfo.type_of_customer === 'for_myself' ? 'В личных целях' : <></>}</CardColValue>
+                    <CardColName>{SetTranslate('type_of_customer_content')}</CardColName><CardColValue>{SetTranslate(onePartnerInfo.type_of_customer)}</CardColValue>
                 </CardRow>
                 : <></>}
             <CardRow>
-                <CardColName>Город</CardColName><CardColValue> {onePartnerInfo.city}</CardColValue>
+                <CardColName>{SetTranslate('city_content')}</CardColName><CardColValue> {onePartnerInfo.city}</CardColValue>
             </CardRow>
             <CardRow>
-                <CardColName>Адрес</CardColName><CardColValue>{onePartnerInfo.company_adress}</CardColValue>
+                <CardColName>{SetTranslate('adress_field_name')}</CardColName><CardColValue>{onePartnerInfo.company_adress}</CardColValue>
             </CardRow>
 
             {onePartnerInfo.legal === 'entity' || onePartnerInfo.legal === 'sole_trader' ?
                 <>
                     {onePartnerInfo.website ?
                         <CardRow>
-                            <CardColName>Сайт</CardColName><CardColValue>{onePartnerInfo.website}</CardColValue>
+                            <CardColName>{SetTranslate('website_field_name')}</CardColName><CardColValue>{onePartnerInfo.website}</CardColValue>
                         </CardRow>
                         : <></>}
                     <CardRow>
-                        <CardColName>ИНН</CardColName><CardColValue>{onePartnerInfo.company_inn}</CardColValue>
+                        <CardColName>{SetTranslate('company_inn_content')}</CardColName><CardColValue>{onePartnerInfo.company_inn}</CardColValue>
                     </CardRow>
                 </>
                 : <></>}
             {onePartnerInfo.legal === 'person' ?
                 <>
                     <CardRow>
-                        <CardColName>Паспорт</CardColName><CardColValue>{onePartnerInfo.passport_number}</CardColValue>
+                        <CardColName>{SetTranslate('passport_number_content')}</CardColName><CardColValue>{onePartnerInfo.passport_number}</CardColValue>
                     </CardRow>
                     <CardRow>
-                        <CardColName>Дата выдачи</CardColName><CardColValue>{onePartnerInfo.passport_date_of_issue}</CardColValue>
+                        <CardColName>{SetTranslate('passport_date_of_issue_content')}</CardColName><CardColValue>{onePartnerInfo.passport_date_of_issue}</CardColValue>
                     </CardRow>
                     <CardRow>
-                        <CardColName>Кем выдан</CardColName><CardColValue>{onePartnerInfo.passport_issued_by}</CardColValue>
+                        <CardColName>{SetTranslate('passport_issued_by_content')}</CardColName><CardColValue>{onePartnerInfo.passport_issued_by}</CardColValue>
                     </CardRow>
                 </>
                 : <></>}
             <CardRow>
-                <CardColName>Юридический статус</CardColName><CardColValue>{onePartnerInfo.legal === 'entity' ? 'Юридическое лицо' :
-                    onePartnerInfo.legal === 'sole_trader' ? 'Индивидуальный предприниматель' :
-                        onePartnerInfo.legal === 'person' ? 'Физическое лицо' :
-                            <></>}</CardColValue>
+                <CardColName>{SetTranslate('legal_partner_info')}</CardColName><CardColValue>{SetTranslate(onePartnerInfo.legal)}</CardColValue>
             </CardRow>
             <RatingView onePartnerInfo={onePartnerInfo} user={user} />
             <HorizontalContainer>
 
                 {onePartner.status === 'normal' ?
                     <>
-                        <CardButton onClick={priority}>В избранное</CardButton>
-                        <CardButton onClick={blocked}>Заблокировать</CardButton>
+                        <CardButton onClick={priority}>{SetTranslate('partner_to_favorite')}</CardButton>
+                        <CardButton onClick={blocked}>{SetTranslate('partner_to_blocked')}</CardButton>
                     </>
                     :
                     onePartner.status === 'blocked' ?
                         <>
-                            <CardButton onClick={priority}>В избранное</CardButton>
-                            <CardButton onClick={normal}>Разблокировать</CardButton>
+                            <CardButton onClick={priority}>{SetTranslate('partner_to_favorite')}</CardButton>
+                            <CardButton onClick={normal}>{SetTranslate('partner_from_blocked')}</CardButton>
                         </> :
                         onePartner.status === 'priority' ?
                             <>
-                                <CardButton onClick={normal}>Удалить из избранного</CardButton>
-                                <CardButton onClick={blocked}>Заблокировать</CardButton>
+                                <CardButton onClick={normal}>{SetTranslate('partner_to_normal')}</CardButton>
+                                <CardButton onClick={blocked}>{SetTranslate('partner_to_blocked')}</CardButton>
                             </>
                             :
                             <></>}
@@ -158,7 +160,7 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
                     onClick={() => {
                         setModalActive(false)
                     }}
-                >Закрыть окно</CardButton>
+                >{SetTranslate('close')}</CardButton>
             </HorizontalContainer>
         </VerticalContainer>
     )

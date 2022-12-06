@@ -1,10 +1,11 @@
+import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react'
 import { v4 } from "uuid";
 import { NotificationContext, SettingContext } from '../..';
 import { SetTranslate } from '../../modules/SetTranslate'
 import './DragDropUpload.css'
 
-const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
+const DragDropUpload = observer( ({ parent, length, extensions, filesFormData }) => {
     const { Notification } = useContext(NotificationContext)
     const { Setting } = useContext(SettingContext)
     const [drag, setDrag] = useState(false)
@@ -157,5 +158,6 @@ const DragDropUpload = ({ parent, length, extensions, filesFormData }) => {
 
     )
 }
+)
 
 export default DragDropUpload

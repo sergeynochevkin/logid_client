@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useInput } from '../../../hooks/useInput'
 import { SetTranslate } from '../../../modules/SetTranslate'
@@ -5,7 +6,7 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const OrderComment = ({ formData, setFormData }) => {
+const OrderComment =observer( ({ formData, setFormData }) => {
 
   return (
 
@@ -35,6 +36,6 @@ const OrderComment = ({ formData, setFormData }) => {
 
 
   )
-}
+})
 
 export default OrderComment

@@ -174,11 +174,11 @@ const Carrier = observer(() => {
                   color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
                 }}>{SetTranslate('account')}</BookMark>
 
-                <BookMark onClick={() => {
+                {/* <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>{SetTranslate('settings')}</BookMark>
+                }}>{SetTranslate('settings')}</BookMark> */}
               </div>
             </div>
 

@@ -4,10 +4,11 @@ import GroupPartnerItem from './GroupPartnerItem'
 import { CardButton } from '../ui/button/CardButton'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
-    const { Partner } = useContext(PartnerContext)    
-    
+    const { Partner } = useContext(PartnerContext)
+
     const thisGroupPartners = Partner.partnerInfos.filter(el => group.partners.includes(el.id))
 
     return (
@@ -21,10 +22,10 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
             <table>
                 <tbody>
                     <tr>
-                        <OrderTh>id</OrderTh>
-                        <OrderTh>Наименование</OrderTh>
-                        <OrderTh>Телефон</OrderTh>
-                        <OrderTh>Статус</OrderTh>
+                        <OrderTh>{SetTranslate('id')}</OrderTh>
+                        <OrderTh>{SetTranslate('partner_name')}</OrderTh>
+                        <OrderTh>{SetTranslate('phone')}</OrderTh>
+                        <OrderTh>{SetTranslate('status')}</OrderTh>
                     </tr>
                 </tbody>
                 <tbody>
@@ -33,7 +34,7 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
                             <GroupPartnerItem
                                 key={partner.id}
                                 onePartnerInfo={partner}
-                                partner={partner}
+                                partner={Partner.partners.find(el => el.partnerUserInfoId === partner.id)}
                                 setFetchPartnersStart={setFetchPartnersStart}
                                 group={group}
                                 setModalActive={setModalActive}
@@ -47,7 +48,7 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
                 onClick={() => {
                     setModalActive(false)
                 }}
-            >Закрыть</CardButton>
+            >{SetTranslate('close')}</CardButton>
         </VerticalContainer>
 
 

@@ -7,6 +7,7 @@ import PartnerGroupComponent from './PartnerGroupComponent'
 import PartnerItem from './PartnerItem'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 
 const PartnersList = observer(({ setFetchPartnersStart }) => {
@@ -42,18 +43,18 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
       />
       <VerticalContainer
         style={{ alignItems: 'center' }}>
-        <PartnerGroupComponent parent={'partnerList'} setFetchPartnersStart={setFetchPartnersStart}/>
+        <PartnerGroupComponent parent={'partnerList'} setFetchPartnersStart={setFetchPartnersStart} />
         {Partner.partnerInfos.length !== 0 ?
           <>
             <table>
               <tbody>
                 <tr>
-                  <OrderTh>id</OrderTh>
-                  <OrderTh>Наименование</OrderTh>
-                  <OrderTh>Телефон</OrderTh>
-                  <OrderTh>Рейтинг</OrderTh>
-                  <OrderTh>Группы</OrderTh>
-                  <OrderTh>Статус</OrderTh>
+                  <OrderTh>{SetTranslate('id')}</OrderTh>
+                  <OrderTh>{SetTranslate('partner_name')}</OrderTh>
+                  <OrderTh>{SetTranslate('phone')}</OrderTh>
+                  <OrderTh>{SetTranslate('rating_field_name')}</OrderTh>
+                  <OrderTh>{SetTranslate('groups_field_name')}</OrderTh>
+                  <OrderTh>{SetTranslate('status')}</OrderTh>
                 </tr>
               </tbody>
               <tbody>
@@ -74,9 +75,11 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
           : <div
             style={{
               marginTop: '10vh',
-              fontSize: '20px'
+              fontSize: '20px', 
+              textAlign:'center',
+              padding: '10px'
             }}
-          >Нет партнеров</div>}
+          >{SetTranslate('no_partners')}</div>}
       </VerticalContainer>
     </>
   )

@@ -25,7 +25,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     const [renderer, setRenderer] = useState({})
     const [service, setService] = useState({})
     const [refreshMap, setRefreshMap] = useState(false)
-    
+
     function refreshMapAction() {
         if (gMap) {
             gMap.fitBounds(Setting.bounds)
@@ -152,7 +152,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         }
         if (user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new') {
             Setting.setBoundsLimit(50)
-            Setting.setCenter({ lat: parseFloat(State.user_state.user_map_city.lat), lng: parseFloat(State.user_state.user_map_city.lng) })
+            State.user_state.user_map_city ? Setting.setCenter({ lat: parseFloat(State.user_state.user_map_city.lat), lng: parseFloat(State.user_state.user_map_city.lng) }) : Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
             Setting.setZoom(5)
         }
     }, [])
@@ -177,7 +177,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
             else if (order.map_orders && State.user_state.all_cities === false && order.map_orders.length > 0) {
                 calcСityOrderBounds()
             } else {
-                Setting.setCenter({ lat: parseFloat(State.user_state.user_map_city.lat), lng: parseFloat(State.user_state.user_map_city.lng) })
+                State.user_state.user_map_city ? Setting.setCenter({ lat: parseFloat(State.user_state.user_map_city.lat), lng: parseFloat(State.user_state.user_map_city.lng) }) : Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
                 Setting.setBoundsLimit(0.1)
                 calcBounds()
             }
@@ -457,7 +457,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                             disabled={pointsNotValid}
                         >Рассчитать маршрут</button>
                         <button
-                          className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
+                            className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={clearRoute}
                             disabled={!directionsResponse}
                         >Очистить маршрут</button>
@@ -478,7 +478,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                             {mapScaleSteps.map(step =>
                                 <div className='button_row' key={step}>
                                     <button
-                                        className={Setting.user_map_scale === step ? 'map_scale_button active' : Setting.app_theme ==='light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark' }
+                                        className={Setting.user_map_scale === step ? 'map_scale_button active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
                                         onClick={() => {
                                             Setting.setUserMapScale(step)
                                             Setting.setBoundsLimit(step / 100)

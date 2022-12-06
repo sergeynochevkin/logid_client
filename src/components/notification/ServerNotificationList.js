@@ -6,6 +6,7 @@ import { CardButton } from '../ui/button/CardButton'
 import './Notification.css'
 import { NotificationContext } from '../..'
 import { deleteNotifications } from '../../http/notificationApi'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const ServerNotificationList = observer(({ setModalActive, setFetchPartnersStart }) => {
     const { Notification } = useContext(NotificationContext)
@@ -32,10 +33,10 @@ const ServerNotificationList = observer(({ setModalActive, setFetchPartnersStart
                     onClick={() => {
                         setModalActive(false)
                     }}
-                >Закрыть</CardButton>
+                >{SetTranslate('close')}</CardButton>
                 <CardButton
                     onClick={deleteNotificationsAction}
-                >Очистить</CardButton>
+                >{SetTranslate('clear')}</CardButton>
             </div>
             <div className={'list_container'}>
                 {Notification.server_notifications.slice().sort(sortNotifications).map(notification =>

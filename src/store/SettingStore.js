@@ -8,7 +8,7 @@ export default class StateStore {
         this._user_map_city = {}
         this._user_map_cities = []
         this._all_cities = false
-        this._app_theme = 'lght'
+        this._app_theme = 'dark'
         this._center = {}
         this._bounds = {}
         this._bounds_limit = undefined

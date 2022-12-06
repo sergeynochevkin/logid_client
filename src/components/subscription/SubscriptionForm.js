@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { SubscriptionContext } from '../..'
+import { SetTranslate } from '../../modules/SetTranslate'
 import './Subscription.css'
 import SubscriptionPlanItem from './SubscriptionPlanItem'
 
@@ -11,7 +12,7 @@ const SubscriptionForm = observer(({setFetchPartnersStart, setModalActive}) => {
         <div
             className={'container'}
         >
-            <div className={'name'}>Выберите подходящий тарифный план</div>
+            <div className={'name'}>{SetTranslate('choose_subscription_plan')}</div>
             <div
                 className={'plans_container'}
             >
