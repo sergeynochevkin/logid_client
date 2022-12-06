@@ -1,4 +1,5 @@
 import React from 'react'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -11,7 +12,7 @@ const CompanyName = ({ formData, setFormData }) => {
     <VerticalContainer
       style={{ gap: '0px' }}
     >
-      <Input placeholder='Название компании' value={formData.company_name.value}
+      <Input placeholder={SetTranslate('company_name_place_holder')} value={formData.company_name.value}
         onChange={(e) => formData.company_name.onChange(e)}
         onBlur={e => formData.company_name.onBlur(e)}
         style={{ borderLeft: formData.company_name.notValid || formData.company_name.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}

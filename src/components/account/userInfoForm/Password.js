@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -14,7 +15,7 @@ const Password = ({ authFormData, setAuthFormData }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}
             >
-                <Input placeholder="Ваш пароль"
+                <Input placeholder={SetTranslate('password')}
                     style={{ borderLeft: authFormData.password.notValid || authFormData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                     value={authFormData.password.value}
                     onChange={(e) => authFormData.password.onChange(e)} onBlur={e => authFormData.password.onBlur(e)} type="password" name="password" id="password"
@@ -34,7 +35,7 @@ const Password = ({ authFormData, setAuthFormData }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}
             >
-                <Input placeholder="Пароль еще раз" value={comparePassword} onChange={(e) => {
+                <Input placeholder={SetTranslate('password_repeat')} value={comparePassword} onChange={(e) => {
                     setComparePassword(e.target.value)
                     setComparePasswordActive(true)
                 }}
@@ -48,7 +49,7 @@ const Password = ({ authFormData, setAuthFormData }) => {
                     }}
                 >
                     {authFormData.password.value !== comparePassword && comparePasswordActive && !authFormData.password.isEmpty ?
-                        'пароли не совпадают' : ''
+                        SetTranslate('compare_passwords') : ''
                     }
                 </FieldName>
             </VerticalContainer>

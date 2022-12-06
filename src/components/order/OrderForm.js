@@ -21,6 +21,7 @@ import TransportFormSection from '../transport/TransportFormSection'
 import MapComponent from '../map/MapComponent'
 import { useInput } from '../../hooks/useInput'
 import OrderFormPointItem from './OrderFormPointItem'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const Container = styled.div`
 display:flex;
@@ -45,6 +46,25 @@ const OrderForm = observer(() => {
     const { Setting } = useContext(SettingContext)
 
     const [calculate, setCalculate] = useState(false)
+
+    const Edited = SetTranslate('edited')
+    const Order = SetTranslate('order')
+    const Auction = SetTranslate('auction')
+    const order_editing_canceled = SetTranslate('order_editing_canceled')
+    const auction_editing_canceled = SetTranslate('auction_editing_canceled')
+    const you_can_change_subscription = SetTranslate('you_can_change_subscription')
+    const point_limit = SetTranslate('point_limit')
+    const created_and_postponed = SetTranslate('created_and_postponed')
+    const created_and_send = SetTranslate('created_and_send')
+    const Template = SetTranslate('template')
+    const Created = SetTranslate('created').toLowerCase()
+    const select_adress = SetTranslate('select_adress')
+    const comment_cant_be_empty = SetTranslate('comment_cant_be_empty')
+    const comment_cannot_be_shorter = SetTranslate('comment_cannot_be_shorter')
+    const comment_cannot_be_longer = SetTranslate('comment_cannot_be_longer')
+    const arrival_time = SetTranslate('arrival_time')
+    const finish_time = SetTranslate('finish_time')
+    const symbols = SetTranslate('symbols')
 
     let initialTime = new Date();
 
@@ -125,8 +145,8 @@ const OrderForm = observer(() => {
     )
 
     const validCost = /^\d+$/
-    formData.cost = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.cost.value !== 0 ? orderPattern.cost.value : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, 'стоимость')
-    formData.order_comment = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_comment.value, { isEmpty: true, minLength: 6, maxLength: 100 }, 'комментарий')
+    formData.cost = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.cost.value !== 0 ? orderPattern.cost.value : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, SetTranslate('cost').toLowerCase())
+    formData.order_comment = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_comment.value, { isEmpty: true, minLength: 6, maxLength: 100 }, SetTranslate('comment').toLowerCase())
     formData.order_type = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_type.value, { isEmpty: true },)
 
     formData.userId = user.user.id
@@ -232,7 +252,7 @@ const OrderForm = observer(() => {
             formData.oldPointsId,
             formData.direction_response
         ).then(
-            Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `Заказ ${formData.id} отредактирован` : `Аукцион ${formData.id} отредактирован` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
         ).then(createPoint(pointFormData)).then(setFormData(initialValue)).then(setPointFormData(pointInitialValue)).then(ComponentFunction.setFunction(formData.order_status)).then(ComponentFunction.setPageFunction('orderList')).then(ComponentFunction.setOrdersComponentFunction('orderList'))
     }
 
@@ -278,14 +298,14 @@ const OrderForm = observer(() => {
                 .then(data => { orderId = data.id })
             await createPoint(pointFormData)
             if (formData.order_status === 'new') {
-                Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `Заказ ${orderId} создан и отправлен` : `Аукцион ${orderId} создан и отправлен` }]);
+                Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_send}` : `${Auction} ${orderId} ${created_and_send}` }]);
                 sendMail(user.user.role, orderId, 'new_order', '');
             }
             if (formData.order_status === 'postponed') {
-                Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `Заказ ${orderId} создан и отложен` : `Аукцион ${orderId} создан и отложен` }]);
+                Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_postponed}` : `${Auction} ${orderId} ${created_and_postponed}` }]);
             }
             if (formData.order_status === 'pattern') {
-                Notification.addNotification([{ id: v4(), type: 'success', message: `Шаблон ${orderId} создан` }]);
+                Notification.addNotification([{ id: v4(), type: 'success', message: `${Template} ${orderId} ${Created}` }]);
             }
             setFormData(initialValue)
             setPointFormData(pointInitialValue)
@@ -368,23 +388,23 @@ const OrderForm = observer(() => {
         for (const point of pointFormData) {
             if (!point.point.value && pointValidations.isEmpty === false) {
                 point.point.isEmptyError = true
-                point.point.errorMessage = `выберите адрес из списка`
+                point.point.errorMessage = select_adress.toLowerCase()
             } else {
                 point.point.isEmptyError = false
             }
             if (!point.customer_comment.value && customerCommentValidations.isEmpty === false) {
                 point.customer_comment.isEmptyError = true
-                point.customer_comment.errorMessage = `комментарий не может быть пустым`
+                point.customer_comment.errorMessage = comment_cant_be_empty
             } else {
                 point.customer_comment.isEmptyError = false
                 if (point.customer_comment.value.length < pointValidations.minLength) {
                     point.customer_comment.minLengthError = true
-                    point.customer_comment.errorMessage = `комментарий не может быть короче ${customerCommentValidations.minLength} символов`
+                    point.customer_comment.errorMessage = `${comment_cannot_be_shorter} ${customerCommentValidations.minLength} ${symbols}`
                 } else {
                     point.customer_comment.minLengthError = false
                     if (point.customer_comment.value.length > pointValidations.maxLength) {
                         point.customer_comment.maxLengthError = true
-                        point.customer_comment.errorMessage = `комментарий не может быть длиннее ${customerCommentValidations.maxLength} символов`
+                        point.customer_comment.errorMessage = `${comment_cannot_be_longer} ${customerCommentValidations.maxLength} ${symbols}`
                     } else {
                         point.point.maxLengthError = false
                     }
@@ -392,7 +412,7 @@ const OrderForm = observer(() => {
             }
             if (!point.time.value && timeValidations.isEmpty === false) {
                 point.time.isEmptyError = true
-                point.time.errorMessage = `время${point.sequence === 1 ? ' подачи' : point.sequence === maxSequence ? ' выполнения' : ''} не может быть пустым`
+                point.time.errorMessage = `${point.sequence === 1 ? arrival_time : point.sequence === maxSequence ? finish_time : ''}`
             } else {
                 point.time.isEmptyError = false
             }
@@ -424,7 +444,7 @@ const OrderForm = observer(() => {
 
     const addField = () => {
         if (pointFormData.length >= Limit.user_limits.customer_new_order_point_limit) {
-            Notification.addNotification([{ id: v4(), type: 'error', message: `Лимит колличества точек в заказе с вашей подпиской ${Limit.user_limits.customer_new_order_point_limit}. Вы можете изменть подписку в разделе аккаунт` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${point_limit} ${Limit.user_limits.customer_new_order_point_limit}. ${you_can_change_subscription}` }])
         } else {
             let idArray = pointFormData.map(el => el.id)
             let maxId = Math.max(...idArray)
@@ -505,7 +525,7 @@ const OrderForm = observer(() => {
                     )}
                 </VerticalContainer>
 
-                {pointFormData.length < 50 ? <AddDeleteFieldButton onClick={addField}>добавить адрес</AddDeleteFieldButton> : <></>}
+                {pointFormData.length < 50 ? <AddDeleteFieldButton onClick={addField}>{SetTranslate('add_point')}</AddDeleteFieldButton> : <></>}
 
                 <OrderComment
                     formData={formData}
@@ -549,7 +569,7 @@ const OrderForm = observer(() => {
                             || (formData.cost.notValid && formData.order_type.value === 'order')
 
                         }
-                    >{ComponentFunction.orderFormFunction === 'edit' ? 'Сохранить' : 'Заказать'}</Button>
+                    >{ComponentFunction.orderFormFunction === 'edit' ? SetTranslate('save') : SetTranslate('send')}</Button>
                     {ComponentFunction.orderFormFunction === 'edit' ?
                         <Button
                             onClick={() => {
@@ -558,9 +578,9 @@ const OrderForm = observer(() => {
                                 ComponentFunction.setFunction('postponed');
                                 ComponentFunction.setPageFunction('orderList')
                                 ComponentFunction.setOrderFormFunction('newOrder')
-                                Notification.addNotification([{ id: v4(), type: 'error', message: formData.order_type.value === 'order' ? `Редактирование заказа отменено` : `Редактирование аукциона отменено` }]);
+                                Notification.addNotification([{ id: v4(), type: 'error', message: formData.order_type.value === 'order' ? order_editing_canceled : auction_editing_canceled }]);
                             }}
-                        >Закрыть</Button> : <></>}
+                        >{SetTranslate('close')}</Button> : <></>}
 
                     {ComponentFunction.orderFormFunction !== 'edit' ?
                         <Button onClick={postpone}
@@ -574,7 +594,7 @@ const OrderForm = observer(() => {
                                 (formData.side_type.isEmpty && formData.type === 'truck')
                                 || (formData.cost.notValid && formData.order_type.value === 'order')
                             }
-                        >Отложить</Button>
+                        >{SetTranslate('postpone')}</Button>
                         : <></>}
                     {ComponentFunction.orderFormFunction !== 'pattern' && ComponentFunction.orderFormFunction !== 'edit' ?
                         <Button onClick={pattern}
@@ -588,7 +608,7 @@ const OrderForm = observer(() => {
                                 (formData.side_type.isEmpty && formData.type === 'truck')
                                 || (formData.cost.notValid && formData.order_type.value === 'order')
                             }
-                        >Создать шаблон</Button>
+                        >{SetTranslate('create_template')}</Button>
                         : <></>}
                 </Container>
             </Form>

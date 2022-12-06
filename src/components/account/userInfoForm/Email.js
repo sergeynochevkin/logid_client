@@ -1,4 +1,5 @@
 import React from 'react'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -11,7 +12,7 @@ const Email = ({ authFormData, setauthFormData }) => {
         <VerticalContainer
           style={{ gap: '0px' }}
         >
-          <Input placeholder="Ваш email"
+          <Input placeholder={SetTranslate('your_email')}
             value={authFormData.email.value}
             style={{ borderLeft: (authFormData.email.notValid || authFormData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
             onChange={(e) => authFormData.email.onChange(e)}

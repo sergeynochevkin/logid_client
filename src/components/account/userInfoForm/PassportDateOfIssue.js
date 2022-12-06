@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -11,7 +12,7 @@ const PassportDateOfIssue = ({ formData, setFormData }) => {
   return (
     <VerticalContainer
       style={{ gap: '0px' }}>
-      <Input placeholder='Дата выдачи'
+      <Input placeholder={SetTranslate('passport_date_of_issue_place_holder')}
         value={formData.passport_date_of_issue.value}
         onChange={(e) => {
           formData.passport_date_of_issue.onChange(e);

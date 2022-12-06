@@ -7,6 +7,7 @@ import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import '../ui/form/Form.css'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 
 const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate }) => {
@@ -58,7 +59,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
         var place = autocomplete.getPlace()
         var address_components = autocomplete.getPlace().address_components
         if (!place.geometry) {
-            document.getElementById(id).placeholder = 'Введите адрес'
+            document.getElementById(id).placeholder = SetTranslate('enter_plase')
         } else {
             let data = [...pointFormData]
             data[index].point.value = place.name
@@ -126,7 +127,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
             >
                 <Input
                     name='customer_comment'
-                    placeholder='Комментарий'
+                    placeholder={SetTranslate('comment')}
                     defaultValue={pointItem.customer_comment.value}
                     onChange={event => handleFormChange(index, event)}
                     onBlur={event => handleFormBlur(index, event)}
@@ -148,7 +149,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
                     style={{ gap: '0px' }}
                 >
                     <Input
-                        name='time' placeholder='Время'
+                        name='time' placeholder={SetTranslate('time')}
                         type="datetime-local"
                         defaultValue={pointItem.time.value}
                         onChange={event => handleFormChange(index, event)}
@@ -172,7 +173,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
 
             {pointFormData.length > 2 && (index !== 0 && index !== pointFormData.length - 1) ? <AddDeleteFieldButton onClick={() => {
                 removeField(index)
-            }}>удалить адрес</AddDeleteFieldButton> : <></>}
+            }}>{SetTranslate('delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
         </div>
     )
 })

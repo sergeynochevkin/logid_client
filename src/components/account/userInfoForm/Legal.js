@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { UserInfoContext } from '../../..'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -12,8 +13,8 @@ import PassportNumber from './PassportNumber'
 
 const Legal = ({ formData, setFormData }) => {
 
-   const  {UserInfo} = useContext(UserInfoContext)
-   
+    const { UserInfo } = useContext(UserInfoContext)
+
     return (
         <VerticalContainer>
             <VerticalContainer
@@ -24,10 +25,10 @@ const Legal = ({ formData, setFormData }) => {
                     name="legal" id='legal'
                     style={{ borderLeft: formData.legal.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                    <option defaultValue hidden>Физическое лицо или бизнес</option>
-                    <option value="person">Физическое лицо</option>
-                    <option value="sole_trader">Индивидуальный предприниматель</option>
-                    <option value="entity">Юридическое лицо</option>
+                    <option defaultValue hidden>{SetTranslate('legal_place_holder')}</option>
+                    <option value="person">{SetTranslate('person')}</option>
+                    <option value="sole_trader">{SetTranslate('sole_trader')}</option>
+                    <option value="entity">{SetTranslate('entity')}</option>
                 </Select>
                 <FieldName
                     style={{
@@ -35,7 +36,7 @@ const Legal = ({ formData, setFormData }) => {
                         color: 'rgb(254, 111, 103,0.8)'
                     }}>
                     {formData.legal.isEmpty && formData.legal.isDirty ?
-                        'выберите правовую форму' :
+                        SetTranslate('choose_legal_form') :
                         ''
                     }
                 </FieldName>

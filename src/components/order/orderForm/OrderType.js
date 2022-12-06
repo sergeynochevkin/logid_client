@@ -1,10 +1,11 @@
 import React from 'react'
 import { useInput } from '../../../hooks/useInput'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const OrderType = ({ formData, setFormData }) => { 
+const OrderType = ({ formData, setFormData }) => {
 
     return (
 
@@ -19,9 +20,9 @@ const OrderType = ({ formData, setFormData }) => {
 
                 name="order_type" id="order_type"
             >
-                <option defaultValue hidden>Тип заказа</option>
-                <option value='order'>Заказ</option>
-                <option value='auction'>Аукцион</option>
+                <option defaultValue hidden>{SetTranslate('order_type_place_holder')}</option>
+                <option value='order'>{SetTranslate('order')}</option>
+                <option value='auction'>{SetTranslate('auction')}</option>
             </Select>
             <FieldName
                 style={{
@@ -30,7 +31,7 @@ const OrderType = ({ formData, setFormData }) => {
                 }}
             >
                 {(formData.order_type.isEmpty && formData.order_type.isDirty) ?
-                    'выберите тип заказа' :
+                    SetTranslate('select_order_type') :
                     ''
                 }
             </FieldName>

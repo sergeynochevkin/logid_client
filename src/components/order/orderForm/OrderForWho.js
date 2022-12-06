@@ -2,13 +2,14 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
 import { ComponentFunctionContext, PartnerContext } from '../../..'
 import { useInput } from '../../../hooks/useInput'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForWho }) => {    
-    const { Partner } = useContext(PartnerContext)  
-      formData.for_group = useInput('', { isEmpty: true },)
+const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForWho }) => {
+    const { Partner } = useContext(PartnerContext)
+    formData.for_group = useInput('', { isEmpty: true },)
     formData.for_partner = useInput('', { isEmpty: true },)
 
     return (
@@ -24,12 +25,12 @@ const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForW
                         }}
                         multiple={false}
                     >
-                        <option defaultValue='all'>Заказ для всех</option>
+                        <option defaultValue='all'>{SetTranslate('order_for_all')}</option>
                         {Partner.groups.length > 0 ?
-                            <option value='group'>Заказ для группы</option>
+                            <option value='group'>{SetTranslate('order_for_group')}</option>
                             : <></>}
                         {Partner.partnerInfos.length > 0 ?
-                            <option value='partner'>Заказ для партнера</option>
+                            <option value='partner'>{SetTranslate('order_for_partner')}</option>
                             : <></>}
                     </Select>
                     {orderForWho === 'group' ?
@@ -44,7 +45,7 @@ const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForW
                                 onBlur={e => formData.for_group.onBlur(e)}
                                 name="for_group" id="for_group"
                             >
-                                <option defaultValue hidden>Выберите группу</option>
+                                <option defaultValue hidden>{SetTranslate('select_group')}</option>
                                 {Partner.groups.map(group =>
                                     <option key={group.dataValues.id} value={group.dataValues.id}>{group.dataValues.name}</option>
 
@@ -57,7 +58,7 @@ const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForW
                                 }}
                             >
                                 {(formData.for_group.isEmpty && formData.for_group.isDirty) ?
-                                    'выберите группу' :
+                                    SetTranslate('select_group_validation') :
                                     ''
                                 }
                             </FieldName>
@@ -76,7 +77,7 @@ const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForW
                                 onBlur={e => formData.for_partner.onBlur(e)}
                                 name="for_partner" id="for_partner"
                             >
-                                <option defaultValue hidden>Выберите партнера</option>
+                                <option defaultValue hidden>{SetTranslate('select_partner')}</option>
                                 {Partner.partnerInfos.map(partner =>
                                     <option key={partner.id} value={partner.id}>
                                         {
@@ -95,7 +96,7 @@ const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForW
                                 }}
                             >
                                 {(formData.for_partner.isEmpty && formData.for_partner.isDirty) ?
-                                    'выберите партнера' :
+                                    SetTranslate('select_partner_validation') :
                                     ''
                                 }
                             </FieldName>

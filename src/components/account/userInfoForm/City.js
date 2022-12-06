@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { AdressContext } from '../../..'
+import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
@@ -47,19 +48,19 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
 
         setFormData(data)
     }
-    
+
 
     function onPlaceChanged(id) {
         var place = autocomplete.getPlace()
         if (place) {
             if (!place.geometry) {
-                document.getElementById(id).placeholder = 'Введите город'
+                document.getElementById(id).placeholder = SetTranslate('enter_city')
             } else {
                 let data = { ...formData }
                 data.city.value = place.name
                 data.city_latitude = place.geometry.location.lat()
                 data.city_longitude = place.geometry.location.lng()
-                data.city.notValid = false           
+                data.city.notValid = false
 
                 setFormData(data)
             }
@@ -71,7 +72,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}>
                 <Input
-                    placeholder='Выберите город'
+                    placeholder={SetTranslate('enter_city')}
                     defaultValue={formData.city.value} name="city" id='city'
                     onChange={() => {
                         if (formData.city.value !== '') {
@@ -93,7 +94,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
                     }}
                 >
                     {formData.city.notValid && formData.city.isDirty ?
-                        'выберите город из списка' :
+                        SetTranslate('select_city').toLowerCase() :
                         ''
                     }
                 </FieldName>
