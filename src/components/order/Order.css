@@ -29,11 +29,13 @@
     overflow-x: auto;
     margin-bottom: 3px;
     padding: 5px;
+    color: white;
 }
 
 @media screen and (max-width: 425px) {
     .scroll_bar_container_dark {
         max-width: 380px;
+        color: white;
     }
 }
 
@@ -114,6 +116,7 @@
 
 .order_td_dark {
     background-color: rgb(42, 48, 59, 0.8);
+    color: white;
 }
 
 .order_th {
@@ -127,4 +130,5 @@
 
 .order_th_dark {
     background-color: rgb(31, 31, 31, 0.8);
+    color: white;
 }

@@ -4,6 +4,7 @@ import { TransportContext } from '../..'
 import TransportItem from './TransportItem'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { SetTranslate } from '../../modules/SetTranslate'
+import NoData from '../ui/page/NoData'
 
 
 const TransportList = observer(({ setFetchStart }) => {
@@ -22,12 +23,8 @@ const TransportList = observer(({ setFetchStart }) => {
             />)
           }
         </>
-        : <div
-          style={{
-            marginTop: '10vh',
-            fontSize: '20px',
-          }}
-        >{SetTranslate('no_transport')}</div>}
+        : <NoData
+        >{SetTranslate('no_transport')}</NoData>}
 
     </HorizontalContainer>
   )

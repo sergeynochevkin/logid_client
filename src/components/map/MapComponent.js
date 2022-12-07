@@ -6,6 +6,7 @@ import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
 import { setDistance } from '../../modules/setDistance'
 import { setDuration } from '../../modules/setDiuration'
+import { SetTranslate } from '../../modules/SetTranslate';
 
 const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, setFetchStart }) => {
     const { UserInfo } = useContext(UserInfoContext)
@@ -219,6 +220,19 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         setShowMarkers(true)
     }, [order.map_orders, State.user_state.favorite_order_state])
 
+
+    const Order = SetTranslate('order')
+    const Auction = SetTranslate('')
+    const cost = SetTranslate('cost')
+    const arrival_time_field_name = SetTranslate('arrival_time_field_name')
+    const start = SetTranslate('start')
+    const finish = SetTranslate('finish')
+    const Distance = SetTranslate('distance')
+    const go_to_order = SetTranslate('go_to_order')
+    const go_to_auction = SetTranslate('go_to_auction')
+    const points_in_the_order = SetTranslate('points_in_the_order')
+
+
     useEffect(() => {
         if (user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new' && gMap) {
             if (order.map_orders && order.map_orders.length > 0 && gMarkers.length === 0) {
@@ -227,19 +241,19 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                     let firstPoint = points.find(el => el.sequence === 1)
                     let lastPoint = points.find(el => el.sequence === 50)
                     let markerContent = `
-                    <div style="font-size:10px">${orderItem.order_type === 'order' ? 'Заказ' : 'Аукцион'} ${orderItem.id}</div>
-                    <div style="font-size:10px">Стоимость ${orderItem.cost === 0 ? 'не указана' : orderItem.cost}</div>
-                    <div style="font-size:10px">Время подачи</div>
-                    <div style="font-size:10px">${firstPoint && setTime(new Date(firstPoint.time), 0, 'show')}</div>
-                    <div style="font-size:10px">Первый адрес</div>
+                    <div style="font-size:10px">${orderItem.order_type === 'order' ? Order : Auction} ${orderItem.id}</div>
+                    <div style="font-size:10px">${cost} ${orderItem.cost === 0 ? 'не указана' : orderItem.cost}</div>
+                    <div style="font-size:10px">${arrival_time_field_name}</div>
+                    <div style="font-size:10px">${setTime(new Date(firstPoint && firstPoint.time), 0, 'show')}</div>
+                    <div style="font-size:10px">${start}</div>
                     <div style="font-size:10px">${firstPoint && firstPoint.point}</div>
-                    <div style="font-size:10px">Последний адрес</div>
+                    <div style="font-size:10px">${finish}</div>
                     <div style="font-size:10px">${lastPoint && lastPoint.point}</div>
-                    <div style="font-size:10px">Всего точек в заказе ${points.length}</div>
-                    <div style="font-size:10px">Расстояние ${setDistance(orderItem.mileage)}</div>
+                    <div style="font-size:10px">${points_in_the_order} ${points.length}</div>
+                    <div style="font-size:10px">${Distance} ${setDistance(orderItem.mileage)}</div>
                     <div id='${orderItem.id}'
                     style="font-size:10px; font-weight:bold; cursor:pointer"
-                    >Перейти к ${orderItem.order_type === 'order' ? 'заказу' : 'аукциону'}</div>                       
+                    >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
                     let labelIcon =
                         State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" :
@@ -303,19 +317,19 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                     let lastPoint = points.find(el => el.sequence === 50)
 
                     let markerContent = `
-                    <div style="font-size:10px">${orderItem.order_type === 'order' ? 'Заказ' : 'Аукцион'} ${orderItem.id}</div>
-                    <div style="font-size:10px">Стоимость ${orderItem.cost === 0 ? 'не указана' : orderItem.cost}</div>
-                    <div style="font-size:10px">Время подачи</div>
+                    <div style="font-size:10px">${orderItem.order_type === 'order' ? Order : Auction} ${orderItem.id}</div>
+                    <div style="font-size:10px">${cost} ${orderItem.cost === 0 ? 'не указана' : orderItem.cost}</div>
+                    <div style="font-size:10px">${arrival_time_field_name}</div>
                     <div style="font-size:10px">${setTime(new Date(firstPoint && firstPoint.time), 0, 'show')}</div>
-                    <div style="font-size:10px">Первый адрес</div>
+                    <div style="font-size:10px">${start}</div>
                     <div style="font-size:10px">${firstPoint && firstPoint.point}</div>
-                    <div style="font-size:10px">Последний адрес</div>
+                    <div style="font-size:10px">${finish}</div>
                     <div style="font-size:10px">${lastPoint && lastPoint.point}</div>
-                    <div style="font-size:10px">Всего точек в заказе ${points.length}</div>
-                    <div style="font-size:10px">Расстояние ${setDistance(orderItem.mileage)}</div>
+                    <div style="font-size:10px">${points_in_the_order} ${points.length}</div>
+                    <div style="font-size:10px">${Distance} ${setDistance(orderItem.mileage)}</div>
                     <div id='${orderItem.id}'
                     style="font-size:10px; font-weight:bold; cursor:pointer"
-                    >Перейти к ${orderItem.order_type === 'order' ? 'заказу' : 'аукциону'}</div>                   
+                    >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
                     let labelIcon =
                         State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" :
@@ -415,7 +429,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         setDirectionsResponse(null)
         setRouteDistance('')
         setRouteDuration('')
-        //не очищает поля формы но удаляет добавленные поля
+        //does not clear form fields but removes added fields
         setPointFormData(ComponentFunction.orderFormFunction === 'newOrder' ? pointInitialValue : JSON.parse(Point.pattern))
         initMap('map')
     }
@@ -455,19 +469,19 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                             className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={calculateRoute}
                             disabled={pointsNotValid}
-                        >Рассчитать маршрут</button>
+                        >{SetTranslate('calculate_route')}</button>
                         <button
                             className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={clearRoute}
                             disabled={!directionsResponse}
-                        >Очистить маршрут</button>
+                        >{SetTranslate('clear_route')}</button>
                     </div>
 
                     {distance &&
                         <div className={Setting.app_theme === 'light' ? 'calculated_data_container' : 'calculated_data_container calculated_data_container_dark'}>
-                            <div className='calculated_data'>{`Расстояние ${setDistance(distance)}`}
+                            <div className='calculated_data'>{`${SetTranslate('distance')} ${setDistance(distance)}`}
                             </div>
-                            <div className='calculated_data'>{`Продолжительность 
+                            <div className='calculated_data'>{`${SetTranslate('duration')}
                              ${setDuration(duration)}
                             `}</div>
                         </div>

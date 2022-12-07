@@ -19,6 +19,7 @@ const CardColValue = observer(({ children, pointStatus }) => {
                                 pointStatus === 'postponed' ? 'rgb(241,196,15,0.8)' :
                                     Setting.app_theme === 'light' ? 'lightgrey' : '#3c3c3c',
                 cursor: (pointStatus === null || pointStatus === 'new' || pointStatus === 'inWork' || pointStatus === 'postponed' || (pointStatus === 'canceled' && user.user.role === 'customer') || (pointStatus === 'completed' && user.user.role === 'customer')) && ((order.order.order_status === 'postponed' && user.user.role === 'customer') || order.order.order_status === 'inWork') ? 'pointer' : '',
+                color:Setting.app_theme === 'light' ? 'black' : 'white'
             }}
         >{children}</div>
     )

@@ -59,7 +59,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
             <CardRow>
                 <CardColName>{SetTranslate('time')}</CardColName>
                 <CardColValue>{formattedEstimatedTime}</CardColValue>
-                {onePoint.finished_time ?
+                {onePoint.finished_time && onePoint.status === 'completed' ?
                     <CardColValue>{formattedFinishedTime}</CardColValue> : <></>}
             </CardRow>
             : <></>}

@@ -11,6 +11,7 @@
 
 .card_container_dark {
     background-color: #1f1f1f;
+    color: white;
 }
 
 .card_col_value {
@@ -29,7 +30,8 @@
 }
 
 .card_col_name_dark {
-    background-color: #2c323d  
+    background-color: #2c323d;
+    color: white;
 }
 
 

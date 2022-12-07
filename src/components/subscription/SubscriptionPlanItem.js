@@ -3,7 +3,7 @@ import { SetTranslate } from '../../modules/SetTranslate'
 import { Button } from '../ui/button/Button'
 import { CardButton } from '../ui/button/CardButton'
 import { useColor } from '../../hooks/useColor'
-import { NotificationContext, SubscriptionContext, UserContext, UserInfoContext } from '../..'
+import { NotificationContext, SettingContext, SubscriptionContext, UserContext, UserInfoContext } from '../..'
 import OptionItem from './OptionItem'
 import { observer } from 'mobx-react-lite'
 import { updateSubscription } from '../../http/subscriptionApi'
@@ -15,6 +15,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Notification } = useContext(NotificationContext)
+    const { Setting } = useContext(SettingContext)
 
     let optionsByPlan
     let initialTime
@@ -42,7 +43,9 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
     return (
         <>
             {plan ?
-                <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.id === Subscription.subscription.planId ? 'plan_item_container current' : 'plan_item_container'} style={{ boxShadow: `0px 5px 10px 0px ${useColor(plan.name)}` }}>
+                <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.id === Subscription.subscription.planId ? 'plan_item_container current' :
+                    'plan_item_container'} 
+                    style={{ boxShadow: `0px 5px 10px 0px ${useColor(plan.name)}`, color: plan.id !== Subscription.subscription.planId && Setting.app_theme === 'dark' ? 'white' : parent === 'status' && Setting.app_theme === 'dark' ? 'white' : 'black' }}>
                     <div className={'plan_name_container'}>
                         <div className={'plan_item_name'}>{SetTranslate(plan.name)}</div>
                         <div className={'plan_item_name_bage'}>{plan.bage}</div>

@@ -8,6 +8,7 @@ import PartnerItem from './PartnerItem'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import { SetTranslate } from '../../modules/SetTranslate'
+import NoData from '../ui/page/NoData'
 
 
 const PartnersList = observer(({ setFetchPartnersStart }) => {
@@ -72,14 +73,8 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
               </tbody>
             </table>
           </>
-          : <div
-            style={{
-              marginTop: '10vh',
-              fontSize: '20px', 
-              textAlign:'center',
-              padding: '10px'
-            }}
-          >{SetTranslate('no_partners')}</div>}
+          : <NoData        
+          >{SetTranslate('no_partners')}</NoData>}
       </VerticalContainer>
     </>
   )

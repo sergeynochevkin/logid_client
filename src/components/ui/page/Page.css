@@ -9,5 +9,51 @@
 
 .dark {
     background-color: #121212;
+    /* color: white; */
+}
+
+.field_name {
+    font-size: 10px;
+    font-weight: bold
+}
+
+.field_name_dark {
+    color: white;
+}
+
+.field {
+    min-width: 300px;
+    min-height: 18px;
+    padding: 5px;
+    background-color: rgb(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: default;
+    font-weight: normal;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: rgb(245, 245, 245, 0.8) solid 1px;
+    font-size: 12px;
+}
+
+.field_dark {
+    color: white;
+}
+
+.no_data {
+    margin-top: 10vh;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    color: black;
+}
+
+.no_data_dark {
+    margin-top: 10vh;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
     color: white;
 }

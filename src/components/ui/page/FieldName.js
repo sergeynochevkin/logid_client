@@ -1,6 +1,15 @@
-import styled from "styled-components";
+import { observer } from 'mobx-react-lite'
+import React, { useContext } from 'react'
+import { SettingContext } from '../../..'
+import './Page.css'
 
-export const FieldName = styled.div`
-font-size:10px;
-font-weight:bold
-`
+const FieldName = observer(({ children, ...props }) => {
+
+    const { Setting } = useContext(SettingContext)
+
+    return (
+        <div {...props} className={Setting.app_theme === 'light' ? 'field_name' : 'field_name field_name_dark'}>{children}</div>
+    )
+}
+)
+export { FieldName }

@@ -6,7 +6,7 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const OrderComment =observer( ({ formData, setFormData }) => {
+const OrderComment = ({ formData, setFormData }) => {
 
   return (
 
@@ -36,6 +36,6 @@ const OrderComment =observer( ({ formData, setFormData }) => {
 
 
   )
-})
+}
 
 export default OrderComment

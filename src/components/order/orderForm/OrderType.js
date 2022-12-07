@@ -6,7 +6,7 @@ import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const OrderType = observer( ({ formData, setFormData }) => {
+const OrderType = ({ formData, setFormData }) => {
 
     return (
 
@@ -14,11 +14,9 @@ const OrderType = observer( ({ formData, setFormData }) => {
             style={{ gap: '0px' }}
         >
             <Select value={formData.order_type.value}
-
                 style={{ borderLeft: (formData.order_type.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 onChange={(e) => formData.order_type.onChange(e)}
                 onBlur={e => formData.order_type.onBlur(e)}
-
                 name="order_type" id="order_type"
             >
                 <option defaultValue hidden>{SetTranslate('order_type_place_holder')}</option>
@@ -38,6 +36,6 @@ const OrderType = observer( ({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default OrderType

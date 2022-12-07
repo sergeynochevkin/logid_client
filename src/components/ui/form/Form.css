@@ -11,7 +11,7 @@
 .custom_select_dark {
     background-color: #121212;
     border: solid 1px #2b2b2b;
-    color: #8b898b;
+    color: white;
 }
 
 
@@ -28,7 +28,7 @@
 .custom_input_dark {
     background-color: #121212;
     border: solid 1px #2b2b2b;
-    color: #8b898b
+    color: white;
 }
 
 .point_container {
@@ -44,6 +44,7 @@
 }
 
 .point_container_dark{
-    background-color: #2b2b2b
+    background-color: #2b2b2b;
+    color: white;
 }
 

@@ -20,6 +20,7 @@ import OrderStatusButtons from './OrderStatusButtons'
 import { fetchUserState } from '../../http/stateApi'
 import MapComponent from '../map/MapComponent'
 import { SetTranslate } from '../../modules/SetTranslate'
+import NoData from '../ui/page/NoData'
 
 const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPartnersStart, fetchStart, setFetchStart }) => {
   const { order } = useContext(OrderContext)
@@ -162,11 +163,68 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
       setFetchStart(true)
     }
   }
+
+  const new_orders_received = SetTranslate('new_orders_received')
+  const new_order_received = SetTranslate('new_order_received')
+  const order_taken = SetTranslate('order_taken')
+  const orders_taken = SetTranslate('orders_taken')
+  const offers_accepted = SetTranslate('offers_accepted')
+  const offer_accepted = SetTranslate('offer_accepted')
+  const offers_accepted_carrier = SetTranslate('offers_accepted_carrier')
+  const offer_accepted_carrier = SetTranslate('offer_accepted_carrier')
+  const postponed_orders = SetTranslate('postponed_orders')
+  const postponed_order = SetTranslate('new_order_received')
+  const start_doing = SetTranslate('start_doing')
+  const restored_orders = SetTranslate('restored_orders')
+  const restored_order = SetTranslate('restored_order')
+  const check_restored = SetTranslate('check_restored')
+  const orders_canceled = SetTranslate('orders_canceled')
+  const order_canceled = SetTranslate('order_canceled')
+  const canceled_disrupted_orders = SetTranslate('canceled_disrupted_orders')
+  const canceled_disrupted_order = SetTranslate('canceled_disrupted_order')
+  const restore_to_resend = SetTranslate('restore_to_resend')
+  const affect_carrier_rating = SetTranslate('affect_carrier_rating')
+  const affect_your_rating = SetTranslate('affect_your_rating')
+  const affect_customer_rating = SetTranslate('affect_customer_rating')
+  const non_arrival = SetTranslate('non_arrival')
+  const not_loading = SetTranslate('not_loading')
+  const customer_completed_orders = SetTranslate('customer_completed_orders')
+  const customer_completed_order = SetTranslate('customer_completed_order')
+  const completed_orders = SetTranslate('completed_orders')
+  const completed_order = SetTranslate('completed_order')
+  const orders_notifications = SetTranslate('orders_notifications')
+  const order_notifications = SetTranslate('order_notifications')
+  const auctions_notifications = SetTranslate('auctions_notifications')
+  const auction_notifications = SetTranslate('auction_notifications')
+  const converted_many = SetTranslate('converted_many')
+  const converted_one = SetTranslate('converted_one')
+  const to_auction = SetTranslate('to_auction')
+  const to_order = SetTranslate('to_order')
+  const can_take_it = SetTranslate('can_take_it')
+  const new_offers = SetTranslate('new_offers')
+  const new_offer = SetTranslate('new_offer')
+  const changed_offers = SetTranslate('changed_offers')
+  const changed_offer = SetTranslate('changed_offer')
+  const removed_offers = SetTranslate('removed_offers')
+  const removed_offer = SetTranslate('removed_offer')
+  const postponed_points = SetTranslate('postponed_points')
+  const postponed_point = SetTranslate('postponed_point')
+  const canceled_point = SetTranslate('canceled_point')
+  const canceled_points = SetTranslate('canceled_points')
+  const restored_points = SetTranslate('restored_points')
+  const restored_point = SetTranslate('restored_point')
+  const on_orders = SetTranslate('on_orders')
+  const on_order = SetTranslate('on_order')
+  const completed_points = SetTranslate('completed_points')
+  const completed_point = SetTranslate('completed_point')
+  const in_work_points = SetTranslate('in_work_points')
+  const in_work_point = SetTranslate('in_work_point')
+
   useEffect(() => {
     if (Object.keys(order.added).length > 0) {
       if (order.added.new.length > 0) {
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.new.length > 1 ? SetTranslate('new_orders_received') : SetTranslate('new_order_received')} ${order.added.new.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.new.length > 1 ? new_orders_received : new_order_received} ${order.added.new.map(el => el.id).toString()}` }])
         }
         // if (user.user.role === 'customer') {
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.new.length > 1 ? 'Отправлены заказы:' : 'Отправлен заказ'} ${order.added.new.map(el => el.id).toString()}` }])
@@ -174,13 +232,13 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
       }
       if (order.added.inWork.length > 0) {
         if (user.user.role === 'customer' && order.added.inWork[0].updated_by_role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? SetTranslate('orders_taken') : SetTranslate('order_taken')} ${order.added.inWork.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? orders_taken : order_taken} ${order.added.inWork.map(el => el.id).toString()}` }])
         }
         if (user.user.role === 'customer' && order.added.inWork[0].updated_by_role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? SetTranslate('offers_accepted') : SetTranslate('offer_accepted')} ${order.added.inWork.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? offers_accepted : offer_accepted} ${order.added.inWork.map(el => el.id).toString()}` }])
         }
         if (user.user.role === 'carrier' && order.added.inWork[0].updated_by_role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? SetTranslate('offers_accepted_carrier') : SetTranslate('offer_accepted_carrier')} ${order.added.inWork.map(el => el.id).toString()}, ${SetTranslate('start_doing')}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? offers_accepted_carrier : offer_accepted_carrier} ${order.added.inWork.map(el => el.id).toString()}, ${start_doing}` }])
         }
         // if (user.user.role === 'carrier') {
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.inWork.length > 1 ? 'Вы взяли в работу заказы:' : 'Вы взяли в работу заказ'} ${order.added.inWork.map(el => el.id).toString()}` }])
@@ -191,12 +249,12 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? 'Вы отложили заказы:' : 'Вы отложили заказ'} ${order.added.postponed.map(el => el.id).toString()}` }])
         // } 
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? SetTranslate('postponed_orders') : SetTranslate('postponed_order')} ${order.added.postponed.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? postponed_orders : postponed_order} ${order.added.postponed.map(el => el.id).toString()}` }])
         }
       }
       if (order.added.postponed.filter(el => el.disrupted_by !== '').length > 0) {
         if (user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? SetTranslate('restored_orders') : SetTranslate('restored_order')} ${order.added.postponed.map(el => el.id).toString()}, ${SetTranslate('check_restored')}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.postponed.length > 1 ? restored_orders : restored_order} ${order.added.postponed.map(el => el.id).toString()}, ${check_restored}` }])
         }
       }
       if (order.added.canceled.filter(el => el.disrupted_by === '').length > 0) {
@@ -204,20 +262,20 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.canceled.length > 1 ? 'Вы отменили заказы:' : 'Вы отменили заказ'} ${order.added.canceled.map(el => el.id).toString()}` }])
         // } 
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? SetTranslate('orders_canceled') : SetTranslate('order_canceled')} ${order.added.canceled.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? orders_canceled : order_canceled} ${order.added.canceled.map(el => el.id).toString()}` }])
         }
       }
       else if (order.added.canceled.filter(el => el.disrupted_by !== '').length > 0) {
         if (order.added.canceled.filter(el => el.disrupted_by === 'carrier').length > 0 && user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? SetTranslate('canceled_disrupted_orders') : SetTranslate('canceled_disrupted_order')} ${order.added.canceled.map(el => el.id).toString()}, ${SetTranslate('restore_to_resend')}. ${SetTranslate('affect_carrier_rating')}` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${order.added.canceled.length > 1 ? canceled_disrupted_orders : canceled_disrupted_order} ${order.added.canceled.map(el => el.id).toString()}, ${restore_to_resend}. ${affect_carrier_rating}` }])
         } if (order.added.canceled.filter(el => el.disrupted_by === 'carrier' && el.carrierId === UserInfo.userInfo.id).length > 0 && user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `${SetTranslate('non_arrival')} ${order.added.canceled.length > 1 ? SetTranslate('orders_canceled').toLowerCase() : SetTranslate('order_canceled').toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${SetTranslate('affect_your_rating')}` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${non_arrival} ${order.added.canceled.length > 1 ? orders_canceled.toLowerCase() : order_canceled.toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${affect_your_rating}` }])
         }
         if (order.added.canceled.filter(el => el.disrupted_by === 'customer').length > 0 && user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `${SetTranslate('not_loading')} ${order.added.canceled.length > 1 ? SetTranslate('orders_canceled').toLowerCase() : SetTranslate('order_canceled').toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${SetTranslate('affect_your_rating')}` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${not_loading} ${order.added.canceled.length > 1 ? orders_canceled.toLowerCase() : order_canceled.toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${affect_your_rating}` }])
         }
         if (order.added.canceled.filter(el => el.disrupted_by === 'customer').length > 0 && user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'error', message: `${SetTranslate('not_loading')} ${order.added.canceled.length > 1 ? SetTranslate('orders_canceled').toLowerCase() : SetTranslate('order_canceled').toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${SetTranslate('affect_customer_rating').toLowerCase()}` }])
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${not_loading} ${order.added.canceled.length > 1 ? orders_canceled.toLowerCase() : order_canceled.toLowerCase()} ${order.added.canceled.map(el => el.id).toString()} ${affect_customer_rating.toLowerCase()}` }])
         }
       }
       if (order.added.completed.filter(el => el.updated_by_role === 'customer').length > 0) {
@@ -228,22 +286,23 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
           Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? SetTranslate('customer_completed_orders') : SetTranslate('customer_completed_order')} ${order.added.completed.map(el => el.id).toString()}` }])
         }
       }
+
       if (order.added.completed.filter(el => el.updated_by_role === 'carrier').length > 0) {
         // if (user.user.role === 'carrier') {
         //   Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? 'Вы завершили заказы:' : 'Вы завершили заказ'} ${order.added.completed.map(el => el.id).toString()}` }])
         // }
         if (user.user.role === 'customer') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? SetTranslate('completed_orders') : SetTranslate('completed_order')} ${order.added.completed.map(el => el.id).toString()}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.completed.length > 1 ? completed_orders : completed_order} ${order.added.completed.map(el => el.id).toString()}` }])
         }
       }
       if (order.added.newType.filter(el => el.order_type === 'auction').length > 0) {
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? SetTranslate('orders_notifications') : SetTranslate('order_notifications')} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? SetTranslate('converted_many') : SetTranslate('converted_one')} ${SetTranslate('to_auction')}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? orders_notifications : order_notifications} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? converted_many : converted_one} ${to_auction}` }])
         }
       }
       if (order.added.newType.filter(el => el.order_type === 'order').length > 0) {
         if (user.user.role === 'carrier') {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? SetTranslate('auctions_notifications') : SetTranslate('auction_notifications')} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? SetTranslate('converted_many') : SetTranslate('converted_one')} ${SetTranslate('to_auction')} ${SetTranslate('can_take_it')}` }])
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.newType.length > 1 ? auctions_notifications : auction_notifications} ${order.added.newType.map(el => el.id).toString()} ${order.added.newType.length > 1 ? converted_many : converted_one} ${to_order} ${can_take_it}` }])
         }
       }
     }
@@ -251,48 +310,48 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
   useEffect(() => {
     if (Object.keys(Offer.changes).length > 0) {
       if (Offer.changes.new.length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.new.length > 1 ? SetTranslate('new_offers') : SetTranslate('new_offer')} ${Offer.changes.new.map(el => el.orderId).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.new.length > 1 ? new_offers : new_offer} ${Offer.changes.new.map(el => el.orderId).toString()}` }])
       }
       if (Offer.changes.updated.length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.updated.length > 1 ? SetTranslate('changed_offers') : SetTranslate('changed_offer')} ${Offer.changes.updated.map(el => el.orderId).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.updated.length > 1 ? changed_offers : changed_offer} ${Offer.changes.updated.map(el => el.orderId).toString()}` }])
       }
       if (Offer.changes.deleted.length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.deleted.length > 1 ? SetTranslate('removed_offers') : SetTranslate('removed_offer')} ${Offer.changes.deleted.map(el => el.orderId).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.deleted.length > 1 ? removed_offers : removed_offer} ${Offer.changes.deleted.map(el => el.orderId).toString()}` }])
       }
     }
   }, [Offer.changes])
   useEffect(() => {
     if (Object.keys(Point.added).length > 0) {
       if (Point.added.postponed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? SetTranslate('postponed_points') : SetTranslate('postponed_point')} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? postponed_points : postponed_point} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.canceled.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? SetTranslate('canceled_points') : SetTranslate('canceled_point')} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? canceled_points : canceled_point} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.new.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role === 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? SetTranslate('restored_points') : SetTranslate('restored_point')} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? restored_points : restored_point} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.completed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.completed.length > 1 ? SetTranslate('completed_points') : SetTranslate('completed_point')} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.completed.length > 1 ? completed_points : completed_point} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.in_work.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.in_work.length > 1 ? SetTranslate('in_work_points') : SetTranslate('in_work_point')} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.in_work.length > 1 ? in_work_points : in_work_point} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
 
       if (Point.added.postponed.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? SetTranslate('postponed_points') : SetTranslate('postponed_point')} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? postponed_points : postponed_point} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.canceled.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? SetTranslate('canceled_points') : SetTranslate('canceled_point')} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? canceled_points : canceled_point} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.new.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? SetTranslate('restored_points') : SetTranslate('restored_point')} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.new.filter(el => el.updatedAt !== el.createdAt).length > 1 ? restored_points : restored_point} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.sequence).toString()} ${Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.new.filter(el => el.updatedAt !== el.createdAt).map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.completed.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.completed.length > 1 ? SetTranslate('completed_points') : SetTranslate('completed_point')} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.completed.length > 1 ? completed_points : completed_point} ${Point.added.completed.map(el => el.sequence).toString()} ${Point.added.completed.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.completed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.in_work.filter(el => el.updated_by_role === 'customer').length > 0 && user.user.role !== 'customer') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.in_work.length > 1 ? SetTranslate('in_work_points') : SetTranslate('in_work_point')} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.in_work.length > 1 ? in_work_points : in_work_point} ${Point.added.in_work.map(el => el.sequence).toString()} ${Point.added.in_work.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.in_work.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
     }
   }, [Point.added])
@@ -410,12 +469,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                   />)}
               </HorizontalContainer>
             </>
-              : <div
-                style={{
-                  marginTop: '10vh',
-                  fontSize: '20px'
-                }}
-              >{SetTranslate('no_orders')}</div>}
+              : <NoData
+              >{SetTranslate('no_orders')}</NoData>}
           </VerticalContainer> :
           ComponentFunction.OrdersComponentFunction === 'orderItem' ?
             <>

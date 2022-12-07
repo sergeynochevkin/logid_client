@@ -264,7 +264,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                         :
                         user.user.role === 'customer' && thisOrder.order_status === 'inWork' ?
                             <CardRow>
-                                <CardButton onClick={disrupt}>{SetTranslate('not_arrival')}</CardButton>
+                                <CardButton onClick={disrupt}>{SetTranslate('not_arrival_button')}</CardButton>
                                 <CardButton onClick={completed}>{SetTranslate('finish')}</CardButton>
                             </CardRow>
                             :
@@ -294,7 +294,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                                             </CardRow> :
                                             user.user.role === 'carrier' && thisOrder.order_status === 'inWork' ?
                                                 <CardRow>
-                                                    <CardButton onClick={disrupt}>{SetTranslate('not_loading')}</CardButton>
+                                                    <CardButton onClick={disrupt}>{SetTranslate('not_loading_button')}</CardButton>
                                                     <CardButton onClick={completed}>{SetTranslate('finish')}</CardButton>
                                                 </CardRow> :
                                                 user.user.role === 'carrier' && thisOrder.order_status === 'completed' ?

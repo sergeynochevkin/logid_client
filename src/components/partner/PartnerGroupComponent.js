@@ -13,6 +13,7 @@ import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import { v4 } from "uuid";
 import { SetTranslate } from '../../modules/SetTranslate'
+import NoData from '../ui/page/NoData'
 
 const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModalActive, modalActive, onePartnerInfo }) => {
     const { UserInfo } = useContext(UserInfoContext)
@@ -103,12 +104,8 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                             </table>
                             :
                             Partner.groups.length === 0 && parent !== 'partnerList' ?
-                                <div
-                                    style={{
-                                        marginTop: '10vh',
-                                        fontSize: '20px'
-                                    }}
-                                >{SetTranslate('no_groups')}</div> : <></>}
+                                <NoData
+                                >{SetTranslate('no_groups')}</NoData> : <></>}
 
             </VerticalContainer>
             {parent === 'groupModal' ?

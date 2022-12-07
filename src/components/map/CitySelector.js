@@ -4,6 +4,7 @@ import { AdressContext, FilterAndSortContext, LimitContext, NotificationContext,
 import './Map.css'
 import { v4 } from "uuid";
 import close_white from '../../../src/assets/close_white.png';
+import { SetTranslate } from '../../modules/SetTranslate';
 
 const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBounds, setRefreshMap }) => {
     const { Setting } = useContext(SettingContext)
@@ -34,31 +35,38 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
         autocomplete.addListener('place_changed', onPlaceChanged)
     }
 
+    const subscription_cities_limit = SetTranslate('subscription_cities_limit')
+    const city_already_added = SetTranslate('city_already_added')
+    const added_order_tracking_city = SetTranslate('added_order_tracking_city')
+    const no_need_to_add = SetTranslate('no_need_to_add')
+    const your_default_city = SetTranslate('your_default_city')
+
+
     function onPlaceChanged(id) {
         var place = autocomplete.getPlace()
         let pattern = { lat: undefined, lng: undefined, name: '' }
         if (!place.geometry) {
-            document.getElementById(id).placeholder = 'Введите город'
+            document.getElementById(id).placeholder = SetTranslate('enter_a_city_to_track')
             // dataReset()
         } else {
             pattern.name = place.name
             pattern.lat = place.geometry.location.lat()
             pattern.lng = place.geometry.location.lng()
             if (Setting.user_map_cities.length >= Limit.user_limits.carrier_take_order_city_limit) {
-                Notification.addNotification([{ id: v4(), type: 'error', message: `Вы достигли лимта городов для отслеживания заказов доступного с вашей подпиской` }])
+                Notification.addNotification([{ id: v4(), type: 'error', message: subscription_cities_limit }])
             }
             else if (Setting.user_map_cities.find(el => el.lat === pattern.lat && el.lng === pattern.lng)) {
-                Notification.addNotification([{ id: v4(), type: 'error', message: `Вы уже добавили город отслеживания заказов ${place.name}` }])
+                Notification.addNotification([{ id: v4(), type: 'error', message: `${city_already_added} ${place.name}` }])
             }
             else if (pattern.lat === parseFloat(userCity.lat) && pattern.lng === parseFloat(userCity.lng)) {
-                Notification.addNotification([{ id: v4(), type: 'error', message: `Нет необходимости добавлять ${place.name} это ваш город по умолчанию` }])
+                Notification.addNotification([{ id: v4(), type: 'error', message: `${no_need_to_add} ${place.name}${your_default_city}` }])
             }
             else {
                 let data = [...Setting.user_map_cities]
                 data.push(pattern)
                 Setting.setUserMapCities(data)
                 State.setUserStateField(data, 'user_map_cities', UserInfo.userInfo.id)
-                Notification.addNotification([{ id: v4(), type: 'success', message: `Добавлен город отслеживания заказов ${place.name}` }])
+                Notification.addNotification([{ id: v4(), type: 'success', message: `${added_order_tracking_city} ${place.name}` }])
                 if (Setting.all_cities === true) {
                     calcAllCities()
                     setRefreshMap(true)
@@ -86,14 +94,13 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
     return (
         <>
             <input className='city_selector_input' id='city'
-                placeholder='Введите город для отслеживания'
+                placeholder={SetTranslate('enter_a_city_to_track')}
             ></input>
 
-            {/* Кнопка только межгород, если у перевозчика есть кар бас трак комби меняет фильтр делать - осталось доработать фетч расстояние между центрами больше чем баундс или баундс * 2! */}
             {((Transport.transports.map(el => el.type).includes('car') || Transport.transports.map(el => el.type).includes('truck') || Transport.transports.map(el => el.type).includes('minibus') || Transport.transports.map(el => el.type).includes('combi')) && Setting.user_map_cities.length >= 1) &&
                 <div className='button_row'>
                     <div
-                        className={FilterAndSort.filters.intercity ? 'map_scale_button_active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
+                        className={FilterAndSort.filters.intercity ? 'map_scale_button active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
                         onClick={() => {
                             if (!FilterAndSort.filters.intercity) {
                                 FilterAndSort.setFilters(true, 'intercity')
@@ -102,15 +109,14 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                             }
                             setFetchStart(true)
                         }}
-                    >Только межгород</div>
+                    >{SetTranslate('intercity_only')}</div>
                 </div>
             }
 
-            {/* Кнопка на все города если больше одного города меняет баундс делать! */}
             {Setting.user_map_cities.length >= 1 &&
                 <div className='button_row'>
                     <div
-                        className={Setting.all_cities ? 'map_scale_button_active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
+                        className={Setting.all_cities ? 'map_scale_button active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
                         onClick={() => {
                             if (Setting.all_cities === false) {
                                 calcAllCities()
@@ -120,7 +126,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                                 resetAllCities()
                             }
                         }}
-                    >Все города</div>
+                    >{SetTranslate('all_cities')}</div>
                 </div>
             }
 

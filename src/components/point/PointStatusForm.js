@@ -21,7 +21,17 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
     const { Setting } = useContext(SettingContext)
 
     formData.role = user.user.role
-    formData.carrier_comment = useInput('', { isEmpty: true, minLength: 3, maxLength: 20 }, 'комментарий')
+    formData.carrier_comment = useInput('', { isEmpty: true, minLength: 3, maxLength: 20 }, SetTranslate('comment'))
+
+    const you_canceled = SetTranslate('you_canceled')
+    const you_postponed = SetTranslate('you_postponed')
+    const you_took = SetTranslate('you_took')
+    const you_restored = SetTranslate('you_restored')
+    const you_finished = SetTranslate('you_finished')
+    const last = SetTranslate('last')
+    const point = SetTranslate('point')
+    const of_order = SetTranslate('of_order')
+
 
 
     const click = async (event) => {
@@ -35,14 +45,13 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                 formData.finished_time,
                 formData.role
             )
-                .then(Notification.addNotification([{
-                    id: v4(), type: 'success', message: `Вы ${formData.status === 'postponed' ? 'отложили' :
-                        formData.status === 'canceled' ? 'отменили' :
-                            formData.status === 'inWork' ? 'взяли в работу' :
-                                formData.status === 'new' ? 'восстановили' : 'завершили'}
-                            ${onePoint.sequence === 50 ? 'последнюю' : ''} точку ${onePoint.sequence !== 50 ? onePoint.sequence : ''} заказа ${order.order.id}`
-                }])
-                )
+            Notification.addNotification([{
+                id: v4(), type: 'success', message: `${formData.status === 'postponed' ? you_postponed :
+                    formData.status === 'canceled' ? you_canceled :
+                        formData.status === 'inWork' ? you_took :
+                            formData.status === 'new' ? you_restored : you_finished}
+                            ${onePoint.sequence === 50 ? last : ''} ${point} ${onePoint.sequence !== 50 ? onePoint.sequence : ''} ${of_order} ${order.order.id}`
+            }])
             setModalActive(false)
             setPointFetchStart(true)
             formReset()
@@ -121,7 +130,11 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                             formData.updated_time = new Date();
                             click()
                         }
-                        else (alert('Укажите причину в комментарии'))
+                        else (
+                            Notification.addNotification([{
+                                id: v4(), type: 'error', message: SetTranslate('reason_of_cancellation')
+                            }])
+                        )
                     }}
                         disabled={formData.carrier_comment.notValid && user.user.role === 'carrier'}
                     >{SetTranslate('cancel')}</CardButton>
@@ -143,6 +156,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         formData.carrier_comment = ''
                         formData.updated_by = UserInfo.userInfo.id;
                         formData.updated_time = new Date();
+                        formData.finished_time = new Date(0);
                         click()
                     }}>{SetTranslate('restore')}</CardButton>
                     : <></>}

@@ -21,7 +21,7 @@
     z-index: 1;
 }
 
-.calculated_data {}
+/* .calculated_data {} */
 
 .calculated_data_container {
     background-color: rgb(245, 245, 245, 0.5);
@@ -72,7 +72,7 @@
 }
 
 .map_scale_button_dark {
-    background-color: rgb(73, 74, 74, 0.8);
+    background-color: rgba(31, 33, 33, 0.792);
     color: white;
 }
 

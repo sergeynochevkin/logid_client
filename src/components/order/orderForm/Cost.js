@@ -6,7 +6,7 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Cost = observer(({ formData, setFormData }) => {
+const Cost = ({ formData, setFormData }) => {
 
     return (
 
@@ -35,6 +35,6 @@ const Cost = observer(({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default Cost

@@ -7,7 +7,7 @@ import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForWho }) => {
+const OrderForWho = ({ formData, setFormData, orderForWho, setOrderForWho }) => {
     const { Partner } = useContext(PartnerContext)
     formData.for_group = useInput('', { isEmpty: true },)
     formData.for_partner = useInput('', { isEmpty: true },)
@@ -108,6 +108,6 @@ const OrderForWho = observer(({ formData, setFormData, orderForWho, setOrderForW
                 </> : <></>}
         </>
     )
-})
+}
 
 export default OrderForWho
