@@ -43,8 +43,30 @@
     background-color: rgb(245, 245, 245, 0.8)
 }
 
-.point_container_dark{
+.point_container_dark {
     background-color: #2b2b2b;
     color: white;
 }
 
+.form_comment {
+    font-size: 12px;
+    color: black;
+}
+
+.form_comment_dark {
+    font-size: 12px;
+    color: white;
+}
+
+.add_delete_button {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.add_delete_button:hover {
+    color: grey;
+}
+
+.add_delete_button_dark {
+    color: white;
+}

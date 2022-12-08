@@ -47,7 +47,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                   FilterAndSort.filters[ComponentFunction.Function].limit = 10
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
-                  color: ComponentFunction.Function === 'postponed' && 'lightgrey',
+                  color: ComponentFunction.Function === 'postponed' && 'grey',
                 }}>{SetTranslate('postponed_bookmark')}
                   <div className='number_of_orders'>{order.totalCount.postponed}</div>
                 </BookMark>
@@ -62,7 +62,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'inWork' && 'lightgrey',
+              color: ComponentFunction.Function === 'inWork' && 'grey',
             }}>{SetTranslate('inWork_bookmark')}
               <div className='number_of_orders' >{order.totalCount.inWork}</div>
             </BookMark>
@@ -75,7 +75,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'completed' && 'lightgrey',
+              color: ComponentFunction.Function === 'completed' && 'grey',
             }}>{SetTranslate('completed_bookmark')}
               <div className='number_of_orders' >{order.totalCount.completed}</div>
             </BookMark>
@@ -88,7 +88,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'canceled' && 'lightgrey',
+              color: ComponentFunction.Function === 'canceled' && 'grey',
             }}>{SetTranslate('canceled_bookmark')}
               <div className='number_of_orders' >{order.totalCount.canceled}</div>
             </BookMark>
@@ -101,7 +101,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 30
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'arc' && 'lightgrey',
+              color: ComponentFunction.Function === 'arc' && 'grey',
             }}>{SetTranslate('arc_bookmark')}
               <div className='number_of_orders'  >{order.totalCount.arc}</div>
             </BookMark>
@@ -116,7 +116,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                 FilterAndSort.filters[ComponentFunction.Function].limit = 30
                 ComponentFunction.setOrdersComponentFunction('orderList')
               }} style={{
-                color: ComponentFunction.Function === 'pattern' && 'lightgrey',
+                color: ComponentFunction.Function === 'pattern' && 'grey',
               }}>{SetTranslate('templates_bookmark')}
                 <div className='number_of_orders' >{order.totalCount.pattern}</div>
               </BookMark> : <></>}

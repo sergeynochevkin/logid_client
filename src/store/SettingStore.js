@@ -13,7 +13,7 @@ export default class StateStore {
         this._bounds = {}
         this._bounds_limit = undefined
         this._zoom = undefined
-
+       
         makeAutoObservable(this)
     }
     setUserSettings(value) {

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { SettingContext, SubscriptionContext } from '../..'
+import { SettingContext, SubscriptionContext, UserInfoContext } from '../..'
 import { SetTranslate } from '../../modules/SetTranslate'
 import './Subscription.css'
 import SubscriptionPlanItem from './SubscriptionPlanItem'
@@ -8,6 +8,7 @@ import SubscriptionPlanItem from './SubscriptionPlanItem'
 const SubscriptionForm = observer(({ setFetchPartnersStart, setModalActive }) => {
     const { Subscription } = useContext(SubscriptionContext)
     const { Setting } = useContext(SettingContext)
+    const { UserInfo } = useContext(UserInfoContext)
 
     return (
         <div
@@ -17,7 +18,7 @@ const SubscriptionForm = observer(({ setFetchPartnersStart, setModalActive }) =>
             <div
                 className={'plans_container'}
             >
-                {Subscription.plans.filter(el => el.id !== 0).map(plan =>
+                {Subscription.plans.filter(el => el.plan_id !== 0 & el.country === UserInfo.userInfo.country).map(plan =>
                     <SubscriptionPlanItem key={plan.id} plan={plan} setFetchPartnersStart={setFetchPartnersStart} setModalActive={setModalActive} />
                 )}
 

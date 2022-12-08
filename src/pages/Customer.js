@@ -52,6 +52,9 @@ const Customer = observer(() => {
 
   const [fetching, error] = useFetching(async () => {
     if (Object.keys(UserInfo.userInfo).length !== 0) {
+      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
+    }
+    if (Object.keys(UserInfo.userInfo).length !== 0) {
       await fetchNotifications(UserInfo.userInfo.id).then(async data => {
         Notification.setServerNotifications(data.filter(el => el.viewed === true))
         Notification.setNewServerNotifications(data.filter(el => el.viewed === false))
@@ -98,8 +101,8 @@ const Customer = observer(() => {
     // id: "__googleMapsScriptId",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: libraries,
-    region: 'RU',
-    language: 'ru'
+    region: 'CA',
+    language: 'en'
   })
 
   if (!isLoaded) { return <PageContainer /> }
@@ -173,7 +176,7 @@ const Customer = observer(() => {
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
                 }}>{SetTranslate('account')}</BookMark>
-{/* 
+                {/* 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')

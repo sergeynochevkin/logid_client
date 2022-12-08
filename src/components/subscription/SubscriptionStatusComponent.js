@@ -1,19 +1,19 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { SettingContext, SubscriptionContext } from '../..'
+import { SettingContext, SubscriptionContext, UserInfoContext } from '../..'
 import './Subscription.css'
 import SubscriptionPlanItem from './SubscriptionPlanItem'
 
-const SubscriptionStatusComponent = observer(({setModalActive}) => {
+const SubscriptionStatusComponent = observer(({ setModalActive }) => {
   const { Subscription } = useContext(SubscriptionContext)
   const { Setting } = useContext(SettingContext)
-  
+  const { UserInfo } = useContext(UserInfoContext)
 
-  let currentPlan = Subscription.plans.find(el=>el.id === Subscription.subscription.planId)
+  let currentPlan = Subscription.plans.find(el => el.plan_id === Subscription.subscription.planId && el.country === UserInfo.userInfo.country)
 
   return (
     <>
-      <SubscriptionPlanItem parent = {'status'} plan={currentPlan} setModalActive={setModalActive} />
+      <SubscriptionPlanItem parent={'status'} plan={currentPlan} setModalActive={setModalActive} />
     </>
   )
 })

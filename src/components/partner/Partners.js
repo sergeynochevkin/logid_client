@@ -18,19 +18,19 @@ const Partners = observer(({ setFetchPartnersStart }) => {
 
       <HorizontalContainer>
         <BookMark
-          style={{ color: ComponentFunction.partnersComponentFunction === 'list' && 'lightgrey' }}
+          style={{ color: ComponentFunction.partnersComponentFunction === 'list' && 'grey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('list')
           }}
         >{SetTranslate('partners_list')}</BookMark>
         <BookMark
-          style={{ color: ComponentFunction.partnersComponentFunction === 'groups' && 'lightgrey' }}
+          style={{ color: ComponentFunction.partnersComponentFunction === 'groups' && 'grey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('groups')
           }}
         >{SetTranslate('groups')}</BookMark>
         <BookMark
-          style={{ color: ComponentFunction.partnersComponentFunction === 'add' && 'lightgrey' }}
+          style={{ color: ComponentFunction.partnersComponentFunction === 'add' && 'grey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('add')
           }}
