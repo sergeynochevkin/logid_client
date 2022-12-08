@@ -8,7 +8,7 @@ import { BookMark } from '../components/ui/button/BookMark'
 import OrderList from '../components/order/OrderList'
 import UserInfoForm from '../components/account/UserInfoForm'
 import TransportComponent from '../components/transport/TransportComponent'
-import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext } from '..'
+import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext, TranslateContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import { useFetching } from '../hooks/useFetching'
@@ -47,11 +47,9 @@ const Carrier = observer(() => {
   const { Adress } = useContext(AdressContext)
   const { Limit } = useContext(LimitContext)
   const { Setting } = useContext(SettingContext)
+  const { Translate } = useContext(TranslateContext)
 
-  const [fetching, error] = useFetching(async () => {
-    if (Object.keys(UserInfo.userInfo).length !== 0) {
-      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
-    }
+  const [fetching, error] = useFetching(async () => { 
     if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
       if ((ComponentFunction.PageFunction === 'customers' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
         await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
@@ -82,6 +80,15 @@ const Carrier = observer(() => {
     }
     setFetchPartnersStart(false)
   })
+
+  useEffect(() => {
+    if (Object.keys(UserInfo.userInfo).length !== 0) {
+      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
+    }
+    if (Object.keys(UserInfo.userInfo).length !== 0) {
+      Translate.setLanguage(Adress.country.default_language)
+    }
+  }, [])
 
   useEffect(() => {
     fetching()

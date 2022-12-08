@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { useContext } from 'react'
+import { AdressContext } from '../../..'
 import { useInput } from '../../../hooks/useInput'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
@@ -7,13 +9,14 @@ import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const Cost = ({ formData, setFormData }) => {
+    const {Adress} = useContext(AdressContext)
 
     return (
 
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={`${SetTranslate('cost')} ${'Set currency by country!'}`} value={formData
+            <Input placeholder={`${SetTranslate('cost')} ${Adress.country.currency}`} value={formData
                 .cost.value}
 
                 style={{ borderLeft: ((formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_type.value === 'order' && formData.cost.isEmpty)) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}

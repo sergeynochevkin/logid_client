@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 export default class TranslateStore {
     constructor() {
-        this._language = 'russian'
+        this._language = ''
 
         this._translation = [
             { service: 'russia', russian: 'Россия', english: 'Russia', spain: '', color: '', type: 'country' },

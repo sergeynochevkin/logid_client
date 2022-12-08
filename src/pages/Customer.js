@@ -8,7 +8,7 @@ import PageBanner from '../components/ui/banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext } from '..'
+import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext, TranslateContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import { fetchUserInfos } from '../http/userInfoApi'
@@ -49,11 +49,9 @@ const Customer = observer(() => {
   const { Adress } = useContext(AdressContext)
   const { Limit } = useContext(LimitContext)
   const { Setting } = useContext(SettingContext)
+  const { Translate } = useContext(TranslateContext)
 
   const [fetching, error] = useFetching(async () => {
-    if (Object.keys(UserInfo.userInfo).length !== 0) {
-      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
-    }
     if (Object.keys(UserInfo.userInfo).length !== 0) {
       await fetchNotifications(UserInfo.userInfo.id).then(async data => {
         Notification.setServerNotifications(data.filter(el => el.viewed === true))
@@ -79,6 +77,15 @@ const Customer = observer(() => {
     Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
     setFetchPartnersStart(false)
   })
+
+  useEffect(() => {
+    if (Object.keys(UserInfo.userInfo).length !== 0) {
+      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
+    }
+    if (Object.keys(UserInfo.userInfo).length !== 0) {
+      Translate.setLanguage(Adress.country.default_language)
+    }
+  }, [])
 
   useEffect(() => {
     fetching()
