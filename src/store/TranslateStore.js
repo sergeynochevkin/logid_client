@@ -12,14 +12,14 @@ export default class TranslateStore {
             { service: 'sweden', russian: 'Швеция', english: 'Sweden', spain: '', color: '', type: 'country' },
             { service: 'finland', russian: 'Финляндия', english: 'Finland', spain: '', color: '', type: 'country' },
             { service: 'montenegin', russian: 'Черногория', english: 'Montenegro', spain: '', color: '', type: 'country' },
-    
+
             // { service: 'krasnodar', russian: 'Краснодар', english: 'Krasnodar', spain: '', color: '', type: 'city' },
             // { service: 'sevastopol', russian: 'Севастополь', english: '', spain: '', color: '', type: 'city' },
             // { service: 'simferopol', russian: 'Симферополь', english: '', spain: '', color: '', type: 'city' },
             // { service: 'novorossiysk', russian: 'Новороссийск', english: '', spain: '', color: '', type: 'city' },
             // { service: 'rostov_on_don', russian: 'Ростов на Дону', english: '', spain: '', color: '', type: 'city' },
             // { service: 'gelendzhik', russian: 'Геленджик', english: 'Gelendzhik', spain: '', color: '', type: 'city' },
-    
+
             { service: 'arc', russian: 'В архиве', english: 'Archived', spain: '', color: 'rgb(210,219,236, 0.8)', type: 'order_status' },
             { service: 'new', russian: 'Новый', english: 'New', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'order_status' },
             { service: 'postponed', russian: 'Отложен', english: 'Postponed', spain: '', color: 'rgb(241,196,15,0.8)', type: 'order_status' },
@@ -27,23 +27,23 @@ export default class TranslateStore {
             { service: 'completed', russian: 'Выполнен', english: 'Completed', spain: '', color: 'rgb(214,232,255,0.8)', type: 'order_status' },
             { service: 'inWork', russian: 'В работе', english: 'In work', spain: '', color: 'rgb(254, 145, 40,0.8)', type: 'order_status' },
             { service: 'disrupt', russian: 'Сорван', english: 'Disrupted', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'order_status' },
-    
+
             { service: 'order', russian: 'Заказ', english: 'Order', spain: '', color: '', type: 'order_type' },
             { service: 'auction', russian: 'Аукцион', english: 'Auction', spain: '', color: '', type: 'order_type' },
             { service: 'template', russian: 'Шаблон', english: 'Template', spain: '', color: '', type: 'order_type' },
-    
-    
+
+
             { service: 'retail', russian: 'Розничной торговли', english: 'Retail', color: '', spain: '', type: 'user_info' },
             { service: 'wholesale', russian: 'Оптовой торговли', english: 'Whole sale', color: '', spain: '', type: 'user_info' },
             { service: 'food_delivery', russian: 'Доставки продуктов', english: 'Food delivery', spain: '', color: '', type: 'user_info' },
             { service: 'ready_food_delivery', russian: 'Доставки готовых блюд', english: 'Ready food delivery', spain: '', color: '', type: 'user_info' },
             { service: 'electronics_repair', russian: 'Ремонта электроники', english: 'Electrinics repair', spain: '', color: '', type: 'user_info' },
             { service: 'for_myself', russian: 'Себя', english: 'For myself', spain: '', color: '', type: 'user_info' },
-    
+
             { service: 'person', russian: 'Физическое лицо', english: 'Private person', spain: '', color: '', type: 'user_info' },
             { service: 'entity', russian: 'Юридическое лицо', english: 'Entity', spain: '', color: '', type: 'user_info' },
             { service: 'sole_trader', russian: 'Индивидуальный предприниматель', english: 'Sole trader', spain: '', color: '', type: 'user_info' },
-    
+
             { service: 'walk', russian: 'Пешком', english: 'Walk', spain: '', color: '', type: 'transport' },
             { service: 'bike', russian: 'Велосипед', english: 'Bike', spain: '', color: '', type: 'transport' },
             { service: 'electric_scooter', russian: 'Электросамокат', english: 'Electric scooter', spain: '', color: '', type: 'transport' },
@@ -52,7 +52,7 @@ export default class TranslateStore {
             { service: 'combi', russian: 'Автомобиль комби', english: 'Combi car', spain: '', color: '', type: 'transport' },
             { service: 'minibus', russian: 'Микроавтобуc', english: 'Minibus', spain: '', color: '', type: 'transport' },
             { service: 'truck', russian: 'Грузовой автомобиль', english: 'Truck', spain: '', color: '', type: 'transport' },
-    
+
             { service: '1.5', russian: '1.5 тонны', english: ' 1.5 tons', spain: '', color: '', type: 'transport' },
             { service: '3', russian: '3 тонны', english: '3 tons', spain: '', color: '', type: 'transport' },
             { service: '5', russian: '5 тонн', english: '5 tons', spain: '', color: '', type: 'transport' },
@@ -60,12 +60,12 @@ export default class TranslateStore {
             { service: '15', russian: '15 тонн', english: '15 tons', spain: '', color: '', type: 'transport' },
             { service: '20', russian: '20 тонн', english: '20 tons', spain: '', color: '', type: 'transport' },
             { service: 'load_capacity', russian: 'Грузоподъемность', english: 'Load capacity', spain: '', color: '', type: 'transport' },
-    
+
             { service: 'open_side', russian: 'Открытый борт', english: 'Open side', spain: '', color: '', type: 'transport' },
             { service: 'awing', russian: 'Тент', english: 'Awing', spain: '', color: '', type: 'transport' },
             { service: 'hard_top', russian: 'Фургон', english: 'Hard top', spain: '', color: '', type: 'transport' },
             { service: 'side_type', russian: 'Тип кузова', english: 'Side type', spain: '', color: '', type: 'transport' },
-    
+
             { service: 'thermo_bag', russian: 'Термосумка', english: 'Thermo bag', spain: '', color: '', type: 'equipment' },
             { service: 'thermo_van', russian: 'Изотермический фургон', english: 'Thermo van', spain: '', color: '', type: 'equipment' },
             { service: 'refrigerator_minus', russian: 'Рефрежиратор -7', english: 'Refrigerator -7', spain: '', color: '', type: 'equipment' },
@@ -74,20 +74,14 @@ export default class TranslateStore {
             { service: 'glass_stand', russian: 'Стойка для стекол', english: 'Glass stand', spain: '', color: '', type: 'equipment' },
             { service: 'side_loading', russian: 'Боковая загрузка', english: 'Side loading', spain: '', color: '', type: 'equipment' },
             { service: 'thermo_van', russian: 'Изотермический фургон', english: 'Thermo van', spain: '', color: '', type: 'equipment' },
-    
+
             { service: 'normal', russian: '', english: '', spain: '', color: 'rgb(241,196,15,0.8)', type: 'partner' },
             { service: 'priority', russian: '', english: '', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'partner' },
             { service: 'blocked', russian: '', english: '', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'partner' },
-            { service: 'none', russian: 'Нет подписки', english: 'No subscription', spain: '', color: 'grey', type: 'subscription' },
-            { service: 'free', russian: 'Free', english: 'Free', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'subscription' },
-            { service: 'standart', russian: 'Standart', english: 'Standart', spain: '', color: 'rgb(241,196,15,0.8)', type: 'subscription' },
-            { service: 'standart_year', russian: 'Standart', english: 'Standart', spain: '', color: 'rgb(241,196,15,0.8)', type: 'subscription' },
-            { service: 'professional', russian: 'Professional', english: 'Professional', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'subscription' },
-            { service: 'professional_year', russian: 'Professional', english: 'Professional', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'subscription' },
-    
+
             { service: 'activated', russian: 'Аккаунт активирован', english: 'Account activated', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'account_status' },
             { service: 'not_activated', russian: 'Аккаунт не активирован', english: 'Account not activated', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'account_status' },
-    
+
             { service: 'sign_in', russian: 'Войти', english: 'Sign in', spain: '', color: '', type: 'button' },
             { service: 'sign_out', russian: 'Выйти', english: 'Sign out', spain: '', color: '', type: 'button' },
             { service: 'sign_up', russian: 'Зарегистрироваться', english: 'Sing up', spain: '', color: '', type: 'button' },
@@ -165,7 +159,7 @@ export default class TranslateStore {
             { service: 'go_to_auction', russian: 'Перейти к аукциону', english: 'Go to auction', spain: '', color: '', type: 'notification' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'button' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'button' },
-    
+
             { service: 'default', russian: 'По умолчанию', english: 'Default', spain: '', color: '', type: 'sorting' },
             { service: 'from_auctions', russian: 'Сначала аукционы', english: 'Auctions at first', spain: '', color: '', type: 'sorting' },
             { service: 'from_orders', russian: 'Сначала заказы', english: 'Orders at first', spain: '', color: '', type: 'sorting' },
@@ -179,7 +173,7 @@ export default class TranslateStore {
             { service: 'by_partner_name', russian: 'По наименованию', english: 'By name', spain: '', color: '', type: 'sorting' },
             { service: 'rating_up', russian: 'По возрастанию рейтинга', english: 'Rating ascending', spain: '', color: '', type: 'sorting' },
             { service: 'rating_down', russian: 'По убыванию рейтинга', english: 'Rating descending', spain: '', color: '', type: 'sorting' },
-    
+
             { service: 'filter_id', russian: 'id', english: 'id', spain: '', color: '', type: 'filter' },
             { service: 'adress', russian: 'Адрес', english: 'Adress', spain: '', color: '', type: 'filter' },
             { service: 'partner', russian: 'Партнер', english: 'Partner', spain: '', color: '', type: 'filter' },
@@ -193,7 +187,7 @@ export default class TranslateStore {
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'filter' },        
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'filter' },        
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'filter' },        
-    
+
             { service: 'carriers_office', russian: 'Кабинет перевозчика', english: 'Сarrier`s office', spain: '', color: '', type: 'header' },
             { service: 'customers_office', russian: 'Кабинет заказчика', english: 'Customer`s office', spain: '', color: '', type: 'header' },
             { service: 'managers_office', russian: 'Кабинет менеджера', english: 'Managers office', spain: '', color: '', type: 'header' },
@@ -204,7 +198,7 @@ export default class TranslateStore {
             { service: 'have_an_account', russian: 'Есть аккаунт? ', english: 'Have an account? ', spain: '', color: '', type: 'header' },
             { service: 'fill_account', russian: 'Заполните аккаунт и начнем', english: 'Fill in your account details and let`s get started.', spain: '', color: '', type: 'header' },
             { service: 'choose_subscription_plan', russian: 'Выберите подходящий тарифный план', english: 'Choose the right plan', spain: '', color: '', type: 'header' },
-    
+
             { service: 'no_orders', russian: 'Нет заказов', english: 'No orders', spain: '', color: '', type: 'content' },
             { service: 'password', russian: 'Пароль', english: 'Password', spain: '', color: '', type: 'content' },
             { service: 'email', russian: 'email', english: 'email', spain: '', color: '', type: 'content' },
@@ -262,10 +256,12 @@ export default class TranslateStore {
             { service: 'main_slogan', russian: 'Здесь встречаются заказчики и перевозчики', english: 'Meeting place for customers and carriers', spain: '', color: '', type: 'content' },
             { service: 'duration', russian: 'Продолжительность', english: 'Duration', spain: '', color: '', type: 'content' },
             { service: 'distance', russian: 'Расстояние', english: 'Distance', spain: '', color: '', type: 'content' },
-            // { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            // { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-            // { service: '', russian: '', english: '', spain: '', color: '', type: 'content' },
-    
+            { service: 'active_until', russian: 'Активна до', english: 'Active until', spain: '', color: '', type: 'content' },
+            { service: 'up_to', russian: 'До', english: 'Up to', spain: '', color: '', type: 'content' },
+            { service: 'mile', russian: 'mi', english: 'mi', spain: '', color: '', type: 'content' },
+            { service: 'kilometer', russian: 'km', english: 'km', spain: '', color: '', type: 'content' },
+            { service: 'all_country', russian: 'вся', english: 'all', spain: '', color: '', type: 'content' },
+
             { service: 'status', russian: 'Статус', english: 'Status', spain: '', color: '', type: 'field_name' },
             { service: 'phone', russian: 'Телефон', english: 'Phone', spain: '', color: '', type: 'field_name' },
             { service: 'order_comment', russian: 'Комментарий к заказу', english: 'Order comment', spain: '', color: '', type: 'field_name' },
@@ -287,12 +283,12 @@ export default class TranslateStore {
             { service: 'rating_field_name', russian: 'Рейтинг', english: 'Rating', spain: '', color: '', type: 'field_name' },
             { service: 'arrival_time_field_name', russian: 'Время подачи', english: 'Arrival_time', spain: '', color: '', type: 'field_name' },
             { service: 'points_in_the_order', russian: 'Всего точек в заказе', english: 'Total points in the order', spain: '', color: '', type: 'field_name' },
-    
+
             { service: 'carrier', russian: 'Перевозчик', english: 'Carrier', spain: '', color: '', type: 'role' },
             { service: 'customer', russian: 'Заказчик', english: 'Customer', spain: '', color: '', type: 'role' },
             { service: 'manager', russian: 'Менеджер', english: 'Manager', spain: '', color: '', type: 'role' },
             { service: 'administrator', russian: 'Администратор', english: 'Administrator', spain: '', color: '', type: 'role' },
-    
+
             { service: 'not_empty', russian: 'не может быть пустым', english: 'can`t be empty', spain: '', color: '', type: 'validation' },
             { service: 'to_short', russian: 'не может быть короче', english: 'can`t be shorter than', spain: '', color: '', type: 'validation' },
             { service: 'to_long', russian: 'не может быть длиннее', english: 'can`t be longer than', spain: '', color: '', type: 'validation' },
@@ -333,7 +329,7 @@ export default class TranslateStore {
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'validation' },
-    
+
             { service: 'your_email', russian: 'Ваш email', english: 'Your email', spain: '', color: '', type: 'place_holder' },
             { service: 'your_password', russian: 'Ваш пароль', english: 'Your password', spain: '', color: '', type: 'place_holder' },
             { service: 'who_are_you', russian: 'Вы заказчик или перевозчик?', english: 'Are you a customer or carrier?', spain: '', color: '', type: 'place_holder' },
@@ -365,7 +361,7 @@ export default class TranslateStore {
             { service: 'enter_a_city_to_track', russian: 'Введите город для отслеживания', english: 'Enter a city to track', spain: '', color: '', type: 'place_holder' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'place_holder' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'place_holder' },
-    
+
             { service: 'code_sent', russian: 'Код отправлен', english: 'Сode sent', spain: '', color: '', type: 'notification' },
             { service: 'password_changed', russian: 'Пароль изиенен, доступ восстановлен, вы авторизованы', english: 'Password changed, access restored, you are logged in', spain: '', color: '', type: 'notification' },
             { service: 'logged_in', russian: 'Вы авторизованы', english: 'You are logged in', spain: '', color: '', type: 'notification' },
@@ -491,24 +487,33 @@ export default class TranslateStore {
             { service: 'your_default_city', russian: ', это ваш город по умолчанию', english: ', this is your default city', spain: '', color: '', type: 'notification' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },
             // { service: '', russian: '', english: '', spain: '', color: '', type: 'notification' },   
-    
+
             { service: 'orders_within_24_hours', russian: 'заказов за 24 часа', english: 'orders within 24 hours', spain: '', color: '', type: 'subscription_options' },
             { service: 'auction_offers_in_24_hours', russian: 'предложений по аукционам за 24 часа', english: 'auction offers in 24 hours', spain: '', color: '', type: 'subscription_options' },
-            { service: 'take_orders_within_24_hours', russian: '', english: 'take orders within 24_hours', spain: '', color: '', type: 'subscription_options' },
-            { service: 'orders_in_the_city', russian: 'Заказы в городе', english: '', spain: '', color: '', type: 'subscription_options' },
-            { service: 'orders_in_the_country', russian: 'Заказы в стране', english: '', spain: '', color: '', type: 'subscription_options' },
-            { service: 'points_in_order', russian: 'точек в заказе', english: '', spain: '', color: '', type: 'subscription_options' },
-            { service: 'countdown_from', russian: '', english: '', spain: '', color: '', type: 'subscription_options' },
+            { service: 'take_orders_within_24_hours', russian: 'заказов в работу за 24 часа', english: 'take orders within 24 hours', spain: '', color: '', type: 'subscription_options' },
+            { service: 'orders_in_the_city', russian: 'Заказы в городе', english: 'Orders in the city', spain: '', color: '', type: 'subscription_options' },
+            { service: 'orders_in_the_country', russian: 'Заказы в стране', english: 'Orders in the country', spain: '', color: '', type: 'subscription_options' },
+            { service: 'points_in_order', russian: 'точек в заказе', english: 'points in order', spain: '', color: '', type: 'subscription_options' },
+            { service: 'countdown_from', russian: 'Отсчет с первого заказа в текущие сутки', english: 'Countdown from the first order on the current day', spain: '', color: '', type: 'subscription_options' },
             { service: 'ability_to_place_orders', russian: 'Радиус размещения заказов от центра города:', english: 'Radius of placing orders from the city center:', spain: '', color: '', type: 'subscription_options' },
-            { service: 'number_of_tracking_cities', russian: 'Лимит городов отслеживания:', english: 'Тumber of tracking cities:', spain: '', color: '', type: 'subscription_options' },
+            { service: 'number_of_tracking_cities', russian: 'Лимит городов отслеживания:', english: 'Number of tracking cities:', spain: '', color: '', type: 'subscription_options' },
             { service: 'points_in_order_description', russian: 'Количество точек в одном заказе до', english: 'Number of points in one order up to', spain: '', color: '', type: 'subscription_options' },
             { service: 'none', russian: 'Нет подписки', english: 'No subcription', spain: '', color: '', type: 'subscription_plans' },
-            { service: 'free', russian: 'Бесплатная', english: 'Free', spain: '', color: '', type: 'subscription_plans' },
-            { service: 'standart', russian: 'Стандарт', english: 'Standart', spain: '', color: '', type: 'subscription_plans' },
-            { service: 'professional', russian: 'Профессионал', english: 'Professional', spain: '', color: '', type: 'subscription_plans' },
+            { service: 'free', russian: 'Бесплатная', english: 'Free', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'subscription_plans' },
+            { service: 'standart', russian: 'Стандарт', english: 'Standart', spain: '', color: 'rgb(241,196,15,0.8)', type: 'subscription_plans' },
+            { service: 'professional', russian: 'Профессионал', english: 'Professional', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'subscription_plans' },
             { service: '30_days', russian: '30 дней', english: '30 days', spain: '', color: '', type: 'subscription_plans' },
             { service: 'month', russian: 'Месяц', english: 'Month', spain: '', color: '', type: 'subscription_plans' },
             { service: 'year', russian: 'Год', english: 'Year', spain: '', color: '', type: 'subscription_plans' },
+
+            //после проверки удалить
+            // { service: 'none', russian: 'Нет подписки', english: 'No subscription', spain: '', color: 'grey', type: 'subscription' },
+            // { service: 'free', russian: 'Free', english: 'Free', spain: '', color: 'rgb(254, 111, 103,0.8)', type: 'subscription' },
+            // { service: 'standart', russian: 'Standart', english: 'Standart', spain: '', color: 'rgb(241,196,15,0.8)', type: 'subscription' },
+            // { service: 'standart_year', russian: 'Standart', english: 'Standart', spain: '', color: 'rgb(241,196,15,0.8)', type: 'subscription' },
+            // { service: 'professional', russian: 'Professional', english: 'Professional', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'subscription' },
+            // { service: 'professional_year', russian: 'Professional', english: 'Professional', spain: '', color: 'rgb(129, 199, 132,0.8)', type: 'subscription' },
+
         ]
 
         makeAutoObservable(this)

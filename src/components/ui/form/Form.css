@@ -70,3 +70,15 @@
 .add_delete_button_dark {
     color: white;
 }
+
+.checkbox_container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 14px;
+    color: black
+}
+
+.checkbox_container_dark {
+    color: white;
+}

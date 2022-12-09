@@ -36,7 +36,7 @@
     display: flex;
     gap: 5px;
     width: 200px;
-    min-height: 320px;
+    min-height: 380px;
     border-radius: 10px;
     align-items: center;
     padding: 10px;
@@ -48,7 +48,7 @@
 }
 
 .plan_item_container:hover {
-    min-height: 330px;
+    min-height: 400px;
 }
 
 .plan_item_container.height.padding {

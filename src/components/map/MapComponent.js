@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Map.css'
-import { ComponentFunctionContext, LimitContext, OrderContext, PointContext, SettingContext, StateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, LimitContext, OrderContext, PointContext, SettingContext, StateContext, UserContext, UserInfoContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
 import { setDistance } from '../../modules/setDistance'
-import { setDuration } from '../../modules/setDiuration'
+import { setDuration } from '../../modules/setDuration'
 import { SetTranslate } from '../../modules/SetTranslate';
 
 const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, setFetchStart }) => {
@@ -26,6 +26,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     const [renderer, setRenderer] = useState({})
     const [service, setService] = useState({})
     const [refreshMap, setRefreshMap] = useState(false)
+    const { Adress } = useContext(AdressContext)
 
     function refreshMapAction() {
         if (gMap) {
@@ -479,7 +480,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
 
                     {distance &&
                         <div className={Setting.app_theme === 'light' ? 'calculated_data_container' : 'calculated_data_container calculated_data_container_dark'}>
-                            <div className='calculated_data'>{`${SetTranslate('distance')} ${setDistance(distance)}`}
+                            <div className='calculated_data'>{`${SetTranslate('distance')} ${setDistance(distance)} ${SetTranslate(Adress.country.distance)}`}
                             </div>
                             <div className='calculated_data'>{`${SetTranslate('duration')}
                              ${setDuration(duration)}
@@ -500,7 +501,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                                             calcBounds()
                                             setRefreshMap(true)
                                         }}
-                                    >{`${step} км`}</button>
+                                    >{`${step} ${SetTranslate(Adress.country.distance)}`}</button>
                                 </div>
                             )}
                         </div>

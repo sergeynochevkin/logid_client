@@ -20,7 +20,7 @@ align-items:center;
 flex-direction:column;`
 
 
-const TransportFormSection = observer(({ setFormData, formData, click, parent, setModalActive, formReset, setFiles, setPair, orderPattern, calculateRoute, setCalculate }) => {
+const TransportFormSection = ({ setFormData, formData, click, parent, setModalActive, formReset, setFiles, setPair, orderPattern, calculateRoute, setCalculate }) => {
   const { TransportType } = useContext(TransportTypeContext)
   const { EquipmentType } = useContext(EquipmentTypeContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -312,6 +312,6 @@ const TransportFormSection = observer(({ setFormData, formData, click, parent, s
       </FormSection>
     </Container>
   )
-})
+}
 
 export default TransportFormSection

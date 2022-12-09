@@ -1,8 +1,14 @@
-import styled from 'styled-components'
+import { observer } from 'mobx-react-lite'
+import React, { useContext } from 'react'
+import { SettingContext } from '../../..'
+import './Form.css'
 
-export const CheckBoxContainer = styled.div`
-display:flex;
-gap:5px;
-align-items:center;
-font-size:14px;
-`
+const CheckBoxContainer = observer(({ children, ...props }) => {
+
+    const { Setting } = useContext(SettingContext)
+
+    return (
+        <div {...props} className={Setting.app_theme === 'light' ? 'checkbox_container' : 'checkbox_container checkbox_container_dark'}>{children}</div>
+    )
+})
+export { CheckBoxContainer }

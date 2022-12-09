@@ -49,7 +49,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                     style={{ boxShadow: `0px 5px 10px 0px ${useColor(plan.name)}`, color: plan.plan_id !== Subscription.subscription.planId && Setting.app_theme === 'dark' ? 'white' : parent === 'status' && Setting.app_theme === 'dark' ? 'white' : 'black' }}>
                     <div className={'plan_name_container'}>
                         <div className={'plan_item_name'}>{SetTranslate(plan.name)}</div>
-                        <div className={'plan_item_name_bage'}>{plan.bage}</div>
+                        <div className={'plan_item_name_bage'}>{SetTranslate(plan.bage)}</div>
                     </div>
                     {parent !== 'status' ?
                         <div className={'options_container'}>
@@ -58,13 +58,12 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                         : <></>
                     }
                     <>
-                        <div className={'price'}>{plan ? plan.price : ''}</div>
-                        {plan.price ?
+                        <div className={'price'}>{plan && plan.plan_id !== 1  ? plan.price : ''}</div>
+                        {plan && plan.plan_id !== 1  ?
                             <div className='price_and_validity'>
-                                {/* set currency by country settings */}
                                 <div className={'plan_item_name_bage'}>{Adress.country.currency}</div>
                                 {plan.plan_id === Subscription.subscription.planId ?
-                                    <div className={'plan_item_name_bage'}>{`Активна до ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
+                                    <div className={'plan_item_name_bage'}>{`${SetTranslate('active_until')} ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
                                     : <></>}
                             </div>
                             : <></>}
