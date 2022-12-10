@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useContext } from 'react'
-import { AdressContext } from '../../..'
+import { AdressContext, TranslateContext } from '../../..'
 import { useInput } from '../../../hooks/useInput'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
@@ -10,13 +10,14 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const Cost = ({ formData, setFormData }) => {
     const {Adress} = useContext(AdressContext)
+    const { Translate } = useContext(TranslateContext)
 
     return (
 
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={`${SetTranslate('cost')} ${Adress.country.currency}`} value={formData
+            <Input placeholder={`${SetTranslate(Translate.language,'cost')} ${Adress.country.currency}`} value={formData
                 .cost.value}
 
                 style={{ borderLeft: ((formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_type.value === 'order' && formData.cost.isEmpty)) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
@@ -32,7 +33,7 @@ const Cost = ({ formData, setFormData }) => {
             >
                 {(formData.cost.minLengthError) || (formData.cost.maxLengthError) || (formData.cost.formatError) ?
                     formData.cost.errorMessage :
-                    formData.order_type.value === 'order' && formData.cost.isEmpty && formData.cost.isDirty  ? SetTranslate('cost_required') :
+                    formData.order_type.value === 'order' && formData.cost.isEmpty && formData.cost.isDirty  ? SetTranslate(Translate.language,'cost_required') :
                     ''
                 }
             </FieldName>

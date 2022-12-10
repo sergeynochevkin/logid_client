@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useContext } from 'react'
+import { TranslateContext } from '../../..'
 import { useInput } from '../../../hooks/useInput'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Select } from '../../ui/form/Select'
@@ -7,6 +8,8 @@ import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const OrderType = ({ formData, setFormData }) => {
+
+    const { Translate } = useContext(TranslateContext)
 
     return (
 
@@ -19,9 +22,9 @@ const OrderType = ({ formData, setFormData }) => {
                 onBlur={e => formData.order_type.onBlur(e)}
                 name="order_type" id="order_type"
             >
-                <option defaultValue hidden>{SetTranslate('order_type_place_holder')}</option>
-                <option value='order'>{SetTranslate('order')}</option>
-                <option value='auction'>{SetTranslate('auction')}</option>
+                <option defaultValue hidden>{SetTranslate(Translate.language,'order_type_place_holder')}</option>
+                <option value='order'>{SetTranslate(Translate.language,'order')}</option>
+                <option value='auction'>{SetTranslate(Translate.language,'auction')}</option>
             </Select>
             <FieldName
                 style={{
@@ -30,7 +33,7 @@ const OrderType = ({ formData, setFormData }) => {
                 }}
             >
                 {(formData.order_type.isEmpty && formData.order_type.isDirty) ?
-                    SetTranslate('select_order_type') :
+                    SetTranslate(Translate.language,'select_order_type') :
                     ''
                 }
             </FieldName>

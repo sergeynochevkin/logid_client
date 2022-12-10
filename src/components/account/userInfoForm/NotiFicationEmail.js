@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TranslateContext } from '../../..'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
@@ -6,13 +7,13 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const NotificationEmail = ({ formData, setFormData }) => {
 
-  
+    const { Translate } = useContext(TranslateContext)
 
     return (
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate('your_email')}
+            <Input placeholder={SetTranslate(Translate.language,'your_email')}
                 value={formData.email.value}
                 style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 onChange={(e) => formData.email.onChange(e)}

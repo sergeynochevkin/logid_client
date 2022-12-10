@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TranslateContext } from '../../..'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
@@ -6,13 +7,12 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const CompanyWebSite = ({ formData, setFormData }) => {
 
-  
-
+  const { Translate } = useContext(TranslateContext)
   return (
     <VerticalContainer
       style={{ gap: '0px' }}
     >
-      <Input placeholder={SetTranslate('website_place_holder')} value={formData.website.value}
+      <Input placeholder={SetTranslate(Translate.language,'website_place_holder')} value={formData.website.value}
         onChange={(e) => formData.website.onChange(e)}
         onBlur={e => formData.website.onBlur(e)}
       style={{ borderLeft: formData.website.notValid && !formData.website.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}

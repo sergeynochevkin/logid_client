@@ -3,7 +3,7 @@ import { Field } from '../ui/page/Field'
 import { FieldName } from '../ui/page/FieldName'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import NameSurNameFathersName from './userInfoForm/NameSurNameFathersName'
-import { AdressContext, NotificationContext, SettingContext, StateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, NotificationContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { CardButton } from '../ui/button/CardButton'
 import Country from './userInfoForm/Country'
 import City from './userInfoForm/City'
@@ -36,8 +36,9 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
     const { user } = useContext(UserContext)
     const { State } = useContext(StateContext)
     const { Setting } = useContext(SettingContext)
+    const { Translate } = useContext(TranslateContext)
 
-    const message = SetTranslate(attachedField)
+    const message = SetTranslate(Translate.language,attachedField)
 
     const initialValue = {
         id: '',
@@ -84,19 +85,19 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
     const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
 
     formData.id = UserInfo.userInfo.id
-    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, 'фамилия, имя, отчество')
-    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, 'ИНН')
-    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, 'название компании')
-    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, 'веб сайт')
+    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetTranslate(Translate.language,'passport_date_of_issue'))
+    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetTranslate(Translate.language,'company_inn'))
+    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetTranslate(Translate.language,'company_name'))
+    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetTranslate(Translate.language,'website'))
     formData.country = useInput('', { isEmpty: true })
-    authFormData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, 'email')
+    authFormData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate(Translate.language,'authEmail'))
     formData.legal = useInput('', { isEmpty: true })
-    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, 'email')
-    formData.passport_date_of_issue = useInput('', { isEmpty: true }, 'дата выдачи паспорта')
-    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, 'кем выдан паспорт')
-    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, 'номер паспорта')
-    authFormData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, 'пароль')
-    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, 'телефон')
+    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate(Translate.language,'email'))
+    formData.passport_date_of_issue = useInput('', { isEmpty: true }, SetTranslate(Translate.language,'passport_date_of_issue'))
+    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetTranslate(Translate.language,'passport_issued_by'))
+    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetTranslate(Translate.language,'passport_number'))
+    authFormData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetTranslate(Translate.language,'password_notification'))
+    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetTranslate(Translate.language,'phone'))
     formData.type_of_customer = useInput('', { isEmpty: true })
 
 
@@ -115,7 +116,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                     attachedField === 'company_adress' && setAdressEditable(false),
                     // setFetchPartnersStart(true),
                     setFetchStart(true),
-                    Notification.addNotification([{ id: v4(), type: 'success', message: ` Вы изменили ${message}` }])
+                    Notification.addNotification([{ id: v4(), type: 'success', message: `${SetTranslate(Translate.language,'you_have_changed')} ${message}` }])
                 )
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -151,7 +152,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             setLoginEditable(false)
             setPasswordEditable(false)
             setFetchStart(true)
-            Notification.addNotification([{ id: v4(), type: 'success', message: ` Вы изменили ${message}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${SetTranslate(Translate.language,'you_have_changed')} ${message}` }])
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
@@ -163,38 +164,38 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             <HorizontalContainer
                 style={{ alignItems: 'center' }}>
                 {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ?
-                 <Field style= {{backgroundColor: Setting.app_theme !== 'light'  && '#141414', borderColor: Setting.app_theme !== 'light'  && '#414141'}}>{fieldValue}
-                    {editable ?
-                        <div>
-                            {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ?
-                                <CardButton
-                                    style={{ height: '15px' }}
-                                    disabled={(loginEditable && attachedField === 'password') || (passwordEditable && attachedField === 'authEmail')
-                                        || (cityEditable && attachedField === 'company_adress') || (adressEditable && attachedField === 'city')}
-                                    onClick={() => {
-                                        if (attachedField !== 'authEmail' || attachedField !== 'password' || attachedField !== 'city' || attachedField !== 'company_adress') {
-                                            setFieldEditable(true)
-                                        }
-                                        if (attachedField === 'authEmail') {
-                                            setLoginEditable(true)
-                                        }
-                                        if (attachedField === 'password') {
-                                            setPasswordEditable(true)
-                                        }
-                                        if (attachedField === 'city') {
-                                            setCityEditable(true)
-                                            setAdressEditable(false)
-                                        }
-                                        if (attachedField === 'company_adress') {
-                                            setAdressEditable(true)
-                                            setCityEditable(false)
-                                        }
-                                    }}
-                                >Изменить</CardButton> :
-                                <></>
-                            }
-                        </div> : <></>}
-                </Field>
+                    <Field style={{ backgroundColor: Setting.app_theme !== 'light' && '#141414', borderColor: Setting.app_theme !== 'light' && '#414141' }}>{fieldValue}
+                        {editable ?
+                            <div>
+                                {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ?
+                                    <CardButton
+                                        style={{ height: '15px' }}
+                                        disabled={(loginEditable && attachedField === 'password') || (passwordEditable && attachedField === 'authEmail')
+                                            || (cityEditable && attachedField === 'company_adress') || (adressEditable && attachedField === 'city')}
+                                        onClick={() => {
+                                            if (attachedField !== 'authEmail' || attachedField !== 'password' || attachedField !== 'city' || attachedField !== 'company_adress') {
+                                                setFieldEditable(true)
+                                            }
+                                            if (attachedField === 'authEmail') {
+                                                setLoginEditable(true)
+                                            }
+                                            if (attachedField === 'password') {
+                                                setPasswordEditable(true)
+                                            }
+                                            if (attachedField === 'city') {
+                                                setCityEditable(true)
+                                                setAdressEditable(false)
+                                            }
+                                            if (attachedField === 'company_adress') {
+                                                setAdressEditable(true)
+                                                setCityEditable(false)
+                                            }
+                                        }}
+                                    >Изменить</CardButton> :
+                                    <></>
+                                }
+                            </div> : <></>}
+                    </Field>
                     :
                     attachedField === 'name_surname_fathersname' ? <NameSurNameFathersName formData={formData} /> :
                         attachedField === 'country' ? <Country formData={formData} Adress={Adress} /> :

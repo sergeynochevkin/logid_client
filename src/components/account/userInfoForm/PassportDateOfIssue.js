@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { TranslateContext } from '../../..'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const PassportDateOfIssue = ({ formData, setFormData }) => {
-  
+  const { Translate } = useContext(TranslateContext)
   const [selected, setSelected] = useState(false)
 
 
   return (
     <VerticalContainer
       style={{ gap: '0px' }}>
-      <Input placeholder={SetTranslate('passport_date_of_issue_place_holder')}
+      <Input placeholder={SetTranslate(Translate.language,'passport_date_of_issue_place_holder')}
         value={formData.passport_date_of_issue.value}
         onChange={(e) => {
           formData.passport_date_of_issue.onChange(e);

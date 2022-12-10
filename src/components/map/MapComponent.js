@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Map.css'
-import { AdressContext, ComponentFunctionContext, LimitContext, OrderContext, PointContext, SettingContext, StateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, LimitContext, OrderContext, PointContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
@@ -27,6 +27,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     const [service, setService] = useState({})
     const [refreshMap, setRefreshMap] = useState(false)
     const { Adress } = useContext(AdressContext)
+    const { Translate } = useContext(TranslateContext)
 
     function refreshMapAction() {
         if (gMap) {
@@ -222,16 +223,16 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     }, [order.map_orders, State.user_state.favorite_order_state])
 
 
-    const Order = SetTranslate('order')
-    const Auction = SetTranslate('')
-    const cost = SetTranslate('cost')
-    const arrival_time_field_name = SetTranslate('arrival_time_field_name')
-    const start = SetTranslate('start')
-    const finish = SetTranslate('finish')
-    const Distance = SetTranslate('distance')
-    const go_to_order = SetTranslate('go_to_order')
-    const go_to_auction = SetTranslate('go_to_auction')
-    const points_in_the_order = SetTranslate('points_in_the_order')
+    const Order = SetTranslate(Translate.language,'order')
+    const Auction = SetTranslate(Translate.language,'')
+    const cost = SetTranslate(Translate.language,'cost')
+    const arrival_time_field_name = SetTranslate(Translate.language,'arrival_time_field_name')
+    const start = SetTranslate(Translate.language,'start')
+    const finish = SetTranslate(Translate.language,'finish')
+    const Distance = SetTranslate(Translate.language,'distance')
+    const go_to_order = SetTranslate(Translate.language,'go_to_order')
+    const go_to_auction = SetTranslate(Translate.language,'go_to_auction')
+    const points_in_the_order = SetTranslate(Translate.language,'points_in_the_order')
 
 
     useEffect(() => {
@@ -470,19 +471,19 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                             className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={calculateRoute}
                             disabled={pointsNotValid}
-                        >{SetTranslate('calculate_route')}</button>
+                        >{SetTranslate(Translate.language,'calculate_route')}</button>
                         <button
                             className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={clearRoute}
                             disabled={!directionsResponse}
-                        >{SetTranslate('clear_route')}</button>
+                        >{SetTranslate(Translate.language,'clear_route')}</button>
                     </div>
 
                     {distance &&
                         <div className={Setting.app_theme === 'light' ? 'calculated_data_container' : 'calculated_data_container calculated_data_container_dark'}>
-                            <div className='calculated_data'>{`${SetTranslate('distance')} ${setDistance(distance)} ${SetTranslate(Adress.country.distance)}`}
+                            <div className='calculated_data'>{`${SetTranslate(Translate.language,'distance')} ${setDistance(distance)} ${SetTranslate(Translate.language,Adress.country.distance)}`}
                             </div>
-                            <div className='calculated_data'>{`${SetTranslate('duration')}
+                            <div className='calculated_data'>{`${SetTranslate(Translate.language,'duration')}
                              ${setDuration(duration)}
                             `}</div>
                         </div>
@@ -501,7 +502,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                                             calcBounds()
                                             setRefreshMap(true)
                                         }}
-                                    >{`${step} ${SetTranslate(Adress.country.distance)}`}</button>
+                                    >{`${step} ${SetTranslate(Translate.language,Adress.country.distance)}`}</button>
                                 </div>
                             )}
                         </div>

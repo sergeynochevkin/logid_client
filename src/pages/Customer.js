@@ -117,7 +117,7 @@ const Customer = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetTranslate('customers_office')}</title>
+        <title>{SetTranslate(Translate.language,'customers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -130,7 +130,7 @@ const Customer = observer(() => {
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>{SetTranslate('customers_office')}</PageBanner>
+        <PageBanner>{SetTranslate(Translate.language,'customers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -139,7 +139,7 @@ const Customer = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>{SetTranslate('fill_account')}</BookMark>
+              <BookMark>{SetTranslate(Translate.language,'fill_account')}</BookMark>
               <UserInfoForm />
             </FlexContainer>
             :
@@ -153,7 +153,7 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'lightgrey',
-                }}>{SetTranslate('orders')}</BookMark>
+                }}>{SetTranslate(Translate.language,'orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -165,7 +165,7 @@ const Customer = observer(() => {
                   order.setIntegrationId()
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderForm' && 'lightgrey',
-                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetTranslate('order_editing') : SetTranslate('create_order')}</BookMark>
+                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetTranslate(Translate.language,'order_editing') : SetTranslate(Translate.language,'create_order')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -174,7 +174,7 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'carriers' && 'lightgrey',
-                }}>{SetTranslate('carriers')}</BookMark>
+                }}>{SetTranslate(Translate.language,'carriers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -182,14 +182,14 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
-                }}>{SetTranslate('account')}</BookMark>
+                }}>{SetTranslate(Translate.language,'account')}</BookMark>
                 {/* 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>{SetTranslate('settings')}</BookMark> */}
+                }}>{SetTranslate(Translate.language,'settings')}</BookMark> */}
               </div>
             </div>
           }

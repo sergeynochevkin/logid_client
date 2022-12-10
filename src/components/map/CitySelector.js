@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, FilterAndSortContext, LimitContext, NotificationContext, SettingContext, StateContext, TransportContext, UserInfoContext } from '../..'
+import { AdressContext, FilterAndSortContext, LimitContext, NotificationContext, SettingContext, StateContext, TranslateContext, TransportContext, UserInfoContext } from '../..'
 import './Map.css'
 import { v4 } from "uuid";
 import close_white from '../../../src/assets/close_white.png';
@@ -15,6 +15,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
     const { State } = useContext(StateContext)
     const { Transport } = useContext(TransportContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
+    const { Translate } = useContext(TranslateContext)
 
     let userCity = { lat: undefined, lng: undefined, name: '' }
     userCity.name = UserInfo.userInfo.city
@@ -35,18 +36,18 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
         autocomplete.addListener('place_changed', onPlaceChanged)
     }
 
-    const subscription_cities_limit = SetTranslate('subscription_cities_limit')
-    const city_already_added = SetTranslate('city_already_added')
-    const added_order_tracking_city = SetTranslate('added_order_tracking_city')
-    const no_need_to_add = SetTranslate('no_need_to_add')
-    const your_default_city = SetTranslate('your_default_city')
+    const subscription_cities_limit = SetTranslate(Translate.language,'subscription_cities_limit')
+    const city_already_added = SetTranslate(Translate.language,'city_already_added')
+    const added_order_tracking_city = SetTranslate(Translate.language,'added_order_tracking_city')
+    const no_need_to_add = SetTranslate(Translate.language,'no_need_to_add')
+    const your_default_city = SetTranslate(Translate.language,'your_default_city')
 
 
     function onPlaceChanged(id) {
         var place = autocomplete.getPlace()
         let pattern = { lat: undefined, lng: undefined, name: '' }
         if (!place.geometry) {
-            document.getElementById(id).placeholder = SetTranslate('enter_a_city_to_track')
+            document.getElementById(id).placeholder = SetTranslate(Translate.language,'enter_a_city_to_track')
             // dataReset()
         } else {
             pattern.name = place.name
@@ -94,7 +95,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
     return (
         <>
             <input className='city_selector_input' id='city'
-                placeholder={SetTranslate('enter_a_city_to_track')}
+                placeholder={SetTranslate(Translate.language,'enter_a_city_to_track')}
             ></input>
 
             {((Transport.transports.map(el => el.type).includes('car') || Transport.transports.map(el => el.type).includes('truck') || Transport.transports.map(el => el.type).includes('minibus') || Transport.transports.map(el => el.type).includes('combi')) && Setting.user_map_cities.length >= 1) &&
@@ -109,7 +110,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                             }
                             setFetchStart(true)
                         }}
-                    >{SetTranslate('intercity_only')}</div>
+                    >{SetTranslate(Translate.language,'intercity_only')}</div>
                 </div>
             }
 
@@ -126,7 +127,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                                 resetAllCities()
                             }
                         }}
-                    >{SetTranslate('all_cities')}</div>
+                    >{SetTranslate(Translate.language,'all_cities')}</div>
                 </div>
             }
 

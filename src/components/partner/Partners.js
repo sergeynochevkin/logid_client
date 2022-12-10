@@ -5,13 +5,14 @@ import PartnersList from './PartnersList'
 import { BookMark } from '../ui/button/BookMark'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
-import { ComponentFunctionContext } from '../..'
+import { ComponentFunctionContext, TranslateContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import { SetTranslate } from '../../modules/SetTranslate'
 
 const Partners = observer(({ setFetchPartnersStart }) => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const [modalActive, setModalActive] = useState(false)
+  const { Translate } = useContext(TranslateContext)
 
   return (
     <VerticalContainer>
@@ -22,19 +23,19 @@ const Partners = observer(({ setFetchPartnersStart }) => {
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('list')
           }}
-        >{SetTranslate('partners_list')}</BookMark>
+        >{SetTranslate(Translate.language,'partners_list')}</BookMark>
         <BookMark
           style={{ color: ComponentFunction.partnersComponentFunction === 'groups' && 'grey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('groups')
           }}
-        >{SetTranslate('groups')}</BookMark>
+        >{SetTranslate(Translate.language,'groups')}</BookMark>
         <BookMark
           style={{ color: ComponentFunction.partnersComponentFunction === 'add' && 'grey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('add')
           }}
-        >{SetTranslate('add_partner_by_id')}</BookMark>
+        >{SetTranslate(Translate.language,'add_partner_by_id')}</BookMark>
       </HorizontalContainer>
 
       {ComponentFunction.partnersComponentFunction === 'list' ?

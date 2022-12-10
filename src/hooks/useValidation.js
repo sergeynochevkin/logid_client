@@ -1,7 +1,10 @@
+import { useContext } from 'react'
 import { useEffect, useState } from 'react'
+import { TranslateContext } from '..'
 import { SetTranslate } from '../modules/SetTranslate'
 
 export const useValidation = (value, validations, fieldName) => {
+  const { Translate } = useContext(TranslateContext)
   const [isEmpty, setIsEmpty] = useState(true)
   const [minLengthError, setMinLengthError] = useState(false)
   const [maxLengthError, setMaxLengthError] = useState(false)
@@ -9,11 +12,11 @@ export const useValidation = (value, validations, fieldName) => {
   const [formatError, setFormatError] = useState(false)
   const [notValid, setNotValid] = useState(false)
 
-  let to_short = SetTranslate('to_short')
-  let to_long = SetTranslate('to_long')
-  let not_empty = SetTranslate('not_empty')
-  let format_error = SetTranslate('format_error')
-  let symbols = SetTranslate('symbols')
+  let to_short = SetTranslate(Translate.language,'to_short')
+  let to_long = SetTranslate(Translate.language,'to_long')
+  let not_empty = SetTranslate(Translate.language,'not_empty')
+  let format_error = SetTranslate(Translate.language,'format_error')
+  let symbols = SetTranslate(Translate.language,'symbols')
 
 
   useEffect(() => {

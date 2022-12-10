@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { AdressContext, LimitContext, SettingContext, UserInfoContext } from '../..'
+import { AdressContext, LimitContext, SettingContext, TranslateContext, UserInfoContext } from '../..'
 import { AddDeleteFieldButton } from '../ui/form/AddDeleteFieldButton'
 import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
@@ -14,6 +14,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
 
     const { UserInfo } = useContext(UserInfoContext)
     const { Setting } = useContext(SettingContext)
+    const { Translate } = useContext(TranslateContext)
 
     useEffect(() => {
         Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
@@ -59,7 +60,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
         var place = autocomplete.getPlace()
         var address_components = autocomplete.getPlace().address_components
         if (!place.geometry) {
-            document.getElementById(id).placeholder = SetTranslate('enter_plase')
+            document.getElementById(id).placeholder = SetTranslate(Translate.language,'enter_plase')
         } else {
             let data = [...pointFormData]
             data[index].point.value = place.name
@@ -127,7 +128,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
             >
                 <Input
                     name='customer_comment'
-                    placeholder={SetTranslate('comment')}
+                    placeholder={SetTranslate(Translate.language,'comment')}
                     defaultValue={pointItem.customer_comment.value}
                     onChange={event => handleFormChange(index, event)}
                     onBlur={event => handleFormBlur(index, event)}
@@ -149,7 +150,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
                     style={{ gap: '0px' }}
                 >
                     <Input
-                        name='time' placeholder={SetTranslate('time')}
+                        name='time' placeholder={SetTranslate(Translate.language,'time')}
                         type="datetime-local"
                         defaultValue={pointItem.time.value}
                         onChange={event => handleFormChange(index, event)}
@@ -173,7 +174,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
 
             {pointFormData.length > 2 && (index !== 0 && index !== pointFormData.length - 1) ? <AddDeleteFieldButton onClick={() => {
                 removeField(index)
-            }}>{SetTranslate('delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
+            }}>{SetTranslate(Translate.language,'delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
         </div>
     )
 })

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { ComponentFunctionContext, FilterAndSortContext, NotificationContext, OrderContext, PointContext, StateContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, FilterAndSortContext, NotificationContext, OrderContext, PointContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { CardButton } from '../ui/button/CardButton'
 import { CardRow } from '../ui/card/CardRow'
 import { v4 } from "uuid";
@@ -13,6 +13,7 @@ import { createPoint } from '../../http/pointApi'
 import { SetTranslate } from '../../modules/SetTranslate'
 
 const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints, setFetchPartnersStart }) => {
+    const { Translate } = useContext(TranslateContext)
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -21,23 +22,23 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const { Point } = useContext(PointContext)
     const { State } = useContext(StateContext)
 
-    const Auction = SetTranslate('auction')
-    const Order = SetTranslate('order')
-    const to_order = SetTranslate('to_order')
-    const to_auction = SetTranslate('to_auction')
-    const you_converted = SetTranslate('you_converted')
-    const you_postponed = SetTranslate('you_postponed')
-    const you_canceled = SetTranslate('you_canceled')
-    const you_send = SetTranslate('you_send')
-    const you_took = SetTranslate('you_took')
-    const you_finished = SetTranslate('you_finished')
-    const you_moved_to_arc = SetTranslate('you_moved_to_arc')
-    const you_opened = SetTranslate('you_opened')
-    const the = SetTranslate('the')
-    const orders_notification = SetTranslate('orders_notification')
-    const form_from_auction = SetTranslate('form_from_auction')
-    const for_editing = SetTranslate('for_editing')
-    const form_from_order = SetTranslate('form_from_order')
+    const Auction = SetTranslate(Translate.language,'auction')
+    const Order = SetTranslate(Translate.language,'order')
+    const to_order = SetTranslate(Translate.language,'to_order')
+    const to_auction = SetTranslate(Translate.language,'to_auction')
+    const you_converted = SetTranslate(Translate.language,'you_converted')
+    const you_postponed = SetTranslate(Translate.language,'you_postponed')
+    const you_canceled = SetTranslate(Translate.language,'you_canceled')
+    const you_send = SetTranslate(Translate.language,'you_send')
+    const you_took = SetTranslate(Translate.language,'you_took')
+    const you_finished = SetTranslate(Translate.language,'you_finished')
+    const you_moved_to_arc = SetTranslate(Translate.language,'you_moved_to_arc')
+    const you_opened = SetTranslate(Translate.language,'you_opened')
+    const the = SetTranslate(Translate.language,'the')
+    const orders_notification = SetTranslate(Translate.language,'orders_notification')
+    const form_from_auction = SetTranslate(Translate.language,'form_from_auction')
+    const for_editing = SetTranslate(Translate.language,'for_editing')
+    const form_from_order = SetTranslate(Translate.language,'form_from_order')
 
     const toAuction = async (event) => {
         await updateOrder('', 'auction', thisOrder.id, user.user.role, thisOrder.order_status)
@@ -235,10 +236,10 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
             {
                 user.user.role === 'customer' && thisOrder.order_status === 'new' ?
                     <><CardRow>
-                        <CardButton onClick={postpone}>{SetTranslate('postpone')}</CardButton>
-                        <CardButton onClick={cancel}>{SetTranslate('cancel')}</CardButton>
+                        <CardButton onClick={postpone}>{SetTranslate(Translate.language,'postpone')}</CardButton>
+                        <CardButton onClick={cancel}>{SetTranslate(Translate.language,'cancel')}</CardButton>
 
-                        {thisOrder.order_type === 'auction' ? <CardButton onClick={toOrder}> {SetTranslate('order')}</CardButton> : thisOrder.order_type === 'order' ? <CardButton onClick={toAuction}>{SetTranslate('auction')}</CardButton> : <></>}
+                        {thisOrder.order_type === 'auction' ? <CardButton onClick={toOrder}> {SetTranslate(Translate.language,'order')}</CardButton> : thisOrder.order_type === 'order' ? <CardButton onClick={toAuction}>{SetTranslate(Translate.language,'auction')}</CardButton> : <></>}
 
                     </CardRow>
                         {parent === 'order' ?
@@ -251,10 +252,10 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                     user.user.role === 'customer' && thisOrder.order_status === 'postponed' ?
                         <>
                             <CardRow>
-                                <CardButton onClick={toNew}>{SetTranslate('send')}</CardButton>
-                                <CardButton onClick={cancel}>{SetTranslate('cancel')}</CardButton>
+                                <CardButton onClick={toNew}>{SetTranslate(Translate.language,'send')}</CardButton>
+                                <CardButton onClick={cancel}>{SetTranslate(Translate.language,'cancel')}</CardButton>
                                 {parent !== 'selector' ?
-                                    <CardButton onClick={edit}>{SetTranslate('edit')}</CardButton>
+                                    <CardButton onClick={edit}>{SetTranslate(Translate.language,'edit')}</CardButton>
                                     : <></>}    
                             </CardRow>
                             {parent === 'order' ?
@@ -264,13 +265,13 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                         :
                         user.user.role === 'customer' && thisOrder.order_status === 'inWork' ?
                             <CardRow>
-                                <CardButton onClick={disrupt}>{SetTranslate('not_arrival_button')}</CardButton>
-                                <CardButton onClick={completed}>{SetTranslate('finish')}</CardButton>
+                                <CardButton onClick={disrupt}>{SetTranslate(Translate.language,'not_arrival_button')}</CardButton>
+                                <CardButton onClick={completed}>{SetTranslate(Translate.language,'finish')}</CardButton>
                             </CardRow>
                             :
                             user.user.role === 'customer' && thisOrder.order_status === 'completed' ?
                                 <CardRow>
-                                    <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
+                                    <CardButton onClick={arc}>{SetTranslate(Translate.language,'to_arc')}</CardButton>
                                     {parent !== 'selector' ?
                                         <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo} setFetchPartnersStart={setFetchPartnersStart} />
                                         : <></>}
@@ -280,33 +281,33 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                                     user.user.role === 'customer' && thisOrder.order_status === 'canceled' ?
                                         <CardRow>
                                             {thisOrder.disrupted_by !== '' && parent === 'order' && thisOrder.restored !== 'restored' ?
-                                                <CardButton onClick={restore}>{SetTranslate('restore')}</CardButton> :
+                                                <CardButton onClick={restore}>{SetTranslate(Translate.language,'restore')}</CardButton> :
                                                 <></>
                                             }
-                                            <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
+                                            <CardButton onClick={arc}>{SetTranslate(Translate.language,'to_arc')}</CardButton>
                                         </CardRow> :
                                         thisOrder.order_status === 'new' ?
                                             <CardRow>
-                                                {thisOrder.order_type === 'order' ? <CardButton onClick={inWork}>{SetTranslate('take')}</CardButton> :
+                                                {thisOrder.order_type === 'order' ? <CardButton onClick={inWork}>{SetTranslate(Translate.language,'take')}</CardButton> :
                                                     thisOrder.order_type === 'auction' && parent === 'order' ? <OfferComponent thisOrder={thisOrder} thisOrderOffers={thisOrderOffers} setFetchStart={setFetchStart} thisOrderNoPartners={thisOrderNoPartners} thisCarrierOffer={thisCarrierOffer} firstPoint={ComponentFunction.OrdersComponentFunction === 'orderItem' ? Point.thisOrderPoints.find(el => el.sequence === 1) : thisOrderPoints.find(el => el.sequence === 1)} /> :
                                                         <></>
                                                 }
                                             </CardRow> :
                                             user.user.role === 'carrier' && thisOrder.order_status === 'inWork' ?
                                                 <CardRow>
-                                                    <CardButton onClick={disrupt}>{SetTranslate('not_loading_button')}</CardButton>
-                                                    <CardButton onClick={completed}>{SetTranslate('finish')}</CardButton>
+                                                    <CardButton onClick={disrupt}>{SetTranslate(Translate.language,'not_loading_button')}</CardButton>
+                                                    <CardButton onClick={completed}>{SetTranslate(Translate.language,'finish')}</CardButton>
                                                 </CardRow> :
                                                 user.user.role === 'carrier' && thisOrder.order_status === 'completed' ?
                                                     <CardRow>
-                                                        <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
+                                                        <CardButton onClick={arc}>{SetTranslate(Translate.language,'to_arc')}</CardButton>
                                                         {parent !== 'selector' ?
                                                             <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo} setFetchPartnersStart={setFetchPartnersStart} />
                                                             : <></>}
                                                     </CardRow> :
                                                     user.user.role === 'carrier' && thisOrder.order_status === 'canceled' ?
                                                         <CardRow>
-                                                            <CardButton onClick={arc}>{SetTranslate('to_arc')}</CardButton>
+                                                            <CardButton onClick={arc}>{SetTranslate(Translate.language,'to_arc')}</CardButton>
                                                         </CardRow> :
                                                         <></>
             }

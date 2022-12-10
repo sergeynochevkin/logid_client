@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TranslateContext } from '../../..'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
@@ -6,13 +7,13 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const PassportIssuedBy = ({ formData, setFormData }) => {
 
-
+    const { Translate } = useContext(TranslateContext)
 
     return (
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate('passport_issued_by_place_holder')}
+            <Input placeholder={SetTranslate(Translate.language, 'passport_issued_by_place_holder')}
                 value={formData.passport_issued_by.value}
                 onChange={(e) => formData.passport_issued_by.onChange(e)}
                 onBlur={e => formData.passport_issued_by.onBlur(e)}

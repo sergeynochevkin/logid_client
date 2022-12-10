@@ -38,7 +38,7 @@ const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingBy
                             setModalActive(true)
                         }}
                     >
-                        {onePartnerOtherRatingByThisUserInfo.solvency === 0 ? SetTranslate('rate_solvency') : SetTranslate('change_solvency')}
+                        {onePartnerOtherRatingByThisUserInfo.solvency === 0 ? SetTranslate(Translate.language,'rate_solvency') : SetTranslate(Translate.language,'change_solvency')}
                     </CardColName>
                     <div>{onePartnerOtherRatingByThisUserInfo.solvensy}</div>
 

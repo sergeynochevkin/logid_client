@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, CUSTOMER_ROUTE, CARRIER_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE } from '../../src/utils/consts';
 import { code, login, registration, restore, update } from '../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { UserContext, UserInfoContext } from '..'
+import { TranslateContext, UserContext, UserInfoContext } from '..'
 import { useFetching } from '../hooks/useFetching'
 import { fetchUserInfo } from '../http/userInfoApi'
 import { useInput } from '../hooks/useInput'
@@ -23,6 +23,7 @@ import { NotificationContext } from '../index'
 import ReCAPTCHA from "react-google-recaptcha";
 import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
 import { SetTranslate } from '../modules/SetTranslate'
+import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
 
 const Auth = observer(() => {
@@ -38,6 +39,7 @@ const Auth = observer(() => {
   const { Notification } = useContext(NotificationContext)
   const [reCapchaChecked, setReCapchaChecked] = useState(false)
   const [codeSend, setCodeSend] = useState(false)
+  const { Translate } = useContext(TranslateContext)
 
 
   const [formData, setFormData] = useState({
@@ -51,18 +53,10 @@ const Auth = observer(() => {
 
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/
 
-  let password = SetTranslate('password').toLowerCase()
-  let email = SetTranslate('email')
-  let confirmation_code = SetTranslate('confirmation_code')
-  let code_sent = SetTranslate('code_sent')
-  let password_changed = SetTranslate('password_changed')
-  let logged_in = SetTranslate('logged_in')
-  let registered = SetTranslate('registered')
-
-  formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, email)
-  formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, password)
+    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate(Translate.language, 'email'))
+  formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetTranslate(Translate.language, 'password').toLowerCase())
   formData.role = useInput('', { isEmpty: true })
-  formData.code = useInput('', { isEmpty: true }, confirmation_code)
+  formData.code = useInput('', { isEmpty: true }, SetTranslate(Translate.language, 'confirmation_code'))
 
 
   const [fetching, error] = useFetching(async () => {
@@ -72,7 +66,14 @@ const Auth = observer(() => {
   const sendCodeAction = async () => {
     try {
       let data = await code(formData.email.value)
-      Notification.addNotification([{ id: v4(), type: 'success', message: code_sent }])
+      Notification.addNotification([{
+        id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
+          {
+            russian: ['Код отправлен'],
+            english: ['Code sent']
+          }
+        )
+      }])
       setCodeSend(true)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -86,7 +87,14 @@ const Auth = observer(() => {
       user.setUser(data)
       UserInfo.setUserInfo({})
       fetching()
-      Notification.addNotification([{ id: v4(), type: 'success', message: password_changed }])
+      Notification.addNotification([{
+        id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
+          {
+            russian: ['Пароль изиенен, доступ восстановлен, вы авторизованы'],
+            english: ['Password changed, access restored, you are logged in']
+          }
+        )
+      }])
       user.setIsAuth(true)
       if (user.user.role === 'carrier') { navigate(CARRIER_ROUTE) }
       else if (user.user.role === 'customer') { navigate(CUSTOMER_ROUTE) }
@@ -102,13 +110,27 @@ const Auth = observer(() => {
       if (isLogin) {
         data = await login(formData.email.value, formData.password.value)
         user.setUser(data)
-        Notification.addNotification([{ id: v4(), type: 'success', message: logged_in }])
+        Notification.addNotification([{
+          id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
+            {
+              russian: ['Вы авторизованы'],
+              english: ['You are logged in']
+            }
+          )
+        }])
         fetching()
       }
       else {
         data = await registration(formData.email.value, formData.password.value, formData.role.value)
         user.setUser(data)
-        Notification.addNotification([{ id: v4(), type: 'success', message: registered }])
+        Notification.addNotification([{
+          id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
+            {
+              russian: ['Вы зарегистрированы, ссылка для активации аккаунта отрправлена на указанный email'],
+              english: ['You are registered, a link to activate your account has been sent to the specified email']
+            }
+          )
+        }])
       }
       user.setIsAuth(true)
       if (user.user.role === 'carrier') { navigate(CARRIER_ROUTE) }
@@ -125,17 +147,17 @@ const Auth = observer(() => {
 
   return (
     <PageContainer>
-      {isLogin ? <title>{SetTranslate('authorization')}</title> : isRegister ? <title>{SetTranslate('registration')}</title> : isRecovery ? <title>{SetTranslate('password_recovery')}</title> : <></>}
+      {isLogin ? <title>{SetTranslate(Translate.language, 'authorization')}</title> : isRegister ? <title>{SetTranslate(Translate.language,'registration')}</title> : isRecovery ? <title>{SetTranslate(Translate.language,'password_recovery')}</title> : <></>}
       <Area50></Area50>
 
       <Form>
-        <Name>{isLogin ? SetTranslate('authorization') : isRegister ? SetTranslate('registration') : isRecovery ? SetTranslate('password_recovery') : ''} </Name>
+        <Name>{isLogin ? SetTranslate(Translate.language,'authorization') : isRegister ? SetTranslate(Translate.language,'registration') : isRecovery ? SetTranslate(Translate.language,'password_recovery') : ''} </Name>
 
         {(isRecovery && !codeSend) || isLogin || isRegister ?
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder={SetTranslate('your_email')}
+            <Input placeholder={SetTranslate(Translate.language, 'your_email')}
               value={formData.email.value}
               style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
               onChange={(e) => formData.email.onChange(e)}
@@ -161,7 +183,7 @@ const Auth = observer(() => {
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder={SetTranslate('your_password')}
+            <Input placeholder={SetTranslate(Translate.language,'your_password')}
               style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.password.value}
               onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
@@ -185,7 +207,7 @@ const Auth = observer(() => {
             <VerticalContainer
               style={{ gap: '0px' }}
             >
-              <Input placeholder={SetTranslate('password_repeat')} value={comparePassword} onChange={(e) => {
+              <Input placeholder={SetTranslate(Translate.language, 'password_repeat')} value={comparePassword} onChange={(e) => {
                 setComparePassword(e.target.value)
                 setComparePasswordActive(true)
               }}
@@ -199,7 +221,7 @@ const Auth = observer(() => {
                 }}
               >
                 {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
-                  SetTranslate('compare_passwords') : ''
+                  SetTranslate(Translate.language, 'compare_passwords') : ''
                 }
               </FieldName>
             </VerticalContainer>
@@ -215,9 +237,9 @@ const Auth = observer(() => {
                   name="role" id="role"
                   style={{ borderLeft: formData.role.notValid || formData.role.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                  <option disabled hidden value={formData.role.value}>{SetTranslate('who_are_you')}</option>
-                  <option value='customer'>{SetTranslate('customer')}</option>
-                  <option value='carrier'>{SetTranslate('carrier')}</option>
+                  <option disabled hidden value={formData.role.value}>{SetTranslate(Translate.language, 'who_are_you')}</option>
+                  <option value='customer'>{SetTranslate(Translate.language, 'customer')}</option>
+                  <option value='carrier'>{SetTranslate(Translate.language, 'carrier')}</option>
                 </Select>
                 <FieldName
                   style={{
@@ -226,7 +248,7 @@ const Auth = observer(() => {
                   }}
                 >
                   {formData.role.isEmpty && formData.role.isDirty ?
-                    SetTranslate('select_role') :
+                    SetTranslate(Translate.language, 'select_role') :
                     ''
                   }
                 </FieldName>
@@ -239,7 +261,7 @@ const Auth = observer(() => {
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder={SetTranslate('Сonfirmation_code')}
+            <Input placeholder={SetTranslate(Translate.language, 'Сonfirmation_code')}
               style={{ borderLeft: formData.code.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.code.value}
               onChange={(e) => formData.code.onChange(e)} onBlur={e => formData.code.onBlur(e)} type="text" name="code" id="code"
@@ -281,7 +303,7 @@ const Auth = observer(() => {
                 updatePasswordAction()
               }
             }}
-          >{isLogin ? SetTranslate('sign_in') : isRegister ? SetTranslate('sign_up') : (isRecovery && !codeSend) ? SetTranslate('send_code') : (isRecovery && codeSend) ? SetTranslate('save_and_sign_in') : ''}</Button>
+          >{isLogin ? SetTranslate(Translate.language, 'sign_in') : isRegister ? SetTranslate(Translate.language, 'sign_up') : (isRecovery && !codeSend) ? SetTranslate(Translate.language, 'send_code') : (isRecovery && codeSend) ? SetTranslate(Translate.language, 'save_and_sign_in') : ''}</Button>
           {isRecovery && codeSend ?
             <Button
               onClick={() => {
@@ -292,7 +314,7 @@ const Auth = observer(() => {
                 formData.password.setDirty(false)
                 setComparePassword('')
               }}
-            >{SetTranslate('send_new_code')}</Button> : <></>}
+            >{SetTranslate(Translate.language, 'send_new_code')}</Button> : <></>}
         </HorizontalContainer>
 
         {isLogin ?
@@ -300,21 +322,21 @@ const Auth = observer(() => {
             style={{ display: 'flex', gap: '5px' }}>
 
             <Link onClick={() =>
-              navigate(REGISTRATION_ROUTE)}>{SetTranslate('registration')}</Link>
+              navigate(REGISTRATION_ROUTE)}>{SetTranslate(Translate.language, 'registration')}</Link>
             <Link onClick={() =>
-              navigate(RECOVERY_ROUTE)}>{SetTranslate('password_recovery')}</Link>
+              navigate(RECOVERY_ROUTE)}>{SetTranslate(Translate.language, 'password_recovery')}</Link>
           </div>
           : isRegister ?
-            <Comment>{SetTranslate('have_an_account')}<Link onClick={() =>
-              navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</Link></Comment>
+            <Comment>{SetTranslate(Translate.language, 'have_an_account')}<Link onClick={() =>
+              navigate(LOGIN_ROUTE)}>{SetTranslate(Translate.language, 'sign_in')}</Link></Comment>
             : isRecovery ?
               <div
                 style={{ display: 'flex', gap: '5px' }}>
 
                 <Link onClick={() =>
-                  navigate(REGISTRATION_ROUTE)}>{SetTranslate('registration')}</Link>
+                  navigate(REGISTRATION_ROUTE)}>{SetTranslate(Translate.language, 'registration')}</Link>
                 <Link onClick={() =>
-                  navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</Link>
+                  navigate(LOGIN_ROUTE)}>{SetTranslate(Translate.language, 'sign_in')}</Link>
               </div>
               : <></>
         }

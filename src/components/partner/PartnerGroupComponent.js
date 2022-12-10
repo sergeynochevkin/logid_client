@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { NotificationContext, PartnerContext, UserInfoContext } from '../..'
+import { NotificationContext, PartnerContext, TranslateContext, UserInfoContext } from '../..'
 import { useInput } from '../../hooks/useInput'
 import { createGroup, updateGroups } from '../../http/partnerApi'
 import AddPartnerGroupComponent from './AddPartnerGroupComponent'
@@ -21,8 +21,9 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
     const { Notification } = useContext(NotificationContext)
     const initialValue = { userInfoId: UserInfo.userInfo.id, groupName: '' }
     const [formData, setFormData] = useState(initialValue)
+    const { Translate } = useContext(TranslateContext)
 
-    const group_created = SetTranslate('group_created')
+    const group_created = SetTranslate(Translate.language,'group_created')
 
     useEffect(() => {
         if (parent === 'groupModal') {
@@ -32,7 +33,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
 
     const [selectedGroups, setSelectedGroups] = useState([])
 
-    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, SetTranslate('group_name').toLowerCase())
+    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, SetTranslate(Translate.language,'group_name').toLowerCase())
     formData.userInfoId = UserInfo.userInfo.id
 
     const createNewGroup = async (event) => {
@@ -67,7 +68,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                     onClick={() => {
                         setModalActive(true)
                     }}
-                >{SetTranslate('add')}</Button>
+                >{SetTranslate(Translate.language,'add')}</Button>
                 : <></>}
 
             <VerticalContainer
@@ -89,8 +90,8 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                             <table>
                                 <tbody>
                                     <tr>
-                                        <OrderTh>{SetTranslate('group_name')}</OrderTh>
-                                        <OrderTh>{SetTranslate('number_of_members')}</OrderTh>
+                                        <OrderTh>{SetTranslate(Translate.language,'group_name')}</OrderTh>
+                                        <OrderTh>{SetTranslate(Translate.language,'number_of_members')}</OrderTh>
                                     </tr>
                                 </tbody>
                                 <tbody>
@@ -105,7 +106,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                             :
                             Partner.groups.length === 0 && parent !== 'partnerList' ?
                                 <NoData
-                                >{SetTranslate('no_groups')}</NoData> : <></>}
+                                >{SetTranslate(Translate.language,'no_groups')}</NoData> : <></>}
 
             </VerticalContainer>
             {parent === 'groupModal' ?
@@ -115,13 +116,13 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                 >
                     <CardButton
                         onClick={updateAllGroups}
-                    >{SetTranslate('save')}</CardButton>
+                    >{SetTranslate(Translate.language,'save')}</CardButton>
                     <CardButton
                         onClick={() => {
                             setSelectedGroups(Partner.groups.filter(el => el.partners.includes(onePartnerInfo.id)).map(el => el.dataValues.id))
                             setModalActive(false)
                         }}
-                    >{SetTranslate('close')}</CardButton>
+                    >{SetTranslate(Translate.language,'close')}</CardButton>
                 </HorizontalContainer>
                 : <></>
             }

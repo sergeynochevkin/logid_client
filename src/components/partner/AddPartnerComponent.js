@@ -3,7 +3,7 @@ import { addPartnerByKey } from '../../http/partnerApi'
 import { Button } from '../ui/button/Button'
 import { Input } from '../ui/form/Input'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
-import { ComponentFunctionContext, NotificationContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { v4 } from "uuid";
 import { observer } from 'mobx-react-lite'
 import { FieldName } from '../ui/page/FieldName'
@@ -16,8 +16,9 @@ const AddPartnerComponent = observer(() => {
   const { Notification } = useContext(NotificationContext)
   const { user } = useContext(UserContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
+  const { Translate } = useContext(TranslateContext)
 
-  const partner_added = SetTranslate('partner_added')
+  const partner_added = SetTranslate(Translate.language,'partner_added')
 
   const addPartnerAction = async function () {
     await addPartnerByKey(user.user.role, UserInfo.userInfo.id, key).then(data => {
@@ -43,7 +44,7 @@ const AddPartnerComponent = observer(() => {
           onChange={(e) => {
             setKey(e.target.value)
           }}
-          placeholder={SetTranslate('enter_id')}
+          placeholder={SetTranslate(Translate.language,'enter_id')}
           style={{ height: '40px', fontSize: '16px', width: '300px', marginTop: '8vh' }}
         ></Input>
         <FieldName
@@ -52,16 +53,16 @@ const AddPartnerComponent = observer(() => {
             color: 'rgb(254, 111, 103,0.8)'
           }}>
           {isDirty && key === '' ?
-            SetTranslate('id_not_empty') :
+            SetTranslate(Translate.language,'id_not_empty') :
             isDirty && key.length !== 36 ?
-              SetTranslate('id_36') : ''
+              SetTranslate(Translate.language,'id_36') : ''
           }
         </FieldName>
       </VerticalContainer>
       <Button
         disabled={key === '' || key.length !== 36}
         onClick={addPartnerAction}
-      >{SetTranslate('add')}</Button>
+      >{SetTranslate(Translate.language,'add')}</Button>
     </VerticalContainer>
   )
 })

@@ -22,7 +22,7 @@ const {Setting} = useContext(SettingContext)
     return (
         <div className={'main_banner_container'}>
             <div className={'main_nbanner_half_1_container'}>
-                <div className={Setting.app_theme === 'light' ?  'main_banner_slogan' : 'main_banner_slogan main_banner_slogan_dark'}>{SetTranslate('main_slogan')}</div>
+                <div className={Setting.app_theme === 'light' ?  'main_banner_slogan' : 'main_banner_slogan main_banner_slogan_dark'}>{SetTranslate(Translate.language,'main_slogan')}</div>
             </div>
             <HalfTwoContainer className={'main_nbanner_half_2_container'}>
             </HalfTwoContainer>

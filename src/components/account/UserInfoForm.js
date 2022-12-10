@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Name } from '../ui/text/Name'
 import styled from 'styled-components'
-import { AdressContext, ComponentFunctionContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { createUserInfo, fetchUserInfo } from '../../http/userInfoApi'
 import { observer } from 'mobx-react-lite'
 import { useFetching } from '../../hooks/useFetching'
@@ -26,6 +26,7 @@ const UserInfoForm = observer(() => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
+    const { Translate } = useContext(TranslateContext)
 
     const [fetching, error] = useFetching(async () => {
         await fetchUserInfo(user.user.id).then(data => UserInfo.setUserInfo(data))
@@ -59,23 +60,23 @@ const UserInfoForm = observer(() => {
     })
 
     formData.id = UserInfo.userInfo.id
-    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetTranslate('name_surname_fathersname_content').toLowerCase())
+    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetTranslate(Translate.language,'name_surname_fathersname_content').toLowerCase())
     const validInn = /^[1-9]+[0-9]*$/
-    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetTranslate('company_inn_content').toLowerCase())
-    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetTranslate('company_name_content').toLowerCase())
+    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetTranslate(Translate.language,'company_inn_content').toLowerCase())
+    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetTranslate(Translate.language,'company_name_content').toLowerCase())
     const validWebSite = /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/
-    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetTranslate('website_content').toLowerCase())
+    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetTranslate(Translate.language,'website_content').toLowerCase())
     formData.country = useInput('', { isEmpty: true })
     const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     formData.legal = useInput('', { isEmpty: true })
-    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate('email').toLowerCase())
-    formData.passport_date_of_issue = useInput('', { isEmpty: true }, SetTranslate('passport_date_of_issue_content').toLowerCase())
-    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetTranslate('passport_issued_by_content').toLowerCase())
+    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate(Translate.language,'email').toLowerCase())
+    formData.passport_date_of_issue = useInput('', { isEmpty: true }, SetTranslate(Translate.language,'passport_date_of_issue_content').toLowerCase())
+    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetTranslate(Translate.language,'passport_issued_by_content').toLowerCase())
     const validPassportNumber = /^[а-яА-ЯёЁa-zA-Z0-9]+$/
-    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetTranslate('passport_number_content').toLowerCase())
+    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetTranslate(Translate.language,'passport_number_content').toLowerCase())
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/
     const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
-    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetTranslate('phone_content').toLowerCase())
+    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetTranslate(Translate.language,'phone_content').toLowerCase())
     formData.type_of_customer = useInput('', { isEmpty: true })
 
     formData.email.value = user.user.email
@@ -124,7 +125,7 @@ const UserInfoForm = observer(() => {
                     (formData.passport_number.notValid && formData.legal.value === 'person') ||
                     (formData.passport_date_of_issue.notValid && formData.legal.value === 'person') ||
                     (formData.passport_issued_by.notValid && formData.legal.value === 'person')
-                } onClick={click}>{SetTranslate('save_and_sign_in')}</Button>
+                } onClick={click}>{SetTranslate(Translate.language,'save_and_sign_in')}</Button>
             </Container>
         </Form>
     )

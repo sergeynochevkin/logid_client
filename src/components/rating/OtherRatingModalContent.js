@@ -16,8 +16,8 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
     const { user } = useContext(UserContext)
     formData.raterUserInfoId = UserInfo.userInfo.id
     formData.ratedUserInfoId = onePartnerInfo.id
-    const rated_customer_solvency = SetTranslate('rated_customer_solvency')
-    const rated_carrier_solvency = SetTranslate('rated_carrier_solvency')
+    const rated_customer_solvency = SetTranslate(Translate.language,'rated_customer_solvency')
+    const rated_carrier_solvency = SetTranslate(Translate.language,'rated_carrier_solvency')
 
     const click = async () => {
         try {
@@ -53,7 +53,7 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
 
             </CardRow>
             <CardRow>
-                <CardColName>{SetTranslate('solvency')}</CardColName>
+                <CardColName>{SetTranslate(Translate.language,'solvency')}</CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
                         value={formData.solvency}
@@ -73,13 +73,13 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
             <CardRow>
                 <CardButton
                     onClick={click}
-                >{SetTranslate('rate')}</CardButton>
+                >{SetTranslate(Translate.language,'rate')}</CardButton>
                 <CardButton
                     onClick={() => {
                         setModalActive(false)
                         formReset()
                     }}
-                >{SetTranslate('close')}</CardButton>
+                >{SetTranslate(Translate.language,'close')}</CardButton>
             </CardRow>
 
         </VerticalContainer>

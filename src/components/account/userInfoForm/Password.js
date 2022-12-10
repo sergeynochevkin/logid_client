@@ -15,7 +15,7 @@ const Password = ({ authFormData, setAuthFormData }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}
             >
-                <Input placeholder={SetTranslate('password')}
+                <Input placeholder={SetTranslate(Translate.language,'password')}
                     style={{ borderLeft: authFormData.password.notValid || authFormData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                     value={authFormData.password.value}
                     onChange={(e) => authFormData.password.onChange(e)} onBlur={e => authFormData.password.onBlur(e)} type="password" name="password" id="password"
@@ -35,7 +35,7 @@ const Password = ({ authFormData, setAuthFormData }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}
             >
-                <Input placeholder={SetTranslate('password_repeat')} value={comparePassword} onChange={(e) => {
+                <Input placeholder={SetTranslate(Translate.language,'password_repeat')} value={comparePassword} onChange={(e) => {
                     setComparePassword(e.target.value)
                     setComparePasswordActive(true)
                 }}
@@ -49,7 +49,7 @@ const Password = ({ authFormData, setAuthFormData }) => {
                     }}
                 >
                     {authFormData.password.value !== comparePassword && comparePasswordActive && !authFormData.password.isEmpty ?
-                        SetTranslate('compare_passwords') : ''
+                        SetTranslate(Translate.language,'compare_passwords') : ''
                     }
                 </FieldName>
             </VerticalContainer>

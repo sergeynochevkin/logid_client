@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { PartnerContext } from '../..'
+import { PartnerContext, TranslateContext } from '../..'
 import GroupPartnerItem from './GroupPartnerItem'
 import { CardButton } from '../ui/button/CardButton'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
@@ -8,6 +8,7 @@ import { SetTranslate } from '../../modules/SetTranslate'
 
 const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
     const { Partner } = useContext(PartnerContext)
+    const { Translate } = useContext(TranslateContext)
 
     const thisGroupPartners = Partner.partnerInfos.filter(el => group.partners.includes(el.id))
 
@@ -22,10 +23,10 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
             <table>
                 <tbody>
                     <tr>
-                        <OrderTh>{SetTranslate('id')}</OrderTh>
-                        <OrderTh>{SetTranslate('partner_name')}</OrderTh>
-                        <OrderTh>{SetTranslate('phone')}</OrderTh>
-                        <OrderTh>{SetTranslate('status')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'id')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'partner_name')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'phone')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'status')}</OrderTh>
                     </tr>
                 </tbody>
                 <tbody>
@@ -48,7 +49,7 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
                 onClick={() => {
                     setModalActive(false)
                 }}
-            >{SetTranslate('close')}</CardButton>
+            >{SetTranslate(Translate.language,'close')}</CardButton>
         </VerticalContainer>
 
 

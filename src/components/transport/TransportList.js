@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { TransportContext } from '../..'
+import { TranslateContext, TransportContext } from '../..'
 import TransportItem from './TransportItem'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { SetTranslate } from '../../modules/SetTranslate'
@@ -9,6 +9,7 @@ import NoData from '../ui/page/NoData'
 
 const TransportList = observer(({ setFetchStart }) => {
   const { Transport } = useContext(TransportContext)
+  const { Translate } = useContext(TranslateContext)
 
   return (
 
@@ -24,7 +25,7 @@ const TransportList = observer(({ setFetchStart }) => {
           }
         </>
         : <NoData
-        >{SetTranslate('no_transport')}</NoData>}
+        >{SetTranslate(Translate.language,'no_transport')}</NoData>}
 
     </HorizontalContainer>
   )

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { UserContext } from '../..'
+import { TranslateContext, UserContext } from '../..'
 import { setTime } from '../../modules/setTime'
 import PointStatusForm from './PointStatusForm'
 import { CardColName } from '../ui/card/CardColName'
@@ -14,6 +14,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
     const { user } = useContext(UserContext)
     const formattedEstimatedTime = setTime(new Date(onePoint.time), 0, 'show')
     const formattedFinishedTime = setTime(new Date(onePoint.finished_time), 0, 'show')
+    const { Translate } = useContext(TranslateContext)
 
     const initialValue = {
         id: onePoint.id,
@@ -43,7 +44,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
                 }
 
             }}>
-            <CardColName> {onePoint.sequence === 1 ? SetTranslate('start') : onePoint.sequence !== 50 ? `${SetTranslate('adress_field_name')} ${onePoint.sequence}` : SetTranslate('finish')}</CardColName>
+            <CardColName> {onePoint.sequence === 1 ? SetTranslate(Translate.language,'start') : onePoint.sequence !== 50 ? `${SetTranslate(Translate.language,'adress_field_name')} ${onePoint.sequence}` : SetTranslate(Translate.language,'finish')}</CardColName>
             <CardColValue
                 pointStatus={onePoint.status}
             >{onePoint.point}</CardColValue>
@@ -57,7 +58,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
         </CardRow>
         {onePoint.time && (onePoint.sequence === 1 || onePoint.sequence === 50) ?
             <CardRow>
-                <CardColName>{SetTranslate('time')}</CardColName>
+                <CardColName>{SetTranslate(Translate.language,'time')}</CardColName>
                 <CardColValue>{formattedEstimatedTime}</CardColValue>
                 {onePoint.finished_time && onePoint.status === 'completed' ?
                     <CardColValue>{formattedFinishedTime}</CardColValue> : <></>}

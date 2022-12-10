@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { FilterAndSortContext, PartnerContext, RatingContext } from '../..'
+import { FilterAndSortContext, PartnerContext, RatingContext, TranslateContext } from '../..'
 import useDebounce from '../../hooks/useDebounce'
 import FilterAndSortComponentForServer from '../FilterAndSortComponentForServer'
 import PartnerGroupComponent from './PartnerGroupComponent'
@@ -15,6 +15,7 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
   const { Partner } = useContext(PartnerContext)
   const { Rating } = useContext(RatingContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
+  const { Translate } = useContext(TranslateContext)
 
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
@@ -50,12 +51,12 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
             <table>
               <tbody>
                 <tr>
-                  <OrderTh>{SetTranslate('id')}</OrderTh>
-                  <OrderTh>{SetTranslate('partner_name')}</OrderTh>
-                  <OrderTh>{SetTranslate('phone')}</OrderTh>
-                  <OrderTh>{SetTranslate('rating_field_name')}</OrderTh>
-                  <OrderTh>{SetTranslate('groups_field_name')}</OrderTh>
-                  <OrderTh>{SetTranslate('status')}</OrderTh>
+                  <OrderTh>{SetTranslate(Translate.language,'id')}</OrderTh>
+                  <OrderTh>{SetTranslate(Translate.language,'partner_name')}</OrderTh>
+                  <OrderTh>{SetTranslate(Translate.language,'phone')}</OrderTh>
+                  <OrderTh>{SetTranslate(Translate.language,'rating_field_name')}</OrderTh>
+                  <OrderTh>{SetTranslate(Translate.language,'groups_field_name')}</OrderTh>
+                  <OrderTh>{SetTranslate(Translate.language,'status')}</OrderTh>
                 </tr>
               </tbody>
               <tbody>
@@ -74,7 +75,7 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
             </table>
           </>
           : <NoData        
-          >{SetTranslate('no_partners')}</NoData>}
+          >{SetTranslate(Translate.language,'no_partners')}</NoData>}
       </VerticalContainer>
     </>
   )

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { TranslateContext } from '../../..'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
@@ -6,11 +7,13 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
 const CompanyINN = ({ formData, setFormData }) => {
 
+    const { Translate } = useContext(TranslateContext)
+
     return (
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate('company_inn_place_holder')} value={formData.company_inn.value}
+            <Input placeholder={SetTranslate(Translate.language,'company_inn_place_holder')} value={formData.company_inn.value}
                 onChange={(e) => formData.company_inn.onChange(e)}
                 onBlur={e => formData.company_inn.onBlur(e)}
                 type="text" name="company_inn" id='company_inn'

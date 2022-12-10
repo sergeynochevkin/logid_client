@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { UserInfoContext } from '../../..'
+import { TranslateContext, UserInfoContext } from '../../..'
 import { SetTranslate } from '../../../modules/SetTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
@@ -14,6 +14,7 @@ import PassportNumber from './PassportNumber'
 const Legal = ({ formData, setFormData }) => {
 
     const { UserInfo } = useContext(UserInfoContext)
+    const { Translate } = useContext(TranslateContext)
 
     return (
         <VerticalContainer>
@@ -25,10 +26,10 @@ const Legal = ({ formData, setFormData }) => {
                     name="legal" id='legal'
                     style={{ borderLeft: formData.legal.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                    <option defaultValue hidden>{SetTranslate('legal_place_holder')}</option>
-                    <option value="person">{SetTranslate('person')}</option>
-                    <option value="sole_trader">{SetTranslate('sole_trader')}</option>
-                    <option value="entity">{SetTranslate('entity')}</option>
+                    <option defaultValue hidden>{SetTranslate(Translate.language,'legal_place_holder')}</option>
+                    <option value="person">{SetTranslate(Translate.language,'person')}</option>
+                    <option value="sole_trader">{SetTranslate(Translate.language,'sole_trader')}</option>
+                    <option value="entity">{SetTranslate(Translate.language,'entity')}</option>
                 </Select>
                 <FieldName
                     style={{
@@ -36,7 +37,7 @@ const Legal = ({ formData, setFormData }) => {
                         color: 'rgb(254, 111, 103,0.8)'
                     }}>
                     {formData.legal.isEmpty && formData.legal.isDirty ?
-                        SetTranslate('choose_legal_form') :
+                        SetTranslate(Translate.language,'choose_legal_form') :
                         ''
                     }
                 </FieldName>

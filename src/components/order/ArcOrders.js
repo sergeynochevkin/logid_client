@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, FilterAndSortContext, OrderContext, PointContext, UserInfoContext } from '../../index'
+import { ComponentFunctionContext, FilterAndSortContext, OrderContext, PointContext, TranslateContext, UserInfoContext } from '../../index'
 import { fetchOrders } from '../../http/orderApi'
 import { UserContext } from '../../index'
 import { observer } from 'mobx-react-lite'
@@ -25,6 +25,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   const { FilterAndSort } = useContext(FilterAndSortContext)
   const [fetchStart, setFetchStart] = useState(false)
   const [totalCount, setTotalCount] = useState(0)
+  const { Translate } = useContext(TranslateContext)
 
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
@@ -112,15 +113,15 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                   {order.orders.length !== 0 ?
                     <tbody>
                       <tr>
-                        <OrderTh>{SetTranslate('id')}</OrderTh>
-                        <OrderTh>{SetTranslate('order_type')}</OrderTh>
-                        <OrderTh>{SetTranslate('start')}</OrderTh>
-                        <OrderTh>{SetTranslate('time')}</OrderTh>
-                        <OrderTh>{SetTranslate('finish')}</OrderTh>
-                        <OrderTh>{SetTranslate('transport')}</OrderTh>
-                        <OrderTh>{SetTranslate('cost')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'id')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'order_type')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'start')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'time')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'finish')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'transport')}</OrderTh>
+                        <OrderTh>{SetTranslate(Translate.language,'cost')}</OrderTh>
                         {ComponentFunction.Function === 'arc' ?
-                          <OrderTh>{SetTranslate('last_order_status')}</OrderTh>
+                          <OrderTh>{SetTranslate(Translate.language,'last_order_status')}</OrderTh>
                           : <></>}
                         <th></th>
                         <th></th>
@@ -147,7 +148,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                 marginTop: '10vh',
                 fontSize: '20px'
               }}
-            >{SetTranslate('no_orders')}</div>
+            >{SetTranslate(Translate.language,'no_orders')}</div>
           }
 
         </VerticalContainer>
