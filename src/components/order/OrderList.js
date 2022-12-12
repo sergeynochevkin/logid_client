@@ -33,7 +33,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setFunction('new')
             }} style={{
               color: ComponentFunction.Function === 'new' && 'lightgrey',
-            }}>{SetTranslate(Translate.language,'new_bookmark')}
+            }}>{SetTranslate('new_bookmark')}
               <div className='number_of_orders'>{order.totalCount.new}</div>
             </BookMark>
             {
@@ -48,7 +48,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.Function === 'postponed' && 'grey',
-                }}>{SetTranslate(Translate.language,'postponed_bookmark')}
+                }}>{SetTranslate('postponed_bookmark')}
                   <div className='number_of_orders'>{order.totalCount.postponed}</div>
                 </BookMark>
                 : <></>
@@ -63,7 +63,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'inWork' && 'grey',
-            }}>{SetTranslate(Translate.language,'inWork_bookmark')}
+            }}>{SetTranslate('inWork_bookmark')}
               <div className='number_of_orders' >{order.totalCount.inWork}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -76,7 +76,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'completed' && 'grey',
-            }}>{SetTranslate(Translate.language,'completed_bookmark')}
+            }}>{SetTranslate('completed_bookmark')}
               <div className='number_of_orders' >{order.totalCount.completed}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -89,7 +89,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'canceled' && 'grey',
-            }}>{SetTranslate(Translate.language,'canceled_bookmark')}
+            }}>{SetTranslate('canceled_bookmark')}
               <div className='number_of_orders' >{order.totalCount.canceled}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -102,7 +102,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'arc' && 'grey',
-            }}>{SetTranslate(Translate.language,'arc_bookmark')}
+            }}>{SetTranslate('arc_bookmark')}
               <div className='number_of_orders'  >{order.totalCount.arc}</div>
             </BookMark>
 
@@ -117,7 +117,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
                 ComponentFunction.setOrdersComponentFunction('orderList')
               }} style={{
                 color: ComponentFunction.Function === 'pattern' && 'grey',
-              }}>{SetTranslate(Translate.language,'templates_bookmark')}
+              }}>{SetTranslate('templates_bookmark')}
                 <div className='number_of_orders' >{order.totalCount.pattern}</div>
               </BookMark> : <></>}
           </div>

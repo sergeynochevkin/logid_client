@@ -13,7 +13,7 @@ const Phone = ({ formData, setFormData }) => {
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate(Translate.language,'phone_place_holder')} value={formData.phone.value}
+            <Input placeholder={SetTranslate('phone_place_holder')} value={formData.phone.value}
                 onChange={(e) => formData.phone.onChange(e)}
                 onBlur={e => formData.phone.onBlur(e)}
                 type="text" name="phone" id='phone'

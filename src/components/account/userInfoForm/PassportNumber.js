@@ -14,7 +14,7 @@ const PassportNumber = ({ formData, setFormData }) => {
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate(Translate.language,'passport_number_place_holder')}
+            <Input placeholder={SetTranslate('passport_number_place_holder')}
                 value={formData.passport_number.value}
                 onChange={(e) => formData.passport_number.onChange(e)}
                 onBlur={e => formData.passport_number.onBlur(e)}

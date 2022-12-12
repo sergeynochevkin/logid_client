@@ -8,14 +8,17 @@ const Password = ({ authFormData, setAuthFormData }) => {
     const [comparePassword, setComparePassword] = useState('')
     const [comparePasswordActive, setComparePasswordActive] = useState(false)
 
-
+    const password_hint = SetTranslate('password_hint')
+    const Password = SetTranslate('password')
+    const compare_passwords = SetTranslate('compare_passwords')
+    const password_repeat = SetTranslate('password_repeat')
 
     return (
         <VerticalContainer>
             <VerticalContainer
                 style={{ gap: '0px' }}
             >
-                <Input placeholder={SetTranslate(Translate.language,'password')}
+                <Input placeholder={Password}
                     style={{ borderLeft: authFormData.password.notValid || authFormData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                     value={authFormData.password.value}
                     onChange={(e) => authFormData.password.onChange(e)} onBlur={e => authFormData.password.onBlur(e)} type="password" name="password" id="password"
@@ -26,16 +29,16 @@ const Password = ({ authFormData, setAuthFormData }) => {
                         color: 'rgb(254, 111, 103,0.8)'
                     }}
                 >
-                    {(authFormData.password.isEmpty && authFormData.password.isDirty) || (authFormData.password.minLengthError) || (authFormData.password.maxLengthError) || (authFormData.password.formatError) ?
-                        authFormData.password.errorMessage :
-                        ''
+                    {(authFormData.password.isEmpty && authFormData.password.isDirty) || (authFormData.password.minLengthError) || (authFormData.password.maxLengthError) ?
+                        authFormData.password.errorMessage : (authFormData.password.formatError) ? password_hint :
+                            ''
                     }
                 </FieldName>
             </VerticalContainer>
             <VerticalContainer
                 style={{ gap: '0px' }}
             >
-                <Input placeholder={SetTranslate(Translate.language,'password_repeat')} value={comparePassword} onChange={(e) => {
+                <Input placeholder={password_repeat} value={comparePassword} onChange={(e) => {
                     setComparePassword(e.target.value)
                     setComparePasswordActive(true)
                 }}
@@ -49,7 +52,7 @@ const Password = ({ authFormData, setAuthFormData }) => {
                     }}
                 >
                     {authFormData.password.value !== comparePassword && comparePasswordActive && !authFormData.password.isEmpty ?
-                        SetTranslate(Translate.language,'compare_passwords') : ''
+                        compare_passwords : ''
                     }
                 </FieldName>
             </VerticalContainer>

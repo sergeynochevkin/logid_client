@@ -55,7 +55,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
         var place = autocomplete.getPlace()
         if (place) {
             if (!place.geometry) {
-                document.getElementById(id).placeholder = SetTranslate(Translate.language,'enter_city')
+                document.getElementById(id).placeholder = SetTranslate('enter_city')
             } else {
                 let data = { ...formData }
                 data.city.value = place.name
@@ -73,7 +73,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}>
                 <Input
-                    placeholder={SetTranslate(Translate.language,'enter_city')}
+                    placeholder={SetTranslate('enter_city')}
                     defaultValue={formData.city.value} name="city" id='city'
                     onChange={() => {
                         if (formData.city.value !== '') {
@@ -95,7 +95,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
                     }}
                 >
                     {formData.city.notValid && formData.city.isDirty ?
-                        SetTranslate(Translate.language,'select_city').toLowerCase() :
+                        SetTranslate('select_city').toLowerCase() :
                         ''
                     }
                 </FieldName>

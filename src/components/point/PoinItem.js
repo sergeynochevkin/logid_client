@@ -44,7 +44,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
                 }
 
             }}>
-            <CardColName> {onePoint.sequence === 1 ? SetTranslate(Translate.language,'start') : onePoint.sequence !== 50 ? `${SetTranslate(Translate.language,'adress_field_name')} ${onePoint.sequence}` : SetTranslate(Translate.language,'finish')}</CardColName>
+            <CardColName> {onePoint.sequence === 1 ? SetTranslate('start') : onePoint.sequence !== 50 ? `${SetTranslate('adress_field_name')} ${onePoint.sequence}` : SetTranslate('finish')}</CardColName>
             <CardColValue
                 pointStatus={onePoint.status}
             >{onePoint.point}</CardColValue>
@@ -58,7 +58,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
         </CardRow>
         {onePoint.time && (onePoint.sequence === 1 || onePoint.sequence === 50) ?
             <CardRow>
-                <CardColName>{SetTranslate(Translate.language,'time')}</CardColName>
+                <CardColName>{SetTranslate('time')}</CardColName>
                 <CardColValue>{formattedEstimatedTime}</CardColValue>
                 {onePoint.finished_time && onePoint.status === 'completed' ?
                     <CardColValue>{formattedFinishedTime}</CardColValue> : <></>}

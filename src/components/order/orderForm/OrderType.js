@@ -22,9 +22,9 @@ const OrderType = ({ formData, setFormData }) => {
                 onBlur={e => formData.order_type.onBlur(e)}
                 name="order_type" id="order_type"
             >
-                <option defaultValue hidden>{SetTranslate(Translate.language,'order_type_place_holder')}</option>
-                <option value='order'>{SetTranslate(Translate.language,'order')}</option>
-                <option value='auction'>{SetTranslate(Translate.language,'auction')}</option>
+                <option defaultValue hidden>{SetTranslate('order_type_place_holder')}</option>
+                <option value='order'>{SetTranslate('order')}</option>
+                <option value='auction'>{SetTranslate('auction')}</option>
             </Select>
             <FieldName
                 style={{
@@ -33,7 +33,7 @@ const OrderType = ({ formData, setFormData }) => {
                 }}
             >
                 {(formData.order_type.isEmpty && formData.order_type.isDirty) ?
-                    SetTranslate(Translate.language,'select_order_type') :
+                    SetTranslate('select_order_type') :
                     ''
                 }
             </FieldName>

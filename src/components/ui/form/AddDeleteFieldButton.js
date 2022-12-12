@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { SettingContext } from '../../..'
 import './Form.css'
 
-const AddDeleteFieldButton = observer(({ children, props }) => {
+const AddDeleteFieldButton = observer(({ children, ...props }) => {
 
    const { Setting } = useContext(SettingContext)
 

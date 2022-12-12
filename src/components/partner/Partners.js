@@ -23,19 +23,19 @@ const Partners = observer(({ setFetchPartnersStart }) => {
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('list')
           }}
-        >{SetTranslate(Translate.language,'partners_list')}</BookMark>
+        >{SetTranslate('partners_list')}</BookMark>
         <BookMark
           style={{ color: ComponentFunction.partnersComponentFunction === 'groups' && 'grey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('groups')
           }}
-        >{SetTranslate(Translate.language,'groups')}</BookMark>
+        >{SetTranslate('groups')}</BookMark>
         <BookMark
           style={{ color: ComponentFunction.partnersComponentFunction === 'add' && 'grey' }}
           onClick={() => {
             ComponentFunction.setPartnersComponentFunction('add')
           }}
-        >{SetTranslate(Translate.language,'add_partner_by_id')}</BookMark>
+        >{SetTranslate('add_partner_by_id')}</BookMark>
       </HorizontalContainer>
 
       {ComponentFunction.partnersComponentFunction === 'list' ?

@@ -5,12 +5,6 @@
     padding: 5px;
 }
 
-@media screen and (max-width: 425px) {
-    .scroll_bar_container {
-        max-width: 380px;
-    }
-}
-
 .scroll_bar_container::-webkit-scrollbar {
     width: 0;
     /* Remove scrollbar space */
@@ -32,12 +26,6 @@
     color: white;
 }
 
-@media screen and (max-width: 425px) {
-    .scroll_bar_container_dark {
-        max-width: 380px;
-        color: white;
-    }
-}
 
 .scroll_bar_container_dark::-webkit-scrollbar {
     width: 0;
@@ -52,11 +40,6 @@
     background: rgb(31, 31, 31, 0.8);
 }
 
-/* @media screen and (max-width: 768) {
-    .scroll_bar_container {
-        width: 740;
-    }
-} */
 
 .order_table {
     min-width: max-content;
@@ -69,12 +52,21 @@
     align-items: center;
     gap: 5px;
     /* min-width: max-content; */
-    width: 100%;
+    /* width: 100%; */
 }
 
 @media screen and (max-width: 425px) {
     .scroll_content_container {
         flex-wrap: nowrap;
+    }
+
+    .scroll_bar_container_dark {
+        max-width: 380px;
+        color: white;
+    }
+
+    .scroll_bar_container {
+        max-width: 380px;
     }
 }
 

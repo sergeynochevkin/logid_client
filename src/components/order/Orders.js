@@ -21,6 +21,7 @@ import { fetchUserState } from '../../http/stateApi'
 import MapComponent from '../map/MapComponent'
 import { SetTranslate } from '../../modules/SetTranslate'
 import NoData from '../ui/page/NoData'
+import { LikeCardButton } from '../ui/text/LikeCardButton'
 
 const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPartnersStart, fetchStart, setFetchStart }) => {
   const { order } = useContext(OrderContext)
@@ -165,61 +166,61 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
     }
   }
 
-  const new_orders_received = SetTranslate(Translate.language,'new_orders_received')
-  const new_order_received = SetTranslate(Translate.language,'new_order_received')
-  const order_taken = SetTranslate(Translate.language,'order_taken')
-  const orders_taken = SetTranslate(Translate.language,'orders_taken')
-  const offers_accepted = SetTranslate(Translate.language,'offers_accepted')
-  const offer_accepted = SetTranslate(Translate.language,'offer_accepted')
-  const offers_accepted_carrier = SetTranslate(Translate.language,'offers_accepted_carrier')
-  const offer_accepted_carrier = SetTranslate(Translate.language,'offer_accepted_carrier')
-  const postponed_orders = SetTranslate(Translate.language,'postponed_orders')
-  const postponed_order = SetTranslate(Translate.language,'new_order_received')
-  const start_doing = SetTranslate(Translate.language,'start_doing')
-  const restored_orders = SetTranslate(Translate.language,'restored_orders')
-  const restored_order = SetTranslate(Translate.language,'restored_order')
-  const check_restored = SetTranslate(Translate.language,'check_restored')
-  const orders_canceled = SetTranslate(Translate.language,'orders_canceled')
-  const order_canceled = SetTranslate(Translate.language,'order_canceled')
-  const canceled_disrupted_orders = SetTranslate(Translate.language,'canceled_disrupted_orders')
-  const canceled_disrupted_order = SetTranslate(Translate.language,'canceled_disrupted_order')
-  const restore_to_resend = SetTranslate(Translate.language,'restore_to_resend')
-  const affect_carrier_rating = SetTranslate(Translate.language,'affect_carrier_rating')
-  const affect_your_rating = SetTranslate(Translate.language,'affect_your_rating')
-  const affect_customer_rating = SetTranslate(Translate.language,'affect_customer_rating')
-  const non_arrival = SetTranslate(Translate.language,'non_arrival')
-  const not_loading = SetTranslate(Translate.language,'not_loading')
-  const customer_completed_orders = SetTranslate(Translate.language,'customer_completed_orders')
-  const customer_completed_order = SetTranslate(Translate.language,'customer_completed_order')
-  const completed_orders = SetTranslate(Translate.language,'completed_orders')
-  const completed_order = SetTranslate(Translate.language,'completed_order')
-  const orders_notifications = SetTranslate(Translate.language,'orders_notifications')
-  const order_notifications = SetTranslate(Translate.language,'order_notifications')
-  const auctions_notifications = SetTranslate(Translate.language,'auctions_notifications')
-  const auction_notifications = SetTranslate(Translate.language,'auction_notifications')
-  const converted_many = SetTranslate(Translate.language,'converted_many')
-  const converted_one = SetTranslate(Translate.language,'converted_one')
-  const to_auction = SetTranslate(Translate.language,'to_auction')
-  const to_order = SetTranslate(Translate.language,'to_order')
-  const can_take_it = SetTranslate(Translate.language,'can_take_it')
-  const new_offers = SetTranslate(Translate.language,'new_offers')
-  const new_offer = SetTranslate(Translate.language,'new_offer')
-  const changed_offers = SetTranslate(Translate.language,'changed_offers')
-  const changed_offer = SetTranslate(Translate.language,'changed_offer')
-  const removed_offers = SetTranslate(Translate.language,'removed_offers')
-  const removed_offer = SetTranslate(Translate.language,'removed_offer')
-  const postponed_points = SetTranslate(Translate.language,'postponed_points')
-  const postponed_point = SetTranslate(Translate.language,'postponed_point')
-  const canceled_point = SetTranslate(Translate.language,'canceled_point')
-  const canceled_points = SetTranslate(Translate.language,'canceled_points')
-  const restored_points = SetTranslate(Translate.language,'restored_points')
-  const restored_point = SetTranslate(Translate.language,'restored_point')
-  const on_orders = SetTranslate(Translate.language,'on_orders')
-  const on_order = SetTranslate(Translate.language,'on_order')
-  const completed_points = SetTranslate(Translate.language,'completed_points')
-  const completed_point = SetTranslate(Translate.language,'completed_point')
-  const in_work_points = SetTranslate(Translate.language,'in_work_points')
-  const in_work_point = SetTranslate(Translate.language,'in_work_point')
+  const new_orders_received = SetTranslate('new_orders_received')
+  const new_order_received = SetTranslate('new_order_received')
+  const order_taken = SetTranslate('order_taken')
+  const orders_taken = SetTranslate('orders_taken')
+  const offers_accepted = SetTranslate('offers_accepted')
+  const offer_accepted = SetTranslate('offer_accepted')
+  const offers_accepted_carrier = SetTranslate('offers_accepted_carrier')
+  const offer_accepted_carrier = SetTranslate('offer_accepted_carrier')
+  const postponed_orders = SetTranslate('postponed_orders')
+  const postponed_order = SetTranslate('new_order_received')
+  const start_doing = SetTranslate('start_doing')
+  const restored_orders = SetTranslate('restored_orders')
+  const restored_order = SetTranslate('restored_order')
+  const check_restored = SetTranslate('check_restored')
+  const orders_canceled = SetTranslate('orders_canceled')
+  const order_canceled = SetTranslate('order_canceled')
+  const canceled_disrupted_orders = SetTranslate('canceled_disrupted_orders')
+  const canceled_disrupted_order = SetTranslate('canceled_disrupted_order')
+  const restore_to_resend = SetTranslate('restore_to_resend')
+  const affect_carrier_rating = SetTranslate('affect_carrier_rating')
+  const affect_your_rating = SetTranslate('affect_your_rating')
+  const affect_customer_rating = SetTranslate('affect_customer_rating')
+  const non_arrival = SetTranslate('non_arrival')
+  const not_loading = SetTranslate('not_loading')
+  const customer_completed_orders = SetTranslate('customer_completed_orders')
+  const customer_completed_order = SetTranslate('customer_completed_order')
+  const completed_orders = SetTranslate('completed_orders')
+  const completed_order = SetTranslate('completed_order')
+  const orders_notifications = SetTranslate('orders_notifications')
+  const order_notifications = SetTranslate('order_notifications')
+  const auctions_notifications = SetTranslate('auctions_notifications')
+  const auction_notifications = SetTranslate('auction_notifications')
+  const converted_many = SetTranslate('converted_many')
+  const converted_one = SetTranslate('converted_one')
+  const to_auction = SetTranslate('to_auction')
+  const to_order = SetTranslate('to_order')
+  const can_take_it = SetTranslate('can_take_it')
+  const new_offers = SetTranslate('new_offers')
+  const new_offer = SetTranslate('new_offer')
+  const changed_offers = SetTranslate('changed_offers')
+  const changed_offer = SetTranslate('changed_offer')
+  const removed_offers = SetTranslate('removed_offers')
+  const removed_offer = SetTranslate('removed_offer')
+  const postponed_points = SetTranslate('postponed_points')
+  const postponed_point = SetTranslate('postponed_point')
+  const canceled_point = SetTranslate('canceled_point')
+  const canceled_points = SetTranslate('canceled_points')
+  const restored_points = SetTranslate('restored_points')
+  const restored_point = SetTranslate('restored_point')
+  const on_orders = SetTranslate('on_orders')
+  const on_order = SetTranslate('on_order')
+  const completed_points = SetTranslate('completed_points')
+  const completed_point = SetTranslate('completed_point')
+  const in_work_points = SetTranslate('in_work_points')
+  const in_work_point = SetTranslate('in_work_point')
 
   useEffect(() => {
     if (Object.keys(order.added).length > 0) {
@@ -324,7 +325,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
   useEffect(() => {
     if (Object.keys(Point.added).length > 0) {
       if (Point.added.postponed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? postponed_points : postponed_point} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate(Translate.language,'on_orders') : SetTranslate(Translate.language,'on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? postponed_points : postponed_point} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.canceled.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
         Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? canceled_points : canceled_point} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
@@ -393,17 +394,19 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                           borderRadius: '5px',
                         }}
                       >
-                        {`${SetTranslate(Translate.language,'selected_orders')} ${order.group.length}`}
+                        <LikeCardButton>
+                          {`${SetTranslate('selected_orders')} ${order.group.length}`}
+                        </LikeCardButton>
                         <OrderStatusButtons parent={'selector'} thisOrder={thisOrder} setFetchStart={setFetchStart} />
                         {user.user.role === 'carrier' && ComponentFunction.Function === 'new' ? <></> :
                           <>
                             {order.group.length < order.orders.length ?
                               <CardButton
                                 onClick={() => { order.setGroup(order.orders.map(el => el.id)) }}
-                              >{SetTranslate(Translate.language,'select_all')}</CardButton> :
+                              >{SetTranslate('select_all')}</CardButton> :
                               <CardButton
                                 onClick={() => { order.setGroup([]) }}
-                              >{SetTranslate(Translate.language,'reset')}</CardButton>
+                              >{SetTranslate('reset')}</CardButton>
                             }
                           </>}
                       </HorizontalContainer>
@@ -423,14 +426,16 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                       borderRadius: '5px',
                     }}
                   >
-                    {`В избранном ${order.orders.filter(el => State.user_state.favorite_order_state.includes(el.id)).length}`}
+                    <LikeCardButton>
+                      {`${SetTranslate('total_in_favorites')} ${order.orders.filter(el => State.user_state.favorite_order_state.includes(el.id)).length}`}
+                    </LikeCardButton>
                     {FilterAndSort.filters.selected.length === 0 ?
                       <CardButton
                         onClick={() => {
                           FilterAndSort.setFilters(State.user_state.favorite_order_state, 'selected')
                           setFetchStart(true)
                         }}
-                      >{SetTranslate(Translate.language,'just_favorites')}</CardButton>
+                      >{SetTranslate('just_favorites')}</CardButton>
                       : <></>}
                     {FilterAndSort.filters.selected.length > 0 ?
                       <CardButton
@@ -438,7 +443,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                           FilterAndSort.setFilters([], 'selected')
                           setFetchStart(true)
                         }}
-                      >{SetTranslate(Translate.language,'reset_favorites')}</CardButton>
+                      >{SetTranslate('reset_favorites')}</CardButton>
                       : <></>}
                     <CardButton
                       onClick={() => {
@@ -446,7 +451,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                         FilterAndSort.setFilters([], 'selected')
                         setFetchStart(true)
                       }}
-                    >{SetTranslate(Translate.language,'clear_favorites')}</CardButton>
+                    >{SetTranslate('clear_favorites')}</CardButton>
                   </HorizontalContainer>
                   : <></>}
 
@@ -471,7 +476,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
               </HorizontalContainer>
             </>
               : <NoData
-              >{SetTranslate(Translate.language,'no_orders')}</NoData>}
+              >{SetTranslate('no_orders')}</NoData>}
           </VerticalContainer> :
           ComponentFunction.OrdersComponentFunction === 'orderItem' ?
             <>

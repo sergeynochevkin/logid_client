@@ -82,15 +82,6 @@ const Carrier = observer(() => {
   })
 
   useEffect(() => {
-    if (Object.keys(UserInfo.userInfo).length !== 0) {
-      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
-    }
-    if (Object.keys(UserInfo.userInfo).length !== 0) {
-      Translate.setLanguage(Adress.country.default_language)
-    }
-  }, [])
-
-  useEffect(() => {
     fetching()
   }, [fetchPartnersStart, ComponentFunction.Function, ComponentFunction.PageFunction])
 
@@ -120,7 +111,7 @@ const Carrier = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetTranslate(Translate.language,'carriers_office')}</title>
+        <title>{SetTranslate('carriers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -133,7 +124,7 @@ const Carrier = observer(() => {
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>{SetTranslate(Translate.language,'carriers_office')}</PageBanner>
+        <PageBanner>{SetTranslate('carriers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -142,7 +133,7 @@ const Carrier = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>{SetTranslate(Translate.language,'fill_account')}</BookMark>
+              <BookMark>{SetTranslate('fill_account')}</BookMark>
               <UserInfoForm />
             </FlexContainer>
 
@@ -158,34 +149,34 @@ const Carrier = observer(() => {
                   order.setOrder({})
 
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'orderList' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'orders')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'orderList' && 'grey',
+                }}>{SetTranslate('orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('transport')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'transport' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'transports')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'transport' && 'grey',
+                }}>{SetTranslate('transports')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('customers')
                   ComponentFunction.setFunction('partners')
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'customers' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'customers')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'customers' && 'grey',
+                }}>{SetTranslate('customers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('account'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'account')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'account' && 'grey',
+                }}>{SetTranslate('account')}</BookMark>
 
                 {/* <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'settings')}</BookMark> */}
+                }}>{SetTranslate('settings')}</BookMark> */}
               </div>
             </div>
 

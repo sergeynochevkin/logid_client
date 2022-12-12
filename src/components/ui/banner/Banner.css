@@ -5,11 +5,10 @@
     justify-content: center;
     align-items: center;
     z-index: -1;
-    /* background-color: white; */
     z-index: 1;
 }
 
-.page_banner_dark{
+.page_banner_dark {
     color: white;
 }
 
@@ -24,34 +23,70 @@
 }
 
 .main_banner_container {
-    min-height: 50vh;
-    width: 100%;
+    height: 40vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    /* z-index: 1; */
+    z-index: 1;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 20px;       
 }
 
 .main_nbanner_half_1_container {
-    height: 50vh;
-    width: 100%;
-    display: flex;
+    width: 30%;
+    display: flex; 
     justify-content: center;
     align-items: center;
-    /* z-index: 1; */
-    max-width: 700px;
-    max-height: 30vh;
+    z-index: 2;
 }
 
+.main_nbanner_half_2_container {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
 
 .main_banner_slogan {
     font-size: 32px;
     color: black;
     text-align: center;
+    white-space: wrap;
 }
 
-.main_banner_slogan_dark{
+.main_banner_slogan_dark {
     color: white;
+}
+
+.main_banner_image {
+    /* object-fit: contain; */
+    width: 500px;
+    height: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .main_banner_image {
+        width: 300px;
+    }
+
+    .main_banner_slogan {
+        font-size: 22px;
+    }
+   
+}
+
+@media screen and (max-width: 425px) {
+    .main_banner_image {
+        width: 200px;
+    }
+
+    .main_banner_slogan {
+        font-size: 16px;      
+    }
+
+    .main_banner_container{
+        flex-direction: column;
+        height: 20vh;
+    }
 }

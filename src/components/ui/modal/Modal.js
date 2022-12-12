@@ -19,8 +19,7 @@ const Modal = ({ modalActive, setModalActive, children, parent, formReset, Compo
       }
       setModalActive(false)
     }}>
-      <div className={modalActive && Setting.app_theme === 'light' ? "modalContent active" : modalActive ? "modalContent modalContent_dark active" :  "modalContent"} onClick={e => e.stopPropagation()}>
-      {/* не точная логика поднятия темного модала */}
+      <div className={modalActive && Setting.app_theme === 'light' ? "modalContent active" : modalActive &&  Setting.app_theme === 'dark' ? "modalContent modalContent_dark active" : Setting.app_theme === 'light'?  "modalContent" : "modalContent_dark"} onClick={e => e.stopPropagation()}>
         <div className='modal_container'>
           {children}
         </div>

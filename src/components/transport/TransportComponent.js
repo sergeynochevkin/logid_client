@@ -70,7 +70,7 @@ const TransportComponent = observer(() => {
           setModalActive(true)
         }}
         style={{ marginTop: '10px' }}
-      >{SetTranslate(Translate.language,'add')}</Button>
+      >{SetTranslate('add')}</Button>
       <Modal
         parent={parent}
         formReset={formReset}

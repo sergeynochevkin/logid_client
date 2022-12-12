@@ -36,8 +36,8 @@ const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInf
             {Rating.orderRatings.filter(el => el.orderId === oneOrder.id).length > 0 ?
                 <>
                     <CardButton disabled style={{ color: 'lightgray', cursor: 'default' }}>
-                        {user.user.role === 'carrier' ? SetTranslate(Translate.language, 'rated_customer') :
-                            user.user.role === 'customer' ? SetTranslate(Translate.language, 'rated_carrier') : ''}
+                        {user.user.role === 'carrier' ? SetTranslate( 'rated_customer') :
+                            user.user.role === 'customer' ? SetTranslate( 'rated_carrier') : ''}
                     </CardButton>
 
                 </>
@@ -49,8 +49,8 @@ const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInf
                             setModalActive(true)
                         }}
                     >
-                        {user.user.role === 'carrier' ? SetTranslate(Translate.language, 'rate_customer') :
-                            user.user.role === 'customer' ? SetTranslate(Translate.language, 'rate_carrier') : ''}
+                        {user.user.role === 'carrier' ? SetTranslate( 'rate_customer') :
+                            user.user.role === 'customer' ? SetTranslate( 'rate_carrier') : ''}
                     </CardButton>
                     <Modal
                         modalActive={modalActive}

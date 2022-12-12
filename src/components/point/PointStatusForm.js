@@ -22,16 +22,16 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
     const { Translate } = useContext(TranslateContext)
 
     formData.role = user.user.role
-    formData.carrier_comment = useInput('', { isEmpty: true, minLength: 3, maxLength: 20 }, SetTranslate(Translate.language,'comment'))
+    formData.carrier_comment = useInput('', { isEmpty: true, minLength: 3, maxLength: 20 }, SetTranslate('comment'))
 
-    const you_canceled = SetTranslate(Translate.language,'you_canceled')
-    const you_postponed = SetTranslate(Translate.language,'you_postponed')
-    const you_took = SetTranslate(Translate.language,'you_took')
-    const you_restored = SetTranslate(Translate.language,'you_restored')
-    const you_finished = SetTranslate(Translate.language,'you_finished')
-    const last = SetTranslate(Translate.language,'last')
-    const point = SetTranslate(Translate.language,'point')
-    const of_order = SetTranslate(Translate.language,'of_order')
+    const you_canceled = SetTranslate('you_canceled')
+    const you_postponed = SetTranslate('you_postponed')
+    const you_took = SetTranslate('you_took')
+    const you_restored = SetTranslate('you_restored')
+    const you_finished = SetTranslate('you_finished')
+    const last = SetTranslate('last')
+    const point = SetTranslate('point')
+    const of_order = SetTranslate('of_order')
 
 
 
@@ -65,7 +65,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
 
     return (
         <VerticalContainer>
-            <FieldName>{SetTranslate(Translate.language,'adress')}</FieldName>
+            <FieldName>{SetTranslate('adress')}</FieldName>
             <Field style={{ cursor: 'default', backgroundColor: Setting.app_theme === 'dark' ? 'black' : '', border: Setting.app_theme === 'dark' ? 'none' : '' }}>{onePoint.point}</Field>
 
 
@@ -104,7 +104,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         click()
                     }}
                         disabled={formData.carrier_comment.minLengthError || formData.carrier_comment.maxLengthError}
-                    >{SetTranslate(Translate.language,'finish')}</CardButton>
+                    >{SetTranslate('finish')}</CardButton>
                     : <></>}
 
                 {onePoint.status === null || onePoint.status === 'new' ?
@@ -115,7 +115,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         click()
                     }}
                         disabled={formData.carrier_comment.notValid && user.user.role === 'carrier'}
-                    >{SetTranslate(Translate.language,'postpone')}</CardButton>
+                    >{SetTranslate('postpone')}</CardButton>
                     : <></>}
 
                 {onePoint.status === null || onePoint.status === 'new' || onePoint.status === 'postponed' ?
@@ -133,12 +133,12 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         }
                         else (
                             Notification.addNotification([{
-                                id: v4(), type: 'error', message: SetTranslate(Translate.language,'reason_of_cancellation')
+                                id: v4(), type: 'error', message: SetTranslate('reason_of_cancellation')
                             }])
                         )
                     }}
                         disabled={formData.carrier_comment.notValid && user.user.role === 'carrier'}
-                    >{SetTranslate(Translate.language,'cancel')}</CardButton>
+                    >{SetTranslate('cancel')}</CardButton>
                     : <></>}
                 {onePoint.status === null || onePoint.status === 'new' || onePoint.status === 'postponed' ?
                     <><CardButton onClick={() => {
@@ -148,7 +148,7 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         click()
                     }}
                         disabled={formData.carrier_comment.minLengthError || formData.carrier_comment.maxLengthError}
-                    >{SetTranslate(Translate.language,'take')}</CardButton>
+                    >{SetTranslate('take')}</CardButton>
                     </>
                     : <></>}
                 {user.user.role === 'customer' && (onePoint.status === 'canceled' || onePoint.status === 'completed') ?
@@ -159,13 +159,13 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         formData.updated_time = new Date();
                         formData.finished_time = new Date(0);
                         click()
-                    }}>{SetTranslate(Translate.language,'restore')}</CardButton>
+                    }}>{SetTranslate('restore')}</CardButton>
                     : <></>}
 
                 <CardButton onClick={() => {
                     setModalActive(false)
                     formReset()
-                }}>{SetTranslate(Translate.language,'close')}</CardButton>
+                }}>{SetTranslate('close')}</CardButton>
             </HorizontalContainer>
         </VerticalContainer>
     )

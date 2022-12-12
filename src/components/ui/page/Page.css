@@ -14,7 +14,9 @@
 
 .field_name {
     font-size: 10px;
-    font-weight: bold
+    font-weight: bold;
+    white-space: wrap;
+    max-width: 300px;
 }
 
 .field_name_dark {
@@ -57,3 +59,4 @@
     padding: 10px;
     color: white;
 }
+

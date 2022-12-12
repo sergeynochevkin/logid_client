@@ -26,10 +26,10 @@ const Legal = ({ formData, setFormData }) => {
                     name="legal" id='legal'
                     style={{ borderLeft: formData.legal.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                    <option defaultValue hidden>{SetTranslate(Translate.language,'legal_place_holder')}</option>
-                    <option value="person">{SetTranslate(Translate.language,'person')}</option>
-                    <option value="sole_trader">{SetTranslate(Translate.language,'sole_trader')}</option>
-                    <option value="entity">{SetTranslate(Translate.language,'entity')}</option>
+                    <option defaultValue hidden>{SetTranslate('legal_place_holder')}</option>
+                    <option value="person">{SetTranslate('person')}</option>
+                    <option value="sole_trader">{SetTranslate('sole_trader')}</option>
+                    <option value="entity">{SetTranslate('entity')}</option>
                 </Select>
                 <FieldName
                     style={{
@@ -37,7 +37,7 @@ const Legal = ({ formData, setFormData }) => {
                         color: 'rgb(254, 111, 103,0.8)'
                     }}>
                     {formData.legal.isEmpty && formData.legal.isDirty ?
-                        SetTranslate(Translate.language,'choose_legal_form') :
+                        SetTranslate('choose_legal_form') :
                         ''
                     }
                 </FieldName>

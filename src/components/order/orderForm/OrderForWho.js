@@ -26,12 +26,12 @@ const OrderForWho = ({ formData, setFormData, orderForWho, setOrderForWho }) => 
                         }}
                         multiple={false}
                     >
-                        <option defaultValue='all'>{SetTranslate(Translate.language, 'order_for_all')}</option>
+                        <option defaultValue='all'>{SetTranslate( 'order_for_all')}</option>
                         {Partner.groups.length > 0 ?
-                            <option value='group'>{SetTranslate(Translate.language, 'order_for_group')}</option>
+                            <option value='group'>{SetTranslate( 'order_for_group')}</option>
                             : <></>}
                         {Partner.partnerInfos.length > 0 ?
-                            <option value='partner'>{SetTranslate(Translate.language, 'order_for_partner')}</option>
+                            <option value='partner'>{SetTranslate( 'order_for_partner')}</option>
                             : <></>}
                     </Select>
                     {orderForWho === 'group' ?
@@ -46,7 +46,7 @@ const OrderForWho = ({ formData, setFormData, orderForWho, setOrderForWho }) => 
                                 onBlur={e => formData.for_group.onBlur(e)}
                                 name="for_group" id="for_group"
                             >
-                                <option defaultValue hidden>{SetTranslate(Translate.language, 'select_group')}</option>
+                                <option defaultValue hidden>{SetTranslate( 'select_group')}</option>
                                 {Partner.groups.map(group =>
                                     <option key={group.dataValues.id} value={group.dataValues.id}>{group.dataValues.name}</option>
 
@@ -59,7 +59,7 @@ const OrderForWho = ({ formData, setFormData, orderForWho, setOrderForWho }) => 
                                 }}
                             >
                                 {(formData.for_group.isEmpty && formData.for_group.isDirty) ?
-                                    SetTranslate(Translate.language, 'select_group_validation') :
+                                    SetTranslate( 'select_group_validation') :
                                     ''
                                 }
                             </FieldName>
@@ -78,7 +78,7 @@ const OrderForWho = ({ formData, setFormData, orderForWho, setOrderForWho }) => 
                                 onBlur={e => formData.for_partner.onBlur(e)}
                                 name="for_partner" id="for_partner"
                             >
-                                <option defaultValue hidden>{SetTranslate(Translate.language, 'select_partner')}</option>
+                                <option defaultValue hidden>{SetTranslate( 'select_partner')}</option>
                                 {Partner.partnerInfos.map(partner =>
                                     <option key={partner.id} value={partner.id}>
                                         {
@@ -97,7 +97,7 @@ const OrderForWho = ({ formData, setFormData, orderForWho, setOrderForWho }) => 
                                 }}
                             >
                                 {(formData.for_partner.isEmpty && formData.for_partner.isDirty) ?
-                                    SetTranslate(Translate.language, 'select_partner_validation') :
+                                    SetTranslate( 'select_partner_validation') :
                                     ''
                                 }
                             </FieldName>

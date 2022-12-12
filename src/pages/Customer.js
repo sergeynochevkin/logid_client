@@ -73,19 +73,9 @@ const Customer = observer(() => {
           await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => Partner.setPartnerInfos(data))
         })
       }
-    }
-    Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
+    }    
     setFetchPartnersStart(false)
   })
-
-  useEffect(() => {
-    if (Object.keys(UserInfo.userInfo).length !== 0) {
-      Adress.setCountry(Adress.countries.find(el => el.value === UserInfo.userInfo.country))
-    }
-    if (Object.keys(UserInfo.userInfo).length !== 0) {
-      Translate.setLanguage(Adress.country.default_language)
-    }
-  }, [])
 
   useEffect(() => {
     fetching()
@@ -111,13 +101,13 @@ const Customer = observer(() => {
     region: 'CA',
     language: 'en'
   })
-
+  
   if (!isLoaded) { return <PageContainer /> }
   else {
 
     return (
       <PageContainer>
-        <title>{SetTranslate(Translate.language,'customers_office')}</title>
+        <title>{SetTranslate('customers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -130,7 +120,7 @@ const Customer = observer(() => {
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>{SetTranslate(Translate.language,'customers_office')}</PageBanner>
+        <PageBanner>{SetTranslate('customers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -139,7 +129,7 @@ const Customer = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>{SetTranslate(Translate.language,'fill_account')}</BookMark>
+              <BookMark>{SetTranslate('fill_account')}</BookMark>
               <UserInfoForm />
             </FlexContainer>
             :
@@ -152,8 +142,8 @@ const Customer = observer(() => {
                   ComponentFunction.setPageFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'orderList' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'orders')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'orderList' && 'grey',
+                }}>{SetTranslate('orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -164,8 +154,8 @@ const Customer = observer(() => {
                   }
                   order.setIntegrationId()
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'orderForm' && 'lightgrey',
-                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetTranslate(Translate.language,'order_editing') : SetTranslate(Translate.language,'create_order')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'orderForm' && 'grey',
+                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetTranslate('order_editing') : SetTranslate('create_order')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -173,23 +163,23 @@ const Customer = observer(() => {
                   ComponentFunction.setPageFunction('carriers')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'carriers' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'carriers')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'carriers' && 'grey',
+                }}>{SetTranslate('carriers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setPageFunction('account')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'account' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'account')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'account' && 'grey',
+                }}>{SetTranslate('account')}</BookMark>
                 {/* 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>{SetTranslate(Translate.language,'settings')}</BookMark> */}
+                }}>{SetTranslate('settings')}</BookMark> */}
               </div>
             </div>
           }

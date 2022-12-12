@@ -16,7 +16,7 @@ const OrderComment = ({ formData, setFormData }) => {
     <VerticalContainer
       style={{ gap: '0px' }}
     >
-      <Input placeholder={SetTranslate(Translate.language,'order_comment_place_holder')} value={formData
+      <Input placeholder={SetTranslate('order_comment_place_holder')} value={formData
         .order_comment.value}
 
         style={{ borderLeft: (formData.order_comment.notValid && !formData.order_comment.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}

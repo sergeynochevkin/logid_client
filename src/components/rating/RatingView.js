@@ -13,14 +13,14 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
     return (
         <VerticalContainer>
             <CardRow>
-                <CardColName>{SetTranslate(Translate.language,'completed_orders')}</CardColName>
+                <CardColName>{SetTranslate('completed_orders')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
                         backgroundColor: onePartnerInfo.complete_orders_amount !== 0 && 'rgb(255, 186, 65, 0.8)',
                     }}
                 >{onePartnerInfo.complete_orders_amount}</CardColName>
-                <CardColName>{SetTranslate(Translate.language,'disrupted_orders')}</CardColName>
+                <CardColName>{SetTranslate('disrupted_orders')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -32,7 +32,7 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
             {(user.user.role === 'carrier' && parent !== 'account') || (user.user.role === 'customer' && parent === 'account') ?
                 <CardRow>
                     <CardColName>
-                        {SetTranslate(Translate.language,'solvency')}
+                        {SetTranslate('solvency')}
                     </CardColName>
                     {parent !== 'account' ?
                         <>
@@ -50,7 +50,7 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                             style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
                         >{onePartnerInfo.total_solvency}</CardColName>
                     }
-                    <CardColName>{SetTranslate(Translate.language,'number_of_ratings')}</CardColName>
+                    <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                     <CardColName
                         style={{
                             padding: '5px',
@@ -59,7 +59,7 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                     >{onePartnerInfo.solvency_amount}</CardColName>
                 </CardRow> : <></>}
             <CardRow>
-                <CardColName>{SetTranslate(Translate.language,'politeness')}</CardColName>
+                <CardColName>{SetTranslate('politeness')}</CardColName>
                 {parent !== 'account' ?
                     <>
                         {ratingScale.map(grade =>
@@ -75,7 +75,7 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                         style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
                     >{onePartnerInfo.total_politeness}</CardColName>
                 }
-                <CardColName>{SetTranslate(Translate.language,'number_of_ratings')}</CardColName>
+                <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -86,12 +86,12 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
             <CardRow>
                 {parent !== 'account' ?
                     <CardColName>
-                        {user.user.role === 'carrier' ? SetTranslate(Translate.language,'no_downtime') :
-                            user.user.role === 'customer' ? SetTranslate(Translate.language,'submission_fulfillment') : ''}
+                        {user.user.role === 'carrier' ? SetTranslate('no_downtime') :
+                            user.user.role === 'customer' ? SetTranslate('submission_fulfillment') : ''}
                     </CardColName> :
                     <CardColName>
-                        {user.user.role === 'customer' ? SetTranslate(Translate.language,'no_downtime') :
-                            user.user.role === 'carrier' ? SetTranslate(Translate.language,'submission_fulfillment') : ''}
+                        {user.user.role === 'customer' ? SetTranslate('no_downtime') :
+                            user.user.role === 'carrier' ? SetTranslate('submission_fulfillment') : ''}
                     </CardColName>}
                 {parent !== 'account' ?
                     <>
@@ -109,7 +109,7 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                         style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
                     >{onePartnerInfo.total_in_time}</CardColName>
                 }
-                <CardColName>{SetTranslate(Translate.language,'number_of_ratings')}</CardColName>
+                <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -120,12 +120,12 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
             <CardRow>
                 {parent !== 'account' ?
                     <CardColName>
-                        {user.user.role === 'carrier' ? SetTranslate(Translate.language,'loading_unloading') :
-                            user.user.role === 'customer' ? SetTranslate(Translate.language,'transport_quality') : ''}
+                        {user.user.role === 'carrier' ? SetTranslate('loading_unloading') :
+                            user.user.role === 'customer' ? SetTranslate('transport_quality') : ''}
                     </CardColName> :
                     <CardColName>
-                        {user.user.role === 'customer' ? SetTranslate(Translate.language,'loading_unloading') :
-                            user.user.role === 'carrier' ? SetTranslate(Translate.language,'transport_quality') : ''}
+                        {user.user.role === 'customer' ? SetTranslate('loading_unloading') :
+                            user.user.role === 'carrier' ? SetTranslate('transport_quality') : ''}
                     </CardColName>}
                 {parent !== 'account' ?
                     <>
@@ -142,7 +142,7 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                         style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
                     >{onePartnerInfo.total_in_time}</CardColName>
                 }
-                <CardColName>{SetTranslate(Translate.language,'number_of_ratings')}</CardColName>
+                <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -151,7 +151,7 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                 >{onePartnerInfo.facilities_amount}</CardColName>
             </CardRow>
             <CardRow>
-                <CardColName>{SetTranslate(Translate.language,'total_rating')}</CardColName>
+                <CardColName>{SetTranslate('total_rating')}</CardColName>
                 <CardColName
                     style={{ backgroundColor: onePartnerInfo.total_rating == 0 ? '' : onePartnerInfo.total_rating < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_rating < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
                 >{Math.floor(onePartnerInfo.total_rating * 100) / 100}</CardColName>

@@ -13,7 +13,7 @@ const CompanyINN = ({ formData, setFormData }) => {
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate(Translate.language,'company_inn_place_holder')} value={formData.company_inn.value}
+            <Input placeholder={SetTranslate('company_inn_place_holder')} value={formData.company_inn.value}
                 onChange={(e) => formData.company_inn.onChange(e)}
                 onBlur={e => formData.company_inn.onBlur(e)}
                 type="text" name="company_inn" id='company_inn'

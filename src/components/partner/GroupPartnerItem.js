@@ -7,7 +7,6 @@ import close_grey from '../../../src/assets/close_grey.png';
 import { TranslateContext } from '../..'
 
 const GroupPartnerItem = ({ setFetchPartnersStart, partner, group, setModalActive, onePartnerInfo }) => {
-    const { Translate } = useContext(TranslateContext)
 
     const deletePartnerFromGroupAction = async function () {
         await deletePartnerFromGroup(onePartnerInfo.id, group.dataValues.id)
@@ -30,7 +29,7 @@ const GroupPartnerItem = ({ setFetchPartnersStart, partner, group, setModalActiv
                 <>{onePartnerInfo.company_name}</>
             }</OrderTd>
             <OrderTd>{onePartnerInfo.phone}</OrderTd>
-            <OrderTd>{partner.status === 'normal' ? SetTranslate(Translate.language,'partner_normal') : partner.status === 'blocked' ? SetTranslate(Translate.language,'partner_blocked') : partner.status === 'priority' ? SetTranslate(Translate.language,'partner_favorite') : ''}</OrderTd>
+            <OrderTd>{partner.status === 'normal' ? SetTranslate('partner_normal') : partner.status === 'blocked' ? SetTranslate('partner_blocked') : partner.status === 'priority' ? SetTranslate('partner_favorite') : ''}</OrderTd>
             <td>            
                 <div className='order_list_icon_container'>
                     <img src={close_grey}

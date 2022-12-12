@@ -21,7 +21,7 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
     const {Setting} = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
 
-    const group_deleted = SetTranslate(Translate.language,'group_deleted')
+    const group_deleted = SetTranslate('group_deleted')
 
     const deleteGroupAction = async () => {
         await deleteGroup(group.dataValues.id)

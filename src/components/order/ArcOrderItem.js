@@ -17,14 +17,14 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { user } = useContext(UserContext)
     const { Translate } = useContext(TranslateContext)
 
-    const the = SetTranslate(Translate.language,'the')
-    const you_deleted = SetTranslate(Translate.language,'you_deleted')
-    const you_opened = SetTranslate(Translate.language,'you_opened')
-    const Order = SetTranslate(Translate.language,'order')
-    const Template = SetTranslate(Translate.language,'template')
-    const form_from_template = SetTranslate(Translate.language,'form_from_template')
-    const check_restored_arc = SetTranslate(Translate.language,'check_restored_arc')
-    const form_from_order = SetTranslate(Translate.language,'form_from_order')
+    const the = SetTranslate('the')
+    const you_deleted = SetTranslate('you_deleted')
+    const you_opened = SetTranslate('you_opened')
+    const Order = SetTranslate('order')
+    const Template = SetTranslate('template')
+    const form_from_template = SetTranslate('form_from_template')
+    const check_restored_arc = SetTranslate('check_restored_arc')
+    const form_from_order = SetTranslate('form_from_order')
 
 
     const deleteClick = async () => {
@@ -45,7 +45,7 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     return (
         <tr className='arc_table_row'>
             <OrderTd>{oneArcOrder.id}</OrderTd>
-            <OrderTd>{SetTranslate(Translate.language,oneArcOrder.order_type)}</OrderTd>
+            <OrderTd>{SetTranslate(oneArcOrder.order_type)}</OrderTd>
             {firstPoint ?
                 <>
                     <OrderTd>{firstPoint.point}</OrderTd>
@@ -53,10 +53,10 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
                     <OrderTd>{lastPoint.point}</OrderTd>
                 </>
                 : <></>}
-            <OrderTd>{SetTranslate(Translate.language,oneArcOrder.type)}</OrderTd>
-            <OrderTd>{oneArcOrder.cost === 0 ? SetTranslate(Translate.language,'not_specified') : oneArcOrder.cost}</OrderTd>
+            <OrderTd>{SetTranslate(oneArcOrder.type)}</OrderTd>
+            <OrderTd>{oneArcOrder.cost === 0 ? SetTranslate('not_specified') : oneArcOrder.cost}</OrderTd>
             {ComponentFunction.Function === 'arc' ?
-                <OrderTd>{SetTranslate(Translate.language,oneArcOrder.order_final_status)}</OrderTd> : <></>}
+                <OrderTd>{SetTranslate(oneArcOrder.order_final_status)}</OrderTd> : <></>}
 
             {user.user.role === 'customer' ?
                 <td>

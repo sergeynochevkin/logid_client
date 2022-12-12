@@ -9,9 +9,9 @@ const OptionItem = observer(({ option }) => {
 
     return (
         <div className={'option_item_container'}>
-            <div className={'option_item_name'}>{`${(option.name !== 'orders_in_the_city' && option.name !== 'orders_in_the_country') ? `${SetTranslate(Translate.language, 'up_to')} ${option.limit}` : ''} ${SetTranslate(Translate.language, option.name)}`}</div>
+            <div className={'option_item_name'}>{`${(option.name !== 'orders_in_the_city' && option.name !== 'orders_in_the_country') ? `${SetTranslate( 'up_to')} ${option.limit}` : ''} ${SetTranslate( option.name)}`}</div>
 
-            <div className={'option_item_comment'}>{`${SetTranslate(Translate.language, option.comment)} ${option.comment === 'number_of_tracking_cities' || option.comment === 'points_in_order_description' || (option.comment === 'ability_to_place_orders' && option.limit !== 10000) ? option.limit : ''} ${option.comment === 'ability_to_place_orders' && option.limit === 10000 ? `${SetTranslate(Translate.language, 'all_country')} ${SetTranslate(Translate.language, Adress.country.value)}` : SetTranslate(Translate.language, Adress.country.distance)}`}</div>
+            <div className={'option_item_comment'}>{`${SetTranslate( option.comment)} ${option.comment === 'number_of_tracking_cities' || option.comment === 'points_in_order_description' || (option.comment === 'ability_to_place_orders' && option.limit !== 10000) ? option.limit : ''} ${option.comment === 'ability_to_place_orders' && option.limit === 10000 ? `${SetTranslate( 'all_country')} ${SetTranslate( Adress.country.value)}` : SetTranslate( Adress.country.distance)}`}</div>
         </div>
     )
 }

@@ -13,7 +13,7 @@ const PassportIssuedBy = ({ formData, setFormData }) => {
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate(Translate.language, 'passport_issued_by_place_holder')}
+            <Input placeholder={SetTranslate( 'passport_issued_by_place_holder')}
                 value={formData.passport_issued_by.value}
                 onChange={(e) => formData.passport_issued_by.onChange(e)}
                 onBlur={e => formData.passport_issued_by.onBlur(e)}

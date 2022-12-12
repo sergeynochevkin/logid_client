@@ -23,10 +23,10 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
             <table>
                 <tbody>
                     <tr>
-                        <OrderTh>{SetTranslate(Translate.language,'id')}</OrderTh>
-                        <OrderTh>{SetTranslate(Translate.language,'partner_name')}</OrderTh>
-                        <OrderTh>{SetTranslate(Translate.language,'phone')}</OrderTh>
-                        <OrderTh>{SetTranslate(Translate.language,'status')}</OrderTh>
+                        <OrderTh>{SetTranslate('id')}</OrderTh>
+                        <OrderTh>{SetTranslate('partner_name')}</OrderTh>
+                        <OrderTh>{SetTranslate('phone')}</OrderTh>
+                        <OrderTh>{SetTranslate('status')}</OrderTh>
                     </tr>
                 </tbody>
                 <tbody>
@@ -49,7 +49,7 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
                 onClick={() => {
                     setModalActive(false)
                 }}
-            >{SetTranslate(Translate.language,'close')}</CardButton>
+            >{SetTranslate('close')}</CardButton>
         </VerticalContainer>
 
 

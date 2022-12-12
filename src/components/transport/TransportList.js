@@ -25,7 +25,7 @@ const TransportList = observer(({ setFetchStart }) => {
           }
         </>
         : <NoData
-        >{SetTranslate(Translate.language,'no_transport')}</NoData>}
+        >{SetTranslate('no_transport')}</NoData>}
 
     </HorizontalContainer>
   )

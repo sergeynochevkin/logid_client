@@ -46,10 +46,10 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
             setErrors({ ...errors, quantity: true })
         }
         if (notValidFiles.length > 0 && (allNewFiles.length + files.length) <= length) {
-            Notification.addNotification([{ id: v4(), type: 'error', message: `${notValidFiles.toString()} ${notValidFiles.length === 1 ? SetTranslate(Translate.language,'invalid_file_format') : SetTranslate(Translate.language,'invalid_files_format')}` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${notValidFiles.toString()} ${notValidFiles.length === 1 ? SetTranslate('invalid_file_format') : SetTranslate('invalid_files_format')}` }])
         }
         if (doubleFiles.length > 0 && (allNewFiles.length + files.length) <= length) {
-            Notification.addNotification([{ id: v4(), type: 'error', message: `${doubleFiles.toString()} ${SetTranslate(Translate.language,'already_there')}` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${doubleFiles.toString()} ${SetTranslate('already_there')}` }])
         }
     }
 
@@ -119,8 +119,8 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
                 >
-                    {parent === 'transportForm' ? SetTranslate(Translate.language,'drag_drop_transport') : SetTranslate(Translate.language,'drag_drop_order')}
-                    <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetTranslate(Translate.language,'select')}
+                    {parent === 'transportForm' ? SetTranslate('drag_drop_transport') : SetTranslate('drag_drop_order')}
+                    <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetTranslate('select')}
                         <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='images' disabled={pairs.length === length}></input>
                     </label>
                 </div> :
@@ -129,11 +129,11 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
-                >{SetTranslate(Translate.language,'drop_to_upload')}
+                >{SetTranslate('drop_to_upload')}
                 </div>}
             <div className={'errorMessage'}>
                 {(errors.quantity === true) ?
-                    `${SetTranslate(Translate.language,'maximum')} ${length} ${SetTranslate(Translate.language,'images')}` :
+                    `${SetTranslate('maximum')} ${length} ${SetTranslate('images')}` :
                     ''
                 }
             </div>
@@ -152,7 +152,7 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
                                 setErrors({ ...errors, quantity: false })
                             }
                         }}
-                    >{SetTranslate(Translate.language,'delete')}</div>
+                    >{SetTranslate('delete')}</div>
                 </div>)}
             </div>
         </div>

@@ -1,18 +1,17 @@
-import React, { useContext, useEffect } from 'react'
-import { AdressContext, EquipmentTypeContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportTypeContext, UserContext, UserInfoContext } from '../../..';
+import React, { useContext } from 'react'
+import { AdressContext, OrderContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../../..';
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../../utils/consts';
 import { observer } from 'mobx-react-lite';
 import NotificationComponent from '../../notification/NotificationComponent';
-import { check, logout } from '../../../http/userAPI';
-import { fetchUserInfo } from '../../../http/userInfoApi';
-import { useFetching } from '../../../hooks/useFetching';
-import { fetchDefaultData } from '../../../http/defaultDataApi';
-import { fetchUserState } from '../../../http/stateApi';
+import { logout } from '../../../http/userAPI';
+
 import './NavBar.css'
 import { SetTranslate } from '../../../modules/SetTranslate';
 import dark_mode from '../../../assets/dark_mode.png';
 import light_mode from '../../../assets/light_mode.png';
+import country from '../../../assets/country.png';
+import country_white from '../../../assets/country_white.png';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -20,58 +19,9 @@ const NavBar = observer(() => {
   const navigate = useNavigate()
   const { UserInfo } = useContext(UserInfoContext)
   const { Setting } = useContext(SettingContext)
-
-  const { Subscription } = useContext(SubscriptionContext)
-  const { State } = useContext(StateContext)
   const { Translate } = useContext(TranslateContext)
-  const { TransportType } = useContext(TransportTypeContext)
-  const { EquipmentType } = useContext(EquipmentTypeContext)
   const { Adress } = useContext(AdressContext)
 
-  const [fetching, error] = useFetching(async () => {
-    await fetchUserInfo(user.user.id).then(data => UserInfo.setUserInfo(data))
-  })
-
-  useEffect(() => {
-    async function fetchData() {
-      await fetchDefaultData().then(data => {
-        Subscription.setPlans(data.subscripton_plans)
-        Subscription.setOptions(data.subscripton_options)
-        Subscription.setOptionsByPlans(data.subscripton_options_by_plans)
-        // Translate.setTranslation(data.translation)
-        TransportType.setTypes(data.transport_types)
-        TransportType.setSideTypes(data.transport_side_types)
-        TransportType.setLoadCapacities(data.transport_load_capacities)
-        EquipmentType.setTypes(data.equipment_types)
-        Adress.setCountries(data.countries)
-      })
-    }
-    fetchData();
-    UserInfo.setUserInfo({})
-  }, [])
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      try {
-        async function fetchData() {
-          let data = await check()
-          user.setUser(data)
-          await fetching()
-          user.setIsAuth(true)          
-          await fetchUserState(UserInfo.userInfo.id).then(data => State.setUserState(JSON.parse(data.state)))
-          if (user.user.role === "carrier") {            
-            navigate(CARRIER_ROUTE)
-          }
-          if (user.user.role === "customer") {
-            navigate(CUSTOMER_ROUTE)
-          }
-        }
-        fetchData();
-      } catch (e) {
-        console.log(e.data.message);
-      }
-    }
-  }, [])
 
   return (
 
@@ -82,28 +32,27 @@ const NavBar = observer(() => {
         navigate(MAIN_ROUTE)}>logid</div>
       {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Главная</Item> */}
-
       {user.user.role === "customer" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CUSTOMER_ROUTE)}>{SetTranslate(Translate.language,'customers_office')}</div> :
+          navigate(CUSTOMER_ROUTE)}>{SetTranslate( 'customers_office')}</div> :
         <></>
       }
 
       {user.user.role === "carrier" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CARRIER_ROUTE)}>{SetTranslate(Translate.language,'carriers_office')}</div> :
+          navigate(CARRIER_ROUTE)}>{SetTranslate( 'carriers_office')}</div> :
         <></>
       }
 
       {user.user.role === "manager" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(MANAGER_ROUTE)}>{SetTranslate(Translate.language,'managers_office')}</div> :
+          navigate(MANAGER_ROUTE)}>{SetTranslate( 'managers_office')}</div> :
         <></>
       }
 
       {user.user.role === "admin" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(ADMIN_ROUTE)}>{SetTranslate(Translate.language,'administrators_office')}</div> :
+          navigate(ADMIN_ROUTE)}>{SetTranslate( 'administrators_office')}</div> :
         <></>
       }
 
@@ -116,9 +65,9 @@ const NavBar = observer(() => {
             user.setUser({});
             UserInfo.setUserInfo({})
             localStorage.clear()
-          }}>{SetTranslate(Translate.language,'sign_out')}</div> :
+          }}>{SetTranslate( 'sign_out')}</div> :
         <div className='nav_bar_item' onClick={() =>
-          navigate(LOGIN_ROUTE)}>{SetTranslate(Translate.language,'sign_in')}</div>
+          navigate(LOGIN_ROUTE)}>{SetTranslate( 'sign_in')}</div>
       }
 
       <img
@@ -132,6 +81,8 @@ const NavBar = observer(() => {
           }
         }}
       />
+
+      {/* language of my country + english if english is your language, no select, set language state when selec if isAuth */}
       <div className='nav_bar_item language_switch'
         onClick={() => {
           if (Translate.language === 'russian') {
@@ -140,8 +91,18 @@ const NavBar = observer(() => {
             Translate.setLanguage('russian')
           }
         }}
+
       >{Translate.language === 'russian' ? 'EN' : 'RU'}</div>
+
+      {/* <img
+        className='dark_mode_image'
+        src={Setting.app_theme === 'light' ? country : country_white}
+      /> */}
+      <div className='nav_bar_item' onClick={() => { }}>{Translate.language && SetTranslate( Adress.country.value)}</div>
     </div>
+
+
+
 
   )
 })

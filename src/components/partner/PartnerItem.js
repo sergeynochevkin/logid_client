@@ -7,7 +7,6 @@ import { OrderTd } from '../ui/table/OrderTd'
 import { SetTranslate } from '../../modules/SetTranslate'
 
 const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePartnerOtherRatingByThisUserInfo }) => {
-  const { Translate } = useContext(TranslateContext)
   const [modalActive, setModalActive] = useState(false)
   const { Partner } = useContext(PartnerContext)
   const [modalFunction, setModalFunction] = useState('')
@@ -61,7 +60,7 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
           !onePartnerInfo.solvency_amount &&
           !onePartnerInfo.politeness_amount &&
           !onePartnerInfo.facilities_amount)
-          ? SetTranslate(Translate.language,'no_ratings') : Math.floor(onePartnerInfo.total_rating * 100) / 100}</OrderTd>
+          ? SetTranslate('no_ratings') : Math.floor(onePartnerInfo.total_rating * 100) / 100}</OrderTd>
         <OrderTd
           onClick={() => {
             if (Partner.groups.length !== 0) {
@@ -73,8 +72,8 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
             cursor: Partner.groups.length !== 0 ? 'pointer' : 'default',
             backgroundColor: partnerGroups.length > 0 ? 'rgb(241,196,15,0.8)' : ''
           }}
-        >{Partner.groups.length === 0 ? SetTranslate(Translate.language,'no_groups') : partnerGroups.length === 0 ? SetTranslate(Translate.language,'can_choose_groups') : `${partnerGroups.length}`}</OrderTd>
-        <OrderTd>{onePartner.status === 'normal' ? SetTranslate(Translate.language,'partner_normal') : onePartner.status === 'blocked' ? SetTranslate(Translate.language,'partner_blocked') : onePartner.status === 'priority' ? SetTranslate(Translate.language,'partner_favorite') : ''}</OrderTd>
+        >{Partner.groups.length === 0 ? SetTranslate('no_groups') : partnerGroups.length === 0 ? SetTranslate('can_choose_groups') : `${partnerGroups.length}`}</OrderTd>
+        <OrderTd>{onePartner.status === 'normal' ? SetTranslate('partner_normal') : onePartner.status === 'blocked' ? SetTranslate('partner_blocked') : onePartner.status === 'priority' ? SetTranslate('partner_favorite') : ''}</OrderTd>
       </tr>
     </>
   )

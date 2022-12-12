@@ -37,7 +37,7 @@ const AccountActivationStatus = observer(({ containerClassName }) => {
     return (
         <div
             className={containerClassName}>
-            <FieldName>{SetTranslate(Translate.language, 'account_status')}</FieldName>
+            <FieldName>{SetTranslate( 'account_status')}</FieldName>
             <div
                 style={{ boxShadow: `0px 5px 10px 0px ${useColor(`${user.user.isActivated ? 'activated' : 'not_activated'}`)}`, padding: '10px 20px 10px 20px', borderRadius: '10px', backgroundColor: Setting.app_theme !== 'light' && '#141414', alignItems: 'flex-start', justifyContent: 'start', width: '270px', color: Setting.app_theme === 'light' ? 'black' : 'white' }}>
                 <HorizontalContainer
@@ -45,13 +45,13 @@ const AccountActivationStatus = observer(({ containerClassName }) => {
                 >
                     <div
                         style={{ fontSize: '14px' }}
-                    >{user.user.isActivated ? SetTranslate(Translate.language, 'activated') : SetTranslate(Translate.language, 'not_activated')}</div>
+                    >{user.user.isActivated ? SetTranslate( 'activated') : SetTranslate( 'not_activated')}</div>
                     {!user.user.isActivated &&
                         <Button
                             onClick={() => {
                                 generateLinkAction()
                             }}
-                        >{SetTranslate(Translate.language, 'send_activation_link')}</Button>}
+                        >{SetTranslate( 'send_activation_link')}</Button>}
                 </HorizontalContainer>
             </div>
         </div>

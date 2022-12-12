@@ -38,7 +38,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
 
-    const message = SetTranslate(Translate.language,attachedField)
+    const message = SetTranslate(attachedField)
 
     const initialValue = {
         id: '',
@@ -85,19 +85,19 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
     const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
 
     formData.id = UserInfo.userInfo.id
-    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetTranslate(Translate.language,'passport_date_of_issue'))
-    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetTranslate(Translate.language,'company_inn'))
-    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetTranslate(Translate.language,'company_name'))
-    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetTranslate(Translate.language,'website'))
+    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetTranslate('passport_date_of_issue'))
+    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetTranslate('company_inn'))
+    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetTranslate('company_name'))
+    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetTranslate('website'))
     formData.country = useInput('', { isEmpty: true })
-    authFormData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate(Translate.language,'authEmail'))
+    authFormData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate('authEmail'))
     formData.legal = useInput('', { isEmpty: true })
-    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate(Translate.language,'email'))
-    formData.passport_date_of_issue = useInput('', { isEmpty: true }, SetTranslate(Translate.language,'passport_date_of_issue'))
-    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetTranslate(Translate.language,'passport_issued_by'))
-    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetTranslate(Translate.language,'passport_number'))
-    authFormData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetTranslate(Translate.language,'password_notification'))
-    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetTranslate(Translate.language,'phone'))
+    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetTranslate('email'))
+    formData.passport_date_of_issue = useInput('', { isEmpty: true }, SetTranslate('passport_date_of_issue'))
+    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetTranslate('passport_issued_by'))
+    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetTranslate('passport_number'))
+    authFormData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetTranslate('password').toLowerCase())
+    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetTranslate('phone'))
     formData.type_of_customer = useInput('', { isEmpty: true })
 
 
@@ -116,7 +116,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                     attachedField === 'company_adress' && setAdressEditable(false),
                     // setFetchPartnersStart(true),
                     setFetchStart(true),
-                    Notification.addNotification([{ id: v4(), type: 'success', message: `${SetTranslate(Translate.language,'you_have_changed')} ${message}` }])
+                    Notification.addNotification([{ id: v4(), type: 'success', message: `${SetTranslate('you_have_changed')} ${message}` }])
                 )
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -152,7 +152,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             setLoginEditable(false)
             setPasswordEditable(false)
             setFetchStart(true)
-            Notification.addNotification([{ id: v4(), type: 'success', message: `${SetTranslate(Translate.language,'you_have_changed')} ${message}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${SetTranslate('you_have_changed')} ${message}` }])
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }

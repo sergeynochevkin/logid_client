@@ -15,7 +15,7 @@ const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGrou
             {parent !== 'partnerList' && parent !== 'groupModal' ?
                 <>
 
-                    <Input placeholder={SetTranslate(Translate.language,'group_name')} value={formData.groupName.value}
+                    <Input placeholder={SetTranslate('group_name')} value={formData.groupName.value}
                         onChange={(e) => formData.groupName.onChange(e)}
                         onBlur={e => formData.groupName.onBlur(e)}
                         type="text" name="groupName" id='groupName'
@@ -39,13 +39,13 @@ const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGrou
                         <CardButton
                             onClick={createNewGroup}
                             disabled={formData.groupName.isEmpty || formData.groupName.notValid} 
-                        >{SetTranslate(Translate.language,'add')}</CardButton>
+                        >{SetTranslate('add')}</CardButton>
                         <CardButton
                             onClick={() => {
                                 formReset()
                                 setModalActive(false)
                             }}
-                        >{SetTranslate(Translate.language,'close')}</CardButton>
+                        >{SetTranslate('close')}</CardButton>
                     </HorizontalContainer>
                 </> : <></>}
         </>

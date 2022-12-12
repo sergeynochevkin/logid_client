@@ -18,7 +18,7 @@ const AddPartnerComponent = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Translate } = useContext(TranslateContext)
 
-  const partner_added = SetTranslate(Translate.language,'partner_added')
+  const partner_added = SetTranslate('partner_added')
 
   const addPartnerAction = async function () {
     await addPartnerByKey(user.user.role, UserInfo.userInfo.id, key).then(data => {
@@ -44,7 +44,7 @@ const AddPartnerComponent = observer(() => {
           onChange={(e) => {
             setKey(e.target.value)
           }}
-          placeholder={SetTranslate(Translate.language,'enter_id')}
+          placeholder={SetTranslate('enter_id')}
           style={{ height: '40px', fontSize: '16px', width: '300px', marginTop: '8vh' }}
         ></Input>
         <FieldName
@@ -53,16 +53,16 @@ const AddPartnerComponent = observer(() => {
             color: 'rgb(254, 111, 103,0.8)'
           }}>
           {isDirty && key === '' ?
-            SetTranslate(Translate.language,'id_not_empty') :
+            SetTranslate('id_not_empty') :
             isDirty && key.length !== 36 ?
-              SetTranslate(Translate.language,'id_36') : ''
+              SetTranslate('id_36') : ''
           }
         </FieldName>
       </VerticalContainer>
       <Button
         disabled={key === '' || key.length !== 36}
         onClick={addPartnerAction}
-      >{SetTranslate(Translate.language,'add')}</Button>
+      >{SetTranslate('add')}</Button>
     </VerticalContainer>
   )
 })

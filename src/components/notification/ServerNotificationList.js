@@ -34,10 +34,10 @@ const ServerNotificationList = observer(({ setModalActive, setFetchPartnersStart
                     onClick={() => {
                         setModalActive(false)
                     }}
-                >{SetTranslate(Translate.language,'close')}</CardButton>
+                >{SetTranslate('close')}</CardButton>
                 <CardButton
                     onClick={deleteNotificationsAction}
-                >{SetTranslate(Translate.language,'clear')}</CardButton>
+                >{SetTranslate('clear')}</CardButton>
             </div>
             <div className={'list_container'}>
                 {Notification.server_notifications.slice().sort(sortNotifications).map(notification =>

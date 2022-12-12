@@ -40,23 +40,24 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
 
   return (
     <>
-      <FilterAndSortComponentForServer
-        parent={'partners'}
-      />
+
       <VerticalContainer
         style={{ alignItems: 'center' }}>
+        <FilterAndSortComponentForServer
+          parent={'partners'}
+        />
         <PartnerGroupComponent parent={'partnerList'} setFetchPartnersStart={setFetchPartnersStart} />
         {Partner.partnerInfos.length !== 0 ?
           <>
             <table>
               <tbody>
                 <tr>
-                  <OrderTh>{SetTranslate(Translate.language,'id')}</OrderTh>
-                  <OrderTh>{SetTranslate(Translate.language,'partner_name')}</OrderTh>
-                  <OrderTh>{SetTranslate(Translate.language,'phone')}</OrderTh>
-                  <OrderTh>{SetTranslate(Translate.language,'rating_field_name')}</OrderTh>
-                  <OrderTh>{SetTranslate(Translate.language,'groups_field_name')}</OrderTh>
-                  <OrderTh>{SetTranslate(Translate.language,'status')}</OrderTh>
+                  <OrderTh>{SetTranslate('id')}</OrderTh>
+                  <OrderTh>{SetTranslate('partner_name')}</OrderTh>
+                  <OrderTh>{SetTranslate('phone')}</OrderTh>
+                  <OrderTh>{SetTranslate('rating_field_name')}</OrderTh>
+                  <OrderTh>{SetTranslate('groups_field_name')}</OrderTh>
+                  <OrderTh>{SetTranslate('status')}</OrderTh>
                 </tr>
               </tbody>
               <tbody>
@@ -74,8 +75,8 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
               </tbody>
             </table>
           </>
-          : <NoData        
-          >{SetTranslate(Translate.language,'no_partners')}</NoData>}
+          : <NoData
+          >{SetTranslate('no_partners')}</NoData>}
       </VerticalContainer>
     </>
   )

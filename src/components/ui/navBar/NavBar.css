@@ -8,6 +8,7 @@
     justify-content:center;
     flex-wrap:wrap;
     position:fixed;
+    z-index: 2;
 }
 
 .nav_bar_container_dark{

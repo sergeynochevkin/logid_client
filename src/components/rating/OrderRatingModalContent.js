@@ -15,10 +15,10 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
-    const rated_carrier = SetTranslate(Translate.language, 'rated_carrier')
-    const rated_customer = SetTranslate(Translate.language, 'rated_customer')
-    const on_order = SetTranslate(Translate.language, 'on_order')
-    const on_auction = SetTranslate(Translate.language, 'on_auction')
+    const rated_carrier = SetTranslate( 'rated_carrier')
+    const rated_customer = SetTranslate( 'rated_customer')
+    const on_order = SetTranslate( 'on_order')
+    const on_auction = SetTranslate( 'on_auction')
 
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -47,7 +47,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
     return (
         <VerticalContainer>
             <CardRow>
-                <CardColName>{SetTranslate(Translate.language, 'politeness')}</CardColName>
+                <CardColName>{SetTranslate( 'politeness')}</CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
                         value={formData.politeness}
@@ -68,8 +68,8 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
             <CardRow>
                 <CardColName>
-                    {user.user.role === 'carrier' ? SetTranslate(Translate.language, 'no_downtime') :
-                        user.user.role === 'customer' ? SetTranslate(Translate.language, 'submission_fulfillment') : ''}
+                    {user.user.role === 'carrier' ? SetTranslate( 'no_downtime') :
+                        user.user.role === 'customer' ? SetTranslate( 'submission_fulfillment') : ''}
                 </CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
@@ -91,8 +91,8 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
             <CardRow>
                 <CardColName>
-                    {user.user.role === 'carrier' ? SetTranslate(Translate.language, 'loading_unloading') :
-                        user.user.role === 'customer' ? SetTranslate(Translate.language, 'transport_quality') : ''}
+                    {user.user.role === 'carrier' ? SetTranslate( 'loading_unloading') :
+                        user.user.role === 'customer' ? SetTranslate( 'transport_quality') : ''}
                 </CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
@@ -114,13 +114,13 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
                 <CardButton
                     disabled={!formData.politeness || !formData.facilities || !formData.in_time}
                     onClick={click}
-                >{SetTranslate(Translate.language, 'rate')}</CardButton>
+                >{SetTranslate( 'rate')}</CardButton>
                 <CardButton
                     onClick={() => {
                         setModalActive(false)
                         formReset()
                     }}
-                >{SetTranslate(Translate.language, 'close')}</CardButton>
+                >{SetTranslate( 'close')}</CardButton>
             </CardRow>
         </VerticalContainer>
     )

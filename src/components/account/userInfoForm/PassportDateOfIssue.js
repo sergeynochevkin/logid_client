@@ -13,7 +13,7 @@ const PassportDateOfIssue = ({ formData, setFormData }) => {
   return (
     <VerticalContainer
       style={{ gap: '0px' }}>
-      <Input placeholder={SetTranslate(Translate.language,'passport_date_of_issue_place_holder')}
+      <Input placeholder={SetTranslate('passport_date_of_issue_place_holder')}
         value={formData.passport_date_of_issue.value}
         onChange={(e) => {
           formData.passport_date_of_issue.onChange(e);

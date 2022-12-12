@@ -3,7 +3,7 @@ import Admin from './pages/Admin'
 import Manager from './pages/Manager'
 import Customer from './pages/Customer'
 import Carrier from './pages/Carrier'
-import Main from './pages/Main'
+import Main from './pages/main/Main'
 import Auth from './pages/Auth'
 
 export const authRoutes = [
