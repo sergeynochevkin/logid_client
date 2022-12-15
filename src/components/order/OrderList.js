@@ -32,7 +32,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
               FilterAndSort.filters[ComponentFunction.Function].limit = 10
               ComponentFunction.setFunction('new')
             }} style={{
-              color: ComponentFunction.Function === 'new' && 'lightgrey',
+              color: ComponentFunction.Function === 'new' && 'grey',
             }}>{SetTranslate('new_bookmark')}
               <div className='number_of_orders'>{order.totalCount.new}</div>
             </BookMark>

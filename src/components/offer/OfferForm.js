@@ -12,8 +12,10 @@ import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { Smaller } from '../ui/text/Smaller'
 import { v4 } from "uuid";
-import { NotificationContext, UserContext } from '../../index'
+import { AdressContext, NotificationContext, TranslateContext, UserContext } from '../../index'
 import { sendMail } from '../../http/mailApi'
+import { SetTranslate } from '../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const Container = styled.div`
 display:flex;
@@ -23,19 +25,20 @@ align-items:center;
 `
 
 const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setFormData, thisCarrierOffer, setFetchStart, firstPoint, formReset }) => {
+    const { Notification } = useContext(NotificationContext)
+    const { user } = useContext(UserContext)
+    const { Translate } = useContext(TranslateContext)
+    const { Adress } = useContext(AdressContext)
     formData.userInfoId = oneOrder.userInfoId
     formData.carrierId = UserInfo.userInfo.id
     formData.orderId = oneOrder.id
     thisCarrierOffer ? formData.this_carrier_offer_id = thisCarrierOffer.id : formData.this_carrier_offer_id = undefined
-    const { Notification } = useContext(NotificationContext)
-    const { user } = useContext(UserContext)
-
 
     const validCost = /^\d+$/
 
-    formData.time_from = useInput(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '', { isEmpty: true }, 'время подачи')
-    formData.cost = useInput(thisCarrierOffer ? thisCarrierOffer.cost : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, 'стоимость')
-    formData.carrier_comment = useInput(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '', { isEmpty: true, minLength: 8, maxLength: 20 }, 'комментарий')
+    formData.time_from = useInput(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '', { isEmpty: true }, SetTranslate('arrival_time_field_name').toLowerCase())
+    formData.cost = useInput(thisCarrierOffer ? thisCarrierOffer.cost : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, SetTranslate('cost').toLowerCase())
+    formData.carrier_comment = useInput(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '', { isEmpty: true, minLength: 8, maxLength: 20 }, SetTranslate('comment').toLowerCase())
 
     const click = async (event) => {
         try {
@@ -45,14 +48,28 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     formData
                 )
                 await sendMail(user.user.role, oneOrder.id, 'offer', 'update')
-                Notification.addNotification([{ id: v4(), type: 'success', message: `Вы изменили предложение к ${oneOrder.order_type === 'order' ? `закау` : `аукциону`} ${oneOrder.id}` }])
+                Notification.addNotification([{
+                    id: v4(), type: 'success', message: SetNativeTranslate(
+                        Translate.language, {
+                        russian: ['Вы изменили предложение к', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
+                        english: ['You have changed the offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id]
+                    }
+                    )
+                }])
                 formReset()
             } else {
                 await createOffer(
                     formData
                 )
                 sendMail(user.user.role, oneOrder.id, 'offer', 'create')
-                Notification.addNotification([{ id: v4(), type: 'success', message: `Вы сделали предложение к ${oneOrder.order_type === 'order' ? `закау` : `аукциону`} ${oneOrder.id}` }])
+                Notification.addNotification([{
+                    id: v4(), type: 'success', message: SetNativeTranslate(
+                        Translate.language, {
+                        russian: ['Вы сделали предложение к', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
+                        english: ['You have made an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id]
+                    }
+                    )
+                }])
             }
             setModalActive(false)
         } catch (e) {
@@ -68,7 +85,14 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
             await deleteOffer(thisCarrierOffer.id).then(sendMail(user.user.role, oneOrder.id, 'offer', 'delete'))
             setFetchStart(true)
             setModalActive(false)
-            Notification.addNotification([{ id: v4(), type: 'success', message: `Вы удалили предложение к ${oneOrder.order_type === 'order' ? `закау` : `аукциону`} ${oneOrder.id}` }])
+            Notification.addNotification([{
+                id: v4(), type: 'success', message: SetNativeTranslate(
+                    Translate.language, {
+                    russian: ['Вы удалили предложение к', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
+                    english: ['You have deleted an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id]
+                }
+                )
+            }])
             formReset()
         } catch (e) {
             alert(e.response.data.message)
@@ -79,11 +103,16 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
     return (
         <Container>
             <Form>
-                <Smaller>Ваше предложение</Smaller>
+                <Smaller>{SetNativeTranslate(
+                    Translate.language, {
+                    russian: ['Ваше предложение'],
+                    english: ['Your offer']
+                }
+                )}</Smaller>
                 <VerticalContainer
                     style={{ gap: '0px' }}
                 >
-                    <Input placeholder='Стоимость, руб' value={formData
+                    <Input placeholder={`${SetTranslate('cost')} ${Adress.country.currency}`} value={formData
                         .cost.value}
                         onChange={(e) => formData.cost.onChange(e)}
                         onBlur={e => formData.cost.onBlur(e)}
@@ -101,11 +130,11 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     </FieldName>
                 </VerticalContainer>
 
-                <Label>Время подачи</Label>
+                <Label>{SetTranslate('arrival_time_field_name')}</Label>
                 <VerticalContainer
                     style={{ gap: '0px' }}
                 >
-                    <Input placeholder='Время подачи' value={formData
+                    <Input placeholder={SetTranslate('arrival_time_field_name')} value={formData
                         .time_from.value}
 
                         onChange={(e) => formData.time_from.onChange(e)}
@@ -131,7 +160,12 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 <VerticalContainer
                     style={{ gap: '0px' }}
                 >
-                    <Input placeholder='Комментарий к предложению' value={formData
+                    <Input placeholder={SetNativeTranslate(
+                        Translate.language, {
+                        russian: ['Комментарий к предложению'],
+                        english: ['Comment on the offer']
+                    }
+                    )} value={formData
                         .carrier_comment.value}
                         onChange={(e) => formData.carrier_comment.onChange(e)}
                         onBlur={e => formData.carrier_comment.onBlur(e)}
@@ -154,17 +188,17 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
             <div>
                 <CardButton onClick={click}
                     disabled={(formData.carrier_comment.notValid && !formData.carrier_comment.isEmpty) || formData.cost.notValid || formData.time_from.notValid}
-                >{thisCarrierOffer ? 'Изменить' : 'Отправить'}</CardButton>
+                >{thisCarrierOffer ? SetTranslate('edit') : SetTranslate('send')}</CardButton>
                 {thisCarrierOffer ?
                     <CardButton
                         onClick={delOffer}
-                    >Удалить</CardButton>
+                    >{SetTranslate('delete')}</CardButton>
                     : <></>}
                 <CardButton onClick={() => {
                     setModalActive(false);
                     setFormData({});
                     formReset()
-                }}>Закрыть окно</CardButton>
+                }}>{SetTranslate('close')}</CardButton>
             </div>
         </Container>
     )

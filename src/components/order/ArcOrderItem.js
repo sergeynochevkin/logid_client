@@ -15,7 +15,6 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { Point } = useContext(PointContext)
     const { Notification } = useContext(NotificationContext)
     const { user } = useContext(UserContext)
-    const { Translate } = useContext(TranslateContext)
 
     const the = SetTranslate('the')
     const you_deleted = SetTranslate('you_deleted')

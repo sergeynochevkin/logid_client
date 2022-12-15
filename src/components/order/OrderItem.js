@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { CardButton } from '../ui/button/CardButton'
-import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext } from '../../index'
+import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext } from '../../index'
 import { CardContainer } from '../ui/card/CardContainer'
 import { CardRow } from '../ui/card/CardRow'
 import { CardColName } from '../ui/card/CardColName'
@@ -34,6 +34,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
     const { Partner } = useContext(PartnerContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const { State } = useContext(StateContext)
+    const {Adress} = useContext(AdressContext)
 
     let thisOrder
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisOrder = oneOrder : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisOrder = order.order : thisOrder = {}
@@ -250,7 +251,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     }
                     <CardRow>
                         <CardColName>{SetTranslate('cost')}</CardColName>
-                        <CardColValue>{thisOrder.cost === 0 ? SetTranslate('not_specified') : thisOrder.cost}</CardColValue>
+                        <CardColValue>{thisOrder.cost === 0 ? SetTranslate('not_specified') : `${thisOrder.cost} ${Adress.country.currency}`}</CardColValue>
                     </CardRow>
 
                     {(ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') &&

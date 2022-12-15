@@ -8,6 +8,7 @@ import { CardRow } from '../ui/card/CardRow'
 import Modal from '../ui/modal/Modal'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { setTime } from '../../modules/setTime'
+import { SetTranslate } from '../../modules/SetTranslate'
 
 const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners, thisCarrierOffer, thisOrderOffers, firstPoint }) => {
     const { user } = useContext(UserContext)
@@ -32,7 +33,7 @@ const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners
     const formReset = () => {
         formData.cost.setValue(thisCarrierOffer ? thisCarrierOffer.cost : '')
         formData.cost.setDirty(false)
-        formData.time_from.setValue(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '')        
+        formData.time_from.setValue(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '')
         formData.carrier_comment.setValue(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '')
     }
 
@@ -45,7 +46,7 @@ const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners
                         event.stopPropagation()
                         setModalActive(true)
                     }}
-                >{thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id) ? 'Изменить предложение' : 'Сделать предложение'}</CardButton> : <></>}
+                >{thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id) ? SetTranslate('change_offer') : SetTranslate('make_offer')}</CardButton> : <></>}
 
             {thisOrderOffers.length > 0 ? <CardRow
                 onClick={(event) => {
@@ -53,7 +54,7 @@ const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners
                     setModalActive(true)
                 }}
                 style={{ cursor: 'pointer' }}
-            ><CardColName> Сделано предложений</CardColName><CardColName> {thisOrderOffers.length}</CardColName></CardRow> : <></>}
+            ><CardColName>{SetTranslate('total_offers')}</CardColName><CardColName> {thisOrderOffers.length}</CardColName></CardRow> : <></>}
 
         </VerticalContainer>
         <Modal modalActive={modalActive} setModalActive={setModalActive} parent={parent} ComponentFunction={ComponentFunction} formReset={formReset}>

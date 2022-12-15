@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./AppRouter";
-import Footer from './components/ui/footer/Footer';
+import Footer from './pages/footer/Footer';
 import NavBar from './components/ui/navBar/NavBar';
 import { observer } from 'mobx-react-lite';
 import PreLoader from "./PreLoader";

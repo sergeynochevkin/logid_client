@@ -22,6 +22,8 @@ import MapComponent from '../map/MapComponent'
 import { SetTranslate } from '../../modules/SetTranslate'
 import NoData from '../ui/page/NoData'
 import { LikeCardButton } from '../ui/text/LikeCardButton'
+import { Button } from '../ui/button/Button'
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 
 const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPartnersStart, fetchStart, setFetchStart }) => {
   const { order } = useContext(OrderContext)
@@ -38,11 +40,33 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
   const { Notification } = useContext(NotificationContext)
   const { State } = useContext(StateContext)
   const { Translate } = useContext(TranslateContext)
-
+  const [startLimit, setStartLimit] = useState()
 
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const { height, width } = useWindowDimensions();
+
+  console.log(`width:${width}px`);
+  console.log(`height:${height}px`);
+  
+  useEffect(() => {
+    if (width > 768) {
+      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 30 }, ComponentFunction.Function)
+    } else if (width > 425) {
+      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
+    } else {
+      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 10 }, ComponentFunction.Function)
+    }
+  }, [])
+
+  useEffect(() => {
+    setStartLimit(FilterAndSort.filters[ComponentFunction.Function].limit)
+  }, [])
+
+  useEffect(() => {
+    setStartLimit(FilterAndSort.filters[ComponentFunction.Function].limit)
+  }, [ComponentFunction.Function])
 
 
   const debouncedSearchTerm = useDebounce(FilterAndSort.filters[ComponentFunction.Function], 500);
@@ -68,7 +92,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
         await fetchTransport(UserInfo.userInfo.id).then(data => Transport.setTransports(data))
       }
       await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, user.user.role === 'carrier' ? Transport.transports : [], Partner.myBlocked, Partner.iAmBlocked, Partner.myFavorite, '', FilterAndSort.filters).then(async data => {
-        setTotalCount(data.count)
+        setTotalCount(data.filtered_count)
         order.setTotalCount(data.total_count.new, 'new')
         order.setTotalCount(data.total_count.canceled, 'canceled')
         order.setTotalCount(data.total_count.completed, 'completed')
@@ -159,12 +183,12 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
 
 
 
-  const scrollHandler = (e) => {
-    if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight)) < 400 && order.orders.length < totalCount) {
-      FilterAndSort.filters[ComponentFunction.Function].limit = FilterAndSort.filters[ComponentFunction.Function].limit + 10
-      setFetchStart(true)
-    }
-  }
+  // const scrollHandler = (e) => {
+  //   if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight)) < 400 && order.orders.length < totalCount) {
+  //     FilterAndSort.filters[ComponentFunction.Function].limit = FilterAndSort.filters[ComponentFunction.Function].limit + 10
+  //     setFetchStart(true)
+  //   }
+  // }
 
   const new_orders_received = SetTranslate('new_orders_received')
   const new_order_received = SetTranslate('new_order_received')
@@ -357,12 +381,14 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
       }
     }
   }, [Point.added])
-  useEffect(() => {
-    document.addEventListener('scroll', scrollHandler)
-    return function () {
-      document.removeEventListener('scroll', scrollHandler)
-    }
-  }, [])
+
+  // useEffect(() => {
+  //   document.addEventListener('scroll', scrollHandler)
+  //   return function () {
+  //     document.removeEventListener('scroll', scrollHandler)
+  //   }
+  // }, [])
+
   let thisOrder = { order_status: '' }
 
   return (
@@ -456,24 +482,62 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                   : <></>}
 
               </HorizontalContainer>
-              <HorizontalContainer
-                style={{ marginTop: '10px' }}>
-                {
-                  order.orders.map(oneOrder => <OrderItem
-                    key={oneOrder.id}
-                    oneOrder={oneOrder}
-                    oneOrderOffers={Offer.offers.filter(el => el.orderId === oneOrder.id)}
-                    oneOrderPoints={Point.points.filter(el => el.orderIntegrationId === oneOrder.pointsIntegrationId)}
-                    oneOrderNoPartners={Partner.noPartnerInfos}
-                    user={user}
-                    orderItemFunction={orderItemFunction}
-                    setOrderItemFunction={setOrderItemFunction}
-                    setFetchStart={setFetchStart}
-                    onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === oneOrder.carrierId) : ''}
-                    onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.carrierId) : ''}
-                    setFetchPartnersStart={setFetchPartnersStart}
-                  />)}
-              </HorizontalContainer>
+
+              <div className='orders_with_more_button'>
+                <HorizontalContainer
+                  style={{ marginTop: '10px' }}>
+                  {
+                    order.orders.map(oneOrder => <OrderItem
+                      key={oneOrder.id}
+                      oneOrder={oneOrder}
+                      oneOrderOffers={Offer.offers.filter(el => el.orderId === oneOrder.id)}
+                      oneOrderPoints={Point.points.filter(el => el.orderIntegrationId === oneOrder.pointsIntegrationId)}
+                      oneOrderNoPartners={Partner.noPartnerInfos}
+                      user={user}
+                      orderItemFunction={orderItemFunction}
+                      setOrderItemFunction={setOrderItemFunction}
+                      setFetchStart={setFetchStart}
+                      onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === oneOrder.carrierId) : ''}
+                      onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.carrierId) : ''}
+                      setFetchPartnersStart={setFetchPartnersStart}
+                    />)}
+                </HorizontalContainer>
+
+                <div className='more_orders_buttons_container'>
+                  {order.orders.length < totalCount && order.orders.length !== 0 ?
+                    <>
+                      {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < totalCount ?
+                        <Button
+                          onClick={() => {
+                            if ((totalCount - order.orders.length) > 10) {
+                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + 10 }, ComponentFunction.Function)
+                              setFetchStart(true)
+                            } else {
+                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (totalCount - order.orders.length) }, ComponentFunction.Function)
+                              setFetchStart(true)
+                            }
+                          }}
+                        >{`${SetTranslate('show_more')} ${(totalCount - order.orders.length) > 10 ? 10 : totalCount - order.orders.length}`}</Button> : <></>}
+
+                      <Button
+                        onClick={() => {
+                          FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: totalCount }, ComponentFunction.Function)
+                          setFetchStart(true)
+                        }}
+                      >{`${SetTranslate('show_all')} ${totalCount}`}</Button>
+                    </>
+                    : <></>}
+                  {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&
+                    <Button
+                      onClick={() => {
+                        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: startLimit }, ComponentFunction.Function)
+                        setFetchStart(true)
+                      }}
+                    >{SetTranslate('roll_up_list')}</Button>}
+                </div>
+
+              </div>
+
             </>
               : <NoData
               >{SetTranslate('no_orders')}</NoData>}

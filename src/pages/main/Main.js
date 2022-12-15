@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { NotificationContext, SettingContext, TranslateContext } from '../..'
-import MainBanner from '../../components/ui/banner/MainBanner'
+import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../../http/notificationApi'
@@ -9,11 +9,11 @@ import './Main.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import ModalBottom from '../../components/ui/modal/ModalBottom'
 import CookiesModalContent from '../../components/legality/CookiesModalContent'
+import MainSection from './MainSection'
 
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
   const { Translate } = useContext(TranslateContext)
-  const { Setting } = useContext(SettingContext)
   const queryParams = new URLSearchParams(window.location.search)
   const uuid = queryParams.get("uuid")
 
@@ -30,62 +30,50 @@ const Main = observer(() => {
     }
   }, [])
 
+  const sections = [
+    {
+      id: 1, header: SetNativeTranslate(Translate.language, {
+        russian: ['О сервисе'],
+        english: ['About']
+      }), header_comment: 'Комментарий 1', description: 'Описание 1', class: 'uneven', type: 'text'
+    },
+    {
+      id: 2, header: SetNativeTranslate(Translate.language, {
+        russian: ['Возможности'],
+        english: ['Сapabilities']
+      }), header_comment: 'Комментарий 2', description: 'Описание 2', class: 'even', type: 'items'
+    },
+    {
+      id: 3, header: SetNativeTranslate(Translate.language, {
+        russian: ['Цены'],
+        english: ['Pricing']
+      }), header_comment: 'Комментарий 3', description: 'Описание 3', class: 'uneven', type: 'self_content'
+    },
+  ]
+
+  const items = [
+    { id: 1, icon: '', name: 'rrrr', description: 'rrrrrrrr' },
+    { id: 2, icon: '', name: 'wewe', description: 'asas' },
+    { id: 3, icon: '', name: 'sdsds', description: 'asas' },
+    { id: 4, icon: '', name: 'wdwdwd', description: 'asas' },
+    { id: 5, icon: '', name: 'sdsd', description: 'dedwdwd' },
+    { id: 6, icon: '', name: 'wswsw', description: 'asas' },
+    { id: 7, icon: '', name: 'sdsd', description: 'efefe' },
+    { id: 8, icon: '', name: 'wdwd', description: 'asas' },
+  ]
+
   return (
-    
+
     <PageContainer>
       <title>logid</title>
       <MainBanner />
-      <div className={Setting.app_theme === 'light' ? 'section_container uneven' : 'section_container uneven dark'}  >
-        <div className='section_header'>{SetNativeTranslate(Translate.language, {
-          russian: ['О сервисе'],
-          english: ['About']
-        })}</div>
-        <div className='section_header_comment'>{SetNativeTranslate(Translate.language, {
-          russian: ['Комментарий'],
-          english: ['Comment']
-        })}</div>
-        <div className='sectiion_content_container'>
-          {SetNativeTranslate(Translate.language, {
-            russian: ['Приветуауацацау цуацуацуацацуауа цуацацацацацацаца'],
-            english: ['wfweffwefwe fwefwefwefwefewf wefwfwfwefwefwefw']
-          })}
-        </div>
-      </div>
 
-      <div className={Setting.app_theme === 'light' ? 'section_container even' : 'section_container even dark'}>
-        <div className='section_header'>{SetNativeTranslate(Translate.language, {
-          russian: ['Возможности'],
-          english: ['Сapabilities']
-        })}</div>
-        <div className='section_header_comment'>{SetNativeTranslate(Translate.language, {
-          russian: ['Комментарий'],
-          english: ['Comment']
-        })}</div>
-        <div className='sectiion_content_container'>
-          <div className={'section_item_container'}></div>
-          <div className={'section_item_container'}></div>
-          <div className={'section_item_container'}></div>
-          <div className={'section_item_container'}></div>
-          <div className={'section_item_container'}></div>
-          <div className={'section_item_container'}></div>
-        </div>
-      </div>
+      {sections.map(section =>
+        <MainSection section={section} key={section.id} items={items} />
+      )}
 
-      <div className={Setting.app_theme === 'light' ? 'section_container uneven' : 'section_container uneven dark'}  >
-        <div className='section_header'>{SetNativeTranslate(Translate.language, {
-          russian: ['Цены'],
-          english: ['Pricing']
-        })}</div>
-        <div className='section_header_comment'>{SetNativeTranslate(Translate.language, {
-          russian: ['Комментарий'],
-          english: ['Comment']
-        })}</div>
-        <div className='sectiion_content_container'>
-
-        </div>
-      </div>
       <ModalBottom modalActive={modalActive}>
-        <CookiesModalContent setModalActive={setModalActive}/>
+        <CookiesModalContent setModalActive={setModalActive} />
       </ModalBottom>
     </PageContainer>
   )

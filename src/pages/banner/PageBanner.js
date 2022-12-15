@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { SettingContext } from '../../..'
+import { SettingContext } from '../..'
 import './Banner.css'
 
 

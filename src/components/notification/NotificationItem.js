@@ -33,6 +33,7 @@ const NotificationItem = observer(({ message, type, id }) => {
   }, [width])
 
   const handleCloseNotification = () => {
+    //may be disappear effect?
     setExit('exit')
     Notification.filterNotifications(id)
   }
@@ -41,6 +42,10 @@ const NotificationItem = observer(({ message, type, id }) => {
 
     <div
       className={`notification_item ${type} ${exit}`}
+      onClick={() => {
+        setExit('exit')
+        Notification.filterNotifications(id)
+      }}
     >
       <div
         className={`message`}

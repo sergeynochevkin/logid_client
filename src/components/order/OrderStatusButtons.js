@@ -40,6 +40,18 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const for_editing = SetTranslate('for_editing')
     const form_from_order = SetTranslate('form_from_order')
 
+    const sortOrders = (a, b) => {
+        if (a && b) {
+            if (a > b) {
+                return 1
+            } else {
+                return -1
+            }
+        } else {
+            return
+        }
+    }
+
     const toAuction = async (event) => {
         await updateOrder('', 'auction', thisOrder.id, user.user.role, thisOrder.order_status)
             .then(sendMail(user.user.role, thisOrder.id, 'order_type', 'auction'))
@@ -256,7 +268,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                                 <CardButton onClick={cancel}>{SetTranslate('cancel')}</CardButton>
                                 {parent !== 'selector' ?
                                     <CardButton onClick={edit}>{SetTranslate('edit')}</CardButton>
-                                    : <></>}    
+                                    : <></>}
                             </CardRow>
                             {parent === 'order' ?
                                 <OfferComponent thisOrder={thisOrder} thisOrderOffers={thisOrderOffers} setFetchStart={setFetchStart} thisOrderNoPartners={thisOrderNoPartners} thisCarrierOffer={thisCarrierOffer}

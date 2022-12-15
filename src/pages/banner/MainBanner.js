@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { SettingContext, TranslateContext } from '../../..';
-import image from '../../../assets/busNavi.jpg';
-import image_dark from '../../../assets/busNavi_dark.jpg';
-import { SetTranslate } from '../../../modules/SetTranslate';
+import { SettingContext, TranslateContext } from '../..';
+import image from '../../assets/busNavi.jpg';
+import image_dark from '../../assets/busNavi_dark.jpg';
+import { SetTranslate } from '../../modules/SetTranslate';
 
 
 const MainBanner = observer(() => {
