@@ -39,9 +39,9 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
                 <CardColName>{onePartnerInfo.id}</CardColName>
                 <CardColName
                     style={{
-                        backgroundColor: onePartner.status === 'normal' ? 'rgb(241,196,15,0.8)' :
-                            onePartner.status === 'priority' ? 'rgb(129, 199, 132,0.8)' :
-                                onePartner.status === 'blocked' ? 'rgb(254, 111, 103,0.8)' : ''
+                        backgroundColor: onePartner.status === 'normal' ? 'rgb(241,196,15,0.3)' :
+                            onePartner.status === 'priority' ? 'rgb(129, 199, 132,0.3)' :
+                                onePartner.status === 'blocked' ? 'rgb(254, 111, 103,0.3)' : ''
                     }}
                 >
                     {onePartnerInfo.legal === 'person' ?
@@ -64,7 +64,7 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
 
                         style={{
                             cursor: formData.solvency !== grade ? 'pointer' : 'default',
-                            backgroundColor: formData.solvency === grade ? 'rgb(255, 186, 65, 0.8)' : 'lightgray',
+                            backgroundColor: formData.solvency === grade ? 'rgb(255, 186, 65, 0.3)' : 'lightgray',
                             padding: '5px'
                         }}
                     >{grade}</CardColName>

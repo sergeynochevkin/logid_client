@@ -36,15 +36,14 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   const [isSearching, setIsSearching] = useState(false);
   const { height, width } = useWindowDimensions();
 
-  console.log(`width:${width}px`);
-  console.log(`height:${height}px`);
-
+  // console.log(`width:${width}px`);
+  // console.log(`height:${height}px`);
 
   const debouncedSearchTerm = useDebounce(FilterAndSort.filters[ComponentFunction.Function], 500);
 
   useEffect(() => {
     if (height > 768) {
-      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 30 }, ComponentFunction.Function)
+      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
     } else if (height > 425) {
       FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
     } else {

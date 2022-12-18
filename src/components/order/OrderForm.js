@@ -556,7 +556,7 @@ const OrderForm = observer(() => {
                 />
 
 
-                <DragDropUpload formData={formData} setFormData={setFormData} length={5} extensions={['jpeg', 'png', 'jpg']}></DragDropUpload>
+                {/* <DragDropUpload formData={formData} setFormData={setFormData} length={5} extensions={['jpeg', 'png', 'jpg']}></DragDropUpload> */}
                 <Container>
                     <Button onClick={send}
                         disabled={

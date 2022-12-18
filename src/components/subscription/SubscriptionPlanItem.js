@@ -10,7 +10,7 @@ import { updateSubscription } from '../../http/subscriptionApi'
 import { setTime } from '../../modules/setTime'
 import { v4 } from "uuid";
 
-const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchPartnersStart }) => {
+const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchPartnersStart, mainRole }) => {
     const { Subscription } = useContext(SubscriptionContext)
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -26,7 +26,12 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
 
     if (plan) {
         optionsByPlan = Subscription.options_by_plans.filter(el => el.planId === plan.plan_id)
-        optionsByPlan = Subscription.options.filter(el => optionsByPlan.map(el => el.optionId).includes(el.option_id) && (el.role === 'both' || el.role === user.user.role) && el.country === UserInfo.userInfo.country)
+        if (parent === 'main') {
+            optionsByPlan = Subscription.options.filter(el => optionsByPlan.map(el => el.optionId).includes(el.option_id) && (el.role === 'both' || el.role === mainRole) && el.country === Adress.country.value)
+        } else {
+            optionsByPlan = Subscription.options.filter(el => optionsByPlan.map(el => el.optionId).includes(el.option_id) && (el.role === 'both' || el.role === user.user.role) && el.country === UserInfo.userInfo.country)
+        }
+
 
         initialTime = new Date();
         initialTime.setHours(23, 59, 59, 0)
@@ -45,13 +50,14 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
     return (
         <>
             {plan ?
-                <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.plan_id === Subscription.subscription.planId ? 'plan_item_container current' :
+                <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.plan_id === Subscription.subscription.planId && user.user.role ? 'plan_item_container current' :
                     'plan_item_container'}
-                    style={{ boxShadow: `0px 5px 10px 0px ${useColor(plan.name)}`, color: plan.plan_id !== Subscription.subscription.planId && Setting.app_theme === 'dark' ? 'white' : parent === 'status' && Setting.app_theme === 'dark' ? 'white' : 'black' }}>
+                    style={{ boxShadow: `0px 5px 10px 0px ${useColor(plan.name)}`, color: plan.plan_id !== Subscription.subscription.planId && Setting.app_theme === 'dark' ? 'white' : parent === 'status' && Setting.app_theme === 'dark' ? 'white' : !user.user.role ? 'white' : 'black' }}>
                     <div className={'plan_name_container'}>
                         <div className={'plan_item_name'}>{SetTranslate(plan.name)}</div>
                         <div className={'plan_item_name_bage'}>{SetTranslate(plan.bage)}</div>
                     </div>
+
                     {parent !== 'status' ?
                         <div className={'options_container'}>
                             {plan ? optionsByPlan.map(option => <OptionItem key={option.id} option={option} />) : <></>}
@@ -59,18 +65,18 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                         : <></>
                     }
                     <>
-                        <div className={'price'}>{plan && plan.plan_id !== 1  ? plan.price : ''}</div>
-                        {plan && plan.plan_id !== 1  ?
+                        <div className={'price'}>{plan && plan.plan_id !== 1 ? plan.price : <div className='price_place_holder'></div>}</div>
+                        {plan && plan.plan_id !== 1 ?
                             <div className='price_and_validity'>
                                 <div className={'plan_item_name_bage'}>{Adress.country.currency}</div>
-                                {plan.plan_id === Subscription.subscription.planId ?
+                                {plan.plan_id === Subscription.subscription.planId && user.user.role ?
                                     <div className={'plan_item_name_bage'}>{`${SetTranslate('active_until')} ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
-                                    : <></>}
+                                    : <div className='paid_to_place_holder'></div>}
                             </div>
                             : <></>}
                     </>
 
-                    {parent !== 'status' && plan.plan_id === 1 ? <></> :
+                    {(parent !== 'status' && plan.plan_id === 1) && parent !== 'main' ? <div className='button_place_holder'></div> : parent === 'main' ? <></> :
                         <Button
                             onClick={() => {
                                 if (parent === 'status') {

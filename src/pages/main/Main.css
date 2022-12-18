@@ -5,7 +5,9 @@
     align-items: center;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding-top: 20px;
+    text-align: center;
 }
 
 .section_container.even {
@@ -45,9 +47,14 @@
     padding-top: 20px;
 }
 
+.self_content_container{
+    margin-bottom: 20px;
+}
+
 .section_text {
     font-size: 12px;
     padding-top: 20px;
+    max-width: 1000px;
 }
 
 .section_item_container {
@@ -55,11 +62,19 @@
     width: 200px;
 }
 
-.section_item_icon {}
+.section_item_container:hover {
+    color: grey
+}
+
+.section_item_icon {
+    font-size: 40px;
+}
 
 .section_item_name {}
 
-.section_item_description {}
+.section_item_description {
+    font-size: 12px;
+}
 
 @media screen and (max-width: 768px) {}
 

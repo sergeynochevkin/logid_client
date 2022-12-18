@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { SettingContext } from '../..'
+import { SettingContext, UserContext } from '../..'
 import SubscriptionForm from '../../components/subscription/SubscriptionForm'
 import './Main.css'
 import MainSectionItem from './MainSectionItem'
@@ -19,8 +19,9 @@ const MainSection = observer(({ section, items }) => {
         section.type === 'items' ?
           <div className='section_content_container'>
             {items.map(item => <MainSectionItem item={item} key={item.id} />)}
-          </div> :
-          <SubscriptionForm parent={'main'}/>
+          </div> : <div className='self_content_container'>
+            <SubscriptionForm parent={'main'} mainRole={section.role} />          
+          </div>
       }
     </div>
 

@@ -13,13 +13,13 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    min-height: 540px;
+    /* min-height: 540px; */
 }
 
 .options_container {
     display: flex;
     flex-direction: column;
-    min-height: 200px;
+    /* min-height: 200px; */
     margin-top: 20px;
 }
 
@@ -36,7 +36,7 @@
     display: flex;
     gap: 5px;
     width: 200px;
-    min-height: 380px;
+    /* min-height: 380px; */
     border-radius: 10px;
     align-items: center;
     padding: 10px;
@@ -48,7 +48,7 @@
 }
 
 .plan_item_container:hover {
-    min-height: 400px;
+    transform: scale(1.05);
 }
 
 .plan_item_container.height.padding {
@@ -85,10 +85,12 @@
 .option_item_name {
     font-size: 14px;
     font-weight: bold;
+    text-align: left;
 }
 
 .option_item_comment {
     font-size: 10px;
+    text-align: left;
 }
 
 .option_item_value {
@@ -110,4 +112,16 @@
 
 .plan_name_container {
     min-height: 35px;
+}
+
+.paid_to_place_holder {
+    height: 12px;
+}
+
+.price_place_holder {
+    height: 78px;
+}
+
+.button_place_holder {
+    height: 27px;
 }

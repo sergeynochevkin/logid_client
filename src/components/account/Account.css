@@ -6,12 +6,12 @@
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 10px;
-    background-color: rgb(245, 245, 245, 0.8);
+    background-color: rgb(245, 245, 245, 0.2);
     align-items: flex-start;
     justify-content: start;
 }
 
 .account_container_dark {
-    background-color: rgb(31, 31, 31, 0.8);
+    background-color: rgb(31, 31, 31, 0.2);
 }
 

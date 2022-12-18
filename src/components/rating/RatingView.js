@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useContext } from 'react'
 import { TranslateContext } from '../..'
@@ -6,7 +7,7 @@ import { CardColName } from '../ui/card/CardColName'
 import { CardRow } from '../ui/card/CardRow'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 
-const RatingView = ({ onePartnerInfo, user, parent }) => {
+const RatingView = observer(({ onePartnerInfo, user, parent }) => {
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const { Translate } = useContext(TranslateContext)
 
@@ -17,14 +18,14 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                 <CardColName
                     style={{
                         padding: '5px',
-                        backgroundColor: onePartnerInfo.complete_orders_amount !== 0 && 'rgb(255, 186, 65, 0.8)',
+                        backgroundColor: onePartnerInfo.complete_orders_amount !== 0 && 'rgb(255, 186, 65, 0.3)',
                     }}
                 >{onePartnerInfo.complete_orders_amount}</CardColName>
                 <CardColName>{SetTranslate('disrupted_orders')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
-                        backgroundColor: onePartnerInfo.disruption_amount !== 0 && 'rgb(254, 111, 103,0.8)',
+                        backgroundColor: onePartnerInfo.disruption_amount !== 0 && 'rgb(254, 111, 103,0.3)',
                     }}
                 >{onePartnerInfo.disruption_amount}</CardColName>
             </CardRow>
@@ -41,20 +42,20 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                                     key={grade}
                                     style={{
                                         padding: '5px',
-                                        backgroundColor: onePartnerInfo.total_solvency >= grade && 'rgb(255, 186, 65, 0.8)',
+                                        backgroundColor: onePartnerInfo.total_solvency >= grade && 'rgb(255, 186, 65, 0.3)',
                                     }}
                                 >{grade}</CardColName>
                             )}
                         </> :
                         <CardColName
-                            style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
+                            style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                         >{onePartnerInfo.total_solvency}</CardColName>
                     }
                     <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                     <CardColName
                         style={{
                             padding: '5px',
-                            backgroundColor: onePartnerInfo.solvency_amount !== 0 && 'rgb(255, 186, 65, 0.8)',
+                            backgroundColor: onePartnerInfo.solvency_amount !== 0 && 'rgb(255, 186, 65, 0.3)',
                         }}
                     >{onePartnerInfo.solvency_amount}</CardColName>
                 </CardRow> : <></>}
@@ -67,19 +68,19 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                                 key={grade}
                                 style={{
                                     padding: '5px',
-                                    backgroundColor: onePartnerInfo.total_politeness >= grade && 'rgb(255, 186, 65, 0.8)',
+                                    backgroundColor: onePartnerInfo.total_politeness >= grade && 'rgb(255, 186, 65, 0.3)',
                                 }}
                             >{grade}</CardColName>
                         )}     </> :
                     <CardColName
-                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
+                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                     >{onePartnerInfo.total_politeness}</CardColName>
                 }
                 <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
-                        backgroundColor: onePartnerInfo.politeness_amount !== 0 && 'rgb(255, 186, 65, 0.8)',
+                        backgroundColor: onePartnerInfo.politeness_amount !== 0 && 'rgb(255, 186, 65, 0.3)',
                     }}
                 >{onePartnerInfo.politeness_amount}</CardColName>
             </CardRow>
@@ -100,20 +101,20 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                                 key={grade}
                                 style={{
                                     padding: '5px',
-                                    backgroundColor: onePartnerInfo.total_in_time >= grade && 'rgb(255, 186, 65, 0.8)',
+                                    backgroundColor: onePartnerInfo.total_in_time >= grade && 'rgb(255, 186, 65, 0.3)',
                                 }}
                             >{grade}</CardColName>
                         )}
                     </> :
                     <CardColName
-                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
+                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                     >{onePartnerInfo.total_in_time}</CardColName>
                 }
                 <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
-                        backgroundColor: onePartnerInfo.in_time_amount !== 0 && 'rgb(255, 186, 65, 0.8)',
+                        backgroundColor: onePartnerInfo.in_time_amount !== 0 && 'rgb(255, 186, 65, 0.3)',
                     }}
                 >{onePartnerInfo.in_time_amount}</CardColName>
             </CardRow>
@@ -134,31 +135,31 @@ const RatingView = ({ onePartnerInfo, user, parent }) => {
                                 key={grade}
                                 style={{
                                     padding: '5px',
-                                    backgroundColor: onePartnerInfo.total_facilities >= grade && 'rgb(255, 186, 65, 0.8)',
+                                    backgroundColor: onePartnerInfo.total_facilities >= grade && 'rgb(255, 186, 65, 0.3)',
                                 }}
                             >{grade}</CardColName>
                         )}   </> :
                     <CardColName
-                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
+                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                     >{onePartnerInfo.total_in_time}</CardColName>
                 }
                 <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
-                        backgroundColor: onePartnerInfo.facilities_amount !== 0 && 'rgb(255, 186, 65, 0.8)',
+                        backgroundColor: onePartnerInfo.facilities_amount !== 0 && 'rgb(255, 186, 65, 0.3)',
                     }}
                 >{onePartnerInfo.facilities_amount}</CardColName>
             </CardRow>
             <CardRow>
                 <CardColName>{SetTranslate('total_rating')}</CardColName>
                 <CardColName
-                    style={{ backgroundColor: onePartnerInfo.total_rating == 0 ? '' : onePartnerInfo.total_rating < 4 ? 'rgb(254, 111, 103,0.8)' : onePartnerInfo.total_rating < 7 ? 'rgb(241,196,15,0.8)' : 'rgb(129, 199, 132,0.8)' }}
+                    style={{ backgroundColor: onePartnerInfo.total_rating == 0 ? '' : onePartnerInfo.total_rating < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_rating < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                 >{Math.floor(onePartnerInfo.total_rating * 100) / 100}</CardColName>
 
             </CardRow>
         </VerticalContainer>
     )
 }
-
+)
 export default RatingView

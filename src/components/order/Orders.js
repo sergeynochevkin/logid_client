@@ -47,8 +47,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
   const [isSearching, setIsSearching] = useState(false);
   const { height, width } = useWindowDimensions();
 
-  console.log(`width:${width}px`);
-  console.log(`height:${height}px`);
+  // console.log(`width:${width}px`);
+  // console.log(`height:${height}px`);
   
   useEffect(() => {
     if (width > 768) {
