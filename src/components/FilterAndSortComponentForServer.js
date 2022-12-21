@@ -132,6 +132,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         : <></>
                     }
                 </div>
+                </div>
 
                 <HorizontalContainer>
                     {user.user.role === 'carrier' && ComponentFunction.Function === 'new' && Partner.groups.length > 0 ?
@@ -143,7 +144,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <></>
                     }
                 </HorizontalContainer>
-            </div>
+            
         </VerticalContainer>
 
     )

@@ -1,0 +1,28 @@
+.auth_disclaimer {
+    font-size: 10px;
+    min-width: 350px;
+    max-width: 800px;
+    color: black;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.auth_disclaimer.dark {
+    color: grey;
+}
+
+@media screen and (max-width: 1920px) {}
+
+@media screen and (max-width: 768px) and  (min-width: 426px)  {
+    .auth_disclaimer{
+        padding-bottom: 20px;
+        width:700px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .auth_disclaimer{
+        padding-bottom: 20px;
+        width:380px;
+    }
+}

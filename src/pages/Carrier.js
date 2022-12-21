@@ -27,6 +27,7 @@ import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { fetchUserLimits } from '../http/limitApi'
 import { SetTranslate } from '../modules/SetTranslate'
+import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 
 
 const Container = styled.div`
@@ -128,14 +129,14 @@ const Carrier = observer(() => {
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
-            <FlexContainer
+            <VerticalContainer
               style={{
                 gap: '0px'
               }}
             >
               <BookMark>{SetTranslate('fill_account')}</BookMark>
               <UserInfoForm />
-            </FlexContainer>
+            </VerticalContainer>
 
             :
 

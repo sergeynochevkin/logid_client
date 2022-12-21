@@ -308,9 +308,11 @@ const OrderForm = observer(() => {
             if (formData.order_status === 'pattern') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${Template} ${orderId} ${Created}` }]);
             }
+           
             setFormData(initialValue)
-            setPointFormData(pointInitialValue)
-            ComponentFunction.setFunction(formData.order_status)
+            setPointFormData(pointInitialValue)     
+            ComponentFunction.setOrdersComponentFunction('orderList')
+            ComponentFunction.setFunction(formData.order_status)      
             ComponentFunction.setPageFunction('orderList')
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])

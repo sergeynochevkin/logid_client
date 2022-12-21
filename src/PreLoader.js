@@ -63,12 +63,14 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
 
     useEffect(() => {
-        getGeoInfo();
+        if (!localStorage.getItem('country')) {
+            getGeoInfo();
+        }
     }, []);
 
     useEffect(() => {
         //check if we dont have language state in localstorage
-        Translate.setLanguage(Adress.country.default_language)
+        Adress.country && Translate.setLanguage(Adress.country.default_language)
     }, [Adress.country]);
 
     useEffect(() => {

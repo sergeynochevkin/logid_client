@@ -1,14 +1,13 @@
-import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
-import { TranslateContext, UserContext, UserInfoContext } from '../..'
-import { createOrderRating } from '../../http/ratingApi'
-import { CardButton } from '../ui/button/CardButton'
-import { CardColName } from '../ui/card/CardColName'
-import { CardRow } from '../ui/card/CardRow'
-import { VerticalContainer } from '../ui/page/VerticalContainer'
+import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
+import { NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { v4 } from "uuid";
-import { NotificationContext } from '../../index'
-import { SetTranslate } from '../../modules/SetTranslate'
+import { VerticalContainer } from '../ui/page/VerticalContainer';
+import { SetTranslate } from '../../modules/SetTranslate';
+import { CardColName } from '../ui/card/CardColName';
+import { CardRow } from '../ui/card/CardRow';
+import { CardButton } from '../ui/button/CardButton';
+import { createOrderRating } from '../../http/ratingApi';
 
 const OrderRatingModalContent = observer(({ setModalActive, formData, setFormData, setFetchStart, oneOrder, setFetchPartnersStart, formReset }) => {
     const { UserInfo } = useContext(UserInfoContext)
@@ -58,7 +57,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
                         style={{
                             cursor: formData.politeness !== grade ? 'pointer' : 'default',
-                            backgroundColor: formData.politeness === grade ? 'rgb(255, 186, 65, 0.8)' : 'lightgray',
+                            backgroundColor: formData.politeness === grade ? 'rgb(255, 186, 65, 0.8)' : '',
                             padding: '5px'
                         }}
                     >{grade}</CardColName>
@@ -81,7 +80,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
                         style={{
                             cursor: formData.in_time !== grade ? 'pointer' : 'default',
-                            backgroundColor: formData.in_time === grade ? 'rgb(255, 186, 65, 0.8)' : 'lightgray',
+                            backgroundColor: formData.in_time === grade ? 'rgb(255, 186, 65, 0.8)' : '',
                             padding: '5px'
                         }}
                     >{grade}</CardColName>
@@ -104,7 +103,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
                         style={{
                             cursor: formData.facilities !== grade ? 'pointer' : 'default',
-                            backgroundColor: formData.facilities === grade ? 'rgb(255, 186, 65, 0.8)' : 'lightgray',
+                            backgroundColor: formData.facilities === grade ? 'rgb(255, 186, 65, 0.8)' : '',
                             padding: '5px'
                         }}
                     >{grade}</CardColName>

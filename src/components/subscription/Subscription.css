@@ -62,7 +62,7 @@
 }
 
 .plan_item_container.current {
-    background-color: rgb(255, 253, 231, 0.8);
+    background-color: rgb(255, 253, 231, 0.2);
 }
 
 .plan_item_name {
@@ -124,4 +124,27 @@
 
 .button_place_holder {
     height: 27px;
+}
+
+@media screen and (max-width: 1920px) {}
+
+@media screen and (max-width: 768px) {}
+
+@media screen and (max-width: 425px) {
+    .plans_container{
+        width: max-content;
+        height: max-content;
+    }    
+    .plan_item_container{
+        width: 160px;
+    }
+    .plan_item_name{
+        font-size: 16px;
+    }
+    .option_item_name{
+        font-size: 12px;
+    }
+    .option_item_comment{
+        font-size: 10px;
+    }
 }

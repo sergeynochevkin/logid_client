@@ -9,6 +9,7 @@ import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import { SetTranslate } from '../../modules/SetTranslate'
 import NoData from '../ui/page/NoData'
+import '../order/Order.css'
 
 
 const PartnersList = observer(({ setFetchPartnersStart }) => {
@@ -47,10 +48,11 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
           parent={'partners'}
         />
         <PartnerGroupComponent parent={'partnerList'} setFetchPartnersStart={setFetchPartnersStart} />
+        <div className={'scroll_bar_container'}>
         {Partner.partnerInfos.length !== 0 ?
           <>
-            <table>
-              <tbody>
+            <table className={'order_table'}>
+              <tbody >
                 <tr>
                   <OrderTh>{SetTranslate('id')}</OrderTh>
                   <OrderTh>{SetTranslate('partner_name')}</OrderTh>
@@ -77,6 +79,7 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
           </>
           : <NoData
           >{SetTranslate('no_partners')}</NoData>}
+          </div>
       </VerticalContainer>
     </>
   )

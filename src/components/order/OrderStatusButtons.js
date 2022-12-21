@@ -220,7 +220,8 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
             order.setPattern(JSON.stringify(thisOrder))
             Point.setPattern(JSON.stringify(thisOrderPoints))
             order.setIntegrationId()
-            ComponentFunction.setOrderFormFunction('pattern')
+            localStorage.removeItem('orderFormData')
+            ComponentFunction.setOrderFormFunction('pattern')            
             ComponentFunction.setPageFunction('orderForm')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${thisOrder.order_type === 'order' ? form_from_order : form_from_auction} ${thisOrder.id}` }])
         }

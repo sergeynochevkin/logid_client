@@ -101,3 +101,13 @@
         bottom: 0px;
     }
 }
+
+@media screen and (max-width: 1920px) {}
+
+@media screen and (max-width: 768px) {}
+
+@media screen and (max-width: 425px) {
+    .modal {
+        justify-content: left;
+    }
+}

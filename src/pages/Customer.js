@@ -28,6 +28,7 @@ import SettingsComponent from '../components/setting/SettingsComponent'
 import { fetchUserLimits } from '../http/limitApi'
 import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
 import { SetTranslate } from '../modules/SetTranslate'
+import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 
 
 
@@ -73,7 +74,7 @@ const Customer = observer(() => {
           await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => Partner.setPartnerInfos(data))
         })
       }
-    }    
+    }
     setFetchPartnersStart(false)
   })
 
@@ -101,7 +102,7 @@ const Customer = observer(() => {
     region: 'CA',
     language: 'en'
   })
-  
+
   if (!isLoaded) { return <PageContainer /> }
   else {
 
@@ -124,14 +125,14 @@ const Customer = observer(() => {
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
-            <FlexContainer
+            <VerticalContainer>
               style={{
                 gap: '0px'
               }}
             >
               <BookMark>{SetTranslate('fill_account')}</BookMark>
               <UserInfoForm />
-            </FlexContainer>
+            </VerticalContainer>
             :
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
               <div className='scroll_content_container'>

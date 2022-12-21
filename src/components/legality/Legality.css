@@ -15,3 +15,13 @@
 .accept_cookie_text_container {
     text-align: center;
 }
+
+@media screen and (max-width: 1920px) {}
+
+@media screen and (max-width: 768px) {}
+
+@media screen and (max-width: 425px) {
+    .accept_cookie_text_container{
+        font-size: 12px;
+    }
+}

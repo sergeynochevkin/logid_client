@@ -349,7 +349,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
   useEffect(() => {
     if (Object.keys(Point.added).length > 0) {
       if (Point.added.postponed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? postponed_points : postponed_point} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? SetTranslate('on_orders') : SetTranslate('on_order')} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
+        Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? postponed_points : postponed_point} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
       }
       if (Point.added.canceled.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
         Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.canceled.length > 1 ? canceled_points : canceled_point} ${Point.added.canceled.map(el => el.sequence).toString()} ${Point.added.canceled.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.canceled.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
@@ -407,7 +407,6 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
 
                 {order &&
                   <>
-                    {/* eslint-disable-next-line no-undef */}
                     {order.group.length !== 0 ?
                       <HorizontalContainer
                         style={{
@@ -440,7 +439,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                     }
                   </>}
 
-                {State.user_state.favorite_order_state.length !== 0 ?
+                { State.user_state.favorite_order_state && State.user_state.favorite_order_state.length !== 0 ?
                   <HorizontalContainer
                     style={{
                       marginTop: '5px',

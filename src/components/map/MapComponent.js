@@ -423,6 +423,12 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
             setRouteDuration(calculatedDuration)
             formData.mileage = calculatedDistance
             setFormData({ ...formData, direction_response: JSON.stringify(results) })
+            //проставить время последней точки время первой + время в пути*1,2
+            let data = [...pointFormData]
+            data[pointFormData.length - 1].time.value = new Date(data[0].time.value)
+            data[pointFormData.length - 1].time.value.setSeconds(data[pointFormData.length - 1].time.value.getSeconds() + calculatedDuration * 1, 2)
+            data[pointFormData.length - 1].time.value = setTime(data[pointFormData.length - 1].time.value, 0, 'form')
+            setPointFormData(data)
             setDirectionsResponse(results)
         }
         setCalculate(false)

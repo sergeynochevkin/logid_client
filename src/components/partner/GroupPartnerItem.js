@@ -15,9 +15,6 @@ const GroupPartnerItem = ({ setFetchPartnersStart, partner, group, setModalActiv
             setModalActive(false)
         }
     }
-
-    console.log(partner.status);
-
     //set partner status
 
     return (

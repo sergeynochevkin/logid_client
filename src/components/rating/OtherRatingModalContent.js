@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { updateOtherRating } from '../http/ratingApi'
-import { CardButton } from './ui/button/CardButton'
-import { CardColName } from './ui/card/CardColName'
-import { CardRow } from './ui/card/CardRow'
-import { VerticalContainer } from './ui/page/VerticalContainer'
+import { updateOtherRating } from '../../http/ratingApi'
+import { CardButton } from '../ui/button/CardButton'
+import { CardColName } from '../ui/card/CardColName'
+import { CardRow } from '../ui/card/CardRow'
+import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
-import { NotificationContext, UserContext } from '../index'
+import { NotificationContext, UserContext } from '../..'
 import { useContext } from 'react'
 import { SetTranslate } from '../../modules/SetTranslate'
 
@@ -64,7 +64,7 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
 
                         style={{
                             cursor: formData.solvency !== grade ? 'pointer' : 'default',
-                            backgroundColor: formData.solvency === grade ? 'rgb(255, 186, 65, 0.3)' : 'lightgray',
+                            backgroundColor: formData.solvency === grade ? 'rgb(255, 186, 65, 0.3)' : '',
                             padding: '5px'
                         }}
                     >{grade}</CardColName>

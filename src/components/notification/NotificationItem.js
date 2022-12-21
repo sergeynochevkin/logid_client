@@ -1,17 +1,19 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { NotificationContext } from '../..'
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 import './Notification.css'
 
 const NotificationItem = observer(({ message, type, id }) => {
-  const [width, setWidth] = useState(100)
+  const [notificationWidth, setNotificationWidth] = useState(100)
   const [intervalId, setIntervalId] = useState(null)
   const [exit, setExit] = useState('')
   const { Notification } = useContext(NotificationContext)
+  const { height, width } = useWindowDimensions();
 
   const handleStartTimer = () => {
     const id = setInterval(() => {
-      setWidth((prev) => {
+      setNotificationWidth((prev) => {
         if (prev > 0) {
           return prev - 0.5
         }
@@ -27,10 +29,10 @@ const NotificationItem = observer(({ message, type, id }) => {
   }, [])
 
   useEffect(() => {
-    if (width === 0) {
+    if (notificationWidth === 0) {
       handleCloseNotification()
     }
-  }, [width])
+  }, [notificationWidth])
 
   const handleCloseNotification = () => {
     //may be disappear effect?
@@ -52,8 +54,11 @@ const NotificationItem = observer(({ message, type, id }) => {
       >{message}</div>
       <div
         className={`bar ${type}`}
-        style={{ width: `${width}%` }}
+        style={{ width: `${notificationWidth}%` }}
       ></div>
+      {width <= 768 ?
+        <div className='tap_to_hide'>Tap to hide</div>
+        : <></>}
     </div>
 
   )

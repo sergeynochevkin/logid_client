@@ -1,29 +1,30 @@
 import React, { useContext, useState } from 'react'
-import { Link } from '../components/ui/link/Link'
-import { Area50 } from '../components/ui/area/Area50'
-import { Button } from '../components/ui/button/Button'
-import { Form } from '../components/ui/form/Form'
-import { Input } from '../components/ui/form/Input'
-import { Name } from '../components/ui/text/Name'
-import { Select } from '../components/ui/form/Select'
-import PageContainer from '../components/ui/page/PageContainer'
-import { Comment } from '../components/ui/form/Comment'
+import { Link } from '../../components/ui/link/Link'
+import { Area50 } from '../../components/ui/area/Area50'
+import { Button } from '../../components/ui/button/Button'
+import { Form } from '../../components/ui/form/Form'
+import { Input } from '../../components/ui/form/Input'
+import { Name } from '../../components/ui/text/Name'
+import { Select } from '../../components/ui/form/Select'
+import PageContainer from '../../components/ui/page/PageContainer'
+import { Comment } from '../../components/ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, CUSTOMER_ROUTE, CARRIER_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE } from '../../src/utils/consts';
-import { code, login, registration, restore, update } from '../http/userAPI'
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, CUSTOMER_ROUTE, CARRIER_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE } from '../../utils/consts';
+import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { TranslateContext, UserContext, UserInfoContext } from '..'
-import { useFetching } from '../hooks/useFetching'
-import { fetchUserInfo } from '../http/userInfoApi'
-import { useInput } from '../hooks/useInput'
-import { VerticalContainer } from '../components/ui/page/VerticalContainer'
-import { FieldName } from '../components/ui/page/FieldName'
+import { AdressContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { useFetching } from '../../hooks/useFetching'
+import { fetchUserInfo } from '../../http/userInfoApi'
+import { useInput } from '../../hooks/useInput'
+import { VerticalContainer } from '../../components/ui/page/VerticalContainer'
+import { FieldName } from '../../components/ui/page/FieldName'
 import { v4 } from "uuid";
-import { NotificationContext } from '../index'
+import { NotificationContext } from '../../index'
 import ReCAPTCHA from "react-google-recaptcha";
-import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
-import { SetTranslate } from '../modules/SetTranslate'
-import { SetNativeTranslate } from '../modules/SetNativeTranslate'
+import { HorizontalContainer } from '../../components/ui/page/HorizontalContainer'
+import { SetTranslate } from '../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import './Auth.css'
 
 
 const Auth = observer(() => {
@@ -40,6 +41,8 @@ const Auth = observer(() => {
   const [reCapchaChecked, setReCapchaChecked] = useState(false)
   const [codeSend, setCodeSend] = useState(false)
   const { Translate } = useContext(TranslateContext)
+  const { Setting } = useContext(SettingContext)
+  const { Adress } = useContext(AdressContext)
 
 
   const [formData, setFormData] = useState({
@@ -349,6 +352,21 @@ const Auth = observer(() => {
               : <></>
         }
       </Form>
+
+      {Adress.country.value === 'russia' ?
+        <div className={Setting.app_theme === 'light' ? 'auth_disclaimer' : 'auth_disclaimer dark'}>{SetNativeTranslate(Translate.language, {
+          russian: ['Все данные, предоставляемые в сервисе logid, далее сервисе, носят информационный характер и не являются публичной офертой определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации. Сервис не является перевозчиком, представителем перевозчика, заказчиком, представителем заказчика. Сервис собирает данные исключительно в представленном здесь объеме и с целью обеспечения коммуникации перевозчиков и заказчиков. В настоящий момент сервис не ведет проверки пользователей на юридическую чистоту и коммерческую добросовестность. Сервис ни в коей мере не несет ответственность за взаимные споры, разногласия, обстоятельства, возникшие в рамках выполнения договорных отношений между перевозчиками, заказчиками, диспетчерами и логистами. В том числе оп причине размещения перевозчиком или заказчиком недостоверной или не полной информации о заказе или статусе его прохождения, в том числе в случае возникновения технических ошибок в сервисе. Мы настоятельно рекомендуем связываться с выбранным партнером по представленным каналам связи, а также проверять документы, вести необходимую договорную работу и пользоваться страхованием грузов. Продолжая использование данного сервиса вы даете согласие на обработку ваших персональных данных в соответствии с соглашением о конфиденциальности и политикой использования персональных данных. Размещая заказ, соглашаясь на предложение, беря заказ в работу, вы осознаете, что представленные вами в сервис данные, а также ваш рейтинг внутри сервиса будут доступны заказчику или перевозчику с которым вы вступаете в коммуникацию, в полном объеме, с целью обеспечения юридической чистоты сделки. Сервис не предоставляет ваши данные партнеру и данные партнера вам, если он или вы не брали ваш заказ в работу, он или вы не соглашались на его предложение. Сервис не предоставляет другим пользователям информацию о ваших партнерах'],
+          english: ['All data provided in the logid service, hereinafter referred to as the service, is for informational purposes and is not a public offer determined by the provisions of Article 437 of the Civil Code of the Russian Federation. The service is not a carrier, a carrier`s representative, a customer, a customer`s representative. The service collects data solely to the extent presented here and for the purpose of ensuring communication between carriers and customers. At the moment, the service does not check users for legal purity and commercial integrity. The service is in no way responsible for mutual disputes, disagreements, circumstances that arose as part of the implementation of contractual relations between carriers, customers, dispatchers and logisticians. Including the reason for the placement by the carrier or the customer of inaccurate or incomplete information about the order or the status of its passage, including in the event of technical errors in the service. We strongly recommend contacting the selected partner through the provided communication channels, as well as checking documents, conducting the necessary contractual work and using cargo insurance. By continuing to use this service, you consent to the processing of your personal data in accordance with the confidentiality agreement and the policy on the use of personal data. By placing an order, agreeing to an offer, taking an order to work, you understand that the data you submitted to the service, as well as your rating within the service, will be available to the customer or carrier with whom you enter into communication in full, in order to ensure the legal purity of the transaction . The service does not provide your data to the partner and the data of the partner to you, if he or you did not take your order to work, he or you did not agree to his offer. The Service does not provide other users with information about your partners']
+        })}</div> :
+        <div className={Setting.app_theme === 'light' ? 'auth_disclaimer' : 'auth_disclaimer dark'}>{SetNativeTranslate(Translate.language, {
+          russian: ['No such language in your country'],
+          english: ['All data provided in the logid service, hereinafter referred to as the service, is for informational purposes and is not a public offer. The service is not a carrier, a carrier`s representative, a customer, a customer`s representative. The service collects data solely to the extent presented here and for the purpose of ensuring communication between carriers and customers. At the moment, the service does not check users for legal purity and commercial integrity. The service is in no way responsible for mutual disputes, disagreements, circumstances that arose as part of the implementation of contractual relations between carriers, customers, dispatchers and logisticians. Including the reason for the placement by the carrier or the customer of inaccurate or incomplete information about the order or the status of its passage, including in the event of technical errors in the service. We strongly recommend contacting the selected partner through the provided communication channels, as well as checking documents, conducting the necessary contractual work and using cargo insurance. By continuing to use this service, you consent to the processing of your personal data in accordance with the confidentiality agreement and the policy on the use of personal data. By placing an order, agreeing to an offer, taking an order to work, you understand that the data you submitted to the service, as well as your rating within the service, will be available to the customer or carrier with whom you enter into communication in full, in order to ensure the legal purity of the transaction . The service does not provide your data to the partner and the data of the partner to you, if he or you did not take your order to work, he or you did not agree to his offer. The Service does not provide other users with information about your partners']
+        })}</div>
+
+
+      }
+
+
     </PageContainer>
   )
 })

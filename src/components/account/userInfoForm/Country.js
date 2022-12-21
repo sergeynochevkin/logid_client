@@ -9,7 +9,6 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 const Country = observer(({ formData, setFormData }) => {
 
     const { Adress } = useContext(AdressContext)
-    const { Translate } = useContext(TranslateContext)
 
     return (
         <VerticalContainer

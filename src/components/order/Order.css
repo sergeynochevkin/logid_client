@@ -15,7 +15,7 @@
 
 /* Optional: show position indicator in red */
 .scroll_bar_container::-webkit-scrollbar-thumb {
-    background: rgb(245, 245, 245, 0.8);
+    background: rgba(211, 211, 211, 0.3);
 }
 
 .scroll_bar_container_dark {
@@ -37,7 +37,7 @@
 
 /* Optional: show position indicator in red */
 .scroll_bar_container_dark::-webkit-scrollbar-thumb {
-    background: rgb(31, 31, 31, 0.8);
+    background: rgba(61, 61, 61, 0.3);
 }
 
 
@@ -53,21 +53,6 @@
     gap: 5px;
     /* min-width: max-content; */
     /* width: 100%; */
-}
-
-@media screen and (max-width: 425px) {
-    .scroll_content_container {
-        flex-wrap: nowrap;
-    }
-
-    .scroll_bar_container_dark {
-        max-width: 380px;
-        color: white;
-    }
-
-    .scroll_bar_container {
-        max-width: 380px;
-    }
 }
 
 .number_of_orders {
@@ -125,14 +110,53 @@
     color: white;
 }
 
-.orders_with_more_button{
+.orders_with_more_button {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
 }
-.more_orders_buttons_container{
+
+.more_orders_buttons_container {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+@media screen and (max-width: 1920px) and  (min-width: 769px)  {}
+
+@media screen and (max-width: 768px) and  (min-width: 426px) {
+    .scroll_content_container {
+        /* flex-wrap: nowrap; */
+        max-width: 700px;
+        overflow-x: visible;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px
+    }
+
+    .scroll_bar_container_dark {
+        /* max-width: 380px; */
+        /* color: white; */
+        max-width: 700px;
+        overflow-x: visible;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .scroll_content_container {
+        flex-wrap: nowrap;
+    }
+
+    .scroll_bar_container_dark {
+        max-width: 380px;
+        /* color: white; */
+    }
+
+    .scroll_bar_container {
+        max-width: 380px;
+    }
 }

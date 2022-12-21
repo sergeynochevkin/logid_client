@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { UserContext, UserInfoContext } from '..'
 import OtherRatingModalContent from './OtherRatingModalContent'
-import { CardColName } from './ui/card/CardColName'
-import Modal from './ui/modal/Modal'
-import { HorizontalContainer } from './ui/page/HorizontalContainer'
+import { CardColName } from '../ui/card/CardColName'
+import Modal from '../ui/modal/Modal'
+import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { SetTranslate } from '../../modules/SetTranslate'
+import { UserContext, UserInfoContext } from '../..'
 
 const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingByThisUserInfo, setFetchPartnersStart, onePartner }) => {
     const { user } = useContext(UserContext)

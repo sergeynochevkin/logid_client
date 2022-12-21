@@ -5,6 +5,7 @@ import { PartnerContext, TranslateContext } from '../..'
 import PartnerGroupModalContent from './PartnerGroupModalContent'
 import { OrderTd } from '../ui/table/OrderTd'
 import { SetTranslate } from '../../modules/SetTranslate'
+import OtherRatingComponent from '../rating/OtherRatingComponent'
 
 const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePartnerOtherRatingByThisUserInfo }) => {
   const [modalActive, setModalActive] = useState(false)
@@ -74,6 +75,7 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
           }}
         >{Partner.groups.length === 0 ? SetTranslate('no_groups') : partnerGroups.length === 0 ? SetTranslate('can_choose_groups') : `${partnerGroups.length}`}</OrderTd>
         <OrderTd>{onePartner.status === 'normal' ? SetTranslate('partner_normal') : onePartner.status === 'blocked' ? SetTranslate('partner_blocked') : onePartner.status === 'priority' ? SetTranslate('partner_favorite') : ''}</OrderTd>
+        <OtherRatingComponent onePartnerInfo={onePartnerInfo} onePartnerOtherRatingByThisUserInfo={onePartnerOtherRatingByThisUserInfo} setFetchPartnersStart={setFetchPartnersStart} onePartner={onePartner}/>
       </tr>
     </>
   )

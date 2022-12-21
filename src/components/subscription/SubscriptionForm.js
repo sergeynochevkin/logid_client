@@ -15,9 +15,9 @@ const SubscriptionForm = observer(({ setFetchPartnersStart, setModalActive, pare
         <div
             className={'container'}
         >
-            {parent !== 'main' &&
+            {/* {parent !== 'main' &&
                 <div className={Setting.app_theme === 'light' ? 'plan_form_name' : 'plan_form_name plan_form_name_dark'}>{SetTranslate('choose_subscription_plan')}</div>
-            }
+            } */}
             <div
                 className={'plans_container'}
             >

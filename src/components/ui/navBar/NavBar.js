@@ -34,25 +34,25 @@ const NavBar = observer(() => {
         navigate(MAIN_ROUTE)}>Главная</Item> */}
       {user.user.role === "customer" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CUSTOMER_ROUTE)}>{SetTranslate( 'customers_office')}</div> :
+          navigate(CUSTOMER_ROUTE)}>{SetTranslate('customers_office')}</div> :
         <></>
       }
 
       {user.user.role === "carrier" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CARRIER_ROUTE)}>{SetTranslate( 'carriers_office')}</div> :
+          navigate(CARRIER_ROUTE)}>{SetTranslate('carriers_office')}</div> :
         <></>
       }
 
       {user.user.role === "manager" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(MANAGER_ROUTE)}>{SetTranslate( 'managers_office')}</div> :
+          navigate(MANAGER_ROUTE)}>{SetTranslate('managers_office')}</div> :
         <></>
       }
 
       {user.user.role === "admin" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(ADMIN_ROUTE)}>{SetTranslate( 'administrators_office')}</div> :
+          navigate(ADMIN_ROUTE)}>{SetTranslate('administrators_office')}</div> :
         <></>
       }
 
@@ -65,9 +65,9 @@ const NavBar = observer(() => {
             user.setUser({});
             UserInfo.setUserInfo({})
             localStorage.clear()
-          }}>{SetTranslate( 'sign_out')}</div> :
+          }}>{SetTranslate('sign_out')}</div> :
         <div className='nav_bar_item' onClick={() =>
-          navigate(LOGIN_ROUTE)}>{SetTranslate( 'sign_in')}</div>
+          navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</div>
       }
 
       <img
@@ -87,18 +87,14 @@ const NavBar = observer(() => {
         onClick={() => {
           if (Translate.language === 'russian') {
             Translate.setLanguage('english')
-          } else {
+          } else if (Translate.language === 'english' && Adress.country.value === 'russia') {
             Translate.setLanguage('russian')
           }
         }}
 
-      >{Translate.language === 'russian' ? 'EN' : 'RU'}</div>
+      >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.value === 'russia' ? 'RU' : ''}</div>
 
-      {/* <img
-        className='dark_mode_image'
-        src={Setting.app_theme === 'light' ? country : country_white}
-      /> */}
-      <div className='nav_bar_item' onClick={() => { }}>{Translate.language && SetTranslate( Adress.country.value)}</div>
+      <div className='nav_bar_item' onClick={() => { }}>{Translate.language && SetTranslate(Adress.country.value)}</div>
     </div>
 
 

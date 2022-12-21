@@ -22,7 +22,7 @@ const CardContainer = observer(({ children, thisOrder, ...props }) => {
             minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
             marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
             cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
-            backgroundColor: State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? 'rgb(189, 183, 107, 0.8)' : '',
+            backgroundColor: State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? 'rgb(189, 183, 107, 0.2)' : '',
           }}
           {...props}
 

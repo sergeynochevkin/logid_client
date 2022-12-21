@@ -4,6 +4,7 @@ import { SettingContext, UserContext } from '../..'
 import SubscriptionForm from '../../components/subscription/SubscriptionForm'
 import './Main.css'
 import MainSectionItem from './MainSectionItem'
+import '../../components/order/Order.css'
 
 const MainSection = observer(({ section, items }) => {
 
@@ -12,15 +13,18 @@ const MainSection = observer(({ section, items }) => {
   return (
     <div className={`section_container ${section.class} ${Setting.app_theme === 'light' ? '' : 'dark'}`}>
       <div className='section_header'>{section.header}</div>
-      <div className='section_comment'>{section.header_comment}</div>
+      <div className='section_header_comment'>{section.header_comment}</div>
 
       {section.type === 'text' ?
         <div className='section_text'>{section.description}</div> :
         section.type === 'items' ?
           <div className='section_content_container'>
-            {items.map(item => <MainSectionItem item={item} key={item.id} />)}
-          </div> : <div className='self_content_container'>
-            <SubscriptionForm parent={'main'} mainRole={section.role} />          
+            <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
+              {items.map(item => <MainSectionItem item={item} key={item.id} />)}
+            </div></div> : <div className='self_content_container'>
+            <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
+              <SubscriptionForm parent={'main'} mainRole={section.role} />
+            </div>
           </div>
       }
     </div>

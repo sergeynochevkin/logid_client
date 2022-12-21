@@ -10,11 +10,12 @@
 }
 
 .card_container:hover {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
 }
 
 .card_container_dark {
-    background-color: rgb(31, 31, 31, 0.3);;
+    background-color: rgb(31, 31, 31, 0.3);
+    ;
     color: white;
 }
 
@@ -38,7 +39,8 @@
     color: white;
 }
 
+@media screen and (max-width: 1920px) {}
 
+@media screen and (max-width: 768px) {}
 
-
-
+@media screen and (max-width: 425px) {}

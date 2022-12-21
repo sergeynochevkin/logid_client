@@ -4,7 +4,7 @@ import Manager from './pages/Manager'
 import Customer from './pages/Customer'
 import Carrier from './pages/Carrier'
 import Main from './pages/main/Main'
-import Auth from './pages/Auth'
+import Auth from './pages/auth/Auth'
 
 export const authRoutes = [
     {

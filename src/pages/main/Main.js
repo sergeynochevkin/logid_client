@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdressContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
@@ -17,6 +17,7 @@ const Main = observer(() => {
   const queryParams = new URLSearchParams(window.location.search)
   const uuid = queryParams.get("uuid")
   const { user } = useContext(UserContext)
+  const { Adress } = useContext(AdressContext)
 
   const [modalActive, setModalActive] = useState(true)
 
@@ -74,8 +75,8 @@ const Main = observer(() => {
         russian: ['Тарифные планы', !user.isAuth ? 'для перевозчика' : ''],
         english: ['Tariff plans', !user.isAuth ? 'for the carrier' : '']
       }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: ['Выберите подходящий тарифный, или сделайте это после пробного периода 30 дней'],
-        english: ['Choose the appropriate tariff, or do it after the trial period of 30 days']
+        russian: [Adress.country.value === 'russia' ? 'Начните пользоваться нашим сервисом до 28.02.2023, выберите любой подходящий вам тарифный план и пользуйтесь им до окончания срока действия бесплатно!' : 'No such language in your country'],
+        english: [Adress.country.value === 'russia' ? 'Start using our service before 02/28/2022, choose any tariff plan that suits you and use it until the expiration date for free!' : 'At the moment our service in ${SetTranslate(Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!']
       }), description: '', class: 'uneven', type: 'self_content',
       role: 'carrier'
     },
@@ -84,8 +85,8 @@ const Main = observer(() => {
         russian: ['Тарифные планы', !user.isAuth ? 'для заказчика' : ''],
         english: ['Tariff plans', !user.isAuth ? 'for the customer' : '']
       }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: ['Выберите подходящий тарифный, или сделайте это после пробного периода 30 дней'],
-        english: ['Choose the appropriate tariff, or do it after the trial period of 30 days']
+        russian: [Adress.country.value === 'russia' ? 'Начните пользоваться нашим сервисом до 28.02.2023, выберите любой подходящий вам тарифный план и пользуйтесь им до окончания срока действия бесплатно!' : 'No such language in your country'],
+        english: [Adress.country.value === 'russia' ? 'Start using our service before 02/28/2022, choose any tariff plan that suits you and use it until the expiration date for free!' : 'At the moment our service in ${SetTranslate(Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!']
       }), description: '', class: 'uneven', type: 'self_content',
       role: 'customer'
     },
@@ -170,7 +171,7 @@ const Main = observer(() => {
         english: ['Order points status']
       }), description: SetNativeTranslate(Translate.language, {
         russian: ['Отслеживайте статус точек заказа, перевозчик может проставлять его по вашему запросу'],
-        english: ['']
+        english: ['Track the status of order points, the carrier can affix it at your request']
       }), section_id: 2, class: ''
     },
     {

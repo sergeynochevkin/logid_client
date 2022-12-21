@@ -29,7 +29,6 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
     const priority = async () => {
         if (user.user.role === 'carrier') {
             await updatePartner(onePartner.id, 'priority')
-            const to_favorite_notification = SetTranslate('to_favorite_notification')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_added} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_favorite_notification}` }])
             setFetchPartnersStart(true)
             setModalActive(false)

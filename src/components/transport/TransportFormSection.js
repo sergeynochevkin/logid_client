@@ -97,7 +97,7 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
               <CheckBoxContainer key={equipment.id}>
                 <CheckBoxSection key={equipment.id}>
 
-                  <input type='checkbox' value={formData.thermo_bag} key={equipment.id} onChange={() => {
+                  <input type='checkbox' checked={formData.thermo_bag &&'checked'}  value={formData.thermo_bag} key={equipment.id} onChange={() => {
                     formData.thermo_bag === false ? setFormData({ ...formData, thermo_bag: true }) :
                       setFormData({ ...formData, thermo_bag: false })
                   }}></input>
@@ -150,7 +150,7 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                 <CheckBoxSection key={equipment.id}>
                   {equipment.type === 'thermo_van' ?
                     <>
-                      <input type='checkbox' value={formData.thermo_van} onChange={() => {
+                      <input type='checkbox' checked={formData.thermo_van &&'checked'}  value={formData.thermo_van} onChange={() => {
                         formData.thermo_van === false ? setFormData({ ...formData, thermo_van: true }) :
                           setFormData({ ...formData, thermo_van: false })
                       }}></input>
@@ -158,7 +158,7 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                     </> :
                     equipment.type === 'refrigerator_minus' ?
                       <>
-                        <input type='checkbox' value={formData.refrigerator_minus} onChange={() => {
+                        <input type='checkbox' checked={formData.refrigerator_minus &&'checked'}  value={formData.refrigerator_minus} onChange={() => {
                           formData.refrigerator_minus === false ? setFormData({ ...formData, refrigerator_minus: true }) :
                             setFormData({ ...formData, refrigerator_minus: false })
                         }}></input>
@@ -166,7 +166,7 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                       </> :
                       equipment.type === 'refrigerator_plus' ?
                         <>
-                          <input type='checkbox' value={formData.refrigerator_plus} onChange={() => {
+                          <input type='checkbox' checked={formData.refrigerator_plus &&'checked'}  value={formData.refrigerator_plus} onChange={() => {
                             formData.refrigerator_plus === false ? setFormData({ ...formData, refrigerator_plus: true }) :
                               setFormData({ ...formData, refrigerator_plus: false })
                           }}></input>
@@ -245,19 +245,19 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                     {formData.side_type.value === 'hard_top' ?
                       <>
                         {equipment.type === 'thermo_van' ?
-                          <><input type='checkbox' value={formData.thermo_van} key={equipment.id} onChange={() => {
+                          <><input type='checkbox' checked={formData.thermo_van &&'checked'}  value={formData.thermo_van} key={equipment.id} onChange={() => {
                             formData.thermo_van === false ? setFormData({ ...formData, thermo_van: true }) :
                               setFormData({ ...formData, thermo_van: false })
                           }}></input><label>{SetTranslate(equipment.type)}</label></>
                           :
                           equipment.type === 'refrigerator_minus' & formData.side_type.value !== 'open_side' ?
-                            <> <input type='checkbox' value={formData.refrigerator_minus} key={equipment.id} onChange={() => {
+                            <> <input type='checkbox' checked={formData.refrigerator_minus &&'checked'}  value={formData.refrigerator_minus} key={equipment.id} onChange={() => {
                               formData.refrigerator_minus === false ? setFormData({ ...formData, refrigerator_minus: true }) :
                                 setFormData({ ...formData, refrigerator_minus: false })
                             }}></input><label>{SetTranslate(equipment.type)}</label></>
                             :
                             equipment.type === 'refrigerator_plus' & formData.side_type.value !== 'open_side' ?
-                              <><input type='checkbox' value={formData.refrigerator_plus} key={equipment.id} onChange={() => {
+                              <><input type='checkbox' checked={formData.refrigerator_plus &&'checked'}   value={formData.refrigerator_plus} key={equipment.id} onChange={() => {
                                 formData.refrigerator_plus === false ? setFormData({ ...formData, refrigerator_plus: true }) :
                                   setFormData({ ...formData, refrigerator_plus: false })
                               }}></input><label>{SetTranslate(equipment.type)}</label></> : <></>
@@ -268,19 +268,19 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                     }
                     {
                       equipment.type === 'hydraulic_platform' ?
-                        <><input type='checkbox' value={formData.hydraulic_platform} key={equipment.id} onChange={() => {
+                        <><input type='checkbox' checked={formData.hydraulic_platform &&'checked'} value={formData.hydraulic_platform} key={equipment.id} onChange={() => {
                           formData.hydraulic_platform === false ? setFormData({ ...formData, hydraulic_platform: true }) :
                             setFormData({ ...formData, hydraulic_platform: false })
                         }}></input><label>{SetTranslate(equipment.type)}</label></>
                         :
                         equipment.type === 'glass_stand' ?
-                          <><input type='checkbox' value={formData.glass_stand} key={equipment.id} onChange={() => {
+                          <><input type='checkbox' checked={formData.glass_stand &&'checked'}  value={formData.glass_stand} key={equipment.id} onChange={() => {
                             formData.glass_stand === false ? setFormData({ ...formData, glass_stand: true }) :
                               setFormData({ ...formData, glass_stand: false })
                           }}></input><label>{SetTranslate(equipment.type)}</label></>
                           :
                           equipment.type === 'side_loading' ?
-                            <><input type='checkbox' value={formData.side_loading} key={equipment.id} onChange={() => {
+                            <><input type='checkbox' checked={formData.side_loading &&'checked'}  value={formData.side_loading} key={equipment.id} onChange={() => {
                               formData.side_loading === false ? setFormData({ ...formData, side_loading: true }) :
                                 setFormData({ ...formData, side_loading: false })
                             }}></input><label>{SetTranslate(equipment.type)}</label></> :

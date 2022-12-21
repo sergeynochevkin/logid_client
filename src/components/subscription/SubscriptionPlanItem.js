@@ -69,7 +69,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                         {plan && plan.plan_id !== 1 ?
                             <div className='price_and_validity'>
                                 <div className={'plan_item_name_bage'}>{Adress.country.currency}</div>
-                                {plan.plan_id === Subscription.subscription.planId && user.user.role ?
+                                {plan.plan_id === Subscription.subscription.planId && user.user.role && Adress.country.value === 'russia' ?
                                     <div className={'plan_item_name_bage'}>{`${SetTranslate('active_until')} ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
                                     : <div className='paid_to_place_holder'></div>}
                             </div>

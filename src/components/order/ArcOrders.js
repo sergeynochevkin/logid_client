@@ -5,7 +5,6 @@ import { UserContext } from '../../index'
 import { observer } from 'mobx-react-lite'
 import OrderItem from './OrderItem'
 import { OrderTh } from '../ui/table/OrderTh'
-import FlexContainer from '../ui/page/FlexContainer'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchPoints } from '../../http/pointApi'
 import ArcOrderItem from './ArcOrderItem'
@@ -15,9 +14,9 @@ import useDebounce from '../../hooks/useDebounce'
 import './Order.css'
 import { SetTranslate } from '../../modules/SetTranslate'
 import NoData from '../ui/page/NoData'
-import { CardButton } from '../ui/button/CardButton'
 import { Button } from '../ui/button/Button'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
+import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 
 const ArcOrders = observer(({ setComponentFunction }) => {
   const { order } = useContext(OrderContext)
@@ -82,11 +81,11 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   const [fetching, error] = useFetching(async () => {
     await fetchOrders(UserInfo.userInfo.id, user.user.role, user.user.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, [], [], [], [], ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(data => {
       setResults(data)
-      setTotalCount(data.filtered_count)
-      order.setOrders(data.rows)
+      setTotalCount(data.filtered_count)     
       if (data.length !== 0) {
         fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => Point.setPoints(data.rows));
       }
+      order.setOrders(data.rows)
     })
   })
 
@@ -118,7 +117,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
     <>
       {listStyle === 'tile'
         ?
-        <FlexContainer>
+        <HorizontalContainer>
           {
             order.orders.map(oneOrder => <OrderItem
               key={oneOrder.id}
@@ -128,7 +127,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
             />)
           }
 
-        </FlexContainer>
+        </HorizontalContainer>
         :
         <VerticalContainer
           style={{
@@ -136,7 +135,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
             alignItems: 'center',
           }}
         >
-          {order.totalCount.arc > 0 || order.totalCount.pattern > 0 ?
+          {(order.totalCount.arc > 0 && ComponentFunction.Function === 'arc')|| (order.totalCount.pattern > 0 &&  ComponentFunction.Function === 'pattern') ?
             <>
               <FilterAndSortComponentForServer parent={'orders'} />
               <div className={'scroll_bar_container'}>
@@ -211,7 +210,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                 marginTop: '10vh',
                 fontSize: '20px'
               }}
-            >{SetTranslate('no_orders')}</NoData>
+            >{ComponentFunction.Function === 'arc' ? SetTranslate('no_orders') : SetTranslate('no_templates')}</NoData>
           }
 
         </VerticalContainer>
