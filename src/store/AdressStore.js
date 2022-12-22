@@ -5,7 +5,8 @@ export default class AdressStore {
     constructor() {
 
         this._countries = []
-        this._country = localStorage.getItem('country') ? JSON.parse(localStorage.getItem('country')) : {}
+        this._country =  {}
+        // this._country = localStorage.getItem('country') ? JSON.parse(localStorage.getItem('country')) : {}
 
         makeAutoObservable(this)
     }

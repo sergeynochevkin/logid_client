@@ -2,7 +2,8 @@ import { makeAutoObservable } from "mobx";
 
 export default class TranslateStore {
     constructor() {
-        this._language = localStorage.getItem('language') ? JSON.parse(localStorage.getItem('language')) : ''
+        this._language = ''
+        // this._language = localStorage.getItem('language') ? JSON.parse(localStorage.getItem('language')) : ''
 
         this._translation = localStorage.getItem('translation') ? JSON.parse(localStorage.getItem('translation')) : []
 
