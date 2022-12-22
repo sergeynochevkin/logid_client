@@ -125,7 +125,7 @@ const Customer = observer(() => {
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
-            <VerticalContainer>
+            <VerticalContainer
               style={{
                 gap: '0px'
               }}
