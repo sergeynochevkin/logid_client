@@ -63,9 +63,9 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
 
     useEffect(() => {
-        if (!localStorage.getItem('country')) {
+        // if (!localStorage.getItem('country')) {
             getGeoInfo();
-        }
+        // }
     }, []);
 
     useEffect(() => {
