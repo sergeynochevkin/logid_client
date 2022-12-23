@@ -21,7 +21,7 @@ export default class TranslateStore {
 
     setLanguage(value) {
         this._language = value
-        localStorage.setItem('language', JSON.stringify(value))
+        // localStorage.setItem('language', JSON.stringify(value))
     }
 
     get language() {
