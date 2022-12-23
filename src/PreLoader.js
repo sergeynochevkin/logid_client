@@ -65,14 +65,16 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
 
     useEffect(() => {
-        if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
-            Adress.setCountry(JSON.parse(localStorage.getItem('country')))
-            Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
-        } else {
-            getGeoInfo();
+        if (dataLoaded) {
+            if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
+                Adress.setCountry(JSON.parse(localStorage.getItem('country')))
+                Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
+            } else {
+                getGeoInfo();
+            }
         }
     }, []);
-
+    
     useEffect(() => {
         if (localStorage.getItem('token')) {
             try {
