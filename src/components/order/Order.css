@@ -123,6 +123,12 @@
     gap: 5px;
 }
 
+.poit_action_buttons_container{
+    display: flex;
+    align-items: center;
+    gap:10px
+}
+
 @media screen and (max-width: 1920px) and  (min-width: 769px)  {}
 
 @media screen and (max-width: 768px) and  (min-width: 426px) {

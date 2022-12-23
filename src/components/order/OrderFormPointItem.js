@@ -8,9 +8,9 @@ import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import '../ui/form/Form.css'
 import { SetTranslate } from '../../modules/SetTranslate'
+import './Order.css'
 
-
-const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate }) => {
+const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate, move_up, move_down, setCurrentPoint }) => {
 
     const { UserInfo } = useContext(UserInfoContext)
     const { Setting } = useContext(SettingContext)
@@ -75,7 +75,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
 
     const dataReset = () => {
         let data = [...pointFormData]
-        if (data[index].latitude && data[index].longitude) {            
+        if (data[index].latitude && data[index].longitude) {
             data[index].point.value = ''
             data[index].latitude = undefined
             data[index].longitude = undefined
@@ -174,9 +174,32 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
                 </VerticalContainer>
                 : <></>}
 
-            {pointFormData.length > 2 && (index !== 0 && index !== pointFormData.length - 1) ? <AddDeleteFieldButton onClick={() => {
-                removeField(index)
-            }}>{SetTranslate('delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
+
+            <div className='poit_action_buttons_container'>
+                {pointFormData.length > 2 && (index !== 0 && index !== pointFormData.length - 1) ? <AddDeleteFieldButton onClick={() => {
+                    removeField(index)
+                }}>{SetTranslate('delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
+
+                {/* add functionality */}
+                {/* {pointItem.sequence !== 1 ? <>
+                    <AddDeleteFieldButton onClick={() => {
+                        setCurrentPoint(pointItem)
+                        move_up(pointItem)
+                    }}
+                    >{SetTranslate('move_up')}</AddDeleteFieldButton>
+                </> : <></>}
+                {pointItem.sequence !== 50 ? <>
+                    <AddDeleteFieldButton
+                        onClick={() => {
+                            setCurrentPoint(pointItem)
+                            move_down(pointItem)
+                        }}
+                    >{SetTranslate('move_down')}</AddDeleteFieldButton>
+                </> : <></>} */}
+            </div>
+
+
+
         </div>
     )
 })

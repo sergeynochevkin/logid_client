@@ -23,6 +23,7 @@ import { useInput } from '../../hooks/useInput'
 import OrderFormPointItem from './OrderFormPointItem'
 import { SetTranslate } from '../../modules/SetTranslate'
 
+
 const Container = styled.div`
 display:flex;
 gap:5px;
@@ -308,11 +309,11 @@ const OrderForm = observer(() => {
             if (formData.order_status === 'pattern') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${Template} ${orderId} ${Created}` }]);
             }
-           
+
             setFormData(initialValue)
-            setPointFormData(pointInitialValue)     
+            setPointFormData(pointInitialValue)
             ComponentFunction.setOrdersComponentFunction('orderList')
-            ComponentFunction.setFunction(formData.order_status)      
+            ComponentFunction.setFunction(formData.order_status)
             ComponentFunction.setPageFunction('orderList')
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -347,6 +348,34 @@ const OrderForm = observer(() => {
         }))
         setCalculate(true)
         e.target.style.background = ''
+    }
+
+    function move_up(point) {
+        setCurrentPoint(point)
+        setPointFormData(pointFormData.map(p => {
+            if (p.sequence === point.sequence) {
+                return { ...p, sequence: currentPoint.sequence - 1 }
+            }
+            if (p.sequence === point.sequence - 1) {
+                return { ...p, sequence: currentPoint.sequence + 1 }
+            }
+            return p
+        }))
+        setCalculate(true)
+    }
+
+    function move_down(point) {
+        setCurrentPoint(point)
+        setPointFormData(pointFormData.map(p => {
+            if (p.sequence === point.sequence) {
+                return { ...p, sequence: currentPoint.sequence + 1 }
+            }
+            if (p.sequence === point.sequence + 1) {
+                return { ...p, sequence: currentPoint.sequence - 1 }
+            }
+            return p
+        }))
+        setCalculate(true)
     }
 
     const sortPoints = (a, b) => {
@@ -508,6 +537,9 @@ const OrderForm = observer(() => {
                 >
                     {pointFormData.sort(sortPoints).map((pointItem, index) =>
                         <OrderFormPointItem
+                            setCurrentPoint={setCurrentPoint}
+                            move_up={move_up}
+                            move_down={move_down}
                             pointFormData={pointFormData}
                             setPointFormData={setPointFormData}
                             pointItem={pointItem}

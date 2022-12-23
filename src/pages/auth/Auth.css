@@ -4,8 +4,7 @@
     max-width: 800px;
     color: black;
     margin-top: 20px;
-    text-align: center;
-    text-align: left;
+    text-align: justify;
 }
 
 .auth_disclaimer.dark {
@@ -14,16 +13,16 @@
 
 @media screen and (max-width: 1920px) {}
 
-@media screen and (max-width: 768px) and  (min-width: 426px)  {
-    .auth_disclaimer{
+@media screen and (max-width: 768px) and (min-width: 426px) {
+    .auth_disclaimer {
         padding-bottom: 20px;
-        width:700px;
+        width: 700px;
     }
 }
 
 @media screen and (max-width: 425px) {
-    .auth_disclaimer{
-        padding-bottom: 20px;
-        width:380px;
+    .auth_disclaimer {
+        padding-bottom: 300px;
+        width: 380px;
     }
 }

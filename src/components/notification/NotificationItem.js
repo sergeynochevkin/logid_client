@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { NotificationContext } from '../..'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
+import { SetTranslate } from '../../modules/SetTranslate'
 import './Notification.css'
 
 const NotificationItem = observer(({ message, type, id }) => {
@@ -57,7 +58,7 @@ const NotificationItem = observer(({ message, type, id }) => {
         style={{ width: `${notificationWidth}%` }}
       ></div>
       {width <= 768 ?
-        <div className='tap_to_hide'>Tap to hide</div>
+        <div className='tap_to_hide'>{SetTranslate('tap_to_hide')}</div>
         : <></>}
     </div>
 

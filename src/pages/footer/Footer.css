@@ -33,6 +33,7 @@
 .footer_copyright {
     font-size: 10px;
     color: grey;
+    text-align: justify;
 }
 
 
@@ -49,7 +50,7 @@
     font-size: 12px;
 }
 
-@media screen and (max-width: 1920px)and  (min-width: 769px) {
+@media screen and (max-width: 1920px)and (min-width: 769px) {
     .footer_container {
         justify-content: space-around;
         flex-wrap: wrap;
@@ -61,7 +62,7 @@
 }
 
 
-@media screen and (max-width: 768px)and  (min-width: 426px)  {
+@media screen and (max-width: 768px)and (min-width: 426px) {
     .footer_container {
         justify-content: center;
         flex-wrap: wrap;

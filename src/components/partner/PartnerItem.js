@@ -40,9 +40,9 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
         <OrderTd>{onePartnerInfo.id}</OrderTd>
         <OrderTd
           style={{
-            backgroundColor: onePartner.status === 'normal' ? 'rgb(241,196,15,0.8)' :
-              onePartner.status === 'priority' ? 'rgb(129, 199, 132,0.8)' :
-                onePartner.status === 'blocked' ? 'rgb(254, 111, 103,0.8)' : '',
+            backgroundColor: onePartner.status === 'normal' ? 'rgb(241,196,15,0.6)' :
+              onePartner.status === 'priority' ? 'rgb(129, 199, 132,0.6)' :
+                onePartner.status === 'blocked' ? 'rgb(254, 111, 103,0.6)' : '',
             cursor: 'pointer'
           }}
           onClick={() => {
@@ -71,7 +71,7 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
           }}
           style={{
             cursor: Partner.groups.length !== 0 ? 'pointer' : 'default',
-            backgroundColor: partnerGroups.length > 0 ? 'rgb(241,196,15,0.8)' : ''
+            backgroundColor: partnerGroups.length > 0 ? 'rgb(241,196,15,0.6)' : ''
           }}
         >{Partner.groups.length === 0 ? SetTranslate('no_groups') : partnerGroups.length === 0 ? SetTranslate('can_choose_groups') : `${partnerGroups.length}`}</OrderTd>
         <OrderTd>{onePartner.status === 'normal' ? SetTranslate('partner_normal') : onePartner.status === 'blocked' ? SetTranslate('partner_blocked') : onePartner.status === 'priority' ? SetTranslate('partner_favorite') : ''}</OrderTd>

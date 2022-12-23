@@ -33,9 +33,11 @@ const PreLoader = observer(({ children, ...props }) => {
                 let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
+                    Translate.setLanguage(country.default_language)
                 } else {
                     Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
                     //select deafault country, say that we dont have service in this country
+                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
                 }
             })
             .catch((error) => {
@@ -63,15 +65,13 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
 
     useEffect(() => {
-        // if (!localStorage.getItem('country')) {
+        if (localStorage.getItem('country')) {
+            Adress.setCountry(JSON.parse(localStorage.getItem('country')))
+            Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
+        } else {
             getGeoInfo();
-        // }
+        }
     }, []);
-
-    useEffect(() => {
-        //check if we dont have language state in localstorage
-        Adress.country && Translate.setLanguage(Adress.country.default_language)
-    }, [Adress.country]);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
