@@ -16,6 +16,7 @@ import { useFetching } from '../../hooks/useFetching'
 import { fetchUser } from '../../http/userAPI'
 import AccountActivationStatus from './AccountActivationStatus'
 import './Account.css'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
 const Account = observer(({ setFetchPartnersStart }) => {
@@ -68,7 +69,7 @@ const Account = observer(({ setFetchPartnersStart }) => {
                         className={containerClassName}>
                         <AccountItem fieldName='id' fieldValue={UserInfo.userInfo.id} editable={false} />
 
-                        <AccountItem fieldName={SetTranslate('name_surname_fathersname_content')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} setFetchStart={setFetchStart} />
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'name_surname_fathersname_validation')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} setFetchStart={setFetchStart} />
 
                         <AccountItem fieldName={SetTranslate('country_content')} fieldValue={SetTranslate(UserInfo.userInfo.country)} editable={false} attachedField={'country'} setFetchStart={setFetchStart} />
                         <AccountItem fieldName={SetTranslate('city_content')} fieldValue={UserInfo.userInfo.city} editable={true} attachedField={'city'} setFetchStart={setFetchStart} setFetchPartnersStart={setFetchPartnersStart} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} />

@@ -27,6 +27,7 @@ import { v4 } from "uuid";
 import { SetTranslate } from '../../modules/SetTranslate'
 import { observer } from 'mobx-react-lite'
 import { update } from '../../http/userAPI'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, setFetchStart, setFetchPartnersStart, setLoginEditable, setPasswordEditable, passwordEditable, loginEditable, adressEditable, setAdressEditable, cityEditable, setCityEditable }) => {
     const [fieldEditable, setFieldEditable] = useState(false)
@@ -85,7 +86,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
     const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
 
     formData.id = UserInfo.userInfo.id
-    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetTranslate('passport_date_of_issue'))
+    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_validation').toLowerCase())
     formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetTranslate('company_inn'))
     formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetTranslate('company_name'))
     formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetTranslate('website'))
@@ -160,7 +161,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
 
     return (
         <VerticalContainer style={{ gap: '0px' }}>
-            <FieldName>{attachedField === 'city' && cityEditable ? 'Город и адрес' : fieldName}</FieldName>
+            <FieldName>{attachedField === 'city' && cityEditable ? SetNativeTranslate(Translate.language,{},'city_adress') : fieldName}</FieldName>
             <HorizontalContainer
                 style={{ alignItems: 'center' }}>
                 {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ?
@@ -191,7 +192,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                                                 setCityEditable(false)
                                             }
                                         }}
-                                    >Изменить</CardButton> :
+                                    >{SetNativeTranslate(Translate.language,{},'edit')}</CardButton> :
                                     <></>
                                 }
                             </div> : <></>}
