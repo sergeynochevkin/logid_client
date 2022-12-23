@@ -105,7 +105,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
     if (!dataLoaded) {
         <div className={'preloading_page'}>
-            <ing src={loader}></ing>
+            <img src={loader}></img>
         </div>
     }
     else {
