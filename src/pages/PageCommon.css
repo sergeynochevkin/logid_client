@@ -1,5 +1,7 @@
 .preloading_page {
     display: flex;
+    width: 100wh;
+    height: 90vh;
     align-items: center;
 }
 
