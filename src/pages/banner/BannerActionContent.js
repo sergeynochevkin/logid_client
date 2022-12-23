@@ -48,7 +48,7 @@ const BannerActionContent = observer(() => {
                     </div>
                     <div className='banner_disclaimer'>
                         {SetNativeTranslate(Translate.language, {
-                            russian: ['Обратите внимание, сервис logid не проводит никакой юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
+                            russian: ['Обратите внимание, сервис logid не проводит юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
                             english: ['Please note that the logid service does not conduct any legal due diligence of users and is not responsible for their reliability. To work with a customer or carrier, we strongly recommend that you always build contractual relationships, check documents, and maintain the necessary document flow']
                         })}
                     </div>
@@ -66,7 +66,7 @@ const BannerActionContent = observer(() => {
 
                         <div className='banner_disclaimer'>
                             {SetNativeTranslate(Translate.language, {
-                                russian: ['Обратите внимание, сервис logid не проводит никакой юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы с заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
+                                russian: ['Обратите внимание, сервис logid не проводит юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы с заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
                                 english: ['Please note that the logid service does not conduct any legal due diligence of users and is not responsible for their reliability. To work with a customer or carrier, we strongly recommend that you always build contractual relationships, check documents, and maintain the necessary document flow']
 
                             })}
