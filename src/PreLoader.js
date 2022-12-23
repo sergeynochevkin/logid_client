@@ -54,7 +54,6 @@ const PreLoader = observer(({ children, ...props }) => {
                 Subscription.setPlans(data.subscripton_plans)
                 Subscription.setOptions(data.subscripton_options)
                 Subscription.setOptionsByPlans(data.subscripton_options_by_plans)
-                Translate.setTranslation(data.translation)
                 TransportType.setTypes(data.transport_types)
                 TransportType.setSideTypes(data.transport_side_types)
                 TransportType.setLoadCapacities(data.transport_load_capacities)

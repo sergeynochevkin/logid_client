@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import { Button } from '../ui/button/Button'
 import { CardButton } from '../ui/button/CardButton'
-import { useColor } from '../../hooks/useColor'
+import { setColor } from '../../modules/setColor'
 import { AdressContext, NotificationContext, SettingContext, SubscriptionContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import OptionItem from './OptionItem'
 import { observer } from 'mobx-react-lite'
@@ -53,7 +53,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
             {plan ?
                 <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.plan_id === Subscription.subscription.planId && user.user.role ? 'plan_item_container current' :
                     'plan_item_container'}
-                    style={{ boxShadow: `0px 5px 10px 0px ${useColor(plan.name)}`, color: plan.plan_id !== Subscription.subscription.planId && Setting.app_theme === 'dark' ? 'white' : parent === 'status' && Setting.app_theme === 'dark' ? 'white' : '' }}>
+                    style={{ boxShadow: `0px 5px 10px 0px ${setColor(plan.name)}`, color: plan.plan_id !== Subscription.subscription.planId && Setting.app_theme === 'dark' ? 'white' : parent === 'status' && Setting.app_theme === 'dark' ? 'white' : '' }}>
                     <div className={'plan_name_container'}>
                         <div className={'plan_item_name'}>{SetNativeTranslate(Translate.language,{},plan.name)}</div>
                         <div className={'plan_item_name_bage'}>{SetNativeTranslate(Translate.language,{},plan.bage)}</div>

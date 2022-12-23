@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { Button } from '../ui/button/Button'
-import { useColor } from '../../hooks/useColor'
+import { setColor } from '../../modules/setColor'
 
 import { observer } from 'mobx-react-lite'
 import { NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
@@ -40,7 +40,7 @@ const AccountActivationStatus = observer(({ containerClassName }) => {
             className={containerClassName}>
             <FieldName>{SetNativeTranslate(Translate.language,{}, 'account_status')}</FieldName>
             <div
-                style={{ boxShadow: `0px 5px 10px 0px ${useColor(`${user.user.isActivated ? 'activated' : 'not_activated'}`)}`, padding: '10px 20px 10px 20px', borderRadius: '10px', backgroundColor: Setting.app_theme !== 'light' && '#141414', alignItems: 'flex-start', justifyContent: 'start', width: '270px', color: Setting.app_theme === 'light' ? 'black' : 'white' }}>
+                style={{ boxShadow: `0px 5px 10px 0px ${setColor(`${user.user.isActivated ? 'activated' : 'not_activated'}`)}`, padding: '10px 20px 10px 20px', borderRadius: '10px', backgroundColor: Setting.app_theme !== 'light' && '#141414', alignItems: 'flex-start', justifyContent: 'start', width: '270px', color: Setting.app_theme === 'light' ? 'black' : 'white' }}>
                 <HorizontalContainer
                     style={{ justifyContent: 'center', display: 'flex', width: '100%', gap: '20px', alignItems: 'center', minHeight: '50px' }}
                 >

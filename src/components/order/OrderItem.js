@@ -17,7 +17,7 @@ import { useFetching } from '../../hooks/useFetching'
 import { fetchPoints } from '../../http/pointApi'
 // import MapComponent from './MapComponent'
 
-import { useColor } from '../../hooks/useColor'
+import { setColor } from '../../modules/setColor'
 import OrderStatusButtons from './OrderStatusButtons'
 import MapComponent from '../map/MapComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
@@ -118,7 +118,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                 }}
                 thisOrder={thisOrder}
             // style={{                    
-            //     boxShadow: `0px 5px 10px 0px ${order.group.includes(thisOrder.id) ? 'grey' : useColor(thisOrder.order_status)}`,
+            //     boxShadow: `0px 5px 10px 0px ${order.group.includes(thisOrder.id) ? 'grey' : setColor(thisOrder.order_status)}`,
             //     minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
             //     marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
             //     cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
@@ -196,12 +196,12 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
 
                                 {onePartnerInfo.legal === 'person' ?
                                     <CardColName
-                                        style={{ backgroundColor: useColor(thisPartner.status) }}>
+                                        style={{ backgroundColor: setColor(thisPartner.status) }}>
                                         {onePartnerInfo.name_surname_fathersname}
                                     </CardColName>
                                     :
                                     <CardColName
-                                        style={{ backgroundColor: useColor(thisPartner.status) }}>
+                                        style={{ backgroundColor: setColor(thisPartner.status) }}>
                                         {onePartnerInfo.company_name}
                                     </CardColName>}
                             </CardRow>
