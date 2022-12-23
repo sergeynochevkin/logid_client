@@ -21,6 +21,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
+    const [data2Loaded, setData2Loaded] = useState(false)
 
     //attach google and lets go to design!
 
@@ -73,6 +74,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 getGeoInfo();
             }
         }
+        setData2Loaded(true)
     }, []);
     
     useEffect(() => {
@@ -101,7 +103,7 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
     //check and set country language from state
 
-    if (!dataLoaded) {
+    if (!data2Loaded) {
         <></>
     }
     else {
