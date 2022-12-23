@@ -40,6 +40,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
                 }
+                setData2Loaded(true)
             })
             .catch((error) => {
                 console.log(error);
@@ -70,13 +71,13 @@ const PreLoader = observer(({ children, ...props }) => {
             if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
                 Adress.setCountry(JSON.parse(localStorage.getItem('country')))
                 Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
+                setData2Loaded(true)
             } else {
                 getGeoInfo();
             }
         }
-        setData2Loaded(true)
     }, []);
-    
+
     useEffect(() => {
         if (localStorage.getItem('token')) {
             try {
