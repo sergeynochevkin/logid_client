@@ -60,11 +60,9 @@ const PreLoader = observer(({ children, ...props }) => {
                 TransportType.setLoadCapacities(data.transport_load_capacities)
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
-                setDataLoaded(true)
             })
         }
-        fetchData();
-        UserInfo.setUserInfo({})
+        fetchData().then(UserInfo.setUserInfo({})).then(setDataLoaded(true));
     }, [])
 
     useEffect(() => {
@@ -109,7 +107,6 @@ const PreLoader = observer(({ children, ...props }) => {
         <div>loading...</div>
     }
     else {
-
         return (
             <div{...props}>{children}</div>
         )
