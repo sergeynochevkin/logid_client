@@ -20,7 +20,9 @@ const MainSection = observer(({ section, items }) => {
         section.type === 'items' ?
           <div className='section_content_container'>
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
+            <div className='main_section_items_container'>
               {items.map(item => <MainSectionItem item={item} key={item.id} />)}
+              </div>
             </div></div> : <div className='self_content_container'>
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
               <SubscriptionForm parent={'main'} mainRole={section.role} />
