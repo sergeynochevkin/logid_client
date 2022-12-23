@@ -103,7 +103,7 @@ const PreLoader = observer(({ children, ...props }) => {
     //check and set country language from state
 
     if (!dataLoaded) {
-        <div className={Setting.app_theme === 'light' ? 'preloading_page' : Setting.app_theme === 'dark' ? 'preloading_page dark' : 'preloading_page'}>
+        <div className={Setting.app_theme === 'light' ? 'preloading_page' : Setting.app_theme === 'dark' ? 'preloading_page dark' : 'preloading_page dark'}>
             {/* add styling and loader */}
         </div>
     }
