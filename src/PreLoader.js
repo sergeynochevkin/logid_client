@@ -10,6 +10,7 @@ import { fetchUserInfo } from './http/userInfoApi'
 import { CARRIER_ROUTE, CUSTOMER_ROUTE } from './utils/consts'
 import axios from "axios";
 import '../src/pages/PageCommon.css'
+import loader from '../src/assets/loader.gif';
 
 const PreLoader = observer(({ children, ...props }) => {
     const { TransportType } = useContext(TransportTypeContext)
@@ -103,8 +104,8 @@ const PreLoader = observer(({ children, ...props }) => {
     //check and set country language from state
 
     if (!dataLoaded) {
-        <div className={Setting.app_theme === 'light' ? 'preloading_page' : Setting.app_theme === 'dark' ? 'preloading_page dark' : 'preloading_page dark'}>
-            {/* add styling and loader */}
+        <div className={'preloading_page'}>
+            <ing src={loader}></ing>
         </div>
     }
     else {

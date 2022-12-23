@@ -1,7 +1,5 @@
 .preloading_page {
-    background-color: white;
+    display: flex;
+    align-items: center;
 }
 
-.preloading_page.dark {
-    background-color: black;
-}
