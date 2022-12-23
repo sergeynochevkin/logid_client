@@ -9,8 +9,6 @@ import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
 import { CARRIER_ROUTE, CUSTOMER_ROUTE } from './utils/consts'
 import axios from "axios";
-import '../src/pages/PageCommon.css'
-import loader from '../src/assets/loader.gif';
 
 const PreLoader = observer(({ children, ...props }) => {
     const { TransportType } = useContext(TransportTypeContext)
@@ -104,9 +102,7 @@ const PreLoader = observer(({ children, ...props }) => {
     //check and set country language from state
 
     if (!dataLoaded) {
-        <div className={'preloading_page'}>
-            <img src={loader}></img>
-        </div>
+      <></>
     }
     else {
         return (
