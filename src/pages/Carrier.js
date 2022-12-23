@@ -26,8 +26,8 @@ import { fetchSubscription } from '../http/subscriptionApi'
 import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { fetchUserLimits } from '../http/limitApi'
-import { SetTranslate } from '../modules/SetTranslate'
 import { VerticalContainer } from '../components/ui/page/VerticalContainer'
+import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
 
 const Container = styled.div`
@@ -112,7 +112,7 @@ const Carrier = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetTranslate('carriers_office')}</title>
+        <title>{SetNativeTranslate(Translate.language,{},'carriers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -125,7 +125,7 @@ const Carrier = observer(() => {
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>{SetTranslate('carriers_office')}</PageBanner>
+        <PageBanner>{SetNativeTranslate(Translate.language,{},'carriers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -134,7 +134,7 @@ const Carrier = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>{SetTranslate('fill_account')}</BookMark>
+              <BookMark>{SetNativeTranslate(Translate.language,{},'fill_account')}</BookMark>
               <UserInfoForm />
             </VerticalContainer>
 
@@ -151,13 +151,13 @@ const Carrier = observer(() => {
 
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'grey',
-                }}>{SetTranslate('orders')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language,{},'orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('transport')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'transport' && 'grey',
-                }}>{SetTranslate('transports')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language,{},'transports')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('customers')
@@ -165,19 +165,19 @@ const Carrier = observer(() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'customers' && 'grey',
-                }}>{SetTranslate('customers')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language,{},'customers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('account'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'grey',
-                }}>{SetTranslate('account')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language,{},'account')}</BookMark>
 
                 {/* <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>{SetTranslate('settings')}</BookMark> */}
+                }}>{SetNativeTranslate(Translate.language,{},'settings')}</BookMark> */}
               </div>
             </div>
 

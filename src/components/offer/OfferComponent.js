@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { ComponentFunctionContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import OfferModalContent from './OfferModalContent'
 import { CardButton } from '../ui/button/CardButton'
 import { CardColName } from '../ui/card/CardColName'
@@ -8,11 +8,12 @@ import { CardRow } from '../ui/card/CardRow'
 import Modal from '../ui/modal/Modal'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { setTime } from '../../modules/setTime'
-import { SetTranslate } from '../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners, thisCarrierOffer, thisOrderOffers, firstPoint }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
+    const{Translate} = useContext(TranslateContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const [modalActive, setModalActive] = useState(false)
 
@@ -46,7 +47,7 @@ const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners
                         event.stopPropagation()
                         setModalActive(true)
                     }}
-                >{thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id) ? SetTranslate('change_offer') : SetTranslate('make_offer')}</CardButton> : <></>}
+                >{thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id) ? SetNativeTranslate(Translate.language,{},'change_offer') : SetNativeTranslate(Translate.language,{},'make_offer')}</CardButton> : <></>}
 
             {thisOrderOffers.length > 0 ? <CardRow
                 onClick={(event) => {
@@ -54,7 +55,7 @@ const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners
                     setModalActive(true)
                 }}
                 style={{ cursor: 'pointer' }}
-            ><CardColName>{SetTranslate('total_offers')}</CardColName><CardColName> {thisOrderOffers.length}</CardColName></CardRow> : <></>}
+            ><CardColName>{SetNativeTranslate(Translate.language,{},'total_offers')}</CardColName><CardColName> {thisOrderOffers.length}</CardColName></CardRow> : <></>}
 
         </VerticalContainer>
         <Modal modalActive={modalActive} setModalActive={setModalActive} parent={parent} ComponentFunction={ComponentFunction} formReset={formReset}>

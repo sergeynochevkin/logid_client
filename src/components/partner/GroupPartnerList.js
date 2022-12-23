@@ -4,7 +4,8 @@ import GroupPartnerItem from './GroupPartnerItem'
 import { CardButton } from '../ui/button/CardButton'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
-import { SetTranslate } from '../../modules/SetTranslate'
+
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
     const { Partner } = useContext(PartnerContext)
@@ -23,10 +24,10 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
             <table>
                 <tbody>
                     <tr>
-                        <OrderTh>{SetTranslate('id')}</OrderTh>
-                        <OrderTh>{SetTranslate('partner_name')}</OrderTh>
-                        <OrderTh>{SetTranslate('phone')}</OrderTh>
-                        <OrderTh>{SetTranslate('status')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language,{},'id')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language,{},'partner_name')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language,{},'phone')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language,{},'status')}</OrderTh>
                     </tr>
                 </tbody>
                 <tbody>
@@ -49,7 +50,7 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
                 onClick={() => {
                     setModalActive(false)
                 }}
-            >{SetTranslate('close')}</CardButton>
+            >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
         </VerticalContainer>
 
 

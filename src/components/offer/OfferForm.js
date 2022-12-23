@@ -14,7 +14,7 @@ import { Smaller } from '../ui/text/Smaller'
 import { v4 } from "uuid";
 import { AdressContext, NotificationContext, TranslateContext, UserContext } from '../../index'
 import { sendMail } from '../../http/mailApi'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const Container = styled.div`
@@ -36,9 +36,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
 
     const validCost = /^\d+$/
 
-    formData.time_from = useInput(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '', { isEmpty: true }, SetTranslate('arrival_time_field_name').toLowerCase())
-    formData.cost = useInput(thisCarrierOffer ? thisCarrierOffer.cost : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, SetTranslate('cost').toLowerCase())
-    formData.carrier_comment = useInput(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '', { isEmpty: true, minLength: 8, maxLength: 20 }, SetTranslate('comment').toLowerCase())
+    formData.time_from = useInput(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '', { isEmpty: true }, SetNativeTranslate(Translate.language,{},'arrival_time_field_name').toLowerCase())
+    formData.cost = useInput(thisCarrierOffer ? thisCarrierOffer.cost : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, SetNativeTranslate(Translate.language,{},'cost').toLowerCase())
+    formData.carrier_comment = useInput(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '', { isEmpty: true, minLength: 8, maxLength: 20 }, SetNativeTranslate(Translate.language,{},'comment').toLowerCase())
 
     const click = async (event) => {
         try {
@@ -112,7 +112,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 <VerticalContainer
                     style={{ gap: '0px' }}
                 >
-                    <Input placeholder={`${SetTranslate('cost')} ${Adress.country.currency}`} value={formData
+                    <Input placeholder={`${SetNativeTranslate(Translate.language,{},'cost')} ${Adress.country.currency}`} value={formData
                         .cost.value}
                         onChange={(e) => formData.cost.onChange(e)}
                         onBlur={e => formData.cost.onBlur(e)}
@@ -130,11 +130,11 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     </FieldName>
                 </VerticalContainer>
 
-                <Label>{SetTranslate('arrival_time_field_name')}</Label>
+                <Label>{SetNativeTranslate(Translate.language,{},'arrival_time_field_name')}</Label>
                 <VerticalContainer
                     style={{ gap: '0px' }}
                 >
-                    <Input placeholder={SetTranslate('arrival_time_field_name')} value={formData
+                    <Input placeholder={SetNativeTranslate(Translate.language,{},'arrival_time_field_name')} value={formData
                         .time_from.value}
 
                         onChange={(e) => formData.time_from.onChange(e)}
@@ -188,17 +188,17 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
             <div>
                 <CardButton onClick={click}
                     disabled={(formData.carrier_comment.notValid && !formData.carrier_comment.isEmpty) || formData.cost.notValid || formData.time_from.notValid}
-                >{thisCarrierOffer ? SetTranslate('edit') : SetTranslate('send')}</CardButton>
+                >{thisCarrierOffer ? SetNativeTranslate(Translate.language,{},'edit') : SetNativeTranslate(Translate.language,{},'send')}</CardButton>
                 {thisCarrierOffer ?
                     <CardButton
                         onClick={delOffer}
-                    >{SetTranslate('delete')}</CardButton>
+                    >{SetNativeTranslate(Translate.language,{},'delete')}</CardButton>
                     : <></>}
                 <CardButton onClick={() => {
                     setModalActive(false);
                     setFormData({});
                     formReset()
-                }}>{SetTranslate('close')}</CardButton>
+                }}>{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
             </div>
         </Container>
     )

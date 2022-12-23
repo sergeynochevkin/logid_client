@@ -7,11 +7,11 @@ import NotificationComponent from '../../notification/NotificationComponent';
 import { logout } from '../../../http/userAPI';
 
 import './NavBar.css'
-import { SetTranslate } from '../../../modules/SetTranslate';
 import dark_mode from '../../../assets/dark_mode.png';
 import light_mode from '../../../assets/light_mode.png';
 import country from '../../../assets/country.png';
 import country_white from '../../../assets/country_white.png';
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -34,25 +34,25 @@ const NavBar = observer(() => {
         navigate(MAIN_ROUTE)}>Главная</Item> */}
       {user.user.role === "customer" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CUSTOMER_ROUTE)}>{SetTranslate('customers_office')}</div> :
+          navigate(CUSTOMER_ROUTE)}>{SetNativeTranslate(Translate.language,{},'customers_office')}</div> :
         <></>
       }
 
       {user.user.role === "carrier" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(CARRIER_ROUTE)}>{SetTranslate('carriers_office')}</div> :
+          navigate(CARRIER_ROUTE)}>{SetNativeTranslate(Translate.language,{},'carriers_office')}</div> :
         <></>
       }
 
       {user.user.role === "manager" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(MANAGER_ROUTE)}>{SetTranslate('managers_office')}</div> :
+          navigate(MANAGER_ROUTE)}>{SetNativeTranslate(Translate.language,{},'managers_office')}</div> :
         <></>
       }
 
       {user.user.role === "admin" && user.isAuth ?
         <div className='nav_bar_item' onClick={() =>
-          navigate(ADMIN_ROUTE)}>{SetTranslate('administrators_office')}</div> :
+          navigate(ADMIN_ROUTE)}>{SetNativeTranslate(Translate.language,{},'administrators_office')}</div> :
         <></>
       }
 
@@ -65,9 +65,9 @@ const NavBar = observer(() => {
             user.setUser({});
             UserInfo.setUserInfo({})
             localStorage.clear()
-          }}>{SetTranslate('sign_out')}</div> :
+          }}>{SetNativeTranslate(Translate.language,{},'sign_out')}</div> :
         <div className='nav_bar_item' onClick={() =>
-          navigate(LOGIN_ROUTE)}>{SetTranslate('sign_in')}</div>
+          navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language,{},'sign_in')}</div>
       }
 
       <img
@@ -94,7 +94,7 @@ const NavBar = observer(() => {
 
       >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.value === 'russia' ? 'RU' : ''}</div>
 
-      <div className='nav_bar_item' onClick={() => { }}>{Translate.language && SetTranslate(Adress.country.value)}</div>
+      <div className='nav_bar_item' onClick={() => { }}>{Translate.language && SetNativeTranslate(Translate.language,{},Adress.country.value)}</div>
     </div>
 
 

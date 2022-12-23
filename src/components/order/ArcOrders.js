@@ -12,11 +12,12 @@ import { VerticalContainer } from '../ui/page/VerticalContainer'
 import FilterAndSortComponentForServer from '../FilterAndSortComponentForServer'
 import useDebounce from '../../hooks/useDebounce'
 import './Order.css'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import NoData from '../ui/page/NoData'
 import { Button } from '../ui/button/Button'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const ArcOrders = observer(({ setComponentFunction }) => {
   const { order } = useContext(OrderContext)
@@ -24,6 +25,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   const [listStyle, setListStyle] = useState('list')
   const { UserInfo } = useContext(UserInfoContext)
   const { Point } = useContext(PointContext)
+  const { Translate } = useContext(TranslateContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
   const [fetchStart, setFetchStart] = useState(false)
@@ -81,7 +83,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   const [fetching, error] = useFetching(async () => {
     await fetchOrders(UserInfo.userInfo.id, user.user.role, user.user.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, [], [], [], [], ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(data => {
       setResults(data)
-      setTotalCount(data.filtered_count)     
+      setTotalCount(data.filtered_count)
       if (data.length !== 0) {
         fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => Point.setPoints(data.rows));
       }
@@ -135,7 +137,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
             alignItems: 'center',
           }}
         >
-          {(order.totalCount.arc > 0 && ComponentFunction.Function === 'arc')|| (order.totalCount.pattern > 0 &&  ComponentFunction.Function === 'pattern') ?
+          {(order.totalCount.arc > 0 && ComponentFunction.Function === 'arc') || (order.totalCount.pattern > 0 && ComponentFunction.Function === 'pattern') ?
             <>
               <FilterAndSortComponentForServer parent={'orders'} />
               <div className={'scroll_bar_container'}>
@@ -143,15 +145,15 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                   {order.orders.length !== 0 ?
                     <tbody>
                       <tr>
-                        <OrderTh>{SetTranslate('id')}</OrderTh>
-                        <OrderTh>{SetTranslate('order_type')}</OrderTh>
-                        <OrderTh>{SetTranslate('start')}</OrderTh>
-                        <OrderTh>{SetTranslate('time')}</OrderTh>
-                        <OrderTh>{SetTranslate('finish')}</OrderTh>
-                        <OrderTh>{SetTranslate('transport')}</OrderTh>
-                        <OrderTh>{SetTranslate('cost')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'id')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'order_type')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'start')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'time')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'finish')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'transport')}</OrderTh>
+                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'cost')}</OrderTh>
                         {ComponentFunction.Function === 'arc' ?
-                          <OrderTh>{SetTranslate('last_order_status')}</OrderTh>
+                          <OrderTh>{SetNativeTranslate(Translate.language, {}, 'last_order_status')}</OrderTh>
                           : <></>}
                         <th></th>
                         <th></th>
@@ -185,14 +187,14 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                             setFetchStart(true)
                           }
                         }}
-                      >{`${SetTranslate('show_more')} ${(totalCount - order.orders.length) > 10 ? 10 : totalCount - order.orders.length}`}</Button> : <></>}
+                      >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(totalCount - order.orders.length) > 10 ? 10 : totalCount - order.orders.length}`}</Button> : <></>}
 
                     <Button
                       onClick={() => {
                         FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: totalCount }, ComponentFunction.Function)
                         setFetchStart(true)
                       }}
-                    >{`${SetTranslate('show_all')} ${totalCount}`}</Button>
+                    >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${totalCount}`}</Button>
                   </>
                   : <></>}
                 {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&
@@ -201,7 +203,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                       FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: startLimit }, ComponentFunction.Function)
                       setFetchStart(true)
                     }}
-                  >{SetTranslate('roll_up_list')}</Button>}
+                  >{SetNativeTranslate(Translate.language, {}, 'roll_up_list')}</Button>}
               </div>
             </>
             :
@@ -210,7 +212,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                 marginTop: '10vh',
                 fontSize: '20px'
               }}
-            >{ComponentFunction.Function === 'arc' ? SetTranslate('no_orders') : SetTranslate('no_templates')}</NoData>
+            >{ComponentFunction.Function === 'arc' ? SetNativeTranslate(Translate.language, {}, 'no_orders') : SetNativeTranslate(Translate.language, {}, 'no_templates')}</NoData>
           }
 
         </VerticalContainer>

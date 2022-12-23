@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { Button } from '../ui/button/Button'
 import { useColor } from '../../hooks/useColor'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import { observer } from 'mobx-react-lite'
 import { NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import { restoreLink } from '../../http/userAPI'
 import { v4 } from "uuid";
 import { FieldName } from '../ui/page/FieldName'
 import './Account.css'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const Container = styled.div`
 display:flex;
@@ -37,7 +38,7 @@ const AccountActivationStatus = observer(({ containerClassName }) => {
     return (
         <div
             className={containerClassName}>
-            <FieldName>{SetTranslate( 'account_status')}</FieldName>
+            <FieldName>{SetNativeTranslate(Translate.language,{}, 'account_status')}</FieldName>
             <div
                 style={{ boxShadow: `0px 5px 10px 0px ${useColor(`${user.user.isActivated ? 'activated' : 'not_activated'}`)}`, padding: '10px 20px 10px 20px', borderRadius: '10px', backgroundColor: Setting.app_theme !== 'light' && '#141414', alignItems: 'flex-start', justifyContent: 'start', width: '270px', color: Setting.app_theme === 'light' ? 'black' : 'white' }}>
                 <HorizontalContainer
@@ -45,13 +46,13 @@ const AccountActivationStatus = observer(({ containerClassName }) => {
                 >
                     <div
                         style={{ fontSize: '14px' }}
-                    >{user.user.isActivated ? SetTranslate( 'activated') : SetTranslate( 'not_activated')}</div>
+                    >{user.user.isActivated ? SetNativeTranslate(Translate.language,{}, 'activated') : SetNativeTranslate(Translate.language,{}, 'not_activated')}</div>
                     {!user.user.isActivated &&
                         <Button
                             onClick={() => {
                                 generateLinkAction()
                             }}
-                        >{SetTranslate( 'send_activation_link')}</Button>}
+                        >{SetNativeTranslate(Translate.language,{}, 'send_activation_link')}</Button>}
                 </HorizontalContainer>
             </div>
         </div>

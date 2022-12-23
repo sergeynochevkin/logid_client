@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { TranslateContext, UserInfoContext } from '../../..'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -26,10 +26,10 @@ const Legal = ({ formData, setFormData }) => {
                     name="legal" id='legal'
                     style={{ borderLeft: formData.legal.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                    <option defaultValue hidden>{SetTranslate('legal_place_holder')}</option>
-                    <option value="person">{SetTranslate('person')}</option>
-                    <option value="sole_trader">{SetTranslate('sole_trader')}</option>
-                    <option value="entity">{SetTranslate('entity')}</option>
+                    <option defaultValue hidden>{SetNativeTranslate(Translate.language,{},'legal_place_holder')}</option>
+                    <option value="person">{SetNativeTranslate(Translate.language,{},'person')}</option>
+                    <option value="sole_trader">{SetNativeTranslate(Translate.language,{},'sole_trader')}</option>
+                    <option value="entity">{SetNativeTranslate(Translate.language,{},'entity')}</option>
                 </Select>
                 <FieldName
                     style={{
@@ -37,7 +37,7 @@ const Legal = ({ formData, setFormData }) => {
                         color: 'rgb(254, 111, 103,0.8)'
                     }}>
                     {formData.legal.isEmpty && formData.legal.isDirty ?
-                        SetTranslate('choose_legal_form') :
+                        SetNativeTranslate(Translate.language,{},'choose_legal_form') :
                         ''
                     }
                 </FieldName>

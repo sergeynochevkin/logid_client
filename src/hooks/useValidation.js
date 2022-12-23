@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useEffect, useState } from 'react'
 import { TranslateContext } from '..'
-import { SetTranslate } from '../modules/SetTranslate'
+import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
 export const useValidation = (value, validations, fieldName) => {
   const { Translate } = useContext(TranslateContext)
@@ -12,11 +12,11 @@ export const useValidation = (value, validations, fieldName) => {
   const [formatError, setFormatError] = useState(false)
   const [notValid, setNotValid] = useState(false)
 
-  let to_short = SetTranslate('to_short')
-  let to_long = SetTranslate('to_long')
-  let not_empty = SetTranslate('not_empty')
-  let format_error = SetTranslate('format_error')
-  let symbols = SetTranslate('symbols')
+  let to_short = SetNativeTranslate(Translate.language,{},'to_short')
+  let to_long = SetNativeTranslate(Translate.language,{},'to_long')
+  let not_empty = SetNativeTranslate(Translate.language,{},'not_empty')
+  let format_error = SetNativeTranslate(Translate.language,{},'format_error')
+  let symbols = SetNativeTranslate(Translate.language,{},'symbols')
 
 
   useEffect(() => {

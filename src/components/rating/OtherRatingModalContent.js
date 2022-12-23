@@ -6,18 +6,20 @@ import { CardColName } from '../ui/card/CardColName'
 import { CardRow } from '../ui/card/CardRow'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
-import { NotificationContext, UserContext } from '../..'
+import { NotificationContext, TranslateContext, UserContext } from '../..'
 import { useContext } from 'react'
-import { SetTranslate } from '../../modules/SetTranslate'
+
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const OtherRatingModalContent = observer(({ formData, setFormData, setModalActive, onePartnerInfo, UserInfo, setFetchPartnersStart, onePartner, onePartnerOtherRatingByThisUserInfo, formReset }) => {
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const { Notification } = useContext(NotificationContext)
+    const{Translate} = useContext(TranslateContext)
     const { user } = useContext(UserContext)
     formData.raterUserInfoId = UserInfo.userInfo.id
     formData.ratedUserInfoId = onePartnerInfo.id
-    const rated_customer_solvency = SetTranslate('rated_customer_solvency')
-    const rated_carrier_solvency = SetTranslate('rated_carrier_solvency')
+    const rated_customer_solvency = SetNativeTranslate(Translate.language,{},'rated_customer_solvency')
+    const rated_carrier_solvency = SetNativeTranslate(Translate.language,{},'rated_carrier_solvency')
 
     const click = async () => {
         try {
@@ -53,7 +55,7 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
 
             </CardRow>
             <CardRow>
-                <CardColName>{SetTranslate('solvency')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'solvency')}</CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
                         value={formData.solvency}
@@ -73,13 +75,13 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
             <CardRow>
                 <CardButton
                     onClick={click}
-                >{SetTranslate('rate')}</CardButton>
+                >{SetNativeTranslate(Translate.language,{},'rate')}</CardButton>
                 <CardButton
                     onClick={() => {
                         setModalActive(false)
                         formReset()
                     }}
-                >{SetTranslate('close')}</CardButton>
+                >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
             </CardRow>
 
         </VerticalContainer>

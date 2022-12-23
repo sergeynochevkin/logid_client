@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import { ComponentFunctionContext, NotificationContext, OrderContext, PointContext, TranslateContext, UserContext } from '../..'
 import { deleteOrder, updateOrder } from '../../http/orderApi'
 import { setTime } from '../../modules/setTime'
-import { SetTranslate } from '../../modules/SetTranslate'
 import { OrderTd } from '../ui/table/OrderTd'
 import { v4 } from "uuid";
 import close_grey from '../../../src/assets/close_grey.png';
 import repeat_order from '../../../src/assets/repeat_order.png';
 import './Order.css'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { order } = useContext(OrderContext)
@@ -15,15 +15,16 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { Point } = useContext(PointContext)
     const { Notification } = useContext(NotificationContext)
     const { user } = useContext(UserContext)
+    const { Translate } = useContext(TranslateContext)
 
-    const the = SetTranslate('the')
-    const you_deleted = SetTranslate('you_deleted')
-    const you_opened = SetTranslate('you_opened')
-    const Order = SetTranslate('order')
-    const Template = SetTranslate('template')
-    const form_from_template = SetTranslate('form_from_template')
-    const check_restored_arc = SetTranslate('check_restored_arc')
-    const form_from_order = SetTranslate('form_from_order')
+    const the = SetNativeTranslate(Translate.language,{},'the')
+    const you_deleted = SetNativeTranslate(Translate.language,{},'you_deleted')
+    const you_opened = SetNativeTranslate(Translate.language,{},'you_opened')
+    const Order = SetNativeTranslate(Translate.language,{},'order')
+    const Template = SetNativeTranslate(Translate.language,{},'template')
+    const form_from_template = SetNativeTranslate(Translate.language,{},'form_from_template')
+    const check_restored_arc = SetNativeTranslate(Translate.language,{},'check_restored_arc')
+    const form_from_order = SetNativeTranslate(Translate.language,{},'form_from_order')
 
 
     const deleteClick = async () => {
@@ -44,7 +45,7 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
     return (
         <tr className='arc_table_row'>
             <OrderTd>{oneArcOrder.id}</OrderTd>
-            <OrderTd>{SetTranslate(oneArcOrder.order_type)}</OrderTd>
+            <OrderTd>{SetNativeTranslate(Translate.language,{},oneArcOrder.order_type)}</OrderTd>
             {firstPoint ?
                 <>
                     <OrderTd>{firstPoint.point}</OrderTd>
@@ -52,10 +53,10 @@ const ArcOrderItem = ({ thisPoints, oneArcOrder, setFetchStart }) => {
                     <OrderTd>{lastPoint.point}</OrderTd>
                 </>
                 : <></>}
-            <OrderTd>{SetTranslate(oneArcOrder.type)}</OrderTd>
-            <OrderTd>{oneArcOrder.cost === 0 ? SetTranslate('not_specified') : oneArcOrder.cost}</OrderTd>
+            <OrderTd>{SetNativeTranslate(Translate.language,{},oneArcOrder.type)}</OrderTd>
+            <OrderTd>{oneArcOrder.cost === 0 ? SetNativeTranslate(Translate.language,{},'not_specified') : oneArcOrder.cost}</OrderTd>
             {ComponentFunction.Function === 'arc' ?
-                <OrderTd>{SetTranslate(oneArcOrder.order_final_status)}</OrderTd> : <></>}
+                <OrderTd>{SetNativeTranslate(Translate.language,{},oneArcOrder.order_final_status)}</OrderTd> : <></>}
 
             {user.user.role === 'customer' ?
                 <td>

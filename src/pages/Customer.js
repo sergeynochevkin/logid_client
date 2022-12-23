@@ -27,8 +27,8 @@ import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { fetchUserLimits } from '../http/limitApi'
 import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
-import { SetTranslate } from '../modules/SetTranslate'
 import { VerticalContainer } from '../components/ui/page/VerticalContainer'
+import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
 
 
@@ -108,7 +108,7 @@ const Customer = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetTranslate('customers_office')}</title>
+        <title>{SetNativeTranslate(Translate.language,{},'customers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -121,7 +121,7 @@ const Customer = observer(() => {
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>{SetTranslate('customers_office')}</PageBanner>
+        <PageBanner>{SetNativeTranslate(Translate.language,{},'customers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -130,7 +130,7 @@ const Customer = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>{SetTranslate('fill_account')}</BookMark>
+              <BookMark>{SetNativeTranslate(Translate.language,{},'fill_account')}</BookMark>
               <UserInfoForm />
             </VerticalContainer>
             :
@@ -144,7 +144,7 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'grey',
-                }}>{SetTranslate('orders')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language,{},'orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -156,7 +156,7 @@ const Customer = observer(() => {
                   order.setIntegrationId()
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderForm' && 'grey',
-                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetTranslate('order_editing') : SetTranslate('create_order')}</BookMark>
+                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language,{},'order_editing') : SetNativeTranslate(Translate.language,{},'create_order')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -165,7 +165,7 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'carriers' && 'grey',
-                }}>{SetTranslate('carriers')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language,{},'carriers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -173,14 +173,14 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'grey',
-                }}>{SetTranslate('account')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language,{},'account')}</BookMark>
                 {/* 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
-                }}>{SetTranslate('settings')}</BookMark> */}
+                }}>{SetNativeTranslate(Translate.language,{},'settings')}</BookMark> */}
               </div>
             </div>
           }

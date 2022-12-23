@@ -12,8 +12,9 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import { v4 } from "uuid";
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import NoData from '../ui/page/NoData'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModalActive, modalActive, onePartnerInfo }) => {
     const { UserInfo } = useContext(UserInfoContext)
@@ -23,7 +24,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
     const [formData, setFormData] = useState(initialValue)
     const { Translate } = useContext(TranslateContext)
 
-    const group_created = SetTranslate('group_created')
+    const group_created = SetNativeTranslate(Translate.language,{},'group_created')
 
     useEffect(() => {
         if (parent === 'groupModal') {
@@ -33,7 +34,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
 
     const [selectedGroups, setSelectedGroups] = useState([])
 
-    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, SetTranslate('group_name').toLowerCase())
+    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, SetNativeTranslate(Translate.language,{},'group_name').toLowerCase())
     formData.userInfoId = UserInfo.userInfo.id
 
     const createNewGroup = async (event) => {
@@ -68,7 +69,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                     onClick={() => {
                         setModalActive(true)
                     }}
-                >{SetTranslate('add')}</Button>
+                >{SetNativeTranslate(Translate.language,{},'add')}</Button>
                 : <></>}
 
             <VerticalContainer
@@ -90,8 +91,8 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                             <table>
                                 <tbody>
                                     <tr>
-                                        <OrderTh>{SetTranslate('group_name')}</OrderTh>
-                                        <OrderTh>{SetTranslate('number_of_members')}</OrderTh>
+                                        <OrderTh>{SetNativeTranslate(Translate.language,{},'group_name')}</OrderTh>
+                                        <OrderTh>{SetNativeTranslate(Translate.language,{},'number_of_members')}</OrderTh>
                                     </tr>
                                 </tbody>
                                 <tbody>
@@ -106,7 +107,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                             :
                             Partner.groups.length === 0 && parent !== 'partnerList' ?
                                 <NoData
-                                >{SetTranslate('no_groups')}</NoData> : <></>}
+                                >{SetNativeTranslate(Translate.language,{},'no_groups')}</NoData> : <></>}
 
             </VerticalContainer>
             {parent === 'groupModal' ?
@@ -116,13 +117,13 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                 >
                     <CardButton
                         onClick={updateAllGroups}
-                    >{SetTranslate('save')}</CardButton>
+                    >{SetNativeTranslate(Translate.language,{},'save')}</CardButton>
                     <CardButton
                         onClick={() => {
                             setSelectedGroups(Partner.groups.filter(el => el.partners.includes(onePartnerInfo.id)).map(el => el.dataValues.id))
                             setModalActive(false)
                         }}
-                    >{SetTranslate('close')}</CardButton>
+                    >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
                 </HorizontalContainer>
                 : <></>
             }

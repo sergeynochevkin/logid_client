@@ -6,7 +6,7 @@ import RatingView from '../../components/rating/RatingView'
 import { Button } from '../../components/ui/button/Button'
 import { FieldName } from '../../components/ui/page/FieldName'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts'
 import './Banner.css'
 import '../../components/account/Account.css'
@@ -35,7 +35,7 @@ const BannerActionContent = observer(() => {
                         <>
                             <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
                                 russian: [`No such language in your country`],
-                                english: [`At the moment our service in ${SetTranslate(Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
+                                english: [`At the moment our service in ${SetNativeTranslate(Translate.language,{},Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
                             })}</div>
                         </>}
                     <div className='banner_action_button_container'>
@@ -59,7 +59,7 @@ const BannerActionContent = observer(() => {
                         english: [`${UserInfo.userInfo.name_surname_fathersname}, happy deliveries!`]
                     })}</div>
                     <div className={Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'}>
-                        <FieldName>{SetTranslate('your_rating')}</FieldName>
+                        <FieldName>{SetNativeTranslate(Translate.language,{},'your_rating')}</FieldName>
                         <RatingView parent={'account'} onePartnerInfo={UserInfo.userInfo} user={user} />
                     </div>
                     {Adress.country.value === 'russia' ?

@@ -7,8 +7,9 @@ import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import '../ui/form/Form.css'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import './Order.css'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate, move_up, move_down, setCurrentPoint }) => {
 
@@ -60,7 +61,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
         var place = autocomplete.getPlace()
         var address_components = autocomplete.getPlace().address_components
         if (!place.geometry) {
-            document.getElementById(id).placeholder = SetTranslate('enter_plase')
+            document.getElementById(id).placeholder = SetNativeTranslate(Translate.language,{},'enter_plase')
         } else {
             let data = [...pointFormData]
             data[index].point.value = place.name
@@ -130,7 +131,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
             >
                 <Input
                     name='customer_comment'
-                    placeholder={SetTranslate('comment')}
+                    placeholder={SetNativeTranslate(Translate.language,{},'comment')}
                     defaultValue={pointItem.customer_comment.value}
                     onChange={event => handleFormChange(index, event)}
                     onBlur={event => handleFormBlur(index, event)}
@@ -152,7 +153,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
                     style={{ gap: '0px' }}
                 >
                     <Input
-                        name='time' placeholder={SetTranslate('time')}
+                        name='time' placeholder={SetNativeTranslate(Translate.language,{},'time')}
                         type="datetime-local"
                         defaultValue={pointItem.time.value}
                         onChange={event => handleFormChange(index, event)}
@@ -178,7 +179,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
             <div className='poit_action_buttons_container'>
                 {pointFormData.length > 2 && (index !== 0 && index !== pointFormData.length - 1) ? <AddDeleteFieldButton onClick={() => {
                     removeField(index)
-                }}>{SetTranslate('delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
+                }}>{SetNativeTranslate(Translate.language,{},'delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
 
                 {/* add functionality */}
                 {/* {pointItem.sequence !== 1 ? <>
@@ -186,7 +187,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
                         setCurrentPoint(pointItem)
                         move_up(pointItem)
                     }}
-                    >{SetTranslate('move_up')}</AddDeleteFieldButton>
+                    >{SetNativeTranslate(Translate.language,{},'move_up')}</AddDeleteFieldButton>
                 </> : <></>}
                 {pointItem.sequence !== 50 ? <>
                     <AddDeleteFieldButton
@@ -194,7 +195,7 @@ const OrderFormPointItem = observer(({ Adress, pointFormData, setPointFormData, 
                             setCurrentPoint(pointItem)
                             move_down(pointItem)
                         }}
-                    >{SetTranslate('move_down')}</AddDeleteFieldButton>
+                    >{SetNativeTranslate(Translate.language,{},'move_down')}</AddDeleteFieldButton>
                 </> : <></>} */}
             </div>
 

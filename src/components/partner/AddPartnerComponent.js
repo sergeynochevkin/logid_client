@@ -7,7 +7,8 @@ import { ComponentFunctionContext, NotificationContext, TranslateContext, UserCo
 import { v4 } from "uuid";
 import { observer } from 'mobx-react-lite'
 import { FieldName } from '../ui/page/FieldName'
-import { SetTranslate } from '../../modules/SetTranslate'
+
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const AddPartnerComponent = observer(() => {
   const { UserInfo } = useContext(UserInfoContext)
@@ -18,7 +19,7 @@ const AddPartnerComponent = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Translate } = useContext(TranslateContext)
 
-  const partner_added = SetTranslate('partner_added')
+  const partner_added = SetNativeTranslate(Translate.language,{},'partner_added')
 
   const addPartnerAction = async function () {
     await addPartnerByKey(user.user.role, UserInfo.userInfo.id, key).then(data => {
@@ -44,7 +45,7 @@ const AddPartnerComponent = observer(() => {
           onChange={(e) => {
             setKey(e.target.value)
           }}
-          placeholder={SetTranslate('enter_id')}
+          placeholder={SetNativeTranslate(Translate.language,{},'enter_id')}
           style={{ height: '40px', fontSize: '16px', width: '300px', marginTop: '8vh' }}
         ></Input>
         <FieldName
@@ -53,16 +54,16 @@ const AddPartnerComponent = observer(() => {
             color: 'rgb(254, 111, 103,0.8)'
           }}>
           {isDirty && key === '' ?
-            SetTranslate('id_not_empty') :
+            SetNativeTranslate(Translate.language,{},'id_not_empty') :
             isDirty && key.length !== 36 ?
-              SetTranslate('id_36') : ''
+              SetNativeTranslate(Translate.language,{},'id_36') : ''
           }
         </FieldName>
       </VerticalContainer>
       <Button
         disabled={key === '' || key.length !== 36}
         onClick={addPartnerAction}
-      >{SetTranslate('add')}</Button>
+      >{SetNativeTranslate(Translate.language,{},'add')}</Button>
     </VerticalContainer>
   )
 })

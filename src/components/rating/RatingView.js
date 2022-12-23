@@ -2,7 +2,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useContext } from 'react'
 import { TranslateContext } from '../..'
-import { SetTranslate } from '../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+
 import { CardColName } from '../ui/card/CardColName'
 import { CardRow } from '../ui/card/CardRow'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
@@ -14,14 +15,14 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
     return (
         <VerticalContainer>
             <CardRow>
-                <CardColName>{SetTranslate('completed_orders')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'completed_orders')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
                         backgroundColor: onePartnerInfo.complete_orders_amount !== 0 && 'rgb(255, 186, 65, 0.3)',
                     }}
                 >{onePartnerInfo.complete_orders_amount}</CardColName>
-                <CardColName>{SetTranslate('disrupted_orders')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'disrupted_orders')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -33,7 +34,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
             {(user.user.role === 'carrier' && parent !== 'account') || (user.user.role === 'customer' && parent === 'account') ?
                 <CardRow>
                     <CardColName>
-                        {SetTranslate('solvency')}
+                        {SetNativeTranslate(Translate.language,{},'solvency')}
                     </CardColName>
                     {parent !== 'account' ?
                         <>
@@ -51,7 +52,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                             style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                         >{onePartnerInfo.total_solvency}</CardColName>
                     }
-                    <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
+                    <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                     <CardColName
                         style={{
                             padding: '5px',
@@ -60,7 +61,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                     >{onePartnerInfo.solvency_amount}</CardColName>
                 </CardRow> : <></>}
             <CardRow>
-                <CardColName>{SetTranslate('politeness')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'politeness')}</CardColName>
                 {parent !== 'account' ?
                     <>
                         {ratingScale.map(grade =>
@@ -76,7 +77,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                         style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                     >{onePartnerInfo.total_politeness}</CardColName>
                 }
-                <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -87,12 +88,12 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
             <CardRow>
                 {parent !== 'account' ?
                     <CardColName>
-                        {user.user.role === 'carrier' ? SetTranslate('no_downtime') :
-                            user.user.role === 'customer' ? SetTranslate('submission_fulfillment') : ''}
+                        {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'no_downtime') :
+                            user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'submission_fulfillment') : ''}
                     </CardColName> :
                     <CardColName>
-                        {user.user.role === 'customer' ? SetTranslate('no_downtime') :
-                            user.user.role === 'carrier' ? SetTranslate('submission_fulfillment') : ''}
+                        {user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'no_downtime') :
+                            user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'submission_fulfillment') : ''}
                     </CardColName>}
                 {parent !== 'account' ?
                     <>
@@ -110,7 +111,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                         style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                     >{onePartnerInfo.total_in_time}</CardColName>
                 }
-                <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -121,12 +122,12 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
             <CardRow>
                 {parent !== 'account' ?
                     <CardColName>
-                        {user.user.role === 'carrier' ? SetTranslate('loading_unloading') :
-                            user.user.role === 'customer' ? SetTranslate('transport_quality') : ''}
+                        {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'loading_unloading') :
+                            user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'transport_quality') : ''}
                     </CardColName> :
                     <CardColName>
-                        {user.user.role === 'customer' ? SetTranslate('loading_unloading') :
-                            user.user.role === 'carrier' ? SetTranslate('transport_quality') : ''}
+                        {user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'loading_unloading') :
+                            user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'transport_quality') : ''}
                     </CardColName>}
                 {parent !== 'account' ?
                     <>
@@ -143,7 +144,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                         style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                     >{onePartnerInfo.total_in_time}</CardColName>
                 }
-                <CardColName>{SetTranslate('number_of_ratings')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                 <CardColName
                     style={{
                         padding: '5px',
@@ -152,7 +153,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                 >{onePartnerInfo.facilities_amount}</CardColName>
             </CardRow>
             <CardRow>
-                <CardColName>{SetTranslate('total_rating')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'total_rating')}</CardColName>
                 <CardColName
                     style={{ backgroundColor: onePartnerInfo.total_rating == 0 ? '' : onePartnerInfo.total_rating < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_rating < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
                 >{Math.floor(onePartnerInfo.total_rating * 100) / 100}</CardColName>

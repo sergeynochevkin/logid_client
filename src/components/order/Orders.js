@@ -19,11 +19,11 @@ import { CardButton } from '../ui/button/CardButton'
 import OrderStatusButtons from './OrderStatusButtons'
 import { fetchUserState } from '../../http/stateApi'
 import MapComponent from '../map/MapComponent'
-import { SetTranslate } from '../../modules/SetTranslate'
 import NoData from '../ui/page/NoData'
 import { LikeCardButton } from '../ui/text/LikeCardButton'
 import { Button } from '../ui/button/Button'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPartnersStart, fetchStart, setFetchStart }) => {
   const { order } = useContext(OrderContext)
@@ -190,61 +190,61 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
   //   }
   // }
 
-  const new_orders_received = SetTranslate('new_orders_received')
-  const new_order_received = SetTranslate('new_order_received')
-  const order_taken = SetTranslate('order_taken')
-  const orders_taken = SetTranslate('orders_taken')
-  const offers_accepted = SetTranslate('offers_accepted')
-  const offer_accepted = SetTranslate('offer_accepted')
-  const offers_accepted_carrier = SetTranslate('offers_accepted_carrier')
-  const offer_accepted_carrier = SetTranslate('offer_accepted_carrier')
-  const postponed_orders = SetTranslate('postponed_orders')
-  const postponed_order = SetTranslate('new_order_received')
-  const start_doing = SetTranslate('start_doing')
-  const restored_orders = SetTranslate('restored_orders')
-  const restored_order = SetTranslate('restored_order')
-  const check_restored = SetTranslate('check_restored')
-  const orders_canceled = SetTranslate('orders_canceled')
-  const order_canceled = SetTranslate('order_canceled')
-  const canceled_disrupted_orders = SetTranslate('canceled_disrupted_orders')
-  const canceled_disrupted_order = SetTranslate('canceled_disrupted_order')
-  const restore_to_resend = SetTranslate('restore_to_resend')
-  const affect_carrier_rating = SetTranslate('affect_carrier_rating')
-  const affect_your_rating = SetTranslate('affect_your_rating')
-  const affect_customer_rating = SetTranslate('affect_customer_rating')
-  const non_arrival = SetTranslate('non_arrival')
-  const not_loading = SetTranslate('not_loading')
-  const customer_completed_orders = SetTranslate('customer_completed_orders')
-  const customer_completed_order = SetTranslate('customer_completed_order')
-  const completed_orders = SetTranslate('completed_orders')
-  const completed_order = SetTranslate('completed_order')
-  const orders_notifications = SetTranslate('orders_notifications')
-  const order_notifications = SetTranslate('order_notifications')
-  const auctions_notifications = SetTranslate('auctions_notifications')
-  const auction_notifications = SetTranslate('auction_notifications')
-  const converted_many = SetTranslate('converted_many')
-  const converted_one = SetTranslate('converted_one')
-  const to_auction = SetTranslate('to_auction')
-  const to_order = SetTranslate('to_order')
-  const can_take_it = SetTranslate('can_take_it')
-  const new_offers = SetTranslate('new_offers')
-  const new_offer = SetTranslate('new_offer')
-  const changed_offers = SetTranslate('changed_offers')
-  const changed_offer = SetTranslate('changed_offer')
-  const removed_offers = SetTranslate('removed_offers')
-  const removed_offer = SetTranslate('removed_offer')
-  const postponed_points = SetTranslate('postponed_points')
-  const postponed_point = SetTranslate('postponed_point')
-  const canceled_point = SetTranslate('canceled_point')
-  const canceled_points = SetTranslate('canceled_points')
-  const restored_points = SetTranslate('restored_points')
-  const restored_point = SetTranslate('restored_point')
-  const on_orders = SetTranslate('on_orders')
-  const on_order = SetTranslate('on_order')
-  const completed_points = SetTranslate('completed_points')
-  const completed_point = SetTranslate('completed_point')
-  const in_work_points = SetTranslate('in_work_points')
-  const in_work_point = SetTranslate('in_work_point')
+  const new_orders_received = SetNativeTranslate(Translate.language,{},'new_orders_received')
+  const new_order_received = SetNativeTranslate(Translate.language,{},'new_order_received')
+  const order_taken = SetNativeTranslate(Translate.language,{},'order_taken')
+  const orders_taken = SetNativeTranslate(Translate.language,{},'orders_taken')
+  const offers_accepted = SetNativeTranslate(Translate.language,{},'offers_accepted')
+  const offer_accepted = SetNativeTranslate(Translate.language,{},'offer_accepted')
+  const offers_accepted_carrier = SetNativeTranslate(Translate.language,{},'offers_accepted_carrier')
+  const offer_accepted_carrier = SetNativeTranslate(Translate.language,{},'offer_accepted_carrier')
+  const postponed_orders = SetNativeTranslate(Translate.language,{},'postponed_orders')
+  const postponed_order = SetNativeTranslate(Translate.language,{},'new_order_received')
+  const start_doing = SetNativeTranslate(Translate.language,{},'start_doing')
+  const restored_orders = SetNativeTranslate(Translate.language,{},'restored_orders')
+  const restored_order = SetNativeTranslate(Translate.language,{},'restored_order')
+  const check_restored = SetNativeTranslate(Translate.language,{},'check_restored')
+  const orders_canceled = SetNativeTranslate(Translate.language,{},'orders_canceled')
+  const order_canceled = SetNativeTranslate(Translate.language,{},'order_canceled')
+  const canceled_disrupted_orders = SetNativeTranslate(Translate.language,{},'canceled_disrupted_orders')
+  const canceled_disrupted_order = SetNativeTranslate(Translate.language,{},'canceled_disrupted_order')
+  const restore_to_resend = SetNativeTranslate(Translate.language,{},'restore_to_resend')
+  const affect_carrier_rating = SetNativeTranslate(Translate.language,{},'affect_carrier_rating')
+  const affect_your_rating = SetNativeTranslate(Translate.language,{},'affect_your_rating')
+  const affect_customer_rating = SetNativeTranslate(Translate.language,{},'affect_customer_rating')
+  const non_arrival = SetNativeTranslate(Translate.language,{},'non_arrival')
+  const not_loading = SetNativeTranslate(Translate.language,{},'not_loading')
+  const customer_completed_orders = SetNativeTranslate(Translate.language,{},'customer_completed_orders')
+  const customer_completed_order = SetNativeTranslate(Translate.language,{},'customer_completed_order')
+  const completed_orders = SetNativeTranslate(Translate.language,{},'completed_orders')
+  const completed_order = SetNativeTranslate(Translate.language,{},'completed_order')
+  const orders_notifications = SetNativeTranslate(Translate.language,{},'orders_notifications')
+  const order_notifications = SetNativeTranslate(Translate.language,{},'order_notifications')
+  const auctions_notifications = SetNativeTranslate(Translate.language,{},'auctions_notifications')
+  const auction_notifications = SetNativeTranslate(Translate.language,{},'auction_notifications')
+  const converted_many = SetNativeTranslate(Translate.language,{},'converted_many')
+  const converted_one = SetNativeTranslate(Translate.language,{},'converted_one')
+  const to_auction = SetNativeTranslate(Translate.language,{},'to_auction')
+  const to_order = SetNativeTranslate(Translate.language,{},'to_order')
+  const can_take_it = SetNativeTranslate(Translate.language,{},'can_take_it')
+  const new_offers = SetNativeTranslate(Translate.language,{},'new_offers')
+  const new_offer = SetNativeTranslate(Translate.language,{},'new_offer')
+  const changed_offers = SetNativeTranslate(Translate.language,{},'changed_offers')
+  const changed_offer = SetNativeTranslate(Translate.language,{},'changed_offer')
+  const removed_offers = SetNativeTranslate(Translate.language,{},'removed_offers')
+  const removed_offer = SetNativeTranslate(Translate.language,{},'removed_offer')
+  const postponed_points = SetNativeTranslate(Translate.language,{},'postponed_points')
+  const postponed_point = SetNativeTranslate(Translate.language,{},'postponed_point')
+  const canceled_point = SetNativeTranslate(Translate.language,{},'canceled_point')
+  const canceled_points = SetNativeTranslate(Translate.language,{},'canceled_points')
+  const restored_points = SetNativeTranslate(Translate.language,{},'restored_points')
+  const restored_point = SetNativeTranslate(Translate.language,{},'restored_point')
+  const on_orders = SetNativeTranslate(Translate.language,{},'on_orders')
+  const on_order = SetNativeTranslate(Translate.language,{},'on_order')
+  const completed_points = SetNativeTranslate(Translate.language,{},'completed_points')
+  const completed_point = SetNativeTranslate(Translate.language,{},'completed_point')
+  const in_work_points = SetNativeTranslate(Translate.language,{},'in_work_points')
+  const in_work_point = SetNativeTranslate(Translate.language,{},'in_work_point')
 
   useEffect(() => {
     if (Object.keys(order.added).length > 0) {
@@ -420,7 +420,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                         }}
                       >
                         <LikeCardButton>
-                          {`${SetTranslate('selected_orders')} ${order.group.length}`}
+                          {`${SetNativeTranslate(Translate.language,{},'selected_orders')} ${order.group.length}`}
                         </LikeCardButton>
                         <OrderStatusButtons parent={'selector'} thisOrder={thisOrder} setFetchStart={setFetchStart} />
                         {user.user.role === 'carrier' && ComponentFunction.Function === 'new' ? <></> :
@@ -428,10 +428,10 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                             {order.group.length < order.orders.length ?
                               <CardButton
                                 onClick={() => { order.setGroup(order.orders.map(el => el.id)) }}
-                              >{SetTranslate('select_all')}</CardButton> :
+                              >{SetNativeTranslate(Translate.language,{},'select_all')}</CardButton> :
                               <CardButton
                                 onClick={() => { order.setGroup([]) }}
-                              >{SetTranslate('reset')}</CardButton>
+                              >{SetNativeTranslate(Translate.language,{},'reset')}</CardButton>
                             }
                           </>}
                       </HorizontalContainer>
@@ -452,7 +452,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                     }}
                   >
                     <LikeCardButton>
-                      {`${SetTranslate('total_in_favorites')} ${order.orders.filter(el => State.user_state.favorite_order_state.includes(el.id)).length}`}
+                      {`${SetNativeTranslate(Translate.language,{},'total_in_favorites')} ${order.orders.filter(el => State.user_state.favorite_order_state.includes(el.id)).length}`}
                     </LikeCardButton>
                     {FilterAndSort.filters.selected.length === 0 ?
                       <CardButton
@@ -460,7 +460,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                           FilterAndSort.setFilters(State.user_state.favorite_order_state, 'selected')
                           setFetchStart(true)
                         }}
-                      >{SetTranslate('just_favorites')}</CardButton>
+                      >{SetNativeTranslate(Translate.language,{},'just_favorites')}</CardButton>
                       : <></>}
                     {FilterAndSort.filters.selected.length > 0 ?
                       <CardButton
@@ -468,7 +468,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                           FilterAndSort.setFilters([], 'selected')
                           setFetchStart(true)
                         }}
-                      >{SetTranslate('reset_favorites')}</CardButton>
+                      >{SetNativeTranslate(Translate.language,{},'reset_favorites')}</CardButton>
                       : <></>}
                     <CardButton
                       onClick={() => {
@@ -476,7 +476,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                         FilterAndSort.setFilters([], 'selected')
                         setFetchStart(true)
                       }}
-                    >{SetTranslate('clear_favorites')}</CardButton>
+                    >{SetNativeTranslate(Translate.language,{},'clear_favorites')}</CardButton>
                   </HorizontalContainer>
                   : <></>}
 
@@ -516,14 +516,14 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                               setFetchStart(true)
                             }
                           }}
-                        >{`${SetTranslate('show_more')} ${(totalCount - order.orders.length) > 10 ? 10 : totalCount - order.orders.length}`}</Button> : <></>}
+                        >{`${SetNativeTranslate(Translate.language,{},'show_more')} ${(totalCount - order.orders.length) > 10 ? 10 : totalCount - order.orders.length}`}</Button> : <></>}
 
                       <Button
                         onClick={() => {
                           FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: totalCount }, ComponentFunction.Function)
                           setFetchStart(true)
                         }}
-                      >{`${SetTranslate('show_all')} ${totalCount}`}</Button>
+                      >{`${SetNativeTranslate(Translate.language,{},'show_all')} ${totalCount}`}</Button>
                     </>
                     : <></>}
                   {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&
@@ -532,14 +532,14 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                         FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: startLimit }, ComponentFunction.Function)
                         setFetchStart(true)
                       }}
-                    >{SetTranslate('roll_up_list')}</Button>}
+                    >{SetNativeTranslate(Translate.language,{},'roll_up_list')}</Button>}
                 </div>
 
               </div>
 
             </>
               : <NoData
-              >{SetTranslate('no_orders')}</NoData>}
+              >{SetNativeTranslate(Translate.language,{},'no_orders')}</NoData>}
           </VerticalContainer> :
           ComponentFunction.OrdersComponentFunction === 'orderItem' ?
             <>

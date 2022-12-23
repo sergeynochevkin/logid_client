@@ -3,8 +3,9 @@ import React, { useContext } from 'react'
 import { TranslateContext, TransportContext } from '../..'
 import TransportItem from './TransportItem'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import NoData from '../ui/page/NoData'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
 const TransportList = observer(({ setFetchStart }) => {
@@ -25,7 +26,7 @@ const TransportList = observer(({ setFetchStart }) => {
           }
         </>
         : <NoData
-        >{SetTranslate('no_transport')}</NoData>}
+        >{SetNativeTranslate(Translate.language,{},'no_transport')}</NoData>}
 
     </HorizontalContainer>
   )

@@ -7,9 +7,10 @@ import PartnerGroupComponent from './PartnerGroupComponent'
 import PartnerItem from './PartnerItem'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import NoData from '../ui/page/NoData'
 import '../order/Order.css'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
 const PartnersList = observer(({ setFetchPartnersStart }) => {
@@ -54,12 +55,12 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
             <table className={'order_table'}>
               <tbody >
                 <tr>
-                  <OrderTh>{SetTranslate('id')}</OrderTh>
-                  <OrderTh>{SetTranslate('partner_name')}</OrderTh>
-                  <OrderTh>{SetTranslate('phone')}</OrderTh>
-                  <OrderTh>{SetTranslate('rating_field_name')}</OrderTh>
-                  <OrderTh>{SetTranslate('groups_field_name')}</OrderTh>
-                  <OrderTh>{SetTranslate('status')}</OrderTh>
+                  <OrderTh>{SetNativeTranslate(Translate.language,{},'id')}</OrderTh>
+                  <OrderTh>{SetNativeTranslate(Translate.language,{},'partner_name')}</OrderTh>
+                  <OrderTh>{SetNativeTranslate(Translate.language,{},'phone')}</OrderTh>
+                  <OrderTh>{SetNativeTranslate(Translate.language,{},'rating_field_name')}</OrderTh>
+                  <OrderTh>{SetNativeTranslate(Translate.language,{},'groups_field_name')}</OrderTh>
+                  <OrderTh>{SetNativeTranslate(Translate.language,{},'status')}</OrderTh>
                 </tr>
               </tbody>
               <tbody>
@@ -78,7 +79,7 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
             </table>
           </>
           : <NoData
-          >{SetTranslate('no_partners')}</NoData>}
+          >{SetNativeTranslate(Translate.language,{},'no_partners')}</NoData>}
           </div>
       </VerticalContainer>
     </>

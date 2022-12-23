@@ -1,11 +1,12 @@
+import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { TranslateContext } from '../../..'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Phone = ({ formData, setFormData }) => {
+const Phone = observer( ({ formData, setFormData }) => {
 
     const { Translate } = useContext(TranslateContext)
 
@@ -13,7 +14,7 @@ const Phone = ({ formData, setFormData }) => {
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate('phone_place_holder')} value={formData.phone.value}
+            <Input placeholder={SetNativeTranslate(Translate.language,{},'phone_place_holder')} value={formData.phone.value}
                 onChange={(e) => formData.phone.onChange(e)}
                 onBlur={e => formData.phone.onBlur(e)}
                 type="text" name="phone" id='phone'
@@ -32,6 +33,6 @@ const Phone = ({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-}
+})
 
 export default Phone

@@ -3,8 +3,9 @@ import { CardButton } from '../ui/button/CardButton'
 import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import { TranslateContext } from '../..'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGroup, setModalActive,formReset }) => {
 
@@ -15,7 +16,7 @@ const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGrou
             {parent !== 'partnerList' && parent !== 'groupModal' ?
                 <>
 
-                    <Input placeholder={SetTranslate('group_name')} value={formData.groupName.value}
+                    <Input placeholder={SetNativeTranslate(Translate.language,{},'group_name')} value={formData.groupName.value}
                         onChange={(e) => formData.groupName.onChange(e)}
                         onBlur={e => formData.groupName.onBlur(e)}
                         type="text" name="groupName" id='groupName'
@@ -39,13 +40,13 @@ const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGrou
                         <CardButton
                             onClick={createNewGroup}
                             disabled={formData.groupName.isEmpty || formData.groupName.notValid} 
-                        >{SetTranslate('add')}</CardButton>
+                        >{SetNativeTranslate(Translate.language,{},'add')}</CardButton>
                         <CardButton
                             onClick={() => {
                                 formReset()
                                 setModalActive(false)
                             }}
-                        >{SetTranslate('close')}</CardButton>
+                        >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
                     </HorizontalContainer>
                 </> : <></>}
         </>

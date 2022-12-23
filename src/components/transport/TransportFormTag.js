@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useInput } from '../../hooks/useInput'
 import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
-import { SetTranslate } from '../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { observer } from 'mobx-react-lite'
+import { TranslateContext } from '../..'
 
-const TransportFormTag = ({formData}) => {
+const TransportFormTag = observer( ({formData}) => {
+  const { Translate } = useContext(TranslateContext)
 
     formData.tag = useInput('', { isEmpty: true, minLength: 4, maxLength: 12 }, '')
 
@@ -14,7 +17,7 @@ const TransportFormTag = ({formData}) => {
             style={{ gap: '0px' }}
         >
             <Input value={formData.tag.value}
-                placeholder={SetTranslate('transport_tag')}
+                placeholder={SetNativeTranslate(Translate.language,{},'transport_tag')}
                 onChange={(e) => formData.tag.onChange(e)}
                 onBlur={e => formData.tag.onBlur(e)}
                 style={{ borderLeft: (formData.tag.notValid || formData.tag.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
@@ -33,6 +36,6 @@ const TransportFormTag = ({formData}) => {
             </FieldName>
         </VerticalContainer>
     )
-}
+})
 
 export default TransportFormTag

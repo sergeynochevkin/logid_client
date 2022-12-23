@@ -7,7 +7,8 @@ import { CardColName } from '../ui/card/CardColName'
 import CardColValue from '../ui/card/CardColValue'
 import { CardRow } from '../ui/card/CardRow'
 import Modal from '../ui/modal/Modal'
-import { SetTranslate } from '../../modules/SetTranslate'
+
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
     const [modalActive, setModalActive] = useState(false)
@@ -44,7 +45,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
                 }
 
             }}>
-            <CardColName> {onePoint.sequence === 1 ? SetTranslate('start') : onePoint.sequence !== 50 ? `${SetTranslate('adress_field_name')} ${onePoint.sequence}` : SetTranslate('finish')}</CardColName>
+            <CardColName> {onePoint.sequence === 1 ? SetNativeTranslate(Translate.language,{},'start') : onePoint.sequence !== 50 ? `${SetNativeTranslate(Translate.language,{},'adress_field_name')} ${onePoint.sequence}` : SetNativeTranslate(Translate.language,{},'finish')}</CardColName>
             <CardColValue
                 pointStatus={onePoint.status}
             >{onePoint.point}</CardColValue>
@@ -58,7 +59,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
         </CardRow>
         {onePoint.time && (onePoint.sequence === 1 || onePoint.sequence === 50) ?
             <CardRow>
-                <CardColName>{SetTranslate('time')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'time')}</CardColName>
                 <CardColValue>{formattedEstimatedTime}</CardColValue>
                 {onePoint.finished_time && onePoint.status === 'completed' ?
                     <CardColValue>{formattedFinishedTime}</CardColValue> : <></>}

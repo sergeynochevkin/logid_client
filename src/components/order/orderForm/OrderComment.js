@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { TranslateContext } from '../../..'
 import { useInput } from '../../../hooks/useInput'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -16,7 +16,7 @@ const OrderComment = ({ formData, setFormData }) => {
     <VerticalContainer
       style={{ gap: '0px' }}
     >
-      <Input placeholder={SetTranslate('order_comment_place_holder')} value={formData
+      <Input placeholder={SetNativeTranslate(Translate.language,{},'order_comment_place_holder')} value={formData
         .order_comment.value}
 
         style={{ borderLeft: (formData.order_comment.notValid && !formData.order_comment.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}

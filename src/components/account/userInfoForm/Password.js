@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { observer } from 'mobx-react-lite'
+import React, { useContext, useState } from 'react'
+import { TranslateContext } from '../../..'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Password = ({ authFormData, setAuthFormData }) => {
+const Password = observer(({ authFormData, setAuthFormData }) => {
+    const{Translate} = useContext(TranslateContext)
     const [comparePassword, setComparePassword] = useState('')
     const [comparePasswordActive, setComparePasswordActive] = useState(false)
 
-    const password_hint = SetTranslate('password_hint')
-    const Password = SetTranslate('password')
-    const compare_passwords = SetTranslate('compare_passwords')
-    const password_repeat = SetTranslate('password_repeat')
+    const password_hint = SetNativeTranslate(Translate.language,{},'password_hint')
+    const Password = SetNativeTranslate(Translate.language,{},'password')
+    const compare_passwords = SetNativeTranslate(Translate.language,{},'compare_passwords')
+    const password_repeat = SetNativeTranslate(Translate.language,{},'password_repeat')
 
     return (
         <VerticalContainer>
@@ -58,6 +61,6 @@ const Password = ({ authFormData, setAuthFormData }) => {
             </VerticalContainer>
         </VerticalContainer>
     )
-}
+})
 
 export default Password

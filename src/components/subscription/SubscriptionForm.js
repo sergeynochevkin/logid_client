@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
 import { AdressContext, SettingContext, SubscriptionContext, UserInfoContext } from '../..'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import './Subscription.css'
 import SubscriptionPlanItem from './SubscriptionPlanItem'
 
@@ -16,7 +16,7 @@ const SubscriptionForm = observer(({ setFetchPartnersStart, setModalActive, pare
             className={'container'}
         >
             {/* {parent !== 'main' &&
-                <div className={Setting.app_theme === 'light' ? 'plan_form_name' : 'plan_form_name plan_form_name_dark'}>{SetTranslate('choose_subscription_plan')}</div>
+                <div className={Setting.app_theme === 'light' ? 'plan_form_name' : 'plan_form_name plan_form_name_dark'}>{SetNativeTranslate(Translate.language,{},'choose_subscription_plan')}</div>
             } */}
             <div
                 className={'plans_container'}

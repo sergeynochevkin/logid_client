@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { TranslateContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-import { SetTranslate } from '../../modules/SetTranslate'
 import { Button } from '../ui/button/Button'
 import './Legality.css'
 
@@ -21,12 +20,12 @@ const CookiesModalContent = observer(({ setModalActive }) => {
                     onClick={() => {
                         setModalActive(false)
                     }}
-                >{SetTranslate('accept')}</Button>
+                >{SetNativeTranslate(Translate.language,{},'accept')}</Button>
                 <Button
                     onClick={() => {
                         setModalActive(false)
                     }}
-                >{SetTranslate('decline')}</Button>
+                >{SetNativeTranslate(Translate.language,{},'decline')}</Button>
             </div>
         </div>
     )

@@ -1,11 +1,13 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { NotificationContext } from '../..'
+import { NotificationContext, TranslateContext } from '../..'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
-import { SetTranslate } from '../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+
 import './Notification.css'
 
 const NotificationItem = observer(({ message, type, id }) => {
+  const { Translate } = useContext(TranslateContext)
   const [notificationWidth, setNotificationWidth] = useState(100)
   const [intervalId, setIntervalId] = useState(null)
   const [exit, setExit] = useState('')
@@ -58,7 +60,7 @@ const NotificationItem = observer(({ message, type, id }) => {
         style={{ width: `${notificationWidth}%` }}
       ></div>
       {width <= 768 ?
-        <div className='tap_to_hide'>{SetTranslate('tap_to_hide')}</div>
+        <div className='tap_to_hide'>{SetNativeTranslate(Translate.language,{},'tap_to_hide')}</div>
         : <></>}
     </div>
 

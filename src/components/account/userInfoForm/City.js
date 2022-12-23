@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { AdressContext, TranslateContext } from '../../..'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
@@ -55,7 +55,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
         var place = autocomplete.getPlace()
         if (place) {
             if (!place.geometry) {
-                document.getElementById(id).placeholder = SetTranslate('enter_city')
+                document.getElementById(id).placeholder = SetNativeTranslate(Translate.language,{},'enter_city')
             } else {
                 let data = { ...formData }
                 data.city.value = place.name
@@ -73,7 +73,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}>
                 <Input
-                    placeholder={SetTranslate('enter_city')}
+                    placeholder={SetNativeTranslate(Translate.language,{},'enter_city')}
                     defaultValue={formData.city.value} name="city" id='city'
                     onChange={() => {
                         if (formData.city.value !== '') {
@@ -95,7 +95,7 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
                     }}
                 >
                     {formData.city.notValid && formData.city.isDirty ?
-                        SetTranslate('select_city').toLowerCase() :
+                        SetNativeTranslate(Translate.language,{},'select_city').toLowerCase() :
                         ''
                     }
                 </FieldName>

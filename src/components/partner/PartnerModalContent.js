@@ -11,20 +11,21 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
 import { NotificationContext } from '../../index'
-import { SetTranslate } from '../../modules/SetTranslate'
+
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartner, setFetchPartnersStart }) => {
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
 
-    const you_added = SetTranslate('you_added')
-    const you_blocked = SetTranslate('you_blocked')
-    const you_have_changed_status = SetTranslate('you_have_changed_status')
-    const customer_notification = SetTranslate('customer_notification')
-    const carrier_notification = SetTranslate('carrier_notification')
-    const to_favorite_notification = SetTranslate('to_favorite_notification')
-    const to_normal_notification = SetTranslate('to_normal_notification')
+    const you_added = SetNativeTranslate(Translate.language,{},'you_added')
+    const you_blocked = SetNativeTranslate(Translate.language,{},'you_blocked')
+    const you_have_changed_status = SetNativeTranslate(Translate.language,{},'you_have_changed_status')
+    const customer_notification = SetNativeTranslate(Translate.language,{},'customer_notification')
+    const carrier_notification = SetNativeTranslate(Translate.language,{},'carrier_notification')
+    const to_favorite_notification = SetNativeTranslate(Translate.language,{},'to_favorite_notification')
+    const to_normal_notification = SetNativeTranslate(Translate.language,{},'to_normal_notification')
 
     const priority = async () => {
         if (user.user.role === 'carrier') {
@@ -96,62 +97,62 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
 
             {onePartnerInfo.type_of_customer ?
                 <CardRow>
-                    <CardColName>{SetTranslate('type_of_customer_content')}</CardColName><CardColValue>{SetTranslate(onePartnerInfo.type_of_customer)}</CardColValue>
+                    <CardColName>{SetNativeTranslate(Translate.language,{},'type_of_customer_content')}</CardColName><CardColValue>{SetNativeTranslate(Translate.language,{},onePartnerInfo.type_of_customer)}</CardColValue>
                 </CardRow>
                 : <></>}
             <CardRow>
-                <CardColName>{SetTranslate('city_content')}</CardColName><CardColValue> {onePartnerInfo.city}</CardColValue>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'city_content')}</CardColName><CardColValue> {onePartnerInfo.city}</CardColValue>
             </CardRow>
             <CardRow>
-                <CardColName>{SetTranslate('adress_field_name')}</CardColName><CardColValue>{onePartnerInfo.company_adress}</CardColValue>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'adress_field_name')}</CardColName><CardColValue>{onePartnerInfo.company_adress}</CardColValue>
             </CardRow>
 
             {onePartnerInfo.legal === 'entity' || onePartnerInfo.legal === 'sole_trader' ?
                 <>
                     {onePartnerInfo.website ?
                         <CardRow>
-                            <CardColName>{SetTranslate('website_field_name')}</CardColName><CardColValue>{onePartnerInfo.website}</CardColValue>
+                            <CardColName>{SetNativeTranslate(Translate.language,{},'website_field_name')}</CardColName><CardColValue>{onePartnerInfo.website}</CardColValue>
                         </CardRow>
                         : <></>}
                     <CardRow>
-                        <CardColName>{SetTranslate('company_inn_content')}</CardColName><CardColValue>{onePartnerInfo.company_inn}</CardColValue>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'company_inn_content')}</CardColName><CardColValue>{onePartnerInfo.company_inn}</CardColValue>
                     </CardRow>
                 </>
                 : <></>}
             {onePartnerInfo.legal === 'person' ?
                 <>
                     <CardRow>
-                        <CardColName>{SetTranslate('passport_number_content')}</CardColName><CardColValue>{onePartnerInfo.passport_number}</CardColValue>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'passport_number_content')}</CardColName><CardColValue>{onePartnerInfo.passport_number}</CardColValue>
                     </CardRow>
                     <CardRow>
-                        <CardColName>{SetTranslate('passport_date_of_issue_content')}</CardColName><CardColValue>{onePartnerInfo.passport_date_of_issue}</CardColValue>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'passport_date_of_issue_content')}</CardColName><CardColValue>{onePartnerInfo.passport_date_of_issue}</CardColValue>
                     </CardRow>
                     <CardRow>
-                        <CardColName>{SetTranslate('passport_issued_by_content')}</CardColName><CardColValue>{onePartnerInfo.passport_issued_by}</CardColValue>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'passport_issued_by_content')}</CardColName><CardColValue>{onePartnerInfo.passport_issued_by}</CardColValue>
                     </CardRow>
                 </>
                 : <></>}
             <CardRow>
-                <CardColName>{SetTranslate('legal_partner_info')}</CardColName><CardColValue>{SetTranslate(onePartnerInfo.legal)}</CardColValue>
+                <CardColName>{SetNativeTranslate(Translate.language,{},'legal_partner_info')}</CardColName><CardColValue>{SetNativeTranslate(Translate.language,{},onePartnerInfo.legal)}</CardColValue>
             </CardRow>
             <RatingView onePartnerInfo={onePartnerInfo} user={user} />
             <HorizontalContainer>
 
                 {onePartner.status === 'normal' ?
                     <>
-                        <CardButton onClick={priority}>{SetTranslate('partner_to_favorite')}</CardButton>
-                        <CardButton onClick={blocked}>{SetTranslate('partner_to_blocked')}</CardButton>
+                        <CardButton onClick={priority}>{SetNativeTranslate(Translate.language,{},'partner_to_favorite')}</CardButton>
+                        <CardButton onClick={blocked}>{SetNativeTranslate(Translate.language,{},'partner_to_blocked')}</CardButton>
                     </>
                     :
                     onePartner.status === 'blocked' ?
                         <>
-                            <CardButton onClick={priority}>{SetTranslate('partner_to_favorite')}</CardButton>
-                            <CardButton onClick={normal}>{SetTranslate('partner_from_blocked')}</CardButton>
+                            <CardButton onClick={priority}>{SetNativeTranslate(Translate.language,{},'partner_to_favorite')}</CardButton>
+                            <CardButton onClick={normal}>{SetNativeTranslate(Translate.language,{},'partner_from_blocked')}</CardButton>
                         </> :
                         onePartner.status === 'priority' ?
                             <>
-                                <CardButton onClick={normal}>{SetTranslate('partner_to_normal')}</CardButton>
-                                <CardButton onClick={blocked}>{SetTranslate('partner_to_blocked')}</CardButton>
+                                <CardButton onClick={normal}>{SetNativeTranslate(Translate.language,{},'partner_to_normal')}</CardButton>
+                                <CardButton onClick={blocked}>{SetNativeTranslate(Translate.language,{},'partner_to_blocked')}</CardButton>
                             </>
                             :
                             <></>}
@@ -160,7 +161,7 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
                     onClick={() => {
                         setModalActive(false)
                     }}
-                >{SetTranslate('close')}</CardButton>
+                >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
             </HorizontalContainer>
         </VerticalContainer>
     )

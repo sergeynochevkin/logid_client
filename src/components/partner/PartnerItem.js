@@ -4,12 +4,14 @@ import PartnerModalContent from './PartnerModalContent'
 import { PartnerContext, TranslateContext } from '../..'
 import PartnerGroupModalContent from './PartnerGroupModalContent'
 import { OrderTd } from '../ui/table/OrderTd'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import OtherRatingComponent from '../rating/OtherRatingComponent'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePartnerOtherRatingByThisUserInfo }) => {
   const [modalActive, setModalActive] = useState(false)
   const { Partner } = useContext(PartnerContext)
+  const {Translate} = useContext(TranslateContext)
   const [modalFunction, setModalFunction] = useState('')
   const [partnerGroups, setPartnerGroups] = useState([1])
 
@@ -61,7 +63,7 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
           !onePartnerInfo.solvency_amount &&
           !onePartnerInfo.politeness_amount &&
           !onePartnerInfo.facilities_amount)
-          ? SetTranslate('no_ratings') : Math.floor(onePartnerInfo.total_rating * 100) / 100}</OrderTd>
+          ? SetNativeTranslate(Translate.language,{},'no_ratings') : Math.floor(onePartnerInfo.total_rating * 100) / 100}</OrderTd>
         <OrderTd
           onClick={() => {
             if (Partner.groups.length !== 0) {
@@ -73,8 +75,8 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
             cursor: Partner.groups.length !== 0 ? 'pointer' : 'default',
             backgroundColor: partnerGroups.length > 0 ? 'rgb(241,196,15,0.6)' : ''
           }}
-        >{Partner.groups.length === 0 ? SetTranslate('no_groups') : partnerGroups.length === 0 ? SetTranslate('can_choose_groups') : `${partnerGroups.length}`}</OrderTd>
-        <OrderTd>{onePartner.status === 'normal' ? SetTranslate('partner_normal') : onePartner.status === 'blocked' ? SetTranslate('partner_blocked') : onePartner.status === 'priority' ? SetTranslate('partner_favorite') : ''}</OrderTd>
+        >{Partner.groups.length === 0 ? SetNativeTranslate(Translate.language,{},'no_groups') : partnerGroups.length === 0 ? SetNativeTranslate(Translate.language,{},'can_choose_groups') : `${partnerGroups.length}`}</OrderTd>
+        <OrderTd>{onePartner.status === 'normal' ? SetNativeTranslate(Translate.language,{},'partner_normal') : onePartner.status === 'blocked' ? SetNativeTranslate(Translate.language,{},'partner_blocked') : onePartner.status === 'priority' ? SetNativeTranslate(Translate.language,{},'partner_favorite') : ''}</OrderTd>
         <OtherRatingComponent onePartnerInfo={onePartnerInfo} onePartnerOtherRatingByThisUserInfo={onePartnerOtherRatingByThisUserInfo} setFetchPartnersStart={setFetchPartnersStart} onePartner={onePartner}/>
       </tr>
     </>

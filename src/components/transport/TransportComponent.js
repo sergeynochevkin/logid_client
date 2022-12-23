@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { FileContext, TransportContext, UserInfoContext } from '../..'
+import { FileContext, TranslateContext, TransportContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchFile } from '../../http/fileApi'
 import { fetchTransport } from '../../http/transportApi'
@@ -9,7 +9,8 @@ import TransportForm from './TransportForm'
 import TransportList from './TransportList'
 import { Button } from '../ui/button/Button'
 import Modal from '../ui/modal/Modal'
-import { SetTranslate } from '../../modules/SetTranslate'
+
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const Container = styled.div`
 display:flex;
@@ -18,6 +19,7 @@ align-items:center;
 flex-direction:column;
 `
 const TransportComponent = observer(() => {
+  const { Translate } = useContext(TranslateContext)
   const [fetchStart, setFetchStart] = useState(false)
   const { UserInfo } = useContext(UserInfoContext)
   const { Transport } = useContext(TransportContext)
@@ -70,7 +72,7 @@ const TransportComponent = observer(() => {
           setModalActive(true)
         }}
         style={{ marginTop: '10px' }}
-      >{SetTranslate('add')}</Button>
+      >{SetNativeTranslate(Translate.language,{},'add')}</Button>
       <Modal
         parent={parent}
         formReset={formReset}

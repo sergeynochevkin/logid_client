@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { CardButton } from '../ui/button/CardButton'
-import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext } from '../../index'
+import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext } from '../../index'
 import { CardContainer } from '../ui/card/CardContainer'
 import { CardRow } from '../ui/card/CardRow'
 import { CardColName } from '../ui/card/CardColName'
@@ -16,10 +16,11 @@ import PartnerModalContent from '../partner/PartnerModalContent'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchPoints } from '../../http/pointApi'
 // import MapComponent from './MapComponent'
-import { SetTranslate } from '../../modules/SetTranslate'
+
 import { useColor } from '../../hooks/useColor'
 import OrderStatusButtons from './OrderStatusButtons'
 import MapComponent from '../map/MapComponent'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
 const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetchStart, onePartnerInfo, onePartner, setFetchPartnersStart, oneOrderNoPartners }) => {
@@ -35,6 +36,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const { State } = useContext(StateContext)
     const {Adress} = useContext(AdressContext)
+    const { Translate } = useContext(TranslateContext)
 
     let thisOrder
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisOrder = oneOrder : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisOrder = order.order : thisOrder = {}
@@ -129,7 +131,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                         ComponentFunction.setFunction(thisOrder.order_status)
                         ComponentFunction.setOrdersComponentFunction('orderList')
                         setFetchStart(true)
-                    }}>{SetTranslate('back_to_order_list')}</AddDeleteFieldButton>
+                    }}>{SetNativeTranslate(Translate.language,{},'back_to_order_list')}</AddDeleteFieldButton>
                     : <></>}
 
                 <VerticalContainer style={{ gap: '3px' }}>
@@ -147,7 +149,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                                             order.setGroup(order.group.filter(el => el !== thisOrder.id))
                                         }
                                     }}
-                                >{!order.group.includes(thisOrder.id) ? SetTranslate('select') : SetTranslate('deselect')}</CardButton>
+                                >{!order.group.includes(thisOrder.id) ? SetNativeTranslate(Translate.language,{},'select') : SetNativeTranslate(Translate.language,{},'deselect')}</CardButton>
                                 : <></>
                         }
 
@@ -162,7 +164,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                                     setFetchStart(true)
                                 }
                             }}
-                        >{State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(thisOrder.id) ? SetTranslate('to_favorites') : SetTranslate('from_favorites')}
+                        >{State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(thisOrder.id) ? SetNativeTranslate(Translate.language,{},'to_favorites') : SetNativeTranslate(Translate.language,{},'from_favorites')}
                         </CardButton>
 
                     </CardRow>
@@ -170,13 +172,13 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     <CardRow>
                         <CardColName
                         >{
-                                thisOrder.order_type === "order" ? SetTranslate('order') :
-                                    thisOrder.order_type === "auction" ? SetTranslate('auction') :
+                                thisOrder.order_type === "order" ? SetNativeTranslate(Translate.language,{},'order') :
+                                    thisOrder.order_type === "auction" ? SetNativeTranslate(Translate.language,{},'auction') :
                                         <></>
                             }</CardColName>
                         <CardColValue>{thisOrder.id}</CardColValue>
-                        <CardColName>{SetTranslate('status')}</CardColName>
-                        <CardColValue>{SetTranslate(thisOrder.order_status)}</CardColValue>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'status')}</CardColName>
+                        <CardColValue>{SetNativeTranslate(Translate.language,{},thisOrder.order_status)}</CardColValue>
                     </CardRow>
 
                     {onePartnerInfo ?
@@ -188,8 +190,8 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                                     setModalActive(true)
                                 }}>
                                 <CardColName>
-                                    {user.user.role === 'carrier' ? SetTranslate('customer') :
-                                        user.user.role === 'customer' ? SetTranslate('carrier') : ''}
+                                    {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'customer') :
+                                        user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'carrier') : ''}
                                 </CardColName>
 
                                 {onePartnerInfo.legal === 'person' ?
@@ -209,7 +211,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                     {ComponentFunction.OrdersComponentFunction === 'orderItem' && (thisOrder.order_status !== 'new' && thisOrder.order_status !== 'postponed' && thisOrder.order_status !== 'canceled') && thisPartnerInfo ?
                         <>
                             <CardRow>
-                                <CardColName>{SetTranslate('phone')}</CardColName>
+                                <CardColName>{SetNativeTranslate(Translate.language,{},'phone')}</CardColName>
                                 <CardColValue>{thisPartnerInfo.phone}</CardColValue>
                             </CardRow>
                         </>
@@ -235,47 +237,47 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                         : <></>}
 
                     {thisOrder.order_comment !== '' ? <CardRow>
-                        <CardColName>{SetTranslate('order_comment')}</CardColName>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'order_comment')}</CardColName>
                         <CardColValue>{thisOrder.order_comment}</CardColValue>
                     </CardRow> : <></>}
 
                     <CardRow>
-                        <CardColName>{SetTranslate('transport')}</CardColName>
-                        <CardColValue>{SetTranslate(thisOrder.type)}</CardColValue>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'transport')}</CardColName>
+                        <CardColValue>{SetNativeTranslate(Translate.language,{},thisOrder.type)}</CardColValue>
                     </CardRow>
                     {(thisOrder.side_type || thisOrder.load_capacity) &&
                         <CardRow>
-                            {thisOrder.side_type && <CardColValue> {SetTranslate(thisOrder.side_type)}</CardColValue>}
-                            {thisOrder.load_capacity && <CardColValue> {SetTranslate(thisOrder.load_capacity)}</CardColValue>}
+                            {thisOrder.side_type && <CardColValue> {SetNativeTranslate(Translate.language,{},thisOrder.side_type)}</CardColValue>}
+                            {thisOrder.load_capacity && <CardColValue> {SetNativeTranslate(Translate.language,{},thisOrder.load_capacity)}</CardColValue>}
                         </CardRow>
                     }
                     <CardRow>
-                        <CardColName>{SetTranslate('cost')}</CardColName>
-                        <CardColValue>{thisOrder.cost === 0 ? SetTranslate('not_specified') : `${thisOrder.cost} ${Adress.country.currency}`}</CardColValue>
+                        <CardColName>{SetNativeTranslate(Translate.language,{},'cost')}</CardColName>
+                        <CardColValue>{thisOrder.cost === 0 ? SetNativeTranslate(Translate.language,{},'not_specified') : `${thisOrder.cost} ${Adress.country.currency}`}</CardColValue>
                     </CardRow>
 
                     {(ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') &&
                         <CardRow>
-                            <CardColName>{SetTranslate('available')}</CardColName>
+                            <CardColName>{SetNativeTranslate(Translate.language,{},'available')}</CardColName>
                             {user.user.role === 'customer' && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
                                 <CardColValue>
-                                    {for_group.length === 0 && for_partner.length === 0 ? SetTranslate('to_all') : for_group.length !== 0 ? `${SetTranslate('to_group')} ${groups}` : for_partner.length !== 0 ? `${SetTranslate('to_partner')} ${partnerNames}` : ''}
+                                    {for_group.length === 0 && for_partner.length === 0 ? SetNativeTranslate(Translate.language,{},'to_all') : for_group.length !== 0 ? `${SetNativeTranslate(Translate.language,{},'to_group')} ${groups}` : for_partner.length !== 0 ? `${SetNativeTranslate(Translate.language,{},'to_partner')} ${partnerNames}` : ''}
                                 </CardColValue> :
                                 user.user.role === 'carrier' && thisOrder.order_status === 'new' ?
                                     <CardColValue>
-                                        {for_group.length === 0 && for_partner.length === 0 ? SetTranslate('to_all') : for_group.length !== 0 ? SetTranslate('your_group') : for_partner.length !== 0 ? SetTranslate('to_you') : ''}
+                                        {for_group.length === 0 && for_partner.length === 0 ? SetNativeTranslate(Translate.language,{},'to_all') : for_group.length !== 0 ? SetNativeTranslate(Translate.language,{},'your_group') : for_partner.length !== 0 ? SetNativeTranslate(Translate.language,{},'to_you') : ''}
                                     </CardColValue> : <></>}
                         </CardRow>
                     }
 
                     <EquipmentRow>
-                        {thisOrder.thermo_bag === true ? <CardEquipment>{SetTranslate('thermo_bag')}</CardEquipment> : <></>}
-                        {thisOrder.thermo_van === true ? <CardEquipment>{SetTranslate('thermo_van')}</CardEquipment> : <></>}
-                        {thisOrder.refrigerator_minus === true ? <CardEquipment>{SetTranslate('refrigerator_minus')}</CardEquipment> : <></>}
-                        {thisOrder.refrigerator_plus === true ? <CardEquipment>{SetTranslate('refrigerator_plus')}</CardEquipment> : <></>}
-                        {thisOrder.hydraulic_platform === true ? <CardEquipment>{SetTranslate('hydraulic_platform')}</CardEquipment> : <></>}
-                        {thisOrder.side_loading === true ? <CardEquipment>{SetTranslate('side_loading')}</CardEquipment> : <></>}
-                        {thisOrder.glass_stand === true ? <CardEquipment>{SetTranslate('glass_stand')}</CardEquipment> : <></>}
+                        {thisOrder.thermo_bag === true ? <CardEquipment>{SetNativeTranslate(Translate.language,{},'thermo_bag')}</CardEquipment> : <></>}
+                        {thisOrder.thermo_van === true ? <CardEquipment>{SetNativeTranslate(Translate.language,{},'thermo_van')}</CardEquipment> : <></>}
+                        {thisOrder.refrigerator_minus === true ? <CardEquipment>{SetNativeTranslate(Translate.language,{},'refrigerator_minus')}</CardEquipment> : <></>}
+                        {thisOrder.refrigerator_plus === true ? <CardEquipment>{SetNativeTranslate(Translate.language,{},'refrigerator_plus')}</CardEquipment> : <></>}
+                        {thisOrder.hydraulic_platform === true ? <CardEquipment>{SetNativeTranslate(Translate.language,{},'hydraulic_platform')}</CardEquipment> : <></>}
+                        {thisOrder.side_loading === true ? <CardEquipment>{SetNativeTranslate(Translate.language,{},'side_loading')}</CardEquipment> : <></>}
+                        {thisOrder.glass_stand === true ? <CardEquipment>{SetNativeTranslate(Translate.language,{},'glass_stand')}</CardEquipment> : <></>}
                     </EquipmentRow>
                 </VerticalContainer>
                 <VerticalContainer>

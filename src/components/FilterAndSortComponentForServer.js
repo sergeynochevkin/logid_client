@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, FilterAndSortContext, PartnerContext, SettingContext, UserContext } from '..'
+import { ComponentFunctionContext, FilterAndSortContext, PartnerContext, SettingContext, TranslateContext, UserContext } from '..'
 import PartnerGroupItem from './partner/PartnerGroupItem'
 import FilterInput from './ui/form/FilterInput'
 import { FilterSelect } from './ui/form/FilterSelect'
 import { HorizontalContainer } from './ui/page/HorizontalContainer'
 import { VerticalContainer } from './ui/page/VerticalContainer'
 import './order/Order.css'
-import { SetTranslate } from '../modules/SetTranslate'
+import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
 const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFetchPartnersStart }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -17,6 +17,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
     const { Partner } = useContext(PartnerContext)
     const { user } = useContext(UserContext)
     const { Setting } = useContext(SettingContext)
+    const {Translate} = useContext(TranslateContext)
 
 
     useEffect(() => {
@@ -42,7 +43,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                     <FilterInput
                         fieldName='id'
                         inputHandler={inputHandler}
-                        placeHolder={SetTranslate('filter_id')}
+                        placeHolder={SetNativeTranslate(Translate.language,{},'filter_id')}
                         type='number'
                         filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
                     />
@@ -50,7 +51,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterInput
                             fieldName='name'
                             inputHandler={inputHandler}
-                            placeHolder={SetTranslate('adress')}
+                            placeHolder={SetNativeTranslate(Translate.language,{},'adress')}
                             type='text'
                             filterSet={'filters'}
                         />
@@ -59,7 +60,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                     <FilterInput
                         fieldName='partnerName'
                         inputHandler={inputHandler}
-                        placeHolder={SetTranslate('partner')}
+                        placeHolder={SetNativeTranslate(Translate.language,{},'partner')}
                         type='text'
                         filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
                     />
@@ -67,21 +68,21 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterInput
                             fieldName='costFrom'
                             inputHandler={inputHandler}
-                            placeHolder={SetTranslate('cost_from')}
+                            placeHolder={SetNativeTranslate(Translate.language,{},'cost_from')}
                             type='number'
                             filterSet={'filters'}
                         />
                         <FilterInput
                             fieldName='costTo'
                             inputHandler={inputHandler}
-                            placeHolder={SetTranslate('cost_to')}
+                            placeHolder={SetNativeTranslate(Translate.language,{},'cost_to')}
                             type='number'
                             filterSet={'filters'}
                         />
                         <FilterInput
                             fieldName='timeFrom'
                             inputHandler={inputHandler}
-                            placeHolder={SetTranslate('date_from')}
+                            placeHolder={SetNativeTranslate(Translate.language,{},'date_from')}
                             type={FilterAndSort.filters[ComponentFunction.Function].timeFrom === '' && timeFromOnFocus === false ? 'text' : timeFromOnFocus === true ? 'datetime-local' : 'datetime-local'}
                             onFocus={() => setTimeFromOnFocus(true)}
                             onBlur={() => setTimeFromOnFocus(false)}
@@ -91,7 +92,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterInput
                             fieldName='timeTo'
                             inputHandler={inputHandler}
-                            placeHolder={SetTranslate('date_to')}
+                            placeHolder={SetNativeTranslate(Translate.language,{},'date_to')}
                             type={FilterAndSort.filters[ComponentFunction.Function].timeTo === '' && timeToOnFocus === false ? 'text' : timeFromOnFocus === true ? 'datetime-local' : 'datetime-local'}
                             onFocus={() => setTimeToOnFocus(true)}
                             onBlur={() => setTimeToOnFocus(false)}
@@ -101,17 +102,17 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterSelect
                             fieldName='selectedSort'
                             inputHandler={inputHandler}
-                            defaultvalue={SetTranslate('sorting')}
+                            defaultvalue={SetNativeTranslate(Translate.language,{},'sorting')}
                             sortOptions={[
-                                { value: 'default', name: SetTranslate('default') },
-                                { value: 'auctionFirst', name: SetTranslate('from_auctions') },
-                                { value: 'orderFirst', name: SetTranslate('from_orders') },
-                                { value: 'finalStatus', name: SetTranslate('latest_status') },
-                                { value: 'transportType', name: SetTranslate('transport_type') },
-                                { value: 'costUp', name: SetTranslate('ascending_cost') },
-                                { value: 'costDown', name: SetTranslate('descending_cost') },
-                                { value: 'firstCreated', name: SetTranslate('new_old') },
-                                { value: 'lastCreated', name: SetTranslate('old_new') },
+                                { value: 'default', name: SetNativeTranslate(Translate.language,{},'default') },
+                                { value: 'auctionFirst', name: SetNativeTranslate(Translate.language,{},'from_auctions') },
+                                { value: 'orderFirst', name: SetNativeTranslate(Translate.language,{},'from_orders') },
+                                { value: 'finalStatus', name: SetNativeTranslate(Translate.language,{},'latest_status') },
+                                { value: 'transportType', name: SetNativeTranslate(Translate.language,{},'transport_type') },
+                                { value: 'costUp', name: SetNativeTranslate(Translate.language,{},'ascending_cost') },
+                                { value: 'costDown', name: SetNativeTranslate(Translate.language,{},'descending_cost') },
+                                { value: 'firstCreated', name: SetNativeTranslate(Translate.language,{},'new_old') },
+                                { value: 'lastCreated', name: SetNativeTranslate(Translate.language,{},'old_new') },
                             ]}
                             filterSet={'filters'}
                         >
@@ -120,12 +121,12 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFe
                         <FilterSelect FilterSelect
                             fieldName='selectedSort'
                             inputHandler={inputHandler}
-                            defaultvalue={SetTranslate('sorting')}
+                            defaultvalue={SetNativeTranslate(Translate.language,{},'sorting')}
                             sortOptions={[
-                                { value: 'default', name: SetTranslate('default') },
-                                { value: 'name', name: SetTranslate('by_partner_name') },
-                                { value: 'ratingUp', name: SetTranslate('rating_up') },
-                                { value: 'ratingDown', name: SetTranslate('rating_down') }
+                                { value: 'default', name: SetNativeTranslate(Translate.language,{},'default') },
+                                { value: 'name', name: SetNativeTranslate(Translate.language,{},'by_partner_name') },
+                                { value: 'ratingUp', name: SetNativeTranslate(Translate.language,{},'rating_up') },
+                                { value: 'ratingDown', name: SetNativeTranslate(Translate.language,{},'rating_down') }
                             ]}
                             filterSet={'partnerFilters'}
                         ></FilterSelect>

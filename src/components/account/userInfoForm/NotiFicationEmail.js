@@ -1,11 +1,12 @@
+import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { TranslateContext } from '../../..'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const NotificationEmail = ({ formData, setFormData }) => {
+const NotificationEmail = observer( ({ formData, setFormData }) => {
 
     const { Translate } = useContext(TranslateContext)
 
@@ -13,7 +14,7 @@ const NotificationEmail = ({ formData, setFormData }) => {
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate('your_email')}
+            <Input placeholder={SetNativeTranslate(Translate.language,{},'your_email')}
                 value={formData.email.value}
                 style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 onChange={(e) => formData.email.onChange(e)}
@@ -33,6 +34,6 @@ const NotificationEmail = ({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-}
+})
 
 export default NotificationEmail

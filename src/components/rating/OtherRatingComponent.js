@@ -4,13 +4,14 @@ import OtherRatingModalContent from './OtherRatingModalContent'
 import { CardColName } from '../ui/card/CardColName'
 import Modal from '../ui/modal/Modal'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
-import { SetTranslate } from '../../modules/SetTranslate'
-import { UserContext, UserInfoContext } from '../..'
+
+import { TranslateContext, UserContext, UserInfoContext } from '../..'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingByThisUserInfo, setFetchPartnersStart, onePartner }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
-
+    const { Translate } = useContext(TranslateContext)
     const [modalActive, setModalActive] = useState(false)
 
     const initialState = {
@@ -38,7 +39,7 @@ const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingBy
                             setModalActive(true)
                         }}
                     >
-                        {onePartnerOtherRatingByThisUserInfo.solvency === 0 ? SetTranslate('rate_solvency') : SetTranslate('change_solvency')}
+                        {onePartnerOtherRatingByThisUserInfo.solvency === 0 ? SetNativeTranslate(Translate.language, {}, 'rate_solvency') : SetNativeTranslate(Translate.language, {}, 'change_solvency')}
                     </CardColName>
                     <div>{onePartnerOtherRatingByThisUserInfo.solvensy}</div>
 

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { TranslateContext } from '../../..'
 import { useInput } from '../../../hooks/useInput'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -22,9 +22,9 @@ const OrderType = ({ formData, setFormData }) => {
                 onBlur={e => formData.order_type.onBlur(e)}
                 name="order_type" id="order_type"
             >
-                <option defaultValue hidden>{SetTranslate('order_type_place_holder')}</option>
-                <option value='order'>{SetTranslate('order')}</option>
-                <option value='auction'>{SetTranslate('auction')}</option>
+                <option defaultValue hidden>{SetNativeTranslate(Translate.language,{},'order_type_place_holder')}</option>
+                <option value='order'>{SetNativeTranslate(Translate.language,{},'order')}</option>
+                <option value='auction'>{SetNativeTranslate(Translate.language,{},'auction')}</option>
             </Select>
             <FieldName
                 style={{
@@ -33,7 +33,7 @@ const OrderType = ({ formData, setFormData }) => {
                 }}
             >
                 {(formData.order_type.isEmpty && formData.order_type.isDirty) ?
-                    SetTranslate('select_order_type') :
+                    SetNativeTranslate(Translate.language,{},'select_order_type') :
                     ''
                 }
             </FieldName>

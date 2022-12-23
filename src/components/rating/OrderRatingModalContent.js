@@ -3,21 +3,21 @@ import React, { useContext } from 'react';
 import { NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { v4 } from "uuid";
 import { VerticalContainer } from '../ui/page/VerticalContainer';
-import { SetTranslate } from '../../modules/SetTranslate';
 import { CardColName } from '../ui/card/CardColName';
 import { CardRow } from '../ui/card/CardRow';
 import { CardButton } from '../ui/button/CardButton';
 import { createOrderRating } from '../../http/ratingApi';
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 
 const OrderRatingModalContent = observer(({ setModalActive, formData, setFormData, setFetchStart, oneOrder, setFetchPartnersStart, formReset }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
-    const rated_carrier = SetTranslate( 'rated_carrier')
-    const rated_customer = SetTranslate( 'rated_customer')
-    const on_order = SetTranslate( 'on_order')
-    const on_auction = SetTranslate( 'on_auction')
+    const rated_carrier = SetNativeTranslate(Translate.language,{}, 'rated_carrier')
+    const rated_customer = SetNativeTranslate(Translate.language,{}, 'rated_customer')
+    const on_order = SetNativeTranslate(Translate.language,{}, 'on_order')
+    const on_auction = SetNativeTranslate(Translate.language,{}, 'on_auction')
 
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -46,7 +46,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
     return (
         <VerticalContainer>
             <CardRow>
-                <CardColName>{SetTranslate( 'politeness')}</CardColName>
+                <CardColName>{SetNativeTranslate(Translate.language,{}, 'politeness')}</CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
                         value={formData.politeness}
@@ -67,8 +67,8 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
             <CardRow>
                 <CardColName>
-                    {user.user.role === 'carrier' ? SetTranslate( 'no_downtime') :
-                        user.user.role === 'customer' ? SetTranslate( 'submission_fulfillment') : ''}
+                    {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{}, 'no_downtime') :
+                        user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{}, 'submission_fulfillment') : ''}
                 </CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
@@ -90,8 +90,8 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
 
             <CardRow>
                 <CardColName>
-                    {user.user.role === 'carrier' ? SetTranslate( 'loading_unloading') :
-                        user.user.role === 'customer' ? SetTranslate( 'transport_quality') : ''}
+                    {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{}, 'loading_unloading') :
+                        user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{}, 'transport_quality') : ''}
                 </CardColName>
                 {ratingScale.map(grade =>
                     <CardColName
@@ -113,13 +113,13 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
                 <CardButton
                     disabled={!formData.politeness || !formData.facilities || !formData.in_time}
                     onClick={click}
-                >{SetTranslate( 'rate')}</CardButton>
+                >{SetNativeTranslate(Translate.language,{}, 'rate')}</CardButton>
                 <CardButton
                     onClick={() => {
                         setModalActive(false)
                         formReset()
                     }}
-                >{SetTranslate( 'close')}</CardButton>
+                >{SetNativeTranslate(Translate.language,{}, 'close')}</CardButton>
             </CardRow>
         </VerticalContainer>
     )

@@ -11,7 +11,8 @@ import { v4 } from "uuid";
 import { observer } from 'mobx-react-lite'
 import close_grey from '../../../src/assets/close_grey.png';
 import '../order/Order.css'
-import { SetTranslate } from '../../modules/SetTranslate'
+
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
 const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selectedGroups, setSelectedGroups, setFetchStart }) => {
@@ -21,7 +22,7 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
     const {Setting} = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
 
-    const group_deleted = SetTranslate('group_deleted')
+    const group_deleted = SetNativeTranslate(Translate.language,{},'group_deleted')
 
     const deleteGroupAction = async () => {
         await deleteGroup(group.dataValues.id)

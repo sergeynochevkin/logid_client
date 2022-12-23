@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { AdressContext, TranslateContext, UserInfoContext } from '../../..'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -57,7 +57,7 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
     var place = autocomplete.getPlace()
     if (place) {
       if (!place.geometry) {
-        document.getElementById(id).placeholder = SetTranslate('adress_place_holder')
+        document.getElementById(id).placeholder = SetNativeTranslate(Translate.language,{},'adress_place_holder')
       } else {
         let data = { ...formData }
         data.company_adress.value = place.name
@@ -83,7 +83,7 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
       <VerticalContainer
         style={{ gap: '0px' }}
       >
-        <Input placeholder={SetTranslate('adress_place_holder')} defaultValue={formData.company_adress.value}
+        <Input placeholder={SetNativeTranslate(Translate.language,{},'adress_place_holder')} defaultValue={formData.company_adress.value}
           onChange={() => {
             if (formData.company_adress.value !== '') {
               dataReset()
@@ -103,7 +103,7 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
             color: 'rgb(254, 111, 103,0.8)'
           }}>
           {(formData.company_adress.notValid && formData.company_adress.isDirty) ?
-            SetTranslate('select_adress').toLowerCase() :
+            SetNativeTranslate(Translate.language,{},'select_adress').toLowerCase() :
             ''
           }
         </FieldName>

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { AdressContext, TranslateContext } from '../../..'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -9,6 +9,7 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 const Country = observer(({ formData, setFormData }) => {
 
     const { Adress } = useContext(AdressContext)
+    const { Translate } = useContext(TranslateContext)
 
     return (
         <VerticalContainer
@@ -22,9 +23,9 @@ const Country = observer(({ formData, setFormData }) => {
                 onBlur={e => formData.country.onBlur(e)}
                 style={{ borderLeft: formData.country.notValid || formData.country.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
             >
-                <option hidden >{SetTranslate('country_content')}</option>
+                <option hidden >{SetNativeTranslate(Translate.language, {}, 'country_content')}</option>
                 {Adress.countries.map(country =>
-                    <option value={country.value} key={country.id}>{SetTranslate(country.value)}</option>
+                    <option value={country.value} key={country.id}>{SetNativeTranslate(Translate.language, {}, country.value)}</option>
                 )}
             </Select>
             <FieldName
@@ -34,7 +35,7 @@ const Country = observer(({ formData, setFormData }) => {
                 }}
             >
                 {formData.country.isEmpty && formData.country.isDirty ?
-                    SetTranslate('select_country').toLowerCase() :
+                    SetNativeTranslate(Translate.language, {}, 'select_country').toLowerCase() :
                     ''
                 }
             </FieldName>

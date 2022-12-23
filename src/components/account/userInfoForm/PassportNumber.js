@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { TranslateContext } from '../../..'
-import { SetTranslate } from '../../../modules/SetTranslate'
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
@@ -14,7 +14,7 @@ const PassportNumber = ({ formData, setFormData }) => {
         <VerticalContainer
             style={{ gap: '0px' }}
         >
-            <Input placeholder={SetTranslate('passport_number_place_holder')}
+            <Input placeholder={SetNativeTranslate(Translate.language,{},'passport_number_place_holder')}
                 value={formData.passport_number.value}
                 onChange={(e) => formData.passport_number.onChange(e)}
                 onBlur={e => formData.passport_number.onBlur(e)}
