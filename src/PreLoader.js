@@ -21,7 +21,6 @@ const PreLoader = observer(({ children, ...props }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
-    const [data2Loaded, setData2Loaded] = useState(false)
 
     //attach google and lets go to design!
 
@@ -35,12 +34,12 @@ const PreLoader = observer(({ children, ...props }) => {
                 if (country) {
                     Adress.setCountry(country);
                     Translate.setLanguage(country.default_language)
-                    setData2Loaded(true)
+                    setDataLoaded(true)
                 } else {
                     Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
-                    setData2Loaded(true)
+                    setDataLoaded(true)
                 }
             })
             .catch((error) => {
@@ -62,19 +61,17 @@ const PreLoader = observer(({ children, ...props }) => {
                 Adress.setCountries(data.countries)
             })
         }
-        fetchData().then(UserInfo.setUserInfo({})).then(setDataLoaded(true));
+        fetchData().then(UserInfo.setUserInfo({}));
     }, [])
 
     useEffect(() => {
-        if (dataLoaded) {
             if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
                 Adress.setCountry(JSON.parse(localStorage.getItem('country')))
                 Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
-                setData2Loaded(true)
+                setDataLoaded(true)
             } else {
                 getGeoInfo();
             }
-        }
     }, []);
 
     useEffect(() => {
@@ -103,7 +100,7 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
     //check and set country language from state
 
-    if (!data2Loaded) {
+    if (!dataLoaded) {
         <div>loading...</div>
     }
     else {
