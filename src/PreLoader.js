@@ -104,7 +104,7 @@ const PreLoader = observer(({ children, ...props }) => {
     //check and set country language from state
 
     if (!data2Loaded) {
-        <></>
+        <>loading...</>
     }
     else {
 
