@@ -1,0 +1,7 @@
+.preloading_page {
+    background-color: white;
+}
+
+.preloading_page.dark {
+    background-color: black;
+}

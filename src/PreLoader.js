@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AdressContext, EquipmentTypeContext, StateContext, SubscriptionContext, TranslateContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
+import { AdressContext, EquipmentTypeContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { useFetching } from './hooks/useFetching'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
@@ -9,6 +9,7 @@ import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
 import { CARRIER_ROUTE, CUSTOMER_ROUTE } from './utils/consts'
 import axios from "axios";
+import '../src/pages/PageCommon.css'
 
 const PreLoader = observer(({ children, ...props }) => {
     const { TransportType } = useContext(TransportTypeContext)
@@ -21,6 +22,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
+    const { Setting } = useContext(SettingContext)
 
     //attach google and lets go to design!
 
@@ -65,13 +67,13 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
 
     useEffect(() => {
-            if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
-                Adress.setCountry(JSON.parse(localStorage.getItem('country')))
-                Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
-                setDataLoaded(true)
-            } else {
-                getGeoInfo();
-            }
+        if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
+            Adress.setCountry(JSON.parse(localStorage.getItem('country')))
+            Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
+            setDataLoaded(true)
+        } else {
+            getGeoInfo();
+        }
     }, []);
 
     useEffect(() => {
@@ -101,7 +103,9 @@ const PreLoader = observer(({ children, ...props }) => {
     //check and set country language from state
 
     if (!dataLoaded) {
-        <div>loading...</div>
+        <div className={Setting.app_theme === 'light' ? 'preloading_page' : Setting.app_theme === 'dark' ? 'preloading_page dark' : 'preloading_page'}>
+            {/* add styling and loader */}
+        </div>
     }
     else {
         return (
