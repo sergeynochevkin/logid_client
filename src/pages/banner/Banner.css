@@ -110,6 +110,41 @@
 
 }
 
+@media screen and (max-width: 1200px) and  (min-width: 769px) and (max-height: 500px)  {
+    .main_banner_container {
+        height: 500px;
+    }
+    
+    .main_banner_half_1_container {
+        width: 30%;
+        height: 70%;
+    }
+
+    .main_banner_half_2_container {
+        width: 60%;
+        height: 70%;
+    }
+    
+    .main_banner_slogan {
+        font-size: 20px;
+    }
+
+
+    .banner_disclaimer {
+        font-size: 8px;
+    }
+
+    .banner_promo_message {
+        font-size: 12px;
+    }
+
+    .banner_action_button_container {
+        gap: 5px;
+    }
+}
+
+
+
 @media screen and (max-width: 768px) and  (min-width: 426px)  {
     .main_banner_container {
         flex-direction: column;

@@ -21,7 +21,7 @@
 }
 
 .modalContent {
-    padding: 20px;
+    /* padding: 20px; */
     /* border-radius:5px; */
     background-color: rgb(245, 245, 245, 0.8);
     transform: scale(0.5);
@@ -108,6 +108,6 @@
 
 @media screen and (max-width: 425px) {
     .modal {
-        justify-content: left;
+        justify-content: stretch;
     }
 }

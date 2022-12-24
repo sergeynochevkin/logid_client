@@ -61,6 +61,16 @@
     }
 }
 
+@media screen and (max-width: 1200px) and  (min-width: 769px) and (max-height: 500px)  {
+    .footer_container {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .footer_copyright_container {
+        width: 80%;
+    }
+}
 
 @media screen and (max-width: 768px)and (min-width: 426px) {
     .footer_container {

@@ -119,11 +119,11 @@
 }
 
 .price_place_holder {
-    height: 78px;
+    height: 65px;
 }
 
 .button_place_holder {
-    height: 27px;
+    height: 30px;
 }
 
 @media screen and (max-width: 1920px) {}

@@ -35,16 +35,16 @@ const BannerActionContent = observer(() => {
                         <>
                             <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
                                 russian: [`No such language in your country`],
-                                english: [`At the moment our service in ${SetNativeTranslate(Translate.language,{},Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
+                                english: [`At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
                             })}</div>
                         </>}
                     <div className='banner_action_button_container'>
                         <Button
                             onClick={() =>
-                                navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language,{},'sign_in')}</Button>
+                                navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Button>
                         <Button
                             onClick={() =>
-                                navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language,{},'sign_up')}</Button>
+                                navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_up')}</Button>
                     </div>
                     <div className='banner_disclaimer'>
                         {SetNativeTranslate(Translate.language, {
@@ -55,11 +55,11 @@ const BannerActionContent = observer(() => {
                 </> :
                 <>
                     <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
-                        russian: [`${UserInfo.userInfo.name_surname_fathersname}, успешных доставок!`],
-                        english: [`${UserInfo.userInfo.name_surname_fathersname}, happy deliveries!`]
+                        russian: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name}, успешных доставок!`],
+                        english: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name}, happy deliveries!`]
                     })}</div>
                     <div className={Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'}>
-                        <FieldName>{SetNativeTranslate(Translate.language,{},'your_rating')}</FieldName>
+                        <FieldName>{SetNativeTranslate(Translate.language, {}, 'your_rating')}</FieldName>
                         <RatingView parent={'account'} onePartnerInfo={UserInfo.userInfo} user={user} />
                     </div>
                     {Adress.country.value === 'russia' ?

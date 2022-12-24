@@ -20,7 +20,7 @@ const Modal = observer(({ modalActive, setModalActive, children, parent, formRes
       }
       setModalActive(false)
     }}>
-      <div className={modalActive && Setting.app_theme === 'light' ? "modalContent active" : modalActive && Setting.app_theme === 'dark' ? "modalContent modalContent_dark active" : Setting.app_theme === 'light' ? "modalContent" : "modalContent_dark"} onClick={e => e.stopPropagation()}>
+      <div className={modalActive && Setting.app_theme === 'light' ? "modalContent active" : modalActive && Setting.app_theme === 'dark' ? "modalContent dark active" : Setting.app_theme === 'light' ? "modalContent" : "modalContent dark"} onClick={e => e.stopPropagation()}>
         <div className='modal_container'>
           {children}
         </div>

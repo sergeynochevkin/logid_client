@@ -184,6 +184,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'all_country', russian: 'вся', english: 'all', spain: '', type: 'content' },
         { service: 'total_offers', russian: 'Сделано предложений', english: 'Total offers', spain: '', type: 'content' },
         { service: 'city_adress', russian: 'Город и адрес', english: 'City and adress', spain: '', type: 'content' },
+        { service: 'no_time_limit', russian: 'Без срока', english: 'No time limits', spain: '', type: 'content' },
 
 
         { service: 'sign_in', russian: 'Войти', english: 'Sign in', spain: '', type: 'button' },
