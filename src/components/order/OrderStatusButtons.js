@@ -1,15 +1,14 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { ComponentFunctionContext, FilterAndSortContext, NotificationContext, OrderContext, PointContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, NotificationContext, OrderContext, PointContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { CardButton } from '../ui/button/CardButton'
 import { CardRow } from '../ui/card/CardRow'
 import { v4 } from "uuid";
 import OfferComponent from '../offer/OfferComponent'
-import { createOrder, updateOrder } from '../../http/orderApi'
+import {  updateOrder } from '../../http/orderApi'
 import { sendMail } from '../../http/mailApi'
 import { createPartner } from '../../http/partnerApi'
 import OrderRatingComponent from '../rating/OrderRatingComponent'
-import { createPoint } from '../../http/pointApi'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints, setFetchPartnersStart }) => {
@@ -40,17 +39,17 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const for_editing = SetNativeTranslate(Translate.language,{},'for_editing')
     const form_from_order = SetNativeTranslate(Translate.language,{},'form_from_order')
 
-    const sortOrders = (a, b) => {
-        if (a && b) {
-            if (a > b) {
-                return 1
-            } else {
-                return -1
-            }
-        } else {
-            return
-        }
-    }
+    // const sortOrders = (a, b) => {
+    //     if (a && b) {
+    //         if (a > b) {
+    //             return 1
+    //         } else {
+    //             return -1
+    //         }
+    //     } else {
+    //         return
+    //     }
+    // }
 
     const toAuction = async (event) => {
         await updateOrder('', 'auction', thisOrder.id, user.user.role, thisOrder.order_status)
@@ -279,7 +278,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                         user.user.role === 'customer' && thisOrder.order_status === 'inWork' ?
                             <CardRow>
                                 <CardButton onClick={disrupt}>{SetNativeTranslate(Translate.language,{},'not_arrival_button')}</CardButton>
-                                <CardButton onClick={completed}>{SetNativeTranslate(Translate.language,{},'finish')}</CardButton>
+                                <CardButton onClick={completed}>{SetNativeTranslate(Translate.language,{},'finish_button')}</CardButton>
                             </CardRow>
                             :
                             user.user.role === 'customer' && thisOrder.order_status === 'completed' ?
@@ -309,7 +308,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                                             user.user.role === 'carrier' && thisOrder.order_status === 'inWork' ?
                                                 <CardRow>
                                                     <CardButton onClick={disrupt}>{SetNativeTranslate(Translate.language,{},'not_loading_button')}</CardButton>
-                                                    <CardButton onClick={completed}>{SetNativeTranslate(Translate.language,{},'finish')}</CardButton>
+                                                    <CardButton onClick={completed}>{SetNativeTranslate(Translate.language,{},'finish_button')}</CardButton>
                                                 </CardRow> :
                                                 user.user.role === 'carrier' && thisOrder.order_status === 'completed' ?
                                                     <CardRow>

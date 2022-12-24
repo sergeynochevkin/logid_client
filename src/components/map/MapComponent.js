@@ -6,7 +6,7 @@ import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
 import { setDistance } from '../../modules/setDistance'
 import { setDuration } from '../../modules/setDuration'
-;
+    ;
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, setFetchStart }) => {
@@ -224,16 +224,16 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     }, [order.map_orders, State.user_state.favorite_order_state])
 
 
-    const Order = SetNativeTranslate(Translate.language,{},'order')
-    const Auction = SetNativeTranslate(Translate.language,{},'')
-    const cost = SetNativeTranslate(Translate.language,{},'cost')
-    const arrival_time_field_name = SetNativeTranslate(Translate.language,{},'arrival_time_field_name')
-    const start = SetNativeTranslate(Translate.language,{},'start')
-    const finish = SetNativeTranslate(Translate.language,{},'finish')
-    const Distance = SetNativeTranslate(Translate.language,{},'distance')
-    const go_to_order = SetNativeTranslate(Translate.language,{},'go_to_order')
-    const go_to_auction = SetNativeTranslate(Translate.language,{},'go_to_auction')
-    const points_in_the_order = SetNativeTranslate(Translate.language,{},'points_in_the_order')
+    const Order = SetNativeTranslate(Translate.language, {}, 'order')
+    const Auction = SetNativeTranslate(Translate.language, {}, 'auction')
+    const cost = SetNativeTranslate(Translate.language, {}, 'cost')
+    const arrival_time_field_name = SetNativeTranslate(Translate.language, {}, 'arrival_time_field_name')
+    const start = SetNativeTranslate(Translate.language, {}, 'start')
+    const finish = SetNativeTranslate(Translate.language, {}, 'finish')
+    const Distance = SetNativeTranslate(Translate.language, {}, 'distance')
+    const go_to_order = SetNativeTranslate(Translate.language, {}, 'go_to_order')
+    const go_to_auction = SetNativeTranslate(Translate.language, {}, 'go_to_auction')
+    const points_in_the_order = SetNativeTranslate(Translate.language, {}, 'points_in_the_order')
 
 
     useEffect(() => {
@@ -253,7 +253,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                     <div style="font-size:10px">${finish}</div>
                     <div style="font-size:10px">${lastPoint && lastPoint.point}</div>
                     <div style="font-size:10px">${points_in_the_order} ${points.length}</div>
-                    <div style="font-size:10px">${Distance} ${setDistance(orderItem.mileage)}</div>
+                    <div style="font-size:10px">${Distance} ${setDistance(orderItem.mileage)} ${SetNativeTranslate(Translate.language, {}, Adress.country.distance)}</div>
                     <div id='${orderItem.id}'
                     style="font-size:10px; font-weight:bold; cursor:pointer"
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
@@ -329,7 +329,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                     <div style="font-size:10px">${finish}</div>
                     <div style="font-size:10px">${lastPoint && lastPoint.point}</div>
                     <div style="font-size:10px">${points_in_the_order} ${points.length}</div>
-                    <div style="font-size:10px">${Distance} ${setDistance(orderItem.mileage)}</div>
+                    <div style="font-size:10px">${Distance} ${setDistance(orderItem.mileage)} ${SetNativeTranslate(Translate.language, {}, Adress.country.distance)}</div>
                     <div id='${orderItem.id}'
                     style="font-size:10px; font-weight:bold; cursor:pointer"
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
@@ -478,19 +478,19 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                             className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={calculateRoute}
                             disabled={pointsNotValid}
-                        >{SetNativeTranslate(Translate.language,{},'calculate_route')}</button>
+                        >{SetNativeTranslate(Translate.language, {}, 'calculate_route')}</button>
                         <button
                             className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={clearRoute}
                             disabled={!directionsResponse}
-                        >{SetNativeTranslate(Translate.language,{},'clear_route')}</button>
+                        >{SetNativeTranslate(Translate.language, {}, 'clear_route')}</button>
                     </div>
 
                     {distance &&
                         <div className={Setting.app_theme === 'light' ? 'calculated_data_container' : 'calculated_data_container calculated_data_container_dark'}>
-                            <div className='calculated_data'>{`${SetNativeTranslate(Translate.language,{},'distance')} ${setDistance(distance)} ${SetNativeTranslate(Translate.language,{},Adress.country.distance)}`}
+                            <div className='calculated_data'>{`${SetNativeTranslate(Translate.language, {}, 'distance')} ${setDistance(distance)} ${SetNativeTranslate(Translate.language, {}, Adress.country.distance)}`}
                             </div>
-                            <div className='calculated_data'>{`${SetNativeTranslate(Translate.language,{},'duration')}
+                            <div className='calculated_data'>{`${SetNativeTranslate(Translate.language, {}, 'duration')}
                              ${setDuration(duration)}
                             `}</div>
                         </div>
@@ -509,7 +509,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                                             calcBounds()
                                             setRefreshMap(true)
                                         }}
-                                    >{`${step} ${SetNativeTranslate(Translate.language,{},Adress.country.distance)}`}</button>
+                                    >{`${step} ${SetNativeTranslate(Translate.language, {}, Adress.country.distance)}`}</button>
                                 </div>
                             )}
                         </div>

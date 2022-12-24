@@ -191,7 +191,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'sign_up', russian: 'Зарегистрироваться', english: 'Sing up', spain: '', type: 'button' },
         { service: 'send', russian: 'Отправить', english: 'Send', spain: '', type: 'button' },
         { service: 'edit', russian: 'Редактировать', english: 'Edit', spain: '', type: 'button' },
-        { service: 'finish', russian: 'Завершить', english: 'Finish', spain: '', type: 'button' },
+        { service: 'finish_button', russian: 'Завершить', english: 'Finish', spain: '', type: 'button' },
         { service: 'cancel', russian: 'Отменить', english: 'Cancel', spain: '', type: 'button' },
         { service: 'take', russian: 'Взять в работу', english: 'Take it', spain: '', type: 'button' },
         { service: 'save', russian: 'Сохранить', english: 'Save', spain: '', type: 'button' },
