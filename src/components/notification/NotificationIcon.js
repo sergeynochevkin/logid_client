@@ -15,7 +15,11 @@ const NotificationIcon = observer(({ modalActive, setModalActive }) => {
                 <></>
                 :
                  <div className='notification_circle'> 
-                 <div  className='notification_count'>{Notification.server_notifications.length}</div>    
+                 <div  className='notification_count'
+                  onClick={() => {
+                        setModalActive(true)
+                    }}
+                 >{Notification.server_notifications.length}</div>    
 
                   {/* <img
                     src={alert_red}
