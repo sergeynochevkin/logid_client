@@ -6,7 +6,7 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Phone = observer( ({ formData, setFormData }) => {
+const Phone =  ({ formData, setFormData }) => {
 
     const { Translate } = useContext(TranslateContext)
 
@@ -33,6 +33,6 @@ const Phone = observer( ({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default Phone
