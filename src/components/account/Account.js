@@ -44,7 +44,7 @@ const Account = observer(({ setFetchPartnersStart }) => {
     const containerClassName = Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'
 
     return (<>
-        {Translate.translation.length > 0 ?
+        
             <HorizontalContainer
                 style={{ marginTop: '10px', alignItems: 'flex-start' }}>
                 <Modal modalActive={modalActive} setModalActive={setModalActive}>
@@ -109,7 +109,7 @@ const Account = observer(({ setFetchPartnersStart }) => {
                     </div>
                 </VerticalContainer>
             </HorizontalContainer> : <></>
-        }
+        
     </>
     )
 })
