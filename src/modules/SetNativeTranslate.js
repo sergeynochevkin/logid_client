@@ -262,7 +262,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'clear_route', russian: 'Очистить маршрут', english: 'Clear route', spain: '', type: 'button' },
         { service: 'go_to_order', russian: 'Перейти к заказу', english: 'Go to order', spain: '', type: 'button' },
         { service: 'go_to_auction', russian: 'Перейти к аукциону', english: 'Go to auction', spain: '', type: 'button' },
-        { service: 'accept', russian: 'Подтведить', english: 'Accept', spain: '', type: 'button' },
+        { service: 'accept', russian: 'Подтвердить', english: 'Accept', spain: '', type: 'button' },
         { service: 'decline', russian: 'Отклонить', english: 'Decline', spain: '', type: 'button' },
         { service: 'move_up', russian: 'вверх', english: 'move up', spain: '', type: 'button' },
         { service: 'move_down', russian: 'вниз', english: 'move down', spain: '', type: 'button' },
