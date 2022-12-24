@@ -99,8 +99,6 @@
 
 /* возможно иконку чуть освободить в большом варианте */
 .notification_icon {
-    width: 30px;
-    height: auto;
     position: fixed;
     right: 10px;
     top: 60px;
@@ -110,6 +108,28 @@
 .notification_icon.active {
     cursor: pointer
 }
+
+.notification_circle {
+    width: 25px;
+    height: 25px;
+    position: fixed;
+    right: 10px;
+    top: 60px;
+    z-index: 3;
+    border-radius: 50%;
+    background-color: rgb(5, 132, 233, 0.5);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification_count {
+    color: white;
+    font-size: 10px;
+}
+
+
 
 .list_meassage {
     font-size: 10px;
@@ -154,7 +174,7 @@
     cursor: pointer;
 }
 
-.tap_to_hide{
+.tap_to_hide {
     margin-top: 5px;
     color: lightgray;
     font-size: 8px;
