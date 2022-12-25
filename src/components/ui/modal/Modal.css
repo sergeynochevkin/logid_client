@@ -31,7 +31,7 @@
     overflow-y: initial !important
 }
 
-.modalContent_dark {
+.modalContent.dark {
     background-color: rgb(31, 31, 31, 0.8);
 }
 

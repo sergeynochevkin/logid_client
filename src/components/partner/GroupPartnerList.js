@@ -1,25 +1,26 @@
 import React, { useContext } from 'react'
-import { PartnerContext, TranslateContext } from '../..'
+import { PartnerContext, SettingContext, TranslateContext } from '../..'
 import GroupPartnerItem from './GroupPartnerItem'
 import { CardButton } from '../ui/button/CardButton'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
-
+import './Partner.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
     const { Partner } = useContext(PartnerContext)
     const { Translate } = useContext(TranslateContext)
+    const {Setting} = useContext(SettingContext)
 
     const thisGroupPartners = Partner.partnerInfos.filter(el => group.partners.includes(el.id))
 
     return (
 
-        <VerticalContainer
-            style={{ alignItems: 'center' }}
+        <div
+            className={Setting.app_theme ==='loght' ? 'group_list_container' : 'group_list_container dark'}
         >
             <div
-                style={{ fontSize: '16px' }}
+                className='group_list_name'
             >{group.dataValues.name}</div>
             <table>
                 <tbody>
@@ -51,7 +52,7 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
                     setModalActive(false)
                 }}
             >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
-        </VerticalContainer>
+        </div>
 
 
     )
