@@ -80,6 +80,10 @@ const Customer = observer(() => {
 
   useEffect(() => {
     fetching()
+  }, [])
+
+  useEffect(() => {
+    fetching()
   }, [fetchPartnersStart, ComponentFunction.Function, ComponentFunction.PageFunction])
 
   setInterval(() => {
@@ -108,7 +112,7 @@ const Customer = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetNativeTranslate(Translate.language,{},'customers_office')}</title>
+        <title>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</title>
 
         <NotificationIcon
           modalActive={modalActive}
@@ -121,7 +125,7 @@ const Customer = observer(() => {
           <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
         </Modal>
 
-        <PageBanner>{SetNativeTranslate(Translate.language,{},'customers_office')}</PageBanner>
+        <PageBanner>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -130,7 +134,7 @@ const Customer = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>{SetNativeTranslate(Translate.language,{},'fill_account')}</BookMark>
+              <BookMark>{SetNativeTranslate(Translate.language, {}, 'fill_account')}</BookMark>
               <UserInfoForm />
             </VerticalContainer>
             :
@@ -144,7 +148,7 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'orders')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language, {}, 'orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -156,7 +160,7 @@ const Customer = observer(() => {
                   order.setIntegrationId()
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderForm' && 'grey',
-                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language,{},'order_editing') : SetNativeTranslate(Translate.language,{},'create_order')}</BookMark>
+                }}>{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language, {}, 'order_editing') : SetNativeTranslate(Translate.language, {}, 'create_order')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -165,7 +169,7 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'carriers' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'carriers')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language, {}, 'carriers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
@@ -173,7 +177,7 @@ const Customer = observer(() => {
                   ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'account')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language, {}, 'account')}</BookMark>
                 {/* 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')

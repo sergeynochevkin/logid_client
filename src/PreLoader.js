@@ -66,8 +66,9 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
-            Adress.setCountry(JSON.parse(localStorage.getItem('country')))
-            Translate.setLanguage(JSON.parse(localStorage.getItem('country')).default_language)
+            let country = JSON.parse(localStorage.getItem('country'))
+            Adress.setCountry(country)
+            Translate.setLanguage(country.default_language)
             setDataLoaded(true)
         } else {
             getGeoInfo();
@@ -84,20 +85,26 @@ const PreLoader = observer(({ children, ...props }) => {
                     // await fetching()
                     user.setIsAuth(true)
                     data = await fetchUserInfo(user.user.id).then(data => {
-
-
-                        //check and set country from userInfo + theme already in state!
+                        let country
                         if (data) {
                             UserInfo.setUserInfo(data)
+                            country = Adress.countries.find(el => el.value === data.country)
+                            if (country !== Adress.country.value) {
+                                Adress.setCountry(country)
+                            }
                         }
-
-
                         data && fetchUserState(data.id).then(stateData => {
                             let state = JSON.parse(stateData.state)
                             State.setUserState(state)
-                            //check and set language from state before redirect, check if language native or english!
+                            if (state.app_theme) {
+                                Setting.setAppTheme(state.app_theme)
+                            }
                             if (state.language) {
-                                Translate.setLanguage(state.language)
+                                if (state.language !== 'english' && state.language !== country.default_language) {
+                                    Translate.setLanguage(country.default_language)
+                                } else {
+                                    Translate.setLanguage(state.language)
+                                }
                             } else {
                                 State.setUserStateField(Translate.language, 'language', data.id)
                             }

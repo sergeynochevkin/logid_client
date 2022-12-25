@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, CUSTOMER_ROUTE, CARRIER_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE } from '../../utils/consts';
 import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { AdressContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
@@ -25,6 +25,7 @@ import { HorizontalContainer } from '../../components/ui/page/HorizontalContaine
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import './Auth.css'
+import { fetchUserState } from '../../http/stateApi'
 
 
 const Auth = observer(() => {
@@ -43,6 +44,7 @@ const Auth = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Setting } = useContext(SettingContext)
   const { Adress } = useContext(AdressContext)
+  const { State } = useContext(StateContext)
 
 
   const [formData, setFormData] = useState({
@@ -71,7 +73,32 @@ const Auth = observer(() => {
   }))
 
   const [fetching, error] = useFetching(async () => {
-    await fetchUserInfo(user.user.id).then(data => data === null ? UserInfo.setUserInfo({}) : UserInfo.setUserInfo(data))
+    await fetchUserInfo(user.user.id).then(data => {
+      if (data === null) {
+        UserInfo.setUserInfo({})
+      } else {
+        UserInfo.setUserInfo(data)
+        if (data.country !== Adress.country.value) {
+          Adress.setCountry(Adress.countries.find(el => el.value === data.country))
+        }
+        fetchUserState(data.id).then(stateData => {
+          let state = JSON.parse(stateData.state)
+          if (state.app_theme) {
+            Setting.setAppTheme(state.app_theme)
+          }
+          let country = Adress.countries.find(el => el.value === data.country)
+          if (state.language) {
+            if (state.language !== 'english' && state.language !== country.default_language) {
+              Translate.setLanguage(country.default_language)
+            } else {
+              Translate.setLanguage(state.language)
+            }
+          } else {
+            State.setUserStateField(Translate.language, 'language', data.id)
+          }
+        })
+      }
+    })
   })
 
   const sendCodeAction = async () => {
@@ -97,7 +124,7 @@ const Auth = observer(() => {
       setCodeSend(false)
       user.setUser(data)
       UserInfo.setUserInfo({})
-      fetching()
+      await fetching()
       Notification.addNotification([{
         id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
           {
@@ -158,17 +185,17 @@ const Auth = observer(() => {
 
   return (
     <PageContainer>
-      {isLogin ? <title>{SetNativeTranslate(Translate.language,{},'authorization')}</title> : isRegister ? <title>{SetNativeTranslate(Translate.language,{},'registration')}</title> : isRecovery ? <title>{SetNativeTranslate(Translate.language,{},'password_recovery')}</title> : <></>}
+      {isLogin ? <title>{SetNativeTranslate(Translate.language, {}, 'authorization')}</title> : isRegister ? <title>{SetNativeTranslate(Translate.language, {}, 'registration')}</title> : isRecovery ? <title>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</title> : <></>}
       <Area50></Area50>
 
       <Form>
-        <Name>{isLogin ? SetNativeTranslate(Translate.language,{},'authorization') : isRegister ? SetNativeTranslate(Translate.language,{},'registration') : isRecovery ? SetNativeTranslate(Translate.language,{},'password_recovery') : ''} </Name>
+        <Name>{isLogin ? SetNativeTranslate(Translate.language, {}, 'authorization') : isRegister ? SetNativeTranslate(Translate.language, {}, 'registration') : isRecovery ? SetNativeTranslate(Translate.language, {}, 'password_recovery') : ''} </Name>
 
         {(isRecovery && !codeSend) || isLogin || isRegister ?
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder={SetNativeTranslate(Translate.language,{},'your_email')}
+            <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_email')}
               value={formData.email.value}
               style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
               onChange={(e) => formData.email.onChange(e)}
@@ -194,7 +221,7 @@ const Auth = observer(() => {
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder={SetNativeTranslate(Translate.language,{},'your_password')}
+            <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_password')}
               style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.password.value}
               onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
@@ -206,7 +233,7 @@ const Auth = observer(() => {
               }}
             >
               {(formData.password.isEmpty && formData.password.isDirty) || (formData.password.minLengthError) || (formData.password.maxLengthError) ?
-                formData.password.errorMessage : (formData.password.formatError) ? SetNativeTranslate(Translate.language,{},'password_hint') :
+                formData.password.errorMessage : (formData.password.formatError) ? SetNativeTranslate(Translate.language, {}, 'password_hint') :
                   ''
               }
             </FieldName>
@@ -218,7 +245,7 @@ const Auth = observer(() => {
             <VerticalContainer
               style={{ gap: '0px' }}
             >
-              <Input placeholder={SetNativeTranslate(Translate.language,{},'password_repeat')} value={comparePassword} onChange={(e) => {
+              <Input placeholder={SetNativeTranslate(Translate.language, {}, 'password_repeat')} value={comparePassword} onChange={(e) => {
                 setComparePassword(e.target.value)
                 setComparePasswordActive(true)
               }}
@@ -232,7 +259,7 @@ const Auth = observer(() => {
                 }}
               >
                 {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
-                  SetNativeTranslate(Translate.language,{},'compare_passwords') : ''
+                  SetNativeTranslate(Translate.language, {}, 'compare_passwords') : ''
                 }
               </FieldName>
             </VerticalContainer>
@@ -248,9 +275,9 @@ const Auth = observer(() => {
                   name="role" id="role"
                   style={{ borderLeft: formData.role.notValid || formData.role.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                  <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language,{},'who_are_you')}</option>
-                  <option value='customer'>{SetNativeTranslate(Translate.language,{},'customer')}</option>
-                  <option value='carrier'>{SetNativeTranslate(Translate.language,{},'carrier')}</option>
+                  <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language, {}, 'who_are_you')}</option>
+                  <option value='customer'>{SetNativeTranslate(Translate.language, {}, 'customer')}</option>
+                  <option value='carrier'>{SetNativeTranslate(Translate.language, {}, 'carrier')}</option>
                 </Select>
                 <FieldName
                   style={{
@@ -259,7 +286,7 @@ const Auth = observer(() => {
                   }}
                 >
                   {formData.role.isEmpty && formData.role.isDirty ?
-                    SetNativeTranslate(Translate.language,{},'select_role') :
+                    SetNativeTranslate(Translate.language, {}, 'select_role') :
                     ''
                   }
                 </FieldName>
@@ -272,7 +299,7 @@ const Auth = observer(() => {
           <VerticalContainer
             style={{ gap: '0px' }}
           >
-            <Input placeholder={SetNativeTranslate(Translate.language,{},'Сonfirmation_code')}
+            <Input placeholder={SetNativeTranslate(Translate.language, {}, 'Сonfirmation_code')}
               style={{ borderLeft: formData.code.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.code.value}
               onChange={(e) => formData.code.onChange(e)} onBlur={e => formData.code.onBlur(e)} type="text" name="code" id="code"
@@ -314,7 +341,7 @@ const Auth = observer(() => {
                 updatePasswordAction()
               }
             }}
-          >{isLogin ? SetNativeTranslate(Translate.language,{},'sign_in') : isRegister ? SetNativeTranslate(Translate.language,{},'sign_up') : (isRecovery && !codeSend) ? SetNativeTranslate(Translate.language,{},'send_code') : (isRecovery && codeSend) ? SetNativeTranslate(Translate.language,{},'save_and_sign_in') : ''}</Button>
+          >{isLogin ? SetNativeTranslate(Translate.language, {}, 'sign_in') : isRegister ? SetNativeTranslate(Translate.language, {}, 'sign_up') : (isRecovery && !codeSend) ? SetNativeTranslate(Translate.language, {}, 'send_code') : (isRecovery && codeSend) ? SetNativeTranslate(Translate.language, {}, 'save_and_sign_in') : ''}</Button>
           {isRecovery && codeSend ?
             <Button
               onClick={() => {
@@ -325,7 +352,7 @@ const Auth = observer(() => {
                 formData.password.setDirty(false)
                 setComparePassword('')
               }}
-            >{SetNativeTranslate(Translate.language,{},'send_new_code')}</Button> : <></>}
+            >{SetNativeTranslate(Translate.language, {}, 'send_new_code')}</Button> : <></>}
         </HorizontalContainer>
 
         {isLogin ?
@@ -333,21 +360,21 @@ const Auth = observer(() => {
             style={{ display: 'flex', gap: '5px' }}>
 
             <Link onClick={() =>
-              navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language,{},'registration')}</Link>
+              navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'registration')}</Link>
             <Link onClick={() =>
-              navigate(RECOVERY_ROUTE)}>{SetNativeTranslate(Translate.language,{},'password_recovery')}</Link>
+              navigate(RECOVERY_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</Link>
           </div>
           : isRegister ?
-            <Comment>{SetNativeTranslate(Translate.language,{},'have_an_account')}<Link onClick={() =>
-              navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language,{},'sign_in')}</Link></Comment>
+            <Comment>{SetNativeTranslate(Translate.language, {}, 'have_an_account')}<Link onClick={() =>
+              navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Link></Comment>
             : isRecovery ?
               <div
                 style={{ display: 'flex', gap: '5px' }}>
 
                 <Link onClick={() =>
-                  navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language,{},'registration')}</Link>
+                  navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'registration')}</Link>
                 <Link onClick={() =>
-                  navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language,{},'sign_in')}</Link>
+                  navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Link>
               </div>
               : <></>
         }

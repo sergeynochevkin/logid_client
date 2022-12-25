@@ -84,6 +84,10 @@ const Carrier = observer(() => {
 
   useEffect(() => {
     fetching()
+  }, [])
+
+  useEffect(() => {
+    fetching()
   }, [fetchPartnersStart, ComponentFunction.Function, ComponentFunction.PageFunction])
 
   setInterval(() => {
