@@ -6,8 +6,9 @@ import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import './Partner.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { observer } from 'mobx-react-lite'
 
-const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
+const GroupPartnerList = observer( ({ group, setFetchPartnersStart, setModalActive }) => {
     const { Partner } = useContext(PartnerContext)
     const { Translate } = useContext(TranslateContext)
     const {Setting} = useContext(SettingContext)
@@ -17,7 +18,7 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
     return (
 
         <div
-            className={Setting.app_theme ==='loght' ? 'group_list_container' : 'group_list_container dark'}
+            className={Setting.app_theme ==='light' ? 'group_list_container' : 'group_list_container dark'}
         >
             <div
                 className='group_list_name'
@@ -56,6 +57,6 @@ const GroupPartnerList = ({ group, setFetchPartnersStart, setModalActive }) => {
 
 
     )
-}
+})
 
 export default GroupPartnerList

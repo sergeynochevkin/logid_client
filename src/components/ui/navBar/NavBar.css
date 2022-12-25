@@ -37,6 +37,15 @@ color: white;
     cursor: pointer;
 }
 
+.nav_bar_theme_icon{
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.nav_bar_theme_icon:hover{
+    color: grey;
+}
+
 .language_switch{
     font-size: 12px;
 }

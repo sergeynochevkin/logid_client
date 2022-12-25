@@ -76,15 +76,33 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
+            console.log('1');
             try {
                 async function fetchData() {
                     let data = await check()
                     user.setUser(data)
                     // await fetching()
                     user.setIsAuth(true)
-                    data = await fetchUserInfo(user.user.id).then(data => UserInfo.setUserInfo(data))
-                    data && UserInfo.setUserInfo(data)
-                    data && await fetchUserState(data.id).then(data => State.setUserState(JSON.parse(data.state)))
+                    data = await fetchUserInfo(user.user.id).then(data => {
+
+
+                        //check and set country from userInfo + theme already in state!
+                        if (data) {
+                            UserInfo.setUserInfo(data)
+                        }
+
+
+                        data && fetchUserState(data.id).then(stateData => {
+                            let state = JSON.parse(stateData.state)
+                            State.setUserState(state)
+                            //check and set language from state before redirect, check if language native or english!
+                            if (state.language) {
+                                Translate.setLanguage(state.language)
+                            } else {
+                                State.setUserStateField(Translate.language, 'language', data.id)
+                            }
+                        })
+                    })
                     if (user.user.role === "carrier") {
                         navigate(CARRIER_ROUTE)
                     }
@@ -98,10 +116,10 @@ const PreLoader = observer(({ children, ...props }) => {
             }
         }
     }, [])
-    //check and set country language from state
+
 
     if (!dataLoaded) {
-      <></>
+        <></>
     }
     else {
         return (

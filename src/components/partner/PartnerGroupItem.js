@@ -2,14 +2,12 @@ import React, { useContext, useState } from 'react'
 import { FilterAndSortContext, NotificationContext, SettingContext, TranslateContext } from '../..'
 import { deleteGroup } from '../../http/partnerApi'
 import GroupPartnerList from './GroupPartnerList'
-import { CardButton } from '../ui/button/CardButton'
 import { CardColName } from '../ui/card/CardColName'
 import { CardRow } from '../ui/card/CardRow'
 import Modal from '../ui/modal/Modal'
 import { OrderTd } from '../ui/table/OrderTd'
 import { v4 } from "uuid";
 import { observer } from 'mobx-react-lite'
-import close_grey from '../../../src/assets/close_grey.png';
 import '../order/Order.css'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
@@ -19,10 +17,10 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const [modalActive, setModalActive] = useState(false)
     const { Notification } = useContext(NotificationContext)
-    const {Setting} = useContext(SettingContext)
+    const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
 
-    const group_deleted = SetNativeTranslate(Translate.language,{},'group_deleted')
+    const group_deleted = SetNativeTranslate(Translate.language, {}, 'group_deleted')
 
     const deleteGroupAction = async () => {
         await deleteGroup(group.dataValues.id)
@@ -45,12 +43,12 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
 
 
                             backgroundColor: parent !== 'partnerList' && parent !== 'orders' && selectedGroups.includes(group.dataValues.id) ? 'rgb(241,196,15,0.8)' :
-                            
-                                (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'light' ? 'white' :                                
-                                (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'dark' ? 'black'
-                                 : '',
 
-                                                                                                 
+                                (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'light' ? 'white' :
+                                    (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'dark' ? 'black'
+                                        : '',
+
+
                             border: parent === 'partnerList' && FilterAndSort.partnerFilters.partnersByGroups.includes(group.dataValues.id) ? 'solid black 1px' :
                                 parent === 'orders' && FilterAndSort.filters.partnersByGroups.includes(group.dataValues.id) ? 'solid black 1px' :
 
@@ -118,11 +116,13 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
                     >{group.partners.length === 0 ? 0 : group.partners.length}</OrderTd>
                     <td>
                         <div className='order_list_icon_container'>
-                            <img src={close_grey}
-                                onClick={deleteGroupAction}
-                                className={'order_list_icon'}
+
+                            <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
                                 alt='delete group'
-                            ></img>
+                                onClick={deleteGroupAction}
+                            >
+                                group_remove
+                            </span>
                         </div>
                     </td>
                 </tr>

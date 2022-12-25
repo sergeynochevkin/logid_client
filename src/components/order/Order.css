@@ -62,23 +62,9 @@
     top: -10px;
 }
 
-.order_list_icon {
-    width: 18px;
-    height: auto;
-    cursor: pointer;
-}
-
-.order_list_icon_container {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
 .arc_table_row :hover {
-    background-color: rgb(31, 31, 31, 0.8);
-    color: white;
+    /* background-color: rgb(31, 31, 31, 0.8);
+    color: white; */
     /* cursor: pointer; */
 }
 
@@ -128,6 +114,22 @@
     align-items: center;
     gap:10px
 }
+
+.order_action_icon{
+color: black;
+cursor: pointer;
+font-size: 22px;
+background-color: transparent;
+}
+
+.order_action_icon.dark{
+    color: white;
+}
+
+.order_action_icon:hover{
+color: grey;
+}
+
 
 @media screen and (max-width: 1920px) and  (min-width: 769px)  {
     

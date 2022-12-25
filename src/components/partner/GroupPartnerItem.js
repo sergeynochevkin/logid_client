@@ -1,16 +1,14 @@
 import React, { useContext } from 'react'
 import { deletePartnerFromGroup } from '../../http/partnerApi'
-import { CardButton } from '../ui/button/CardButton'
 import { OrderTd } from '../ui/table/OrderTd'
-
-import close_grey from '../../../src/assets/close_grey.png';
-import { TranslateContext } from '../..'
+import { SettingContext, TranslateContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 
 const GroupPartnerItem = observer(({ setFetchPartnersStart, partner, group, setModalActive, onePartnerInfo }) => {
 
     const { Translate } = useContext(TranslateContext)
+    const {Setting} = useContext(SettingContext)
 
     const deletePartnerFromGroupAction = async function () {
         await deletePartnerFromGroup(onePartnerInfo.id, group.dataValues.id)
@@ -33,11 +31,12 @@ const GroupPartnerItem = observer(({ setFetchPartnersStart, partner, group, setM
             <OrderTd>{partner.status === 'normal' ? SetNativeTranslate(Translate.language, {}, 'partner_normal') : partner.status === 'blocked' ? SetNativeTranslate(Translate.language, {}, 'partner_blocked') : partner.status === 'priority' ? SetNativeTranslate(Translate.language, {}, 'partner_favorite') : ''}</OrderTd>
             <td>
                 <div className='order_list_icon_container'>
-                    <img src={close_grey}
-                        onClick={deletePartnerFromGroupAction}
-                        className={'order_list_icon'}
+                    <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
                         alt='delete group'
-                    ></img>
+                        onClick={deletePartnerFromGroupAction}
+                    >
+                        person_remove
+                    </span>                  
                 </div>
             </td>
         </tr>

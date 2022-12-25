@@ -97,17 +97,7 @@
     color: white
 }
 
-/* возможно иконку чуть освободить в большом варианте */
-.notification_icon {
-    position: fixed;
-    right: 10px;
-    top: 60px;
-    z-index: 3;
-}
 
-.notification_icon.active {
-    cursor: pointer
-}
 
 .notification_circle {
     width: 25px;
@@ -147,14 +137,14 @@
 .list_item_container {
     display: flex;
     gap: 5px;
-    background-color: rgb(105, 105, 105, 0.9);
+    background-color: rgb(105, 105, 105, 0.5);
     border-radius: 5px;
     /* padding: 5px; */
     box-shadow: 0px 2.5px 5px 0px rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: space-around;
     width: 80%;
-    min-height: 40px;
+    min-height: 30px;
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -174,12 +164,6 @@
     width: 100%;
     align-items: center;
     justify-content: center;
-}
-
-.item_delete_icon {
-    width: 18px;
-    height: auto;
-    cursor: pointer;
 }
 
 .tap_to_hide {

@@ -9,6 +9,7 @@
 
 .group_list_container.dark {
     color: white;
+    background-color: transparent;
 }
 
 .group_list_name {

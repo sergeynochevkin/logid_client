@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AdressContext, FilterAndSortContext, LimitContext, NotificationContext, SettingContext, StateContext, TranslateContext, TransportContext, UserInfoContext } from '../..'
 import './Map.css'
 import { v4 } from "uuid";
-import close_white from '../../../src/assets/close_white.png';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 
 const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBounds, setRefreshMap }) => {
@@ -36,18 +35,18 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
         autocomplete.addListener('place_changed', onPlaceChanged)
     }
 
-    const subscription_cities_limit = SetNativeTranslate(Translate.language,{},'subscription_cities_limit')
-    const city_already_added = SetNativeTranslate(Translate.language,{},'city_already_added')
-    const added_order_tracking_city = SetNativeTranslate(Translate.language,{},'added_order_tracking_city')
-    const no_need_to_add = SetNativeTranslate(Translate.language,{},'no_need_to_add')
-    const your_default_city = SetNativeTranslate(Translate.language,{},'your_default_city')
+    const subscription_cities_limit = SetNativeTranslate(Translate.language, {}, 'subscription_cities_limit')
+    const city_already_added = SetNativeTranslate(Translate.language, {}, 'city_already_added')
+    const added_order_tracking_city = SetNativeTranslate(Translate.language, {}, 'added_order_tracking_city')
+    const no_need_to_add = SetNativeTranslate(Translate.language, {}, 'no_need_to_add')
+    const your_default_city = SetNativeTranslate(Translate.language, {}, 'your_default_city')
 
 
     function onPlaceChanged(id) {
         var place = autocomplete.getPlace()
         let pattern = { lat: undefined, lng: undefined, name: '' }
         if (!place.geometry) {
-            document.getElementById(id).placeholder = SetNativeTranslate(Translate.language,{},'enter_a_city_to_track')
+            document.getElementById(id).placeholder = SetNativeTranslate(Translate.language, {}, 'enter_a_city_to_track')
             // dataReset()
         } else {
             pattern.name = place.name
@@ -95,7 +94,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
     return (
         <>
             <input className='city_selector_input' id='city'
-                placeholder={SetNativeTranslate(Translate.language,{},'enter_a_city_to_track')}
+                placeholder={SetNativeTranslate(Translate.language, {}, 'enter_a_city_to_track')}
             ></input>
 
             {((Transport.transports.map(el => el.type).includes('car') || Transport.transports.map(el => el.type).includes('truck') || Transport.transports.map(el => el.type).includes('minibus') || Transport.transports.map(el => el.type).includes('combi')) && Setting.user_map_cities.length >= 1) &&
@@ -110,7 +109,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                             }
                             setFetchStart(true)
                         }}
-                    >{SetNativeTranslate(Translate.language,{},'intercity_only')}</div>
+                    >{SetNativeTranslate(Translate.language, {}, 'intercity_only')}</div>
                 </div>
             }
 
@@ -127,7 +126,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                                 resetAllCities()
                             }
                         }}
-                    >{SetNativeTranslate(Translate.language,{},'all_cities')}</div>
+                    >{SetNativeTranslate(Translate.language, {}, 'all_cities')}</div>
                 </div>
             }
 
@@ -153,29 +152,33 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                             resetAllCities()
                         }}
                     >{city.name}</div>
-                    <img src={close_white}
-                        className={'delete_icon'}
-                        onClick={() => {
-                            if (city.lat === Setting.user_map_city.lat && city.lng === Setting.user_map_city.lng) {
-                                Setting.setUserMapCity(userCity)
-                                State.setUserStateField(Setting.user_map_city, 'user_map_city', UserInfo.userInfo.id)
-                            }
-                            Setting.setUserMapCities([...Setting.user_map_cities].filter(el => el.lat !== city.lat && el.lng !== city.lng))
-                            State.setUserStateField(Setting.user_map_cities, 'user_map_cities', UserInfo.userInfo.id)
-                            if (Setting.user_map_cities.length >= 1 && Setting.all_cities === true) {
-                                calcAllCities()
-                                setRefreshMap(true)
-                            }
-                            else if (Setting.user_map_cities.length >= 1 && Setting.all_cities === false) {
-                                calcСityOrderBounds()
-                                setRefreshMap(true)
-                            }
-                            else if (Setting.user_map_cities.length === 0 && Setting.all_cities === true) {
-                                resetAllCities()
-                            }
-                            setFetchStart(true)
-                        }}
-                    ></img>
+                    <div className={Setting.app_theme === 'light' ? "map_action_icon_container" : "map_action_icon_container dark"}>
+                        <span className={"material-symbols-outlined"}
+                            alt='delete city'
+                            onClick={() => {
+                                if (city.lat === Setting.user_map_city.lat && city.lng === Setting.user_map_city.lng) {
+                                    Setting.setUserMapCity(userCity)
+                                    State.setUserStateField(Setting.user_map_city, 'user_map_city', UserInfo.userInfo.id)
+                                }
+                                Setting.setUserMapCities([...Setting.user_map_cities].filter(el => el.lat !== city.lat && el.lng !== city.lng))
+                                State.setUserStateField(Setting.user_map_cities, 'user_map_cities', UserInfo.userInfo.id)
+                                if (Setting.user_map_cities.length >= 1 && Setting.all_cities === true) {
+                                    calcAllCities()
+                                    setRefreshMap(true)
+                                }
+                                else if (Setting.user_map_cities.length >= 1 && Setting.all_cities === false) {
+                                    calcСityOrderBounds()
+                                    setRefreshMap(true)
+                                }
+                                else if (Setting.user_map_cities.length === 0 && Setting.all_cities === true) {
+                                    resetAllCities()
+                                }
+                                setFetchStart(true)
+                            }}
+                        >
+                            delete_forever
+                        </span>
+                    </div>
                 </div>
             )}
         </>
