@@ -1,6 +1,7 @@
 import { $authHost } from "./index";
 
 export const sendMail = async (
+    language,
     role,
     orderId,
     mailFunction,
@@ -9,6 +10,7 @@ export const sendMail = async (
     orderGroup
 ) => {
     const { data } = await $authHost.post('api/mail/send_mail', {
+        language,
         role,
         orderId,
         mailFunction,
