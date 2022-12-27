@@ -38,6 +38,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
+                    fetchData()
                     console.log( Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language);
                     Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
                     //select deafault country, say that we dont have service in this country
@@ -50,19 +51,19 @@ const PreLoader = observer(({ children, ...props }) => {
             });
     };
 
-    useEffect(() => {
-        async function fetchData() {
-            await fetchDefaultData().then(data => {
-                Subscription.setPlans(data.subscripton_plans)
-                Subscription.setOptions(data.subscripton_options)
-                Subscription.setOptionsByPlans(data.subscripton_options_by_plans)
-                TransportType.setTypes(data.transport_types)
-                TransportType.setSideTypes(data.transport_side_types)
-                TransportType.setLoadCapacities(data.transport_load_capacities)
-                EquipmentType.setTypes(data.equipment_types)
-                Adress.setCountries(data.countries)
-            })
-        }
+    async function fetchData() {
+        await fetchDefaultData().then(data => {
+            Subscription.setPlans(data.subscripton_plans)
+            Subscription.setOptions(data.subscripton_options)
+            Subscription.setOptionsByPlans(data.subscripton_options_by_plans)
+            TransportType.setTypes(data.transport_types)
+            TransportType.setSideTypes(data.transport_side_types)
+            TransportType.setLoadCapacities(data.transport_load_capacities)
+            EquipmentType.setTypes(data.equipment_types)
+            Adress.setCountries(data.countries)
+        })
+    }
+    useEffect(() => {  
         fetchData().then(UserInfo.setUserInfo({}));
     }, [])
 
