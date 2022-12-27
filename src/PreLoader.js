@@ -32,16 +32,16 @@ const PreLoader = observer(({ children, ...props }) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
                 let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
-                country &&
+                country ?
                     (Adress.setCountry(country),
                         Translate.setLanguage(country.default_language),
                         setDataLoaded(true)
-                    )
-                !country &&
-                    Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'),
-                        Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language),
-                        setDataLoaded(true)
-                    )
+                    ) :
+                    !country ?
+                        Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'),
+                            Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language),
+                            setDataLoaded(true)
+                        ) : ''
             })
             .catch((error) => {
                 console.log(error);
