@@ -289,8 +289,7 @@ const Main = observer(() => {
 
       <ModalBottom modalActive={modalActive}>
         <CookiesModalContent setModalActive={setModalActive} />
-      </ModalBottom>
-      <Modal modalActive={countryModalActive} setModalActive={setCountryModalActive}></Modal>
+      </ModalBottom>   
     </PageContainer>
   )
 })
