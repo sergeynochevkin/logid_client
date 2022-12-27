@@ -18,7 +18,7 @@ const NavBar = observer(() => {
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
-  const [modalActive, setModalActive] = useState(false)
+  const [modalActive, setModalActive] = useState(true)
   const [country_detected, setCountryDetected] = useState(null)
 
   const setLanguage = (language) => {
