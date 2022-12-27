@@ -27,16 +27,16 @@ const NavBar = observer(() => {
     }
   }
 
-  const activateModal= async()=>{
+  const activateModal = async () => {
     country_detected = await localStorage.getItem('country_detected')
-    !country_detected && setModalActive(true)
   }
 
-  let country_detected
   useEffect(() => {
-  activateModal()
+    if (localStorage.getItem('country_detected') === false) {
+      setModalActive(true)
+    }
   }, [])
-  
+
 
   return (
     <>
