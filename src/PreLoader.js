@@ -38,6 +38,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
+                    console.log(countries.length);
                     country = countries.find(el => el.country_code_iso3 === 'KGZ')
                     Adress.setCountry(country);
                     //select deafault country, say that we dont have service in this country
