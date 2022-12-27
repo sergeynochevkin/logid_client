@@ -92,13 +92,13 @@ const Main = observer(() => {
     },
   ]
 
-  let icon = `<span class='material-symbols-outlined'>
+  let icon = `<span className='material-symbols-outlined'>
   settings
   </span>`
 
   const items = [
     {
-      id: 1, icon: <><span class="material-symbols-outlined">
+      id: 1, icon: <><span className="material-symbols-outlined">
         route
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['До 50 адресов'],
@@ -109,7 +109,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 2, icon: <><span class="material-symbols-outlined">
+      id: 2, icon: <><span className="material-symbols-outlined">
         flag
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Заказы по всей стране'],
@@ -120,7 +120,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 3, icon: <><span class="material-symbols-outlined">
+      id: 3, icon: <><span className="material-symbols-outlined">
         group_add
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Группы перевозчиков'],
@@ -131,7 +131,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 4, icon: <><span class="material-symbols-outlined">
+      id: 4, icon: <><span className="material-symbols-outlined">
         thumbs_up_down
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Избранные перевозчики'],
@@ -142,7 +142,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 5, icon: <><span class="material-symbols-outlined">
+      id: 5, icon: <><span className="material-symbols-outlined">
         route
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Визуализация маршрута'],
@@ -153,7 +153,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 6, icon: <><span class="material-symbols-outlined">
+      id: 6, icon: <><span className="material-symbols-outlined">
         list_alt
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Заказ или аукцион'],
@@ -164,7 +164,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 7, icon: <><span class="material-symbols-outlined">
+      id: 7, icon: <><span className="material-symbols-outlined">
         location_searching
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Статус точек заказа'],
@@ -175,7 +175,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 8, icon: <><span class="material-symbols-outlined">
+      id: 8, icon: <><span className="material-symbols-outlined">
         notifications
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Уведомления'],
@@ -186,7 +186,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 9, icon: <><span class="material-symbols-outlined">
+      id: 9, icon: <><span className="material-symbols-outlined">
         travel_explore
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Заказы на карте'],
@@ -197,7 +197,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 10, icon: <><span class="material-symbols-outlined">
+      id: 10, icon: <><span className="material-symbols-outlined">
         filter_alt
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Фильтр заказов'],
@@ -208,7 +208,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 11, icon: <><span class="material-symbols-outlined">
+      id: 11, icon: <><span className="material-symbols-outlined">
         thumbs_up_down
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Избранные заказчики'],
@@ -219,7 +219,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 12, icon: <><span class="material-symbols-outlined">
+      id: 12, icon: <><span className="material-symbols-outlined">
         notifications
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Уведомления'],
@@ -230,7 +230,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 13, icon: <><span class="material-symbols-outlined">
+      id: 13, icon: <><span className="material-symbols-outlined">
         list_alt
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Заказ или аукцион'],
@@ -241,7 +241,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 14, icon: <><span class="material-symbols-outlined">
+      id: 14, icon: <><span className="material-symbols-outlined">
         location_on
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Можно выбрать только межгород'],
@@ -252,7 +252,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 15, icon: <><span class="material-symbols-outlined">
+      id: 15, icon: <><span className="material-symbols-outlined">
         location_city
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['До 10 городов'],
@@ -263,7 +263,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 16, icon: <><span class="material-symbols-outlined">
+      id: 16, icon: <><span className="material-symbols-outlined">
         transportation
       </span></>, name: SetNativeTranslate(Translate.language, {
         russian: ['Разный транспорт'],
