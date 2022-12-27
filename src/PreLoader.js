@@ -35,13 +35,14 @@ const PreLoader = observer(({ children, ...props }) => {
                 if (country) {
                     Adress.setCountry(country);
                     Translate.setLanguage(country.default_language)
+                    localStorage.setItem('country_detected', true)
                     setDataLoaded(true)
                 } else {
                     Adress.setCountry(countries.find(el => el.country_code_iso3 === 'CAN'));
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
-                    setDataLoaded(true)
                     localStorage.setItem('country_detected', false)
+                    setDataLoaded(true)
                 }
             })
             .catch((error) => {
@@ -91,6 +92,7 @@ const PreLoader = observer(({ children, ...props }) => {
                             if (country !== Adress.country.value) {
                                 Adress.setCountry(country)
                             }
+                            localStorage.setItem('country_detected', true)
                         }
                         data && fetchUserState(data.id).then(stateData => {
                             let state = JSON.parse(stateData.state)

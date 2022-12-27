@@ -81,6 +81,7 @@ const Auth = observer(() => {
         if (data.country !== Adress.country.value) {
           Adress.setCountry(Adress.countries.find(el => el.value === data.country))
         }
+        localStorage.setItem('country_detected', true)
         fetchUserState(data.id).then(stateData => {
           let state = JSON.parse(stateData.state)
           if (state.app_theme) {
@@ -103,7 +104,7 @@ const Auth = observer(() => {
 
   const sendCodeAction = async () => {
     try {
-      let data = await code(formData.email.value,Translate.language )
+      let data = await code(formData.email.value, Translate.language)
       Notification.addNotification([{
         id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
           {
