@@ -16,8 +16,31 @@
     font-size: 16px;
 }
 
+.partner_modal_content_container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.partner_view_container{
+    align-items: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
 @media screen and (max-width: 425px) {
     .group_list_container {
         width: 100vw;
+    }
+
+    .partner_modal_content_container {
+        width: 100vw;
+    }
+    .partner_view_container{
+        width: 350px;
     }
 }

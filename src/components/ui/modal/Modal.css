@@ -32,7 +32,7 @@
 }
 
 .modalContent.dark {
-    background-color: rgb(31, 31, 31, 0.8);
+    background-color: rgb(31, 31, 31, 0.8);   
 }
 
 .modalContent.active {
@@ -109,5 +109,9 @@
 @media screen and (max-width: 425px) {
     .modal {
         justify-content: stretch;
+    }
+
+    .modalContent {
+        border-radius: 5px 15px 5px 5px;
     }
 }

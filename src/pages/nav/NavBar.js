@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
-import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../../..';
+import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import { useNavigate } from 'react-router-dom'
-import { MAIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../../utils/consts';
+import { MAIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
 import { observer } from 'mobx-react-lite';
-import NotificationComponent from '../../notification/NotificationComponent';
-import { logout } from '../../../http/userAPI';
+import NotificationComponent from '../../components/notification/NotificationComponent';
+import { logout } from '../../http/userAPI';
 import './NavBar.css'
-import { SetNativeTranslate } from '../../../modules/SetNativeTranslate';
-import Modal from '../modal/Modal';
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
+import Modal from '../../components/ui/modal/Modal';
 import CountrySelector from './CountrySelector';
 
 const NavBar = observer(() => {
@@ -20,6 +20,7 @@ const NavBar = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive, setModalActive] = useState(null)
+  const [name, setName] = useState('')
 
   const setLanguage = (language) => {
     Translate.setLanguage(language)
@@ -109,14 +110,18 @@ const NavBar = observer(() => {
           onClick={() => {
             if (!modalActive && !user.isAuth) {
               setModalActive(true)
+              setName(SetNativeTranslate(Translate.language, {
+                russian: ['Выберите страну из списка'],
+                english: ['Select your country']
+              }))
             } else if (modalActive) {
               setModalActive(false)
             }
           }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
 
       </div>
-      <Modal modalActive={modalActive} setModalActive={setModalActive}>
-        <CountrySelector />
+      <Modal modalActive={modalActive} setModalActive={setModalActive} >
+        <CountrySelector name={name} setModalActive={setModalActive}/>
       </Modal>
     </>
 

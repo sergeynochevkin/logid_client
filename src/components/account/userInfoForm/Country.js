@@ -6,7 +6,7 @@ import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Country = observer(({ formData, setFormData }) => {
+const Country = ({ formData, setFormData }) => {
 
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
@@ -44,7 +44,7 @@ const Country = observer(({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default Country
 

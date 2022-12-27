@@ -24,7 +24,7 @@ const TypeOfCustomer = observer( ({ formData, setFormData }) => {
                 <option defaultValue hidden>{SetNativeTranslate(Translate.language,{},'delivery_for_place_holder')}</option>
                 <option value="retail">{SetNativeTranslate(Translate.language,{},'retail')}</option>
                 <option value="wholesale">{SetNativeTranslate(Translate.language,{},'wholesale')}</option>
-                <option value="food_delivery">{SetNativeTranslate(Translate.language,{},'food_delivery')}в</option>
+                <option value="food_delivery">{SetNativeTranslate(Translate.language,{},'food_delivery')}</option>
                 <option value="ready_food_delivery">{SetNativeTranslate(Translate.language,{},'ready_food_delivery')}</option>
                 <option value="electronics_repair">{SetNativeTranslate(Translate.language,{},'electronics_repair')}</option>
                 <option value="for_myself">{SetNativeTranslate(Translate.language,{},'for_myself')}</option>
