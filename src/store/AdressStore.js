@@ -33,7 +33,7 @@ export default class AdressStore {
         this._country_detected = value
     }
 
-    get _country_detected() {
+    get country_detected() {
         return this._country_detected
     }
 }
