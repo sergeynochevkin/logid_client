@@ -25,22 +25,20 @@ const PreLoader = observer(({ children, ...props }) => {
 
     //attach google and lets go to design!
 
-    const getGeoInfo = () => {
+    const getGeoInfo = (countries) => {
         axios
             .get("https://ipapi.co/json/")
             .then((response) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
-                let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
+                let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 console.log(country);
                 if (country) {
                     Adress.setCountry(country);
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
-                    fetchData()
-                    console.log( Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language);
-                    Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
+                    Adress.setCountry(countries.find(el => el.country_code_iso3 === 'CAN'));
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
                     setDataLoaded(true)
@@ -50,6 +48,11 @@ const PreLoader = observer(({ children, ...props }) => {
                 console.log(error);
             });
     };
+
+    useEffect(() => {
+
+        fetchData().then(UserInfo.setUserInfo({})).then()
+    }, [])
 
     async function fetchData() {
         await fetchDefaultData().then(data => {
@@ -61,22 +64,20 @@ const PreLoader = observer(({ children, ...props }) => {
             TransportType.setLoadCapacities(data.transport_load_capacities)
             EquipmentType.setTypes(data.equipment_types)
             Adress.setCountries(data.countries)
+            if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
+                let country = JSON.parse(localStorage.getItem('country'))
+                Adress.setCountry(country)
+                Translate.setLanguage(country.default_language)
+                setDataLoaded(true)
+            } else {
+                getGeoInfo(data.countries);
+            }
         })
     }
-    useEffect(() => {  
-        fetchData().then(UserInfo.setUserInfo({}));
-    }, [])
 
-    useEffect(() => {
-        if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
-            let country = JSON.parse(localStorage.getItem('country'))
-            Adress.setCountry(country)
-            Translate.setLanguage(country.default_language)
-            setDataLoaded(true)
-        } else {
-            getGeoInfo();
-        }
-    }, []);
+    // useEffect(() => {
+
+    // }, []);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
