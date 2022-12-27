@@ -34,7 +34,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
-                    console.log(JSON.stringify(country));
+                    console.log(JSON.stringify(Adress.countries));
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
