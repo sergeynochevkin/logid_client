@@ -27,11 +27,10 @@ const NavBar = observer(() => {
     }
   }
 
+  let country_detected
   useEffect(() => {
-    let country_detected = localStorage.getItem('country_detected')
-    if (country_detected === false) {
-      setModalActive(true)
-    }
+    country_detected = localStorage.getItem('country_detected')
+    !country_detected && setModalActive(true)
   }, [])
 
   return (
@@ -108,9 +107,9 @@ const NavBar = observer(() => {
 
         <div className='nav_bar_item'
           onClick={() => {
-            if (!Adress.country_detected && !modalActive) {
+            if (!country_detected && !modalActive) {
               setModalActive(true)
-            } else if (!Adress.country_detected && modalActive) {
+            } else if (!country_detected && modalActive) {
               setModalActive(false)
             }
           }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
