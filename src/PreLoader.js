@@ -34,10 +34,10 @@ const PreLoader = observer(({ children, ...props }) => {
                 let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
-                    console.log(JSON.stringify(Adress.countries));
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
+                    console.log(JSON.stringify(Adress.countries));
                     country = Adress.countries.find(el => el.country_code_iso3 === 'KGZ')
                     Adress.setCountry(country);
                     //select deafault country, say that we dont have service in this country
