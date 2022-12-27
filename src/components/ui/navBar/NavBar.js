@@ -18,7 +18,7 @@ const NavBar = observer(() => {
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
-  const [modalActive, setModalActive] = useState(true)
+  const [modalActive, setModalActive] = useState(null)
   const [country_detected, setCountryDetected] = useState(null)
 
   const setLanguage = (language) => {
@@ -32,12 +32,11 @@ const NavBar = observer(() => {
     setCountryDetected(localStorage.getItem('country_detected'))
   }, [])
 
-
   useEffect(() => {
-    if (country_detected === 'false') {
+    if (!country_detected) {
       setModalActive(true)
     }
-  }, [])
+  }, [country_detected])
 
 
   return (
