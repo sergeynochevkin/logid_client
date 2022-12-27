@@ -113,7 +113,7 @@ const NavBar = observer(() => {
 
         <div className='nav_bar_item'
           onClick={() => {
-            if (!country_detected && !modalActive) {
+            if (!modalActive) {
               setModalActive(true)
             } else if (modalActive) {
               setModalActive(false)
