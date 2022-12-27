@@ -27,8 +27,8 @@ const NavBar = observer(() => {
     }
   }
 
-  useEffect(() => {
-    let country_detected = localStorage.getItem('country_detected')
+  let country_detected = localStorage.getItem('country_detected')
+  useEffect(() => {    
     !country_detected && setModalActive(true)
   }, [])
 
