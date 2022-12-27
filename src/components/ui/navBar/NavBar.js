@@ -28,7 +28,7 @@ const NavBar = observer(() => {
     }
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     !Adress.country_detected && setModalActive(true)
   }, [])
 
