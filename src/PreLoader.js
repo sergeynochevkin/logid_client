@@ -22,6 +22,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
     const { Setting } = useContext(SettingContext)
+    const [thisCountries, SetThisCountries] = useState([])
 
     //attach google and lets go to design!
 
@@ -31,14 +32,14 @@ const PreLoader = observer(({ children, ...props }) => {
             .then((response) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
-                console.log(Adress.countries.length)
-                let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
+                console.log(thisCountries.length)
+                let country = thisCountries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
-                    let country = Adress.countries.find(el => el.country_code_iso3 === 'CAN')
+                    let country = thisCountries.find(el => el.country_code_iso3 === 'CAN')
                     Adress.setCountry(country);
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(country.default_language)
@@ -61,6 +62,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 TransportType.setLoadCapacities(data.transport_load_capacities)
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
+                SetThisCountries(data.countries)
             })
         }
         fetchData().then(UserInfo.setUserInfo({}));
