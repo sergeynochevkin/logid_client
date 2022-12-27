@@ -7,6 +7,7 @@ import NotificationComponent from '../../notification/NotificationComponent';
 import { logout } from '../../../http/userAPI';
 import './NavBar.css'
 import { SetNativeTranslate } from '../../../modules/SetNativeTranslate';
+import Modal from '../modal/Modal';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -17,6 +18,7 @@ const NavBar = observer(() => {
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
+  const [modalActive, setModalActive] = useState(false)
 
   const setLanguage = (language) => {
     Translate.setLanguage(language)
@@ -97,7 +99,18 @@ const NavBar = observer(() => {
         }}
       >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.sector === 'one' ? 'RU' : ''}</div>
 
-      <div className='nav_bar_item' onClick={() => { }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
+      <div className='nav_bar_item'
+        onClick={() => {
+          if (!Adress.country_detected && !modalActive) {
+            setModalActive(true)
+          } else if (!Adress.country_detected && modalActive) {
+            setModalActive(false)
+          }
+        }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
+
+      <Modal modalActive={modalActive} setModalActive={setModalActive}>
+
+      </Modal>
     </div>
 
   )
