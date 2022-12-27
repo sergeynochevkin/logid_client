@@ -8,6 +8,7 @@ import { logout } from '../../../http/userAPI';
 import './NavBar.css'
 import { SetNativeTranslate } from '../../../modules/SetNativeTranslate';
 import Modal from '../modal/Modal';
+import CountrySelector from './CountrySelector';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -113,7 +114,7 @@ const NavBar = observer(() => {
 
         <div className='nav_bar_item'
           onClick={() => {
-            if (!modalActive) {
+            if (!modalActive && !user.isAuth) {
               setModalActive(true)
             } else if (modalActive) {
               setModalActive(false)
@@ -121,7 +122,9 @@ const NavBar = observer(() => {
           }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
 
       </div>
-      <Modal modalActive={modalActive} setModalActive={setModalActive}></Modal>
+      <Modal modalActive={modalActive} setModalActive={setModalActive}>
+        <CountrySelector />
+      </Modal>
     </>
 
   )
