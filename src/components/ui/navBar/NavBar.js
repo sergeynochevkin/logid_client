@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../../..';
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../../utils/consts';
@@ -28,8 +28,8 @@ const NavBar = observer(() => {
     }
   }
 
-  useEffect(() => {
-    Adress.country_detected === false && setModalActive(true)
+  useLayoutEffect(() => {
+    !Adress.country_detected && setModalActive(true)
   }, [])
 
   return (
