@@ -26,20 +26,20 @@ const PreLoader = observer(({ children, ...props }) => {
 
     //attach google and lets go to design!
 
-    const getGeoInfo = async () => {
+    const getGeoInfo = async (countries) => {
         await axios
             .get("https://ipapi.co/json/")
             .then((response) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
-                console.log(thisCountries.length)
+                console.log(countries.length)
                 let country = thisCountries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
-                    let country = thisCountries.find(el => el.country_code_iso3 === 'CAN')
+                    let country = countries.find(el => el.country_code_iso3 === 'CAN')
                     Adress.setCountry(country);
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(country.default_language)
@@ -75,7 +75,7 @@ const PreLoader = observer(({ children, ...props }) => {
             Translate.setLanguage(country.default_language)
             setDataLoaded(true)
         } else {
-            getGeoInfo();
+            getGeoInfo(Adress.countries);
         }
     }, []);
 
