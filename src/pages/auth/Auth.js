@@ -81,7 +81,6 @@ const Auth = observer(() => {
         if (data.country !== Adress.country.value) {
           Adress.setCountry(Adress.countries.find(el => el.value === data.country))
         }
-        localStorage.setItem('country_detected', true)
         fetchUserState(data.id).then(stateData => {
           let state = JSON.parse(stateData.state)
           if (state.app_theme) {
