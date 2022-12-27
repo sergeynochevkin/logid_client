@@ -31,6 +31,7 @@ const PreLoader = observer(({ children, ...props }) => {
             .then((response) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
+                console.log(data.country_code_iso3);
                 let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
