@@ -112,7 +112,8 @@ const NavBar = observer(() => {
           }}
         >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.sector === 'one' ? 'RU' : ''}</div>
 
-        <div className='nav_bar_item'
+        <div className='nav_bar_item disabled'
+          disabled={user.isAuth}
           onClick={() => {
             if (!modalActive && !user.isAuth) {
               setModalActive(true)

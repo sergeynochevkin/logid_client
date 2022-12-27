@@ -30,6 +30,13 @@ color: white;
 .nav_bar_item:hover{
     color:grey;
 }
+.nav_bar_item:disabled{
+    cursor: not-allowed;
+    color: unset;
+}
+    
+
+
 
 .dark_mode_image{
     width: 20px;
