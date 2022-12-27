@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../../..';
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../../utils/consts';
@@ -27,8 +27,12 @@ const NavBar = observer(() => {
     }
   }
 
-  return (
+  useEffect(() => {
+    !Adress.country_detected && setModalActive(true)
+  }, [])
 
+  return (
+<>
     <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
       <NotificationComponent />
 
@@ -107,11 +111,10 @@ const NavBar = observer(() => {
             setModalActive(false)
           }
         }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
-
-      <Modal modalActive={modalActive} setModalActive={setModalActive}>
-
-      </Modal>
+      
     </div>
+    <Modal modalActive={modalActive} setModalActive={setModalActive}></Modal>
+    </>
 
   )
 })

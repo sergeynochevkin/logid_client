@@ -21,7 +21,6 @@ const Main = observer(() => {
   const { Adress } = useContext(AdressContext)
 
   const [modalActive, setModalActive] = useState(true)
-  const [countryModalActive, setCountryModalActive] = useState(false)
 
   useEffect(() => {
     async function handleUrlNotification() {
@@ -34,9 +33,7 @@ const Main = observer(() => {
     }
   }, [])
 
-  useEffect(() => {
-    !Adress.country_detected && setCountryModalActive(true)
-  }, [])
+
 
   let sections = [
     {
@@ -280,7 +277,6 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
   ]
-
 
   return (
     <PageContainer>
