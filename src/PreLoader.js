@@ -38,7 +38,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
-                    console.log( Adress.countries.find(el => el.country_code_iso3 === 'CAN').language);
+                    console.log( Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language);
                     Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
