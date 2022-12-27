@@ -113,9 +113,9 @@ const NavBar = observer(() => {
 
         <div className='nav_bar_item'
           onClick={() => {
-            if (!country_detected && !modalActive) {
+            if (!country_detected) {
               setModalActive(true)
-            } else if (!country_detected && modalActive) {
+            } else {
               setModalActive(false)
             }
           }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
