@@ -28,92 +28,92 @@ const NavBar = observer(() => {
   }
 
   useEffect(() => {
-    !Adress.country_detected && setModalActive(true)
+    !localStorage.getItem('country_detected') && setModalActive(true)
   }, [])
 
   return (
-<>
-    <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
-      <NotificationComponent />
+    <>
+      <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
+        <NotificationComponent />
 
-      <div className='nav_bar_logo' onClick={() =>
-        navigate(MAIN_ROUTE)}>logid</div>
-      {/* <Item onClick={() =>
+        <div className='nav_bar_logo' onClick={() =>
+          navigate(MAIN_ROUTE)}>logid</div>
+        {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Главная</Item> */}
-      {user.user.role === "customer" && user.isAuth ?
-        <div className='nav_bar_item' onClick={() =>
-          navigate(CUSTOMER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</div> :
-        <></>
-      }
+        {user.user.role === "customer" && user.isAuth ?
+          <div className='nav_bar_item' onClick={() =>
+            navigate(CUSTOMER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</div> :
+          <></>
+        }
 
-      {user.user.role === "carrier" && user.isAuth ?
-        <div className='nav_bar_item' onClick={() =>
-          navigate(CARRIER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</div> :
-        <></>
-      }
+        {user.user.role === "carrier" && user.isAuth ?
+          <div className='nav_bar_item' onClick={() =>
+            navigate(CARRIER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</div> :
+          <></>
+        }
 
-      {user.user.role === "manager" && user.isAuth ?
-        <div className='nav_bar_item' onClick={() =>
-          navigate(MANAGER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'managers_office')}</div> :
-        <></>
-      }
+        {user.user.role === "manager" && user.isAuth ?
+          <div className='nav_bar_item' onClick={() =>
+            navigate(MANAGER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'managers_office')}</div> :
+          <></>
+        }
 
-      {user.user.role === "admin" && user.isAuth ?
-        <div className='nav_bar_item' onClick={() =>
-          navigate(ADMIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'administrators_office')}</div> :
-        <></>
-      }
+        {user.user.role === "admin" && user.isAuth ?
+          <div className='nav_bar_item' onClick={() =>
+            navigate(ADMIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'administrators_office')}</div> :
+          <></>
+        }
 
-      {user.isAuth ?
-        <div className='nav_bar_item' onClick={
-          async () => {
-            await logout()
-            order.setOrders([]);
-            user.setIsAuth(false);
-            user.setUser({});
-            UserInfo.setUserInfo({})
-            localStorage.clear()
-          }}>{SetNativeTranslate(Translate.language, {}, 'sign_out')}</div> :
-        <div className='nav_bar_item' onClick={() =>
-          navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
-      }
+        {user.isAuth ?
+          <div className='nav_bar_item' onClick={
+            async () => {
+              await logout()
+              order.setOrders([]);
+              user.setIsAuth(false);
+              user.setUser({});
+              UserInfo.setUserInfo({})
+              localStorage.clear()
+            }}>{SetNativeTranslate(Translate.language, {}, 'sign_out')}</div> :
+          <div className='nav_bar_item' onClick={() =>
+            navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
+        }
 
-      <span class="material-symbols-outlined nav_bar_theme_icon"
-        onClick={() => {
-          if (Setting.app_theme === 'dark') {
-            Setting.setAppTheme('light')
-            State.setUserStateField('light', 'app_theme', UserInfo.userInfo.id)
-          } else {
-            Setting.setAppTheme('dark')
-            State.setUserStateField('dark', 'app_theme', UserInfo.userInfo.id)
-          }
-        }}
-      >
-        {Setting.app_theme === 'light' ? 'dark_mode' : 'light_mode'}
-      </span>
+        <span class="material-symbols-outlined nav_bar_theme_icon"
+          onClick={() => {
+            if (Setting.app_theme === 'dark') {
+              Setting.setAppTheme('light')
+              State.setUserStateField('light', 'app_theme', UserInfo.userInfo.id)
+            } else {
+              Setting.setAppTheme('dark')
+              State.setUserStateField('dark', 'app_theme', UserInfo.userInfo.id)
+            }
+          }}
+        >
+          {Setting.app_theme === 'light' ? 'dark_mode' : 'light_mode'}
+        </span>
 
-      {/* language of my country + english if english is your language, no select, set language state when select if isAuth. Сheck such language for such country when loading!*/}
-      <div className='nav_bar_item language_switch'
-        onClick={() => {
-          if (Translate.language === 'russian') {
-            setLanguage('english')
-          } else if (Translate.language === 'english' && Adress.country.sector === 'one') {
-            setLanguage('russian')
-          }
-        }}
-      >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.sector === 'one' ? 'RU' : ''}</div>
+        {/* language of my country + english if english is your language, no select, set language state when select if isAuth. Сheck such language for such country when loading!*/}
+        <div className='nav_bar_item language_switch'
+          onClick={() => {
+            if (Translate.language === 'russian') {
+              setLanguage('english')
+            } else if (Translate.language === 'english' && Adress.country.sector === 'one') {
+              setLanguage('russian')
+            }
+          }}
+        >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.sector === 'one' ? 'RU' : ''}</div>
 
-      <div className='nav_bar_item'
-        onClick={() => {
-          if (!Adress.country_detected && !modalActive) {
-            setModalActive(true)
-          } else if (!Adress.country_detected && modalActive) {
-            setModalActive(false)
-          }
-        }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
-      
-    </div>
-    <Modal modalActive={modalActive} setModalActive={setModalActive}></Modal>
+        <div className='nav_bar_item'
+          onClick={() => {
+            if (!Adress.country_detected && !modalActive) {
+              setModalActive(true)
+            } else if (!Adress.country_detected && modalActive) {
+              setModalActive(false)
+            }
+          }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
+
+      </div>
+      <Modal modalActive={modalActive} setModalActive={setModalActive}></Modal>
     </>
 
   )

@@ -31,6 +31,7 @@ export default class AdressStore {
 
     setCountryDetected(value) {
         this._country_detected = value
+        localStorage.setItem('country_detected', value)
     }
 
     get country_detected() {
