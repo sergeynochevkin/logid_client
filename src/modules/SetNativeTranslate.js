@@ -10,7 +10,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'usa', russian: 'США', english: 'United States', spain: '', type: 'country' },
         { service: 'united_kingdom', russian: 'Великобритания', english: 'United Kingdom', spain: '', type: 'country' },
         { service: 'australia', russian: 'Австралия', english: 'Australia', spain: '', type: 'country' },
-        { service: 'new_zeland', russian: 'Новая зеландия', english: 'Тew zeland', spain: '', type: 'country' },
+        { service: 'new_zeland', russian: 'Новая зеландия', english: 'New zeland', spain: '', type: 'country' },
 
         { service: 'spain', russian: 'Испания', english: 'Spain', spain: '', type: 'country' },
         { service: 'sweden', russian: 'Швеция', english: 'Sweden', spain: '', type: 'country' },
