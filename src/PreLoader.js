@@ -9,6 +9,7 @@ import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
 import { CARRIER_ROUTE, CUSTOMER_ROUTE } from './utils/consts'
 import axios from "axios";
+import Modal from './components/ui/modal/Modal'
 
 const PreLoader = observer(({ children, ...props }) => {
     const { TransportType } = useContext(TransportTypeContext)
@@ -22,28 +23,27 @@ const PreLoader = observer(({ children, ...props }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
     const { Setting } = useContext(SettingContext)
-    const [thisCountries, SetThisCountries] = useState([])
+    const [modalActive, setModalActive] = useState(false)
 
     //attach google and lets go to design!
 
-    const getGeoInfo = async () => {
-        await axios
+    const getGeoInfo = () => {
+        axios
             .get("https://ipapi.co/json/")
             .then((response) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
-                console.log(thisCountries.length)
-                let country = thisCountries.find(el => el.country_code_iso3 === data.country_code_iso3)
+                let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
-                    let country = thisCountries.find(el => el.country_code_iso3 === 'CAN')
-                    Adress.setCountry(country);
-                    //select deafault country, say that we dont have service in this country
-                    Translate.setLanguage(country.default_language)
-                    setDataLoaded(true)
+                    setModalActive(true)
+                    // Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
+                    // //select deafault country, say that we dont have service in this country
+                    // Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
+                    // setDataLoaded(true)
                 }
             })
             .catch((error) => {
@@ -62,7 +62,6 @@ const PreLoader = observer(({ children, ...props }) => {
                 TransportType.setLoadCapacities(data.transport_load_capacities)
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
-                SetThisCountries(data.countries)
             })
         }
         fetchData().then(UserInfo.setUserInfo({}));
@@ -75,7 +74,7 @@ const PreLoader = observer(({ children, ...props }) => {
             Translate.setLanguage(country.default_language)
             setDataLoaded(true)
         } else {
-            getGeoInfo(Adress.countries);
+            getGeoInfo();
         }
     }, []);
 
@@ -130,7 +129,9 @@ const PreLoader = observer(({ children, ...props }) => {
 
 
     if (!dataLoaded) {
-        <></>
+        <>
+            <Modal modalActive={modalActive} setModalActive={setModalActive} />
+        </>
     }
     else {
         return (
