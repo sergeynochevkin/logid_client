@@ -1,37 +1,37 @@
 import { $authHost, $host } from "./index";
 import jwt_decode from "jwt-decode"
 
-export const registration = async (email, password, role) => {
-    const { data } = await $host.post('api/user/registration', { email, password, role })
+export const registration = async (email, password, role, language) => {
+    const { data } = await $host.post('api/user/registration', { email, password, role, language })
     localStorage.setItem('token', data.accessToken)
     return jwt_decode(data.accessToken)
 }
 
-export const update = async (userId, email, password) => {
-    const { data } = await $authHost.put('api/user/update', { userId, email, password })
+export const update = async (userId, email, password, language) => {
+    const { data } = await $authHost.put('api/user/update', { userId, email, password, language })
     localStorage.setItem('token', data.accessToken)
     return jwt_decode(data.accessToken)
 }
 
-export const code = async (email) => {
-    const { data } = await $host.get(`api/user/get_code`, { params: { email } })
+export const code = async (email, language) => {
+    const { data } = await $host.get(`api/user/get_code`, { params: { email, language } })
     return data
 }
 
-export const restoreLink = async (email) => {
-    const { data } = await $authHost.get(`api/user/restore_link`, { params: { email } })
+export const restoreLink = async (email, language) => {
+    const { data } = await $authHost.get(`api/user/restore_link`, { params: { email, language } })
     return data
 }
 
-export const restore = async (password, code) => {
-    const { data } = await $host.put('api/user/restore', { password, code })
+export const restore = async (password, code, language) => {
+    const { data } = await $host.put('api/user/restore', { password, code, language })
     localStorage.setItem('token', data.accessToken)
     return jwt_decode(data.accessToken)
 }
 
 
-export const login = async (email, password) => {
-    const { data } = await $host.post('api/user/login', { email, password })
+export const login = async (email, password, language) => {
+    const { data } = await $host.post('api/user/login', { email, password, language })
     localStorage.setItem('token', data.accessToken)
     return jwt_decode(data.accessToken)
 }

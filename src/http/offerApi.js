@@ -1,10 +1,10 @@
 import { $authHost } from "./index";
 
 export const createOffer = async (
-    formData
+    language, formData
 ) => {
     const { data } = await $authHost.post('api/offer', {
-        formData
+       language, formData
     })
     return data
 }

@@ -34,8 +34,8 @@ const BannerActionContent = observer(() => {
                         </> :
                         <>
                             <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
-                                russian: [`No such language in your country`],
-                                english: [`At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
+                                russian: [`В настоящий момент наш сервис полностью бесплатный. Выберите любой подходящий вам тарифный план и пользуйтесь им бесплатно!`],
+                                english: ['At the moment our service in', SetNativeTranslate(Translate.language, {}, Adress.country.value), 'is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!']
                             })}</div>
                         </>}
                     <div className='banner_action_button_container'>
@@ -62,20 +62,14 @@ const BannerActionContent = observer(() => {
                         <FieldName>{SetNativeTranslate(Translate.language, {}, 'your_rating')}</FieldName>
                         <RatingView parent={'account'} onePartnerInfo={UserInfo.userInfo} user={user} />
                     </div>
-                    {Adress.country.value === 'russia' ?
 
-                        <div className='banner_disclaimer'>
-                            {SetNativeTranslate(Translate.language, {
-                                russian: ['Обратите внимание, сервис logid не проводит юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы с заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
-                                english: ['Please note that the logid service does not conduct any legal due diligence of users and is not responsible for their reliability. To work with a customer or carrier, we strongly recommend that you always build contractual relationships, check documents, and maintain the necessary document flow']
-
-                            })}
-                        </div>
-                        :
-                        SetNativeTranslate(Translate.language, {
-                            russian: ['No such language in your country'],
+                    <div className='banner_disclaimer'>
+                        {SetNativeTranslate(Translate.language, {
+                            russian: ['Обратите внимание, сервис logid не проводит юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы с заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
                             english: ['Please note that the logid service does not conduct any legal due diligence of users and is not responsible for their reliability. To work with a customer or carrier, we strongly recommend that you always build contractual relationships, check documents, and maintain the necessary document flow']
+
                         })}
+                    </div>
 
                 </>}
         </div>

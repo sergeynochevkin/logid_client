@@ -6,7 +6,7 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Email = observer( ({ authFormData, setauthFormData }) => {
+const Email = ({ authFormData, setauthFormData }) => {
 
   const { Translate } = useContext(TranslateContext)
 
@@ -34,6 +34,6 @@ const Email = observer( ({ authFormData, setauthFormData }) => {
           </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default Email

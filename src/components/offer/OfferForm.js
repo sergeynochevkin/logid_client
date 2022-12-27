@@ -47,7 +47,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 await updateOffer(
                     formData
                 )
-                await sendMail(user.user.role, oneOrder.id, 'offer', 'update')
+                await sendMail(Translate.language,user.user.role, oneOrder.id, 'offer', 'update')
                 Notification.addNotification([{
                     id: v4(), type: 'success', message: SetNativeTranslate(
                         Translate.language, {
@@ -59,9 +59,10 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 formReset()
             } else {
                 await createOffer(
+                    Translate.language,
                     formData
                 )
-                sendMail(user.user.role, oneOrder.id, 'offer', 'create')
+                sendMail(Translate.language,user.user.role, oneOrder.id, 'offer', 'create')
                 Notification.addNotification([{
                     id: v4(), type: 'success', message: SetNativeTranslate(
                         Translate.language, {
@@ -82,7 +83,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
     const delOffer = async (event) => {
         try {
             event.preventDefault();
-            await deleteOffer(thisCarrierOffer.id).then(sendMail(user.user.role, oneOrder.id, 'offer', 'delete'))
+            await deleteOffer(thisCarrierOffer.id).then(sendMail(Translate.language,user.user.role, oneOrder.id, 'offer', 'delete'))
             setFetchStart(true)
             setModalActive(false)
             Notification.addNotification([{

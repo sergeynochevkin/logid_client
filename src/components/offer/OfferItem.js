@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import { useContext } from 'react'
-import { ComponentFunctionContext, PartnerContext } from '../..'
+import { ComponentFunctionContext, PartnerContext, TranslateContext } from '../..'
 import { setTime } from '../../modules/setTime'
 import { sendMail } from '../../http/mailApi'
 import { updateOrder } from '../../http/orderApi'
@@ -17,6 +17,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
   const [showMoreInfo, setShowMoreInfo] = useState(false)
   const formattedOfferTime = setTime(new Date(oneOffer.time_from), 0, 'show')
   const { ComponentFunction } = useContext(ComponentFunctionContext)
+  const { Translate } = useContext(TranslateContext)
 
   useEffect(() => {
     if (ComponentFunction.OfferListMoreInfo === false) {
@@ -27,7 +28,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
   const inWork = async () => {
     try {
       await updateOrder('', '', oneOrder.id, user.user.role, 'inWork', oneOrder.order_status, noPartner.id, UserInfo.userInfo.id, oneOffer.cost, oneOffer.time_from, firstPoint.id)
-        .then(sendMail(user.user.role, oneOrder.id, 'order_status', 'inWork', noPartner.id))
+        .then(sendMail(Translate.language, user.user.role, oneOrder.id, 'order_status', 'inWork', noPartner.id))
         .then(createPartner(UserInfo.userInfo.id, noPartner.id, 'normal'))
         .then(createPartner(noPartner.id, UserInfo.userInfo.id, 'normal'))
       setFetchStart(true)

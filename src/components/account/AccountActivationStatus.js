@@ -29,7 +29,7 @@ const AccountActivationStatus = observer(({ containerClassName }) => {
 
     const generateLinkAction = async () => {
         try {
-            await restoreLink(user.user.email).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: data }]))
+            await restoreLink(user.user.email, Translate.language).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: data }]))
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }

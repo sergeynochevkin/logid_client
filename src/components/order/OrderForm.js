@@ -267,6 +267,7 @@ const OrderForm = observer(() => {
                 formData.cost.value = 0
             }
             data = await createOrder(
+                Translate.language,
                 formData.order_comment.value,
                 formData.cost.value,
                 formData.mileage,
@@ -301,7 +302,7 @@ const OrderForm = observer(() => {
             await createPoint(pointFormData)
             if (formData.order_status === 'new') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_send}` : `${Auction} ${orderId} ${created_and_send}` }]);
-                sendMail(user.user.role, orderId, 'new_order', '');
+                sendMail(Translate.language,user.user.role, orderId, 'new_order', '');
             }
             if (formData.order_status === 'postponed') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_postponed}` : `${Auction} ${orderId} ${created_and_postponed}` }]);

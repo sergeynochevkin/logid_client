@@ -91,11 +91,11 @@ const NavBar = observer(() => {
         onClick={() => {
           if (Translate.language === 'russian') {
             setLanguage('english')
-          } else if (Translate.language === 'english' && Adress.country.value === 'russia') {
+          } else if (Translate.language === 'english' && Adress.country.sector === 'one') {
             setLanguage('russian')
           }
         }}
-      >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.value === 'russia' ? 'RU' : ''}</div>
+      >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.sector === 'one' ? 'RU' : ''}</div>
 
       <div className='nav_bar_item' onClick={() => { }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
     </div>

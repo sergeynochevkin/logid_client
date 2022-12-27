@@ -2,12 +2,21 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
 
     let translation = [
         { service: 'russia', russian: 'Россия', english: 'Russia', spain: '', type: 'country' },
-        { service: 'greece', russian: 'Герция', english: 'Greece', spain: '', type: 'country' },
+        { service: 'belarus', russian: 'Беларусь', english: 'Belarus', spain: '', type: 'country' },
+        { service: 'kazahstan', russian: 'Казахстан', english: 'Kazahstan', spain: '', type: 'country' },
+        { service: 'kyrgyzstan', russian: 'Кыргызстан', english: 'Kyrgyzstan', spain: '', type: 'country' },
+
         { service: 'canada', russian: 'Канада', english: 'Canada', spain: '', type: 'country' },
+        { service: 'usa', russian: 'США', english: 'United States', spain: '', type: 'country' },
+        { service: 'united_kingdom', russian: 'Великобритания', english: 'United Kingdom', spain: '', type: 'country' },
+        { service: 'australia', russian: 'Австралия', english: 'Australia', spain: '', type: 'country' },
+        { service: 'new_zeland', russian: 'Новая зеландия', english: 'Тew zeland', spain: '', type: 'country' },
+
         { service: 'spain', russian: 'Испания', english: 'Spain', spain: '', type: 'country' },
         { service: 'sweden', russian: 'Швеция', english: 'Sweden', spain: '', type: 'country' },
         { service: 'finland', russian: 'Финляндия', english: 'Finland', spain: '', type: 'country' },
         { service: 'montenegin', russian: 'Черногория', english: 'Montenegro', spain: '', type: 'country' },
+        { service: 'greece', russian: 'Герция', english: 'Greece', spain: '', type: 'country' },   
 
         { service: 'arc', russian: 'В архиве', english: 'Archived', spain: '', type: 'order_status' },
         { service: 'new', russian: 'Новый', english: 'New', spain: '', type: 'order_status' },

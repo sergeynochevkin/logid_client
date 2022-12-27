@@ -39,7 +39,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
         paid_to = setTime(initialTime, 1440 * plan.period, 'form')
         updateSubscriptionAction = async function () {
             try {
-                await updateSubscription(UserInfo.userInfo.id, plan.plan_id, paid_to).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: data }]))
+                await updateSubscription(Translate.language,UserInfo.userInfo.id, plan.plan_id, paid_to).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: data }]))
                 setFetchPartnersStart(true)
                 setModalActive(false)
             } catch (e) {

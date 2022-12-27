@@ -22,7 +22,7 @@ const AddPartnerComponent = observer(() => {
   const partner_added = SetNativeTranslate(Translate.language,{},'partner_added')
 
   const addPartnerAction = async function () {
-    await addPartnerByKey(user.user.role, UserInfo.userInfo.id, key).then(data => {
+    await addPartnerByKey(Translate.language,user.user.role, UserInfo.userInfo.id, key).then(data => {
       if (Array.isArray(data)) {
         Notification.addNotification([{ id: v4(), type: 'success', message: `${partner_added} ${data[0].partnerUserInfoId}` }])
         ComponentFunction.setPartnersComponentFunction('list')

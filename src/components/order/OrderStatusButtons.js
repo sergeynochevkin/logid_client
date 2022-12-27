@@ -53,7 +53,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
 
     const toAuction = async (event) => {
         await updateOrder('', 'auction', thisOrder.id, user.user.role, thisOrder.order_status)
-            .then(sendMail(user.user.role, thisOrder.id, 'order_type', 'auction'))
+            .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_type', 'auction'))
             .then(event.stopPropagation());
         Notification.addNotification([{ id: v4(), type: 'success', message: `${you_converted} ${Order.toLowerCase()} ${thisOrder.id} ${to_auction}` }])
         ComponentFunction.setFunction(thisOrder.order_status)
@@ -62,7 +62,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
 
     const toOrder = async (event) => {
         await updateOrder('', 'order', thisOrder.id, user.user.role, thisOrder.order_status)
-            .then(sendMail(user.user.role, thisOrder.id, 'order_type', 'order'))
+            .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_type', 'order'))
             .then(event.stopPropagation());
         Notification.addNotification([{ id: v4(), type: 'success', message: `${you_converted} ${Auction.toLowerCase()} ${thisOrder.id} ${to_order}` }])
         ComponentFunction.setFunction(thisOrder.order_status)
@@ -73,7 +73,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const postpone = async (event) => {
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'postponed', thisOrder.order_status)
-                .then(sendMail(user.user.role, thisOrder.id, 'order_status', 'postponed'))
+                .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_status', 'postponed'))
                 .then(setFetchStart(true))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
@@ -87,7 +87,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            sendMail(user.user.role, order.group, 'order_status', 'postponed', '')
+            sendMail(Translate.language,user.user.role, order.group, 'order_status', 'postponed', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_postponed} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
@@ -96,7 +96,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const cancel = async (event) => {
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'canceled', thisOrder.order_status)
-                .then(sendMail(user.user.role, thisOrder.id, 'order_status', 'canceled'))
+                .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_status', 'canceled'))
                 .then(setFetchStart(true))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
@@ -109,7 +109,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            sendMail(user.user.role, order.group, 'order_status', 'canceled', '')
+            sendMail(Translate.language,user.user.role, order.group, 'order_status', 'canceled', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_canceled} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
@@ -118,7 +118,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const toNew = async (event) => {
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'new', thisOrder.order_status)
-                .then(sendMail(user.user.role, thisOrder.id, 'order_status', 'new'))
+                .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_status', 'new'))
                 .then(setFetchStart(true))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
@@ -131,7 +131,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            sendMail(user.user.role, order.group, 'order_status', 'new', '')
+            sendMail(Translate.language,user.user.role, order.group, 'order_status', 'new', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_send} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
@@ -144,7 +144,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id)
                 await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
                 await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
-                await sendMail(user.user.role, thisOrder.id, 'order_status', 'inWork')
+                await sendMail(Translate.language,user.user.role, thisOrder.id, 'order_status', 'inWork')
                 order.setGroup(order.group.filter(el => el !== thisOrder.id))
                 ComponentFunction.setOrdersComponentFunction('orderList')
                 setFetchStart(true)
@@ -158,7 +158,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const completed = async (event) => {
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'completed', thisOrder.order_status, thisOrder.carrierId, thisOrder.userInfoId)
-                .then(sendMail(user.user.role, thisOrder.id, 'order_status', 'completed'))
+                .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_status', 'completed'))
                 .then(setFetchStart(true))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
@@ -171,7 +171,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            sendMail(user.user.role, order.group, 'order_status', 'completed', '')
+            sendMail(Translate.language,user.user.role, order.group, 'order_status', 'completed', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
             setFetchStart(true)
         };
@@ -180,7 +180,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
     const arc = async (event) => {
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'arc', thisOrder.order_status)
-                .then(sendMail(user.user.role, thisOrder.id, 'order_status', 'arc'))
+                .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_status', 'arc'))
                 .then((setFetchStart(true)))
                 .then(event.stopPropagation())
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
@@ -195,7 +195,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                 State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            sendMail(user.user.role, order.group, 'order_status', 'arc', '')
+            sendMail(Translate.language,user.user.role, order.group, 'order_status', 'arc', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${orders_notification} ${order.group.toString()} ${you_moved_to_arc}` }])
             setFetchStart(true)
         };
@@ -205,7 +205,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
         State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
         if (parent === 'order') {
             await updateOrder('disrupt', '', thisOrder.id, user.user.role, 'canceled', thisOrder.order_status)
-                .then(sendMail(user.user.role, thisOrder.id, 'order_status', 'disrupt'))
+                .then(sendMail(Translate.language,user.user.role, thisOrder.id, 'order_status', 'disrupt'))
                 .then(setFetchStart(true))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))

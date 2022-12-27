@@ -10,10 +10,10 @@ export const createPartner = async (
 }
 
 export const addPartnerByKey = async (
-    role, userInfoId, key
+    language,role, userInfoId, key
 ) => {
     const { data } = await $authHost.post('api/partner/add_partner', {
-        role, userInfoId, key
+       language, role, userInfoId, key
     })
     return data
 }

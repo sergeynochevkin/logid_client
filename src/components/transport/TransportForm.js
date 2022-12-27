@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { UserInfoContext } from '../..'
+import { TranslateContext, UserInfoContext } from '../..'
 import { createTransport } from '../../http/transportApi'
 import { uploadImages } from '../../http/fileApi'
 import { Form } from '../ui/form/Form'
@@ -18,6 +18,7 @@ flex-direction:column;`
 
 const TransportForm = observer(({ setFetchStart, setModalActive, formData, formReset, setFormData }) => {
   const { UserInfo } = useContext(UserInfoContext)
+  const{Translate} = useContext(TranslateContext)
 
   const filesFormData = new FormData()
 
@@ -34,7 +35,7 @@ const TransportForm = observer(({ setFetchStart, setModalActive, formData, formR
         .then(async data => {
 
           filesFormData.append('transportId', data.id)
-          await uploadImages(filesFormData)
+          await uploadImages(filesFormData, Translate.language)
 
           
           //log

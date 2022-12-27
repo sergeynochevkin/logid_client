@@ -143,7 +143,8 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             data = await update(
                 authFormData.userId,
                 authFormData.email.value,
-                authFormData.password.value
+                authFormData.password.value,
+                Translate.language
             )
             authFormData.email.setValue('')
             authFormData.password.setValue('')

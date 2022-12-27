@@ -6,7 +6,7 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const PassportDateOfIssue = observer( ({ formData, setFormData }) => {
+const PassportDateOfIssue =  ({ formData, setFormData }) => {
   const { Translate } = useContext(TranslateContext)
   const [selected, setSelected] = useState(false)
 
@@ -39,6 +39,6 @@ const PassportDateOfIssue = observer( ({ formData, setFormData }) => {
       </FieldName>
     </VerticalContainer>
   )
-})
+}
 
 export default PassportDateOfIssue

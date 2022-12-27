@@ -1,6 +1,7 @@
 import { $authHost } from "./index";
 
 export const createOrder = async (
+    language,
     order_comment,
     cost,
     mileage,
@@ -32,6 +33,7 @@ export const createOrder = async (
     direction_response
 ) => {
     const { data } = await $authHost.post('api/order', {
+        language,
         order_comment,
         cost,
         mileage,

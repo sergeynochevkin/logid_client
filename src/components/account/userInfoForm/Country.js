@@ -23,8 +23,11 @@ const Country = observer(({ formData, setFormData }) => {
                 onBlur={e => formData.country.onBlur(e)}
                 style={{ borderLeft: formData.country.notValid || formData.country.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
             >
-                <option hidden >{SetNativeTranslate(Translate.language, {}, 'country_content')}</option>
-                {Adress.countries.map(country =>
+                {/* <option hidden >{SetNativeTranslate(Translate.language, {}, 'country_content')}</option> */}
+                
+
+                <option value={Adress.country.value} >{SetNativeTranslate(Translate.language, {}, Adress.country.value)}</option>
+                {Adress.countries.filter(el => el.value !== Adress.country.value ).map(country =>
                     <option value={country.value} key={country.id}>{SetNativeTranslate(Translate.language, {}, country.value)}</option>
                 )}
             </Select>
