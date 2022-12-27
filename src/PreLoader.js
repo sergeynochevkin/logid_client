@@ -32,7 +32,6 @@ const PreLoader = observer(({ children, ...props }) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
                 let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
-                console.log(country);
                 if (country) {
                     Adress.setCountry(country);
                     Translate.setLanguage(country.default_language)
@@ -42,6 +41,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
                     setDataLoaded(true)
+                    Adress.setCountryDetected(false)
                 }
             })
             .catch((error) => {
@@ -50,7 +50,6 @@ const PreLoader = observer(({ children, ...props }) => {
     };
 
     useEffect(() => {
-
         fetchData().then(UserInfo.setUserInfo({})).then()
     }, [])
 
@@ -74,10 +73,6 @@ const PreLoader = observer(({ children, ...props }) => {
             }
         })
     }
-
-    // useEffect(() => {
-
-    // }, []);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {

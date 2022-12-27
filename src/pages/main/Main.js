@@ -10,6 +10,7 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import ModalBottom from '../../components/ui/modal/ModalBottom'
 import CookiesModalContent from '../../components/legality/CookiesModalContent'
 import MainSection from './MainSection'
+import Modal from '../../components/ui/modal/Modal'
 
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
@@ -20,6 +21,7 @@ const Main = observer(() => {
   const { Adress } = useContext(AdressContext)
 
   const [modalActive, setModalActive] = useState(true)
+  const [countryModalActive, setCountryModalActive] = useState(false)
 
   useEffect(() => {
     async function handleUrlNotification() {
@@ -30,6 +32,10 @@ const Main = observer(() => {
     if (uuid) {
       handleUrlNotification()
     }
+  }, [])
+
+  useEffect(() => {
+    !Adress.country_detected && setCountryModalActive(true)
   }, [])
 
   let sections = [
@@ -86,7 +92,7 @@ const Main = observer(() => {
         english: ['Tariff plans', !user.isAuth ? 'for the customer' : '']
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: [Adress.country.value === 'russia' ? 'Начните пользоваться нашим сервисом до 28.02.2023, выберите любой подходящий вам тарифный план и пользуйтесь им до окончания срока действия бесплатно!' : 'В настоящий момент нащ сервис в полностью бесплатный. Выберите любой подходящий вам тарифный план и пользуйтесь им бесплатно!'],
-        english: [Adress.country.value === 'russia' ? 'Start using our service before 02/28/2022, choose any tariff plan that suits you and use it until the expiration date for free!' : `At the moment our service in ${SetNativeTranslate(Translate.language,{},Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
+        english: [Adress.country.value === 'russia' ? 'Start using our service before 02/28/2022, choose any tariff plan that suits you and use it until the expiration date for free!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
       }), description: '', class: 'uneven', type: 'self_content',
       role: 'customer'
     },
@@ -288,6 +294,7 @@ const Main = observer(() => {
       <ModalBottom modalActive={modalActive}>
         <CookiesModalContent setModalActive={setModalActive} />
       </ModalBottom>
+      <Modal modalActive={countryModalActive} setModalActive={setCountryModalActive}></Modal>
     </PageContainer>
   )
 })
