@@ -35,7 +35,7 @@ const NavBar = observer(() => {
 
   useEffect(() => {
     console.log(country_detected);
-    if (!country_detected) {
+    if (country_detected !==undefined && !country_detected) {
       setModalActive(true)
     }
   }, [country_detected])
