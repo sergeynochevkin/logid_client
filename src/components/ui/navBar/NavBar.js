@@ -27,11 +27,14 @@ const NavBar = observer(() => {
     }
   }
 
+  const activateModal= async()=>{
+    country_detected = await localStorage.getItem('country_detected')
+    !country_detected && setModalActive(true)
+  }
+
   let country_detected
   useEffect(() => {
-    country_detected = localStorage.getItem('country_detected')
-    !country_detected && setModalActive(true)
-    !country_detected && console.log('works!');
+  activateModal()
   }, [])
   
 
@@ -82,7 +85,7 @@ const NavBar = observer(() => {
             navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
         }
 
-        <span class="material-symbols-outlined nav_bar_theme_icon"
+        <span className="material-symbols-outlined nav_bar_theme_icon"
           onClick={() => {
             if (Setting.app_theme === 'dark') {
               Setting.setAppTheme('light')
