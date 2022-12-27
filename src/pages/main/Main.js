@@ -19,7 +19,6 @@ const Main = observer(() => {
   const uuid = queryParams.get("uuid")
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
-
   const [modalActive, setModalActive] = useState(true)
 
   useEffect(() => {
