@@ -9,7 +9,6 @@ import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
 import { CARRIER_ROUTE, CUSTOMER_ROUTE } from './utils/consts'
 import axios from "axios";
-import Modal from './components/ui/modal/Modal'
 
 const PreLoader = observer(({ children, ...props }) => {
     const { TransportType } = useContext(TransportTypeContext)
@@ -23,7 +22,6 @@ const PreLoader = observer(({ children, ...props }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
     const { Setting } = useContext(SettingContext)
-    const [modalActive, setModalActive] = useState(false)
 
     //attach google and lets go to design!
 
@@ -39,11 +37,10 @@ const PreLoader = observer(({ children, ...props }) => {
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
-                    setModalActive(true)
-                    // Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
-                    // //select deafault country, say that we dont have service in this country
-                    // Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
-                    // setDataLoaded(true)
+                    Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'KGZ'));
+                    //select deafault country, say that we dont have service in this country
+                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'KGZ').default_language)
+                    setDataLoaded(true)
                 }
             })
             .catch((error) => {
@@ -129,9 +126,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
 
     if (!dataLoaded) {
-        <>
-            <Modal modalActive={modalActive} setModalActive={setModalActive} />
-        </>
+        <></>
     }
     else {
         return (
