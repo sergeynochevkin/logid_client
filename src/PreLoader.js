@@ -31,25 +31,26 @@ const PreLoader = observer(({ children, ...props }) => {
             .then((response) => {
                 let data = response.data;
                 //check if we dont have cuntry state in localstorage
-                let countries = [...Adress.countries]
-                let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
-                if (country) {
-                    Adress.setCountry(country);
-                    Translate.setLanguage(country.default_language)
-                    setDataLoaded(true)
-                } else {
-                    console.log(countries.length);
-                    country = countries.find(el => el.country_code_iso3 === 'KGZ')
-                    Adress.setCountry(country);
-                    //select deafault country, say that we dont have service in this country
-                    Translate.setLanguage(country.default_language)
-                    setDataLoaded(true)
-                }
+                let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
+                setCL(country)
             })
             .catch((error) => {
                 console.log(error);
             });
     };
+
+    const setCL = (country) => {
+        if (country) {
+            Adress.setCountry(country);
+            Translate.setLanguage(country.default_language)
+            setDataLoaded(true)
+        } else {
+            Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'CAN'));
+            //select deafault country, say that we dont have service in this country
+            Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
+            setDataLoaded(true)
+        }
+    }
 
     useEffect(() => {
         async function fetchData() {
