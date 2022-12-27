@@ -34,12 +34,14 @@ const PreLoader = observer(({ children, ...props }) => {
                 let country = Adress.countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
+                    console.log(JSON.stringify(country));
                     Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 } else {
-                    Adress.setCountry(Adress.countries.find(el => el.country_code_iso3 === 'KGZ'));
+                    country = Adress.countries.find(el => el.country_code_iso3 === 'KGZ')
+                    Adress.setCountry(country);
                     //select deafault country, say that we dont have service in this country
-                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'KGZ').default_language)
+                    Translate.setLanguage(country.default_language)
                     setDataLoaded(true)
                 }
             })
