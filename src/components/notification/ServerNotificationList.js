@@ -9,13 +9,13 @@ import { deleteNotifications } from '../../http/notificationApi'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const ServerNotificationList = observer(({ setModalActive, setFetchPartnersStart }) => {
+const ServerNotificationList = observer(({ setModalActive, fetchNotificationsActions }) => {
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
 
-    const deleteNotificationsAction = () => {
+    const deleteNotificationsAction = async() => {
         deleteNotifications(Notification.server_notifications.map(el => el.id))
-        setFetchPartnersStart()
+        await fetchNotificationsActions()
         setModalActive(false)
     }
 
@@ -46,7 +46,7 @@ const ServerNotificationList = observer(({ setModalActive, setFetchPartnersStart
                         setModalActive={setModalActive}
                         key={notification.id}
                         notification={notification}
-                        setFetchPartnersStart={setFetchPartnersStart}
+                        fetchNotificationsActions={fetchNotificationsActions}
                     />)}
             </div>
         </div>

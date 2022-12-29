@@ -53,10 +53,10 @@ const Customer = observer(() => {
 
   const [fetching, error] = useFetching(async () => {
     if (Object.keys(UserInfo.userInfo).length !== 0) {
-      await fetchNotifications(UserInfo.userInfo.id).then(async data => {
-        Notification.setServerNotifications(data.filter(el => el.viewed === true))
-        Notification.setNewServerNotifications(data.filter(el => el.viewed === false))
-      })
+      // await fetchNotifications(UserInfo.userInfo.id).then(async data => {
+      //   Notification.setServerNotifications(data.filter(el => el.viewed === true))
+      //   Notification.setNewServerNotifications(data.filter(el => el.viewed === false))
+      // })
       await fetchUserLimits(UserInfo.userInfo.id).then(data => Limit.setUserLimits(data))
       await fetchSubscription(UserInfo.userInfo.id).then(data => Subscription.setSubscription(data))
       await fetchUserState(UserInfo.userInfo.id).then(data => { State.setUserState(JSON.parse(data.state)) })
@@ -112,14 +112,6 @@ const Customer = observer(() => {
     return (
       <PageContainer>
         <title>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</title>
-
-        <Modal
-          parent={'serverNotifications'}
-          modalActive={modalActive}
-          setModalActive={setModalActive}
-        >
-          <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
-        </Modal>
 
         <PageBanner>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</PageBanner>
 

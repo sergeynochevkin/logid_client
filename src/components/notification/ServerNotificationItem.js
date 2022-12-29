@@ -5,12 +5,12 @@ import { deleteNotification } from '../../http/notificationApi';
 import { setTime } from '../../modules/setTime';
 import { observer } from 'mobx-react-lite';
 
-const ServerNotificationItem = observer(({ notification, setFetchPartnersStart, setModalActive }) => {
+const ServerNotificationItem = observer(({ notification, setModalActive, fetchNotificationsActions }) => {
     const { Setting } = useContext(SettingContext)
     const { Notification } = useContext(NotificationContext)
-    const deleteNotificationAction = () => {
+    const deleteNotificationAction =async () => {
         deleteNotification(notification.id)
-        setFetchPartnersStart()
+        await fetchNotificationsActions()
         if (Notification.server_notifications.length === 1) {
             setModalActive(false)
         }
