@@ -9,7 +9,7 @@ import { VerticalContainer } from './ui/page/VerticalContainer'
 import './order/Order.css'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
-const FilterAndSortComponentForServer = observer(({ parent, setFetchStart, setFetchPartnersStart }) => {
+const FilterAndSortComponentForServer = observer(({ parent, setFetchStart }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const [timeFromOnFocus, setTimeFromOnFocus] = useState(false)

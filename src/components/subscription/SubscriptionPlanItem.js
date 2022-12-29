@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { Button } from '../ui/button/Button'
 import { CardButton } from '../ui/button/CardButton'
 import { setColor } from '../../modules/setColor'
-import { AdressContext, NotificationContext, SettingContext, SubscriptionContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, FetcherContext, NotificationContext, SettingContext, SubscriptionContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import OptionItem from './OptionItem'
 import { observer } from 'mobx-react-lite'
 import { updateSubscription } from '../../http/subscriptionApi'
@@ -11,7 +11,7 @@ import { setTime } from '../../modules/setTime'
 import { v4 } from "uuid";
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchPartnersStart, mainRole }) => {
+const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole }) => {
     const { Subscription } = useContext(SubscriptionContext)
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -19,6 +19,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
     const { Setting } = useContext(SettingContext)
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
+    const { fetcher } = useContext(FetcherContext)
 
     let optionsByPlan
     let initialTime
@@ -49,8 +50,8 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
         paid_to = setTime(initialTime, 1440 * plan.period, 'form')
         updateSubscriptionAction = async function () {
             try {
-                await updateSubscription(Translate.language,UserInfo.userInfo.id, plan.plan_id, paid_to).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: data }]))
-                setFetchPartnersStart(true)
+                await updateSubscription(Translate.language, UserInfo.userInfo.id, plan.plan_id, paid_to).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: data }]))
+                fetcher.setSubscriptions(true)
                 setModalActive(false)
             } catch (e) {
                 Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -63,13 +64,15 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
             {plan ?
                 <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.plan_id === Subscription.subscription.planId && user.user.role ? 'plan_item_container current' :
                     'plan_item_container'}
-                    style={{ boxShadow: `0px 5px 10px 0px ${setColor(plan.name)}`, 
-                    
-                    color: Setting.app_theme === 'dark' ? 'white' :  'black' }}>
+                    style={{
+                        boxShadow: `0px 5px 10px 0px ${setColor(plan.name)}`,
+
+                        color: Setting.app_theme === 'dark' ? 'white' : 'black'
+                    }}>
 
                     <div className={'plan_name_container'}>
-                        <div className={'plan_item_name'}>{SetNativeTranslate(Translate.language,{},plan.name)}</div>
-                        <div className={'plan_item_name_bage'}>{SetNativeTranslate(Translate.language,{},plan.bage)}</div>
+                        <div className={'plan_item_name'}>{SetNativeTranslate(Translate.language, {}, plan.name)}</div>
+                        <div className={'plan_item_name_bage'}>{SetNativeTranslate(Translate.language, {}, plan.bage)}</div>
                     </div>
 
                     {parent !== 'status' ?
@@ -84,7 +87,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                             <div className='price_and_validity'>
                                 <div className={'plan_item_name_bage'}>{Adress.country.currency}</div>
                                 {plan.plan_id === Subscription.subscription.planId && user.user.role && Adress.country.value === 'russia' ?
-                                    <div className={'plan_item_name_bage'}>{`${SetNativeTranslate(Translate.language,{},'active_until')} ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
+                                    <div className={'plan_item_name_bage'}>{`${SetNativeTranslate(Translate.language, {}, 'active_until')} ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
                                     : <div className='paid_to_place_holder'></div>}
                             </div>
                             : <></>}
@@ -99,7 +102,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
                                     updateSubscriptionAction()
                                 }
                             }}
-                        >{Subscription.subscription.planId === 1 ? SetNativeTranslate(Translate.language,{},'subscribe') : plan.plan_id === Subscription.subscription.planId ? SetNativeTranslate(Translate.language,{},'renew') : SetNativeTranslate(Translate.language,{},'switch')}</Button>
+                        >{Subscription.subscription.planId === 1 ? SetNativeTranslate(Translate.language, {}, 'subscribe') : plan.plan_id === Subscription.subscription.planId ? SetNativeTranslate(Translate.language, {}, 'renew') : SetNativeTranslate(Translate.language, {}, 'switch')}</Button>
                     }
                 </div> : <></>}
         </>

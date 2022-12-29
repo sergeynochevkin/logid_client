@@ -8,7 +8,7 @@ import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext, TranslateContext } from '..'
+import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, StateContext, SettingContext, TranslateContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import { fetchUserInfos } from '../http/userInfoApi'
@@ -16,19 +16,11 @@ import { useFetching } from '../hooks/useFetching'
 import { fetchGroups, fetchPartners } from '../http/partnerApi'
 import Partners from '../components/partner/Partners'
 import { fetchOtherRatings } from '../http/ratingApi'
-import FlexContainer from '../components/ui/page/FlexContainer'
-import { fetchNotifications, updateNotifications } from '../http/notificationApi'
+import {  updateNotifications } from '../http/notificationApi'
 import { v4 } from "uuid";
-import Modal from '../components/ui/modal/Modal'
-import ServerNotificationList from '../components/notification/ServerNotificationList'
-import { fetchSubscription } from '../http/subscriptionApi'
-import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
-import { fetchUserLimits } from '../http/limitApi'
-import { HorizontalContainer } from '../components/ui/page/HorizontalContainer'
 import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
-import NotificationIcon from '../components/notification/NotificationIcon'
 
 
 
@@ -44,24 +36,12 @@ const Customer = observer(() => {
   const { Rating } = useContext(RatingContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
   const { Notification } = useContext(NotificationContext)
-  const [modalActive, setModalActive] = useState(false)
-  const { Subscription } = useContext(SubscriptionContext)
   const { State } = useContext(StateContext)
-  const { Adress } = useContext(AdressContext)
-  const { Limit } = useContext(LimitContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
 
-  const [fetching, error] = useFetching(async () => {
-    if (Object.keys(UserInfo.userInfo).length !== 0) {
-      await fetchNotifications(UserInfo.userInfo.id).then(async data => {
-        Notification.setServerNotifications(data.filter(el => el.viewed === true))
-        Notification.setNewServerNotifications(data.filter(el => el.viewed === false))
-      })
-      await fetchUserLimits(UserInfo.userInfo.id).then(data => Limit.setUserLimits(data))
-      await fetchSubscription(UserInfo.userInfo.id).then(data => Subscription.setSubscription(data))
-      await fetchUserState(UserInfo.userInfo.id).then(data => { State.setUserState(JSON.parse(data.state)) })
-    }
+  const [fetching, error] = useFetching(async () => {  
+     // to fetcher?
     if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
       if ((ComponentFunction.PageFunction === 'carriers' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
         await fetchPartners(UserInfo.userInfo.id).then(async data => {
@@ -86,10 +66,6 @@ const Customer = observer(() => {
     fetching()
   }, [fetchPartnersStart, ComponentFunction.Function, ComponentFunction.PageFunction])
 
-  setInterval(() => {
-    fetching()
-  }, 60000 * 15)
-
   useEffect(() => {
     Notification.new_server_notifications.forEach(async element => {
       Notification.addNotification([{ id: v4(), type: element.type, message: element.message }])
@@ -113,16 +89,7 @@ const Customer = observer(() => {
     return (
       <PageContainer>
         <title>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</title>
-        <NotificationIcon
-          modalActive={modalActive}
-          setModalActive={setModalActive} />
-        <Modal
-          parent={'serverNotifications'}
-          modalActive={modalActive}
-          setModalActive={setModalActive}
-        >
-          <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
-        </Modal>
+
 
         <PageBanner>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</PageBanner>
 

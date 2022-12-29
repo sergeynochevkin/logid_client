@@ -10,6 +10,7 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import Modal from '../../components/ui/modal/Modal';
 import CountrySelector from './CountrySelector';
 import NotificationIcon from '../../components/notification/NotificationIcon';
+import ServerNotificationList from '../../components/notification/ServerNotificationList';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -21,6 +22,7 @@ const NavBar = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive, setModalActive] = useState(null)
+  const [modalActive2, setModalActive2] = useState(null)
   const [name, setName] = useState('')
 
   const setLanguage = (language) => {
@@ -38,7 +40,18 @@ const NavBar = observer(() => {
     <>
       <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
         <NotificationComponent />
-      
+
+        <NotificationIcon
+          modalActive={modalActive2}
+          setModalActive={setModalActive2} />
+        <Modal
+          parent={'serverNotifications'}
+          modalActive={modalActive2}
+          setModalActive={setModalActive2}
+        >
+          <ServerNotificationList setModalActive={setModalActive2} />
+        </Modal>
+
 
         <div className='nav_bar_logo' onClick={() =>
           navigate(MAIN_ROUTE)}>logid</div>

@@ -8,7 +8,7 @@ import { BookMark } from '../components/ui/button/BookMark'
 import OrderList from '../components/order/OrderList'
 import UserInfoForm from '../components/account/UserInfoForm'
 import TransportComponent from '../components/transport/TransportComponent'
-import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, SubscriptionContext, StateContext, AdressContext, LimitContext, SettingContext, TranslateContext } from '..'
+import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, StateContext, SettingContext, TranslateContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import { useFetching } from '../hooks/useFetching'
@@ -16,18 +16,11 @@ import { fetchUserInfos } from '../http/userInfoApi'
 import { fetchGroups, fetchPartners } from '../http/partnerApi'
 import Partners from '../components/partner/Partners'
 import { fetchOtherRatings } from '../http/ratingApi'
-import FlexContainer from '../components/ui/page/FlexContainer'
-import { fetchNotifications, updateNotifications } from '../http/notificationApi'
+import {  updateNotifications } from '../http/notificationApi'
 import { v4 } from "uuid";
-import Modal from '../components/ui/modal/Modal'
-import ServerNotificationList from '../components/notification/ServerNotificationList'
-import { fetchSubscription } from '../http/subscriptionApi'
-import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
-import { fetchUserLimits } from '../http/limitApi'
 import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
-import NotificationIcon from '../components/notification/NotificationIcon'
 
 
 const Container = styled.div`
@@ -42,15 +35,11 @@ const Carrier = observer(() => {
   const { Rating } = useContext(RatingContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
   const { Notification } = useContext(NotificationContext)
-  const [modalActive, setModalActive] = useState(false)
-  const { Subscription } = useContext(SubscriptionContext)
   const { State } = useContext(StateContext)
-  const { Adress } = useContext(AdressContext)
-  const { Limit } = useContext(LimitContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
 
-  const [fetching, error] = useFetching(async () => { 
+  const [fetching, error] = useFetching(async () => {
     if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
       if ((ComponentFunction.PageFunction === 'customers' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
         await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
@@ -69,16 +58,7 @@ const Carrier = observer(() => {
           await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
         })
       }
-    }
-    if (Object.keys(UserInfo.userInfo).length > 0) {
-      await fetchNotifications(UserInfo.userInfo.id).then(async data => {
-        Notification.setServerNotifications(data.filter(el => el.viewed === true))
-        Notification.setNewServerNotifications(data.filter(el => el.viewed === false))
-      })
-      await fetchUserLimits(UserInfo.userInfo.id).then(data => Limit.setUserLimits(data))
-      await fetchSubscription(UserInfo.userInfo.id).then(data => Subscription.setSubscription(data))
-      await fetchUserState(UserInfo.userInfo.id).then(data => State.setUserState(JSON.parse(data.state)))
-    }
+    }  
     setFetchPartnersStart(false)
   })
 
@@ -89,10 +69,6 @@ const Carrier = observer(() => {
   useEffect(() => {
     fetching()
   }, [fetchPartnersStart, ComponentFunction.Function, ComponentFunction.PageFunction])
-
-  setInterval(() => {
-    fetching()
-  }, 60000 * 15)
 
   useEffect(() => {
     Notification.new_server_notifications.forEach(async element => {
@@ -116,20 +92,9 @@ const Carrier = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetNativeTranslate(Translate.language,{},'carriers_office')}</title>    
-        <NotificationIcon
-          modalActive={modalActive}
-          setModalActive={setModalActive} />
-       
-        <Modal
-          parent={'serverNotifications'}
-          modalActive={modalActive}
-          setModalActive={setModalActive}
-        >
-          <ServerNotificationList setModalActive={setModalActive} setFetchPartnersStart={setFetchPartnersStart} />
-        </Modal>
+        <title>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</title>
 
-        <PageBanner>{SetNativeTranslate(Translate.language,{},'carriers_office')}</PageBanner>
+        <PageBanner>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?
@@ -138,7 +103,7 @@ const Carrier = observer(() => {
                 gap: '0px'
               }}
             >
-              <BookMark>{SetNativeTranslate(Translate.language,{},'fill_account')}</BookMark>
+              <BookMark>{SetNativeTranslate(Translate.language, {}, 'fill_account')}</BookMark>
               <UserInfoForm />
             </VerticalContainer>
 
@@ -155,13 +120,13 @@ const Carrier = observer(() => {
 
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'orders')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language, {}, 'orders')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('transport')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'transport' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'transports')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language, {}, 'transports')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('customers')
@@ -169,13 +134,13 @@ const Carrier = observer(() => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'customers' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'customers')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language, {}, 'customers')}</BookMark>
 
                 <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('account'); ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'account')}</BookMark>
+                }}>{SetNativeTranslate(Translate.language, {}, 'account')}</BookMark>
 
                 {/* <BookMark onClick={() => {
                   ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')

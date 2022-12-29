@@ -1,16 +1,17 @@
 import React, { useContext } from 'react'
 import './Notification.css'
-import { NotificationContext, SettingContext } from '../..';
+import { FetcherContext, NotificationContext, SettingContext } from '../..';
 import { deleteNotification } from '../../http/notificationApi';
 import { setTime } from '../../modules/setTime';
 import { observer } from 'mobx-react-lite';
 
-const ServerNotificationItem = observer(({ notification, setFetchPartnersStart, setModalActive }) => {
+const ServerNotificationItem = observer(({ notification, setModalActive }) => {
     const { Setting } = useContext(SettingContext)
     const { Notification } = useContext(NotificationContext)
+    const { fetcher } = useContext(FetcherContext)
     const deleteNotificationAction = () => {
         deleteNotification(notification.id)
-        setFetchPartnersStart()
+        fetcher.setServerNotifications(true)
         if (Notification.server_notifications.length === 1) {
             setModalActive(false)
         }

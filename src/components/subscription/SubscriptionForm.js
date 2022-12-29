@@ -5,9 +5,8 @@ import { AdressContext, SettingContext, SubscriptionContext, UserInfoContext } f
 import './Subscription.css'
 import SubscriptionPlanItem from './SubscriptionPlanItem'
 
-const SubscriptionForm = observer(({ setFetchPartnersStart, setModalActive, parent, mainRole }) => {
+const SubscriptionForm = observer(({  setModalActive, parent, mainRole }) => {
     const { Subscription } = useContext(SubscriptionContext)
-    const { Setting } = useContext(SettingContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Adress } = useContext(AdressContext)
 
@@ -33,17 +32,17 @@ const SubscriptionForm = observer(({ setFetchPartnersStart, setModalActive, pare
             >
                 {parent !== 'main' ?
                     Subscription.plans.filter(el => el.plan_id !== 0 && el.country === UserInfo.userInfo.country).sort(sortPlans).map(plan =>
-                        <SubscriptionPlanItem key={plan.id} plan={plan} setFetchPartnersStart={setFetchPartnersStart} setModalActive={setModalActive} parent={parent} />
+                        <SubscriptionPlanItem key={plan.id} plan={plan}  setModalActive={setModalActive} parent={parent} />
                     ) :
                     mainRole === 'carrier' ?
 
                         Subscription.plans.filter(el => el.plan_id !== 0 && el.country === Adress.country.value).sort(sortPlans).map(plan =>
-                            <SubscriptionPlanItem key={plan.id} plan={plan} setFetchPartnersStart={setFetchPartnersStart} setModalActive={setModalActive} parent={parent} mainRole={mainRole} />
+                            <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} />
                         )
                         : mainRole === 'customer' ?
 
                             Subscription.plans.filter(el => el.plan_id !== 0 && el.country === Adress.country.value).sort(sortPlans).map(plan =>
-                                <SubscriptionPlanItem key={plan.id} plan={plan} setFetchPartnersStart={setFetchPartnersStart} setModalActive={setModalActive} parent={parent} mainRole={mainRole} />
+                                <SubscriptionPlanItem key={plan.id} plan={plan}  setModalActive={setModalActive} parent={parent} mainRole={mainRole} />
                             )
                             : <></>
                 }

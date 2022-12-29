@@ -18,7 +18,7 @@ import './Account.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const Account = observer(({ setFetchPartnersStart }) => {
+const Account = observer(( ) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [fetchStart, setFetchStart] = useState(false)
@@ -48,7 +48,7 @@ const Account = observer(({ setFetchPartnersStart }) => {
             <HorizontalContainer
                 style={{ marginTop: '10px', alignItems: 'flex-start' }}>
                 <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                    <SubscriptionForm setFetchPartnersStart={setFetchPartnersStart} setModalActive={setModalActive} />
+                    <SubscriptionForm  setModalActive={setModalActive} />
                 </Modal>
                 <VerticalContainer>
                     <AccountActivationStatus containerClassName={containerClassName} />
@@ -71,7 +71,7 @@ const Account = observer(({ setFetchPartnersStart }) => {
                         <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'name_surname_fathersname_validation')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} setFetchStart={setFetchStart} />
 
                         <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'country_content')} fieldValue={SetNativeTranslate(Translate.language,{},UserInfo.userInfo.country)} editable={false} attachedField={'country'} setFetchStart={setFetchStart} />
-                        <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'city_content')} fieldValue={UserInfo.userInfo.city} editable={true} attachedField={'city'} setFetchStart={setFetchStart} setFetchPartnersStart={setFetchPartnersStart} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} />
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'city_content')} fieldValue={UserInfo.userInfo.city} editable={true} attachedField={'city'} setFetchStart={setFetchStart}  cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} />
                         {UserInfo.userInfo.phone ? <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'phone_content')} fieldValue={UserInfo.userInfo.phone} editable={true} attachedField={'phone'} setFetchStart={setFetchStart} /> : <></>}
 
                         <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'notification_email_content')} fieldValue={UserInfo.userInfo.email} editable={true} attachedField={'email'} setFetchStart={setFetchStart} />

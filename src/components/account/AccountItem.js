@@ -28,7 +28,7 @@ import { observer } from 'mobx-react-lite'
 import { update } from '../../http/userAPI'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, setFetchStart, setFetchPartnersStart, setLoginEditable, setPasswordEditable, passwordEditable, loginEditable, adressEditable, setAdressEditable, cityEditable, setCityEditable }) => {
+const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, setFetchStart, setLoginEditable, setPasswordEditable, passwordEditable, loginEditable, adressEditable, setAdressEditable, cityEditable, setCityEditable }) => {
     const [fieldEditable, setFieldEditable] = useState(false)
     const { UserInfo } = useContext(UserInfoContext)
     const { Adress } = useContext(AdressContext)
@@ -114,7 +114,6 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                     (attachedField === 'city' && user.user.role === 'carrier') ? clearCity() : setFieldEditable(false),
                     attachedField === 'city' && setCityEditable(false),
                     attachedField === 'company_adress' && setAdressEditable(false),
-                    // setFetchPartnersStart(true),
                     setFetchStart(true),
                     Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language,{},'you_have_changed')} ${message}` }])
                 )
