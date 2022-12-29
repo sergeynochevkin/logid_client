@@ -41,9 +41,9 @@ const NavBar = observer(() => {
       })
     }
   }
-  
 
-  setTimeout(() => {
+
+  setInterval(() => {
     fetchNotificationsActions()
   }, 60000 * 15)
 
