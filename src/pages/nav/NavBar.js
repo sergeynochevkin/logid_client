@@ -41,12 +41,14 @@ const NavBar = observer(() => {
       })
     }
   }
+  
 
   setTimeout(() => {
     fetchNotificationsActions()
   }, 60000 * 15)
 
   useEffect(() => {
+    fetchNotifications()
     !Adress.country_detected && setModalActive(true)
   }, [])
 
