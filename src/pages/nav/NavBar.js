@@ -21,6 +21,7 @@ const NavBar = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive, setModalActive] = useState(null)
+  const [modalNotificationActive, setModaNotificationlActive] = useState(null)
   const [name, setName] = useState('')
 
   const setLanguage = (language) => {
@@ -39,8 +40,8 @@ const NavBar = observer(() => {
       <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
         <NotificationComponent />
         <NotificationIcon
-          modalActive={modalActive}
-          setModalActive={setModalActive} />
+          modalActive={modalNotificationActive}
+          setModalActive={setModaNotificationlActive} />
 
         <div className='nav_bar_logo' onClick={() =>
           navigate(MAIN_ROUTE)}>logid</div>
