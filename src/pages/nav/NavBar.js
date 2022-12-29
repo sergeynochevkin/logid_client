@@ -10,8 +10,6 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import Modal from '../../components/ui/modal/Modal';
 import CountrySelector from './CountrySelector';
 import NotificationIcon from '../../components/notification/NotificationIcon';
-import ServerNotificationList from '../../components/notification/ServerNotificationList';
-import { fetchNotifications } from '../../http/notificationApi';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -23,7 +21,6 @@ const NavBar = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive, setModalActive] = useState(null)
-  const [modalNotificationActive, setModaNotificationlActive] = useState(null)
   const [name, setName] = useState('')
 
   const setLanguage = (language) => {
@@ -33,22 +30,7 @@ const NavBar = observer(() => {
     }
   }
 
-  const fetchNotificationsActions = async () => {
-    if (Object.keys(UserInfo.userInfo).length > 0) {
-      await fetchNotifications(UserInfo.userInfo.id).then(async data => {
-        Notification.setServerNotifications(data.filter(el => el.viewed === true))
-        Notification.setNewServerNotifications(data.filter(el => el.viewed === false))
-      })
-    }
-  }
-
-
-  setInterval(() => {
-    fetchNotificationsActions()
-  }, 500)
-
   useEffect(() => {
-    fetchNotifications()
     !Adress.country_detected && setModalActive(true)
   }, [])
 
@@ -56,9 +38,7 @@ const NavBar = observer(() => {
     <>
       <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
         <NotificationComponent />
-        <NotificationIcon
-          modalActive={modalNotificationActive}
-          setModalActive={setModaNotificationlActive} />
+      
 
         <div className='nav_bar_logo' onClick={() =>
           navigate(MAIN_ROUTE)}>logid</div>
@@ -144,14 +124,6 @@ const NavBar = observer(() => {
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive} >
         <CountrySelector name={name} setModalActive={setModalActive} />
-      </Modal>
-
-      <Modal
-        parent={'serverNotifications'}
-        modalActive={modalNotificationActive}
-        setModalActive={setModaNotificationlActive}
-      >
-        <ServerNotificationList setModalActive={setModaNotificationlActive} fetchNotificationsActions={fetchNotificationsActions} />
       </Modal>
     </>
 

@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react'
 import { useContext } from 'react';
-import { NotificationContext, UserInfoContext } from '../..';
+import { NotificationContext } from '../..';
 import './Notification.css'
 
 const NotificationIcon = observer(({ modalActive, setModalActive }) => {
     const { Notification } = useContext(NotificationContext)
-    
-
 
     return (
         <>
