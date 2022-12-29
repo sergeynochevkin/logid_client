@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { OrderContext, TranslateContext, UserContext } from '../..'
+import { FetcherContext, OrderContext, TranslateContext, UserContext } from '../..'
 import { updatePartner } from '../../http/partnerApi'
 import RatingView from '../rating/RatingView'
 import { CardButton } from '../ui/button/CardButton'
@@ -14,11 +14,11 @@ import { NotificationContext } from '../../index'
 import './Partner.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartner, setFetchPartnersStart }) => {
+const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartner }) => {
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
-
+    const { fetcher } = useContext(FetcherContext)
     const you_added = SetNativeTranslate(Translate.language, {}, 'you_added')
     const you_blocked = SetNativeTranslate(Translate.language, {}, 'you_blocked')
     const you_have_changed_status = SetNativeTranslate(Translate.language, {}, 'you_have_changed_status')
@@ -31,13 +31,13 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
         if (user.user.role === 'carrier') {
             await updatePartner(onePartner.id, 'priority')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_added} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_favorite_notification}` }])
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         }
         if (user.user.role === 'customer') {
             await updatePartner(onePartner.id, 'priority')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_added} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_favorite_notification}` }])
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         }
     }
@@ -46,13 +46,13 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
         if (user.user.role === 'carrier') {
             await updatePartner(onePartner.id, 'blocked')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_blocked} ${user.user.role === 'carrier' ? customer_notification : carrier_notification}` }])
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         }
         if (user.user.role === 'customer') {
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_blocked} ${user.user.role === 'carrier' ? customer_notification : carrier_notification}` }])
             await updatePartner(onePartner.id, 'blocked')
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         }
     }
@@ -61,13 +61,13 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
         if (user.user.role === 'carrier') {
             await updatePartner(onePartner.id, 'normal')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_have_changed_status} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_normal_notification}` }])
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         }
         if (user.user.role === 'customer') {
             await updatePartner(onePartner.id, 'normal')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_have_changed_status} ${user.user.role === 'carrier' ? customer_notification : carrier_notification} ${to_normal_notification}` }])
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         }
     }

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { FilterAndSortContext, PartnerContext, RatingContext, TranslateContext } from '../..'
+import { FetcherContext, FilterAndSortContext, PartnerContext, RatingContext, TranslateContext } from '../..'
 import useDebounce from '../../hooks/useDebounce'
 import FilterAndSortComponentForServer from '../FilterAndSortComponentForServer'
 import PartnerGroupComponent from './PartnerGroupComponent'
@@ -13,12 +13,12 @@ import '../order/Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const PartnersList = observer(({ setFetchPartnersStart }) => {
+const PartnersList = observer(() => {
   const { Partner } = useContext(PartnerContext)
   const { Rating } = useContext(RatingContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
   const { Translate } = useContext(TranslateContext)
-
+  const { fetcher } = useContext(FetcherContext)
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -32,7 +32,7 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
         // Выставить состояние isSearching
         setIsSearching(true);
         // Сделать запрос к АПИ
-        setFetchPartnersStart(true)
+        fetcher.setPartners(true)
       } else {
         setResults([]);
       }
@@ -48,7 +48,7 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
         <FilterAndSortComponentForServer
           parent={'partners'}
         />
-        <PartnerGroupComponent parent={'partnerList'} setFetchPartnersStart={setFetchPartnersStart} />
+        <PartnerGroupComponent parent={'partnerList'}  />
         <div className={'scroll_bar_container'}>
         {Partner.partnerInfos.length !== 0 ?
           <>
@@ -71,7 +71,7 @@ const PartnersList = observer(({ setFetchPartnersStart }) => {
                       onePartnerInfo={onePartnerInfo}
                       onePartner={Partner.partners.find(el => el.partnerUserInfoId === onePartnerInfo.id)}
                       onePartnerOtherRatingByThisUserInfo={Rating.otherRatings.find(el => el.ratedUserInfoId === onePartnerInfo.id)}
-                      setFetchPartnersStart={setFetchPartnersStart}
+                      
                     />
                   )
                 }

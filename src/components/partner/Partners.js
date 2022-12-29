@@ -10,7 +10,7 @@ import { observer } from 'mobx-react-lite'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const Partners = observer(({ setFetchPartnersStart }) => {
+const Partners = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const [modalActive, setModalActive] = useState(false)
   const { Translate } = useContext(TranslateContext)
@@ -40,9 +40,9 @@ const Partners = observer(({ setFetchPartnersStart }) => {
       </HorizontalContainer>
 
       {ComponentFunction.partnersComponentFunction === 'list' ?
-        <PartnersList setFetchPartnersStart={setFetchPartnersStart} /> :
+        <PartnersList  /> :
         ComponentFunction.partnersComponentFunction === 'groups' ?
-          <PartnerGroupComponent setFetchPartnersStart={setFetchPartnersStart} parent={'partners'} modalActive={modalActive} setModalActive={setModalActive} /> :
+          <PartnerGroupComponent  parent={'partners'} modalActive={modalActive} setModalActive={setModalActive} /> :
           ComponentFunction.partnersComponentFunction === 'add' ?
             <AddPartnerComponent /> : <></>}
 

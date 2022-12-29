@@ -7,7 +7,7 @@ import Modal from '../ui/modal/Modal'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInfo, setFetchPartnersStart }) => {
+const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInfo }) => {
     const { user } = useContext(UserContext)
     const [modalActive, setModalActive] = useState(false)
     const { Rating } = useContext(RatingContext)
@@ -67,7 +67,7 @@ const OrderRatingComponent = observer(({ oneOrder, setFetchStart, thisPartnerInf
                             setFetchStart={setFetchStart}
                             oneOrder={oneOrder}
                             thisPartnerInfo={thisPartnerInfo}
-                            setFetchPartnersStart={setFetchPartnersStart}
+                            
                             formReset={formReset}
                         />
                     </Modal>

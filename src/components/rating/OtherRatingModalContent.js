@@ -6,16 +6,17 @@ import { CardColName } from '../ui/card/CardColName'
 import { CardRow } from '../ui/card/CardRow'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
-import { NotificationContext, TranslateContext, UserContext } from '../..'
+import { FetcherContext, NotificationContext, TranslateContext, UserContext } from '../..'
 import { useContext } from 'react'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const OtherRatingModalContent = observer(({ formData, setFormData, setModalActive, onePartnerInfo, UserInfo, setFetchPartnersStart, onePartner, onePartnerOtherRatingByThisUserInfo, formReset }) => {
+const OtherRatingModalContent = observer(({ formData, setFormData, setModalActive, onePartnerInfo, UserInfo, onePartner, onePartnerOtherRatingByThisUserInfo, formReset }) => {
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const { Notification } = useContext(NotificationContext)
     const{Translate} = useContext(TranslateContext)
     const { user } = useContext(UserContext)
+    const { fetcher } = useContext(FetcherContext)
     formData.raterUserInfoId = UserInfo.userInfo.id
     formData.ratedUserInfoId = onePartnerInfo.id
     const rated_customer_solvency = SetNativeTranslate(Translate.language,{},'rated_customer_solvency')
@@ -28,7 +29,7 @@ const OtherRatingModalContent = observer(({ formData, setFormData, setModalActiv
                 formData
             )
             Notification.addNotification([{ id: v4(), type: 'success', message: `${user.user.role === 'carrier' ? rated_customer_solvency : rated_carrier_solvency}` }])
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         } catch (e) {
             alert(e.response.data.message)

@@ -1,18 +1,18 @@
 import React, { useContext } from 'react'
 import { deletePartnerFromGroup } from '../../http/partnerApi'
 import { OrderTd } from '../ui/table/OrderTd'
-import { SettingContext, TranslateContext } from '../..'
+import { FetcherContext, SettingContext, TranslateContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 
-const GroupPartnerItem = observer(({ setFetchPartnersStart, partner, group, setModalActive, onePartnerInfo }) => {
-
+const GroupPartnerItem = observer(({  partner, group, setModalActive, onePartnerInfo }) => {
+    const { fetcher } = useContext(FetcherContext)
     const { Translate } = useContext(TranslateContext)
     const {Setting} = useContext(SettingContext)
 
     const deletePartnerFromGroupAction = async function () {
         await deletePartnerFromGroup(onePartnerInfo.id, group.dataValues.id)
-        setFetchPartnersStart(true)
+        fetcher.setPartners(true)
         if (group.partners.length === 1) {
             setModalActive(false)
         }

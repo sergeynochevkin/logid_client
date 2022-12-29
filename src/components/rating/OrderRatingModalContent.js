@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
-import { NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { FetcherContext, NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { v4 } from "uuid";
 import { VerticalContainer } from '../ui/page/VerticalContainer';
 import { CardColName } from '../ui/card/CardColName';
@@ -9,7 +9,7 @@ import { CardButton } from '../ui/button/CardButton';
 import { createOrderRating } from '../../http/ratingApi';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 
-const OrderRatingModalContent = observer(({ setModalActive, formData, setFormData, setFetchStart, oneOrder, setFetchPartnersStart, formReset }) => {
+const OrderRatingModalContent = observer(({ setModalActive, formData, setFormData, setFetchStart, oneOrder, formReset }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
@@ -18,7 +18,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
     const rated_customer = SetNativeTranslate(Translate.language,{}, 'rated_customer')
     const on_order = SetNativeTranslate(Translate.language,{}, 'on_order')
     const on_auction = SetNativeTranslate(Translate.language,{}, 'on_auction')
-
+    const { fetcher } = useContext(FetcherContext)
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
@@ -36,7 +36,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${user.user.role === 'carrier' ? rated_customer : rated_carrier} ${oneOrder.order_type === 'order' ? on_order : on_auction} ${oneOrder.id}` }])
             ).then(formReset())
             setFetchStart(true)
-            setFetchPartnersStart(true)
+            fetcher.setPartners(true)
             setModalActive(false)
         } catch (e) {
             alert(e.response.data.message)

@@ -11,7 +11,7 @@ import { createPartner } from '../../http/partnerApi'
 import OrderRatingComponent from '../rating/OrderRatingComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints, setFetchPartnersStart }) => {
+const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints }) => {
     const { Translate } = useContext(TranslateContext)
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -285,7 +285,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                                 <CardRow>
                                     <CardButton onClick={arc}>{SetNativeTranslate(Translate.language, {}, 'to_arc')}</CardButton>
                                     {parent !== 'selector' ?
-                                        <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo} setFetchPartnersStart={setFetchPartnersStart} />
+                                        <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo}  />
                                         : <></>}
                                 </CardRow> :
                                 user.user.role === 'customer' && thisOrder.order_status === 'arc' ?
@@ -314,7 +314,7 @@ const OrderStatusButtons = observer(({ parent, setFetchStart, thisOrder, thisOrd
                                                     <CardRow>
                                                         <CardButton onClick={arc}>{SetNativeTranslate(Translate.language, {}, 'to_arc')}</CardButton>
                                                         {parent !== 'selector' ?
-                                                            <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo} setFetchPartnersStart={setFetchPartnersStart} />
+                                                            <OrderRatingComponent oneOrder={thisOrder} setFetchStart={setFetchStart} thisPartnerInfo={thisPartnerInfo}  />
                                                             : <></>}
                                                     </CardRow> :
                                                     user.user.role === 'carrier' && thisOrder.order_status === 'canceled' ?

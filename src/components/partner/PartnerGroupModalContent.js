@@ -1,10 +1,10 @@
 import React from 'react'
 import PartnerGroupComponent from './PartnerGroupComponent'
 
-const PartnerGroupModalContent = ({ setModalActive, onePartnerInfo, setFetchPartnersStart }) => {
+const PartnerGroupModalContent = ({ setModalActive, onePartnerInfo }) => {
 
   return (    
-    <PartnerGroupComponent parent='groupModal' setModalActive={setModalActive} onePartnerInfo={onePartnerInfo} setFetchPartnersStart={setFetchPartnersStart} />
+    <PartnerGroupComponent parent='groupModal' setModalActive={setModalActive} onePartnerInfo={onePartnerInfo}  />
   )
 }
 

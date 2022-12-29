@@ -8,7 +8,7 @@ import { BookMark } from '../ui/button/BookMark'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
+const OrderList = observer(({ listStyle }) => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
   const { order } = useContext(OrderContext)
@@ -128,7 +128,7 @@ const OrderList = observer(({ listStyle, setFetchPartnersStart }) => {
 
       {
         ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork' ||
-          ComponentFunction.Function === 'completed' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'canceled' ? <Orders setFetchPartnersStart={setFetchPartnersStart} fetchStart={fetchStart} setFetchStart={setFetchStart} /> :
+          ComponentFunction.Function === 'completed' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'canceled' ? <Orders  fetchStart={fetchStart} setFetchStart={setFetchStart} /> :
           ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? <ArcOrders listStyle={listStyle} fetchStart={fetchStart} setFetchStart={setFetchStart} /> : <></>
       }
     </>

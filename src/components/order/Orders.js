@@ -25,7 +25,7 @@ import { Button } from '../ui/button/Button'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPartnersStart, fetchStart, setFetchStart }) => {
+const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart, setFetchStart }) => {
   const { order } = useContext(OrderContext)
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
@@ -402,7 +402,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
               alignItems: 'center'
             }}>
             {order.totalCount[ComponentFunction.Function] > 0 ? <>
-              <FilterAndSortComponentForServer parent={'orders'} setFetchStart={setFetchStart} setFetchPartnersStart={setFetchPartnersStart} />
+              <FilterAndSortComponentForServer parent={'orders'} setFetchStart={setFetchStart}  />
               <HorizontalContainer>
 
                 {order &&
@@ -498,7 +498,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                       setFetchStart={setFetchStart}
                       onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === oneOrder.carrierId) : ''}
                       onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.carrierId) : ''}
-                      setFetchPartnersStart={setFetchPartnersStart}
+                      
                     />)}
                 </HorizontalContainer>
 
@@ -556,7 +556,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, setFetchPart
                   user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === order.order.carrierId) : ''}
                 onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.userInfoId) :
                   user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.carrierId) : ''}
-                setFetchPartnersStart={setFetchPartnersStart}
+                
               />
             </>
             :

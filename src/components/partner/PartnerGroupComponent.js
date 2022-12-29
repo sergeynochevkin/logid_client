@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { NotificationContext, PartnerContext, TranslateContext, UserInfoContext } from '../..'
+import { FetcherContext, NotificationContext, PartnerContext, TranslateContext, UserInfoContext } from '../..'
 import { useInput } from '../../hooks/useInput'
 import { createGroup, updateGroups } from '../../http/partnerApi'
 import AddPartnerGroupComponent from './AddPartnerGroupComponent'
@@ -16,14 +16,14 @@ import { v4 } from "uuid";
 import NoData from '../ui/page/NoData'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModalActive, modalActive, onePartnerInfo }) => {
+const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, onePartnerInfo }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Partner } = useContext(PartnerContext)
     const { Notification } = useContext(NotificationContext)
     const initialValue = { userInfoId: UserInfo.userInfo.id, groupName: '' }
     const [formData, setFormData] = useState(initialValue)
     const { Translate } = useContext(TranslateContext)
-
+    const { fetcher } = useContext(FetcherContext)
     const group_created = SetNativeTranslate(Translate.language,{},'group_created')
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
         event.preventDefault()
         await createGroup(formData.userInfoId, formData.groupName.value).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: `${group_created} ${data[0].name}` }]))
         formReset()
-        setFetchPartnersStart(true)
+        fetcher.setPartners(true)
         setModalActive(false)
     }
 
@@ -51,7 +51,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
         await updateGroups(UserInfo.userInfo.id, onePartnerInfo.id, selectedGroups)
         setSelectedGroups([])
         setModalActive(false)
-        setFetchPartnersStart(true)
+        fetcher.setPartners(true)
     }
 
     const formReset = () => {
@@ -77,13 +77,13 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                 {Partner.groups.length > 0 && parent === 'groupModal' ?
                     <>
                         {Partner.groups.map(
-                            group => <PartnerGroupItem key={group.dataValues.id} group={group} setFetchPartnersStart={setFetchPartnersStart} parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
+                            group => <PartnerGroupItem key={group.dataValues.id} group={group}  parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
                         )}
                     </> :
                     Partner.groups.length > 0 && parent === 'partnerList' ?
                         <>
                             {Partner.groups.filter(el => el.partners.length > 0).map(
-                                group => <PartnerGroupItem key={group.dataValues.id} group={group} setFetchPartnersStart={setFetchPartnersStart} parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
+                                group => <PartnerGroupItem key={group.dataValues.id} group={group}  parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
                             )}
                         </> :
                         Partner.groups.length > 0 && parent === 'partners' && parent !== 'partnerList' ?
@@ -99,7 +99,7 @@ const PartnerGroupComponent = observer(({ setFetchPartnersStart, parent, setModa
                                     {
                                         Partner.groups.map(group => <PartnerGroupItem
                                             parent={'table'}
-                                            key={group.dataValues.id} group={group} setFetchPartnersStart={setFetchPartnersStart} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups}
+                                            key={group.dataValues.id} group={group}  setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups}
                                         />)
                                     }
                                 </tbody>

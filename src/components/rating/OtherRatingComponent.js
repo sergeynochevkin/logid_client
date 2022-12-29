@@ -8,10 +8,11 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { TranslateContext, UserContext, UserInfoContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingByThisUserInfo, setFetchPartnersStart, onePartner }) => {
+const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingByThisUserInfo, onePartner }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Translate } = useContext(TranslateContext)
+    
     const [modalActive, setModalActive] = useState(false)
 
     const initialState = {
@@ -52,7 +53,7 @@ const OtherRatingComponent = observer(({ onePartnerInfo, onePartnerOtherRatingBy
                 parent={'otherRatingComponent'}
                 formReset={formReset}
             >
-                <OtherRatingModalContent formReset={formReset} formData={formData} setFormData={setFormData} setModalActive={setModalActive} UserInfo={UserInfo} onePartnerInfo={onePartnerInfo} setFetchPartnersStart={setFetchPartnersStart} onePartnerOtherRatingByThisUserInfo={onePartnerOtherRatingByThisUserInfo} onePartner={onePartner} />
+                <OtherRatingModalContent formReset={formReset} formData={formData} setFormData={setFormData} setModalActive={setModalActive} UserInfo={UserInfo} onePartnerInfo={onePartnerInfo}  onePartnerOtherRatingByThisUserInfo={onePartnerOtherRatingByThisUserInfo} onePartner={onePartner} />
             </Modal>
         </>
     )

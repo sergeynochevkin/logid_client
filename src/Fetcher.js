@@ -2,12 +2,13 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
 import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, NotificationContext, OrderContext, PartnerContext, RatingContext, StateContext, SubscriptionContext, UserContext, UserInfoContext } from '.'
 import { fetchUserLimits } from './http/limitApi'
-import { fetchNotifications } from './http/notificationApi'
+import { fetchNotifications, updateNotifications } from './http/notificationApi'
 import { fetchGroups, fetchPartners } from './http/partnerApi'
 import { fetchOtherRatings } from './http/ratingApi'
 import { fetchUserState } from './http/stateApi'
 import { fetchSubscription } from './http/subscriptionApi'
 import { fetchUserInfos } from './http/userInfoApi'
+import { v4 } from "uuid";
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -43,6 +44,14 @@ const Fetcher = observer(() => {
     setInterval(() => {
         fetcher.setServerNotifications(true)
     }, 60000 * 15)
+
+    useEffect(() => {
+        Notification.new_server_notifications.forEach(async element => {
+          Notification.addNotification([{ id: v4(), type: element.type, message: element.message }])
+        });
+        let ids = Notification.new_server_notifications.map(el => el.id)
+        updateNotifications(ids, true)
+      }, [Notification.new_server_notifications])
 
     // subscriptions
     useEffect(() => {

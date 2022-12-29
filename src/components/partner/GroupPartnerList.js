@@ -8,7 +8,7 @@ import './Partner.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 
-const GroupPartnerList = observer( ({ group, setFetchPartnersStart, setModalActive }) => {
+const GroupPartnerList = observer( ({ group, setModalActive }) => {
     const { Partner } = useContext(PartnerContext)
     const { Translate } = useContext(TranslateContext)
     const {Setting} = useContext(SettingContext)
@@ -39,7 +39,7 @@ const GroupPartnerList = observer( ({ group, setFetchPartnersStart, setModalActi
                                 key={partner.id}
                                 onePartnerInfo={partner}
                                 partner={Partner.partners.find(el => el.partnerUserInfoId === partner.id)}
-                                setFetchPartnersStart={setFetchPartnersStart}
+                                
                                 group={group}
                                 setModalActive={setModalActive}
                             />

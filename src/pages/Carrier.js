@@ -8,14 +8,10 @@ import { BookMark } from '../components/ui/button/BookMark'
 import OrderList from '../components/order/OrderList'
 import UserInfoForm from '../components/account/UserInfoForm'
 import TransportComponent from '../components/transport/TransportComponent'
-import { ComponentFunctionContext, OrderContext, PartnerContext, RatingContext, UserInfoContext, FilterAndSortContext, NotificationContext, StateContext, SettingContext, TranslateContext } from '..'
+import { ComponentFunctionContext, OrderContext, UserInfoContext, NotificationContext, SettingContext, TranslateContext, FetcherContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
-import { useFetching } from '../hooks/useFetching'
-import { fetchUserInfos } from '../http/userInfoApi'
-import { fetchGroups, fetchPartners } from '../http/partnerApi'
 import Partners from '../components/partner/Partners'
-import { fetchOtherRatings } from '../http/ratingApi'
 import {  updateNotifications } from '../http/notificationApi'
 import { v4 } from "uuid";
 import SettingsComponent from '../components/setting/SettingsComponent'
@@ -30,53 +26,18 @@ const Carrier = observer(() => {
   const { order } = useContext(OrderContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { UserInfo } = useContext(UserInfoContext)
-  const [fetchPartnersStart, setFetchPartnersStart] = useState(false)
-  const { Partner } = useContext(PartnerContext)
-  const { Rating } = useContext(RatingContext)
-  const { FilterAndSort } = useContext(FilterAndSortContext)
   const { Notification } = useContext(NotificationContext)
-  const { State } = useContext(StateContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
-
-  const [fetching, error] = useFetching(async () => {
-    if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-      if ((ComponentFunction.PageFunction === 'customers' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
-        await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
-          fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
-          Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
-          await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => {
-            Partner.setPartnerInfos(data)
-          })
-          Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
-          Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
-          Partner.setPartners(data);
-          await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
-            Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
-            Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))
-          })
-          await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
-        })
-      }
-    }  
-    setFetchPartnersStart(false)
-  })
+  const {fetcher} = useContext(FetcherContext)
 
   useEffect(() => {
-    fetching()
+    fetcher.setPartners(true)
   }, [])
 
   useEffect(() => {
-    fetching()
-  }, [fetchPartnersStart, ComponentFunction.Function, ComponentFunction.PageFunction])
-
-  useEffect(() => {
-    Notification.new_server_notifications.forEach(async element => {
-      Notification.addNotification([{ id: v4(), type: element.type, message: element.message }])
-    });
-    let ids = Notification.new_server_notifications.map(el => el.id)
-    updateNotifications(ids, true)
-  }, [Notification.new_server_notifications])
+    fetcher.setPartners(true)
+  }, [ ComponentFunction.Function, ComponentFunction.PageFunction])
 
   const [libraries] = useState(['places']);
   const { isLoaded } = useJsApiLoader({
@@ -156,10 +117,10 @@ const Carrier = observer(() => {
         </Container>
 
         {
-          ComponentFunction.PageFunction === 'orderList' ? <OrderList setFetchPartnersStart={setFetchPartnersStart} /> :
-            ComponentFunction.PageFunction === 'account' ? <Account setFetchPartnersStart={setFetchPartnersStart} /> :
+          ComponentFunction.PageFunction === 'orderList' ? <OrderList  /> :
+            ComponentFunction.PageFunction === 'account' ? <Account  /> :
               ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
-                ComponentFunction.PageFunction === 'customers' ? <Partners setFetchPartnersStart={setFetchPartnersStart} /> :
+                ComponentFunction.PageFunction === 'customers' ? <Partners  /> :
                   ComponentFunction.PageFunction === 'settings' ? <SettingsComponent /> :
                     <></>
         }

@@ -8,7 +8,7 @@ import { OrderTd } from '../ui/table/OrderTd'
 import OtherRatingComponent from '../rating/OtherRatingComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePartnerOtherRatingByThisUserInfo }) => {
+const PartnerItem = ({ onePartnerInfo, onePartner, onePartnerOtherRatingByThisUserInfo }) => {
   const [modalActive, setModalActive] = useState(false)
   const { Partner } = useContext(PartnerContext)
   const {Translate} = useContext(TranslateContext)
@@ -30,11 +30,11 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
             setModalActive={setModalActive}
             onePartnerInfo={onePartnerInfo}
             onePartner={onePartner}
-            setFetchPartnersStart={setFetchPartnersStart}
+            
           />
           :
           modalFunction === 'groups' ?
-            <PartnerGroupModalContent setModalActive={setModalActive} onePartnerInfo={onePartnerInfo} setFetchPartnersStart={setFetchPartnersStart} /> : <></>
+            <PartnerGroupModalContent setModalActive={setModalActive} onePartnerInfo={onePartnerInfo}  /> : <></>
         }
 
       </Modal>
@@ -77,7 +77,7 @@ const PartnerItem = ({ onePartnerInfo, onePartner, setFetchPartnersStart, onePar
           }}
         >{Partner.groups.length === 0 ? SetNativeTranslate(Translate.language,{},'no_groups') : partnerGroups.length === 0 ? SetNativeTranslate(Translate.language,{},'can_choose_groups') : `${partnerGroups.length}`}</OrderTd>
         <OrderTd>{onePartner.status === 'normal' ? SetNativeTranslate(Translate.language,{},'partner_normal') : onePartner.status === 'blocked' ? SetNativeTranslate(Translate.language,{},'partner_blocked') : onePartner.status === 'priority' ? SetNativeTranslate(Translate.language,{},'partner_favorite') : ''}</OrderTd>
-        <OtherRatingComponent onePartnerInfo={onePartnerInfo} onePartnerOtherRatingByThisUserInfo={onePartnerOtherRatingByThisUserInfo} setFetchPartnersStart={setFetchPartnersStart} onePartner={onePartner}/>
+        <OtherRatingComponent onePartnerInfo={onePartnerInfo} onePartnerOtherRatingByThisUserInfo={onePartnerOtherRatingByThisUserInfo}  onePartner={onePartner}/>
       </tr>
     </>
   )

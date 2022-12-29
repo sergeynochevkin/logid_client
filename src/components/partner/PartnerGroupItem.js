@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { FilterAndSortContext, NotificationContext, SettingContext, TranslateContext } from '../..'
+import { FetcherContext, FilterAndSortContext, NotificationContext, SettingContext, TranslateContext } from '../..'
 import { deleteGroup } from '../../http/partnerApi'
 import GroupPartnerList from './GroupPartnerList'
 import { CardColName } from '../ui/card/CardColName'
@@ -13,25 +13,25 @@ import '../order/Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selectedGroups, setSelectedGroups, setFetchStart }) => {
+const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedGroups, setFetchStart }) => {
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const [modalActive, setModalActive] = useState(false)
     const { Notification } = useContext(NotificationContext)
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
-
+    const { fetcher } = useContext(FetcherContext)
     const group_deleted = SetNativeTranslate(Translate.language, {}, 'group_deleted')
 
     const deleteGroupAction = async () => {
         await deleteGroup(group.dataValues.id)
         Notification.addNotification([{ id: v4(), type: 'error', message: `${group_deleted} ${group.dataValues.name}` }])
-        setFetchPartnersStart(true)
+        fetcher.setPartners(true)
     }
 
     return (
         <>
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                <GroupPartnerList setFetchPartnersStart={setFetchPartnersStart} group={group} setModalActive={setModalActive} />
+                <GroupPartnerList  group={group} setModalActive={setModalActive} />
             </Modal>
 
             {parent !== 'table' ?
@@ -70,7 +70,7 @@ const PartnerGroupItem = observer(({ group, setFetchPartnersStart, parent, selec
                                     let state = FilterAndSort.partnerFilters.partnersByGroups.filter(el => el !== group.dataValues.id)
                                     FilterAndSort.setPartnerFilters(state, 'partnersByGroups')
                                 }
-                                setFetchPartnersStart(true)
+                                fetcher.setPartners(true)
                             }
 
                             if (parent === 'orders') {

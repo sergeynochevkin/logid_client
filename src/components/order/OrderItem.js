@@ -23,7 +23,7 @@ import MapComponent from '../map/MapComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetchStart, onePartnerInfo, onePartner, setFetchPartnersStart, oneOrderNoPartners }) => {
+const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetchStart, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { user } = useContext(UserContext)
     const [modalActive, setModalActive] = useState(false)
@@ -285,7 +285,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                         parent={'order'}
                         setFetchStart={setFetchStart}
                         thisOrder={thisOrder}
-                        setFetchPartnersStart={setFetchPartnersStart}
+                        
                         thisOrderOffers={thisOrderOffers}
                         thisPartnerInfo={thisPartnerInfo}
                         thisOrderNoPartners={thisOrderNoPartners}
@@ -307,7 +307,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                             setModalActive={setModalActive}
                             onePartner={thisPartner}
                             onePartnerInfo={thisPartnerInfo}
-                            setFetchPartnersStart={setFetchPartnersStart}
+                            
                         />
                         : <></>
                 }
