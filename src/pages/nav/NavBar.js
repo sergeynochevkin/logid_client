@@ -45,7 +45,7 @@ const NavBar = observer(() => {
 
   setInterval(() => {
     fetchNotificationsActions()
-  }, 60000 * 15)
+  }, 500)
 
   useEffect(() => {
     fetchNotifications()
