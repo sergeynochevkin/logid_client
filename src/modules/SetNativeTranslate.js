@@ -368,7 +368,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'points_in_order', russian: 'точек в заказе', english: 'points in order', spain: '', type: 'subscription_options' },
         { service: 'countdown_from', russian: 'Отсчет с первого заказа в текущие сутки', english: 'Countdown from the first order on the current day', spain: '', type: 'subscription_options' },
         { service: 'ability_to_place_orders', russian: 'Радиус размещения заказов от центра города:', english: 'Radius of placing orders from the city center:', spain: '', type: 'subscription_options' },
-        { service: 'number_of_tracking_cities', russian: 'Лимит городов отслеживания:', english: 'Number of tracking cities:', spain: '', type: 'subscription_options' },
+        { service: 'number_of_tracking_cities', russian: 'Лимит дополнительных городов отслеживания:', english: 'Limit of additional tracking cities:', spain: '', type: 'subscription_options' },
         { service: 'points_in_order_description', russian: 'Количество точек в одном заказе до', english: 'Number of points in one order up to', spain: '', type: 'subscription_options' },
         { service: 'none', russian: 'Нет подписки', english: 'No subcription', spain: '', type: 'subscription_plans' },
         { service: 'free', russian: 'Бесплатная', english: 'Free', spain: '', type: 'subscription_plans' },

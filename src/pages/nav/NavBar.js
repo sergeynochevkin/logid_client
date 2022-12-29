@@ -9,6 +9,7 @@ import './NavBar.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import Modal from '../../components/ui/modal/Modal';
 import CountrySelector from './CountrySelector';
+import NotificationIcon from '../../components/notification/NotificationIcon';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -37,6 +38,9 @@ const NavBar = observer(() => {
     <>
       <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
         <NotificationComponent />
+        <NotificationIcon
+          modalActive={modalActive}
+          setModalActive={setModalActive} />
 
         <div className='nav_bar_logo' onClick={() =>
           navigate(MAIN_ROUTE)}>logid</div>
@@ -121,7 +125,7 @@ const NavBar = observer(() => {
 
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive} >
-        <CountrySelector name={name} setModalActive={setModalActive}/>
+        <CountrySelector name={name} setModalActive={setModalActive} />
       </Modal>
     </>
 

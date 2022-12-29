@@ -21,7 +21,6 @@ import { fetchNotifications, updateNotifications } from '../http/notificationApi
 import { v4 } from "uuid";
 import Modal from '../components/ui/modal/Modal'
 import ServerNotificationList from '../components/notification/ServerNotificationList'
-import NotificationIcon from '../components/notification/NotificationIcon'
 import { fetchSubscription } from '../http/subscriptionApi'
 import { fetchUserState } from '../http/stateApi'
 import SettingsComponent from '../components/setting/SettingsComponent'
@@ -116,11 +115,7 @@ const Carrier = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetNativeTranslate(Translate.language,{},'carriers_office')}</title>
-
-        <NotificationIcon
-          modalActive={modalActive}
-          setModalActive={setModalActive} />
+        <title>{SetNativeTranslate(Translate.language,{},'carriers_office')}</title>    
         <Modal
           parent={'serverNotifications'}
           modalActive={modalActive}

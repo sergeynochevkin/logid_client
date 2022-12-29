@@ -18,7 +18,7 @@ const CountrySelector = observer(({ name, setModalActive }) => {
         english: ['We could not determine your country, please select it from the list']
       }) : name}</div>
       <div className='country_selector_countries_container'>
-        {Adress.countries.filter(el => el.value !== Adress.country.value && el.sector === Adress.country.sector).map(country => <CountrySelectorItem country={country} setModalActive={setModalActive} />)}
+        {Adress.countries.filter(el => el.value !== Adress.country.value && el.sector === Adress.country.sector).map(country => <CountrySelectorItem country={country} setModalActive={setModalActive} key={country.id} />)}
       </div>
       <CardButton
         onClick={

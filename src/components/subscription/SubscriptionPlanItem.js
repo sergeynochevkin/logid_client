@@ -25,6 +25,16 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
     let paid_to
     let updateSubscriptionAction
 
+    const sortOptions = (a, b) => {
+        if (a.option_id > b.option_id) {
+            return 1
+        } else if (a.option_id < b.option_id) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
     if (plan) {
         optionsByPlan = Subscription.options_by_plans.filter(el => el.planId === plan.plan_id)
         if (parent === 'main') {
@@ -64,7 +74,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, setFetchP
 
                     {parent !== 'status' ?
                         <div className={'options_container'}>
-                            {plan ? optionsByPlan.map(option => <OptionItem key={option.id} option={option} />) : <></>}
+                            {plan ? optionsByPlan.sort(sortOptions).map(option => <OptionItem key={option.id} option={option} />) : <></>}
                         </div>
                         : <></>
                     }

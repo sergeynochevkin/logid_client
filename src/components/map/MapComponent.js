@@ -596,7 +596,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                             {mapScaleSteps.map(step =>
                                 <div className='button_row' key={step}>
                                     <button
-                                        className={Setting.user_map_scale === step ? 'map_scale_button active' : Setting.app_theme === 'light' ? 'map_scale_button' : 'map_scale_button map_scale_button_dark'}
+                                        className={Setting.user_map_scale === step ? 'map_scale_button active only' : Setting.app_theme === 'light' ? 'map_scale_button only' : 'map_scale_button map_scale_button_dark only'}
                                         onClick={() => {
                                             Setting.setUserMapScale(step)
                                             Setting.setBoundsLimit(step / 100)
