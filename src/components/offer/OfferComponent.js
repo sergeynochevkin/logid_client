@@ -10,7 +10,7 @@ import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { setTime } from '../../modules/setTime'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners, thisCarrierOffer, thisOrderOffers, firstPoint }) => {
+const OfferComponent = observer(({ thisOrder,  thisOrderNoPartners, thisCarrierOffer, thisOrderOffers, firstPoint }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const{Translate} = useContext(TranslateContext)
@@ -68,7 +68,7 @@ const OfferComponent = observer(({ thisOrder, setFetchStart, thisOrderNoPartners
                 thisOrderOffers={thisOrderOffers}
                 user={user}
                 thisCarrierOffer={thisCarrierOffer}
-                setFetchStart={setFetchStart}
+                
                 thisOrderNoPartners={thisOrderNoPartners}
                 firstPoint={firstPoint}
                 ComponentFunction={ComponentFunction}

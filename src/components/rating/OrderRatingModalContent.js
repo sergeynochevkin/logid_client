@@ -9,7 +9,7 @@ import { CardButton } from '../ui/button/CardButton';
 import { createOrderRating } from '../../http/ratingApi';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 
-const OrderRatingModalContent = observer(({ setModalActive, formData, setFormData, setFetchStart, oneOrder, formReset }) => {
+const OrderRatingModalContent = observer(({ setModalActive, formData, setFormData,  oneOrder, formReset }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
@@ -35,7 +35,7 @@ const OrderRatingModalContent = observer(({ setModalActive, formData, setFormDat
             ).then(
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${user.user.role === 'carrier' ? rated_customer : rated_carrier} ${oneOrder.order_type === 'order' ? on_order : on_auction} ${oneOrder.id}` }])
             ).then(formReset())
-            setFetchStart(true)
+            fetcher.setOrders(true)
             fetcher.setPartners(true)
             setModalActive(false)
         } catch (e) {

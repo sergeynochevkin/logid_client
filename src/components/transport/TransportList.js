@@ -8,7 +8,7 @@ import NoData from '../ui/page/NoData'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const TransportList = observer(({ setFetchStart }) => {
+const TransportList = observer(() => {
   const { Transport } = useContext(TransportContext)
   const { Translate } = useContext(TranslateContext)
 
@@ -20,8 +20,7 @@ const TransportList = observer(({ setFetchStart }) => {
           {
             Transport.transports.map(oneTransport => <TransportItem
               key={oneTransport.id}
-              oneTransport={oneTransport}
-              setFetchStart={setFetchStart}
+              oneTransport={oneTransport}             
             />)
           }
         </>

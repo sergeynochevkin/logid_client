@@ -5,7 +5,7 @@ export default class OrderStore {
 
     constructor() {
         this._orders = []
-        this._map_orders=[]     
+        this._map_orders = []
         this._group = localStorage.getItem('groupOrders') ? JSON.parse(localStorage.getItem('groupOrders')) : []
         this._sortedAndFilteredOrders = []
         this._order = localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')) : {}
@@ -19,6 +19,8 @@ export default class OrderStore {
             arc: 0,
             pattern: 0
         }
+
+        this._filtered_count = 0
 
         this._ordersByGroup = []
         this._ordersByPartner = []
@@ -36,6 +38,15 @@ export default class OrderStore {
     get ordersByGroup() {
         return this._ordersByGroup
     }
+
+    setFilteredCount(value) {
+        this._filtered_count = value
+    }
+
+    get filtered_count() {
+        return this._filtered_count
+    }
+
 
     setOrdersByPartner(value) {
         this._ordersByPartner = value

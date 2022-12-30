@@ -12,8 +12,6 @@ import { ComponentFunctionContext, OrderContext, UserInfoContext, NotificationCo
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
-import {  updateNotifications } from '../http/notificationApi'
-import { v4 } from "uuid";
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
@@ -26,7 +24,6 @@ const Carrier = observer(() => {
   const { order } = useContext(OrderContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { UserInfo } = useContext(UserInfoContext)
-  const { Notification } = useContext(NotificationContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
   const {fetcher} = useContext(FetcherContext)

@@ -5,6 +5,7 @@ import NavBar from './pages/nav/NavBar';
 import { observer } from 'mobx-react-lite';
 import PreLoader from "./PreLoader";
 import Fetcher from "./Fetcher";
+import Notificator from "./Notificator";
 
 const App = observer(() => {
 
@@ -12,6 +13,7 @@ const App = observer(() => {
     <BrowserRouter>
       <PreLoader>
         <Fetcher />
+        <Notificator/>
         <NavBar />
         <AppRouter>
           <div className="App"></div>

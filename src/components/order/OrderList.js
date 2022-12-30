@@ -14,7 +14,7 @@ const OrderList = observer(({ listStyle }) => {
   const { order } = useContext(OrderContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
-  const [fetchStart, setFetchStart] = useState(false)
+  const [fetchStart] = useState(false)
   const {Setting} = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
 
@@ -128,8 +128,8 @@ const OrderList = observer(({ listStyle }) => {
 
       {
         ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork' ||
-          ComponentFunction.Function === 'completed' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'canceled' ? <Orders  fetchStart={fetchStart} setFetchStart={setFetchStart} /> :
-          ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? <ArcOrders listStyle={listStyle} fetchStart={fetchStart} setFetchStart={setFetchStart} /> : <></>
+          ComponentFunction.Function === 'completed' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'canceled' ? <Orders  fetchStart={fetchStart}  /> :
+          ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? <ArcOrders listStyle={listStyle} fetchStart={fetchStart}  /> : <></>
       }
     </>
   )

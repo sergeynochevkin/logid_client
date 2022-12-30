@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { FileContext, TranslateContext, TransportContext, UserInfoContext } from '../..'
-import { useFetching } from '../../hooks/useFetching'
+import { FileContext, TranslateContext } from '../..'
 import { fetchFile } from '../../http/fileApi'
-import { fetchTransport } from '../../http/transportApi'
 import TransportForm from './TransportForm'
 import TransportList from './TransportList'
 import { Button } from '../ui/button/Button'
@@ -20,22 +18,9 @@ flex-direction:column;
 `
 const TransportComponent = observer(() => {
   const { Translate } = useContext(TranslateContext)
-  const [fetchStart, setFetchStart] = useState(false)
-  const { UserInfo } = useContext(UserInfoContext)
-  const { Transport } = useContext(TransportContext)
   const [modalActive, setModalActive] = useState(false)
  
-
-  const [fetching, error] = useFetching(async () => {
-    await fetchTransport(UserInfo.userInfo.id).then(async data => {
-      Transport.setTransports(data);
-    }).then(setFetchStart(false))
-  })
-
-  useEffect(() => {
-    fetching()
-  }, [fetchStart])
-
+ 
   const initialValue = {
     thermo_bag: false,
     hydraulic_platform: false,
@@ -82,15 +67,11 @@ const TransportComponent = observer(() => {
         <TransportForm
           formData={formData}
           setFormData={setFormData}
-          formReset={formReset}
-          fetchStart={fetchStart}
-          setFetchStart={setFetchStart}
+          formReset={formReset}          
           setModalActive={setModalActive}
         />
       </Modal>
-      <TransportList
-        fetchStart={fetchStart}
-        setFetchStart={setFetchStart}
+      <TransportList   
       />
     </Container>
   )

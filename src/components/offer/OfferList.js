@@ -6,7 +6,7 @@ import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import { Smaller } from '../ui/text/Smaller'
 
-const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, thisOrderNoPartners, setFetchStart, firstPoint, ComponentFunction }) => {
+const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, thisOrderNoPartners,  firstPoint, ComponentFunction }) => {
 
   // const sortOffers = (a, b) => {
   //   if (a.cost > b.cost) {
@@ -51,7 +51,7 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
                     UserInfo={UserInfo}
                     noPartner={thisOrderNoPartners.find(el => el.id === oneOffer.carrierId)}
                     setModalActive={setModalActive}
-                    setFetchStart={setFetchStart}
+                    
                     firstPoint={firstPoint}
                   />)
                 }

@@ -9,7 +9,7 @@ import { setDuration } from '../../modules/setDuration'
     ;
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, setFetchStart }) => {
+const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Limit } = useContext(LimitContext)
     const { Setting } = useContext(SettingContext)
@@ -614,7 +614,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
             }
             {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && user.user.role === 'carrier' && Limit.user_limits.carrier_take_order_city_limit !== 0) &&
                 <div className={'map_info_container'}>
-                    <CitySelector setFetchStart={setFetchStart} calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
+                    <CitySelector  calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
                 </div>
             }
         </div>

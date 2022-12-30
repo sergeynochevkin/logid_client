@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import { useContext } from 'react'
-import { ComponentFunctionContext, PartnerContext, TranslateContext } from '../..'
+import { ComponentFunctionContext, FetcherContext, PartnerContext, TranslateContext } from '../..'
 import { setTime } from '../../modules/setTime'
 import { sendMail } from '../../http/mailApi'
 import { updateOrder } from '../../http/orderApi'
@@ -12,12 +12,13 @@ import { CardColName } from '../ui/card/CardColName'
 import { CardContainer } from '../ui/card/CardContainer'
 import { OrderTd } from '../ui/table/OrderTd'
 
-const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, setModalActive, setFetchStart, firstPoint }) => {
+const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, setModalActive,  firstPoint }) => {
   const { Partner } = useContext(PartnerContext)
   const [showMoreInfo, setShowMoreInfo] = useState(false)
   const formattedOfferTime = setTime(new Date(oneOffer.time_from), 0, 'show')
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Translate } = useContext(TranslateContext)
+  const { fetcher } = useContext(FetcherContext)
 
   useEffect(() => {
     if (ComponentFunction.OfferListMoreInfo === false) {
@@ -31,7 +32,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
         .then(sendMail(Translate.language, user.user.role, oneOrder.id, 'order_status', 'inWork', noPartner.id))
         .then(createPartner(UserInfo.userInfo.id, noPartner.id, 'normal'))
         .then(createPartner(noPartner.id, UserInfo.userInfo.id, 'normal'))
-      setFetchStart(true)
+      fetcher.setOrders(true)
       setModalActive(false)
     } catch (e) {
       alert(e.response.data.message)

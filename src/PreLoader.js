@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AdressContext, EquipmentTypeContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
+import { AdressContext, EquipmentTypeContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { useFetching } from './hooks/useFetching'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
@@ -9,6 +9,7 @@ import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
 import { CARRIER_ROUTE, CUSTOMER_ROUTE } from './utils/consts'
 import axios from "axios";
+import { fetchTransport } from './http/transportApi'
 
 const PreLoader = observer(({ children, ...props }) => {
     const { TransportType } = useContext(TransportTypeContext)
@@ -22,6 +23,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
     const { Setting } = useContext(SettingContext)
+    const { Transport } = useContext(TransportContext)
 
     //attach google and lets go to design!
 
@@ -76,7 +78,6 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            console.log('1');
             try {
                 async function fetchData() {
                     let data = await check()
@@ -85,6 +86,11 @@ const PreLoader = observer(({ children, ...props }) => {
                     user.setIsAuth(true)
                     data = await fetchUserInfo(user.user.id).then(data => {
                         let country
+                        if (data) {
+                            if (data.role === 'carrier') {
+                                fetchTransport(UserInfo.userInfo.id).then(data => Transport.setTransports(data))
+                            }
+                        }
                         if (data) {
                             UserInfo.setUserInfo(data)
                             country = Adress.countries.find(el => el.value === data.country)

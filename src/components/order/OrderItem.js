@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { CardButton } from '../ui/button/CardButton'
-import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext } from '../../index'
+import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext, FetcherContext } from '../../index'
 import { CardContainer } from '../ui/card/CardContainer'
 import { CardRow } from '../ui/card/CardRow'
 import { CardColName } from '../ui/card/CardColName'
@@ -23,7 +23,7 @@ import MapComponent from '../map/MapComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetchStart, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
+const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints,  onePartnerInfo, onePartner, oneOrderNoPartners }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { user } = useContext(UserContext)
     const [modalActive, setModalActive] = useState(false)
@@ -37,6 +37,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
     const { State } = useContext(StateContext)
     const {Adress} = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
+    const { fetcher } = useContext(FetcherContext)
 
     let thisOrder
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisOrder = oneOrder : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisOrder = order.order : thisOrder = {}
@@ -130,7 +131,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                         event.stopPropagation()
                         ComponentFunction.setFunction(thisOrder.order_status)
                         ComponentFunction.setOrdersComponentFunction('orderList')
-                        setFetchStart(true)
+                        fetcher.setOrders(true)
                     }}>{SetNativeTranslate(Translate.language,{},'back_to_order_list')}</AddDeleteFieldButton>
                     : <></>}
 
@@ -161,7 +162,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                                 } else {
                                     State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
                                     FilterAndSort.filters.selected.length > 0 && FilterAndSort.setFilters(State.user_state.favorite_order_state, 'selected')
-                                    setFetchStart(true)
+                                    fetcher.setOrders(true)
                                 }
                             }}
                         >{State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(thisOrder.id) ? SetNativeTranslate(Translate.language,{},'to_favorites') : SetNativeTranslate(Translate.language,{},'from_favorites')}
@@ -283,7 +284,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, setFetch
                 <VerticalContainer>
                     <OrderStatusButtons
                         parent={'order'}
-                        setFetchStart={setFetchStart}
+                        
                         thisOrder={thisOrder}
                         
                         thisOrderOffers={thisOrderOffers}

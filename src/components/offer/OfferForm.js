@@ -12,7 +12,7 @@ import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { Smaller } from '../ui/text/Smaller'
 import { v4 } from "uuid";
-import { AdressContext, NotificationContext, TranslateContext, UserContext } from '../../index'
+import { AdressContext, FetcherContext, NotificationContext, TranslateContext, UserContext } from '../../index'
 import { sendMail } from '../../http/mailApi'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
@@ -24,11 +24,12 @@ gap: 5px;
 align-items:center;
 `
 
-const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setFormData, thisCarrierOffer, setFetchStart, firstPoint, formReset }) => {
+const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setFormData, thisCarrierOffer,  firstPoint, formReset }) => {
     const { Notification } = useContext(NotificationContext)
     const { user } = useContext(UserContext)
     const { Translate } = useContext(TranslateContext)
     const { Adress } = useContext(AdressContext)
+    const { fetcher } = useContext(FetcherContext)
     formData.userInfoId = oneOrder.userInfoId
     formData.carrierId = UserInfo.userInfo.id
     formData.orderId = oneOrder.id
@@ -84,7 +85,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
         try {
             event.preventDefault();
             await deleteOffer(thisCarrierOffer.id).then(sendMail(Translate.language,user.user.role, oneOrder.id, 'offer', 'delete'))
-            setFetchStart(true)
+            fetcher.setOrders(true)
             setModalActive(false)
             Notification.addNotification([{
                 id: v4(), type: 'success', message: SetNativeTranslate(

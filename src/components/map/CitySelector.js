@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, FilterAndSortContext, LimitContext, NotificationContext, SettingContext, StateContext, TranslateContext, TransportContext, UserInfoContext } from '../..'
+import { AdressContext, FetcherContext, FilterAndSortContext, LimitContext, NotificationContext, SettingContext, StateContext, TranslateContext, TransportContext, UserInfoContext } from '../..'
 import './Map.css'
 import { v4 } from "uuid";
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 
-const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBounds, setRefreshMap }) => {
+const CitySelector = observer(({  calcAllCities, calcСityOrderBounds, setRefreshMap }) => {
     const { Setting } = useContext(SettingContext)
     const { Adress } = useContext(AdressContext)
     const { Notification } = useContext(NotificationContext)
@@ -15,6 +15,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
     const { Transport } = useContext(TransportContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const { Translate } = useContext(TranslateContext)
+    const { fetcher } = useContext(FetcherContext)
 
     let userCity = { lat: undefined, lng: undefined, name: '' }
     userCity.name = UserInfo.userInfo.city
@@ -71,7 +72,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                     calcAllCities()
                     setRefreshMap(true)
                 }
-                setFetchStart(true)
+                fetcher.setOrders(true)
             }
         }
     }
@@ -107,7 +108,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                             } else {
                                 FilterAndSort.setFilters(false, 'intercity')
                             }
-                            setFetchStart(true)
+                            fetcher.setOrders(true)
                         }}
                     >{SetNativeTranslate(Translate.language, {}, 'intercity_only')}</div>
                 </div>
@@ -173,7 +174,7 @@ const CitySelector = observer(({ setFetchStart, calcAllCities, calcСityOrderBou
                                 else if (Setting.user_map_cities.length === 0 && Setting.all_cities === true) {
                                     resetAllCities()
                                 }
-                                setFetchStart(true)
+                                fetcher.setOrders(true)
                             }}
                         >
                             delete_forever

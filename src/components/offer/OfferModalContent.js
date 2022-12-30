@@ -3,7 +3,7 @@ import React from 'react'
 import OfferForm from './OfferForm'
 import OfferList from './OfferList'
 
-const OfferModalContent = observer(({ setModalActive, UserInfo, oneOrder, Offer, user, thisOrderOffers, thisCarrierOffer, formData, setFormData, setFetchStart, thisOrderNoPartners, firstPoint, ComponentFunction, formReset }) => {
+const OfferModalContent = observer(({ setModalActive, UserInfo, oneOrder, Offer, user, thisOrderOffers, thisCarrierOffer, formData, setFormData,  thisOrderNoPartners, firstPoint, ComponentFunction, formReset }) => {
 
     return (
         <>
@@ -15,7 +15,7 @@ const OfferModalContent = observer(({ setModalActive, UserInfo, oneOrder, Offer,
                     thisCarrierOffer={thisCarrierOffer}
                     formData={formData}
                     setFormData={setFormData}
-                    setFetchStart={setFetchStart}
+                    
                     firstPoint={firstPoint}
                     formReset={formReset}
                 /> : <></>}
@@ -27,7 +27,7 @@ const OfferModalContent = observer(({ setModalActive, UserInfo, oneOrder, Offer,
                 thisOrderOffers={thisOrderOffers}
                 UserInfo={UserInfo}
                 thisOrderNoPartners={thisOrderNoPartners}
-                setFetchStart={setFetchStart}
+                
                 firstPoint={firstPoint}
                 ComponentFunction={ComponentFunction}                
             />

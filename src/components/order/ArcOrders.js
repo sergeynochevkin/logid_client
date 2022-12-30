@@ -29,7 +29,6 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
   const [fetchStart, setFetchStart] = useState(false)
-  const [totalCount, setTotalCount] = useState(0)
   const [startLimit, setStartLimit] = useState()
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,7 +82,7 @@ const ArcOrders = observer(({ setComponentFunction }) => {
   const [fetching, error] = useFetching(async () => {
     await fetchOrders(UserInfo.userInfo.id, user.user.role, user.user.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, [], [], [], [], ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(data => {
       setResults(data)
-      setTotalCount(data.filtered_count)
+      order.setFilteredCount(data.filtered_count)
       if (data.length !== 0) {
         fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => Point.setPoints(data.rows));
       }
@@ -174,27 +173,27 @@ const ArcOrders = observer(({ setComponentFunction }) => {
                 </table>
               </div>
               <div className='more_orders_buttons_container'>
-                {order.orders.length < totalCount && order.orders.length !== 0 ?
+                {order.orders.length < order.filtered_count && order.orders.length !== 0 ?
                   <>
-                    {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < totalCount ?
+                    {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count ?
                       <Button
                         onClick={() => {
-                          if ((totalCount - order.orders.length) > 10) {
+                          if ((order.filtered_count - order.orders.length) > 10) {
                             FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + 10 }, ComponentFunction.Function)
                             setFetchStart(true)
                           } else {
-                            FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (totalCount - order.orders.length) }, ComponentFunction.Function)
+                            FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.orders.length) }, ComponentFunction.Function)
                             setFetchStart(true)
                           }
                         }}
-                      >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(totalCount - order.orders.length) > 10 ? 10 : totalCount - order.orders.length}`}</Button> : <></>}
+                      >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.orders.length) > 10 ? 10 : order.filtered_count - order.orders.length}`}</Button> : <></>}
 
                     <Button
                       onClick={() => {
-                        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: totalCount }, ComponentFunction.Function)
+                        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: order.filtered_count }, ComponentFunction.Function)
                         setFetchStart(true)
                       }}
-                    >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${totalCount}`}</Button>
+                    >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${order.filtered_count}`}</Button>
                   </>
                   : <></>}
                 {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&

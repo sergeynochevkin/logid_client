@@ -1,14 +1,18 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
-import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, NotificationContext, OrderContext, PartnerContext, RatingContext, StateContext, SubscriptionContext, UserContext, UserInfoContext } from '.'
+import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
 import { fetchUserLimits } from './http/limitApi'
 import { fetchNotifications, updateNotifications } from './http/notificationApi'
 import { fetchGroups, fetchPartners } from './http/partnerApi'
-import { fetchOtherRatings } from './http/ratingApi'
+import { fetchOrderRatings, fetchOtherRatings } from './http/ratingApi'
 import { fetchUserState } from './http/stateApi'
 import { fetchSubscription } from './http/subscriptionApi'
 import { fetchUserInfos } from './http/userInfoApi'
 import { v4 } from "uuid";
+import { fetchOffers } from './http/offerApi'
+import { fetchPoints } from './http/pointApi'
+import { fetchOrderConnections, fetchOrders } from './http/orderApi'
+import { fetchTransport } from './http/transportApi'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -23,6 +27,9 @@ const Fetcher = observer(() => {
     const { order } = useContext(OrderContext)
     const { Partner } = useContext(PartnerContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
+    const { Point } = useContext(PointContext)
+    const { Offer } = useContext(OfferContext)
+    const { Transport } = useContext(TransportContext)
 
     // server notifications
     useEffect(() => {
@@ -47,11 +54,11 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         Notification.new_server_notifications.forEach(async element => {
-          Notification.addNotification([{ id: v4(), type: element.type, message: element.message }])
+            Notification.addNotification([{ id: v4(), type: element.type, message: element.message }])
         });
         let ids = Notification.new_server_notifications.map(el => el.id)
         updateNotifications(ids, true)
-      }, [Notification.new_server_notifications])
+    }, [Notification.new_server_notifications])
 
     // subscriptions
     useEffect(() => {
@@ -81,6 +88,55 @@ const Fetcher = observer(() => {
     }, [fetcher.user_state])
 
     //orders
+    useEffect(() => {
+        async function fetch() {
+            if (Object.keys(UserInfo.userInfo).length !== 0) {
+                await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, user.user.role === 'carrier' ? Transport.transports : [], Partner.myBlocked, Partner.iAmBlocked, Partner.myFavorite, '', FilterAndSort.filters).then(async data => {
+                    order.setFilteredCount(data.filtered_count)
+                    order.setTotalCount(data.total_count.new, 'new')
+                    order.setTotalCount(data.total_count.canceled, 'canceled')
+                    order.setTotalCount(data.total_count.completed, 'completed')
+                    order.setTotalCount(data.total_count.postponed, 'postponed')
+                    order.setTotalCount(data.total_count.inWork, 'inWork')
+                    order.setTotalCount(data.total_count.arc, 'arc')
+                    order.setTotalCount(data.total_count.pattern, 'pattern')
+                    order.setAdded(data.added)
+                    if (data.rows.length !== 0) {
+                        await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
+                            Point.setPoints(data.rows);
+                            Point.setAdded(data.added)
+                            if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
+                                Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
+                            }
+                        })
+                    }
+                    if ((ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') && data.length !== 0) {
+                        await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
+                    }
+                    if ((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && data.length !== 0) {
+
+                        await fetchOrderConnections(data.rows.map(el => el.id), 'groups').then(data => order.setOrdersByGroup(data))
+                        await fetchOrderConnections(data.rows.map(el => el.id), 'partners').then(data => order.setOrdersByPartner(data))
+
+                        await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
+                            Offer.setOffers(data.rows)
+                            Offer.setChanges(data.changes)
+                            await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)
+                            )
+                        })
+
+                    }
+                    if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
+                        order.setOrder(data.rows.find(el => el.id === order.order.id))
+                    }
+                    order.setOrders(data.rows)
+                    order.setMapOrders(data.map_rows)
+                })
+            }
+        }
+        fetch()
+        fetcher.setOrders(false)
+    }, [fetcher.orders])
 
     //partners
     useEffect(() => {
@@ -127,6 +183,14 @@ const Fetcher = observer(() => {
         }
         fetcher.setPartners(false)
     }, [fetcher.partners])
+
+    //transport
+    useEffect(() => {
+        async function fetch() {
+            await fetchTransport(UserInfo.userInfo.id).then(data => Transport.setTransports(data))
+        }
+        fetcher.setTransports(false)
+    }, [fetcher.transports])
 
     return (
         <></>)

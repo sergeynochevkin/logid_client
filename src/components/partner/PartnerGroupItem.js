@@ -13,7 +13,7 @@ import '../order/Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedGroups, setFetchStart }) => {
+const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedGroups }) => {
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const [modalActive, setModalActive] = useState(false)
     const { Notification } = useContext(NotificationContext)
@@ -83,7 +83,7 @@ const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedG
                                     let state = FilterAndSort.filters.partnersByGroups.filter(el => el !== group.dataValues.id)
                                     FilterAndSort.setFilters(state, 'partnersByGroups')
                                 }
-                                setFetchStart(true)
+                                fetcher.setOrders(true)
                             }
 
 

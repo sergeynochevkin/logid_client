@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { TranslateContext, UserInfoContext } from '../..'
+import { FetcherContext, TranslateContext, UserInfoContext } from '../..'
 import { createTransport } from '../../http/transportApi'
 import { uploadImages } from '../../http/fileApi'
 import { Form } from '../ui/form/Form'
@@ -16,18 +16,19 @@ gap:10px;
 align-items:center;
 flex-direction:column;`
 
-const TransportForm = observer(({ setFetchStart, setModalActive, formData, formReset, setFormData }) => {
+const TransportForm = observer(({ setModalActive, formData, formReset, setFormData }) => {
   const { UserInfo } = useContext(UserInfoContext)
-  const{Translate} = useContext(TranslateContext)
+  const { Translate } = useContext(TranslateContext)
+  const { fetcher } = useContext(FetcherContext)
 
   const filesFormData = new FormData()
 
   formData.userInfoId = UserInfo.userInfo.id
-   
-  
+
+
   const click = async (event) => {
     event.preventDefault()
-    try { 
+    try {
       let data;
       data = await createTransport(
         formData
@@ -37,7 +38,6 @@ const TransportForm = observer(({ setFetchStart, setModalActive, formData, formR
           filesFormData.append('transportId', data.id)
           await uploadImages(filesFormData, Translate.language)
 
-          
           //log
           for (const value of filesFormData.values()) {
             // console.log(value);
@@ -47,7 +47,7 @@ const TransportForm = observer(({ setFetchStart, setModalActive, formData, formR
           }
         })
       formReset()
-      setFetchStart(true)
+      fetcher.setTransports(true)
       setModalActive(false)
     } catch (e) {
       alert(e.response.data.message)
@@ -60,7 +60,7 @@ const TransportForm = observer(({ setFetchStart, setModalActive, formData, formR
         <TransportFormTag formData={formData}></TransportFormTag>
         {/* <DragDropUpload filesFormData={filesFormData} parent={'transportForm'} formData={formData} setFormData={setFormData} length={10} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload> */}
         <TransportFormSection formData={formData} setFormData={setFormData} click={click} setModalActive={setModalActive} formReset={formReset} />
-        </Form>
+      </Form>
     </Container>
   )
 })

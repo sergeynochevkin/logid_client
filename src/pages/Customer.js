@@ -8,12 +8,10 @@ import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext,  UserInfoContext, NotificationContext, SettingContext, TranslateContext, FetcherContext } from '..'
+import { ComponentFunctionContext, OrderContext,  UserInfoContext, SettingContext, TranslateContext, FetcherContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
-import {  updateNotifications } from '../http/notificationApi'
-import { v4 } from "uuid";
 import SettingsComponent from '../components/setting/SettingsComponent'
 import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
@@ -27,7 +25,6 @@ const Customer = observer(() => {
   const { order } = useContext(OrderContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { UserInfo } = useContext(UserInfoContext)
-  const { Notification } = useContext(NotificationContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
   const {fetcher} = useContext(FetcherContext)
