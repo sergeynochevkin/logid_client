@@ -31,6 +31,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   const { State } = useContext(StateContext)
   const { Translate } = useContext(TranslateContext)
   const [startLimit, setStartLimit] = useState()
+  const [limitDirty, setLimitDirty] = useState(false)
 
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
@@ -215,27 +216,27 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                 </HorizontalContainer>
 
                 <div className='more_orders_buttons_container'>
-                  {order.divided_orders[ComponentFunction.Function].length < order.filtered_count && order.divided_orders[ComponentFunction.Function].length !== 0 ?
+                  {order.divided_orders[ComponentFunction.Function].length < order.filtered_count[ComponentFunction.Function] && order.divided_orders[ComponentFunction.Function].length !== 0 ?
                     <>
-                      {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count ?
+                      {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count[ComponentFunction.Function] ?
                         <Button
                           onClick={() => {
-                            if ((order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10) {
+                            if ((order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length) > 10) {
                               FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + 10 }, ComponentFunction.Function)
                               fetcher.setOrders(true)
                             } else {
-                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.divided_orders[ComponentFunction.Function].length) }, ComponentFunction.Function)
+                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length) }, ComponentFunction.Function)
                               fetcher.setOrders(true)
                             }
                           }}
-                        >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10 ? 10 : order.filtered_count - order.divided_orders[ComponentFunction.Function].length}`}</Button> : <></>}
+                        >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length) > 10 ? 10 : order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length}`}</Button> : <></>}
 
                       <Button
                         onClick={() => {
-                          FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: order.filtered_count }, ComponentFunction.Function)
+                          FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: order.filtered_count[ComponentFunction.Function] }, ComponentFunction.Function)
                           fetcher.setOrders(true)
                         }}
-                      >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${order.filtered_count}`}</Button>
+                      >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${order.filtered_count[ComponentFunction.Function]}`}</Button>
                     </>
                     : <></>}
                   {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&
@@ -298,36 +299,38 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                       </table>
                     </div>
                     <div className='more_orders_buttons_container'>
-                      {order.divided_orders[ComponentFunction.Function].length < order.filtered_count && order.divided_orders[ComponentFunction.Function].length !== 0 ?
+                      {order.divided_orders[ComponentFunction.Function].length < order.filtered_count[ComponentFunction.Function] && order.divided_orders[ComponentFunction.Function].length !== 0 ?
                         <>
-                          {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count ?
+                          {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count[ComponentFunction.Function] ?
                             <Button
                               onClick={() => {
-                                if ((order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10) {
+                                if ((order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length) > 10) {
                                   FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + 10 }, ComponentFunction.Function)
                                   fetcher.setOrders(true)
                                 } else {
-                                  FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.divided_orders[ComponentFunction.Function].length) }, ComponentFunction.Function)
+                                  FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length) }, ComponentFunction.Function)
                                   fetcher.setOrders(true)
                                 }
+                                setLimitDirty(true)
                               }}
-                            >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10 ? 10 : order.filtered_count - order.divided_orders[ComponentFunction.Function].length}`}</Button> : <></>}
+                            >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length) > 10 ? 10 : order.filtered_count[ComponentFunction.Function] - order.divided_orders[ComponentFunction.Function].length}`}</Button> : <></>}
 
                           <Button
                             onClick={() => {
-                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: order.filtered_count }, ComponentFunction.Function)
+                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: order.filtered_count[ComponentFunction.Function] }, ComponentFunction.Function)
                               fetcher.setOrders(true)
+                              setLimitDirty(true)
                             }}
-                          >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${order.filtered_count}`}</Button>
+                          >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${order.filtered_count[ComponentFunction.Function]}`}</Button>
                         </>
                         : <></>}
-                      {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&
+                      {limitDirty && FilterAndSort.filters[ComponentFunction.Function].limit > startLimit ?
                         <Button
                           onClick={() => {
                             FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: startLimit }, ComponentFunction.Function)
                             fetcher.setOrders(true)
                           }}
-                        >{SetNativeTranslate(Translate.language, {}, 'roll_up_list')}</Button>}
+                        >{SetNativeTranslate(Translate.language, {}, 'roll_up_list')}</Button> : <></>}
                     </div>
                   </>
                   :

@@ -28,12 +28,17 @@ export default class OrderStore {
             arc: 0,
             pattern: 0
         }
-
-        this._filtered_count = 0
-
+        this._filtered_count = {
+            new: 0,
+            inWork: 0,
+            completed: 0,
+            canceled: 0,
+            postponed: 0,
+            arc: 0,
+            pattern: 0
+        }
         this._ordersByGroup = []
         this._ordersByPartner = []
-
         this._pattern = JSON.stringify('')
         this._integrationId = ''
 
@@ -48,8 +53,8 @@ export default class OrderStore {
         return this._ordersByGroup
     }
 
-    setFilteredCount(value) {
-        this._filtered_count = value
+    setFilteredCount(value, ComponentFunction) {
+        this._filtered_count[ComponentFunction] = value
     }
 
     get filtered_count() {

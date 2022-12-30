@@ -7,6 +7,8 @@ export default class FetcherStore {
         this._user_state = false
         this._partners = false
         this._orders = false
+        this._divided_orders = false
+        this._new_status = ''
         this._orders_all = false
         this._orders_new = false
         this._orders_in_work = false
@@ -46,6 +48,13 @@ export default class FetcherStore {
     setAccount(value) {
         this._account = value
     }
+    setDividedOrders(value) {
+        this._divided_orders = value
+    }
+    setNewStatus(value) {
+        this._new_status = value
+    }
+
     //get
     get server_notifications() {
         return this._server_notifications
@@ -76,5 +85,11 @@ export default class FetcherStore {
     }
     get account() {
         return this._account
+    }
+    get divided_orders() {
+        return this._divided_orders
+    }
+    get new_status() {
+        return this._new_status
     }
 }

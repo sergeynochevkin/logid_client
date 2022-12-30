@@ -93,7 +93,7 @@ const Fetcher = observer(() => {
         if (Object.keys(UserInfo.userInfo).length !== 0) {
             await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
                 ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.iAmBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myFavorite, ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(async data => {
-                    order.setFilteredCount(data.filtered_count)
+                    order.setFilteredCount(data.filtered_count, order_status)
                     if (ComponentFunction.Function !== 'arc' && ComponentFunction.Function !== 'pattern') {
                         order.setTotalCount(data.total_count.new, 'new')
                         order.setTotalCount(data.total_count.canceled, 'canceled')
@@ -136,13 +136,29 @@ const Fetcher = observer(() => {
         }
     }
     useEffect(() => {
+        console.log('target');
         if (ComponentFunction.Function !== 'partners') {
-            fetch(ComponentFunction.Function)
+            if (fetcher.new_status !== '') {
+                fetch(ComponentFunction.Function)
+                fetch(fetcher.new_status)
+            } else {
+                fetch(ComponentFunction.Function)
+            }
         }
-        fetcher.setOrders(false)
-    }, [fetcher.orders])
+        fetcher.setDividedOrders(false)
+        fetcher.setNewStatus('')
+    }, [fetcher.divided_orders])
+
+    // useEffect(() => {
+    //     console.log('target');
+    //     if (ComponentFunction.Function !== 'partners') {
+    //         fetch(ComponentFunction.Function)
+    //     }
+    //     fetcher.setOrders(false)
+    // }, [fetcher.orders])
 
     useEffect(() => {
+        console.log('all');
         fetch('new')
         fetch('postponed')
         fetch('inWork')
@@ -153,31 +169,36 @@ const Fetcher = observer(() => {
         fetcher.setOrdersAll(false)
     }, [fetcher.orders_all])
 
-    useEffect(() => {
-        fetch('new')
-        fetcher.setOrdersNew(false)
-    }, [fetcher.orders_new])
+    // useEffect(() => {
+    //     console.log('new');
+    //     fetch('new')
+    //     fetcher.setOrdersNew(false)
+    // }, [fetcher.orders_new])
 
-    useEffect(() => {
-        fetch('inWork')
-        fetcher.setOrdersInWork(false)
-    }, [fetcher.orders_in_work])
+    // useEffect(() => {
+    //     console.log('inWork');
+    //     fetch('inWork')
+    //     fetcher.setOrdersInWork(false)
+    // }, [fetcher.orders_in_work])
 
     //edit for regular fetching of all statuses if (Object.keys(UserInfo.userInfo).length !== 0) {
-    useEffect(() => {
-        setInterval(() => {
-            fetcher.setOrdersNew(true)
-        }, 10000);
-        setInterval(() => {
-            fetcher.setOrdersInWork(true)
-        }, 20000);
-    }, [])
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         fetcher.setOrdersNew(true)
+    //     }, 10000);
+    //     clearInterval()
+    //     setInterval(() => {
+    //         fetcher.setOrdersInWork(true)
+    //     }, 20000);
+    //     clearInterval()
+    // }, [])
 
-    useEffect(() => {
-        if (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork') {
-            fetcher.setOrders(true)
-        }
-    }, [ComponentFunction.Function])
+    // useEffect(() => {
+    //     console.log('target');
+    //     if (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork') {
+    //         fetcher.setOrders(true)
+    //     }
+    // }, [ComponentFunction.Function])
 
     //partners
     useEffect(() => {
