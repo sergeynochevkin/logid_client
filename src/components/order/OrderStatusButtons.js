@@ -208,8 +208,8 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             await updateOrder('', '', thisOrder.id, user.user.role, 'arc', thisOrder.order_status)
                 .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'arc'))
 
-                fetcher.setDividedOrders(true)
-                fetcher.setNewStatus('arc')
+                .then(fetcher.setDividedOrders(true))
+                .then(fetcher.setNewStatus('arc'))
 
                 .then(event.stopPropagation())
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
