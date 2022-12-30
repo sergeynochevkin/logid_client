@@ -129,7 +129,7 @@ const Fetcher = observer(() => {
                     if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
                         order.setOrder(data.rows.find(el => el.id === order.order.id))
                     }
-                    order.setOrders(data.rows)// delete whent check point notifications
+                    // order.setOrders(data.rows)// delete whent check point notifications
                     order.setMapOrders(data.map_rows)
                     order.setDevidedOrders(data.rows, order_status)
                 })
@@ -147,6 +147,7 @@ const Fetcher = observer(() => {
         fetch('postponed')
         fetch('inWork')
         fetch('canceled')
+        fetch('completed')
         fetch('arc')
         fetch('pattern')
         fetcher.setOrdersAll(false)
@@ -169,7 +170,7 @@ const Fetcher = observer(() => {
         }, 10000);
         setInterval(() => {
             fetcher.setOrdersInWork(true)
-        }, 10000);
+        }, 20000);
     }, [])
 
     useEffect(() => {
