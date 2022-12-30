@@ -329,6 +329,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                           onClick={() => {
                             FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: startLimit }, ComponentFunction.Function)
                             fetcher.setOrders(true)
+                            setLimitDirty(false)
                           }}
                         >{SetNativeTranslate(Translate.language, {}, 'roll_up_list')}</Button> : <></>}
                     </div>
