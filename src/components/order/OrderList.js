@@ -1,21 +1,18 @@
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
 import Orders from './Orders'
-import ArcOrders from './ArcOrders'
 import { UserContext, OrderContext, ComponentFunctionContext, UserInfoContext, FilterAndSortContext, SettingContext, TranslateContext } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { BookMark } from '../ui/button/BookMark'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const OrderList = observer(({ listStyle }) => {
+const OrderList = observer(() => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
   const { order } = useContext(OrderContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
-  const [fetchStart] = useState(false)
-  const {Setting} = useContext(SettingContext)
+  const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
 
   return (
@@ -34,7 +31,7 @@ const OrderList = observer(({ listStyle }) => {
               ComponentFunction.setFunction('new')
             }} style={{
               color: ComponentFunction.Function === 'new' && 'grey',
-            }}>{SetNativeTranslate(Translate.language,{},'new_bookmark')}
+            }}>{SetNativeTranslate(Translate.language, {}, 'new_bookmark')}
               <div className='number_of_orders'>{order.totalCount.new}</div>
             </BookMark>
             {
@@ -49,7 +46,7 @@ const OrderList = observer(({ listStyle }) => {
                   ComponentFunction.setOrdersComponentFunction('orderList')
                 }} style={{
                   color: ComponentFunction.Function === 'postponed' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'postponed_bookmark')}
+                }}>{SetNativeTranslate(Translate.language, {}, 'postponed_bookmark')}
                   <div className='number_of_orders'>{order.totalCount.postponed}</div>
                 </BookMark>
                 : <></>
@@ -64,7 +61,7 @@ const OrderList = observer(({ listStyle }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'inWork' && 'grey',
-            }}>{SetNativeTranslate(Translate.language,{},'inWork_bookmark')}
+            }}>{SetNativeTranslate(Translate.language, {}, 'inWork_bookmark')}
               <div className='number_of_orders' >{order.totalCount.inWork}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -77,7 +74,7 @@ const OrderList = observer(({ listStyle }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'completed' && 'grey',
-            }}>{SetNativeTranslate(Translate.language,{},'completed_bookmark')}
+            }}>{SetNativeTranslate(Translate.language, {}, 'completed_bookmark')}
               <div className='number_of_orders' >{order.totalCount.completed}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -90,7 +87,7 @@ const OrderList = observer(({ listStyle }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'canceled' && 'grey',
-            }}>{SetNativeTranslate(Translate.language,{},'canceled_bookmark')}
+            }}>{SetNativeTranslate(Translate.language, {}, 'canceled_bookmark')}
               <div className='number_of_orders' >{order.totalCount.canceled}</div>
             </BookMark>
             <BookMark onClick={() => {
@@ -103,7 +100,7 @@ const OrderList = observer(({ listStyle }) => {
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
               color: ComponentFunction.Function === 'arc' && 'grey',
-            }}>{SetNativeTranslate(Translate.language,{},'arc_bookmark')}
+            }}>{SetNativeTranslate(Translate.language, {}, 'arc_bookmark')}
               <div className='number_of_orders'  >{order.totalCount.arc}</div>
             </BookMark>
 
@@ -118,7 +115,7 @@ const OrderList = observer(({ listStyle }) => {
                 ComponentFunction.setOrdersComponentFunction('orderList')
               }} style={{
                 color: ComponentFunction.Function === 'pattern' && 'grey',
-              }}>{SetNativeTranslate(Translate.language,{},'templates_bookmark')}
+              }}>{SetNativeTranslate(Translate.language, {}, 'templates_bookmark')}
                 <div className='number_of_orders' >{order.totalCount.pattern}</div>
               </BookMark> : <></>}
           </div>
@@ -126,11 +123,7 @@ const OrderList = observer(({ listStyle }) => {
 
         : <></>}
 
-      {
-        ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork' ||
-          ComponentFunction.Function === 'completed' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'canceled' ? <Orders  fetchStart={fetchStart}  /> :
-          ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? <ArcOrders listStyle={listStyle} fetchStart={fetchStart}  /> : <></>
-      }
+      <Orders />
     </>
   )
 })

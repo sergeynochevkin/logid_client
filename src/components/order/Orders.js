@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, StateContext, TranslateContext, UserInfoContext } from '../../index'
+import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, OfferContext, OrderContext, PartnerContext, PointContext, StateContext, TranslateContext, UserInfoContext } from '../../index'
 import { UserContext } from '../../index'
 import { observer } from 'mobx-react-lite'
 import OrderItem from './OrderItem'
@@ -7,7 +7,6 @@ import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import FilterAndSortComponentForServer from '../FilterAndSortComponentForServer'
 import useDebounce from '../../hooks/useDebounce'
-import { v4 } from "uuid";
 import { CardButton } from '../ui/button/CardButton'
 import OrderStatusButtons from './OrderStatusButtons'
 import MapComponent from '../map/MapComponent'
@@ -16,8 +15,10 @@ import { LikeCardButton } from '../ui/text/LikeCardButton'
 import { Button } from '../ui/button/Button'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { OrderTh } from '../ui/table/OrderTh'
+import ArcOrderItem from './ArcOrderItem'
 
-const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }) => {
+const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   const { fetcher } = useContext(FetcherContext)
   const { order } = useContext(OrderContext)
   const { user } = useContext(UserContext)
@@ -38,12 +39,22 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }
 
 
   useEffect(() => {
-    if (width > 768) {
-      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 30 }, ComponentFunction.Function)
-    } else if (width > 425) {
-      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
+    if (ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern') {
+      if (height > 768) {
+        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
+      } else if (height > 425) {
+        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
+      } else {
+        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 10 }, ComponentFunction.Function)
+      }
     } else {
-      FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 10 }, ComponentFunction.Function)
+      if (width > 768) {
+        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 30 }, ComponentFunction.Function)
+      } else if (width > 425) {
+        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
+      } else {
+        FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 10 }, ComponentFunction.Function)
+      }
     }
   }, [])
 
@@ -59,9 +70,9 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }
   const debouncedSearchTerm = useDebounce(FilterAndSort.filters[ComponentFunction.Function], 500);
   useEffect(
     () => {
-    // Make sure we have a value (user entered something)
+      // Make sure we have a value (user entered something)
       if (debouncedSearchTerm) {
-         // Set state isSearching
+        // Set state isSearching
         setIsSearching(true);
         // Made API request
         fetcher.setOrders(true)
@@ -71,39 +82,6 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }
     },
     [debouncedSearchTerm]
   )
-
-
-  //Move it to Fetcher!
-  useEffect(() => {
-    if (ComponentFunction.Function === 'inWork') {
-      const interval = setInterval(() => {
-        fetcher.setOrders(true)
-      }, 10000);
-      return () => clearInterval(interval)
-    }
-    else if (ComponentFunction.Function === 'new' && user.user.role === 'carrier') {
-      const interval = setInterval(() => {
-        fetcher.setOrders(true)
-      }, 10000);
-      return () => clearInterval(interval);
-    } else if (ComponentFunction.Function === 'new' && user.user.role === 'customer') {
-      const interval = setInterval(() => {
-        fetcher.setOrders(true)
-      }, 10000);
-      return () => clearInterval(interval);
-    } else {
-      const interval = setInterval(() => {
-        fetcher.setOrders(true)
-      }, 20000);
-      return () => clearInterval(interval);
-    }
-  }, [fetchStart, ComponentFunction.Function])
-
-
-  //Without it!
-  useEffect(() => {
-    fetcher.setOrders(true)
-  }, [ComponentFunction.Function])
 
   useEffect(() => {
     fetcher.setOrders(true)
@@ -129,14 +107,14 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }
     <>
       <HorizontalContainer style={{ width: '100%' }}
       >
-        {ComponentFunction.OrdersComponentFunction === 'orderList' && Object.keys(UserInfo.userInfo).length !== 0 ?
+        {ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function !== 'arc' && ComponentFunction.Function !== 'pattern' && Object.keys(UserInfo.userInfo).length !== 0 ?
           <VerticalContainer
             style={{
               gap: '0px',
               alignItems: 'center'
             }}>
             {order.totalCount[ComponentFunction.Function] > 0 ? <>
-              <FilterAndSortComponentForServer parent={'orders'}  />
+              <FilterAndSortComponentForServer parent={'orders'} />
               <HorizontalContainer>
 
                 {order &&
@@ -156,7 +134,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }
                         <LikeCardButton>
                           {`${SetNativeTranslate(Translate.language, {}, 'selected_orders')} ${order.group.length}`}
                         </LikeCardButton>
-                        <OrderStatusButtons parent={'selector'} thisOrder={thisOrder}  />
+                        <OrderStatusButtons parent={'selector'} thisOrder={thisOrder} />
                         {user.user.role === 'carrier' && ComponentFunction.Function === 'new' ? <></> :
                           <>
                             {order.group.length < order.orders.length ?
@@ -229,10 +207,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }
                       user={user}
                       orderItemFunction={orderItemFunction}
                       setOrderItemFunction={setOrderItemFunction}
-                      
                       onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === oneOrder.carrierId) : ''}
                       onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.carrierId) : ''}
-
                     />)}
                 </HorizontalContainer>
 
@@ -275,29 +251,115 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction, fetchStart }
               : <NoData
               >{SetNativeTranslate(Translate.language, {}, 'no_orders')}</NoData>}
           </VerticalContainer> :
-          ComponentFunction.OrdersComponentFunction === 'orderItem' ?
-            <>
-              <OrderItem
-                oneOrder={order.order}
-                oneOrderOffers={Offer.offers.filter(el => el.orderId === order.order.id)}
-                oneOrderPoints={Point.points.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId)}
-                oneOrderNoPartners={Partner.noPartnerInfos}
-                user={user}
-                orderItemFunction={orderItemFunction}
-                setOrderItemFunction={setOrderItemFunction}
-                
-                onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === order.order.userInfoId) :
-                  user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === order.order.carrierId) : ''}
-                onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.userInfoId) :
-                  user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.carrierId) : ''}
 
-              />
-            </>
-            :
-            <></>}
+          ComponentFunction.OrdersComponentFunction === 'orderList' && (ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern') ?
+            <>
+              <VerticalContainer
+                style={{
+                  gap: '10px',
+                  alignItems: 'center',
+                }}
+              >
+                {(order.totalCount.arc > 0 && ComponentFunction.Function === 'arc') || (order.totalCount.pattern > 0 && ComponentFunction.Function === 'pattern') ?
+                  <>
+                    <FilterAndSortComponentForServer parent={'orders'} />
+                    <div className={'scroll_bar_container'}>
+                      <table className={'order_table'}>
+                        {order.orders.length !== 0 ?
+                          <tbody>
+                            <tr>
+                              <OrderTh>{SetNativeTranslate(Translate.language, {}, 'id')}</OrderTh>
+                              <OrderTh>{SetNativeTranslate(Translate.language, {}, 'order_type')}</OrderTh>
+                              <OrderTh>{SetNativeTranslate(Translate.language, {}, 'start')}</OrderTh>
+                              <OrderTh>{SetNativeTranslate(Translate.language, {}, 'time')}</OrderTh>
+                              <OrderTh>{SetNativeTranslate(Translate.language, {}, 'finish')}</OrderTh>
+                              <OrderTh>{SetNativeTranslate(Translate.language, {}, 'transport')}</OrderTh>
+                              <OrderTh>{SetNativeTranslate(Translate.language, {}, 'cost')}</OrderTh>
+                              {ComponentFunction.Function === 'arc' ?
+                                <OrderTh>{SetNativeTranslate(Translate.language, {}, 'last_order_status')}</OrderTh>
+                                : <></>}
+                              <th></th>
+                              <th></th>
+                            </tr>
+                          </tbody> :
+                          <></>
+                        }
+                        <tbody>
+                          {
+                            order.orders.map(oneArcOrder => <ArcOrderItem
+                              key={oneArcOrder.id}
+                              oneArcOrder={oneArcOrder}
+                              thisPoints={Point.points.filter(el => el.orderIntegrationId === oneArcOrder.pointsIntegrationId)}
+                            />)
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className='more_orders_buttons_container'>
+                      {order.orders.length < order.filtered_count && order.orders.length !== 0 ?
+                        <>
+                          {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count ?
+                            <Button
+                              onClick={() => {
+                                if ((order.filtered_count - order.orders.length) > 10) {
+                                  FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + 10 }, ComponentFunction.Function)
+                                  fetcher.setOrders(true)
+                                } else {
+                                  FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.orders.length) }, ComponentFunction.Function)
+                                  fetcher.setOrders(true)
+                                }
+                              }}
+                            >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.orders.length) > 10 ? 10 : order.filtered_count - order.orders.length}`}</Button> : <></>}
+
+                          <Button
+                            onClick={() => {
+                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: order.filtered_count }, ComponentFunction.Function)
+                              fetcher.setOrders(true)
+                            }}
+                          >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${order.filtered_count}`}</Button>
+                        </>
+                        : <></>}
+                      {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&
+                        <Button
+                          onClick={() => {
+                            FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: startLimit }, ComponentFunction.Function)
+                            fetcher.setOrders(true)
+                          }}
+                        >{SetNativeTranslate(Translate.language, {}, 'roll_up_list')}</Button>}
+                    </div>
+                  </>
+                  :
+                  <NoData
+                    style={{
+                      marginTop: '10vh',
+                      fontSize: '20px'
+                    }}
+                  >{ComponentFunction.Function === 'arc' ? SetNativeTranslate(Translate.language, {}, 'no_orders') : SetNativeTranslate(Translate.language, {}, 'no_templates')}</NoData>
+                }
+              </VerticalContainer>
+            </> :
+            ComponentFunction.OrdersComponentFunction === 'orderItem' ?
+              <>
+                <OrderItem
+                  oneOrder={order.order}
+                  oneOrderOffers={Offer.offers.filter(el => el.orderId === order.order.id)}
+                  oneOrderPoints={Point.points.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId)}
+                  oneOrderNoPartners={Partner.noPartnerInfos}
+                  user={user}
+                  orderItemFunction={orderItemFunction}
+                  setOrderItemFunction={setOrderItemFunction}
+
+                  onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === order.order.userInfoId) :
+                    user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === order.order.carrierId) : ''}
+                  onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.userInfoId) :
+                    user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.carrierId) : ''}
+
+                />
+              </>
+              : <></>}
       </HorizontalContainer>
       <div style={{ width: '100%' }}>
-        {(ComponentFunction.Function === 'new' && user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction !== 'orderItem') && <MapComponent  />}
+        {(ComponentFunction.Function === 'new' && user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction !== 'orderItem') && <MapComponent />}
       </div>
     </>
   )

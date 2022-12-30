@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { ComponentFunctionContext, NotificationContext, OrderContext, PointContext, SettingContext, TranslateContext, UserContext } from '../..'
-import { deleteOrder, updateOrder } from '../../http/orderApi'
+import { ComponentFunctionContext, FetcherContext, NotificationContext, OrderContext, PointContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { deleteOrder } from '../../http/orderApi'
 import { setTime } from '../../modules/setTime'
 import { OrderTd } from '../ui/table/OrderTd'
 import { v4 } from "uuid";
@@ -8,7 +8,7 @@ import './Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 
-const ArcOrderItem = observer(({ thisPoints, oneArcOrder, setFetchStart }) => {
+const ArcOrderItem = observer(({ thisPoints, oneArcOrder }) => {
     const { order } = useContext(OrderContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { Point } = useContext(PointContext)
@@ -16,6 +16,7 @@ const ArcOrderItem = observer(({ thisPoints, oneArcOrder, setFetchStart }) => {
     const { user } = useContext(UserContext)
     const { Translate } = useContext(TranslateContext)
     const { Setting } = useContext(SettingContext)
+    const { fetcher } = useContext(FetcherContext)
 
     const the = SetNativeTranslate(Translate.language, {}, 'the')
     const you_deleted = SetNativeTranslate(Translate.language, {}, 'you_deleted')
@@ -29,7 +30,7 @@ const ArcOrderItem = observer(({ thisPoints, oneArcOrder, setFetchStart }) => {
 
     const deleteClick = async () => {
         await deleteOrder(oneArcOrder.pointsIntegrationId);
-        setFetchStart(true)
+        fetcher.setOrders(true)
         Notification.addNotification([{ id: v4(), type: 'error', message: `${you_deleted} ${the.toLowerCase()} ${ComponentFunction.Function === 'arc' ? Order.toLowerCase() : Template.toLowerCase()} ${oneArcOrder.id}` }])
     }
 
