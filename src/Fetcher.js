@@ -137,7 +137,7 @@ const Fetcher = observer(() => {
             }
         }
         fetch()
-        // statuses in case of cmponent function
+        // statuses in case of component function
         fetcher.setOrders(false)
     }, [fetcher.orders])
 
