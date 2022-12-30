@@ -38,7 +38,6 @@ const OrderList = observer(() => {
               user.user.role === 'customer' ?
                 <BookMark onClick={() => {
                   if (ComponentFunction.Function !== 'postponed') {
-                    order.setOrders([])
                     order.setGroup([])
                     ComponentFunction.setFunction('postponed')
                   }
@@ -53,7 +52,6 @@ const OrderList = observer(() => {
             }
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'inWork') {
-                order.setOrders([])
                 order.setGroup([])
                 ComponentFunction.setFunction('inWork')
               }
@@ -66,7 +64,6 @@ const OrderList = observer(() => {
             </BookMark>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'completed') {
-                order.setOrders([])
                 order.setGroup([])
                 ComponentFunction.setFunction('completed')
               }
@@ -79,7 +76,6 @@ const OrderList = observer(() => {
             </BookMark>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'canceled') {
-                order.setOrders([])
                 order.setGroup([])
                 ComponentFunction.setFunction('canceled')
               }
@@ -92,7 +88,6 @@ const OrderList = observer(() => {
             </BookMark>
             <BookMark onClick={() => {
               if (ComponentFunction.Function !== 'arc') {
-                order.setOrders([])
                 order.setGroup([])
                 ComponentFunction.setFunction('arc')
               }
@@ -107,7 +102,6 @@ const OrderList = observer(() => {
             {user.user.role === 'customer' ?
               <BookMark onClick={() => {
                 if (ComponentFunction.Function !== 'pattern') {
-                  order.setOrders([])
                   order.setGroup([])
                   ComponentFunction.setFunction('pattern')
                 }

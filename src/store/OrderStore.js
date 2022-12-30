@@ -5,6 +5,15 @@ export default class OrderStore {
 
     constructor() {
         this._orders = []
+        this._divided_orders = {
+            new: [],
+            inWork: [],
+            completed: [],
+            canceled: [],
+            postponed: [],
+            arc: [],
+            pattern: []
+        }
         this._map_orders = []
         this._group = localStorage.getItem('groupOrders') ? JSON.parse(localStorage.getItem('groupOrders')) : []
         this._sortedAndFilteredOrders = []
@@ -95,6 +104,13 @@ export default class OrderStore {
 
     get totalCount() {
         return this._totalCount
+    }
+    setDevidedOrders(value, componentFunction) {
+        this._divided_orders[componentFunction] = value
+    }
+
+    get divided_orders() {
+        return this._divided_orders
     }
 
     setAdded(value) {

@@ -112,7 +112,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints,  onePart
                     //     Point.setPoints([])
                     // }
                     order.setOrder(thisOrder)
-                    Point.setThisOrderPoints(Point.points.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
+                    Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
                     Partner.setPartner(thisPartner)
                     Partner.setPartnerInfo(thisPartnerInfo)
                     ComponentFunction.setOrdersComponentFunction('orderItem')

@@ -107,7 +107,7 @@ const Fetcher = observer(() => {
                         }
                         if (data.rows.length !== 0) {
                             await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
-                                Point.setPoints(data.rows);
+                                Point.setDividedPoints(data.rows, ComponentFunction.Function);
                                 Point.setAdded(data.added)
                                 if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
                                     Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
@@ -130,42 +130,42 @@ const Fetcher = observer(() => {
                         if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
                             order.setOrder(data.rows.find(el => el.id === order.order.id))
                         }
-                        order.setOrders(data.rows)
+                        order.setOrders(data.rows)// delete whent check point notifications
                         order.setMapOrders(data.map_rows)
+                        order.setDevidedOrders(data.rows, ComponentFunction.Function === 'partners' ? 'new' : ComponentFunction.Function)
                     })
             }
         }
         fetch()
+        // statuses in case of cmponent function
         fetcher.setOrders(false)
     }, [fetcher.orders])
 
-    useEffect(() => {
-        if (ComponentFunction.Function === 'inWork') {
-            const interval = setInterval(() => {
-                fetcher.setOrders(true)
-            }, 10000);
-            return () => clearInterval(interval)
-        }
-        else if (ComponentFunction.Function === 'new' && user.user.role === 'carrier') {
-            const interval = setInterval(() => {
-                fetcher.setOrders(true)
-            }, 10000);
-            return () => clearInterval(interval);
-        } else if (ComponentFunction.Function === 'new' && user.user.role === 'customer') {
-            const interval = setInterval(() => {
-                fetcher.setOrders(true)
-            }, 10000);
-            return () => clearInterval(interval);
-        } else {
-            const interval = setInterval(() => {
-                fetcher.setOrders(true)
-            }, 20000);
-            return () => clearInterval(interval);
-        }
-    }, [ComponentFunction.Function])
+    //edit for regular fetching of all statuses if (Object.keys(UserInfo.userInfo).length !== 0) {
+    useEffect(() => {      
+            if (ComponentFunction.Function === 'inWork') {
+                const interval = setInterval(() => {
+                    fetcher.setOrders(true)
+                }, 10000);
+                return () => clearInterval(interval)
+            }
+            else if (ComponentFunction.Function === 'new' && user.user.role === 'carrier') {
+                const interval = setInterval(() => {
+                    fetcher.setOrders(true)
+                }, 10000);
+                return () => clearInterval(interval);
+            } else if (ComponentFunction.Function === 'new' && user.user.role === 'customer') {
+                const interval = setInterval(() => {
+                    fetcher.setOrders(true)
+                }, 10000);
+                return () => clearInterval(interval);
+            }        
+    }, [])
 
     useEffect(() => {
-        fetcher.setOrders(true)
+        if (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork') {
+            fetcher.setOrders(true)
+        }
     }, [ComponentFunction.Function])
 
     //partners

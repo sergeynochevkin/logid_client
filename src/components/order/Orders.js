@@ -83,14 +83,14 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
     [debouncedSearchTerm]
   )
 
-  useEffect(() => {
-    if (ComponentFunction.PageFunction === 'orderList') {
-      fetcher.setOrders(true)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (ComponentFunction.PageFunction === 'orderList') {
+  //     fetcher.setOrders(true)
+  //   }
+  // }, [])
 
   // const scrollHandler = (e) => {
-  //   if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight)) < 400 && order.orders.length < totalCount) {
+  //   if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight)) < 400 && order.divided_orders[ComponentFunction.Function].length < totalCount) {
   //     FilterAndSort.filters[ComponentFunction.Function].limit = FilterAndSort.filters[ComponentFunction.Function].limit + 10
   //     fetcher.setOrders(true)
   //   }
@@ -139,9 +139,9 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                         <OrderStatusButtons parent={'selector'} thisOrder={thisOrder} />
                         {user.user.role === 'carrier' && ComponentFunction.Function === 'new' ? <></> :
                           <>
-                            {order.group.length < order.orders.length ?
+                            {order.group.length < order.divided_orders[ComponentFunction.Function].length ?
                               <CardButton
-                                onClick={() => { order.setGroup(order.orders.map(el => el.id)) }}
+                                onClick={() => { order.setGroup(order.divided_orders[ComponentFunction.Function].map(el => el.id)) }}
                               >{SetNativeTranslate(Translate.language, {}, 'select_all')}</CardButton> :
                               <CardButton
                                 onClick={() => { order.setGroup([]) }}
@@ -166,7 +166,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                     }}
                   >
                     <LikeCardButton>
-                      {`${SetNativeTranslate(Translate.language, {}, 'total_in_favorites')} ${order.orders.filter(el => State.user_state.favorite_order_state.includes(el.id)).length}`}
+                      {`${SetNativeTranslate(Translate.language, {}, 'total_in_favorites')} ${order.divided_orders[ComponentFunction.Function].filter(el => State.user_state.favorite_order_state.includes(el.id)).length}`}
                     </LikeCardButton>
                     {FilterAndSort.filters.selected.length === 0 ?
                       <CardButton
@@ -200,11 +200,11 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                 <HorizontalContainer
                   style={{ marginTop: '10px' }}>
                   {
-                    order.orders.map(oneOrder => <OrderItem
+                    order.divided_orders[ComponentFunction.Function].map(oneOrder => <OrderItem
                       key={oneOrder.id}
                       oneOrder={oneOrder}
                       oneOrderOffers={Offer.offers.filter(el => el.orderId === oneOrder.id)}
-                      oneOrderPoints={Point.points.filter(el => el.orderIntegrationId === oneOrder.pointsIntegrationId)}
+                      oneOrderPoints={Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === oneOrder.pointsIntegrationId)}
                       oneOrderNoPartners={Partner.noPartnerInfos}
                       user={user}
                       orderItemFunction={orderItemFunction}
@@ -215,20 +215,20 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                 </HorizontalContainer>
 
                 <div className='more_orders_buttons_container'>
-                  {order.orders.length < order.filtered_count && order.orders.length !== 0 ?
+                  {order.divided_orders[ComponentFunction.Function].length < order.filtered_count && order.divided_orders[ComponentFunction.Function].length !== 0 ?
                     <>
                       {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count ?
                         <Button
                           onClick={() => {
-                            if ((order.filtered_count - order.orders.length) > 10) {
+                            if ((order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10) {
                               FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + 10 }, ComponentFunction.Function)
                               fetcher.setOrders(true)
                             } else {
-                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.orders.length) }, ComponentFunction.Function)
+                              FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.divided_orders[ComponentFunction.Function].length) }, ComponentFunction.Function)
                               fetcher.setOrders(true)
                             }
                           }}
-                        >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.orders.length) > 10 ? 10 : order.filtered_count - order.orders.length}`}</Button> : <></>}
+                        >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10 ? 10 : order.filtered_count - order.divided_orders[ComponentFunction.Function].length}`}</Button> : <></>}
 
                       <Button
                         onClick={() => {
@@ -267,7 +267,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                     <FilterAndSortComponentForServer parent={'orders'} />
                     <div className={'scroll_bar_container'}>
                       <table className={'order_table'}>
-                        {order.orders.length !== 0 ?
+                        {order.divided_orders[ComponentFunction.Function].length !== 0 ?
                           <tbody>
                             <tr>
                               <OrderTh>{SetNativeTranslate(Translate.language, {}, 'id')}</OrderTh>
@@ -288,30 +288,30 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                         }
                         <tbody>
                           {
-                            order.orders.map(oneArcOrder => <ArcOrderItem
+                            order.divided_orders[ComponentFunction.Function].map(oneArcOrder => <ArcOrderItem
                               key={oneArcOrder.id}
                               oneArcOrder={oneArcOrder}
-                              thisPoints={Point.points.filter(el => el.orderIntegrationId === oneArcOrder.pointsIntegrationId)}
+                              thisPoints={Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === oneArcOrder.pointsIntegrationId)}
                             />)
                           }
                         </tbody>
                       </table>
                     </div>
                     <div className='more_orders_buttons_container'>
-                      {order.orders.length < order.filtered_count && order.orders.length !== 0 ?
+                      {order.divided_orders[ComponentFunction.Function].length < order.filtered_count && order.divided_orders[ComponentFunction.Function].length !== 0 ?
                         <>
                           {(FilterAndSort.filters[ComponentFunction.Function].limit + 10) < order.filtered_count ?
                             <Button
                               onClick={() => {
-                                if ((order.filtered_count - order.orders.length) > 10) {
+                                if ((order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10) {
                                   FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + 10 }, ComponentFunction.Function)
                                   fetcher.setOrders(true)
                                 } else {
-                                  FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.orders.length) }, ComponentFunction.Function)
+                                  FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: FilterAndSort.filters[ComponentFunction.Function].limit + (order.filtered_count - order.divided_orders[ComponentFunction.Function].length) }, ComponentFunction.Function)
                                   fetcher.setOrders(true)
                                 }
                               }}
-                            >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.orders.length) > 10 ? 10 : order.filtered_count - order.orders.length}`}</Button> : <></>}
+                            >{`${SetNativeTranslate(Translate.language, {}, 'show_more')} ${(order.filtered_count - order.divided_orders[ComponentFunction.Function].length) > 10 ? 10 : order.filtered_count - order.divided_orders[ComponentFunction.Function].length}`}</Button> : <></>}
 
                           <Button
                             onClick={() => {
@@ -345,7 +345,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                 <OrderItem
                   oneOrder={order.order}
                   oneOrderOffers={Offer.offers.filter(el => el.orderId === order.order.id)}
-                  oneOrderPoints={Point.points.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId)}
+                  oneOrderPoints={Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId)}
                   oneOrderNoPartners={Partner.noPartnerInfos}
                   user={user}
                   orderItemFunction={orderItemFunction}

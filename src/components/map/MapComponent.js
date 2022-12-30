@@ -335,7 +335,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         if (user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new' && gMap) {
             if (order.map_orders && order.map_orders.length > 0 && gMarkers.length === 0) {
                 for (const orderItem of order.map_orders) {
-                    let points = Point.points.filter(el => el.orderIntegrationId === orderItem.pointsIntegrationId)
+                    let points = Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === orderItem.pointsIntegrationId)
                     let firstPoint = points.find(el => el.sequence === 1)
                     let lastPoint = points.find(el => el.sequence === 50)
                     let markerContent = `
@@ -410,7 +410,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                 let newMarkers = []
                 for (const orderItem of newOrders) {
 
-                    let points = Point.points.filter(el => el.orderIntegrationId === orderItem.pointsIntegrationId)
+                    let points = Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === orderItem.pointsIntegrationId)
                     let firstPoint = points.find(el => el.sequence === 1)
                     let lastPoint = points.find(el => el.sequence === 50)
 
@@ -540,7 +540,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     function toOrder(id) {
         let thisOrder = order.map_orders.find(el => el.id === id)
         order.setOrder(thisOrder)
-        Point.setThisOrderPoints(Point.points.filter(el => el.orderIntegrationId === thisOrder.pointsIntegrationId))
+        Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === thisOrder.pointsIntegrationId))
         ComponentFunction.setOrdersComponentFunction('orderItem')
     }
     function addInfoWindow(marker, message) {

@@ -3,12 +3,29 @@ import { makeAutoObservable } from "mobx";
 export default class PointStore {
     constructor() {
         this._points = []
+        this._divided_points = {
+            new: [],
+            inWork: [],
+            completed: [],
+            canceled: [],
+            postponed: [],
+            arc: [],
+            pattern: []
+        }
         this._thisOrderPoints = localStorage.getItem('thisOrderPoints') ? JSON.parse(localStorage.getItem('thisOrderPoints')) : []
         this._point = {}
         this._added = {}
         this._pattern = JSON.stringify('')
 
         makeAutoObservable(this)
+    }
+
+    setDividedPoints(value, componentFunction) {
+        this._divided_points[componentFunction] = value
+    }
+
+    get divided_points() {
+        return this._divided_points
     }
 
     setPattern(value) {
