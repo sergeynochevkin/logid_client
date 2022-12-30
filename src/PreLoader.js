@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AdressContext, EquipmentTypeContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
+import { AdressContext, EquipmentTypeContext, FetcherContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
 import { check } from './http/userAPI'
@@ -11,18 +11,19 @@ import axios from "axios";
 import { fetchTransport } from './http/transportApi'
 
 const PreLoader = observer(({ children, ...props }) => {
+    const navigate = useNavigate()
     const { TransportType } = useContext(TransportTypeContext)
     const { EquipmentType } = useContext(EquipmentTypeContext)
     const { Adress } = useContext(AdressContext)
     const { Subscription } = useContext(SubscriptionContext)
     const { Translate } = useContext(TranslateContext)
     const { State } = useContext(StateContext)
-    const navigate = useNavigate()
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [dataLoaded, setDataLoaded] = useState(false)
     const { Setting } = useContext(SettingContext)
     const { Transport } = useContext(TransportContext)
+    const { fetcher } = useContext(FetcherContext)
 
     //attach google and lets go to design!
 
@@ -97,6 +98,7 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
                         }
+                        data && fetcher.setOrdersAll(true)
                         data && fetchUserState(data.id).then(stateData => {
                             let state = JSON.parse(stateData.state)
                             State.setUserState(state)
@@ -114,9 +116,9 @@ const PreLoader = observer(({ children, ...props }) => {
                             }
                         })
                     })
-                    
-                        navigate(USER_ROUTE)
-                    
+
+                    navigate(USER_ROUTE)
+
                 }
                 fetchData();
             } catch (e) {

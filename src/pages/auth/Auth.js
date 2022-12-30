@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE } from '../../utils/consts';
 import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { AdressContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, FetcherContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
@@ -45,6 +45,7 @@ const Auth = observer(() => {
   const { Setting } = useContext(SettingContext)
   const { Adress } = useContext(AdressContext)
   const { State } = useContext(StateContext)
+  const { fetcher } = useContext(FetcherContext)
 
 
   const [formData, setFormData] = useState({
@@ -96,6 +97,7 @@ const Auth = observer(() => {
           } else {
             State.setUserStateField(Translate.language, 'language', data.id)
           }
+          fetcher.seOrdersAll(true)
         })
       }
     })

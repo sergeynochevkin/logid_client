@@ -89,77 +89,87 @@ const Fetcher = observer(() => {
     }, [fetcher.user_state])
 
     //orders
-    useEffect(() => {
-        async function fetch() {
-            if (Object.keys(UserInfo.userInfo).length !== 0) {
-                await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, ComponentFunction.Function === 'partners' ? 'new' : ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
-                    ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.iAmBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myFavorite, ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(async data => {
-                        order.setFilteredCount(data.filtered_count)
-                        if (ComponentFunction.Function !== 'arc' && ComponentFunction.Function !== 'pattern') {
-                            order.setTotalCount(data.total_count.new, 'new')
-                            order.setTotalCount(data.total_count.canceled, 'canceled')
-                            order.setTotalCount(data.total_count.completed, 'completed')
-                            order.setTotalCount(data.total_count.postponed, 'postponed')
-                            order.setTotalCount(data.total_count.inWork, 'inWork')
-                            order.setTotalCount(data.total_count.arc, 'arc')
-                            order.setTotalCount(data.total_count.pattern, 'pattern')
-                            order.setAdded(data.added)
-                        }
-                        if (data.rows.length !== 0) {
-                            await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
-                                Point.setDividedPoints(data.rows, ComponentFunction.Function);
-                                Point.setAdded(data.added)
-                                if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
-                                    Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
-                                }
-                            })
-                        }
-                        if ((ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') && data.length !== 0) {
-                            await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
-                        }
-                        if ((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && data.length !== 0) {
-                            await fetchOrderConnections(data.rows.map(el => el.id), 'groups').then(data => order.setOrdersByGroup(data))
-                            await fetchOrderConnections(data.rows.map(el => el.id), 'partners').then(data => order.setOrdersByPartner(data))
-                            await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
-                                Offer.setOffers(data.rows)
-                                Offer.setChanges(data.changes)
-                                await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)
-                                )
-                            })
-                        }
-                        if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
-                            order.setOrder(data.rows.find(el => el.id === order.order.id))
-                        }
-                        order.setOrders(data.rows)// delete whent check point notifications
-                        order.setMapOrders(data.map_rows)
-                        order.setDevidedOrders(data.rows, ComponentFunction.Function === 'partners' ? 'new' : ComponentFunction.Function)
-                    })
-            }
+    async function fetch(order_status) {
+        if (Object.keys(UserInfo.userInfo).length !== 0) {
+            await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
+                ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.iAmBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myFavorite, ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(async data => {
+                    order.setFilteredCount(data.filtered_count)
+                    if (ComponentFunction.Function !== 'arc' && ComponentFunction.Function !== 'pattern') {
+                        order.setTotalCount(data.total_count.new, 'new')
+                        order.setTotalCount(data.total_count.canceled, 'canceled')
+                        order.setTotalCount(data.total_count.completed, 'completed')
+                        order.setTotalCount(data.total_count.postponed, 'postponed')
+                        order.setTotalCount(data.total_count.inWork, 'inWork')
+                        order.setTotalCount(data.total_count.arc, 'arc')
+                        order.setTotalCount(data.total_count.pattern, 'pattern')
+                        order.setAdded(data.added)
+                    }
+                    if (data.rows.length !== 0) {
+                        await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
+                            Point.setDividedPoints(data.rows, order_status);
+                            Point.setAdded(data.added)
+                            if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
+                                Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
+                            }
+                        })
+                    }
+                    if ((order_status !== 'new' || order_status !== 'postponed') && data.length !== 0) {
+                        await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
+                    }
+                    if ((order_status === 'new' || order_status === 'postponed') && data.length !== 0) {
+                        await fetchOrderConnections(data.rows.map(el => el.id), 'groups').then(data => order.setOrdersByGroup(data))
+                        await fetchOrderConnections(data.rows.map(el => el.id), 'partners').then(data => order.setOrdersByPartner(data))
+                        await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
+                            Offer.setOffers(data.rows)
+                            Offer.setChanges(data.changes)
+                            await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)
+                            )
+                        })
+                    }
+                    if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
+                        order.setOrder(data.rows.find(el => el.id === order.order.id))
+                    }
+                    order.setOrders(data.rows)// delete whent check point notifications
+                    order.setMapOrders(data.map_rows)
+                    order.setDevidedOrders(data.rows, order_status)
+                })
         }
-        fetch()
-        // statuses in case of component function
+    }
+    useEffect(() => {
+        if (ComponentFunction.Function !== 'partners') {
+            fetch(ComponentFunction.Function)
+        }
         fetcher.setOrders(false)
     }, [fetcher.orders])
 
+    useEffect(() => {
+        fetch('new')
+        fetch('postponed')
+        fetch('inWork')
+        fetch('canceled')
+        fetch('arc')
+        fetch('pattern')
+        fetcher.setOrdersAll(false)
+    }, [fetcher.orders_all])
+
+    useEffect(() => {
+        fetch('new')
+        fetcher.setOrdersNew(false)
+    }, [fetcher.orders_new])
+
+    useEffect(() => {
+        fetch('inWork')
+        fetcher.setOrdersInWork(false)
+    }, [fetcher.orders_in_work])
+
     //edit for regular fetching of all statuses if (Object.keys(UserInfo.userInfo).length !== 0) {
-    useEffect(() => {      
-            if (ComponentFunction.Function === 'inWork') {
-                const interval = setInterval(() => {
-                    fetcher.setOrders(true)
-                }, 10000);
-                return () => clearInterval(interval)
-            }
-            else if (ComponentFunction.Function === 'new' && user.user.role === 'carrier') {
-                const interval = setInterval(() => {
-                    fetcher.setOrders(true)
-                }, 10000);
-                return () => clearInterval(interval);
-            } else if (ComponentFunction.Function === 'new' && user.user.role === 'customer') {
-                const interval = setInterval(() => {
-                    fetcher.setOrders(true)
-                }, 10000);
-                return () => clearInterval(interval);
-            }        
+    useEffect(() => {
+        setInterval(() => {
+            fetcher.setOrdersNew(true)
+        }, 10000);
+        setInterval(() => {
+            fetcher.setOrdersInWork(true)
+        }, 10000);
     }, [])
 
     useEffect(() => {

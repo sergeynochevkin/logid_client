@@ -7,6 +7,9 @@ export default class FetcherStore {
         this._user_state = false
         this._partners = false
         this._orders = false
+        this._orders_all = false
+        this._orders_new = false
+        this._orders_in_work = false
         this._transports = false
         this._account = false
 
@@ -27,6 +30,15 @@ export default class FetcherStore {
     }
     setOrders(value) {
         this._orders = value
+    }
+    setOrdersAll(value) {
+        this._orders_all = value
+    }
+    setOrdersNew(value) {
+        this._orders_new = value
+    }
+    setOrdersInWork(value) {
+        this._orders_in_work = value
     }
     setTransports(value) {
         this._transports = value
@@ -49,6 +61,15 @@ export default class FetcherStore {
     }
     get orders() {
         return this._orders
+    }
+    get orders_all() {
+        return this._orders_all
+    }
+    get orders_new() {
+        return this._orders_new
+    }
+    get orders_in_work() {
+        return this._orders_in_work
     }
     get transports() {
         return this._transports
