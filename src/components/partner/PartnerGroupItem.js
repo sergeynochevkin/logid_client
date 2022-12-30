@@ -39,23 +39,13 @@ const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedG
                     <CardColName
                         style={{
                             cursor: parent === 'partnerList' || parent === 'orders' || parent === 'groupModal' ? 'pointer' : '',
-
-
-
                             backgroundColor: parent !== 'partnerList' && parent !== 'orders' && selectedGroups.includes(group.dataValues.id) ? 'rgb(241,196,15,0.8)' :
-
                                 (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'light' ? 'white' :
                                     (parent === 'partnerList' || parent === 'orders') && Setting.app_theme === 'dark' ? 'black'
                                         : '',
-
-
                             border: parent === 'partnerList' && FilterAndSort.partnerFilters.partnersByGroups.includes(group.dataValues.id) ? 'solid black 1px' :
                                 parent === 'orders' && FilterAndSort.filters.partnersByGroups.includes(group.dataValues.id) ? 'solid black 1px' :
-
                                     parent === 'partnerList' || parent === 'orders' ? 'solid lightgrey 1px' : '',
-
-
-
                             borderRadius: parent === 'partnerList' || parent === 'orders' ? '5px' : ''
                         }}
 
@@ -72,7 +62,6 @@ const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedG
                                 }
                                 fetcher.setPartners(true)
                             }
-
                             if (parent === 'orders') {
                                 if (!FilterAndSort.filters.partnersByGroups.includes(group.dataValues.id)) {
                                     let newValue = [(group.dataValues.id)]
@@ -85,8 +74,6 @@ const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedG
                                 }
                                 fetcher.setOrders(true)
                             }
-
-
                             if (parent === 'groupModal') {
                                 if (!selectedGroups.includes(group.dataValues.id)) {
                                     setSelectedGroups([...selectedGroups, group.dataValues.id])
@@ -128,7 +115,6 @@ const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedG
                 </tr>
             }
         </>
-
     )
 })
 

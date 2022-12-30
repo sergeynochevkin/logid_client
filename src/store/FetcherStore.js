@@ -8,6 +8,7 @@ export default class FetcherStore {
         this._partners = false
         this._orders = false
         this._transports = false
+        this._account = false
 
         makeAutoObservable(this)
     }
@@ -30,7 +31,9 @@ export default class FetcherStore {
     setTransports(value) {
         this._transports = value
     }
-
+    setAccount(value) {
+        this._account = value
+    }
     //get
     get server_notifications() {
         return this._server_notifications
@@ -50,5 +53,7 @@ export default class FetcherStore {
     get transports() {
         return this._transports
     }
-
+    get account() {
+        return this._account
+    }
 }

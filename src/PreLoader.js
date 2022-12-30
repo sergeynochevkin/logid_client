@@ -2,12 +2,11 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AdressContext, EquipmentTypeContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
-import { useFetching } from './hooks/useFetching'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
 import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
-import { CARRIER_ROUTE, CUSTOMER_ROUTE } from './utils/consts'
+import { USER_ROUTE, } from './utils/consts'
 import axios from "axios";
 import { fetchTransport } from './http/transportApi'
 
@@ -115,12 +114,9 @@ const PreLoader = observer(({ children, ...props }) => {
                             }
                         })
                     })
-                    if (user.user.role === "carrier") {
-                        navigate(CARRIER_ROUTE)
-                    }
-                    if (user.user.role === "customer") {
-                        navigate(CUSTOMER_ROUTE)
-                    }
+                    
+                        navigate(USER_ROUTE)
+                    
                 }
                 fetchData();
             } catch (e) {

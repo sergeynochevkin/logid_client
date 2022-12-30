@@ -9,7 +9,7 @@ import { VerticalContainer } from './ui/page/VerticalContainer'
 import './order/Order.css'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
-const FilterAndSortComponentForServer = observer(({ parent, setFetchStart }) => {
+const FilterAndSortComponentForServer = observer(({ parent }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const [timeFromOnFocus, setTimeFromOnFocus] = useState(false)
@@ -139,7 +139,7 @@ const FilterAndSortComponentForServer = observer(({ parent, setFetchStart }) => 
                     {user.user.role === 'carrier' && ComponentFunction.Function === 'new' && Partner.groups.length > 0 ?
                         <>
                             {Partner.groups.filter(el => el.partners.length > 0).map(
-                                group => <PartnerGroupItem key={group.dataValues.id} group={group} setFetchStart={setFetchStart} parent={'orders'} />
+                                group => <PartnerGroupItem key={group.dataValues.id} group={group}  parent={'orders'} />
                             )}
                         </> :
                         <></>

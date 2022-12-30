@@ -7,12 +7,13 @@ import { fetchGroups, fetchPartners } from './http/partnerApi'
 import { fetchOrderRatings, fetchOtherRatings } from './http/ratingApi'
 import { fetchUserState } from './http/stateApi'
 import { fetchSubscription } from './http/subscriptionApi'
-import { fetchUserInfos } from './http/userInfoApi'
+import { fetchUserInfo, fetchUserInfos } from './http/userInfoApi'
 import { v4 } from "uuid";
 import { fetchOffers } from './http/offerApi'
 import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
+import { fetchUser } from './http/userAPI'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -91,10 +92,10 @@ const Fetcher = observer(() => {
     useEffect(() => {
         async function fetch() {
             if (Object.keys(UserInfo.userInfo).length !== 0) {
-                await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
+                await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, ComponentFunction.Function === 'partners' ? 'new' : ComponentFunction.Function, UserInfo.userInfo.country, UserInfo.userInfo.city, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
                     ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.iAmBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myFavorite, ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(async data => {
                         order.setFilteredCount(data.filtered_count)
-                        if (ComponentFunction.Function !=='arc' && ComponentFunction.Function !=='pattern') {
+                        if (ComponentFunction.Function !== 'arc' && ComponentFunction.Function !== 'pattern') {
                             order.setTotalCount(data.total_count.new, 'new')
                             order.setTotalCount(data.total_count.canceled, 'canceled')
                             order.setTotalCount(data.total_count.completed, 'completed')
@@ -117,17 +118,14 @@ const Fetcher = observer(() => {
                             await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
                         }
                         if ((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && data.length !== 0) {
-
                             await fetchOrderConnections(data.rows.map(el => el.id), 'groups').then(data => order.setOrdersByGroup(data))
                             await fetchOrderConnections(data.rows.map(el => el.id), 'partners').then(data => order.setOrdersByPartner(data))
-
                             await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
                                 Offer.setOffers(data.rows)
                                 Offer.setChanges(data.changes)
                                 await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)
                                 )
                             })
-
                         }
                         if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
                             order.setOrder(data.rows.find(el => el.id === order.order.id))
@@ -216,6 +214,10 @@ const Fetcher = observer(() => {
         fetcher.setPartners(false)
     }, [fetcher.partners])
 
+    useEffect(() => {
+        fetcher.setPartners(true)
+    }, [/*ComponentFunction.Function,*/ ComponentFunction.PageFunction])
+
     //transport
     useEffect(() => {
         async function fetch() {
@@ -223,6 +225,15 @@ const Fetcher = observer(() => {
         }
         fetcher.setTransports(false)
     }, [fetcher.transports])
+
+    //account
+    useEffect(() => {
+        async function fetch() {
+            await fetchUser(user.user.id).then(data => user.setUser(data))
+            await fetchUserInfo(user.user.id).then(data => UserInfo.setUserInfo(data))
+        }
+        fetcher.setAccount(false)
+    }, [fetcher.account])
 
     return (
         <></>)

@@ -9,7 +9,7 @@ import { Select } from '../../components/ui/form/Select'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { Comment } from '../../components/ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, CUSTOMER_ROUTE, CARRIER_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE } from '../../utils/consts';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE } from '../../utils/consts';
 import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
@@ -134,8 +134,7 @@ const Auth = observer(() => {
         )
       }])
       user.setIsAuth(true)
-      if (user.user.role === 'carrier') { navigate(CARRIER_ROUTE) }
-      else if (user.user.role === 'customer') { navigate(CUSTOMER_ROUTE) }
+      if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
       else { navigate(MAIN_ROUTE) }
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -171,8 +170,7 @@ const Auth = observer(() => {
         }])
       }
       user.setIsAuth(true)
-      if (user.user.role === 'carrier') { navigate(CARRIER_ROUTE) }
-      else if (user.user.role === 'customer') { navigate(CUSTOMER_ROUTE) }
+      if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
       else { navigate(MAIN_ROUTE) }
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])

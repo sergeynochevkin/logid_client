@@ -1,10 +1,9 @@
-import { ADMIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, RECOVERY_ROUTE, REGISTRATION_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, USER_ROUTE,LOGIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, RECOVERY_ROUTE, REGISTRATION_ROUTE } from "./utils/consts"
 import Admin from './pages/Admin'
 import Manager from './pages/Manager'
-import Customer from './pages/Customer'
-import Carrier from './pages/Carrier'
 import Main from './pages/main/Main'
 import Auth from './pages/auth/Auth'
+import User from "./pages/User"
 
 export const authRoutes = [
     {
@@ -16,12 +15,8 @@ export const authRoutes = [
         Component: <Manager />
     },
     {
-        path: CUSTOMER_ROUTE,
-        Component: <Customer />
-    },
-    {
-        path: CARRIER_ROUTE,
-        Component: <Carrier />
+        path: USER_ROUTE,
+        Component: <User />
     },
 ]
 

@@ -3,7 +3,7 @@ import { Field } from '../ui/page/Field'
 import { FieldName } from '../ui/page/FieldName'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import NameSurNameFathersName from './userInfoForm/NameSurNameFathersName'
-import { AdressContext, NotificationContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, FetcherContext, NotificationContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { CardButton } from '../ui/button/CardButton'
 import Country from './userInfoForm/Country'
 import City from './userInfoForm/City'
@@ -28,7 +28,7 @@ import { observer } from 'mobx-react-lite'
 import { update } from '../../http/userAPI'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, setFetchStart, setLoginEditable, setPasswordEditable, passwordEditable, loginEditable, adressEditable, setAdressEditable, cityEditable, setCityEditable }) => {
+const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, setLoginEditable, setPasswordEditable, passwordEditable, loginEditable, adressEditable, setAdressEditable, cityEditable, setCityEditable }) => {
     const [fieldEditable, setFieldEditable] = useState(false)
     const { UserInfo } = useContext(UserInfoContext)
     const { Adress } = useContext(AdressContext)
@@ -37,8 +37,9 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
     const { State } = useContext(StateContext)
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
+    const { fetcher } = useContext(FetcherContext)
 
-    const message = SetNativeTranslate(Translate.language,{},attachedField)
+    const message = SetNativeTranslate(Translate.language, {}, attachedField)
 
     const initialValue = {
         id: '',
@@ -86,18 +87,18 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
 
     formData.id = UserInfo.userInfo.id
     formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_validation').toLowerCase())
-    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetNativeTranslate(Translate.language,{},'company_inn'))
-    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetNativeTranslate(Translate.language,{},'company_name'))
-    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetNativeTranslate(Translate.language,{},'website'))
+    formData.company_inn = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validInn }, SetNativeTranslate(Translate.language, {}, 'company_inn'))
+    formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetNativeTranslate(Translate.language, {}, 'company_name'))
+    formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetNativeTranslate(Translate.language, {}, 'website'))
     formData.country = useInput('', { isEmpty: true })
-    authFormData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language,{},'auth_email_validation'))
+    authFormData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {}, 'auth_email_validation'))
     formData.legal = useInput('', { isEmpty: true })
-    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language,{},'email'))
-    formData.passport_date_of_issue = useInput('', { isEmpty: true }, SetNativeTranslate(Translate.language,{},'passport_date_of_issue'))
-    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetNativeTranslate(Translate.language,{},'passport_issued_by'))
-    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetNativeTranslate(Translate.language,{},'passport_number'))
-    authFormData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetNativeTranslate(Translate.language,{},'password').toLowerCase())
-    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language,{},'phone'))
+    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {}, 'email'))
+    formData.passport_date_of_issue = useInput('', { isEmpty: true }, SetNativeTranslate(Translate.language, {}, 'passport_date_of_issue'))
+    formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetNativeTranslate(Translate.language, {}, 'passport_issued_by'))
+    formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetNativeTranslate(Translate.language, {}, 'passport_number'))
+    authFormData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetNativeTranslate(Translate.language, {}, 'password').toLowerCase())
+    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone'))
     formData.type_of_customer = useInput('', { isEmpty: true })
 
 
@@ -114,8 +115,8 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                     (attachedField === 'city' && user.user.role === 'carrier') ? clearCity() : setFieldEditable(false),
                     attachedField === 'city' && setCityEditable(false),
                     attachedField === 'company_adress' && setAdressEditable(false),
-                    setFetchStart(true),
-                    Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language,{},'you_have_changed')} ${message}` }])
+                    fetcher.setAcccount(true),
+                    Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {}, 'you_have_changed')} ${message}` }])
                 )
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -151,8 +152,8 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             authFormData.password.setDirty(false)
             setLoginEditable(false)
             setPasswordEditable(false)
-            setFetchStart(true)
-            Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language,{},'you_have_changed')} ${message}` }])
+            fetcher.setAcccount(true)
+                Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {}, 'you_have_changed')} ${message}` }])
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
@@ -160,7 +161,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
 
     return (
         <VerticalContainer style={{ gap: '0px' }}>
-            <FieldName>{attachedField === 'city' && cityEditable ? SetNativeTranslate(Translate.language,{},'city_adress') : fieldName}</FieldName>
+            <FieldName>{attachedField === 'city' && cityEditable ? SetNativeTranslate(Translate.language, {}, 'city_adress') : fieldName}</FieldName>
             <HorizontalContainer
                 style={{ alignItems: 'center' }}>
                 {(!fieldEditable && attachedField !== 'password' && attachedField !== 'authEmail') || (!passwordEditable && attachedField === 'password') || (!loginEditable && attachedField === 'authEmail') ?
@@ -191,7 +192,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                                                 setCityEditable(false)
                                             }
                                         }}
-                                    >{SetNativeTranslate(Translate.language,{},'edit')}</CardButton> :
+                                    >{SetNativeTranslate(Translate.language, {}, 'edit')}</CardButton> :
                                     <></>
                                 }
                             </div> : <></>}

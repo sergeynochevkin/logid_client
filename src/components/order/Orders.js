@@ -84,7 +84,9 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   )
 
   useEffect(() => {
-    fetcher.setOrders(true)
+    if (ComponentFunction.PageFunction === 'orderList') {
+      fetcher.setOrders(true)
+    }
   }, [])
 
   // const scrollHandler = (e) => {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import { useNavigate } from 'react-router-dom'
-import { MAIN_ROUTE, CARRIER_ROUTE, CUSTOMER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
+import { MAIN_ROUTE,USER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
 import { observer } from 'mobx-react-lite';
 import NotificationComponent from '../../components/notification/NotificationComponent';
 import { logout } from '../../http/userAPI';
@@ -59,13 +59,13 @@ const NavBar = observer(() => {
         navigate(MAIN_ROUTE)}>Главная</Item> */}
         {user.user.role === "customer" && user.isAuth ?
           <div className='nav_bar_item' onClick={() =>
-            navigate(CUSTOMER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</div> :
+            navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</div> :
           <></>
         }
 
         {user.user.role === "carrier" && user.isAuth ?
           <div className='nav_bar_item' onClick={() =>
-            navigate(CARRIER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</div> :
+            navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</div> :
           <></>
         }
 
