@@ -110,7 +110,7 @@ export default class OrderStore {
     get totalCount() {
         return this._totalCount
     }
-    setDevidedOrders(value, componentFunction) {
+    setDividedOrders(value, componentFunction) {
         this._divided_orders[componentFunction] = value
     }
 

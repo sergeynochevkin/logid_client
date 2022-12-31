@@ -91,10 +91,10 @@ const Fetcher = observer(() => {
     //orders
     async function fetch(order_status) {
         if (Object.keys(UserInfo.userInfo).length !== 0) {
-            await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
-                ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.iAmBlocked, ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern' ? [] : Partner.myFavorite, ComponentFunction.Function === 'arc' ? 'arc' : ComponentFunction.Function === 'pattern' ? 'pattern' : '', FilterAndSort.filters).then(async data => {
+            await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, order_status === 'arc' || order_status === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
+                order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.iAmBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myFavorite, order_status === 'arc' ? 'arc' : '', FilterAndSort.filters).then(async data => {
                     order.setFilteredCount(data.filtered_count, order_status)
-                    if (ComponentFunction.Function !== 'arc' && ComponentFunction.Function !== 'pattern') {
+                    if (order_status !== 'arc' && order_status ) {
                         order.setTotalCount(data.total_count.new, 'new')
                         order.setTotalCount(data.total_count.canceled, 'canceled')
                         order.setTotalCount(data.total_count.completed, 'completed')
@@ -131,12 +131,23 @@ const Fetcher = observer(() => {
                     }
                     // order.setOrders(data.rows)// delete whent check point notifications
                     order.setMapOrders(data.map_rows)
-                    order.setDevidedOrders(data.rows, order_status)
+                    order.setDividedOrders(data.rows, order_status)
                 })
         }
     }
+
     useEffect(() => {
-        console.log('target');
+        fetch('new')
+        fetch('postponed')
+        fetch('inWork')
+        fetch('canceled')
+        fetch('completed')
+        fetch('arc')
+        fetch('pattern')
+        fetcher.setOrdersAll(false)
+    }, [fetcher.orders_all])
+
+    useEffect(() => {
         if (ComponentFunction.Function !== 'partners') {
             if (fetcher.new_status !== '') {
                 fetch(ComponentFunction.Function)
@@ -149,56 +160,33 @@ const Fetcher = observer(() => {
         fetcher.setNewStatus('')
     }, [fetcher.divided_orders])
 
-    // useEffect(() => {
-    //     console.log('target');
-    //     if (ComponentFunction.Function !== 'partners') {
-    //         fetch(ComponentFunction.Function)
-    //     }
-    //     fetcher.setOrders(false)
-    // }, [fetcher.orders])
+    useEffect(() => {
+        if (ComponentFunction.Function !== 'partners') {
+            fetch(ComponentFunction.Function)
+        }
+        fetcher.setOrders(false)
+    }, [fetcher.orders])
 
     useEffect(() => {
-        console.log('all');
         fetch('new')
-        fetch('postponed')
+        fetcher.setOrdersNew(false)
+    }, [fetcher.orders_new])
+
+    useEffect(() => {
         fetch('inWork')
-        fetch('canceled')
-        fetch('completed')
-        fetch('arc')
-        fetch('pattern')
-        fetcher.setOrdersAll(false)
-    }, [fetcher.orders_all])
+        fetcher.setOrdersInWork(false)
+    }, [fetcher.orders_in_work])
 
-    // useEffect(() => {
-    //     console.log('new');
-    //     fetch('new')
-    //     fetcher.setOrdersNew(false)
-    // }, [fetcher.orders_new])
-
-    // useEffect(() => {
-    //     console.log('inWork');
-    //     fetch('inWork')
-    //     fetcher.setOrdersInWork(false)
-    // }, [fetcher.orders_in_work])
-
-    //edit for regular fetching of all statuses if (Object.keys(UserInfo.userInfo).length !== 0) {
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         fetcher.setOrdersNew(true)
-    //     }, 10000);
-    //     clearInterval()
-    //     setInterval(() => {
-    //         fetcher.setOrdersInWork(true)
-    //     }, 20000);
-    //     clearInterval()
-    // }, [])
-
-    // useEffect(() => {
-    //     console.log('target');
-    //     if (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'inWork') {
-    //         fetcher.setOrders(true)
-    //     }
-    // }, [ComponentFunction.Function])
+    useEffect(() => {
+        setInterval(() => {
+            fetcher.setOrdersNew(true)
+        }, 10000);
+        clearInterval()
+        setInterval(() => {
+            fetcher.setOrdersInWork(true)
+        }, 60000);
+        clearInterval()
+    }, [])
 
     //partners
     useEffect(() => {

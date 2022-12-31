@@ -98,7 +98,6 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
                         }
-                        data && fetcher.setOrdersAll(true)
                         data && fetchUserState(data.id).then(stateData => {
                             let state = JSON.parse(stateData.state)
                             State.setUserState(state)
@@ -115,10 +114,10 @@ const PreLoader = observer(({ children, ...props }) => {
                                 State.setUserStateField(Translate.language, 'language', data.id)
                             }
                         })
+
                     })
-
+                    fetcher.setOrdersAll(true)
                     navigate(USER_ROUTE)
-
                 }
                 fetchData();
             } catch (e) {

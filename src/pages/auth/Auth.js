@@ -97,8 +97,8 @@ const Auth = observer(() => {
           } else {
             State.setUserStateField(Translate.language, 'language', data.id)
           }
-          fetcher.seOrdersAll(true)
         })
+        fetcher.setOrdersAll(true)
       }
     })
   })

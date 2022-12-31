@@ -194,7 +194,6 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                     >{SetNativeTranslate(Translate.language, {}, 'clear_favorites')}</CardButton>
                   </HorizontalContainer>
                   : <></>}
-
               </HorizontalContainer>
 
               <div className='orders_with_more_button'>
@@ -239,13 +238,14 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                       >{`${SetNativeTranslate(Translate.language, {}, 'show_all')} ${order.filtered_count[ComponentFunction.Function]}`}</Button>
                     </>
                     : <></>}
-                  {FilterAndSort.filters[ComponentFunction.Function].limit > startLimit &&
+                  {limitDirty && FilterAndSort.filters[ComponentFunction.Function].limit > startLimit ?
                     <Button
                       onClick={() => {
                         FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: startLimit }, ComponentFunction.Function)
                         fetcher.setOrders(true)
+                        setLimitDirty(false)
                       }}
-                    >{SetNativeTranslate(Translate.language, {}, 'roll_up_list')}</Button>}
+                    >{SetNativeTranslate(Translate.language, {}, 'roll_up_list')}</Button> : <></>}
                 </div>
 
               </div>
