@@ -53,6 +53,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const spliceOrder = (id, length) => {
         order.setFilteredCount(order.filtered_count[ComponentFunction.Function] - length, ComponentFunction.Function)
+        order.setTotalCount(order.totalCount[ComponentFunction.Function] - length, ComponentFunction.Function)
         order.setDividedOrders(order.divided_orders[ComponentFunction.Function].filter(el => el.id !== id), ComponentFunction.Function)
     }
 
@@ -107,7 +108,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const cancel = async (event) => {
         if (parent === 'order') {
-    
+
             await updateOrder('', '', thisOrder.id, user.user.role, 'canceled', thisOrder.order_status)
                 .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'canceled'))
                 .then(spliceOrder(thisOrder.id, 1))
@@ -166,7 +167,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     const inWork = async (event) => {
         event.stopPropagation()
         if (parent === 'order') {
-         
+
             try {
                 await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id)
                 await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
@@ -174,7 +175,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 await sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'inWork')
                 order.setGroup(order.group.filter(el => el !== thisOrder.id))
                 ComponentFunction.setOrdersComponentFunction('orderList')
-                .then(spliceOrder(thisOrder.id, 1))
+                    .then(spliceOrder(thisOrder.id, 1))
                     .then(fetcher.setDividedOrders(true))
                     .then(fetcher.setNewStatus('inWork'))
 
@@ -187,7 +188,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const completed = async (event) => {
         if (parent === 'order') {
-           
+
             await updateOrder('', '', thisOrder.id, user.user.role, 'completed', thisOrder.order_status, thisOrder.carrierId, thisOrder.userInfoId)
                 .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'completed'))
                 .then(spliceOrder(thisOrder.id, 1))
@@ -217,7 +218,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const arc = async (event) => {
         if (parent === 'order') {
-          
+
             await updateOrder('', '', thisOrder.id, user.user.role, 'arc', thisOrder.order_status)
                 .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'arc'))
                 .then(spliceOrder(thisOrder.id, 1))
@@ -249,7 +250,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     const disrupt = async (event) => {
         State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
         if (parent === 'order') {
-           
+
             await updateOrder('disrupt', '', thisOrder.id, user.user.role, 'canceled', thisOrder.order_status)
                 .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'disrupt'))
                 .then(spliceOrder(thisOrder.id, 1))

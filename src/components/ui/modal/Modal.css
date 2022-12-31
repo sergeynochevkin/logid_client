@@ -28,7 +28,9 @@
     transition: 0.2s all;
     border-radius: 10px 30px 10px 10px;
     cursor: default;
-    overflow-y: initial !important
+    overflow-y: initial !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .modalContent.dark {

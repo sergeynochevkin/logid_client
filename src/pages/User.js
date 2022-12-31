@@ -47,9 +47,9 @@ const User = observer(() => {
 
     return (
       <PageContainer>
-        <title>{SetNativeTranslate(Translate.language, {}, user.user.rolw === 'customer' ? 'customers_office' : 'carriers_office')}</title>
+        <title>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</title>
 
-        <PageBanner>{SetNativeTranslate(Translate.language, {}, user.user.rolw === 'customer' ? 'customers_office' : 'carriers_office')}</PageBanner>
+        <PageBanner>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</PageBanner>
 
         <Container>
           {Object.keys(UserInfo.userInfo).length === 0 ?

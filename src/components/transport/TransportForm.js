@@ -8,7 +8,7 @@ import { Form } from '../ui/form/Form'
 import TransportFormSection from './TransportFormSection'
 import DragDropUpload from '../dragDropUpload/DragDropUpload'
 import TransportFormTag from './TransportFormTag'
-import { useInput } from '../../hooks/useInput'
+import './Transport.css'
 
 const Container = styled.div`
 display:flex;
@@ -55,13 +55,13 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
   }
 
   return (
-    <Container>
+    <div className='transport_form_container'>
       <Form enctype="multipart/form-data">
         <TransportFormTag formData={formData}></TransportFormTag>
         {/* <DragDropUpload filesFormData={filesFormData} parent={'transportForm'} formData={formData} setFormData={setFormData} length={10} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload> */}
         <TransportFormSection formData={formData} setFormData={setFormData} click={click} setModalActive={setModalActive} formReset={formReset} />
       </Form>
-    </Container>
+    </div>
   )
 })
 
