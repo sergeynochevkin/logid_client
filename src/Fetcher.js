@@ -102,7 +102,7 @@ const Fetcher = observer(() => {
                         data.total_count && order.setTotalCount(data.total_count.inWork, 'inWork')
                         data.total_count && order.setTotalCount(data.total_count.arc, 'arc')
                         data.total_count && order.setTotalCount(data.total_count.pattern, 'pattern')
-                        order.setAdded(data.added)
+                        order.added && order.setAdded(data.added)
                     }
                     if (data.rows.length !== 0) {
                         await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
