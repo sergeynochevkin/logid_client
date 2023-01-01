@@ -51,7 +51,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     //     }
     // }
 
-     const toAuction = async (event) => {
+    const toAuction = async (event) => {
         await updateOrder('', 'auction', thisOrder.id, user.user.role, thisOrder.order_status)
             .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_type', 'auction'))
             .then(event.stopPropagation());
@@ -72,9 +72,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     const postpone = async (event) => {
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'postponed', thisOrder.order_status)
-                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'postponed'))                
-                .then(fetcher.setDividedOrders(true))
                 .then(fetcher.setNewStatus('postponed'))
+                .then(fetcher.setDividedOrders(true))
+                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'postponed'))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
@@ -83,41 +83,38 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
         if (parent === 'selector') {
             order.group.forEach(async element => {
-                
                 await updateOrder('', '', element, user.user.role, 'postponed', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(Translate.language, user.user.role, order.group, 'order_status', 'postponed', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_postponed} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
-            fetcher.setDividedOrders(true)
             fetcher.setNewStatus('postponed')
+            fetcher.setDividedOrders(true)
         };
     }
 
     const cancel = async (event) => {
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'canceled', thisOrder.order_status)
-                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'canceled'))                
-                .then(fetcher.setDividedOrders(true))
                 .then(fetcher.setNewStatus('canceled'))
+                .then(fetcher.setDividedOrders(true))
+                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'canceled'))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
             Notification.addNotification([{ id: v4(), type: 'error', message: `${you_canceled} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         };
         if (parent === 'selector') {
-            order.group.forEach(async element => {                
+            order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'canceled', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(Translate.language, user.user.role, order.group, 'order_status', 'canceled', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_canceled} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
-
-            fetcher.setDividedOrders(true)
             fetcher.setNewStatus('canceled')
-
+            fetcher.setDividedOrders(true)
         };
     }
 
@@ -125,9 +122,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         if (parent === 'order') {
 
             await updateOrder('', '', thisOrder.id, user.user.role, 'new', thisOrder.order_status)
-                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'new'))                
-                .then(fetcher.setDividedOrders(true))
                 .then(fetcher.setNewStatus('new'))
+                .then(fetcher.setDividedOrders(true))
+                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'new'))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
@@ -135,16 +132,15 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         }
         if (parent === 'selector') {
             order.group.forEach(async element => {
-                
+
                 await updateOrder('', '', element, user.user.role, 'new', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(Translate.language, user.user.role, order.group, 'order_status', 'new', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_send} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
-            fetcher.setDividedOrders(true)
             fetcher.setNewStatus('new')
-
+            fetcher.setDividedOrders(true)
         };
     }
 
@@ -157,9 +153,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
                 await sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'inWork')
                 order.setGroup(order.group.filter(el => el !== thisOrder.id))
-                ComponentFunction.setOrdersComponentFunction('orderList')                    
-                    .then(fetcher.setDividedOrders(true))
+                ComponentFunction.setOrdersComponentFunction('orderList')
                     .then(fetcher.setNewStatus('inWork'))
+                    .then(fetcher.setDividedOrders(true))
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${you_took} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
             } catch (e) {
                 Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -171,26 +167,24 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         if (parent === 'order') {
 
             await updateOrder('', '', thisOrder.id, user.user.role, 'completed', thisOrder.order_status, thisOrder.carrierId, thisOrder.userInfoId)
-                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'completed'))                
-                .then(fetcher.setDividedOrders(true))
                 .then(fetcher.setNewStatus('completed'))
+                .then(fetcher.setDividedOrders(true))
+                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'completed'))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
         if (parent === 'selector') {
-            order.group.forEach(async element => {                
+            order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'completed', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 order.setGroup(order.group.filter(el => el !== element))
             })
             sendMail(Translate.language, user.user.role, order.group, 'order_status', 'completed', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
-
-            fetcher.setDividedOrders(true)
             fetcher.setNewStatus('completed')
-
+            fetcher.setDividedOrders(true)
         };
     }
 
@@ -198,9 +192,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         if (parent === 'order') {
 
             await updateOrder('', '', thisOrder.id, user.user.role, 'arc', thisOrder.order_status)
-                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'arc'))                
-                .then(fetcher.setDividedOrders(true))
                 .then(fetcher.setNewStatus('arc'))
+                .then(fetcher.setDividedOrders(true))
+                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'arc'))
                 .then(event.stopPropagation())
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             State.user_state.favorite_order_state && State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id)
@@ -209,7 +203,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         }
         if (parent === 'selector') {
             order.group.forEach(async element => {
-                
+
                 await updateOrder('', '', element, user.user.role, 'arc', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
@@ -217,10 +211,8 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             })
             sendMail(Translate.language, user.user.role, order.group, 'order_status', 'arc', '')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${orders_notification} ${order.group.toString()} ${you_moved_to_arc}` }])
-
-            fetcher.setDividedOrders(true)
             fetcher.setNewStatus('arc')
-
+            fetcher.setDividedOrders(true)
         };
     }
 
@@ -228,9 +220,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
         if (parent === 'order') {
             await updateOrder('disrupt', '', thisOrder.id, user.user.role, 'canceled', thisOrder.order_status)
-                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'disrupt'))                
-                .then(fetcher.setDividedOrders(true))
                 .then(fetcher.setNewStatus('canceled'))
+                .then(fetcher.setDividedOrders(true))
+                .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'disrupt'))
                 .then(event.stopPropagation());
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
             ComponentFunction.setOrdersComponentFunction('orderList')
