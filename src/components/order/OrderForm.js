@@ -253,12 +253,12 @@ const OrderForm = observer(() => {
         ).then(
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
         ).then(createPoint(pointFormData))
-            .then(setFormData(initialValue))
-            .then(setPointFormData(pointInitialValue))
-            .then(ComponentFunction.setFunction(formData.order_status))
-            .then(fetcher.setOrders(true))
-            .then(ComponentFunction.setPageFunction('orderList'))
-            .then(ComponentFunction.setOrdersComponentFunction('orderList'))
+        fetcher.setOrders(true)
+        setFormData(initialValue)
+        setPointFormData(pointInitialValue)
+        ComponentFunction.setFunction(formData.order_status)
+        ComponentFunction.setPageFunction('orderList')
+        ComponentFunction.setOrdersComponentFunction('orderList')
     }
 
     const click = async (event) => {
@@ -313,7 +313,6 @@ const OrderForm = observer(() => {
             if (formData.order_status === 'pattern') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${Template} ${orderId} ${Created}` }]);
             }
-
             setFormData(initialValue)
             setPointFormData(pointInitialValue)
             ComponentFunction.setOrdersComponentFunction('orderList')
