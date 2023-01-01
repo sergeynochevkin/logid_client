@@ -52,9 +52,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     // }
 
     const spliceOrder = (id, length) => {
-        order.setFilteredCount(order.filtered_count[ComponentFunction.Function] - length, ComponentFunction.Function)
-        order.setTotalCount(order.totalCount[ComponentFunction.Function] - length, ComponentFunction.Function)
-        order.setDividedOrders(order.divided_orders[ComponentFunction.Function].filter(el => el.id !== id), ComponentFunction.Function)
+        // order.setFilteredCount(order.filtered_count[ComponentFunction.Function] - length, ComponentFunction.Function)
+        // order.setTotalCount(order.totalCount[ComponentFunction.Function] - length, ComponentFunction.Function)
+        // order.setDividedOrders(order.divided_orders[ComponentFunction.Function].filter(el => el.id !== id), ComponentFunction.Function)
     }
 
 
