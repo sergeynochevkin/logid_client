@@ -51,8 +51,15 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     //     }
     // }
 
+    const boost = (id) => {
+        order.setDividedOrders(order.divided_orders[ComponentFunction.Function].filter(el => el.id !== id), ComponentFunction.Fuction)
+        order.setTotalCount(order.totalCount[ComponentFunction.Function] - 1, ComponentFunction.Fuction)
+        order.setFilteredCount(order.filtered_count[ComponentFunction.Function] - 1, ComponentFunction.Fuction)
+    }
+
     const afterAction = (status) => {
         if (parent === 'order') {
+            boost(thisOrder.id)
             fetcher.setNewStatus(status)
             fetcher.setDividedOrders(true)
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
@@ -98,6 +105,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'postponed', ComponentFunction.Function)
                     .then(event.stopPropagation());
+                    boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('postponed')
@@ -117,6 +125,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'canceled', ComponentFunction.Function)
                     .then(event.stopPropagation());
+                    boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('canceled')
@@ -135,6 +144,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'new', ComponentFunction.Function)
                     .then(event.stopPropagation());
+                    boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('new')
@@ -169,6 +179,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'completed', ComponentFunction.Function)
                     .then(event.stopPropagation());
+                    boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('completed')
@@ -187,9 +198,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         }
         if (parent === 'selector') {
             order.group.forEach(async element => {
-
                 await updateOrder('', '', element, user.user.role, 'arc', ComponentFunction.Function)
                     .then(event.stopPropagation());
+                    boost(element.id)
                 State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
                 order.setGroup(order.group.filter(el => el !== element))
             })
