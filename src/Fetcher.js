@@ -181,16 +181,16 @@ const Fetcher = observer(() => {
         fetcher.setOrdersInWork(false)
     }, [fetcher.orders_in_work])
 
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         fetcher.setOrdersNew(true)
-    //     }, 10000);
-    //     clearInterval()
-    //     setInterval(() => {
-    //         fetcher.setOrdersInWork(true)
-    //     }, 60000);
-    //     clearInterval()
-    // }, [])
+    useEffect(() => {
+        setInterval(() => {
+            fetcher.setOrdersNew(true)
+        }, 10000);
+        clearInterval()
+        setInterval(() => {
+            fetcher.setOrdersInWork(true)
+        }, 60000);
+        clearInterval()
+    }, [])
 
     //partners
     useEffect(() => {
