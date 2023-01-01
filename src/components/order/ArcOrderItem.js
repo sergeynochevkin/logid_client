@@ -44,63 +44,69 @@ const ArcOrderItem = observer(({ thisPoints, oneArcOrder }) => {
         formatedFirstPointTime = setTime(new Date(firstPoint.time), 0, 'show')
     }
     return (
-        <tr className='arc_table_row'>
-            <OrderTd>{oneArcOrder.id}</OrderTd>
-            <OrderTd>{SetNativeTranslate(Translate.language, {}, oneArcOrder.order_type)}</OrderTd>
-            {firstPoint ?
-                <>
-                    <OrderTd>{firstPoint.point}</OrderTd>
-                    <OrderTd>{formatedFirstPointTime}</OrderTd>
-                    <OrderTd>{lastPoint.point}</OrderTd>
-                </>
-                : <></>}
-            <OrderTd>{SetNativeTranslate(Translate.language, {}, oneArcOrder.type)}</OrderTd>
-            <OrderTd>{oneArcOrder.cost === 0 ? SetNativeTranslate(Translate.language, {}, 'not_specified') : oneArcOrder.cost}</OrderTd>
-            {ComponentFunction.Function === 'arc' ?
-                <OrderTd>{SetNativeTranslate(Translate.language, {}, oneArcOrder.order_final_status)}</OrderTd> : <></>}
+        <>
+            {
+                thisPoints.length > 0 ?
+                    <tr className='arc_table_row'>
+                        <OrderTd>{oneArcOrder.id}</OrderTd>
+                        <OrderTd>{SetNativeTranslate(Translate.language, {}, oneArcOrder.order_type)}</OrderTd>
+                        {firstPoint ?
+                            <>
+                                <OrderTd>{firstPoint.point}</OrderTd>
+                                <OrderTd>{formatedFirstPointTime}</OrderTd>
+                                <OrderTd>{lastPoint.point}</OrderTd>
+                            </>
+                            : <></>}
+                        <OrderTd>{SetNativeTranslate(Translate.language, {}, oneArcOrder.type)}</OrderTd>
+                        <OrderTd>{oneArcOrder.cost === 0 ? SetNativeTranslate(Translate.language, {}, 'not_specified') : oneArcOrder.cost}</OrderTd>
+                        {ComponentFunction.Function === 'arc' ?
+                            <OrderTd>{SetNativeTranslate(Translate.language, {}, oneArcOrder.order_final_status)}</OrderTd> : <></>}
 
-            {user.user.role === 'customer' ?
-                <td>
-                    <div className='order_list_icon_container'>
-                        <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
-                            alt='repeat order'
-                            onClick={() => {
-                                order.setPattern(JSON.stringify(oneArcOrder))
-                                Point.setPattern(JSON.stringify(thisPoints))
-                                order.setIntegrationId()
-                                if (ComponentFunction.Function === 'arc') {
-                                    ComponentFunction.setOrderFormFunction('arc')
-                                } else {
-                                    ComponentFunction.setOrderFormFunction('pattern')
-                                }
-                                localStorage.removeItem('orderFormData')
-                                ComponentFunction.setPageFunction('orderForm')
-                                Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${ComponentFunction.Function === 'arc' ? form_from_order : form_from_template} ${oneArcOrder.id}, ${check_restored_arc}` }])
-                            }}
-                        >
-                            settings_backup_restore
-                        </span>
+                        {user.user.role === 'customer' ?
+                            <td>
+                                <div className='order_list_icon_container'>
+                                    <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
+                                        alt='repeat order'
+                                        onClick={() => {
+                                            order.setPattern(JSON.stringify(oneArcOrder))
+                                            Point.setPattern(JSON.stringify(thisPoints))
+                                            order.setIntegrationId()
+                                            if (ComponentFunction.Function === 'arc') {
+                                                ComponentFunction.setOrderFormFunction('arc')
+                                            } else {
+                                                ComponentFunction.setOrderFormFunction('pattern')
+                                            }
+                                            localStorage.removeItem('orderFormData')
+                                            ComponentFunction.setPageFunction('orderForm')
+                                            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${ComponentFunction.Function === 'arc' ? form_from_order : form_from_template} ${oneArcOrder.id}, ${check_restored_arc}` }])
+                                        }}
+                                    >
+                                        settings_backup_restore
+                                    </span>
 
-                    </div>
-                </td>
-                : <></>}
+                                </div>
+                            </td>
+                            : <></>}
 
-            <td>
-                <div className='order_list_icon_container'>
-                    {ComponentFunction.Function === 'pattern' || (ComponentFunction.Function === 'arc' && oneArcOrder.order_final_status === 'canceled') ?
-                        <>
-                            <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
-                                onClick={deleteClick}
-                                alt='delete order'
-                            >
-                                delete_forever
-                            </span>
+                        <td>
+                            <div className='order_list_icon_container'>
+                                {ComponentFunction.Function === 'pattern' || (ComponentFunction.Function === 'arc' && oneArcOrder.order_final_status === 'canceled') ?
+                                    <>
+                                        <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
+                                            onClick={deleteClick}
+                                            alt='delete order'
+                                        >
+                                            delete_forever
+                                        </span>
 
-                        </>
-                        : <></>}
-                </div>
-            </td>
-        </tr>
+                                    </>
+                                    : <></>}
+                            </div>
+                        </td>
+
+                    </tr> : <></>
+            }
+        </>
     )
 })
 
