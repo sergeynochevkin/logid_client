@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import { useNavigate } from 'react-router-dom'
-import { MAIN_ROUTE,USER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
+import { MAIN_ROUTE, USER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
 import { observer } from 'mobx-react-lite';
 import NotificationComponent from '../../components/notification/NotificationComponent';
 import { logout } from '../../http/userAPI';
@@ -28,7 +28,9 @@ const NavBar = observer(() => {
   const setLanguage = (language) => {
     Translate.setLanguage(language)
     if (UserInfo.userInfo) {
-      State.setUserStateField(language, 'language', UserInfo.userInfo.id)
+      if (user && user.isAuth) {
+        State.setUserStateField(language, 'language', UserInfo.userInfo.id)
+      }
     }
   }
 
@@ -99,10 +101,14 @@ const NavBar = observer(() => {
           onClick={() => {
             if (Setting.app_theme === 'dark') {
               Setting.setAppTheme('light')
-              State.setUserStateField('light', 'app_theme', UserInfo.userInfo.id)
+              if (user && user.isAuth) {
+                State.setUserStateField('light', 'app_theme', UserInfo.userInfo.id)
+              }
             } else {
               Setting.setAppTheme('dark')
-              State.setUserStateField('dark', 'app_theme', UserInfo.userInfo.id)
+              if (user && user.isAuth) {
+                State.setUserStateField('dark', 'app_theme', UserInfo.userInfo.id)
+              }
             }
           }}
         >

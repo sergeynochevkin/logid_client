@@ -20,7 +20,8 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
             {
                 types: ['locality', 'administrative_area_level_3'],
                 componentRestrictions: { 'country': [`${country}`] },
-                fields: ['geometry', 'name']
+                fields: ['geometry', 'name'],
+                language:Adress.country.google_language
             },
         )
         autocomplete.addListener('place_changed', onPlaceChanged)

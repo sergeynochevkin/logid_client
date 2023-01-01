@@ -8,7 +8,7 @@ import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext } from '..'
+import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
@@ -28,19 +28,37 @@ const User = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { fetcher } = useContext(FetcherContext)
   const { user } = useContext(UserContext)
+  const { Adress } = useContext(AdressContext)
 
   useEffect(() => {
     fetcher.setPartners(true)
   }, [])
 
   const [libraries] = useState(['places']);
-  const { isLoaded } = useJsApiLoader({
+  
+  // const { isLoaded } = useJsApiLoader({
+  //   // id: "__googleMapsScriptId",
+  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  //   libraries: libraries,
+  //   region: 'CA',
+  //   language: 'en'
+  // })
+
+  let language = Adress.country.google_language
+  let region = Adress.country.google_code
+
+  // console.log(JSON.stringify(Adress.country));
+  // console.log(language);
+  // console.log(region);
+
+  const { isLoaded } = Adress.country && Translate.language ? useJsApiLoader({
     // id: "__googleMapsScriptId",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: libraries,
-    region: 'CA',
-    language: 'en'
-  })
+    region: region,
+    language: language
+  }) : false
+
 
   if (!isLoaded) { return <PageContainer /> }
   else {

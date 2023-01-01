@@ -36,7 +36,16 @@ const PreLoader = observer(({ children, ...props }) => {
                 let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
                     Adress.setCountry(country);
-                    Translate.setLanguage(country.default_language)
+                    if (localStorage.getItem('language')) {
+                        let language = localStorage.getItem('language')
+                        if (language === 'english' || language === country.default_language) {
+                            Translate.setLanguage(language)
+                        } else {
+                            Translate.setLanguage(country.default_language)
+                        }
+                    } else {
+                        Translate.setLanguage(country.default_language)
+                    }
                     setDataLoaded(true)
                 } else {
                     Adress.setCountry(countries.find(el => el.country_code_iso3 === 'CAN'));
@@ -52,6 +61,7 @@ const PreLoader = observer(({ children, ...props }) => {
     };
 
     useEffect(() => {
+        localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
         fetchData().then(UserInfo.setUserInfo({})).then()
     }, [])
 
@@ -68,7 +78,16 @@ const PreLoader = observer(({ children, ...props }) => {
             if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
                 let country = JSON.parse(localStorage.getItem('country'))
                 Adress.setCountry(country)
-                Translate.setLanguage(country.default_language)
+                if (localStorage.getItem('language')) {
+                    let language = localStorage.getItem('language')
+                    if (language === 'english' || language === country.default_language) {
+                        Translate.setLanguage(language)
+                    } else {
+                        Translate.setLanguage(country.default_language)
+                    }
+                } else {
+                    Translate.setLanguage(country.default_language)
+                }
                 setDataLoaded(true)
             } else {
                 getGeoInfo(data.countries);

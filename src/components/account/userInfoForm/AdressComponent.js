@@ -39,7 +39,8 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
         strictBounds: true,
         types: ['geocode'],
         componentRestrictions: { 'country': [`${country}`] },
-        fields: ['geometry', 'name']
+        fields: ['geometry', 'name'],
+        language:Adress.country.google_language
       },
     )
     autocomplete.addListener('place_changed', onPlaceChanged)

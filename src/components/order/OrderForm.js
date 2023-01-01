@@ -555,8 +555,6 @@ const OrderForm = observer(() => {
                             removeField={removeField}
                             key={pointItem.id}
                             setCalculate={setCalculate}
-                            Adress={Adress}
-
                         />
                     )}
                 </VerticalContainer>

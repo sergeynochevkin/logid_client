@@ -54,6 +54,7 @@ export default class StateStore {
     }
     setAppTheme(value) {
         this._app_theme = value
+        localStorage.setItem('app_theme', value)
     }
     get app_theme() {
         return this._app_theme

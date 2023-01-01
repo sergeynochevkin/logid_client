@@ -94,15 +94,15 @@ const Fetcher = observer(() => {
             await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, order_status === 'arc' || order_status === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
                 order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.iAmBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myFavorite, order_status === 'arc' ? 'arc' : '', FilterAndSort.filters).then(async data => {
                     order.setFilteredCount(data.filtered_count, order_status)
-                    if (order_status !== 'arc' && order_status ) {
-                        order.setTotalCount(data.total_count.new, 'new')
-                        order.setTotalCount(data.total_count.canceled, 'canceled')
-                        order.setTotalCount(data.total_count.completed, 'completed')
-                        order.setTotalCount(data.total_count.postponed, 'postponed')
-                        order.setTotalCount(data.total_count.inWork, 'inWork')
-                        order.setTotalCount(data.total_count.arc, 'arc')
-                        order.setTotalCount(data.total_count.pattern, 'pattern')
-                        order.setAdded(data.added)
+                    if (order.divided_orders && order_status !== 'arc' && order_status) {
+                        data.total_count && order.setTotalCount(data.total_count.new, 'new')
+                        data.total_count && order.setTotalCount(data.total_count.canceled, 'canceled')
+                        data.total_count && order.setTotalCount(data.total_count.completed, 'completed')
+                        data.total_count && order.setTotalCount(data.total_count.postponed, 'postponed')
+                        data.total_count && order.setTotalCount(data.total_count.inWork, 'inWork')
+                        data.total_count && order.setTotalCount(data.total_count.arc, 'arc')
+                        data.total_count && order.setTotalCount(data.total_count.pattern, 'pattern')
+                        data.edded && order.setAdded(data.added)
                     }
                     if (data.rows.length !== 0) {
                         await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
@@ -168,12 +168,16 @@ const Fetcher = observer(() => {
     }, [fetcher.orders])
 
     useEffect(() => {
-        fetch('new')
+        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+            fetch('new')
+        }
         fetcher.setOrdersNew(false)
     }, [fetcher.orders_new])
 
     useEffect(() => {
-        fetch('inWork')
+        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+            fetch('inWork')
+        }
         fetcher.setOrdersInWork(false)
     }, [fetcher.orders_in_work])
 
