@@ -168,16 +168,16 @@ const Fetcher = observer(() => {
     }, [fetcher.orders])
 
     useEffect(() => {
-        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+        // if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
             fetch('new')
-        }
+        // }
         fetcher.setOrdersNew(false)
     }, [fetcher.orders_new])
 
     useEffect(() => {
-        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+        // if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
             fetch('inWork')
-        }
+        // }
         fetcher.setOrdersInWork(false)
     }, [fetcher.orders_in_work])
 
