@@ -71,7 +71,7 @@ const Notificator = observer(() => {
 
     //orders start
     useEffect(() => {
-        if (Object.keys(order.added).length > 0) {
+        if (order.added && Object.keys(order.added).length > 0) {
             if (order.added.new.length > 0) {
                 if (user.user.role === 'carrier') {
                     Notification.addNotification([{ id: v4(), type: 'success', message: `${order.added.new.length > 1 ? new_orders_received : new_order_received} ${order.added.new.map(el => el.id).toString()}` }])
@@ -158,7 +158,7 @@ const Notificator = observer(() => {
         }
     }, [order.added])
     useEffect(() => {
-        if (Object.keys(Offer.changes).length > 0) {
+        if ( Offer.changes && Object.keys(Offer.changes).length > 0) {
             if (Offer.changes.new.length > 0 && user.user.role !== 'carrier') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${Offer.changes.new.length > 1 ? new_offers : new_offer} ${Offer.changes.new.map(el => el.orderId).toString()}` }])
             }
@@ -171,7 +171,7 @@ const Notificator = observer(() => {
         }
     }, [Offer.changes])
     useEffect(() => {
-        if (Object.keys(Point.added).length > 0) {
+        if (Point.added && Object.keys(Point.added).length > 0) {
             if (Point.added.postponed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${Point.added.postponed.length > 1 ? postponed_points : postponed_point} ${Point.added.postponed.map(el => el.sequence).toString()} ${Point.added.postponed.map(el => el.orderIntegrationId).length > 1 ? on_orders : on_order} ${order.orders.filter(el => Point.added.postponed.map(el => el.orderIntegrationId).includes(el.pointsIntegrationId)).map(el => el.id).toString()}` }])
             }
