@@ -120,7 +120,6 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const toNew = async (event) => {
         if (parent === 'order') {
-
             await updateOrder('', '', thisOrder.id, user.user.role, 'new', thisOrder.order_status)
                 .then(fetcher.setNewStatus('new'))
                 .then(fetcher.setDividedOrders(true))
@@ -190,7 +189,6 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const arc = async (event) => {
         if (parent === 'order') {
-
             await updateOrder('', '', thisOrder.id, user.user.role, 'arc', thisOrder.order_status)
                 .then(fetcher.setNewStatus('arc'))
                 .then(fetcher.setDividedOrders(true))

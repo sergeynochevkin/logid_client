@@ -47,11 +47,11 @@ const Fetcher = observer(() => {
     }, [fetcher.server_notifications])
 
     useEffect(() => {
-        fetcher.setServerNotifications(true)
+        setInterval(() => {
+            fetcher.setServerNotifications(true)
+        }, 60000 * 15)
+        clearInterval()
     }, [])
-    setInterval(() => {
-        fetcher.setServerNotifications(true)
-    }, 60000 * 15)
 
     useEffect(() => {
         Notification.new_server_notifications.forEach(async element => {
@@ -102,7 +102,7 @@ const Fetcher = observer(() => {
                         data.total_count && order.setTotalCount(data.total_count.inWork, 'inWork')
                         data.total_count && order.setTotalCount(data.total_count.arc, 'arc')
                         data.total_count && order.setTotalCount(data.total_count.pattern, 'pattern')
-                        data.edded && order.setAdded(data.added)
+                        order.setAdded(data.added)
                     }
                     if (data.rows.length !== 0) {
                         await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
@@ -168,16 +168,16 @@ const Fetcher = observer(() => {
     }, [fetcher.orders])
 
     useEffect(() => {
-        // if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
             fetch('new')
-        // }
+        }
         fetcher.setOrdersNew(false)
     }, [fetcher.orders_new])
 
     useEffect(() => {
-        // if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
             fetch('inWork')
-        // }
+        }
         fetcher.setOrdersInWork(false)
     }, [fetcher.orders_in_work])
 

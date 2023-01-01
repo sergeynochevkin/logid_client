@@ -284,8 +284,8 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         }
     }, [gMap])
 
-    useEffect(() => {
-        if (ComponentFunction.PageFunction === 'orderForm' && user.user.role === 'customer') {
+    useEffect(() => {      
+        if (ComponentFunction.PageFunction === 'orderForm' && user.user.role === 'customer'  ) {
             calculateRoute()
         }
     }, [calculate])
@@ -487,19 +487,21 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         await renderer.setDirections(response)
     }
     async function calculateRoute() {
-        if (!pointFormData.find(el => !el.latitude) && !pointFormData.find(el => !el.longitude)) {
+        if (!pointFormData.find(el => !el.latitude) && !pointFormData.find(el => !el.longitude) ) {
             //eslint-disable-next-line no-undef
             let firstPoint = pointFormData.find(el => el.sequence === 1).point.value
             let lastPoint = pointFormData.find(el => el.sequence === 50).point.value
             let wayPointsArray = []
             let pointsArray = [...pointFormData.filter(el => el.sequence !== 1 && el.sequence !== 50).map(el => el.point.value)]
+            
             for (const point of pointsArray) {
                 let newPoint = {
                     location: point,
                     stopover: true
                 }
                 wayPointsArray.push(newPoint)
-            }
+            }            
+
             const results = await service.route({
                 origin: firstPoint,
                 waypoints: wayPointsArray,

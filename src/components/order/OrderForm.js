@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Form } from '../ui/form/Form'
 import { Button } from '../ui/button/Button'
 import styled from 'styled-components'
-import { AdressContext, ComponentFunctionContext, LimitContext, NotificationContext, OrderContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, OrderContext, PointContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { createOrder } from '../../http/orderApi'
 import { observer } from 'mobx-react-lite'
 import OrderComment from './orderForm/OrderComment'
@@ -44,29 +44,26 @@ const OrderForm = observer(() => {
     const [timeNotValid, setTimeNotValid] = useState(false)
     const [commentsNotValid, setCommentsNotValid] = useState(false)
     const [orderForWho, setOrderForWho] = useState('all')
-    const { Adress } = useContext(AdressContext)
-    const { Setting } = useContext(SettingContext)
-
+    const { fetcher } = useContext(FetcherContext)
     const [calculate, setCalculate] = useState(false)
-
-    const Edited = SetNativeTranslate(Translate.language,{},'edited')
-    const Order = SetNativeTranslate(Translate.language,{},'order')
-    const Auction = SetNativeTranslate(Translate.language,{},'auction')
-    const order_editing_canceled = SetNativeTranslate(Translate.language,{},'order_editing_canceled')
-    const auction_editing_canceled = SetNativeTranslate(Translate.language,{},'auction_editing_canceled')
-    const you_can_change_subscription = SetNativeTranslate(Translate.language,{},'you_can_change_subscription')
-    const point_limit = SetNativeTranslate(Translate.language,{},'point_limit')
-    const created_and_postponed = SetNativeTranslate(Translate.language,{},'created_and_postponed')
-    const created_and_send = SetNativeTranslate(Translate.language,{},'created_and_send')
-    const Template = SetNativeTranslate(Translate.language,{},'template')
-    const Created = SetNativeTranslate(Translate.language,{},'created').toLowerCase()
-    const select_adress = SetNativeTranslate(Translate.language,{},'select_adress')
-    const comment_cant_be_empty = SetNativeTranslate(Translate.language,{},'comment_cant_be_empty')
-    const comment_cannot_be_shorter = SetNativeTranslate(Translate.language,{},'comment_cannot_be_shorter')
-    const comment_cannot_be_longer = SetNativeTranslate(Translate.language,{},'comment_cannot_be_longer')
-    const arrival_time = SetNativeTranslate(Translate.language,{},'arrival_time')
-    const finish_time = SetNativeTranslate(Translate.language,{},'finish_time')
-    const symbols = SetNativeTranslate(Translate.language,{},'symbols')
+    const Edited = SetNativeTranslate(Translate.language, {}, 'edited')
+    const Order = SetNativeTranslate(Translate.language, {}, 'order')
+    const Auction = SetNativeTranslate(Translate.language, {}, 'auction')
+    const order_editing_canceled = SetNativeTranslate(Translate.language, {}, 'order_editing_canceled')
+    const auction_editing_canceled = SetNativeTranslate(Translate.language, {}, 'auction_editing_canceled')
+    const you_can_change_subscription = SetNativeTranslate(Translate.language, {}, 'you_can_change_subscription')
+    const point_limit = SetNativeTranslate(Translate.language, {}, 'point_limit')
+    const created_and_postponed = SetNativeTranslate(Translate.language, {}, 'created_and_postponed')
+    const created_and_send = SetNativeTranslate(Translate.language, {}, 'created_and_send')
+    const Template = SetNativeTranslate(Translate.language, {}, 'template')
+    const Created = SetNativeTranslate(Translate.language, {}, 'created').toLowerCase()
+    const select_adress = SetNativeTranslate(Translate.language, {}, 'select_adress')
+    const comment_cant_be_empty = SetNativeTranslate(Translate.language, {}, 'comment_cant_be_empty')
+    const comment_cannot_be_shorter = SetNativeTranslate(Translate.language, {}, 'comment_cannot_be_shorter')
+    const comment_cannot_be_longer = SetNativeTranslate(Translate.language, {}, 'comment_cannot_be_longer')
+    const arrival_time = SetNativeTranslate(Translate.language, {}, 'arrival_time')
+    const finish_time = SetNativeTranslate(Translate.language, {}, 'finish_time')
+    const symbols = SetNativeTranslate(Translate.language, {}, 'symbols')
 
     let initialTime = new Date();
 
@@ -147,8 +144,8 @@ const OrderForm = observer(() => {
     )
 
     const validCost = /^\d+$/
-    formData.cost = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.cost.value !== 0 ? orderPattern.cost.value : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, SetNativeTranslate(Translate.language,{},'cost').toLowerCase())
-    formData.order_comment = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_comment.value, { isEmpty: true, minLength: 6, maxLength: 100 }, SetNativeTranslate(Translate.language,{},'comment').toLowerCase())
+    formData.cost = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.cost.value !== 0 ? orderPattern.cost.value : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, SetNativeTranslate(Translate.language, {}, 'cost').toLowerCase())
+    formData.order_comment = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_comment.value, { isEmpty: true, minLength: 6, maxLength: 100 }, SetNativeTranslate(Translate.language, {}, 'comment').toLowerCase())
     formData.order_type = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_type.value, { isEmpty: true },)
 
     formData.userId = user.user.id
@@ -255,7 +252,13 @@ const OrderForm = observer(() => {
             formData.direction_response
         ).then(
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
-        ).then(createPoint(pointFormData)).then(setFormData(initialValue)).then(setPointFormData(pointInitialValue)).then(ComponentFunction.setFunction(formData.order_status)).then(ComponentFunction.setPageFunction('orderList')).then(ComponentFunction.setOrdersComponentFunction('orderList'))
+        ).then(createPoint(pointFormData))
+            .then(setFormData(initialValue))
+            .then(setPointFormData(pointInitialValue))
+            .then(ComponentFunction.setFunction(formData.order_status))
+            .then(fetcher.setOrders(true))
+            .then(ComponentFunction.setPageFunction('orderList'))
+            .then(ComponentFunction.setOrdersComponentFunction('orderList'))
     }
 
     const click = async (event) => {
@@ -302,7 +305,7 @@ const OrderForm = observer(() => {
             await createPoint(pointFormData)
             if (formData.order_status === 'new') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_send}` : `${Auction} ${orderId} ${created_and_send}` }]);
-                sendMail(Translate.language,user.user.role, orderId, 'new_order', '');
+                sendMail(Translate.language, user.user.role, orderId, 'new_order', '');
             }
             if (formData.order_status === 'postponed') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_postponed}` : `${Auction} ${orderId} ${created_and_postponed}` }]);
@@ -315,6 +318,7 @@ const OrderForm = observer(() => {
             setPointFormData(pointInitialValue)
             ComponentFunction.setOrdersComponentFunction('orderList')
             ComponentFunction.setFunction(formData.order_status)
+            fetcher.setOrders(true)
             ComponentFunction.setPageFunction('orderList')
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -559,7 +563,7 @@ const OrderForm = observer(() => {
                     )}
                 </VerticalContainer>
 
-                {pointFormData.length < 50 ? <AddDeleteFieldButton onClick={addField}>{SetNativeTranslate(Translate.language,{},'add_point')}</AddDeleteFieldButton> : <></>}
+                {pointFormData.length < 50 ? <AddDeleteFieldButton onClick={addField}>{SetNativeTranslate(Translate.language, {}, 'add_point')}</AddDeleteFieldButton> : <></>}
 
                 <OrderComment
                     formData={formData}
@@ -603,7 +607,7 @@ const OrderForm = observer(() => {
                             || (formData.cost.notValid && formData.order_type.value === 'order')
 
                         }
-                    >{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language,{},'save') : SetNativeTranslate(Translate.language,{},'send')}</Button>
+                    >{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language, {}, 'save') : SetNativeTranslate(Translate.language, {}, 'send')}</Button>
                     {ComponentFunction.orderFormFunction === 'edit' ?
                         <Button
                             onClick={() => {
@@ -614,7 +618,7 @@ const OrderForm = observer(() => {
                                 ComponentFunction.setOrderFormFunction('newOrder')
                                 Notification.addNotification([{ id: v4(), type: 'error', message: formData.order_type.value === 'order' ? order_editing_canceled : auction_editing_canceled }]);
                             }}
-                        >{SetNativeTranslate(Translate.language,{},'close')}</Button> : <></>}
+                        >{SetNativeTranslate(Translate.language, {}, 'close')}</Button> : <></>}
 
                     {ComponentFunction.orderFormFunction !== 'edit' ?
                         <Button onClick={postpone}
@@ -628,7 +632,7 @@ const OrderForm = observer(() => {
                                 (formData.side_type.isEmpty && formData.type === 'truck')
                                 || (formData.cost.notValid && formData.order_type.value === 'order')
                             }
-                        >{SetNativeTranslate(Translate.language,{},'postpone')}</Button>
+                        >{SetNativeTranslate(Translate.language, {}, 'postpone')}</Button>
                         : <></>}
                     {ComponentFunction.orderFormFunction !== 'pattern' && ComponentFunction.orderFormFunction !== 'edit' ?
                         <Button onClick={pattern}
@@ -642,7 +646,7 @@ const OrderForm = observer(() => {
                                 (formData.side_type.isEmpty && formData.type === 'truck')
                                 || (formData.cost.notValid && formData.order_type.value === 'order')
                             }
-                        >{SetNativeTranslate(Translate.language,{},'create_template')}</Button>
+                        >{SetNativeTranslate(Translate.language, {}, 'create_template')}</Button>
                         : <></>}
                 </Container>
             </Form>
