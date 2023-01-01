@@ -204,7 +204,6 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 .then(event.stopPropagation());
             afterAction('disrupt')
             State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
-            ComponentFunction.setOrdersComponentFunction('orderList')
         }
     }
 
