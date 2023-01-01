@@ -51,6 +51,14 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     //     }
     // }
 
+    const afterAction = (status) => {
+        fetcher.setNewStatus(status)
+        fetcher.setDividedOrders(true)
+        order.setGroup(order.group.filter(el => el !== thisOrder.id))
+        ComponentFunction.setOrdersComponentFunction('orderList')
+        sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', status)
+    }
+
     const toAuction = async (event) => {
         await updateOrder('', 'auction', thisOrder.id, user.user.role, thisOrder.order_status)
             .then(sendMail(Translate.language, user.user.role, thisOrder.id, 'order_type', 'auction'))
@@ -73,11 +81,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         if (parent === 'order') {
             await updateOrder('', '', thisOrder.id, user.user.role, 'postponed', thisOrder.order_status)
                 .then(event.stopPropagation());
-            fetcher.setNewStatus('postponed')
-            fetcher.setDividedOrders(true)
-            order.setGroup(order.group.filter(el => el !== thisOrder.id))
-            sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'postponed')
-            ComponentFunction.setOrdersComponentFunction('orderList')
+            afterAction('postponed')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_postponed} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
 
@@ -120,13 +124,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const toNew = async (event) => {
         if (parent === 'order') {
-            await updateOrder('', '', thisOrder.id, user.user.role, 'new', thisOrder.order_status)                
+            await updateOrder('', '', thisOrder.id, user.user.role, 'new', thisOrder.order_status)
                 .then(event.stopPropagation());
-            fetcher.setNewStatus('new')
-            fetcher.setDividedOrders(true)
-            order.setGroup(order.group.filter(el => el !== thisOrder.id))
-            sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', 'new')
-            ComponentFunction.setOrdersComponentFunction('orderList')
+            afterAction('new')
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_send} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
         if (parent === 'selector') {
