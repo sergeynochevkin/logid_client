@@ -55,44 +55,37 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
     }
 
     return (
-
-        <VerticalContainer>
+        <div className='filters_container'
+            style={{ flexDirection: 'unset' }}>
+            {parent === 'orders' &&
+                (FilterAndSort.filters[ComponentFunction.Function].id !== '' ||
+                    FilterAndSort.filters[ComponentFunction.Function].selectedSort !== '' ||
+                    FilterAndSort.filters[ComponentFunction.Function].costFrom !== '' ||
+                    FilterAndSort.filters[ComponentFunction.Function].costTo !== '' ||
+                    FilterAndSort.filters[ComponentFunction.Function].timeFrom !== '' ||
+                    FilterAndSort.filters[ComponentFunction.Function].timeTo !== '' ||
+                    FilterAndSort.filters[ComponentFunction.Function].name !== '' ||
+                    FilterAndSort.filters[ComponentFunction.Function].partnerName !== ''
+                ) ?
+                <span class={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
+                    onClick={resetFilters}
+                >
+                    filter_alt_off
+                </span> : <></>
+            }
+            {parent === 'partners' &&
+                (FilterAndSort.partnerFilters[ComponentFunction.Function].id !== '' ||
+                    FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
+                    FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''
+                ) ?
+                <span class={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
+                    onClick={resetFilters}
+                >
+                    filter_alt_off
+                </span> : <></>
+            }
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
                 <div className='scroll_content_container'>
-
-
-                    {parent === 'orders' &&
-                        (FilterAndSort.filters[ComponentFunction.Function].id !== '' ||
-                            FilterAndSort.filters[ComponentFunction.Function].selectedSort !== '' ||
-                            FilterAndSort.filters[ComponentFunction.Function].costFrom !== '' ||
-                            FilterAndSort.filters[ComponentFunction.Function].costTo !== '' ||
-                            FilterAndSort.filters[ComponentFunction.Function].timeFrom !== '' ||
-                            FilterAndSort.filters[ComponentFunction.Function].timeTo !== '' ||
-                            FilterAndSort.filters[ComponentFunction.Function].name !== '' ||
-                            FilterAndSort.filters[ComponentFunction.Function].partnerName !== ''
-                        ) ?
-                        <span class="material-symbols-outlined filter_reset_icon"
-                            onClick={resetFilters}
-                        >
-                            filter_alt_off
-                        </span> : <></>
-                    }
-                    {parent === 'partners' &&
-                        (FilterAndSort.partnerFilters[ComponentFunction.Function].id !== '' ||
-                            FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
-                            FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''
-                        ) ?
-                        <span class="material-symbols-outlined filter_reset_icon"
-                            onClick={resetFilters}
-                        >
-                            filter_alt_off
-                        </span> : <></>
-                    }
-
-
-
-
-
                     <FilterInput
                         fieldName='id'
                         inputHandler={inputHandler}
@@ -171,7 +164,7 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                         >
                         </FilterSelect>
                     </> : parent === 'partners' ?
-                        <FilterSelect 
+                        <FilterSelect
                             fieldName='selectedSort'
                             inputHandler={inputHandler}
                             defaultvalue={SetNativeTranslate(Translate.language, {}, 'sorting')}
@@ -199,7 +192,7 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                 }
             </HorizontalContainer>
 
-        </VerticalContainer>
+        </div>
 
     )
 })

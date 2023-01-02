@@ -1,7 +1,19 @@
 .filter_reset_icon {
-    cursor: pointer
+    cursor: pointer;
+    position: relative;
+    top:-3px
+}
+
+.filter_reset_icon.dark {
+color: white;
 }
 
 .filter_reset_icon:hover {
     color: grey;
+}
+
+.filters_container {
+    align-items: center;
+    display: flex;
+    gap: 5px
 }

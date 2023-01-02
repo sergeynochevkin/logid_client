@@ -171,11 +171,11 @@ color: grey;
     }
 
     .scroll_bar_container_dark {
-        max-width: 380px;
+        max-width: 360px;
         /* color: white; */
     }
 
     .scroll_bar_container {
-        max-width: 380px;
+        max-width: 360px;
     }
 }
