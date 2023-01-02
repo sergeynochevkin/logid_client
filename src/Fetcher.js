@@ -90,7 +90,7 @@ const Fetcher = observer(() => {
 
     //orders
     async function fetch(order_status) {
-        if (Object.keys(UserInfo.userInfo).length !== 0) {
+        if (Object.keys(UserInfo.userInfo).length !== 0 && order_status !=='partners' && order_status!=='') {
             await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, order_status === 'arc' || order_status === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
                 order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.iAmBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myFavorite, order_status === 'arc' ? 'arc' : '', FilterAndSort.filters).then(async data => {
                     order.setFilteredCount(data.filtered_count, order_status)
@@ -106,9 +106,6 @@ const Fetcher = observer(() => {
                     }
                     order.setDividedOrders(data.rows, order_status)
                     order.setMapOrders(data.map_rows)
-                    if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
-                        order.setOrder(data.rows.find(el => el.id === order.order.id))
-                    }
                     if (data.rows.length !== 0) {
                         await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
                             Point.setDividedPoints(data.rows, order_status);
@@ -117,7 +114,11 @@ const Fetcher = observer(() => {
                                 Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
                             }
                         })
-                    }                   
+                    }      
+                    if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
+                        console.log('yes');
+                        order.setOrder(data.rows.find(el => el.id === order.order.id))
+                    }                             
                     if ((order_status !== 'new' || order_status !== 'postponed') && data.length !== 0) {
                         await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
                     }

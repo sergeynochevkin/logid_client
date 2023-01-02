@@ -17,7 +17,7 @@ export default class OrderStore {
         this._map_orders = []
         this._group = localStorage.getItem('groupOrders') ? JSON.parse(localStorage.getItem('groupOrders')) : []
         this._sortedAndFilteredOrders = []
-        this._order = localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')) : {}
+        this._order = localStorage.getItem('order') && localStorage.getItem('order') !=='undefined'  ? JSON.parse(localStorage.getItem('order')) : {}
         this._added = {}
         this._totalCount = {
             new: 0,

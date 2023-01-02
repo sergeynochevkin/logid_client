@@ -197,12 +197,17 @@ const OrderForm = observer(() => {
         ComponentFunction.orderFormFunction === 'newOrder' ? pointInitialValue : pointPatternInitialValue
     )
 
-    const afterAction = () => {
+    const afterAction = (option) => {
         setFormData(initialValue)
         setPointFormData(pointInitialValue)
-        ComponentFunction.setOrdersComponentFunction('orderList')
-        ComponentFunction.setFunction(formData.order_status)
-        ComponentFunction.setPageFunction('orderList')
+        if (option === 'edit') {
+            // ComponentFunction.setOrdersComponentFunction('orderItem')
+            ComponentFunction.setPageFunction('orderList')
+        } else {
+            ComponentFunction.setFunction(formData.order_status)
+            ComponentFunction.setOrdersComponentFunction('orderList')
+            ComponentFunction.setPageFunction('orderList')
+        }
     }
 
     const send = (event) => {
@@ -266,7 +271,7 @@ const OrderForm = observer(() => {
             fetcher.setStatus(formData.order_status)
             fetcher.setCreate(true)
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
-            afterAction()
+            afterAction('edit')
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
@@ -329,7 +334,7 @@ const OrderForm = observer(() => {
                 //fetch
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${Template} ${orderId} ${Created}` }]);
             }
-            afterAction()
+            afterAction('')
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
@@ -532,7 +537,6 @@ const OrderForm = observer(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))
     }, [pointFormData])
 
-
     const parent = 'orderForm'
 
     return (
@@ -621,9 +625,6 @@ const OrderForm = observer(() => {
                     {ComponentFunction.orderFormFunction === 'edit' ?
                         <Button
                             onClick={() => {
-                                ComponentFunction.setOrdersComponentFunction('orderList')
-                                order.setOrders([])
-                                ComponentFunction.setFunction('postponed');
                                 ComponentFunction.setPageFunction('orderList')
                                 ComponentFunction.setOrderFormFunction('newOrder')
                                 Notification.addNotification([{ id: v4(), type: 'error', message: formData.order_type.value === 'order' ? order_editing_canceled : auction_editing_canceled }]);

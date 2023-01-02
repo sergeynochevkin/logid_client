@@ -32,6 +32,7 @@ const User = observer(() => {
 
   useEffect(() => {
     fetcher.setPartners(true)
+    fetcher.setSubscriptions(true)
   }, [])
 
   const [libraries] = useState(['places']);

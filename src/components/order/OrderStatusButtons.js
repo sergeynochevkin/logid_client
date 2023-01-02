@@ -105,7 +105,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'postponed', ComponentFunction.Function)
                     .then(event.stopPropagation());
-                    boost(element.id)
+                boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('postponed')
@@ -125,7 +125,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'canceled', ComponentFunction.Function)
                     .then(event.stopPropagation());
-                    boost(element.id)
+                boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('canceled')
@@ -144,7 +144,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'new', ComponentFunction.Function)
                     .then(event.stopPropagation());
-                    boost(element.id)
+                boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('new')
@@ -179,7 +179,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'completed', ComponentFunction.Function)
                     .then(event.stopPropagation());
-                    boost(element.id)
+                boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
             afterAction('completed')
@@ -200,7 +200,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'arc', ComponentFunction.Function)
                     .then(event.stopPropagation());
-                    boost(element.id)
+                boost(element.id)
                 State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
                 order.setGroup(order.group.filter(el => el !== element))
             })

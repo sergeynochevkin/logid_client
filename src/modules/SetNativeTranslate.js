@@ -453,7 +453,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'you_opened', russian: 'Вы открыли', english: 'You have opened', spain: '', type: 'notification' },
         { service: 'the', russian: ' ', english: 'The', spain: '', type: 'notification' },
         { service: 'orders_notification', russian: 'Заказы', english: 'Orders', spain: '', type: 'notification' },
-        { service: 'for_editing', russian: 'для редактирования', english: 'for_editing', spain: '', type: 'notification' },
+        { service: 'for_editing', russian: 'для редактирования', english: 'for editing', spain: '', type: 'notification' },
         { service: 'form_from_order', russian: 'форму из заказа', english: 'form from order', spain: '', type: 'notification' },
         { service: 'form_from_auction', russian: 'форму из аукциона', english: 'form from auction', spain: '', type: 'notification' },
         { service: 'form_from_template', russian: 'форму из шаблона', english: 'form from template', spain: '', type: 'notification' },

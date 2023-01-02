@@ -108,7 +108,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
 
   return (
     <>
-      <HorizontalContainer style={{ width: '100%' }}
+      <div className='orders_container'
       >
         {ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function !== 'arc' && ComponentFunction.Function !== 'pattern' && Object.keys(UserInfo.userInfo).length !== 0 ?
           <VerticalContainer
@@ -363,7 +363,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                 />
               </>
               : <></>}
-      </HorizontalContainer>
+      </div>
       <div style={{ width: '100%' }}>
         {(ComponentFunction.Function === 'new' && user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction !== 'orderItem') && <MapComponent />}
       </div>
