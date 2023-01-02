@@ -8,7 +8,7 @@
     font-size: 12px;
 }
 
-.custom_select_dark {
+.custom_select.dark {
     background-color: #121212;
     border: solid 1px #2b2b2b;
     color: white;
@@ -25,13 +25,85 @@
     font-size: 12px;
 }
 
-.custom_input_dark {
+.custom_input.dark {
     background-color: #121212;
     border: solid 1px #2b2b2b;
     color: white;
 }
 
-.custom_input_dark::-webkit-calendar-picker-indicator { filter: invert(1) }
+.custom_input_dark::-webkit-calendar-picker-indicator {
+    filter: invert(1)
+}
+
+.filter_select {
+    min-width: 50px;
+    padding: 5px 2px 5px 2px;
+    background-color: rgb(255, 255, 255, 0.8);
+    border: lightgrey solid 1px;
+    border-radius: 5px;
+    min-height: 18px;
+    font-size: 10px;
+    color: black;
+}
+
+
+.filter_select.dark {
+    background-color: #121212;
+    border: solid 1px #2b2b2b;
+    color: white;
+}
+
+
+.filter_input {
+    min-width: 50px;
+    padding: 5px;
+    background-color: rgb(255, 255, 255, 0.8);
+    border: lightgrey solid 1px;
+    border-radius: 5px;
+    min-height: 18px;
+    font-size: 10px;
+    color: black;
+}
+
+.filter_input.dark {
+    background-color: #121212;
+    border: solid 1px #2b2b2b;
+    color: white;
+}
+
+.filter_input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+}
+
+.filter_input.dark::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+}
+
+.filter_input:-ms-input-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+}
+
+.filter_input.dark:-ms-input-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+}
+
+.filter_input::-ms-input-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+}
+
+.filter_input.dark::-ms-input-placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+}
+
+.filter_input_dark::-webkit-calendar-picker-indicator {
+    filter: invert(1)
+}
 
 .point_container {
     display: flex;

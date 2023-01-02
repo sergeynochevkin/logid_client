@@ -105,7 +105,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     }
 
     return (
-        <>{thisOrderPoints.length>0 ?
+        <>{thisOrderPoints.length > 0 ?
             <CardContainer
                 onClick={() => {
                     // if (ComponentFunction.OrdersComponentFunction !== 'orderItem') {
@@ -157,7 +157,10 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         <CardButton
                             onClick={(event) => {
                                 event.stopPropagation();
-                                if (!State.user_state.favorite_order_state.includes(thisOrder.id)) {
+                                if (!State.user_state.favorite_order_state) {
+                                    State.setUserStateField([thisOrder.id], 'favorite_order_state', UserInfo.userInfo.id)
+                                }
+                                else if (!State.user_state.favorite_order_state.includes(thisOrder.id)) {
                                     State.setUserStateField([...State.user_state.favorite_order_state, thisOrder.id], 'favorite_order_state', UserInfo.userInfo.id)
                                 } else {
                                     State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
@@ -165,7 +168,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                     fetcher.setOrders(true)
                                 }
                             }}
-                        >{State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(thisOrder.id) ? SetNativeTranslate(Translate.language, {}, 'to_favorites') : SetNativeTranslate(Translate.language, {}, 'from_favorites')}
+                        >{!State.user_state.favorite_order_state || (State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(thisOrder.id)) ? SetNativeTranslate(Translate.language, {}, 'to_favorites') : State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? SetNativeTranslate(Translate.language, {}, 'from_favorites') : ''}
                         </CardButton>
 
                     </CardRow>

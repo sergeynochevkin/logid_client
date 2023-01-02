@@ -6,14 +6,20 @@ export default class FetcherStore {
         this._subscriptions = false
         this._user_state = false
         this._partners = false
+        this._transports = false
+        this._account = false
+
+        //orders
         this._orders = false
         this._divided_orders = false
-        this._new_status = ''
         this._orders_all = false
         this._orders_new = false
         this._orders_in_work = false
-        this._transports = false
-        this._account = false
+        this._create = false
+
+        //statuses
+        this._new_status = ''
+        this._status = ''
 
         makeAutoObservable(this)
     }
@@ -54,6 +60,12 @@ export default class FetcherStore {
     setNewStatus(value) {
         this._new_status = value
     }
+    setStatus(value) {
+        this._status = value
+    }
+    setCreate(value) {
+        this._create = value
+    }
 
     //get
     get server_notifications() {
@@ -91,5 +103,11 @@ export default class FetcherStore {
     }
     get new_status() {
         return this._new_status
+    }
+    get status() {
+        return this._status
+    }
+    get create() {
+        return this._create
     }
 }

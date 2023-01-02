@@ -52,14 +52,12 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     // }
 
     const boost = (id) => {
-        console.log('boost');
         order.setDividedOrders(...order.divided_orders[ComponentFunction.Function].filter(el => el.id !== id), ComponentFunction.Fuction)
         order.setTotalCount(order.totalCount[ComponentFunction.Function] - 1, ComponentFunction.Fuction)
         order.setFilteredCount(order.filtered_count[ComponentFunction.Function] - 1, ComponentFunction.Fuction)
     }
 
     const afterAction = (status) => {
-        console.log('action');
         if (parent === 'order') {
             boost(thisOrder.id)
             fetcher.setNewStatus(status)

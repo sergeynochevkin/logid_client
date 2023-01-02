@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Form } from '../ui/form/Form'
 import { Button } from '../ui/button/Button'
 import styled from 'styled-components'
-import { ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, OrderContext, PointContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, OrderContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { createOrder } from '../../http/orderApi'
 import { observer } from 'mobx-react-lite'
 import OrderComment from './orderForm/OrderComment'
@@ -39,13 +39,16 @@ const OrderForm = observer(() => {
     const { Point } = useContext(PointContext)
     const { Limit } = useContext(LimitContext)
     const { Translate } = useContext(TranslateContext)
-
+    const { fetcher } = useContext(FetcherContext)
     const [pointsNotValid, setPointsNotValid] = useState(false)
     const [timeNotValid, setTimeNotValid] = useState(false)
     const [commentsNotValid, setCommentsNotValid] = useState(false)
     const [orderForWho, setOrderForWho] = useState('all')
-    const { fetcher } = useContext(FetcherContext)
+    const { Adress } = useContext(AdressContext)
+    const { Setting } = useContext(SettingContext)
+
     const [calculate, setCalculate] = useState(false)
+
     const Edited = SetNativeTranslate(Translate.language, {}, 'edited')
     const Order = SetNativeTranslate(Translate.language, {}, 'order')
     const Auction = SetNativeTranslate(Translate.language, {}, 'auction')
@@ -194,9 +197,16 @@ const OrderForm = observer(() => {
         ComponentFunction.orderFormFunction === 'newOrder' ? pointInitialValue : pointPatternInitialValue
     )
 
+    const afterAction = () => {
+        setFormData(initialValue)
+        setPointFormData(pointInitialValue)
+        ComponentFunction.setOrdersComponentFunction('orderList')
+        ComponentFunction.setFunction(formData.order_status)
+        ComponentFunction.setPageFunction('orderList')
+    }
+
     const send = (event) => {
         event.preventDefault();
-
         if (ComponentFunction.orderFormFunction === 'edit') {
             formData.order_status = 'postponed'
             update()
@@ -222,43 +232,44 @@ const OrderForm = observer(() => {
         if (formData.cost.isEmpty) {
             formData.cost.value = 0
         }
-        await editOrder(
-            formData.id,
-            formData.order_comment.value,
-            formData.cost.value,
-            formData.mileage,
-            formData.estimated_time,
-            formData.carrier,
-            formData.order_status,
-            formData.order_final_status,
-            formData.country,
-            formData.city,
-            formData.type.value,
-            formData.load_capacity.value,
-            formData.side_type.value,
-            formData.thermo_bag,
-            formData.hydraulic_platform,
-            formData.side_loading,
-            formData.glass_stand,
-            formData.refrigerator_minus,
-            formData.refrigerator_plus,
-            formData.thermo_van,
-            formData.order_type.value,
-            formData.pointsIntegrationId,
-            formData.files,
-            formData.for_partner.value,
-            formData.for_group.value,
-            formData.oldPointsId,
-            formData.direction_response
-        ).then(
+        try {
+            await editOrder(
+                formData.id,
+                formData.order_comment.value,
+                formData.cost.value,
+                formData.mileage,
+                formData.estimated_time,
+                formData.carrier,
+                formData.order_status,
+                formData.order_final_status,
+                formData.country,
+                formData.city,
+                formData.type.value,
+                formData.load_capacity.value,
+                formData.side_type.value,
+                formData.thermo_bag,
+                formData.hydraulic_platform,
+                formData.side_loading,
+                formData.glass_stand,
+                formData.refrigerator_minus,
+                formData.refrigerator_plus,
+                formData.thermo_van,
+                formData.order_type.value,
+                formData.pointsIntegrationId,
+                formData.files,
+                formData.for_partner.value,
+                formData.for_group.value,
+                formData.oldPointsId,
+                formData.direction_response
+            )
+            await createPoint(pointFormData)
+            fetcher.setStatus(formData.order_status)
+            fetcher.setCreate(true)
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
-        ).then(createPoint(pointFormData))
-        ComponentFunction.setFunction(formData.order_status)
-        fetcher.setOrders(true)
-        setFormData(initialValue)
-        setPointFormData(pointInitialValue)
-        ComponentFunction.setPageFunction('orderList')
-        ComponentFunction.setOrdersComponentFunction('orderList')
+            afterAction()
+        } catch (e) {
+            Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+        }
     }
 
     const click = async (event) => {
@@ -303,22 +314,22 @@ const OrderForm = observer(() => {
             )
                 .then(data => { orderId = data.id })
             await createPoint(pointFormData)
+            fetcher.setStatus(formData.order_status)
+            fetcher.setCreate(true)
             if (formData.order_status === 'new') {
                 Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_send}` : `${Auction} ${orderId} ${created_and_send}` }]);
                 sendMail(Translate.language, user.user.role, orderId, 'new_order', '');
             }
             if (formData.order_status === 'postponed') {
+                //fetch
                 Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${orderId} ${created_and_postponed}` : `${Auction} ${orderId} ${created_and_postponed}` }]);
+
             }
             if (formData.order_status === 'pattern') {
+                //fetch
                 Notification.addNotification([{ id: v4(), type: 'success', message: `${Template} ${orderId} ${Created}` }]);
             }
-            ComponentFunction.setFunction(formData.order_status)
-            fetcher.setOrders(true)
-            setFormData(initialValue)
-            setPointFormData(pointInitialValue)
-            ComponentFunction.setOrdersComponentFunction('orderList')           
-            ComponentFunction.setPageFunction('orderList')
+            afterAction()
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }

@@ -104,15 +104,20 @@ const Fetcher = observer(() => {
                         data.total_count && order.setTotalCount(data.total_count.pattern, 'pattern')
                         order.added && order.setAdded(data.added)
                     }
+                    order.setDividedOrders(data.rows, order_status)
+                    order.setMapOrders(data.map_rows)
+                    if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
+                        order.setOrder(data.rows.find(el => el.id === order.order.id))
+                    }
                     if (data.rows.length !== 0) {
                         await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
                             Point.setDividedPoints(data.rows, order_status);
                             Point.setAdded(data.added)
-                            if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
+                            if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId).length > 0) {
                                 Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
                             }
                         })
-                    }
+                    }                   
                     if ((order_status !== 'new' || order_status !== 'postponed') && data.length !== 0) {
                         await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
                     }
@@ -126,12 +131,7 @@ const Fetcher = observer(() => {
                             )
                         })
                     }
-                    if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
-                        order.setOrder(data.rows.find(el => el.id === order.order.id))
-                    }
-                    // order.setOrders(data.rows)// delete whent check point notifications
-                    order.setMapOrders(data.map_rows)
-                    order.setDividedOrders(data.rows, order_status)
+                    // order.setOrders(data.rows)// delete whent check point notifications                 
                 })
         }
     }
@@ -161,21 +161,27 @@ const Fetcher = observer(() => {
     }, [fetcher.divided_orders])
 
     useEffect(() => {
-                if (ComponentFunction.Function !== 'partners') {
+        fetch(fetcher.status)
+        fetcher.setStatus('')
+        fetcher.setCreate(false)
+    }, [fetcher.create])
+
+    useEffect(() => {
+        if (ComponentFunction.Function !== 'partners') {
             fetch(ComponentFunction.Function)
         }
         fetcher.setOrders(false)
     }, [fetcher.orders])
 
     useEffect(() => {
-        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all && !fetcher.create) {
             fetch('new')
         }
         fetcher.setOrdersNew(false)
     }, [fetcher.orders_new])
 
     useEffect(() => {
-        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all) {
+        if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all && !fetcher.create) {
             fetch('inWork')
         }
         fetcher.setOrdersInWork(false)
