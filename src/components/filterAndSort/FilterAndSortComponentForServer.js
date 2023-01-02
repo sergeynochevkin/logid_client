@@ -48,9 +48,9 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
             FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], partnerName: '' }, ComponentFunction.Function)
         }
         if (parent === 'partners') {
-            FilterAndSort.setPartnerFilters({ ...FilterAndSort.filters.partners, id: '' }, ComponentFunction.Function)
-            FilterAndSort.setPartnerFilters({ ...FilterAndSort.filters.partners, partnerName: '' }, ComponentFunction.Function)
-            FilterAndSort.setPartnerFilters({ ...FilterAndSort.filters.partners, selectedSort: '' }, ComponentFunction.Function)
+            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters.partners, id: '' }, ComponentFunction.Function)
+            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters.partners, partnerName: '' }, ComponentFunction.Function)
+            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters.partners, selectedSort: '' }, ComponentFunction.Function)
         }
     }
 
