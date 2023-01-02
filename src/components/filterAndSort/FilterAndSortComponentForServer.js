@@ -32,7 +32,7 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
             FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], [e.target.name]: e.target.value }, ComponentFunction.Function)
         }
         if (parent === 'partners') {
-            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters.partners, [e.target.name]: e.target.value }, ComponentFunction.Function)
+            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters[ComponentFunction.Function], [e.target.name]: e.target.value }, ComponentFunction.Function)
         }
     }
 
@@ -48,9 +48,9 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
             FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], partnerName: '' }, ComponentFunction.Function)
         }
         if (parent === 'partners') {
-            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters.partners, id: '' }, ComponentFunction.Function)
-            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters.partners, partnerName: '' }, ComponentFunction.Function)
-            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters.partners, selectedSort: '' }, ComponentFunction.Function)
+            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters[ComponentFunction.Function], id: '' }, ComponentFunction.Function)
+            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters[ComponentFunction.Function], partnerName: '' }, ComponentFunction.Function)
+            FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters[ComponentFunction.Function], selectedSort: '' }, ComponentFunction.Function)
         }
     }
 
@@ -171,7 +171,7 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                         >
                         </FilterSelect>
                     </> : parent === 'partners' ?
-                        <FilterSelect FilterSelect
+                        <FilterSelect 
                             fieldName='selectedSort'
                             inputHandler={inputHandler}
                             defaultvalue={SetNativeTranslate(Translate.language, {}, 'sorting')}
