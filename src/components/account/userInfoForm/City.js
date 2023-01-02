@@ -8,7 +8,7 @@ import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 import AdressComponent from './AdressComponent'
 
-const City = observer(({ formData, setFormData, cityEditable }) => {
+const City = ({ formData, setFormData, cityEditable }) => {
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
 
@@ -105,6 +105,6 @@ const City = observer(({ formData, setFormData, cityEditable }) => {
 
 
     )
-})
+}
 
 export default City

@@ -16,7 +16,7 @@ import { v4 } from "uuid";
 import NoData from '../ui/page/NoData'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, onePartnerInfo }) => {
+const PartnerGroupComponent = observer(({ parent, setModalActive, modalActive, onePartnerInfo }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Partner } = useContext(PartnerContext)
     const { Notification } = useContext(NotificationContext)
@@ -24,7 +24,7 @@ const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, 
     const [formData, setFormData] = useState(initialValue)
     const { Translate } = useContext(TranslateContext)
     const { fetcher } = useContext(FetcherContext)
-    const group_created = SetNativeTranslate(Translate.language,{},'group_created')
+    const group_created = SetNativeTranslate(Translate.language, {}, 'group_created')
 
     useEffect(() => {
         if (parent === 'groupModal') {
@@ -34,7 +34,7 @@ const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, 
 
     const [selectedGroups, setSelectedGroups] = useState([])
 
-    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, SetNativeTranslate(Translate.language,{},'group_name').toLowerCase())
+    formData.groupName = useInput('', { isEmpty: true, minLength: 5, maxLength: 20 }, SetNativeTranslate(Translate.language, {}, 'group_name').toLowerCase())
     formData.userInfoId = UserInfo.userInfo.id
 
     const createNewGroup = async (event) => {
@@ -67,9 +67,9 @@ const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, 
             {parent !== 'partnerList' && parent !== 'groupModal' ?
                 <Button
                     onClick={() => {
-                        setModalActive(true)
+                        setModalActive(true)                        
                     }}
-                >{SetNativeTranslate(Translate.language,{},'add')}</Button>
+                >{SetNativeTranslate(Translate.language, {}, 'add')}</Button>
                 : <></>}
 
             <VerticalContainer
@@ -77,13 +77,13 @@ const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, 
                 {Partner.groups.length > 0 && parent === 'groupModal' ?
                     <>
                         {Partner.groups.map(
-                            group => <PartnerGroupItem key={group.dataValues.id} group={group}  parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
+                            group => <PartnerGroupItem key={group.dataValues.id} group={group} parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
                         )}
                     </> :
                     Partner.groups.length > 0 && parent === 'partnerList' ?
                         <>
                             {Partner.groups.filter(el => el.partners.length > 0).map(
-                                group => <PartnerGroupItem key={group.dataValues.id} group={group}  parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
+                                group => <PartnerGroupItem key={group.dataValues.id} group={group} parent={parent} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups} />
                             )}
                         </> :
                         Partner.groups.length > 0 && parent === 'partners' && parent !== 'partnerList' ?
@@ -91,15 +91,15 @@ const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, 
                             <table>
                                 <tbody>
                                     <tr>
-                                        <OrderTh>{SetNativeTranslate(Translate.language,{},'group_name')}</OrderTh>
-                                        <OrderTh>{SetNativeTranslate(Translate.language,{},'number_of_members')}</OrderTh>
+                                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'group_name')}</OrderTh>
+                                        <OrderTh>{SetNativeTranslate(Translate.language, {}, 'number_of_members')}</OrderTh>
                                     </tr>
                                 </tbody>
                                 <tbody>
                                     {
                                         Partner.groups.map(group => <PartnerGroupItem
                                             parent={'table'}
-                                            key={group.dataValues.id} group={group}  setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups}
+                                            key={group.dataValues.id} group={group} setSelectedGroups={setSelectedGroups} selectedGroups={selectedGroups}
                                         />)
                                     }
                                 </tbody>
@@ -107,7 +107,7 @@ const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, 
                             :
                             Partner.groups.length === 0 && parent !== 'partnerList' ?
                                 <NoData
-                                >{SetNativeTranslate(Translate.language,{},'no_groups')}</NoData> : <></>}
+                                >{SetNativeTranslate(Translate.language, {}, 'no_groups')}</NoData> : <></>}
 
             </VerticalContainer>
             {parent === 'groupModal' ?
@@ -117,13 +117,13 @@ const PartnerGroupComponent = observer(({  parent, setModalActive, modalActive, 
                 >
                     <CardButton
                         onClick={updateAllGroups}
-                    >{SetNativeTranslate(Translate.language,{},'save')}</CardButton>
+                    >{SetNativeTranslate(Translate.language, {}, 'save')}</CardButton>
                     <CardButton
                         onClick={() => {
                             setSelectedGroups(Partner.groups.filter(el => el.partners.includes(onePartnerInfo.id)).map(el => el.dataValues.id))
                             setModalActive(false)
                         }}
-                    >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
+                    >{SetNativeTranslate(Translate.language, {}, 'close')}</CardButton>
                 </HorizontalContainer>
                 : <></>
             }

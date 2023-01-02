@@ -38,6 +38,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
     const { fetcher } = useContext(FetcherContext)
+    const [comparePassword, setComparePassword] = useState('')
 
     const message = SetNativeTranslate(Translate.language, {}, attachedField)
 
@@ -153,7 +154,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             setLoginEditable(false)
             setPasswordEditable(false)
             fetcher.setAcccount(true)
-                Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {}, 'you_have_changed')} ${message}` }])
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {}, 'you_have_changed')} ${message}` }])
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
@@ -221,7 +222,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                                                                     attachedField === 'type_of_customer' ? <TypeOfCustomer formData={formData} /> :
                                                                         attachedField === 'email' ? <NotificationEmail formData={formData} /> :
                                                                             attachedField === 'authEmail' ? <Email authFormData={authFormData} /> :
-                                                                                attachedField === 'password' ? <Password authFormData={authFormData} />
+                                                                                attachedField === 'password' ? <Password authFormData={authFormData} comparePassword={comparePassword} setComparePassword={setComparePassword} />
                                                                                     : <></>}
             </HorizontalContainer>
 
@@ -262,7 +263,8 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                         <CardButton
                             style={{ height: '15px' }}
                             onClick={updateUserAction}
-                        // disabled={/*authFormData.email.notValid  || authFormData.password.notValid  || authFormData.password.value !== comparePassword*/}
+                            disabled={(authFormData.email.notValid && attachedField === 'authEmail')
+                                || (authFormData.password.notValid && attachedField === 'password')  || (authFormData.password.value !== comparePassword && attachedField === 'password' )}
                         >Сохранить</CardButton> : <></>}
 
                 </HorizontalContainer> : <></>}

@@ -9,6 +9,7 @@ import { fetchUserInfo } from './http/userInfoApi'
 import { USER_ROUTE, } from './utils/consts'
 import axios from "axios";
 import { fetchTransport } from './http/transportApi'
+import PageLoader from './components/ui/loader/PageLoader '
 
 const PreLoader = observer(({ children, ...props }) => {
     const navigate = useNavigate()
@@ -145,15 +146,10 @@ const PreLoader = observer(({ children, ...props }) => {
         }
     }, [])
 
+    return (
+        <div{...props}>{!dataLoaded ? <PageLoader /> : children}</div>
+    )
 
-    if (!dataLoaded) {
-        <></>
-    }
-    else {
-        return (
-            <div{...props}>{children}</div>
-        )
-    }
 })
 
 export default PreLoader

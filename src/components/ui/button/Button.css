@@ -26,11 +26,12 @@
     vertical-align: center;
     font-size: 10px;
     font-weight: bold;
-    padding: 0px 5px 0px 5px;
+    /* padding: 0px 5px 0px 5px; */
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
     background-color: transparent;
+     min-width: 50px;
 }
 
 .card_button:disabled {
@@ -46,10 +47,11 @@
     color: white;
 }
 
-
-
-
 .custom_button {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
     height: 30px;
     background-color: black;
     color: white;
@@ -61,9 +63,10 @@
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    min-width: 100px;
 }
 
-.custom_button_dark {
+.custom_button.dark {
     height: 30px;
     background-color: black;
     color: white;

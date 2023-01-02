@@ -6,11 +6,9 @@ import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const Password = observer(({ authFormData, setAuthFormData }) => {
+const Password = ({ authFormData, setAuthFormData , comparePassword, setComparePassword}) => {
     const{Translate} = useContext(TranslateContext)
-    const [comparePassword, setComparePassword] = useState('')
     const [comparePasswordActive, setComparePasswordActive] = useState(false)
-
     const password_hint = SetNativeTranslate(Translate.language,{},'password_hint')
     const Password = SetNativeTranslate(Translate.language,{},'password')
     const compare_passwords = SetNativeTranslate(Translate.language,{},'compare_passwords')
@@ -61,6 +59,6 @@ const Password = observer(({ authFormData, setAuthFormData }) => {
             </VerticalContainer>
         </VerticalContainer>
     )
-})
+}
 
 export default Password

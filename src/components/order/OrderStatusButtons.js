@@ -254,8 +254,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                     <><CardRow>
                         <CardButton onClick={postpone}>{SetNativeTranslate(Translate.language, {}, 'postpone')}</CardButton>
                         <CardButton onClick={cancel}>{SetNativeTranslate(Translate.language, {}, 'cancel')}</CardButton>
-                        {thisOrder.order_type === 'auction' ? <CardButton onClick={toOrder}> {SetNativeTranslate(Translate.language, {}, 'order')}</CardButton> : thisOrder.order_type === 'order' ? <CardButton onClick={toAuction}>{SetNativeTranslate(Translate.language, {}, 'auction')}</CardButton> : <></>}
-
+                        <CardButton onClick={thisOrder.order_type === 'auction' ? toOrder : toAuction}> {SetNativeTranslate(Translate.language, {}, thisOrder.order_type === 'auction' ? 'order' : 'auction')}</CardButton>
                     </CardRow>
                         {parent === 'order' ?
                             <OfferComponent thisOrder={thisOrder} thisOrderOffers={thisOrderOffers} thisOrderNoPartners={thisOrderNoPartners} thisCarrierOffer={thisCarrierOffer}

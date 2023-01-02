@@ -98,7 +98,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'order', russian: 'Заказ', english: 'Order', spain: '', type: 'order_type' },
         { service: 'auction', russian: 'Аукцион', english: 'Auction', spain: '', type: 'order_type' },
         { service: 'template', russian: 'Шаблон', english: 'Template', spain: '', type: 'order_type' },
-        { service: 'back_to_order_list', russian: 'вернуться к списку заказов', english: 'back to order list', spain: '', type: 'button' },
+        { service: 'back_to_order_list', russian: 'Вернуться к списку заказов', english: 'Back to order list', spain: '', type: 'button' },
 
         { service: 'status', russian: 'Статус', english: 'Status', spain: '', type: 'field_name' },
         { service: 'phone', russian: 'Телефон', english: 'Phone', spain: '', type: 'field_name' },

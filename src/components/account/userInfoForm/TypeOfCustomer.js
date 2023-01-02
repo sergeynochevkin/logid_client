@@ -7,7 +7,7 @@ import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 
-const TypeOfCustomer = observer( ({ formData, setFormData }) => {
+const TypeOfCustomer =  ({ formData, setFormData }) => {
 
     const { Translate } = useContext(TranslateContext)
 
@@ -41,6 +41,6 @@ const TypeOfCustomer = observer( ({ formData, setFormData }) => {
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default TypeOfCustomer
