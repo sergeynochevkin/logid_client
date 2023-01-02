@@ -1,0 +1,7 @@
+.filter_reset_icon {
+    cursor: pointer
+}
+
+.filter_reset_icon:hover {
+    color: grey;
+}

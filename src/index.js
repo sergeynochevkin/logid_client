@@ -55,7 +55,13 @@ const Global = createGlobalStyle`
   padding:0;
   font-family: 'Jost', sans-serif;      
      }
-     
+ a{
+  color:lightgrey;
+  text-decoration:none;
+     }
+  a:hover{
+  color:grey;
+     }
 `
 const theme = {
   media: {

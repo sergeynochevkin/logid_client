@@ -37,6 +37,13 @@
 .loader.page {
     width: 200px;
     height: 200px;
+    /* color: white; */
+}
+
+.page_loader_error_message{
+    text-align: left;
+    max-width: 70%;
+    color: grey;
 }
 
 
@@ -58,5 +65,11 @@
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .page_loader_error_message{
+        text-align: justify;
     }
 }
