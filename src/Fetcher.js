@@ -116,7 +116,6 @@ const Fetcher = observer(() => {
                         })
                     }      
                     if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
-                        console.log('yes');
                         order.setOrder(data.rows.find(el => el.id === order.order.id))
                     }                             
                     if ((order_status !== 'new' || order_status !== 'postponed') && data.length !== 0) {

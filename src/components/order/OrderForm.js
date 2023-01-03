@@ -46,9 +46,7 @@ const OrderForm = observer(() => {
     const [orderForWho, setOrderForWho] = useState('all')
     const { Adress } = useContext(AdressContext)
     const { Setting } = useContext(SettingContext)
-
     const [calculate, setCalculate] = useState(false)
-
     const Edited = SetNativeTranslate(Translate.language, {}, 'edited')
     const Order = SetNativeTranslate(Translate.language, {}, 'order')
     const Auction = SetNativeTranslate(Translate.language, {}, 'auction')
@@ -201,7 +199,8 @@ const OrderForm = observer(() => {
         setFormData(initialValue)
         setPointFormData(pointInitialValue)
         if (option === 'edit') {
-            // ComponentFunction.setOrdersComponentFunction('orderItem')
+            // ComponentFunction.setOrdersComponentFunction('orderList')
+            order.setOrder(formData)
             ComponentFunction.setPageFunction('orderList')
         } else {
             ComponentFunction.setFunction(formData.order_status)
@@ -267,9 +266,9 @@ const OrderForm = observer(() => {
                 formData.oldPointsId,
                 formData.direction_response
             )
-            await createPoint(pointFormData)
-            fetcher.setStatus(formData.order_status)
-            fetcher.setCreate(true)
+            await createPoint(pointFormData).then(
+                fetcher.setStatus(formData.order_status),
+                fetcher.setCreate(true))
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
             afterAction('edit')
         } catch (e) {

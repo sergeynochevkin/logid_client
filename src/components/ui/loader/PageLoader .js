@@ -4,7 +4,6 @@ import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import './Loader.css'
 
 const PageLoader = () => {
-    const { Translate } = useContext(TranslateContext)
     const [wait, setWait] = useState(true)
 
     const waitAction = () => {

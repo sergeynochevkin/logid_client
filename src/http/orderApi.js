@@ -115,6 +115,7 @@ export const editOrder = async (
     for_partner,
     for_group,
     oldPointsId,
+    direction_response,
     city_place_id
 ) => {
     await $authHost.post('api/order/edit', {
@@ -144,6 +145,7 @@ export const editOrder = async (
         for_partner,
         for_group,
         oldPointsId,
+        direction_response,
         city_place_id
     })
 }

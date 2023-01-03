@@ -61,9 +61,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         if (parent === 'order') {
             boost(thisOrder.id)
             fetcher.setNewStatus(status)
-            fetcher.setDividedOrders(true)
+            fetcher.setDividedOrders(true)          
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
-            sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', status === 'disrupt' ? 'canceled' : status)
+            sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', status === 'disrupt' ? 'canceled' : status)          
             if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
                 ComponentFunction.setOrdersComponentFunction('orderList')
             }
