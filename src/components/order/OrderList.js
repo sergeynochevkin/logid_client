@@ -14,6 +14,10 @@ const OrderList = observer(() => {
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
 
+  const setFunction = () => {
+
+  }
+
   return (
     <>
       {Object.keys(UserInfo.userInfo).length !== 0 ?

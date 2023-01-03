@@ -62,6 +62,23 @@ const User = observer(() => {
     language: language
   }) : false
 
+  const setFunction = (Function, OrdersComponentFunction, PageFunction, OrderFormFunction) => {
+    if (OrdersComponentFunction) {
+      ComponentFunction.setOrdersComponentFunction(OrdersComponentFunction)
+    }
+    if (Function) {
+      ComponentFunction.setFunction(Function)
+    }
+    if (PageFunction) {
+      ComponentFunction.setPageFunction(PageFunction)
+    }
+    if (OrderFormFunction) {
+      ComponentFunction.setOrderFormFunction(OrderFormFunction)
+    }
+    if (PageFunction !== 'orderForm' && ComponentFunction.orderFormFunction !== 'newOrder' && user.user.role === 'customer') {
+      ComponentFunction.setOrderFormFunction('newOrder')
+    }
+  }
 
   if (!isLoaded) { return <PageLoader /> }
   else {
@@ -85,21 +102,14 @@ const User = observer(() => {
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
               <div className='scroll_content_container'>
                 <BookMark onClick={() => {
-                  ComponentFunction.setOrdersComponentFunction('orderList')
-                  order.setOrders([])
-                  ComponentFunction.setFunction('inWork');
-                  ComponentFunction.setPageFunction('orderList')
+                  setFunction('inWork', 'orderList', 'orderList')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'grey',
                 }}>{SetNativeTranslate(Translate.language, {}, 'orders')}</BookMark>
 
                 {user.user.role === 'customer' &&
                   <BookMark onClick={() => {
-                    ComponentFunction.setOrderFormFunction('newOrder')
-                    ComponentFunction.setPageFunction('orderForm')
-                    order.setOrders([])
-                    if (ComponentFunction.orderFormFunction !== 'edit') {
-                    }
+                    setFunction(false, false, 'orderForm', 'newOrder')
                     order.setIntegrationId()
                   }} style={{
                     color: ComponentFunction.PageFunction === 'orderForm' && 'grey',
@@ -108,31 +118,28 @@ const User = observer(() => {
 
                 {user.user.role === 'carrier' &&
                   <BookMark onClick={() => {
-                    ComponentFunction.setPageFunction('transport')
+                    setFunction(false, false, 'transport', false)
                   }} style={{
                     color: ComponentFunction.PageFunction === 'transport' && 'grey',
                   }}>{SetNativeTranslate(Translate.language, {}, 'transports')}</BookMark>
                 }
 
                 <BookMark onClick={() => {
-                  // ComponentFunction.setOrdersComponentFunction('orderList')
-                  ComponentFunction.setFunction('partners')
-                  ComponentFunction.setPageFunction(user.user.role === 'customer' ? 'carriers' : 'customers')
+                  setFunction('partners', false, user.user.role === 'customer' ? 'carriers' : 'customers', false)
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'carriers' || ComponentFunction.PageFunction === 'customers' ? 'grey' : '',
+                  color: ComponentFunction.PageFunction === 'carriers' || ComponentFunction.PageFunction === 'customers' ? 'grey' : false,
                 }}>{SetNativeTranslate(Translate.language, {}, 'carriers')}</BookMark>
 
                 <BookMark onClick={() => {
-                  // ComponentFunction.setOrdersComponentFunction('orderList')
-                  ComponentFunction.setPageFunction('account')
+                  setFunction(false, false, 'account', false)
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'grey',
                 }}>{SetNativeTranslate(Translate.language, {}, 'account')}</BookMark>
                 {/* 
                 <BookMark onClick={() => {
-                  ComponentFunction.setPageFunction('settings');                
-                }} style={{
-                  color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
+                    setFunction(false, false, 'settings', false)    
+                   }} style={{
+                  color: ComponentFunction.PageFunction === 'settings' && 'grey',
                 }}>{SetNativeTranslate(Translate.language,{},'settings')}</BookMark> */}
               </div>
             </div>
