@@ -112,7 +112,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
             mapTypeId: google.maps.MapTypeId.ROADMAP,
         })
         setMapTheme(map)
-        setGMap(map)     
+        setGMap(map)
         if ((ComponentFunction.OrdersComponentFunction === 'orderItem') && response) {
             //eslint-disable-next-line no-undef
             new google.maps.DirectionsRenderer(
@@ -132,7 +132,9 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         setService(new google.maps.DirectionsService())
         //eslint-disable-next-line no-undef
         setRenderer(new google.maps.DirectionsRenderer())
+    }, [])
 
+    useEffect(() => {
         if (user.user.role === 'customer' && ComponentFunction.OrdersComponentFunction === 'orderItem') {
             let lat
             let lng
@@ -163,7 +165,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     }, [])
 
     useEffect(() => {
-        if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
+        if (ComponentFunction.OrdersComponentFunction === 'orderItem' && ComponentFunction.PageFunction !== 'orderForm') {
             initMap('map', JSON.parse(order.order.direction_response))
         } else {
             initMap('map')
@@ -284,8 +286,15 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         }
     }, [gMap])
 
-    useEffect(() => {      
-        if (ComponentFunction.PageFunction === 'orderForm' && user.user.role === 'customer'  ) {
+    useEffect(() => {
+        if (ComponentFunction.PageFunction === 'orderForm' && (ComponentFunction.orderFormFunction === 'edit' || ComponentFunction.orderFormFunction === 'arc' || ComponentFunction.orderFormFunction === 'pattern')) {
+            setCalculate('true')
+        }
+    }, [gMap])
+
+
+    useEffect(() => {
+        if (ComponentFunction.PageFunction === 'orderForm' && user.user.role === 'customer') {
             calculateRoute()
         }
     }, [calculate])
@@ -487,20 +496,20 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
         await renderer.setDirections(response)
     }
     async function calculateRoute() {
-        if (!pointFormData.find(el => !el.latitude) && !pointFormData.find(el => !el.longitude) ) {
+        if (!pointFormData.find(el => !el.latitude) && !pointFormData.find(el => !el.longitude) && gMap) {
             //eslint-disable-next-line no-undef
             let firstPoint = pointFormData.find(el => el.sequence === 1).point.value
             let lastPoint = pointFormData.find(el => el.sequence === 50).point.value
             let wayPointsArray = []
             let pointsArray = [...pointFormData.filter(el => el.sequence !== 1 && el.sequence !== 50).map(el => el.point.value)]
-            
+
             for (const point of pointsArray) {
                 let newPoint = {
                     location: point,
                     stopover: true
                 }
                 wayPointsArray.push(newPoint)
-            }            
+            }
 
             const results = await service.route({
                 origin: firstPoint,
@@ -571,16 +580,18 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
             {ComponentFunction.PageFunction === 'orderForm' &&
                 <div className={'map_info_container'}>
                     <div className={'button_container'}>
-                        <button
+                        {/* <button
                             className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
                             onClick={calculateRoute}
                             disabled={pointsNotValid}
-                        >{SetNativeTranslate(Translate.language, {}, 'calculate_route')}</button>
-                        <button
-                            className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
-                            onClick={clearRoute}
-                            disabled={!directionsResponse}
-                        >{SetNativeTranslate(Translate.language, {}, 'clear_route')}</button>
+                        >{SetNativeTranslate(Translate.language, {}, 'calculate_route')}</button> */}
+                        {ComponentFunction.orderFormFunction === 'newOrder' &&
+                            <button
+                                className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
+                                onClick={clearRoute}
+                                disabled={!directionsResponse}
+                            >{SetNativeTranslate(Translate.language, {}, 'clear_route')}</button>
+                        }
                     </div>
 
                     {distance &&
@@ -616,7 +627,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
             }
             {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && user.user.role === 'carrier' && Limit.user_limits.carrier_take_order_city_limit !== 0) &&
                 <div className={'map_info_container'}>
-                    <CitySelector  calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
+                    <CitySelector calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
                 </div>
             }
         </div>

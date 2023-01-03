@@ -16,6 +16,8 @@ import SettingsComponent from '../components/setting/SettingsComponent'
 import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 import TransportComponent from '../components/transport/TransportComponent'
+import MapComponent from '../components/map/MapComponent'
+import PageLoader from '../components/ui/loader/PageLoader '
 
 const Container = styled.div`
 display:flex;
@@ -36,7 +38,7 @@ const User = observer(() => {
   }, [])
 
   const [libraries] = useState(['places']);
-  
+
   // const { isLoaded } = useJsApiLoader({
   //   // id: "__googleMapsScriptId",
   //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -61,9 +63,8 @@ const User = observer(() => {
   }) : false
 
 
-  if (!isLoaded) { return <PageContainer /> }
+  if (!isLoaded) { return <PageLoader /> }
   else {
-
     return (
       <PageContainer>
         <title>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</title>
@@ -88,18 +89,16 @@ const User = observer(() => {
                   order.setOrders([])
                   ComponentFunction.setFunction('inWork');
                   ComponentFunction.setPageFunction('orderList')
-                  ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'orderList' && 'grey',
                 }}>{SetNativeTranslate(Translate.language, {}, 'orders')}</BookMark>
 
                 {user.user.role === 'customer' &&
                   <BookMark onClick={() => {
-                    // ComponentFunction.setOrdersComponentFunction('orderList')
+                    ComponentFunction.setOrderFormFunction('newOrder')
                     ComponentFunction.setPageFunction('orderForm')
                     order.setOrders([])
                     if (ComponentFunction.orderFormFunction !== 'edit') {
-                      ComponentFunction.setOrderFormFunction('newOrder')
                     }
                     order.setIntegrationId()
                   }} style={{
@@ -119,7 +118,6 @@ const User = observer(() => {
                   // ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setFunction('partners')
                   ComponentFunction.setPageFunction(user.user.role === 'customer' ? 'carriers' : 'customers')
-                  ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'carriers' || ComponentFunction.PageFunction === 'customers' ? 'grey' : '',
                 }}>{SetNativeTranslate(Translate.language, {}, 'carriers')}</BookMark>
@@ -127,14 +125,12 @@ const User = observer(() => {
                 <BookMark onClick={() => {
                   // ComponentFunction.setOrdersComponentFunction('orderList')
                   ComponentFunction.setPageFunction('account')
-                  ComponentFunction.setOrderFormFunction('newOrder')
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'grey',
                 }}>{SetNativeTranslate(Translate.language, {}, 'account')}</BookMark>
                 {/* 
                 <BookMark onClick={() => {
-                  ComponentFunction.setPageFunction('settings'); ComponentFunction.setOrdersComponentFunction('orderList')
-                  ComponentFunction.setOrderFormFunction('newOrder')
+                  ComponentFunction.setPageFunction('settings');                
                 }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'lightgrey',
                 }}>{SetNativeTranslate(Translate.language,{},'settings')}</BookMark> */}
@@ -146,12 +142,17 @@ const User = observer(() => {
         {
           ComponentFunction.PageFunction === 'orderList' ? <OrderList /> :
             ComponentFunction.PageFunction === 'account' ? <Account /> :
-              user.user.role === 'customer' && ComponentFunction.PageFunction === 'orderForm' ? <OrderForm /> :
+              user.user.role === 'customer' && ComponentFunction.PageFunction === 'orderForm' ?
+                <OrderForm /> :
                 user.user.role === 'carrier' && ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
                   ComponentFunction.PageFunction === 'carriers' ? <Partners /> :
                     ComponentFunction.PageFunction === 'settings' ? <SettingsComponent /> :
                       <OrderList />
         }
+
+        {/* {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.Function === 'new' && user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction !== 'orderItem') && <MapComponent />} */}
+        {/* {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent /> : <></>} */}
+
         <Area50></Area50>
       </PageContainer>
     )

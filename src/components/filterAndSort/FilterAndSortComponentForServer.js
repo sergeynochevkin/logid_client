@@ -67,7 +67,7 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                     FilterAndSort.filters[ComponentFunction.Function].name !== '' ||
                     FilterAndSort.filters[ComponentFunction.Function].partnerName !== ''
                 ) ?
-                <span class={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
+                <span className={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
                     onClick={resetFilters}
                 >
                     filter_alt_off
@@ -78,7 +78,7 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                     FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
                     FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''
                 ) ?
-                <span class={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
+                <span className={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
                     onClick={resetFilters}
                 >
                     filter_alt_off

@@ -38,7 +38,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
     const { fetcher } = useContext(FetcherContext)
-    const {Setting} = useContext(SettingContext)
+    const { Setting } = useContext(SettingContext)
 
     let thisOrder
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisOrder = oneOrder : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisOrder = order.order : thisOrder = {}
@@ -109,9 +109,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         <>{thisOrderPoints.length > 0 ?
             <CardContainer
                 onClick={() => {
-                    // if (ComponentFunction.OrdersComponentFunction !== 'orderItem') {
-                    //     Point.setPoints([])
-                    // }
                     order.setOrder(thisOrder)
                     Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
                     Partner.setPartner(thisPartner)
@@ -119,17 +116,10 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     ComponentFunction.setOrdersComponentFunction('orderItem')
                 }}
                 thisOrder={thisOrder}
-            // style={{                    
-            //     boxShadow: `0px 5px 10px 0px ${order.group.includes(thisOrder.id) ? 'grey' : setColor(thisOrder.order_status)}`,
-            //     minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
-            //     marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
-            //     cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
-            //     backgroundColor: State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(thisOrder.id) ? 'rgb(255, 253, 231, 0.8)' : ''
-            // }}
             >
                 {ComponentFunction.OrdersComponentFunction === 'orderItem' ?
                     <>
-                        <span class={`material-symbols-outlined order_action_icon ${Setting.app_theme === 'dark' ? 'dark' : ''}`}
+                        <span className={`material-symbols-outlined order_action_icon ${Setting.app_theme === 'dark' ? 'dark' : ''}`}
                             onClick={(event) => {
                                 event.stopPropagation()
                                 ComponentFunction.setFunction(thisOrder.order_status)

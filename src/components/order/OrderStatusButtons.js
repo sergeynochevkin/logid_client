@@ -52,7 +52,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     // }
 
     const boost = (id) => {
-        order.setDividedOrders(...order.divided_orders[ComponentFunction.Function].filter(el => el.id !== id), ComponentFunction.Fuction)
+        order.setDividedOrders([...order.divided_orders[ComponentFunction.Function].filter(el => el.id !== id)], ComponentFunction.Fuction)
         order.setTotalCount(order.totalCount[ComponentFunction.Function] - 1, ComponentFunction.Fuction)
         order.setFilteredCount(order.filtered_count[ComponentFunction.Function] - 1, ComponentFunction.Fuction)
     }
@@ -61,9 +61,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         if (parent === 'order') {
             boost(thisOrder.id)
             fetcher.setNewStatus(status)
-            fetcher.setDividedOrders(true)          
+            fetcher.setDividedOrders(true)
             order.setGroup(order.group.filter(el => el !== thisOrder.id))
-            sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', status === 'disrupt' ? 'canceled' : status)          
+            sendMail(Translate.language, user.user.role, thisOrder.id, 'order_status', status === 'disrupt' ? 'canceled' : status)
             if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
                 ComponentFunction.setOrdersComponentFunction('orderList')
             }

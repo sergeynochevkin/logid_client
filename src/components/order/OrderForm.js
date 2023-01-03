@@ -65,8 +65,9 @@ const OrderForm = observer(() => {
     const arrival_time = SetNativeTranslate(Translate.language, {}, 'arrival_time')
     const finish_time = SetNativeTranslate(Translate.language, {}, 'finish_time')
     const symbols = SetNativeTranslate(Translate.language, {}, 'symbols')
+    const [patternLoaded, setPatternLoaded] = useState(false)
 
-    let initialTime = new Date();
+    let initialTime = new Date();    
 
     if (ComponentFunction.orderFormFunction === 'newOrder') {
         var initialValue = {
@@ -103,6 +104,7 @@ const OrderForm = observer(() => {
     let orderPattern
     let pointPatternInitialValue = []
     let pointPattern
+
 
     if (ComponentFunction.orderFormFunction !== 'newOrder') {
         orderPattern = JSON.parse(order.pattern)
@@ -195,18 +197,27 @@ const OrderForm = observer(() => {
         ComponentFunction.orderFormFunction === 'newOrder' ? pointInitialValue : pointPatternInitialValue
     )
 
+
+    const boost = (id) => {
+        order.setDividedOrders([...order.divided_orders[formData.order_status].filter(el => el.id !== id)], formData.order_status)
+        order.setTotalCount(order.totalCount[formData.order_status] - 1, formData.order_status)
+        order.setFilteredCount(order.filtered_count[formData.order_status] - 1, formData.order_status)
+    }
+
     const afterAction = (option) => {
-        setFormData(initialValue)
-        setPointFormData(pointInitialValue)
         if (option === 'edit') {
-            // ComponentFunction.setOrdersComponentFunction('orderList')
-            order.setOrder(formData)
+            boost(formData.id)
+            // order.setOrder(formData)
+            ComponentFunction.setOrderFormFunction('newOrder')
+            ComponentFunction.setOrdersComponentFunction('orderList')
             ComponentFunction.setPageFunction('orderList')
         } else {
             ComponentFunction.setFunction(formData.order_status)
             ComponentFunction.setOrdersComponentFunction('orderList')
             ComponentFunction.setPageFunction('orderList')
         }
+        setFormData(initialValue)
+        setPointFormData(pointInitialValue)
     }
 
     const send = (event) => {
@@ -266,9 +277,9 @@ const OrderForm = observer(() => {
                 formData.oldPointsId,
                 formData.direction_response
             )
-            await createPoint(pointFormData).then(
-                fetcher.setStatus(formData.order_status),
-                fetcher.setCreate(true))
+            await createPoint(pointFormData)
+            fetcher.setStatus(formData.order_status)
+            fetcher.setCreate(true)
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
             afterAction('edit')
         } catch (e) {
@@ -536,8 +547,8 @@ const OrderForm = observer(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))
     }, [pointFormData])
 
-    const parent = 'orderForm'
-
+    const parent = 'orderForm'   
+    
     return (
         <VerticalContainer
             style={{ width: '100%', alignItems: 'center' }}
@@ -624,6 +635,7 @@ const OrderForm = observer(() => {
                     {ComponentFunction.orderFormFunction === 'edit' ?
                         <Button
                             onClick={() => {
+                                ComponentFunction.setOrdersComponentFunction('orderList')
                                 ComponentFunction.setPageFunction('orderList')
                                 ComponentFunction.setOrderFormFunction('newOrder')
                                 Notification.addNotification([{ id: v4(), type: 'error', message: formData.order_type.value === 'order' ? order_editing_canceled : auction_editing_canceled }]);
