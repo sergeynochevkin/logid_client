@@ -219,7 +219,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     }
 
     const restore = async (event) => {
-        await updateOrder('restote', '', thisOrder.id)
+        await updateOrder('restote', '', thisOrder.id).then(event.stopPropagation())
         if (parent === 'order') {
             order.setPattern(JSON.stringify(thisOrder))
             Point.setPattern(JSON.stringify(thisOrderPoints))
@@ -232,7 +232,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     }
 
     const edit = async (event) => {
-        await updateOrder('edit', '', thisOrder.id)
+        await updateOrder('edit', '', thisOrder.id).then(event.stopPropagation())
         if (parent === 'order') {
             order.setPattern(JSON.stringify(thisOrder))
             Point.setPattern(JSON.stringify(thisOrderPoints))
