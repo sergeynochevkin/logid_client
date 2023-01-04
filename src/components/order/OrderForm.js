@@ -67,7 +67,7 @@ const OrderForm = observer(() => {
     const symbols = SetNativeTranslate(Translate.language, {}, 'symbols')
     const [patternLoaded, setPatternLoaded] = useState(false)
 
-    let initialTime = new Date();    
+    let initialTime = new Date();
 
     if (ComponentFunction.orderFormFunction === 'newOrder') {
         var initialValue = {
@@ -380,34 +380,6 @@ const OrderForm = observer(() => {
         e.target.style.background = ''
     }
 
-    function move_up(point) {
-        setCurrentPoint(point)
-        setPointFormData(pointFormData.map(p => {
-            if (p.sequence === point.sequence) {
-                return { ...p, sequence: currentPoint.sequence - 1 }
-            }
-            if (p.sequence === point.sequence - 1) {
-                return { ...p, sequence: currentPoint.sequence + 1 }
-            }
-            return p
-        }))
-        setCalculate(true)
-    }
-
-    function move_down(point) {
-        setCurrentPoint(point)
-        setPointFormData(pointFormData.map(p => {
-            if (p.sequence === point.sequence) {
-                return { ...p, sequence: currentPoint.sequence + 1 }
-            }
-            if (p.sequence === point.sequence + 1) {
-                return { ...p, sequence: currentPoint.sequence - 1 }
-            }
-            return p
-        }))
-        setCalculate(true)
-    }
-
     const sortPoints = (a, b) => {
         if (a.sequence > b.sequence) {
             return 1
@@ -504,14 +476,29 @@ const OrderForm = observer(() => {
         }
     }, [pointFormData])
 
-    const addField = () => {
+    const addField = (pointItem) => {
+        let newSequence = pointItem.sequence !== 50 ? pointItem.sequence + 1 : 50
         if (pointFormData.length >= Limit.user_limits.customer_new_order_point_limit) {
             Notification.addNotification([{ id: v4(), type: 'error', message: `${point_limit} ${Limit.user_limits.customer_new_order_point_limit}. ${you_can_change_subscription}` }])
         } else {
             let idArray = pointFormData.map(el => el.id)
             let maxId = Math.max(...idArray)
-            let orderArray = pointFormData.filter(el => el.sequence !== 50).map(el => el.sequence)
-            let maxOrder = Math.max(...orderArray)
+            let sequenceArray = pointFormData.filter(el => el.sequence !== 50).map(el => el.sequence)
+            let maxSequence = Math.max(...sequenceArray)
+            let data = [...pointFormData]
+            if (pointItem.sequence !== 50) {
+                for (const point of data) {
+                    if (point.sequence > pointItem.sequence && point.sequence < 49) {
+                        point.sequence = point.sequence + 1
+                    }
+                }
+                setPointFormData(data)
+            } else {
+                let pointForEdit = data.find(el => el.sequence === 50)
+                pointForEdit.sequence = maxSequence + 1
+                let cleanData = data.filter(el => el.sequence !== pointItem.sequence)
+                setPointFormData([...cleanData, pointForEdit])
+            }
             let newField = {
                 id: maxId + 1,
                 point: { value: '', isDirty: false, isEmptyError: true, errorMessage: '' },
@@ -519,7 +506,7 @@ const OrderForm = observer(() => {
                 longitude: undefined,
                 time: { value: setTime(initialTime, 240, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
                 status: 'new',
-                sequence: maxOrder + 1,
+                sequence: newSequence,
                 name: '',
                 customer_comment: { value: '', isDirty: false, minLengthError: false, maxLengthError: false, isEmptyError: true, errorMessage: '' },
                 carrier_comment: '',
@@ -532,10 +519,67 @@ const OrderForm = observer(() => {
         }
     }
 
-    const removeField = (index) => {
-        let data = [...pointFormData];
-        data.splice(index, 1)
-        setPointFormData(data)
+    const removeField = (pointItem) => {
+        if (pointItem.sequence !== 50) {
+            let data = [...pointFormData.filter(el => el.sequence !== pointItem.sequence)]
+            for (const point of data) {
+                if (point.sequence > pointItem.sequence && point.sequence !== 50) {
+                    point.sequence = point.sequence - 1
+                }
+            }
+            setPointFormData(data)
+        } else {
+            let sequenceArray = pointFormData.filter(el => el.sequence !== 50).map(el => el.sequence)
+            let maxSequence = Math.max(...sequenceArray)
+            let pointForEdit = pointFormData.find(el => el.sequence === maxSequence)
+            pointForEdit.sequence = 50
+            let data = [...pointFormData.filter(el => el.sequence !== pointItem.sequence)]
+            setPointFormData([...data, pointForEdit])
+        }
+        setCalculate(true)
+    }
+
+    function move_up(pointItem) {
+        let data = [...pointFormData]
+        let pointForUp
+        let pointForDown
+        if (pointItem.sequence !== 50) {
+            pointForUp = { ...pointItem }
+            pointForDown = pointFormData.find(el => el.sequence === pointItem.sequence - 1)
+            pointForUp.sequence = pointForUp.sequence - 1
+            pointForDown.sequence = pointForDown.sequence + 1
+        } else {
+            let sequenceArray = pointFormData.filter(el => el.sequence !== 50).map(el => el.sequence)
+            let maxSequence = Math.max(...sequenceArray)
+            pointForUp = { ...pointItem }
+            pointForDown = pointFormData.find(el => el.sequence === maxSequence)
+            pointForUp.sequence = maxSequence
+            pointForDown.sequence = 50
+        }
+        let cleanData = data.filter(el => el.id !== pointForUp.id && el.id !== pointForDown.id)
+        setPointFormData([...cleanData, pointForUp, pointForDown])
+        setCalculate(true)
+    }
+
+    function move_down(pointItem) {
+        let sequenceArray = pointFormData.filter(el => el.sequence !== 50).map(el => el.sequence)
+        let maxSequence = Math.max(...sequenceArray)
+        let data = [...pointFormData]
+        let pointForUp
+        let pointForDown
+        if (pointItem.sequence !== maxSequence) {
+            pointForUp = pointFormData.find(el => el.sequence === pointItem.sequence + 1)
+            pointForDown = { ...pointItem }
+            pointForUp.sequence = pointForUp.sequence - 1
+            pointForDown.sequence = pointForDown.sequence + 1
+        } else {
+            pointForUp = pointFormData.find(el => el.sequence === 50)
+            pointForDown = { ...pointItem }
+            pointForUp.sequence = maxSequence
+            pointForDown.sequence = 50
+        }
+        let cleanData = data.filter(el => el.id !== pointForUp.id && el.id !== pointForDown.id)
+        setPointFormData([...cleanData, pointForUp, pointForDown])
         setCalculate(true)
     }
 
@@ -547,8 +591,8 @@ const OrderForm = observer(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))
     }, [pointFormData])
 
-    const parent = 'orderForm'   
-    
+    const parent = 'orderForm'
+
     return (
         <VerticalContainer
             style={{ width: '100%', alignItems: 'center' }}
@@ -566,6 +610,8 @@ const OrderForm = observer(() => {
                 >
                     {pointFormData.sort(sortPoints).map((pointItem, index) =>
                         <OrderFormPointItem
+
+                            addField={addField}
                             setCurrentPoint={setCurrentPoint}
                             move_up={move_up}
                             move_down={move_down}
@@ -586,8 +632,6 @@ const OrderForm = observer(() => {
                         />
                     )}
                 </VerticalContainer>
-
-                {pointFormData.length < 50 ? <AddDeleteFieldButton onClick={addField}>{SetNativeTranslate(Translate.language, {}, 'add_point')}</AddDeleteFieldButton> : <></>}
 
                 <OrderComment
                     formData={formData}

@@ -92,7 +92,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
 
         { service: 'select', russian: 'Выбрать', english: 'Select', spain: '', type: 'button' },
         { service: 'deselect', russian: 'Отменить выбор', english: 'Deselect', spain: 'Deselect', type: 'button' },
-        { service: 'to_favorites', russian: 'Добавить избранное', english: 'Add to favorites', spain: '', type: 'button' },
+        { service: 'to_favorites', russian: 'Добавить в избранное', english: 'Add to favorites', spain: '', type: 'button' },
         { service: 'from_favorites', russian: 'Убрать из избранного', english: 'Remove from favorites', spain: '', type: 'button' },
 
         { service: 'order', russian: 'Заказ', english: 'Order', spain: '', type: 'order_type' },

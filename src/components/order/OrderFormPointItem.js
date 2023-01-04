@@ -11,7 +11,7 @@ import '../ui/form/Form.css'
 import './Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const OrderFormPointItem = observer(({ pointFormData, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate, move_up, move_down, setCurrentPoint }) => {
+const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate, move_up, move_down, setCurrentPoint }) => {
 
     const { UserInfo } = useContext(UserInfoContext)
     const { Setting } = useContext(SettingContext)
@@ -29,8 +29,9 @@ const OrderFormPointItem = observer(({ pointFormData, setPointFormData, pointIte
         )
     }, [])
 
+
     let autocomplete
-    function initAutocomplete(id, country) {
+    function initAutocomplete(id) {
         //eslint-disable-next-line no-undef
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById(id),
@@ -38,7 +39,7 @@ const OrderFormPointItem = observer(({ pointFormData, setPointFormData, pointIte
                 bounds: Setting.bounds,
                 strictBounds: true,
                 types: ['geocode'],
-                componentRestrictions: { 'country': [`${country}`] },
+                componentRestrictions: { 'country': [`${Adress.country.google_code}`] },
                 fields: ['geometry', 'address_components', 'name'],
                 language: Adress.country.google_language
             },
@@ -48,13 +49,13 @@ const OrderFormPointItem = observer(({ pointFormData, setPointFormData, pointIte
 
     useEffect(() => {
         if (Adress.country) {
-            initAutocomplete(pointItem.id, Adress.country.google_code)
+            initAutocomplete(pointItem.id)
         }
     }, [])
 
     useEffect(() => {
         if (Adress.country) {
-            initAutocomplete(pointItem.id, Adress.country.google_code)
+            initAutocomplete(pointItem.id)
         }
     }, [pointFormData.length, Setting.bounds_limit])
 
@@ -99,110 +100,133 @@ const OrderFormPointItem = observer(({ pointFormData, setPointFormData, pointIte
             draggable={true}
             key={index}
         >
-            <VerticalContainer
-                style={{ gap: '0px' }}
-            >
-                <Input
-                    id={pointItem.id}
-                    name='point'
-                    defaultValue={pointItem.point.value}
-                    onChange={() => {
-                        if (pointFormData[index].value !== '') {
-                            dataReset()
-                        }
-                    }}
-                    onBlur={event => {
-                        handleFormBlur(index, event)
-                    }}
-                    style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                ></Input>
-                <FieldName
-                    style={{
-                        fontWeight: 'normal',
-                        color: 'rgb(254, 111, 103,0.8)'
-                    }}
-                >
-                    {pointItem.point.isDirty && pointItem.point.isEmptyError ?
-                        pointItem.point.errorMessage :
-                        ''
-                    }
-                </FieldName>
-            </VerticalContainer>
-            <VerticalContainer
-                style={{ gap: '0px' }}
-            >
-                <Input
-                    name='customer_comment'
-                    placeholder={SetNativeTranslate(Translate.language, {}, 'comment')}
-                    defaultValue={pointItem.customer_comment.value}
-                    onChange={event => handleFormChange(index, event)}
-                    onBlur={event => handleFormBlur(index, event)}
-                ></Input>
-                <FieldName
-                    style={{
-                        fontWeight: 'normal',
-                        color: 'rgb(254, 111, 103,0.8)'
-                    }}
-                >
-                    {!pointItem.customer_comment.isEmptyError && (pointItem.customer_comment.minLengthError || pointItem.customer_comment.maxLengthError) ?
-                        pointItem.customer_comment.errorMessage :
-                        ''
-                    }
-                </FieldName>
-            </VerticalContainer>
-            {index === 0 || index === pointFormData.length - 1 ?
+            <div className='point_fields_container'>
                 <VerticalContainer
                     style={{ gap: '0px' }}
                 >
                     <Input
-                        name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
-                        type="datetime-local"
-                        defaultValue={pointItem.time.value}
-                        onChange={event => handleFormChange(index, event)}
-                        onBlur={event => handleFormBlur(index, event)}
-                        style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                    >
-                    </Input>
+                        id={pointItem.id}
+                        name='point'
+                        defaultValue={pointItem.point.value}
+                        onChange={() => {
+                            if (pointFormData[index].value !== '') {
+                                dataReset()
+                            }
+                        }}
+                        onBlur={event => {
+                            handleFormBlur(index, event)
+                        }}
+                        style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                    ></Input>
                     <FieldName
                         style={{
                             fontWeight: 'normal',
                             color: 'rgb(254, 111, 103,0.8)'
                         }}
                     >
-                        {pointItem.time.isEmptyError ?
-                            pointItem.time.errorMessage :
+                        {pointItem.point.isDirty && pointItem.point.isEmptyError ?
+                            pointItem.point.errorMessage :
                             ''
                         }
                     </FieldName>
                 </VerticalContainer>
-                : <></>}
-
+                <VerticalContainer
+                    style={{ gap: '0px' }}
+                >
+                    <Input
+                        name='customer_comment'
+                        placeholder={SetNativeTranslate(Translate.language, {}, 'comment')}
+                        defaultValue={pointItem.customer_comment.value}
+                        onChange={event => handleFormChange(index, event)}
+                        onBlur={event => handleFormBlur(index, event)}
+                    ></Input>
+                    <FieldName
+                        style={{
+                            fontWeight: 'normal',
+                            color: 'rgb(254, 111, 103,0.8)'
+                        }}
+                    >
+                        {!pointItem.customer_comment.isEmptyError && (pointItem.customer_comment.minLengthError || pointItem.customer_comment.maxLengthError) ?
+                            pointItem.customer_comment.errorMessage :
+                            ''
+                        }
+                    </FieldName>
+                </VerticalContainer>
+                {index === 0 || index === pointFormData.length - 1 ?
+                    <VerticalContainer
+                        style={{ gap: '0px' }}
+                    >
+                        <Input
+                            name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
+                            type="datetime-local"
+                            defaultValue={pointItem.time.value}
+                            onChange={event => handleFormChange(index, event)}
+                            onBlur={event => handleFormBlur(index, event)}
+                            style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                        >
+                        </Input>
+                        <FieldName
+                            style={{
+                                fontWeight: 'normal',
+                                color: 'rgb(254, 111, 103,0.8)'
+                            }}
+                        >
+                            {pointItem.time.isEmptyError ?
+                                pointItem.time.errorMessage :
+                                ''
+                            }
+                        </FieldName>
+                    </VerticalContainer>
+                    : <></>}
+            </div>
 
             <div className='poit_action_buttons_container'>
-                {pointFormData.length > 2 && (index !== 0 && index !== pointFormData.length - 1) ? <AddDeleteFieldButton onClick={() => {
-                    removeField(index)
-                }}>{SetNativeTranslate(Translate.language, {}, 'delete_point').toLowerCase()}</AddDeleteFieldButton> : <></>}
 
-                {/* add functionality */}
-                {/* {pointItem.sequence !== 1 ? <>
-                    <AddDeleteFieldButton onClick={() => {
-                        setCurrentPoint(pointItem)
-                        move_up(pointItem)
-                    }}
-                    >{SetNativeTranslate(Translate.language,{},'move_up')}</AddDeleteFieldButton>
-                </> : <></>}
-                {pointItem.sequence !== 50 ? <>
-                    <AddDeleteFieldButton
+
+                {pointItem.sequence !== 1 ?
+                    <span class="material-symbols-outlined point_action_icon"
+                        onClick={() => {
+                            setCurrentPoint(pointItem)
+                            move_up(pointItem)
+                        }}
+                    >
+                        arrow_upward
+                    </span>
+                    : <></>}
+
+                { pointFormData.length !== 50 ?
+                    <span class="material-symbols-outlined point_action_icon"
+                        onClick={() => {
+                            addField(pointItem)
+                        }}
+                    >
+                        add
+                    </span>
+                    : <></>}
+
+                {pointFormData.length > 2 ?
+                    <span class="material-symbols-outlined point_action_icon"
+                        onClick={() => {
+                            removeField(pointItem)
+                        }}
+                    >
+                        close
+                    </span>
+                    : <></>}
+
+
+                {pointItem.sequence !== 50 ?
+                    <span class="material-symbols-outlined point_action_icon"
                         onClick={() => {
                             setCurrentPoint(pointItem)
                             move_down(pointItem)
                         }}
-                    >{SetNativeTranslate(Translate.language,{},'move_down')}</AddDeleteFieldButton>
-                </> : <></>} */}
+                    >
+                        arrow_downward
+                    </span>
+                    : <></>}
+
             </div>
-
-
-
         </div>
     )
 })
