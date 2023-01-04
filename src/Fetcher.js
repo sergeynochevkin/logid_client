@@ -90,7 +90,7 @@ const Fetcher = observer(() => {
 
     //orders
     async function fetch(order_status) {
-        if (Object.keys(UserInfo.userInfo).length !== 0 && order_status !=='partners' && order_status!=='') {
+        if (Object.keys(UserInfo.userInfo).length !== 0 && order_status !== 'partners' && order_status !== '') {
             await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, order_status === 'arc' || order_status === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
                 order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.iAmBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myFavorite, order_status === 'arc' ? 'arc' : '', FilterAndSort.filters).then(async data => {
                     order.setFilteredCount(data.filtered_count, order_status)
@@ -114,10 +114,10 @@ const Fetcher = observer(() => {
                                 Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
                             }
                         })
-                    }      
+                    }
                     if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
                         order.setOrder(data.rows.find(el => el.id === order.order.id))
-                    }                             
+                    }
                     if ((order_status !== 'new' || order_status !== 'postponed') && data.length !== 0) {
                         await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
                     }
@@ -253,6 +253,7 @@ const Fetcher = observer(() => {
         async function fetch() {
             await fetchTransport(UserInfo.userInfo.id).then(data => Transport.setTransports(data))
         }
+        fetch()
         fetcher.setTransports(false)
     }, [fetcher.transports])
 
@@ -260,10 +261,17 @@ const Fetcher = observer(() => {
     useEffect(() => {
         async function fetch() {
             await fetchUser(user.user.id).then(data => user.setUser(data))
+        }
+        fetch()
+        fetcher.setAccountUser(false)
+    }, [fetcher.account_user])
+    useEffect(() => {
+        async function fetch() {
             await fetchUserInfo(user.user.id).then(data => UserInfo.setUserInfo(data))
         }
-        fetcher.setAccount(false)
-    }, [fetcher.account])
+        fetch()
+        fetcher.setAccountUserInfo(false)
+    }, [fetcher.account_user_info])
 
     return (
         <></>)

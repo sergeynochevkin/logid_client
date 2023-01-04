@@ -363,7 +363,9 @@ const OrderForm = observer(() => {
     }
     function dragOverHandler(e) {
         e.preventDefault()
-        e.target.style.background = 'whitesmoke'
+        if (!e.target.classList.contains("custom_input")) {
+            e.target.style.background = 'grey'
+        }
     }
     function dropHandler(e, point) {
         e.preventDefault()

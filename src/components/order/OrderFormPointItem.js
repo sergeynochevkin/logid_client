@@ -57,7 +57,7 @@ const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData
         if (Adress.country) {
             initAutocomplete(pointItem.id)
         }
-    }, [pointFormData.length, Setting.bounds_limit])
+    }, [pointFormData.length, Setting.bounds_limit, pointItem.sequence])
 
 
     function onPlaceChanged(id) {
@@ -182,9 +182,18 @@ const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData
 
             <div className='poit_action_buttons_container'>
 
+                {pointFormData.length > 2 ?
+                    <span className="material-symbols-outlined point_action_icon"
+                        onClick={() => {
+                            removeField(pointItem)
+                        }}
+                    >
+                        close
+                    </span>
+                    : <></>}
 
                 {pointItem.sequence !== 1 ?
-                    <span class="material-symbols-outlined point_action_icon"
+                    <span className="material-symbols-outlined point_action_icon"
                         onClick={() => {
                             setCurrentPoint(pointItem)
                             move_up(pointItem)
@@ -194,35 +203,24 @@ const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData
                     </span>
                     : <></>}
 
-                { pointFormData.length !== 50 ?
-                    <span class="material-symbols-outlined point_action_icon"
-                        onClick={() => {
-                            addField(pointItem)
-                        }}
-                    >
-                        add
-                    </span>
-                    : <></>}
-
-                {pointFormData.length > 2 ?
-                    <span class="material-symbols-outlined point_action_icon"
-                        onClick={() => {
-                            removeField(pointItem)
-                        }}
-                    >
-                        close
-                    </span>
-                    : <></>}
-
-
                 {pointItem.sequence !== 50 ?
-                    <span class="material-symbols-outlined point_action_icon"
+                    <span className="material-symbols-outlined point_action_icon"
                         onClick={() => {
                             setCurrentPoint(pointItem)
                             move_down(pointItem)
                         }}
                     >
                         arrow_downward
+                    </span>
+                    : <></>}
+
+                {pointFormData.length !== 50 ?
+                    <span className="material-symbols-outlined point_action_icon"
+                        onClick={() => {
+                            addField(pointItem)
+                        }}
+                    >
+                        add
                     </span>
                     : <></>}
 

@@ -110,15 +110,13 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             data = await updateUserInfo(
                 formData
             )
-                .then(
-                    setFormData(initialValue),
-                    // attachedField === 'company_adress' && setAdressEditable(false),                   
-                    (attachedField === 'city' && user.user.role === 'carrier') ? clearCity() : setFieldEditable(false),
-                    attachedField === 'city' && setCityEditable(false),
-                    attachedField === 'company_adress' && setAdressEditable(false),
-                    fetcher.setAcccount(true),
-                    Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {}, 'you_have_changed')} ${message}` }])
-                )
+            attachedField === 'city' && user.user.role === 'carrier' ? clearCity() : setFieldEditable(false)
+            attachedField === 'city' && setCityEditable(false)
+            attachedField === 'company_adress' && setAdressEditable(false)
+            setFormData(initialValue)
+            // attachedField === 'company_adress' && setAdressEditable(false)                 
+            fetcher.setAccountUserInfo(true)
+            Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {}, 'you_have_changed')} ${message}` }])
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
@@ -131,7 +129,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
         for (const city of State.user_state.user_map_cities) {
             if (parseFloat(city.lat) === formData.city_latitude && parseFloat(city.lng) === formData.city_longitude) {
                 let data = [...Setting.user_map_cities]
-                Setting.setUserMapCities(data.filter(el => parseFloat(el.lat) !== parseFloat(city.lat) && parseFloat(el.lng) !== parseFloat(city.lng)))
+                // Setting.setUserMapCities(data.filter(el => parseFloat(el.lat) !== parseFloat(city.lat) && parseFloat(el.lng) !== parseFloat(city.lng)))
                 State.setUserStateField(Setting.user_map_cities, 'user_map_cities', UserInfo.userInfo.id)
             }
         }
@@ -153,7 +151,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             authFormData.password.setDirty(false)
             setLoginEditable(false)
             setPasswordEditable(false)
-            fetcher.setAcccount(true)
+            fetcher.setAccountUser(true)
             Notification.addNotification([{ id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {}, 'you_have_changed')} ${message}` }])
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -264,7 +262,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                             style={{ height: '15px' }}
                             onClick={updateUserAction}
                             disabled={(authFormData.email.notValid && attachedField === 'authEmail')
-                                || (authFormData.password.notValid && attachedField === 'password')  || (authFormData.password.value !== comparePassword && attachedField === 'password' )}
+                                || (authFormData.password.notValid && attachedField === 'password') || (authFormData.password.value !== comparePassword && attachedField === 'password')}
                         >Сохранить</CardButton> : <></>}
 
                 </HorizontalContainer> : <></>}

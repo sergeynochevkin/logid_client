@@ -492,6 +492,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'you_created', russian: 'Вы создали', english: 'You have created', spain: '', type: 'notification' },
         { service: 'you_blocked', russian: 'Вы заблокировали', english: 'You have blocked', spain: '', type: 'notification' },
         { service: 'you_have_changed_status', russian: 'Вы изменили статус', english: 'You have changed status of', spain: '', type: 'notification' },
+        { service: 'you_have_changed', russian: 'Вы изменили', english: 'You have changed', spain: '', type: 'notification' },
         { service: 'customer_notification', russian: 'заказчика', english: 'customer', spain: '', type: 'notification' },
         { service: 'carrier_notification', russian: 'перевозчика', english: 'carrier', spain: '', type: 'notification' },
         { service: 'to_favorite_notification', russian: 'в избранное', english: 'to favorites', spain: '', type: 'notification' },

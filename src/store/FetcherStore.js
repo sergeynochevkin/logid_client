@@ -7,7 +7,8 @@ export default class FetcherStore {
         this._user_state = false
         this._partners = false
         this._transports = false
-        this._account = false
+        this._account_user = false
+        this._account_user_info = false
 
         //orders
         this._orders = false
@@ -51,8 +52,11 @@ export default class FetcherStore {
     setTransports(value) {
         this._transports = value
     }
-    setAccount(value) {
-        this._account = value
+    setAccountUser(value) {
+        this._account_user = value
+    }
+    setAccountUserInfo(value) {
+        this._account_user_info = value
     }
     setDividedOrders(value) {
         this._divided_orders = value
@@ -95,9 +99,13 @@ export default class FetcherStore {
     get transports() {
         return this._transports
     }
-    get account() {
-        return this._account
+    get account_user() {
+        return this._account_user
     }
+    get account_user_info() {
+        return this._account_user_info
+    }
+
     get divided_orders() {
         return this._divided_orders
     }
