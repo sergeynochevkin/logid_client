@@ -180,7 +180,7 @@
     display: flex;
     left: 140px;
     top: -31px;
-    max-width: 145px;
+    width: 145px;
     flex-wrap: wrap;
     gap: 3px;
     align-items: left;
