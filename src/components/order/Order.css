@@ -180,18 +180,17 @@
     display: flex;
     left: 140px;
     top: -31px;
-    max-width: 150px;
+    max-width: 145px;
     flex-wrap: wrap;
     gap: 3px;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: flex-end;
 }
 
 .change_time_button {
     cursor: pointer;
-    width: 30%;
+    width: 23%;
     height: 12px;
-    width: 40px;
     text-align: center;
 }
 

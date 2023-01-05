@@ -227,10 +227,19 @@ const OrderForm = observer(() => {
             let data = [...pointFormData]
             let pointForEdit = data.find(el => el.sequence === pointSequence)
 
-            //add check if no plase fo next leg move all next
             //add check if no place fo previous leg notification
 
             let cleanData = data.filter(el => el.sequence !== pointSequence)
+
+            for (const point of cleanData) {
+                if (point.sequence > pointForEdit.sequence) {
+                    //check if not enought for leg, error if earlier than now + 30 mins!
+                    let time = new Date(point.time.value)
+                    time.setSeconds(action === 'increase' ? (time.getSeconds() + timeGap) : (time.getSeconds() - timeGap))
+                    point.time.value = setTime(new Date(time), 0, 'form')
+                    setPointFormData([...cleanData, pointForEdit])
+                }
+            }
             let time = new Date(pointForEdit.time.value)
             time.setSeconds(action === 'increase' ? (time.getSeconds() + timeGap) : (time.getSeconds() - timeGap))
             pointForEdit.time.value = setTime(new Date(time), 0, 'form')

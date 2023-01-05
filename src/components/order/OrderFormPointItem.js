@@ -8,6 +8,7 @@ import '../ui/form/Form.css'
 
 import './Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import PoinItem from '../point/PoinItem'
 
 const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateTime, setCalculate, move_up, move_down, setCurrentPoint }) => {
 
@@ -161,6 +162,12 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                         style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                     ></Input>
                     <div className='change_time_buttons_container'>
+                        {pointItem.sequence === 1 &&
+                            <div className='change_time_button'>now</div>
+                        }
+                        {pointItem.sequence !== 1 &&
+                            <div className='change_time_button'></div>
+                        }
                         <div className='change_time_button'
                             onClick={() => {
                                 calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'increase')
@@ -191,6 +198,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                                 calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'decrease')
                             }}
                         >-1d</div>
+
                     </div>
                     <FieldName
                         style={{
