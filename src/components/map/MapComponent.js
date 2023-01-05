@@ -9,7 +9,7 @@ import { setDuration } from '../../modules/setDuration'
     ;
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate }) => {
+const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Limit } = useContext(LimitContext)
     const { Setting } = useContext(SettingContext)
@@ -320,6 +320,11 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
     }, [directionsResponse])
 
     useEffect(() => {
+        if (ComponentFunction.PageFunction === 'orderForm' && user.user.role === 'customer')
+            setCalculate('true')
+    }, [])
+
+    useEffect(() => {
         setShowMarkers(true)
     }, [])
 
@@ -522,6 +527,9 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
 
             let calculatedDistance = 0
             let calculatedDuration = 0
+
+            calculateTime(results)
+        
             for (const leg of results.routes[0].legs) {
                 calculatedDistance = calculatedDistance + leg.distance.value
                 calculatedDuration = calculatedDuration + leg.duration.value
@@ -530,12 +538,9 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
             setRouteDuration(calculatedDuration)
             formData.mileage = calculatedDistance
             setFormData({ ...formData, direction_response: JSON.stringify(results) })
-            let data = [...pointFormData]
-            data[pointFormData.length - 1].time.value = new Date(data[0].time.value)
-            data[pointFormData.length - 1].time.value.setSeconds(data[pointFormData.length - 1].time.value.getSeconds() + calculatedDuration * 1, 2)
-            data[pointFormData.length - 1].time.value = setTime(data[pointFormData.length - 1].time.value, 0, 'form')
-            setPointFormData(data)
+
             setDirectionsResponse(results)
+
         }
         setCalculate(false)
     }
@@ -587,7 +592,7 @@ const MapComponent = observer(({ pointsNotValid, pointFormData, formData, setFor
                         >{SetNativeTranslate(Translate.language, {}, 'calculate_route')}</button> */}
                         {ComponentFunction.orderFormFunction === 'newOrder' &&
                             <button
-                                className={Setting.app_theme === 'light' ? 'map_button' : 'map_button_dark'}
+                                className={Setting.app_theme === 'light' ? 'map_button' : 'map_button dark'}
                                 onClick={clearRoute}
                                 disabled={!directionsResponse}
                             >{SetNativeTranslate(Translate.language, {}, 'clear_route')}</button>

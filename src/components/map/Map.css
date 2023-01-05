@@ -39,21 +39,14 @@
     color: white;
     border-radius: 5px;
     border: none;
-    padding: 5px;
+    padding: 5px 10px 5px 10px;
     cursor: pointer;
     background-color: rgb(105, 105, 105, 0.8);
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2.5px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
-.map_button_dark {
-    font-size: 10px;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    background-color: rgb(54, 63, 76, 0.8);
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+.map_button.dark {
+    background-color: rgb(54, 63, 76, 0.8);    
 }
 
 .map_scale_button {
@@ -98,11 +91,7 @@
     color: black;
 }
 
-.map_button_dark:hover {
-    box-shadow: none;
-}
-
-.map_button_dark:disabled {
+.map_button.dark:disabled {
     cursor: not-allowed;
     background-color: rgb(73, 74, 74, 0.8);
     color: white;

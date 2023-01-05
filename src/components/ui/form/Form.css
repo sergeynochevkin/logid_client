@@ -31,7 +31,7 @@
     color: white;
 }
 
-.custom_input_dark::-webkit-calendar-picker-indicator {
+.custom_input.dark::-webkit-calendar-picker-indicator {
     filter: invert(1)
 }
 
@@ -101,7 +101,7 @@
     color: white;
 }
 
-.filter_input_dark::-webkit-calendar-picker-indicator {
+.filter_input.dark::-webkit-calendar-picker-indicator {
     filter: invert(1)
 }
 

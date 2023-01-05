@@ -173,6 +173,31 @@
     color: white;
 }
 
+.change_time_buttons_container {
+    position: relative;
+    height: 10px;
+    font-size: 10px;
+    display: flex;
+    left: 140px;
+    top: -31px;
+    max-width: 150px;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: center;
+    justify-content: center;
+}
+
+.change_time_button {
+    cursor: pointer;
+    height: 12px;
+    width: 40px;
+    text-align: center;
+}
+
+.change_time_button:hover {
+    color: grey;
+}
+
 @media screen and (max-width: 1920px) and (min-width: 769px) {}
 
 @media screen and (max-width: 768px) and (min-width: 426px) {

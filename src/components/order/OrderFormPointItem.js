@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { AdressContext, LimitContext, SettingContext, TranslateContext, UserInfoContext } from '../..'
-import { AddDeleteFieldButton } from '../ui/form/AddDeleteFieldButton'
+import React, { useContext, useEffect } from 'react'
+import { AdressContext, SettingContext, TranslateContext, UserInfoContext } from '../..'
 import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
@@ -32,31 +30,29 @@ const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData
 
     let autocomplete
     function initAutocomplete(id) {
-        //eslint-disable-next-line no-undef
-        autocomplete = new google.maps.places.Autocomplete(
-            document.getElementById(id),
-            {
-                bounds: Setting.bounds,
-                strictBounds: true,
-                types: ['geocode'],
-                componentRestrictions: { 'country': [`${Adress.country.google_code}`] },
-                fields: ['geometry', 'address_components', 'name'],
-                language: Adress.country.google_language
-            },
-        )
-        autocomplete.addListener('place_changed', onPlaceChanged)
+        if (Adress.country) {
+            //eslint-disable-next-line no-undef
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById(id),
+                {
+                    bounds: Setting.bounds,
+                    strictBounds: true,
+                    types: ['geocode'],
+                    componentRestrictions: { 'country': [`${Adress.country.google_code}`] },
+                    fields: ['geometry', 'address_components', 'name'],
+                    language: Adress.country.google_language
+                },
+            )
+            autocomplete.addListener('place_changed', onPlaceChanged)
+        }
     }
 
     useEffect(() => {
-        if (Adress.country) {
-            initAutocomplete(pointItem.id)
-        }
+        initAutocomplete(pointItem.id)
     }, [])
 
     useEffect(() => {
-        if (Adress.country) {
-            initAutocomplete(pointItem.id)
-        }
+        initAutocomplete(pointItem.id)
     }, [pointFormData.length, Setting.bounds_limit, pointItem.sequence])
 
 
@@ -152,32 +148,39 @@ const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData
                         }
                     </FieldName>
                 </VerticalContainer>
-                {index === 0 || index === pointFormData.length - 1 ?
-                    <VerticalContainer
-                        style={{ gap: '0px' }}
+
+                <VerticalContainer
+                    style={{ gap: '0px' }}
+                >
+                    <Input
+                        name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
+                        type="datetime-local"
+                        defaultValue={pointItem.time.value}
+                        onChange={event => handleFormChange(index, event)}
+                        onBlur={event => handleFormBlur(index, event)}
+                        style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                    ></Input>
+                    <div className='change_time_buttons_container'>
+                        <div className='change_time_button'>+ 10 min</div>
+                        <div className='change_time_button'>+ 1 hr</div>
+                        <div className='change_time_button'>+ 1 day</div>
+                        <div className='change_time_button'>- 10 min</div>
+                        <div className='change_time_button'>- 1 hr</div>
+                        <div className='change_time_button'>- 1 day</div>
+                    </div>
+                    <FieldName
+                        style={{
+                            fontWeight: 'normal',
+                            color: 'rgb(254, 111, 103,0.8)'
+                        }}
                     >
-                        <Input
-                            name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
-                            type="datetime-local"
-                            defaultValue={pointItem.time.value}
-                            onChange={event => handleFormChange(index, event)}
-                            onBlur={event => handleFormBlur(index, event)}
-                            style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                        >
-                        </Input>
-                        <FieldName
-                            style={{
-                                fontWeight: 'normal',
-                                color: 'rgb(254, 111, 103,0.8)'
-                            }}
-                        >
-                            {pointItem.time.isEmptyError ?
-                                pointItem.time.errorMessage :
-                                ''
-                            }
-                        </FieldName>
-                    </VerticalContainer>
-                    : <></>}
+                        {pointItem.time.isEmptyError ?
+                            pointItem.time.errorMessage :
+                            ''
+                        }
+                    </FieldName>
+                </VerticalContainer>
+
             </div>
 
             <div className='poit_action_buttons_container'>

@@ -164,7 +164,7 @@ const OrderForm = observer(() => {
             point: { value: '', isDirty: false, isEmptyError: true, errorMessage: '' },
             latitude: undefined,
             longitude: undefined,
-            time: { value: setTime(initialTime, 120, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
+            time: { value: setTime(initialTime, 30, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
             status: 'new',
             name: '',
             customer_comment: { value: '', isDirty: false, minLengthError: false, maxLengthError: false, isEmptyError: true, errorMessage: '' },
@@ -180,7 +180,7 @@ const OrderForm = observer(() => {
             point: { value: '', isDirty: false, isEmptyError: true, errorMessage: '' },
             latitude: undefined,
             longitude: undefined,
-            time: { value: setTime(initialTime, 240, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
+            time: { value: setTime(initialTime, 90, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
             status: 'new',
             name: '',
             customer_comment: { value: '', isDirty: false, minLengthError: false, maxLengthError: false, isEmptyError: true, errorMessage: '' },
@@ -197,6 +197,32 @@ const OrderForm = observer(() => {
         ComponentFunction.orderFormFunction === 'newOrder' ? pointInitialValue : pointPatternInitialValue
     )
 
+    //возможность легко и быстро расставлять время если точек много и чтобы не мешало когда точки 2! + время в форме не обновляется, кнопки +10 мин, + 1 час, + 1 день, -10 мин, - 1 час, - 1 день
+    const calculateTime = (results) => {
+        let data = [...pointFormData]
+        let initialTime = data.find(el => el.sequence === 1).time.value
+        for (const point of data) {
+            if (point.sequence !== 1) {
+                let legIndex
+                if (data.length === 2) {
+                    legIndex = 0
+                } else if (point.sequence === 50) {
+                    let sequenceArray = data.filter(el => el.sequence !== 50).map(el => el.sequence)
+                    let maxSequence = Math.max(...sequenceArray)
+                    legIndex = maxSequence - 1
+                } else {
+                    legIndex = point.sequence - 1
+                }
+                point.time.value = new Date(initialTime)
+                point.time.value.setSeconds(point.time.value.getSeconds() + results.routes[0].legs[legIndex].duration.value)
+                initialTime = new Date(initialTime)
+                initialTime.setSeconds(point.time.value.getSeconds() + results.routes[0].legs[legIndex].duration.value)
+                point.time.value = setTime(new Date(point.time.value), 0, 'form')
+                console.log(`${point.point.value} ${point.time.value}`);
+            }
+        }
+        setPointFormData(data)
+    }
 
     const boost = (id) => {
         order.setDividedOrders([...order.divided_orders[formData.order_status].filter(el => el.id !== id)], formData.order_status)
@@ -720,6 +746,7 @@ const OrderForm = observer(() => {
             </Form>
 
             <MapComponent
+                calculateTime={calculateTime}
                 calculate={calculate}
                 setCalculate={setCalculate}
                 pointsNotValid={pointsNotValid}
