@@ -9,7 +9,7 @@ import '../ui/form/Form.css'
 import './Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateRoute, setCalculate, move_up, move_down, setCurrentPoint }) => {
+const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateTime, setCalculate, move_up, move_down, setCurrentPoint }) => {
 
     const { UserInfo } = useContext(UserInfoContext)
     const { Setting } = useContext(SettingContext)
@@ -155,18 +155,42 @@ const OrderFormPointItem = observer(({ pointFormData, addField, setPointFormData
                     <Input
                         name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
                         type="datetime-local"
-                        defaultValue={pointItem.time.value}
+                        value={pointItem.time.value}
                         onChange={event => handleFormChange(index, event)}
                         onBlur={event => handleFormBlur(index, event)}
                         style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                     ></Input>
                     <div className='change_time_buttons_container'>
-                        <div className='change_time_button'>+ 10 min</div>
-                        <div className='change_time_button'>+ 1 hr</div>
-                        <div className='change_time_button'>+ 1 day</div>
-                        <div className='change_time_button'>- 10 min</div>
-                        <div className='change_time_button'>- 1 hr</div>
-                        <div className='change_time_button'>- 1 day</div>
+                        <div className='change_time_button'
+                            onClick={() => {
+                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'increase')
+                            }}
+                        >+10m</div>
+                        <div className='change_time_button'
+                            onClick={() => {
+                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 3600, pointItem.sequence, 'increase')
+                            }}
+                        >+1h</div>
+                        <div className='change_time_button'
+                            onClick={() => {
+                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'increase')
+                            }}
+                        >+1d</div>
+                        <div className='change_time_button'
+                            onClick={() => {
+                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'decrease')
+                            }}
+                        >-10m</div>
+                        <div className='change_time_button'
+                            onClick={() => {
+                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 3600, pointItem.sequence, 'decrease')
+                            }}
+                        >-1h</div>
+                        <div className='change_time_button'
+                            onClick={() => {
+                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'decrease')
+                            }}
+                        >-1d</div>
                     </div>
                     <FieldName
                         style={{

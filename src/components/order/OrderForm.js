@@ -8,7 +8,6 @@ import { observer } from 'mobx-react-lite'
 import OrderComment from './orderForm/OrderComment'
 import OrderType from './orderForm/OrderType'
 import Cost from './orderForm/Cost'
-import { AddDeleteFieldButton } from '../ui/form/AddDeleteFieldButton'
 import { createPoint } from '../../http/pointApi'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { v4 } from "uuid";
@@ -197,31 +196,46 @@ const OrderForm = observer(() => {
         ComponentFunction.orderFormFunction === 'newOrder' ? pointInitialValue : pointPatternInitialValue
     )
 
-    //возможность легко и быстро расставлять время если точек много и чтобы не мешало когда точки 2! + время в форме не обновляется, кнопки +10 мин, + 1 час, + 1 день, -10 мин, - 1 час, - 1 день
-    const calculateTime = (results) => {
-        let data = [...pointFormData]
-        let initialTime = data.find(el => el.sequence === 1).time.value
-        for (const point of data) {
-            if (point.sequence !== 1) {
-                let legIndex
-                if (data.length === 2) {
-                    legIndex = 0
-                } else if (point.sequence === 50) {
-                    let sequenceArray = data.filter(el => el.sequence !== 50).map(el => el.sequence)
-                    let maxSequence = Math.max(...sequenceArray)
-                    legIndex = maxSequence - 1
-                } else {
-                    legIndex = point.sequence - 1
+    const calculateTime = (results, timeGap, pointSequence, action) => {
+        if (timeGap === 0) {
+            let data = [...pointFormData]
+            let initialTime = data.find(el => el.sequence === 1).time.value
+            for (const point of data) {
+                if (point.sequence !== 1) {
+                    let legIndex
+                    if (data.length === 2) {
+                        legIndex = 0
+                    } else if (point.sequence === 50) {
+                        let sequenceArray = data.filter(el => el.sequence !== 50).map(el => el.sequence)
+                        let maxSequence = Math.max(...sequenceArray)
+                        legIndex = maxSequence - 1
+                    } else {
+                        legIndex = point.sequence - 1
+                    }
+                    point.time.value = new Date(initialTime)
+                    point.time.value.setSeconds(point.time.value.getSeconds() + results.routes[0].legs[legIndex].duration.value)
+                    initialTime = new Date(initialTime)
+                    initialTime.setSeconds(point.time.value.getSeconds() + results.routes[0].legs[legIndex].duration.value)
+                    point.time.value = setTime(new Date(point.time.value), 0, 'form')
                 }
-                point.time.value = new Date(initialTime)
-                point.time.value.setSeconds(point.time.value.getSeconds() + results.routes[0].legs[legIndex].duration.value)
-                initialTime = new Date(initialTime)
-                initialTime.setSeconds(point.time.value.getSeconds() + results.routes[0].legs[legIndex].duration.value)
-                point.time.value = setTime(new Date(point.time.value), 0, 'form')
-                console.log(`${point.point.value} ${point.time.value}`);
             }
+            setPointFormData(data)
+
+            //recalculate what? if point place changing reset start time if point changing if is not dirty, if dirty save setted
+
+        } else {
+            let data = [...pointFormData]
+            let pointForEdit = data.find(el => el.sequence === pointSequence)
+
+            //add check if no plase fo next leg move all next
+            //add check if no place fo previous leg notification
+
+            let cleanData = data.filter(el => el.sequence !== pointSequence)
+            let time = new Date(pointForEdit.time.value)
+            time.setSeconds(action === 'increase' ? (time.getSeconds() + timeGap) : (time.getSeconds() - timeGap))
+            pointForEdit.time.value = setTime(new Date(time), 0, 'form')
+            setPointFormData([...cleanData, pointForEdit])
         }
-        setPointFormData(data)
     }
 
     const boost = (id) => {
@@ -638,7 +652,8 @@ const OrderForm = observer(() => {
                 >
                     {pointFormData.sort(sortPoints).map((pointItem, index) =>
                         <OrderFormPointItem
-
+                            formData={formData}
+                            calculateTime={calculateTime}
                             addField={addField}
                             setCurrentPoint={setCurrentPoint}
                             move_up={move_up}
