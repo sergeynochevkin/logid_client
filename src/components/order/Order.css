@@ -181,21 +181,44 @@
 
 .change_time_buttons_container {
     /* position: relative; */
-    height: 0px;
     font-size: 10px;
     display: flex;
     /* left: 140px; */
     /* top: -31px; */
-    width: 130px;
+    width: 100px;
     flex-wrap: wrap;
-    gap: 2px;
-    align-items: left;
-    justify-content: flex-end;
+    gap: 3px;
+    align-items: center;
+    justify-content: center;
+}
+
+.now_container {
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time_row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.now_icon {
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.now_icon:hover {
+    color: grey;
 }
 
 .change_time_button {
     cursor: pointer;
-    width: 23%;
+    width: 30%;
     height: 12px;
     text-align: center;
 }

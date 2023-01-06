@@ -208,22 +208,26 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                 <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
-                    <div style={{display:'flex'}} >
+                    <div className='time_row' >
                         <Input
                             name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
                             type="datetime-local"
                             value={pointItem.time.value}
                             onChange={event => handleFormChange(index, event)}
                             onBlur={event => handleFormBlur(index, event)}
-                            style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '', minWidth:'100px' }}
+                            style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '', minWidth: '100px' }}
                         ></Input>
-                        <div className='change_time_buttons_container'>
+
+                        <div className='now_container'>
                             {pointItem.sequence === 1 &&
-                                <div className='change_time_button'>now</div>
+                                <span class="material-symbols-outlined now_icon" alt='now'>
+                                    acute
+                                </span>
                             }
-                            {pointItem.sequence !== 1 &&
-                                <div className='change_time_button'></div>
-                            }
+                        </div>
+
+                        <div className='change_time_buttons_container'>
+
                             <div className='change_time_button'
                                 onClick={() => {
                                     calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'increase')
