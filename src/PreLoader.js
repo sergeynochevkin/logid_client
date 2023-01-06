@@ -124,6 +124,9 @@ const PreLoader = observer(({ children, ...props }) => {
                             if (state.app_theme) {
                                 Setting.setAppTheme(state.app_theme)
                             }
+                            if (state.adress_history) {
+                                Setting.setAdressHistory(state.adress_history)
+                            }
                             if (state.language) {
                                 if (state.language !== 'english' && state.language !== country.default_language) {
                                     Translate.setLanguage(country.default_language)

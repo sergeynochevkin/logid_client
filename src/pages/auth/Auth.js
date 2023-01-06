@@ -97,6 +97,9 @@ const Auth = observer(() => {
           } else {
             State.setUserStateField(Translate.language, 'language', data.id)
           }
+          if(state.adress_history){
+            Setting.setAdressHistory(state.adress_history)
+          }
         })
         fetcher.setOrdersAll(true)
       }

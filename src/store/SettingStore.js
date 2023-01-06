@@ -13,7 +13,8 @@ export default class StateStore {
         this._bounds = {}
         this._bounds_limit = undefined
         this._zoom = undefined
-       
+        this._adress_history = []
+
         makeAutoObservable(this)
     }
     setUserSettings(value) {
@@ -82,5 +83,11 @@ export default class StateStore {
     }
     get all_cities() {
         return this._all_cities
+    }
+    setAdressHistory(value) {
+        this._adress_history = value
+    }
+    get adress_history() {
+        return this._adress_history
     }
 }

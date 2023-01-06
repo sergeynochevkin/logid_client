@@ -1,14 +1,13 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect } from 'react'
-import { AdressContext, SettingContext, TranslateContext, UserInfoContext } from '../..'
+import React, { useContext, useEffect, useState } from 'react'
+import { AdressContext, SettingContext, StateContext, TranslateContext, UserInfoContext } from '../..'
 import { Input } from '../ui/form/Input'
 import { FieldName } from '../ui/page/FieldName'
-import { VerticalContainer } from '../ui/page/VerticalContainer'
 import '../ui/form/Form.css'
-
 import './Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-import PoinItem from '../point/PoinItem'
+import AdressHistory from '../history/AdressHistory'
+import { v4 } from 'uuid'
 
 const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateTime, setCalculate, move_up, move_down, setCurrentPoint }) => {
 
@@ -16,6 +15,9 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
     const { Adress } = useContext(AdressContext)
+    const [showHistory, setShowHistory] = useState(false)
+    const [customInput, setCustomInput] = useState(true)
+    const { State } = useContext(StateContext)
 
     useEffect(() => {
         Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
@@ -28,6 +30,17 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
         )
     }, [])
 
+    const selectFromHistoryAction = (point) => {
+        console.log('yes');
+        let data = [...pointFormData]
+        data[index].point.value = point.value
+        data[index].latitude = point.latitude
+        data[index].longitude = point.longitude
+        data[index].city = point.city
+        data[index].point.isEmptyError = false
+        setPointFormData(data)
+        setCalculate(true)
+    }
 
     let autocomplete
     function initAutocomplete(id) {
@@ -69,6 +82,21 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
             data[index].longitude = place.geometry.location.lng()
             data[index].city = address_components[2].long_name
             data[index].point.isEmptyError = false
+
+            let historyObject = {
+                id: v4(),
+                value: data[index].point.value,
+                latitude: data[index].latitude,
+                longitude: data[index].longitude,
+                city: address_components[2].long_name,
+            }
+            if (!Setting.adress_history.find(el => el.latitude === historyObject.latitude && el.longitude === historyObject.longitude)) {
+                if (Setting.adress_history.length === 15) {
+                    Setting.adress_history.splice(0, 1)
+                }
+                Setting.setAdressHistory([...Setting.adress_history, historyObject])
+                State.setUserStateField(Setting.adress_history, 'adress_history', UserInfo.userInfo.id)
+            }
             setPointFormData(data)
             setCalculate(true)
         }
@@ -98,23 +126,50 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
             key={index}
         >
             <div className='point_fields_container'>
-                <VerticalContainer
+                <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
-                    <Input
-                        id={pointItem.id}
-                        name='point'
-                        defaultValue={pointItem.point.value}
-                        onChange={() => {
-                            if (pointFormData[index].value !== '') {
-                                dataReset()
-                            }
-                        }}
-                        onBlur={event => {
-                            handleFormBlur(index, event)
-                        }}
-                        style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                    ></Input>
+                    {!customInput ?
+                        <Input
+                            id={pointItem.id}
+                            name='point'
+                            defaultValue={pointItem.point.value}
+                            onChange={() => {
+                                if (pointFormData[index].value !== '') {
+                                    dataReset()
+                                }
+                            }}
+                            onBlur={event => {
+                                handleFormBlur(index, event)
+                            }}
+                            onClick={() => {
+                                setShowHistory(false)
+                            }}
+                            style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                        ></Input>
+                        :
+                        <Input
+                            id={pointItem.id}
+                            name='point'
+                            value={pointItem.point.value}
+                            onChange={() => {
+                                if (pointFormData[index].value !== '') {
+                                    dataReset()
+                                }
+                            }}
+                            onBlur={event => {
+                                handleFormBlur(index, event)
+                            }}
+                            onClick={() => {
+                                setShowHistory(false)
+                                setCustomInput(false)
+                            }}
+                            style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                        ></Input>
+                    }
+
+
+                    <AdressHistory showHistory={showHistory} setShowHistory={setShowHistory} selectFromHistoryAction={selectFromHistoryAction} setCustomInput={setCustomInput} />
                     <FieldName
                         style={{
                             fontWeight: 'normal',
@@ -126,8 +181,8 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                             ''
                         }
                     </FieldName>
-                </VerticalContainer>
-                <VerticalContainer
+                </div>
+                <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
                     <Input
@@ -148,9 +203,9 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                             ''
                         }
                     </FieldName>
-                </VerticalContainer>
+                </div>
 
-                <VerticalContainer
+                <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
                     <Input
@@ -198,7 +253,6 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                                 calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'decrease')
                             }}
                         >-1d</div>
-
                     </div>
                     <FieldName
                         style={{
@@ -211,11 +265,11 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                             ''
                         }
                     </FieldName>
-                </VerticalContainer>
+                </div>
 
             </div>
 
-            <div className='poit_action_buttons_container'>
+            <div className='point_action_buttons_container'>
 
                 {pointFormData.length > 2 ?
                     <span className="material-symbols-outlined point_action_icon"
@@ -260,7 +314,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                     : <></>}
 
             </div>
-        </div>
+        </div >
     )
 })
 

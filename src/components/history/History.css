@@ -1,0 +1,64 @@
+
+.adress_history_container {
+    color: grey;
+    position: relative;
+    height: 0px;
+    font-size: 10px;
+    display: flex;
+    left: 160px;
+    top: -23.5px;
+    width: 145px;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: left;
+    justify-content: flex-end;
+}
+
+.adress_history_icon {
+    cursor: pointer;
+    font-size: 18px;
+    background-color: transparent;
+}
+
+.adress_history_list_container {
+    height: 0px;
+}
+
+.adress_history_list {
+    position: relative;
+    display: none;
+    flex-direction: column;
+    align-items: left;
+    background-color: rgb(245, 245, 245, 0.8);
+    z-index: 1000;
+    border-radius: 2px;
+    /* border-top: 1px solid #d9d9d9; */
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden
+}
+
+.adress_history_list.active {
+    display: flex;
+}
+
+.adress_history_item {
+    cursor: pointer;
+    color: black;
+    padding: 0 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 30px;
+    text-align: left;
+    border-top: 0px solid #e6e6e6;
+    font-size: 13px;
+    font-weight: 700
+}
+
+.adress_history_item:hover {
+    background-color: rgba(146, 141, 141, 0.5);
+}
