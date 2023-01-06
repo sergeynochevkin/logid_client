@@ -204,6 +204,7 @@ const Auth = observer(() => {
               onChange={(e) => formData.email.onChange(e)}
               onBlur={e => formData.email.onBlur(e)}
               type="text" name="email" id="email"
+              autocomplete = 'email'
             ></Input>
 
             <FieldName
@@ -228,6 +229,7 @@ const Auth = observer(() => {
               style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.password.value}
               onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
+              autocomplete = 'current-password'
             ></Input>
             <FieldName
               style={{
@@ -254,7 +256,9 @@ const Auth = observer(() => {
               }}
                 style={{ borderLeft: formData.password.value !== comparePassword || !comparePassword ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 onBlur={e => formData.password.onBlur(e)}
-                type="password"></Input>
+                type="password"
+                autocomplete = 'new-password'
+                ></Input>
               <FieldName
                 style={{
                   fontWeight: 'normal',
@@ -306,6 +310,7 @@ const Auth = observer(() => {
               style={{ borderLeft: formData.code.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.code.value}
               onChange={(e) => formData.code.onChange(e)} onBlur={e => formData.code.onBlur(e)} type="text" name="code" id="code"
+              autocomplete = 'one-time-code'
             ></Input>
             <FieldName
               style={{
