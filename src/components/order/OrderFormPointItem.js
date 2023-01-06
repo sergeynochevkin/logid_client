@@ -129,44 +129,46 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                 <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
-                    {!customInput ?
-                        <Input
-                            id={pointItem.id}
-                            name='point'
-                            defaultValue={pointItem.point.value}
-                            onChange={() => {
-                                if (pointFormData[index].value !== '') {
-                                    dataReset()
-                                }
-                            }}
-                            onBlur={event => {
-                                handleFormBlur(index, event)
-                            }}
-                            onClick={() => {
-                                setShowHistory(false)
-                            }}
-                            style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                        ></Input>
-                        :
-                        <Input
-                            id={pointItem.id}
-                            name='point'
-                            value={pointItem.point.value}
-                            onChange={() => {
-                                if (pointFormData[index].value !== '') {
-                                    dataReset()
-                                }
-                            }}
-                            onBlur={event => {
-                                handleFormBlur(index, event)
-                            }}
-                            onClick={() => {
-                                setShowHistory(false)
-                                setCustomInput(false)
-                            }}
-                            style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                        ></Input>
-                    }
+                    <div className='input_row' >
+                        {!customInput ?
+                            <Input
+                                id={pointItem.id}
+                                name='point'
+                                defaultValue={pointItem.point.value}
+                                onChange={() => {
+                                    if (pointFormData[index].value !== '') {
+                                        dataReset()
+                                    }
+                                }}
+                                onBlur={event => {
+                                    handleFormBlur(index, event)
+                                }}
+                                onClick={() => {
+                                    setShowHistory(false)
+                                }}
+                                style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                            ></Input>
+                            :
+                            <Input
+                                id={pointItem.id}
+                                name='point'
+                                value={pointItem.point.value}
+                                onChange={() => {
+                                    if (pointFormData[index].value !== '') {
+                                        dataReset()
+                                    }
+                                }}
+                                onBlur={event => {
+                                    handleFormBlur(index, event)
+                                }}
+                                onClick={() => {
+                                    setShowHistory(false)
+                                    setCustomInput(false)
+                                }}
+                                style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                            ></Input>
+                        }
+                    </div>
 
 
                     <AdressHistory showHistory={showHistory} setShowHistory={setShowHistory} selectFromHistoryAction={selectFromHistoryAction} setCustomInput={setCustomInput} />
@@ -185,13 +187,15 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                 <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
-                    <Input
-                        name='customer_comment'
-                        placeholder={SetNativeTranslate(Translate.language, {}, 'comment')}
-                        defaultValue={pointItem.customer_comment.value}
-                        onChange={event => handleFormChange(index, event)}
-                        onBlur={event => handleFormBlur(index, event)}
-                    ></Input>
+                    <div className='input_row' >
+                        <Input
+                            name='customer_comment'
+                            placeholder={SetNativeTranslate(Translate.language, {}, 'comment')}
+                            defaultValue={pointItem.customer_comment.value}
+                            onChange={event => handleFormChange(index, event)}
+                            onBlur={event => handleFormBlur(index, event)}
+                        ></Input>
+                    </div>
                     <FieldName
                         style={{
                             fontWeight: 'normal',
@@ -208,7 +212,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                 <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
-                    <div className='time_row' >
+                    <div className='input_row' >
                         <Input
                             name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
                             type="datetime-local"

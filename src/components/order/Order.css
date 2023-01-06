@@ -200,13 +200,12 @@
     justify-content: center;
 }
 
-.time_row {
+.input_row {
     display: flex;
     justify-content: stretch;
     align-items: center;
     gap: 2px;
-    min-width: 310px;
-    border: solid white 1px;
+    width: 310px;
 }
 
 .now_icon {
