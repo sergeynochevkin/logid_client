@@ -528,7 +528,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             let calculatedDistance = 0
             let calculatedDuration = 0
 
-            calculateTime(results, 0)
+            calculateTime(results, 0, 0, 'calculate')
 
             for (const leg of results.routes[0].legs) {
                 calculatedDistance = calculatedDistance + leg.distance.value

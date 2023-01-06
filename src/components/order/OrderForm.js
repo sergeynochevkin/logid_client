@@ -197,7 +197,7 @@ const OrderForm = observer(() => {
     )
 
     const calculateTime = (results, timeGap, pointSequence, action) => {
-        if (timeGap === 0) {
+        if (action === 'calculate') {
             let data = [...pointFormData]
             let initialTime = data.find(el => el.sequence === 1).time.value
             for (const point of data) {
@@ -220,10 +220,10 @@ const OrderForm = observer(() => {
                 }
             }
             setPointFormData(data)
-
             //recalculate what? if point place changing reset start time if point changing if is not dirty, if dirty save setted
 
-        } else {
+        }
+        if (action === 'increase' || action === 'decrease') {
             let data = [...pointFormData]
             let pointForEdit = data.find(el => el.sequence === pointSequence)
 
@@ -244,6 +244,10 @@ const OrderForm = observer(() => {
             time.setSeconds(action === 'increase' ? (time.getSeconds() + timeGap) : (time.getSeconds() - timeGap))
             pointForEdit.time.value = setTime(new Date(time), 0, 'form')
             setPointFormData([...cleanData, pointForEdit])
+        }
+        if (action !== 'now') {
+            //first point now + 15
+            //all point like in legs
         }
     }
 

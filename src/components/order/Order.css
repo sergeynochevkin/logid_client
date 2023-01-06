@@ -185,7 +185,7 @@
     display: flex;
     /* left: 140px; */
     /* top: -31px; */
-    width: 95px;
+    width: 40%;
     flex-wrap: wrap;
     gap: 2px;
     align-items: center;
@@ -222,6 +222,7 @@
     width: 30%;
     height: 12px;
     text-align: center;
+    /* border: solid 1px white; */
 }
 
 .change_time_button:hover {
