@@ -185,7 +185,7 @@
     display: flex;
     /* left: 140px; */
     /* top: -31px; */
-    width: 40%;
+    /* width: 40%; */
     flex-wrap: wrap;
     gap: 2px;
     align-items: center;
@@ -194,7 +194,7 @@
 
 .now_container {
     height: 22px;
-    width: 22px;
+    width: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
