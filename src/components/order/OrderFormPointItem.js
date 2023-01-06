@@ -208,51 +208,54 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                 <div className='point_field_container'
                     style={{ gap: '0px' }}
                 >
-                    <Input
-                        name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
-                        type="datetime-local"
-                        value={pointItem.time.value}
-                        onChange={event => handleFormChange(index, event)}
-                        onBlur={event => handleFormBlur(index, event)}
-                        style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                    ></Input>
-                    <div className='change_time_buttons_container'>
-                        {pointItem.sequence === 1 &&
-                            <div className='change_time_button'>now</div>
-                        }
-                        {pointItem.sequence !== 1 &&
-                            <div className='change_time_button'></div>
-                        }
-                        <div className='change_time_button'
-                            onClick={() => {
-                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'increase')
-                            }}
-                        >+10m</div>
-                        <div className='change_time_button'
-                            onClick={() => {
-                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 3600, pointItem.sequence, 'increase')
-                            }}
-                        >+1h</div>
-                        <div className='change_time_button'
-                            onClick={() => {
-                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'increase')
-                            }}
-                        >+1d</div>
-                        <div className='change_time_button'
-                            onClick={() => {
-                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'decrease')
-                            }}
-                        >-10m</div>
-                        <div className='change_time_button'
-                            onClick={() => {
-                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 3600, pointItem.sequence, 'decrease')
-                            }}
-                        >-1h</div>
-                        <div className='change_time_button'
-                            onClick={() => {
-                                calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'decrease')
-                            }}
-                        >-1d</div>
+                    <div style={{display:'flex'}} >
+                        <Input
+                            name='time' placeholder={SetNativeTranslate(Translate.language, {}, 'time')}
+                            type="datetime-local"
+                            value={pointItem.time.value}
+                            onChange={event => handleFormChange(index, event)}
+                            onBlur={event => handleFormBlur(index, event)}
+                            style={{ borderLeft: (pointItem.time.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '', minWidth:'100px' }}
+                        ></Input>
+                        <div className='change_time_buttons_container'>
+                            {pointItem.sequence === 1 &&
+                                <div className='change_time_button'>now</div>
+                            }
+                            {pointItem.sequence !== 1 &&
+                                <div className='change_time_button'></div>
+                            }
+                            <div className='change_time_button'
+                                onClick={() => {
+                                    calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'increase')
+                                }}
+                            >+10m</div>
+                            <div className='change_time_button'
+                                onClick={() => {
+                                    calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 3600, pointItem.sequence, 'increase')
+                                }}
+                            >+1h</div>
+                            <div className='change_time_button'
+                                onClick={() => {
+                                    calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'increase')
+                                }}
+                            >+1d</div>
+                            <div className='change_time_button'
+                                onClick={() => {
+                                    calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 600, pointItem.sequence, 'decrease')
+                                }}
+                            >-10m</div>
+                            <div className='change_time_button'
+                                onClick={() => {
+                                    calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 3600, pointItem.sequence, 'decrease')
+                                }}
+                            >-1h</div>
+                            <div className='change_time_button'
+                                onClick={() => {
+                                    calculateTime(JSON.parse(formData.direction_responce ? formData.direction_responce : false), 86400, pointItem.sequence, 'decrease')
+                                }}
+                            >-1d</div>
+                        </div>
+
                     </div>
                     <FieldName
                         style={{

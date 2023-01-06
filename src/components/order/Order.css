@@ -180,15 +180,15 @@
 }
 
 .change_time_buttons_container {
-    position: relative;
+    /* position: relative; */
     height: 0px;
     font-size: 10px;
     display: flex;
-    left: 140px;
-    top: -31px;
-    width: 145px;
+    /* left: 140px; */
+    /* top: -31px; */
+    width: 130px;
     flex-wrap: wrap;
-    gap: 3px;
+    gap: 2px;
     align-items: left;
     justify-content: flex-end;
 }

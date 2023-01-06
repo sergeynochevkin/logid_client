@@ -103,13 +103,14 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                         />
                     </> : <></>
                     }
-                    <FilterInput
-                        fieldName='partnerName'
-                        inputHandler={inputHandler}
-                        placeHolder={SetNativeTranslate(Translate.language, {}, 'partner')}
-                        type='text'
-                        filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
-                    />
+                    {(user.user.role === 'customer' && (ComponentFunction.Function !== 'new' && ComponentFunction.Function !== 'postponed')) || user.user.role === 'carrier' ?
+                        <FilterInput
+                            fieldName='partnerName'
+                            inputHandler={inputHandler}
+                            placeHolder={SetNativeTranslate(Translate.language, {}, 'partner')}
+                            type='text'
+                            filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
+                        /> : <></>}
                     {parent === 'orders' ? <>
                         <FilterInput
                             fieldName='costFrom'

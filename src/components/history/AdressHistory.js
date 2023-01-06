@@ -16,7 +16,7 @@ const AdressHistory = observer(({ showHistory, setShowHistory, selectFromHistory
                         onClick={() => {
                             if (showHistory) {
                                 setShowHistory(false)
-                                setCustomInput(false)
+                                // setCustomInput(false)
                             }
                             if (!showHistory) {
                                 setShowHistory(true)
