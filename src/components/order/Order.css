@@ -202,9 +202,10 @@
 
 .time_row {
     display: flex;
-    justify-content: center;
+    justify-content: stretch;
     align-items: center;
     gap: 3px;
+    min-width: 310px;
 }
 
 .now_icon {
