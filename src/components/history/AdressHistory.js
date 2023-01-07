@@ -1,11 +1,19 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { SettingContext } from '../..'
+import useComponentVisible from '../../hooks/useComponentVisible'
 import AdressHistoryItem from './AdressHistoryItem'
 import './History.css'
 
 const AdressHistory = observer(({ showHistory, setShowHistory, selectFromHistoryAction, setCustomInput }) => {
     const { Setting } = useContext(SettingContext)
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
+
+    useEffect(() => {
+        if (!isComponentVisible) {
+            setShowHistory(false)
+        }
+    }, [isComponentVisible])
 
     return (
         <>
@@ -19,6 +27,7 @@ const AdressHistory = observer(({ showHistory, setShowHistory, selectFromHistory
                                 // setCustomInput(false)
                             }
                             if (!showHistory) {
+                                setIsComponentVisible(true)
                                 setShowHistory(true)
                                 setCustomInput(true)
                             }
@@ -28,12 +37,16 @@ const AdressHistory = observer(({ showHistory, setShowHistory, selectFromHistory
                     </span>
                 }
             </div>
-            <div className='adress_history_list_container'>
-                <div className={`adress_history_list ${showHistory && 'active'}`}>
-                    {/* <AdressHistoryItem /> */}
-                    {Setting.adress_history.map(item => <AdressHistoryItem selectFromHistoryAction={selectFromHistoryAction} key={item.id} item={item} setShowHistory={setShowHistory} />)}
-                </div>
+
+            <div className='adress_history_list_container' ref={ref}>
+                {isComponentVisible &&
+                    <div className={`adress_history_list ${showHistory && 'active'}`}>
+                        {/* <AdressHistoryItem /> */}
+                        {Setting.adress_history.map(item => <AdressHistoryItem selectFromHistoryAction={selectFromHistoryAction} key={item.id} item={item} setShowHistory={setShowHistory} />)}
+                    </div>
+                }
             </div>
+
         </>
 
     )

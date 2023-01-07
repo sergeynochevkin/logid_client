@@ -17,7 +17,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
     const { Adress } = useContext(AdressContext)
     const [showHistory, setShowHistory] = useState(false)
     const [customInput, setCustomInput] = useState(false)
-    const { State } = useContext(StateContext)
+    const { State } = useContext(StateContext)  
 
     useEffect(() => {
         Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
@@ -30,19 +30,20 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
         )
     }, [])
 
-    const selectFromHistoryAction = (point) => {
-        console.log('yes');
+    const selectFromHistoryAction = (point) => {           
         let data = [...pointFormData]
         data[index].point.value = point.value
         data[index].latitude = point.latitude
         data[index].longitude = point.longitude
         data[index].city = point.city
-        data[index].point.isEmptyError = false
+        data[index].point.isEmptyError = false 
         setPointFormData(data)
+        document.getElementById(`${pointItem.id}`).value = pointItem.point.value
         setCalculate(true)
     }
 
     let autocomplete
+    let autocompleteListener
     function initAutocomplete(id) {
         if (Adress.country) {
             //eslint-disable-next-line no-undef
@@ -57,7 +58,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                     language: Adress.country.google_language
                 },
             )
-            autocomplete.addListener('place_changed', onPlaceChanged)
+            autocompleteListener = autocomplete.addListener('place_changed', onPlaceChanged)
         }
     }
 
@@ -131,6 +132,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                 >
                     <div className='input_row' >
 
+
                         <Input
                             id={pointItem.id}
                             name='point'
@@ -146,30 +148,12 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                             onClick={() => {
                                 setShowHistory(false)
                             }}
-                            style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '', visibility: customInput ? 'hidden' : 'visible', position: customInput ? 'absolute' : '' }}
+                            style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                         ></Input>
 
-                        <Input
-                            id={pointItem.id}
-                            placeholder={'Введите местоположение'}
-                            name='point'
-                            value={pointItem.point.value}
-                            onChange={() => {
-                                if (pointFormData[index].value !== '') {
-                                    dataReset()
-                                }
-                            }}
-                            onBlur={event => {
-                                handleFormBlur(index, event)
-                            }}
-                            onClick={() => {
-                                setShowHistory(false)
-                                setCustomInput(false)
-                            }}
-                            style={{ borderLeft: (pointItem.point.isEmptyError) ? ' solid 1px rgb(254, 111, 103,0.8)' : '', visibility: !customInput ? 'hidden' : 'visible', position: !customInput ? 'absolute' : '' }}
-                        ></Input>
 
                     </div>
+
 
 
                     <AdressHistory showHistory={showHistory} setShowHistory={setShowHistory} selectFromHistoryAction={selectFromHistoryAction} setCustomInput={setCustomInput} />
