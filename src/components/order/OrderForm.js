@@ -46,7 +46,7 @@ const OrderForm = observer(() => {
     const { Adress } = useContext(AdressContext)
     const { Setting } = useContext(SettingContext)
     const [calculate, setCalculate] = useState(false)
-    const Edited = SetNativeTranslate(Translate.language, {}, 'edited')
+    const Edited = SetNativeTranslate(Translate.language, {}, 'edited').toLowerCase()
     const Order = SetNativeTranslate(Translate.language, {}, 'order')
     const Auction = SetNativeTranslate(Translate.language, {}, 'auction')
     const order_editing_canceled = SetNativeTranslate(Translate.language, {}, 'order_editing_canceled')
@@ -163,7 +163,7 @@ const OrderForm = observer(() => {
             point: { value: '', isDirty: false, isEmptyError: true, errorMessage: '' },
             latitude: undefined,
             longitude: undefined,
-            time: { value: setTime(initialTime, 30, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
+            time: { value: setTime(initialTime, 60, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
             status: 'new',
             name: '',
             customer_comment: { value: '', isDirty: false, minLengthError: false, maxLengthError: false, isEmptyError: true, errorMessage: '' },
@@ -197,7 +197,7 @@ const OrderForm = observer(() => {
     )
 
     const calculateTime = (results, timeGap, pointSequence, action) => {
-        if (action === 'calculate') {
+        if (action === 'calculate' && !pointFormData.find(el => el.time.isDirty && el.sequence !== 1)) {
             let data = [...pointFormData]
             let initialTime = data.find(el => el.sequence === 1).time.value
             for (const point of data) {
@@ -218,36 +218,59 @@ const OrderForm = observer(() => {
                     initialTime.setSeconds(point.time.value.getSeconds() + results.routes[0].legs[legIndex].duration.value)
                     point.time.value = setTime(new Date(point.time.value), 0, 'form')
                 }
+                point.point.isDirty = false
             }
             setPointFormData(data)
-            //recalculate what? if point place changing reset start time if point changing if is not dirty, if dirty save setted
-
         }
         if (action === 'increase' || action === 'decrease') {
             let data = [...pointFormData]
             let pointForEdit = data.find(el => el.sequence === pointSequence)
-
-            //add check if no place fo previous leg notification
-
             let cleanData = data.filter(el => el.sequence !== pointSequence)
-
-            for (const point of cleanData) {
-                if (point.sequence > pointForEdit.sequence) {
-                    //check if not enought for leg, error if earlier than now + 30 mins!
-                    let time = new Date(point.time.value)
-                    time.setSeconds(action === 'increase' ? (time.getSeconds() + timeGap) : (time.getSeconds() - timeGap))
-                    point.time.value = setTime(new Date(time), 0, 'form')
-                    setPointFormData([...cleanData, pointForEdit])
-                }
-            }
+            //recalculate next not need now
+            // for (const point of cleanData) {
+            //     if (point.sequence > pointForEdit.sequence) {
+            //         //check if not enought for leg, error if earlier than now + 30 mins!
+            //         let time = new Date(point.time.value)
+            //         time.setSeconds(action === 'increase' ? (time.getSeconds() + timeGap) : (time.getSeconds() - timeGap))
+            //         point.time.value = setTime(new Date(time), 0, 'form')
+            //         setPointFormData([...cleanData, pointForEdit])
+            //     }
+            // }
             let time = new Date(pointForEdit.time.value)
             time.setSeconds(action === 'increase' ? (time.getSeconds() + timeGap) : (time.getSeconds() - timeGap))
             pointForEdit.time.value = setTime(new Date(time), 0, 'form')
+            pointForEdit.time.isDirty = true
             setPointFormData([...cleanData, pointForEdit])
         }
-        if (action !== 'now') {
-            //first point now + 15
-            //all point like in legs
+
+        if (action === 'now') {
+            let data = [...pointFormData]
+            let cleanData = data.filter(el => el.sequence !== 1)
+            let pointForEdit = data.find(el => el.sequence === 1)
+            pointForEdit.time.isDirty = false
+            // now + 15 not need now
+            // let initialTime = new Date();
+            // pointForEdit.time.value = setTime(initialTime, 15, 'form')
+            if (!pointFormData.find(el => el.point.isEmptyError)) {
+                for (const point of cleanData) {
+                    point.time.isDirty = false
+                }
+                setPointFormData([...cleanData, pointForEdit])
+                setCalculate(true)
+            } else {
+                cleanData = [...cleanData.sort(sortPoints)]
+                let initialTime = new Date(pointForEdit.time.value)
+                for (const point of cleanData) {
+                    let time = initialTime.setSeconds(initialTime.getSeconds() + 1800)
+                    point.time.value = setTime(new Date(time), 0, 'form')
+                    point.time.isDirty = false
+                    initialTime = new Date(point.time.value)
+                }
+                setPointFormData([...cleanData, pointForEdit])
+            }
+        }
+        if (action === 'add') {
+
         }
     }
 
@@ -533,6 +556,7 @@ const OrderForm = observer(() => {
 
     const addField = (pointItem) => {
         let newSequence = pointItem.sequence !== 50 ? pointItem.sequence + 1 : 50
+        let initialTime
         if (pointFormData.length >= Limit.user_limits.customer_new_order_point_limit) {
             Notification.addNotification([{ id: v4(), type: 'error', message: `${point_limit} ${Limit.user_limits.customer_new_order_point_limit}. ${you_can_change_subscription}` }])
         } else {
@@ -542,6 +566,7 @@ const OrderForm = observer(() => {
             let maxSequence = Math.max(...sequenceArray)
             let data = [...pointFormData]
             if (pointItem.sequence !== 50) {
+                initialTime = new Date(pointItem.time.value)
                 for (const point of data) {
                     if (point.sequence > pointItem.sequence && point.sequence < 49) {
                         point.sequence = point.sequence + 1
@@ -551,6 +576,7 @@ const OrderForm = observer(() => {
             } else {
                 let pointForEdit = data.find(el => el.sequence === 50)
                 pointForEdit.sequence = maxSequence + 1
+                initialTime = new Date(pointForEdit.time.value)
                 let cleanData = data.filter(el => el.sequence !== pointItem.sequence)
                 setPointFormData([...cleanData, pointForEdit])
             }
@@ -559,7 +585,7 @@ const OrderForm = observer(() => {
                 point: { value: '', isDirty: false, isEmptyError: true, errorMessage: '' },
                 latitude: undefined,
                 longitude: undefined,
-                time: { value: setTime(initialTime, 240, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
+                time: { value: setTime(initialTime, 0, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' },
                 status: 'new',
                 sequence: newSequence,
                 name: '',

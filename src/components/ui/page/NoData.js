@@ -7,7 +7,7 @@ const NoData = observer(({ children, ...props }) => {
     const { Setting } = useContext(SettingContext)
 
     return (
-        <div{...props} className={Setting.app_theme === 'light' ? 'no_data' : 'no_data_dark'}>{children}</div>
+        <div{...props} className={Setting.app_theme === 'light' ? 'no_data' : 'no_data dark'}>{children}</div>
     )
 })
 

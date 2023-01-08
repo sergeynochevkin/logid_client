@@ -17,7 +17,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
     const { Adress } = useContext(AdressContext)
     const [showHistory, setShowHistory] = useState(false)
     const [customInput, setCustomInput] = useState(false)
-    const { State } = useContext(StateContext)  
+    const { State } = useContext(StateContext)
 
     useEffect(() => {
         Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
@@ -30,13 +30,13 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
         )
     }, [])
 
-    const selectFromHistoryAction = (point) => {           
+    const selectFromHistoryAction = (point) => {
         let data = [...pointFormData]
         data[index].point.value = point.value
         data[index].latitude = point.latitude
         data[index].longitude = point.longitude
         data[index].city = point.city
-        data[index].point.isEmptyError = false 
+        data[index].point.isEmptyError = false
         setPointFormData(data)
         document.getElementById(`${pointItem.id}`).value = pointItem.point.value
         setCalculate(true)
@@ -208,10 +208,14 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                         ></Input>
 
                         <div className='now_container'>
-                            {pointItem.sequence === 1 &&
-                                <span className="material-symbols-outlined now_icon" alt='now'>
-                                    acute
-                                </span>
+                            {pointItem.sequence === 1 && pointFormData.find(el => el.time.isDirty) ?
+                                <span className="material-symbols-outlined now_icon" alt='now'
+                                    onClick={() => {
+                                        calculateTime(false, false, false, 'now')
+                                    }}
+                                >
+                                    update
+                                </span> : <></>
                             }
                         </div>
 
@@ -310,7 +314,7 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
                     : <></>}
 
             </div>
-        </div >
+        </div>
     )
 })
 

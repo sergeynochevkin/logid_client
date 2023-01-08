@@ -57,7 +57,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         order.setFilteredCount(order.filtered_count[ComponentFunction.Function] - 1, ComponentFunction.Fuction)
     }
 
-    const afterAction = (status) => {
+    const afterAction = (status, group) => {
         if (parent === 'order') {
             boost(thisOrder.id)
             fetcher.setNewStatus(status)
@@ -69,7 +69,8 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             }
         }
         if (parent === 'selector') {
-            sendMail(Translate.language, user.user.role, order.group, 'order_status', status, '')
+            console.log(JSON.stringify(group));
+            sendMail(Translate.language, user.user.role, group, 'order_status', status, '') 
             fetcher.setNewStatus(status)
             fetcher.setDividedOrders(true)
         }
@@ -102,13 +103,14 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         }
 
         if (parent === 'selector') {
+            let group = [...order.group]
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'postponed', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            afterAction('postponed')
+            afterAction('postponed', group)
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_postponed} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
 
         };
@@ -122,13 +124,14 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             Notification.addNotification([{ id: v4(), type: 'error', message: `${you_canceled} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         };
         if (parent === 'selector') {
+            let group = [...order.group]
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'canceled', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            afterAction('canceled')
+            afterAction('canceled',group)
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_canceled} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
         };
     }
@@ -141,13 +144,14 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_send} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
         if (parent === 'selector') {
+            let group = [...order.group]
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'new', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            afterAction('new')
+            afterAction('new', group)
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_send} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
         };
     }
@@ -176,13 +180,14 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
         }
         if (parent === 'selector') {
+            let group = [...order.group]
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'completed', ComponentFunction.Function)
                     .then(event.stopPropagation());
                 boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            afterAction('completed')
+            afterAction('completed', group)
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
         };
     }
@@ -197,6 +202,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             Notification.addNotification([{ id: v4(), type: 'success', message: `${thisOrder.order_type === 'order' ? Order : Auction} ${thisOrder.id} ${you_moved_to_arc}` }])
         }
         if (parent === 'selector') {
+            let group = [...order.group]
             order.group.forEach(async element => {
                 await updateOrder('', '', element, user.user.role, 'arc', ComponentFunction.Function)
                     .then(event.stopPropagation());
@@ -204,7 +210,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 State.setUserStateField(State.user_state.favorite_order_state.filter(el => el !== thisOrder.id), 'favorite_order_state', UserInfo.userInfo.id);
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            afterAction('arc')
+            afterAction('arc', group)
             Notification.addNotification([{ id: v4(), type: 'success', message: `${orders_notification} ${order.group.toString()} ${you_moved_to_arc}` }])
         };
     }
