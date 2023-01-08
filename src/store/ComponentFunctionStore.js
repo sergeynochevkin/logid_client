@@ -7,7 +7,7 @@ export default class ComponentFunctionStore {
         this._PageFunction = localStorage.getItem('pageFunction') ? localStorage.getItem('pageFunction') : 'orderList'
         this._OrdersComponentFunction = localStorage.getItem('OrdersComponentFunction') ? localStorage.getItem('OrdersComponentFunction') : 'orderList'
         this._OfferListMoreInfo = localStorage.getItem('OfferListMoreInfo') ? localStorage.getItem('OfferListMoreInfo') : false
-        this._orderFormFunction = localStorage.getItem('orderFormFunction') ? localStorage.getItem('orderFormFunction') : 'newOrder'
+        this._orderFormFunction = localStorage.getItem('orderFormFunction') ? localStorage.getItem('orderFormFunction') : 'newOrder'        
         this._partnersComponentFunction = localStorage.getItem('partnersComponentFunction') ? localStorage.getItem('partnersComponentFunction') : 'list'
 
         makeAutoObservable(this)

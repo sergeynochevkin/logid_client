@@ -64,7 +64,6 @@ const OrderForm = observer(() => {
     const arrival_time = SetNativeTranslate(Translate.language, {}, 'arrival_time')
     const finish_time = SetNativeTranslate(Translate.language, {}, 'finish_time')
     const symbols = SetNativeTranslate(Translate.language, {}, 'symbols')
-    const [patternLoaded, setPatternLoaded] = useState(false)
 
     let initialTime = new Date();
 
@@ -104,7 +103,6 @@ const OrderForm = observer(() => {
     let pointPatternInitialValue = []
     let pointPattern
 
-
     if (ComponentFunction.orderFormFunction !== 'newOrder') {
         orderPattern = JSON.parse(order.pattern)
         orderPattern.order_comment = { value: orderPattern.order_comment, isDirty: false, notValid: false }
@@ -129,7 +127,7 @@ const OrderForm = observer(() => {
         pointPattern = JSON.parse(Point.pattern)
         for (const point of pointPattern) {
             point.point = { value: point.point, isDirty: false, isEmptyError: false }
-            point.time = { value: point.sequence === 1 ? setTime(initialTime, 120, 'form') : setTime(initialTime, 240, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' }
+            point.time = { value: point.sequence === 1 ? setTime(initialTime, 60, 'form') : setTime(initialTime, 90, 'form'), isDirty: false, isEmptyError: false, errorMessage: '' }
             point.status = 'new'
             point.customer_comment = { value: point.customer_comment, isDirty: false, minLengthError: false, maxLengthError: false, isEmptyError: true, errorMessage: '' }
             point.carrier_comment = ''
@@ -140,8 +138,9 @@ const OrderForm = observer(() => {
         }
     }
 
+    // here!
     const [formData, setFormData] = useState(
-        localStorage.getItem('orderFormData') && ComponentFunction.orderFormFunction !== 'newOrder' ? JSON.parse(localStorage.getItem('orderFormData')) :
+        localStorage.getItem('orderFormData') ? JSON.parse(localStorage.getItem('orderFormData')) :
             ComponentFunction.orderFormFunction === 'newOrder' ? initialValue : orderPattern
     )
 
@@ -667,6 +666,7 @@ const OrderForm = observer(() => {
     useEffect(() => {
         localStorage.setItem('orderFormData', JSON.stringify(formData))
     }, [formData.order_comment, formData.cost, formData.for_partner, formData.for_group, formData.order_type])
+  
 
     useEffect(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))

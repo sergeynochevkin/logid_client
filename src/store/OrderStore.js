@@ -39,7 +39,7 @@ export default class OrderStore {
         }
         this._ordersByGroup = []
         this._ordersByPartner = []
-        this._pattern = JSON.stringify('')
+        this._pattern = localStorage.getItem('orderPattern') ? JSON.parse(localStorage.getItem('orderPattern')) : JSON.stringify('')
         this._integrationId = ''
 
         makeAutoObservable(this)
@@ -80,6 +80,7 @@ export default class OrderStore {
 
     setPattern(value) {
         this._pattern = value
+        localStorage.setItem('orderPattern', JSON.stringify(value))
     }
 
     get pattern() {
