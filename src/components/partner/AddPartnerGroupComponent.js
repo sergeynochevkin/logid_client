@@ -14,8 +14,7 @@ const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGrou
     return (
         <>
             {parent !== 'partnerList' && parent !== 'groupModal' ?
-                <>
-
+                <div className='group_list_container'>
                     <Input placeholder={SetNativeTranslate(Translate.language,{},'group_name')} value={formData.groupName.value}
                         onChange={(e) => formData.groupName.onChange(e)}
                         onBlur={e => formData.groupName.onBlur(e)}
@@ -48,7 +47,7 @@ const AddPartnerGroupComponent = ({ formData, setFormData, parent, createNewGrou
                             }}
                         >{SetNativeTranslate(Translate.language,{},'close')}</CardButton>
                     </HorizontalContainer>
-                </> : <></>}
+                </div> : <></>}
         </>
     )
 }

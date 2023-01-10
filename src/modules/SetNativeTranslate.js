@@ -374,10 +374,10 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
 
         // from here change to native!
 
-        { service: 'code_sent', russian: 'Код отправлен', english: 'Сode sent', spanish: '', turkish: '', type: 'notification' },
-        { service: 'password_changed', russian: 'Пароль изиенен, доступ восстановлен, вы авторизованы', english: 'Password changed, access restored, you are logged in', spanish: '', turkish: '', type: 'notification' },
-        { service: 'logged_in', russian: 'Вы авторизованы', english: 'You are logged in', spanish: '', turkish: '', type: 'notification' },
-        { service: 'registered', russian: 'Вы зарегистрированы, ссылка для активации аккаунта отрправлена на указанный email', english: 'You are registered, a link to activate your account has been sent to the specified email', spanish: '', turkish: '', type: 'notification' },
+        // { service: 'code_sent', russian: 'Код отправлен', english: 'Сode sent', spanish: '', turkish: '', type: 'notification' },
+        // { service: 'password_changed', russian: 'Пароль изиенен, доступ восстановлен, вы авторизованы', english: 'Password changed, access restored, you are logged in', spanish: '', turkish: '', type: 'notification' },
+        // { service: 'logged_in', russian: 'Вы авторизованы', english: 'You are logged in', spanish: '', turkish: '', type: 'notification' },
+        // { service: 'registered', russian: 'Вы зарегистрированы, ссылка для активации аккаунта отрправлена на указанный email', english: 'You are registered, a link to activate your account has been sent to the specified email', spanish: '', turkish: '', type: 'notification' },
         { service: 'new_orders_received', russian: 'Поступили новые заказы:', english: 'New orders received:', spanish: '', turkish: '', type: 'notification' },
         { service: 'new_order_received', russian: 'Поступил новый заказ', english: 'New order received', spanish: '', turkish: '', type: 'notification' },
         { service: 'orders_taken', russian: 'Взяты в работу заказы:', english: 'Orders taken:', spanish: '', turkish: '', type: 'notification' },
@@ -516,9 +516,9 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'by_carrier', russian: 'перевозчиком', english: 'by carrier', spanish: '', turkish: '', type: 'notification' },
         { service: 'by_customer', russian: 'заказчиком', english: 'by customer', spanish: '', turkish: '', type: 'notification' },
         { service: 'finished', russian: 'завершен', english: 'finished', spanish: '', turkish: '', type: 'notification' },
-        { service: 'you_can_restore', russian: 'вы можете восстановить заказ', english: 'you can restore the order', spanish: '', turkish: '', type: 'notification' },
+        // { service: 'you_can_restore', russian: 'вы можете восстановить заказ', english: 'you can restore the order', spanish: '', turkish: '', type: 'notification' },
     ]
-
+    
     let translatedText
 
     if (service) {

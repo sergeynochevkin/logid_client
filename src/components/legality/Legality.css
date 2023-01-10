@@ -16,12 +16,70 @@
     text-align: center;
 }
 
+.modal_doc_container {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.modal_doc {
+    height: 90vh;
+    width: 90%;
+    font-size: 10px;
+    overflow-y: auto;
+    text-align: left;
+    padding-right: 10px;
+}
+
+.modal_doc.dark {
+    background-color: transparent;
+    color: white;
+}
+
+.modal_doc::-webkit-scrollbar {
+    width: 0;
+    /* Remove scrollbar space */
+    background: transparent;
+    height: 2px;
+    width: 2px;
+    /* Optional: just make scrollbar invisible */
+}
+
+/* Optional: show position indicator in red */
+.modal_doc::-webkit-scrollbar-thumb {
+    background: rgba(61, 61, 61, 0.3);
+}
+
+/* Optional: show position indicator in red */
+.modal_doc.dark::-webkit-scrollbar-thumb {
+    background: rgba(149, 149, 149, 0.3);
+}
+
+.new-line {
+    white-space: pre-line;
+  }
+
 @media screen and (max-width: 1920px) {}
 
-@media screen and (max-width: 768px) {}
+@media screen and (max-width: 1200px) and  (min-width: 769px) and (max-height: 500px)  {
+    .modal_doc_container{
+        width: 700px;
+    }  
+}
+
+@media screen and (max-width: 768px) {
+    .modal_doc_container {
+        width: 600px;
+    }
+}
 
 @media screen and (max-width: 425px) {
-    .accept_cookie_text_container{
+    .accept_cookie_text_container {
         font-size: 12px;
+    }
+    .modal_doc_container {
+        width: 100%;
     }
 }

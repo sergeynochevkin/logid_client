@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
@@ -53,7 +53,6 @@ const NavBar = observer(() => {
         >
           <ServerNotificationList setModalActive={setModalActive2} />
         </Modal>
-
 
         <div className='nav_bar_logo' onClick={() =>
           navigate(MAIN_ROUTE)}>logid</div>

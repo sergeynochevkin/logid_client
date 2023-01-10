@@ -25,13 +25,14 @@
 .footer_copyright_container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    /* gap: 10px; */
     width: 1400px;
     /* height: 200px; */
 }
 
 .footer_copyright {
     font-size: 10px;
+    margin-top: 10px;
     color: grey;
     text-align: justify;
 }
@@ -48,6 +49,17 @@
 
 .footer_email {
     font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.legality_link {
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.legality_link:hover {
+    color: grey;
 }
 
 @media screen and (max-width: 1920px)and (min-width: 769px) {
@@ -61,7 +73,7 @@
     }
 }
 
-@media screen and (max-width: 1200px) and  (min-width: 769px) and (max-height: 500px)  {
+@media screen and (max-width: 1200px) and (min-width: 769px) and (max-height: 500px) {
     .footer_container {
         justify-content: center;
         flex-wrap: wrap;

@@ -34,7 +34,7 @@
 }
 
 .modalContent.dark {
-    background-color: rgb(31, 31, 31, 0.8);   
+    background-color: rgb(31, 31, 31, 0.8);
 }
 
 .modalContent.active {
@@ -44,7 +44,6 @@
 .modalContent_dark.active {
     transform: scale(1);
 }
-
 
 .modal_container {
     display: flex;
@@ -83,6 +82,25 @@
     animation: SlideTop 0.5s;
     bottom: 0px;
 }
+
+.modal_close_icon {
+    font-size: 20px;
+    position: relative;
+    left: 90%;
+    /* color:black */
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.modal_close_icon.dark {
+    color: white;
+    background-color: transparent;
+}
+
+.modal_close_icon:hover {
+    color: grey;
+}
+
 
 @keyframes SlideBottom {
     0% {
