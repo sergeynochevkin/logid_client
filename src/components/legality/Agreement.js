@@ -1,6 +1,6 @@
 import React from 'react'
-import PersonalDataAgreement from './PersonalDataAgreement'
-import PrivacyPolicy from './PrivacyPolicy'
+import PersonalDataAgreementRussia from './PersonalDataAgreementRussia'
+import PrivacyPolicyRussia from './PrivacyPolicyRussia'
 import UserAgreementRussia from './UserAgreementRussia'
 
 const Agreement = ({ agreement }) => {
@@ -8,8 +8,8 @@ const Agreement = ({ agreement }) => {
         <>
             {
                 agreement === 'UserAgeement' ? <UserAgreementRussia /> :
-                    agreement === 'PersonalDataAgreement' ? <PersonalDataAgreement /> :
-                        agreement === 'PrivacyPolicy' ? <PrivacyPolicy /> : <></>
+                    agreement === 'PersonalDataAgreement' ? <PersonalDataAgreementRussia /> :
+                        agreement === 'PrivacyPolicy' ? <PrivacyPolicyRussia /> : <></>
             }
         </>
 

@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { AdressContext, SettingContext, TranslateContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const PrivacyPolicy = observer(() => {
+const PrivacyPolicyRussia = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const { Setting } = useContext(SettingContext)
@@ -13,11 +13,11 @@ const PrivacyPolicy = observer(() => {
       {Adress.country.value === 'russia' &&
         <div className={`modal_doc ${Setting.app_theme === 'dark' && 'dark'} new-line`}>{SetNativeTranslate(Translate.language, {
           russian: [``],
-          english: ['']
+          english: [``]
         })}</div>
       }
     </div>
   )
 })
 
-export default PrivacyPolicy
+export default PrivacyPolicyRussia
