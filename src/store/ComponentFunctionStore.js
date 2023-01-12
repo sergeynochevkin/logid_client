@@ -7,6 +7,8 @@ export default class ComponentFunctionStore {
         this._OfferListMoreInfo = localStorage.getItem('OfferListMoreInfo') ? localStorage.getItem('OfferListMoreInfo') : false
         this._orderFormFunction = localStorage.getItem('orderFormFunction') ? localStorage.getItem('orderFormFunction') : 'newOrder'
         this._partnersComponentFunction = localStorage.getItem('partnersComponentFunction') ? localStorage.getItem('partnersComponentFunction') : 'list'
+        this._agreement = ''
+        this._agreement_modal = false
         makeAutoObservable(this)
     }
     setPartnersComponentFunction(value) {
@@ -40,6 +42,12 @@ export default class ComponentFunctionStore {
         this._orderFormFunction = value
         localStorage.setItem('orderFormFunction', value)
     }
+    setAgreement(value) {
+        this._agreement = value
+    }
+    setAgreementModal(value) {
+        this._agreement_modal = value
+    }
     get partnersComponentFunction() {
         return this._partnersComponentFunction
     }
@@ -57,6 +65,12 @@ export default class ComponentFunctionStore {
     }
     get orderFormFunction() {
         return this._orderFormFunction
+    }
+    get agreement() {
+        return this._agreement
+    }
+    get agreement_modal() {
+        return this._agreement_modal
     }
 }
 

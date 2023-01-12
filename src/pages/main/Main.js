@@ -7,8 +7,6 @@ import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../../http/notificationApi'
 import './Main.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-import ModalBottom from '../../components/ui/modal/ModalBottom'
-import CookiesModalContent from '../../components/legality/CookiesModalContent'
 import MainSection from './MainSection'
 import Modal from '../../components/ui/modal/Modal'
 
@@ -19,7 +17,7 @@ const Main = observer(() => {
   const uuid = queryParams.get("uuid")
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
-  const [modalActive, setModalActive] = useState(true)
+  
 
   useEffect(() => {
     async function handleUrlNotification() {
@@ -285,10 +283,7 @@ const Main = observer(() => {
       {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
         <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} />
       )}
-
-      <ModalBottom modalActive={modalActive}>
-        <CookiesModalContent setModalActive={setModalActive} />
-      </ModalBottom>   
+         
     </PageContainer>
   )
 })

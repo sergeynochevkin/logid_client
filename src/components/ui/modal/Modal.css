@@ -63,7 +63,7 @@
     position: fixed;
     bottom: -300px;
     left: 0;
-    animation: SlideBottom 0.5s;
+    animation: SlideBottom 1s;
     animation-fill-mode: forwards;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@
 
 .modal_bottom.active {
     animation-fill-mode: forwards;
-    animation: SlideTop 0.5s;
+    animation: SlideTop 1s;
     bottom: 0px;
 }
 

@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE } from '../../utils/consts';
 import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { AdressContext, FetcherContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
@@ -26,6 +26,8 @@ import { HorizontalContainer } from '../../components/ui/page/HorizontalContaine
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import './Auth.css'
 import { fetchUserState } from '../../http/stateApi'
+import { CheckBoxContainer } from '../../components/ui/form/CheckBoxContainer'
+import { CheckBoxSection } from '../../components/ui/form/CheckBoxSection'
 
 
 const Auth = observer(() => {
@@ -46,13 +48,17 @@ const Auth = observer(() => {
   const { Adress } = useContext(AdressContext)
   const { State } = useContext(StateContext)
   const { fetcher } = useContext(FetcherContext)
+  const { ComponentFunction } = useContext(ComponentFunctionContext)
 
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     role: '',
-    code: ''
+    code: '',
+    user_agreement_accepted: false,
+    privacy_policy_accepted: false,
+    age_policy_accepted: false,
   })
 
   const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -97,7 +103,7 @@ const Auth = observer(() => {
           } else {
             State.setUserStateField(Translate.language, 'language', data.id)
           }
-          if(state.adress_history){
+          if (state.adress_history) {
             Setting.setAdressHistory(state.adress_history)
           }
         })
@@ -204,7 +210,7 @@ const Auth = observer(() => {
               onChange={(e) => formData.email.onChange(e)}
               onBlur={e => formData.email.onBlur(e)}
               type="text" name="email" id="email"
-              autoComplete = 'email'
+              autoComplete='email'
             ></Input>
 
             <FieldName
@@ -229,7 +235,7 @@ const Auth = observer(() => {
               style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.password.value}
               onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
-              autoComplete = 'current-password'
+              autoComplete='current-password'
             ></Input>
             <FieldName
               style={{
@@ -257,8 +263,8 @@ const Auth = observer(() => {
                 style={{ borderLeft: formData.password.value !== comparePassword || !comparePassword ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 onBlur={e => formData.password.onBlur(e)}
                 type="password"
-                autoComplete = 'new-password'
-                ></Input>
+                autoComplete='new-password'
+              ></Input>
               <FieldName
                 style={{
                   fontWeight: 'normal',
@@ -310,7 +316,7 @@ const Auth = observer(() => {
               style={{ borderLeft: formData.code.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.code.value}
               onChange={(e) => formData.code.onChange(e)} onBlur={e => formData.code.onBlur(e)} type="text" name="code" id="code"
-              autoComplete = 'one-time-code'
+              autoComplete='one-time-code'
             ></Input>
             <FieldName
               style={{
@@ -326,6 +332,79 @@ const Auth = observer(() => {
           </VerticalContainer>
           : <></>}
 
+        {isRegister &&
+          <div className='auth_check_box_list_section'>
+            <div className='auth_check_box_list_container'>
+              <CheckBoxContainer key={1}>
+                <CheckBoxSection key={1}>
+                  <input type='checkbox' checked={formData.user_agreement_accepted && 'checked'} value={formData.user_agreement_accepted} key={1} onChange={() => {
+                    formData.user_agreement_accepted === false ? setFormData({ ...formData, user_agreement_accepted: true }) :
+                      setFormData({ ...formData, user_agreement_accepted: false })
+                  }}></input>
+                  <>
+                    <label className='auth_check_box_label' key={1}>{SetNativeTranslate(Translate.language, {
+                      russian: [`для продолжения регистрации подтвердите согласие с `],
+                      english: [`to continue registration, confirm your agreement with `]
+                    })}
+                      <div className='auth_agreement_link'
+                        onClick={() => {
+                          ComponentFunction.setAgreement('UserAgeement')
+                          ComponentFunction.setAgreementModal(true)
+                        }}
+                      >
+                        {SetNativeTranslate(Translate.language, {
+                          russian: [`пользовательским соглашением`],
+                          english: [`user agremeent`]
+                        })}
+                      </div>
+                    </label>
+                  </>
+                </CheckBoxSection>
+              </CheckBoxContainer>
+              <CheckBoxContainer key={2}>
+                <CheckBoxSection key={2}>
+                  <input type='checkbox' checked={formData.privacy_policy_accepted && 'checked'} value={formData.privacy_policy_accepted} key={2} onChange={() => {
+                    formData.privacy_policy_accepted === false ? setFormData({ ...formData, privacy_policy_accepted: true }) :
+                      setFormData({ ...formData, privacy_policy_accepted: false })
+                  }}></input>
+                  <>
+                    <label className='auth_check_box_label' key={1}>{SetNativeTranslate(Translate.language, {
+                      russian: [`для продолжения регистрации подтвердите согласие с `],
+                      english: [`to continue registration, confirm your agreement with `]
+                    })}
+                      <div className='auth_agreement_link'
+                        onClick={() => {
+                          ComponentFunction.setAgreement('PrivacyPolicy')
+                          ComponentFunction.setAgreementModal(true)
+                        }}
+                      >
+                        {SetNativeTranslate(Translate.language, {
+                          russian: [`политикой конфиденциальности`],
+                          english: [`privacy policy`]
+                        })}
+                      </div>
+                    </label>
+                  </>
+                </CheckBoxSection>
+              </CheckBoxContainer>
+              <CheckBoxContainer key={3}>
+                <CheckBoxSection key={3}>
+                  <input type='checkbox' checked={formData.age_accepted && 'checked'} value={formData.age_accepted} key={3} onChange={() => {
+                    formData.age_accepted === false ? setFormData({ ...formData, age_accepted: true }) :
+                      setFormData({ ...formData, age_accepted: false })
+                  }}></input>
+                  <>
+                    <label className='auth_check_box_label' key={3}>{SetNativeTranslate(Translate.language, {
+                      russian: [`для продолжения регистрации подтвердите, что вам исполнилось 18 лет`],
+                      english: [`to continue registration, confirm that you are over 18 years old`]
+                    })}</label>
+                  </>
+                </CheckBoxSection>
+              </CheckBoxContainer>
+            </div>
+          </div>
+        }
+
         <ReCAPTCHA
           sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
           onChange={onRecaptchaChange}
@@ -334,7 +413,17 @@ const Auth = observer(() => {
         <HorizontalContainer>
           <Button
             disabled={
-              formData.email.notValid || (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) || (formData.role.notValid && isRegister) || (formData.password.value !== comparePassword && (isRegister || (isRecovery && codeSend))) || !reCapchaChecked || (isRecovery && codeSend && formData.code.isEmpty)}
+              formData.email.notValid ||
+              (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) ||
+              (formData.role.notValid && isRegister) ||
+              (formData.password.value !== comparePassword && (isRegister ||
+                (isRecovery && codeSend))) ||
+              !reCapchaChecked ||
+              (isRecovery && codeSend && formData.code.isEmpty) ||
+              (isRegister && !formData.user_agreement_accepted) ||
+              (isRegister && !formData.privacy_policy_accepted) ||
+              (isRegister && !formData.age_accepted)
+            }
             onClick={(event) => {
               event.preventDefault()
               if (isRegister || isLogin) {

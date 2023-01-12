@@ -13,7 +13,7 @@ const App = observer(() => {
     <BrowserRouter>
       <PreLoader>
         <Fetcher />
-        <Notificator/>
+        <Notificator />
         <NavBar />
         <AppRouter>
           <div className="App"></div>

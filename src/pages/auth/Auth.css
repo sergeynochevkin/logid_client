@@ -11,13 +11,42 @@
     color: grey;
 }
 
+.auth_check_box_list_section {
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth_check_box_list_container {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    align-items: left;
+}
+
+.auth_check_box_label {
+    font-size: 10px;
+}
+
+.auth_agreement_link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.auth_agreement_link:hover {
+    color: grey;
+    text-decoration: none;
+}
+
 @media screen and (max-width: 1920px) {}
 
-@media screen and (max-width: 1200px) and  (min-width: 769px) and (max-height: 500px)  {
+@media screen and (max-width: 1200px) and (min-width: 769px) and (max-height: 500px) {
     .auth_disclaimer {
         padding-bottom: 300px;
         width: 80%;
-    } 
+    }
 }
 
 @media screen and (max-width: 768px) and (min-width: 426px) {

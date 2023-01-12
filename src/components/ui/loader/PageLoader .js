@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { SettingContext, TranslateContext } from '../../..'
-import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
+import React, {  useEffect, useState } from 'react'
 import './Loader.css'
 
 const PageLoader = () => {

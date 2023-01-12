@@ -9,14 +9,22 @@ const Modal = observer(({ modalActive, setModalActive, children, parent, formRes
   const { user } = useContext(UserContext)
   const { Setting } = useContext(SettingContext)
 
+  if (parent === 'agreement') {
+    modalActive = ComponentFunction.agreement_modal
+  }
+
   const modalCloseAction = () => {
     if (parent === 'TransportComponent' || parent === 'PointItem' || parent === 'orderRatingComponent' || parent === 'otherRatingComponent' || parent === 'createGroup' || (parent === 'OfferComponent' && user.user.role === 'carrier')) {
       formReset()
+      setModalActive(false)
     }
     if (parent === 'OfferComponent') {
       ComponentFunction.setOfferListMoreInfo(false)
+      setModalActive(false)
     }
-    setModalActive(false)
+    if (parent === 'agreement') {
+      ComponentFunction.setAgreementModal(false)
+    }
   }
   return (
     <div className={modalActive ? "modal active" : "modal"}
