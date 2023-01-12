@@ -24,6 +24,7 @@
     flex-direction: column;
     width: 280px;
     align-items: left;
+    gap: 3px;
 }
 
 .auth_check_box_label {
