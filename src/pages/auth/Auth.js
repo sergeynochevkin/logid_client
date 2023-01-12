@@ -343,8 +343,8 @@ const Auth = observer(() => {
                   }}></input>
                   <>
                     <label className='auth_check_box_label' key={1}>{SetNativeTranslate(Translate.language, {
-                      russian: [`для продолжения регистрации подтвердите согласие с `],
-                      english: [`to continue registration, confirm your agreement with `]
+                      russian: [`подтвердите согласие с `],
+                      english: [`confirm your agreement with `]
                     })}
                       <div className='auth_agreement_link'
                         onClick={() => {
@@ -369,8 +369,8 @@ const Auth = observer(() => {
                   }}></input>
                   <>
                     <label className='auth_check_box_label' key={1}>{SetNativeTranslate(Translate.language, {
-                      russian: [`для продолжения регистрации подтвердите согласие с `],
-                      english: [`to continue registration, confirm your agreement with `]
+                      russian: [`подтвердите согласие с `],
+                      english: [`confirm your agreement with `]
                     })}
                       <div className='auth_agreement_link'
                         onClick={() => {
@@ -395,8 +395,8 @@ const Auth = observer(() => {
                   }}></input>
                   <>
                     <label className='auth_check_box_label' key={3}>{SetNativeTranslate(Translate.language, {
-                      russian: [`для продолжения регистрации подтвердите, что вам исполнилось 18 лет`],
-                      english: [`to continue registration, confirm that you are over 18 years old`]
+                      russian: [`подтвердите, что вам исполнилось 18 лет`],
+                      english: [`confirm that you are over 18 years old`]
                     })}</label>
                   </>
                 </CheckBoxSection>
