@@ -332,7 +332,7 @@ const Auth = observer(() => {
           </VerticalContainer>
           : <></>}
 
-        {isRegister &&
+        {isRegister && Adress.country.value === 'russia' ?
           <div className='auth_check_box_list_section'>
             <div className='auth_check_box_list_container'>
               <CheckBoxContainer key={1}>
@@ -407,6 +407,7 @@ const Auth = observer(() => {
               </CheckBoxContainer>
             </div>
           </div>
+          : <></>
         }
 
         <ReCAPTCHA
@@ -424,9 +425,9 @@ const Auth = observer(() => {
                 (isRecovery && codeSend))) ||
               !reCapchaChecked ||
               (isRecovery && codeSend && formData.code.isEmpty) ||
-              (isRegister && !formData.user_agreement_accepted) ||
-              (isRegister && !formData.privacy_policy_accepted) ||
-              (isRegister && !formData.age_accepted)
+              (isRegister && !formData.user_agreement_accepted && Adress.country.value === 'russia') ||
+              (isRegister && !formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
+              (isRegister && !formData.age_accepted && Adress.country.value === 'russia')
             }
             onClick={(event) => {
               event.preventDefault()
