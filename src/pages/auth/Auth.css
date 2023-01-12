@@ -45,6 +45,11 @@
     gap: 3px;
 }
 
+.auth_checkbox{
+    width: 14px;
+    height: 14px;
+}
+
 @media screen and (max-width: 1920px) {}
 
 @media screen and (max-width: 1200px) and (min-width: 769px) and (max-height: 500px) {
