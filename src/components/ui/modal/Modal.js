@@ -18,12 +18,14 @@ const Modal = observer(({ modalActive, setModalActive, children, parent, formRes
       formReset()
       setModalActive(false)
     }
-    if (parent === 'OfferComponent') {
+    else if (parent === 'OfferComponent') {
       ComponentFunction.setOfferListMoreInfo(false)
       setModalActive(false)
     }
-    if (parent === 'agreement') {
+    else if (parent === 'agreement') {
       ComponentFunction.setAgreementModal(false)
+    } else {
+      setModalActive(false)
     }
   }
   return (
