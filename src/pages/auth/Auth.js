@@ -341,29 +341,32 @@ const Auth = observer(() => {
                     formData.user_agreement_accepted === false ? setFormData({ ...formData, user_agreement_accepted: true }) :
                       setFormData({ ...formData, user_agreement_accepted: false })
                   }}></input>
-                  <>
-                    <label className='auth_check_box_label' key={1}>
-                      <div className='auth_checkbox_text'>
+                  <input type='checkbox' checked={formData.privacy_policy_accepted && 'checked'} value={formData.privacy_policy_accepted} key={2} onChange={() => {
+                    formData.privacy_policy_accepted === false ? setFormData({ ...formData, privacy_policy_accepted: true }) :
+                      setFormData({ ...formData, privacy_policy_accepted: false })
+                  }}></input>
+
+                  <label className='auth_check_box_label' key={1}>
+                    <div className='auth_checkbox_text'>
                       <div>
                         {SetNativeTranslate(Translate.language, {
                           russian: [`подтвердите согласие с`],
                           english: [`confirm your agreement with`]
                         })}
-                        </div>
-                        <div className='auth_agreement_link'
-                          onClick={() => {
-                            ComponentFunction.setAgreement('UserAgeement')
-                            ComponentFunction.setAgreementModal(true)
-                          }}
-                        >
-                          {SetNativeTranslate(Translate.language, {
-                            russian: [`пользовательским соглашением`],
-                            english: [`user agremeent`]
-                          })}
-                        </div>
                       </div>
-                    </label>
-                  </>
+                      <div className='auth_agreement_link'
+                        onClick={() => {
+                          ComponentFunction.setAgreement('UserAgeement')
+                          ComponentFunction.setAgreementModal(true)
+                        }}
+                      >
+                        {SetNativeTranslate(Translate.language, {
+                          russian: [`пользовательским соглашением`],
+                          english: [`user agremeent`]
+                        })}
+                      </div>
+                    </div>
+                  </label>
                 </CheckBoxSection>
               </CheckBoxContainer>
               <CheckBoxContainer key={2}>
@@ -372,27 +375,25 @@ const Auth = observer(() => {
                     formData.privacy_policy_accepted === false ? setFormData({ ...formData, privacy_policy_accepted: true }) :
                       setFormData({ ...formData, privacy_policy_accepted: false })
                   }}></input>
-                  <>
-                    <label className='auth_check_box_label' key={1}>
-                      <div className='auth_checkbox_text'>
-                        <div>{SetNativeTranslate(Translate.language, {
-                          russian: [`подтвердите согласие с`],
-                          english: [`confirm your agreement with`]
-                        })}</div>
-                        <div className='auth_agreement_link'
-                          onClick={() => {
-                            ComponentFunction.setAgreement('PrivacyPolicy')
-                            ComponentFunction.setAgreementModal(true)
-                          }}
-                        >
-                          {SetNativeTranslate(Translate.language, {
-                            russian: [`политикой конфиденциальности`],
-                            english: [`privacy policy`]
-                          })}
-                        </div>
+                  <label className='auth_check_box_label' key={1}>
+                    <div className='auth_checkbox_text'>
+                      <div>{SetNativeTranslate(Translate.language, {
+                        russian: [`подтвердите согласие с`],
+                        english: [`confirm your agreement with`]
+                      })}</div>
+                      <div className='auth_agreement_link'
+                        onClick={() => {
+                          ComponentFunction.setAgreement('PrivacyPolicy')
+                          ComponentFunction.setAgreementModal(true)
+                        }}
+                      >
+                        {SetNativeTranslate(Translate.language, {
+                          russian: [`политикой конфиденциальности`],
+                          english: [`privacy policy`]
+                        })}
                       </div>
-                    </label>
-                  </>
+                    </div>
+                  </label>
                 </CheckBoxSection>
               </CheckBoxContainer>
               <CheckBoxContainer key={3}>
