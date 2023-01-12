@@ -28,6 +28,7 @@ import './Auth.css'
 import { fetchUserState } from '../../http/stateApi'
 import { CheckBoxContainer } from '../../components/ui/form/CheckBoxContainer'
 import { CheckBoxSection } from '../../components/ui/form/CheckBoxSection'
+import Country from '../../components/account/userInfoForm/Country'
 
 
 const Auth = observer(() => {
@@ -50,19 +51,19 @@ const Auth = observer(() => {
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
 
-
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     role: '',
     code: '',
+    country: '',
     user_agreement_accepted: false,
     privacy_policy_accepted: false,
     age_policy_accepted: false,
   })
 
   const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
+  formData.country = useInput('', { isEmpty: true })
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/
 
   formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {
@@ -199,6 +200,8 @@ const Auth = observer(() => {
 
       <Form>
         <Name>{isLogin ? SetNativeTranslate(Translate.language, {}, 'authorization') : isRegister ? SetNativeTranslate(Translate.language, {}, 'registration') : isRecovery ? SetNativeTranslate(Translate.language, {}, 'password_recovery') : ''} </Name>
+
+        {isRegister && <Country setFormData={setFormData} formData={formData} parent='auth' />}
 
         {(isRecovery && !codeSend) || isLogin || isRegister ?
           <VerticalContainer

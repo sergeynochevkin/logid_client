@@ -20,13 +20,13 @@ const CountrySelector = observer(({ name, setModalActive }) => {
       <div className='country_selector_countries_container'>
         {Adress.countries.filter(el => el.value !== Adress.country.value && el.sector === Adress.country.sector).map(country => <CountrySelectorItem country={country} setModalActive={setModalActive} key={country.id} />)}
       </div>
-      <CardButton
+      {/* <CardButton
         onClick={
           () => {
             setModalActive(false)
           }
         }
-      >{SetNativeTranslate(Translate.language, {}, 'close')}</CardButton>
+      >{SetNativeTranslate(Translate.language, {}, 'close')}</CardButton> */}
     </div>
   )
 })
