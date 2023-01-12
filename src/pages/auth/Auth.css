@@ -39,6 +39,10 @@
     color: grey;
     text-decoration: none;
 }
+.auth_checkbox_text{
+    display: flex;
+    gap: 3px;
+}
 
 @media screen and (max-width: 1920px) {}
 
