@@ -17,7 +17,7 @@ const CookiesModalContent = observer(({ setModalActive, cookies_accepted }) => {
                 english: ['Cookies are collected and processed in your browser, for the full functioning of the service. Please confirm your consent to continue']
             })}</div> :
             <div className='accept_cookie_text_container'>{SetNativeTranslate(Translate.language, {
-                russian: ['Вы уже разрешили сбор и обработка cookie файлов в вашем браузере'],
+                russian: ['Вы уже разрешили сбор и обработку cookie файлов в вашем браузере'],
                 english: ['You have already allowed the collection and processing of cookies in your browser']
             })}</div>
             }

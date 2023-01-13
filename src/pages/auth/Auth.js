@@ -64,7 +64,6 @@ const Auth = observer(() => {
   })
 
 
-
   const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   formData.country = useInput('', { isEmpty: true })
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/
@@ -186,6 +185,7 @@ const Auth = observer(() => {
           )
         }])
       }
+      localStorage.setItem('cookies_accepted', true)
       user.setIsAuth(true)
       if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
       else { navigate(MAIN_ROUTE) }
