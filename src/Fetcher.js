@@ -267,7 +267,8 @@ const Fetcher = observer(() => {
     }, [fetcher.account_user])
     useEffect(() => {
         async function fetch() {
-            await fetchUserInfo(user.user.id).then(data => UserInfo.setUserInfo(data))
+            await fetchUserInfo(user.user.id).then(data => {
+                data && UserInfo.setUserInfo(data)})
         }
         fetch()
         fetcher.setAccountUserInfo(false)

@@ -21,9 +21,9 @@ const Country = ({ formData, setFormData }) => {
                     Adress.setCountry(Adress.countries.find(el => el.value === e.target.value))
                 }}
                 onBlur={e => formData.country.onBlur(e)}
-                style={{ borderLeft: formData.country.notValid 
-                // || formData.country.isEmpty 
-                ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                // style={{ borderLeft: formData.country.notValid 
+                // // || formData.country.isEmpty 
+                // ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
             >
                 {/* <option hidden >{SetNativeTranslate(Translate.language, {}, 'country_content')}</option> */}
 
@@ -39,10 +39,10 @@ const Country = ({ formData, setFormData }) => {
                     color: 'rgb(254, 111, 103,0.8)'
                 }}
             >
-                {formData.country.isEmpty && formData.country.isDirty ?
+                {/* {formData.country.isEmpty && formData.country.isDirty ?
                     SetNativeTranslate(Translate.language, {}, 'select_country').toLowerCase() :
                     ''
-                }
+                } */}
             </FieldName>
         </VerticalContainer>
     )

@@ -63,7 +63,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
-        fetchData().then(UserInfo.setUserInfo({})).then()
+        fetchData().then(UserInfo.setUserInfo({}))
     }, [])
 
     async function fetchData() {
@@ -76,7 +76,8 @@ const PreLoader = observer(({ children, ...props }) => {
             TransportType.setLoadCapacities(data.transport_load_capacities)
             EquipmentType.setTypes(data.equipment_types)
             Adress.setCountries(data.countries)
-            if (localStorage.getItem('country') && localStorage.getItem('country') !== undefined) {
+
+            if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
                 let country = JSON.parse(localStorage.getItem('country'))
                 Adress.setCountry(country)
                 if (localStorage.getItem('language')) {
@@ -100,12 +101,12 @@ const PreLoader = observer(({ children, ...props }) => {
         if (localStorage.getItem('token')) {
             try {
                 async function fetchData() {
+                    let country
                     let data = await check()
                     user.setUser(data)
                     // await fetching()
                     user.setIsAuth(true)
                     data = await fetchUserInfo(user.user.id).then(data => {
-                        let country
                         if (data) {
                             if (data.role === 'carrier') {
                                 fetchTransport(UserInfo.userInfo.id).then(data => Transport.setTransports(data))
@@ -118,9 +119,12 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
                         }
+               
                         data && fetchUserState(data.id).then(stateData => {
+
                             let state = JSON.parse(stateData.state)
                             State.setUserState(state)
+
                             if (state.app_theme) {
                                 Setting.setAppTheme(state.app_theme)
                             }

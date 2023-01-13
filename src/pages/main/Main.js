@@ -9,6 +9,8 @@ import './Main.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import MainSection from './MainSection'
 import Modal from '../../components/ui/modal/Modal'
+import ModalBottom from '../../components/ui/modal/ModalBottom'
+import CookiesModalContent from '../../components/legality/CookiesModalContent'
 
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
@@ -17,7 +19,16 @@ const Main = observer(() => {
   const uuid = queryParams.get("uuid")
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
-  
+  const [modalActive2, setModalActive2] = useState(true)
+
+
+  let cookies_accepted = localStorage.getItem('cookies_accepted')
+
+  useEffect(() => {
+    if (cookies_accepted) {
+      setModalActive2(false)
+    }
+  }, [])
 
   useEffect(() => {
     async function handleUrlNotification() {
@@ -29,8 +40,6 @@ const Main = observer(() => {
       handleUrlNotification()
     }
   }, [])
-
-
 
   let sections = [
     {
@@ -276,15 +285,20 @@ const Main = observer(() => {
   ]
 
   return (
-    <PageContainer>
-      <title>logid</title>
-      <MainBanner />
+    <>
+      <PageContainer>
+        <title>logid</title>
+        <MainBanner />
 
-      {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-        <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} />
-      )}
-         
-    </PageContainer>
+        {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+          <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} />
+        )}
+
+      </PageContainer>
+      <ModalBottom modalActive={modalActive2}>
+        <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
+      </ModalBottom>
+    </>
   )
 })
 

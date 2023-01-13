@@ -2,9 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { AdressContext, ComponentFunctionContext, SettingContext, TranslateContext } from '../..'
 import Agreement from '../../components/legality/Agreement'
-import CookiesModalContent from '../../components/legality/CookiesModalContent'
 import Modal from '../../components/ui/modal/Modal'
-import ModalBottom from '../../components/ui/modal/ModalBottom'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import './Footer.css'
 import FooterSection from './FooterSection'
@@ -14,17 +12,10 @@ const Footer = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive, setModalActive] = useState(null)
-  const [modalActive2, setModalActive2] = useState(true)
+
   const [agreement, setAgreement] = useState('')
   const { ComponentFunction } = useContext(ComponentFunctionContext)
-
-  let cookies_accepted = localStorage.getItem('cookies_accepted')
-  useEffect(() => {
-    if (cookies_accepted) {
-      setModalActive2(false)
-    }
-  }, [])
-
+  
   const sections = [
     {
       id: 1, header: SetNativeTranslate(Translate.language, {
@@ -109,11 +100,7 @@ const Footer = observer(() => {
       >
         <Agreement agreement={agreement}></Agreement>
       </Modal>
-
-      <ModalBottom modalActive={modalActive2}>
-        <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
-      </ModalBottom>
-
+    
       <div className={Setting.app_theme === 'light' ? 'footer_container' : 'footer_container dark'}>
         {sections.map(section => <FooterSection section={section} items={items.filter(el => el.section_id === section.id)} key={section.id} setModalActive={setModalActive} setAgreement={setAgreement} />)}
       </div>

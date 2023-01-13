@@ -11,7 +11,6 @@ import AdressComponent from './userInfoForm/AdressComponent'
 import TypeOfCustomer from './userInfoForm/TypeOfCustomer'
 import Legal from './userInfoForm/Legal'
 import Phone from './userInfoForm/Phone'
-import Country from './userInfoForm/Country'
 import { useInput } from '../../hooks/useInput'
 import { Button } from '../ui/button/Button'
 import { Form } from '../ui/form/Form'
@@ -68,9 +67,7 @@ const UserInfoForm = observer(() => {
     formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetNativeTranslate(Translate.language, {}, 'company_name_content').toLowerCase())
     const validWebSite = /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/
     formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetNativeTranslate(Translate.language, {}, 'website_content').toLowerCase())
-
-    formData.country.value = user.user.country
-
+    formData.country = useInput('', { isEmpty: true })
     const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     formData.legal = useInput('', { isEmpty: true })
     formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {}, 'email').toLowerCase())
@@ -85,7 +82,7 @@ const UserInfoForm = observer(() => {
 
     formData.email.value = user.user.email
     formData.country.value = Adress.country.value
-
+    
     const click = async (event) => {
         try {
             let data;
