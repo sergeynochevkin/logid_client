@@ -59,7 +59,8 @@ const Auth = observer(() => {
     country: '',
     user_agreement_accepted: false,
     privacy_policy_accepted: false,
-    age_policy_accepted: false,
+    age_accepted: false,
+    cookies_accepted: localStorage.getItem('cookies_accepted')
   })
 
   const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -170,7 +171,7 @@ const Auth = observer(() => {
         fetching()
       }
       else {
-        data = await registration(formData.email.value, formData.password.value, formData.role.value, Translate.language)
+        data = await registration(formData.email.value, formData.password.value, formData.role.value, Translate.language, formData.country.value, formData.user_agreement_accepted, formData.privacy_policy_accepted, formData.age_accepted, formData.cookies_accepted)
         user.setUser(data)
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,

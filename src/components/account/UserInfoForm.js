@@ -68,7 +68,9 @@ const UserInfoForm = observer(() => {
     formData.company_name = useInput('', { isEmpty: true, minLength: 6, maxLength: 30 }, SetNativeTranslate(Translate.language, {}, 'company_name_content').toLowerCase())
     const validWebSite = /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/
     formData.website = useInput('', { isEmpty: true, minLength: 6, maxLength: 30, validFormat: validWebSite }, SetNativeTranslate(Translate.language, {}, 'website_content').toLowerCase())
-    formData.country = useInput('', { isEmpty: true })
+
+    formData.country.value = user.user.country
+
     const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     formData.legal = useInput('', { isEmpty: true })
     formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {}, 'email').toLowerCase())
@@ -102,7 +104,7 @@ const UserInfoForm = observer(() => {
         <Form>
             <Name></Name>
             <NameSurNameFathersName setFormData={setFormData} formData={formData} />
-            <Country setFormData={setFormData} formData={formData} />
+            {/* <Country setFormData={setFormData} formData={formData} /> */}
             {formData.country.value !== '' && <City setFormData={setFormData} formData={formData} />}
 
             <Phone setFormData={setFormData} formData={formData} />
