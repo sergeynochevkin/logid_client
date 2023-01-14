@@ -63,6 +63,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
+        !localStorage.getItem('cookies_accepted') && localStorage.setItem('cookies_accepted', false)
         fetchData().then(UserInfo.setUserInfo({}))
     }, [])
 
@@ -119,7 +120,7 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
                         }
-               
+
                         data && fetchUserState(data.id).then(stateData => {
 
                             let state = JSON.parse(stateData.state)
