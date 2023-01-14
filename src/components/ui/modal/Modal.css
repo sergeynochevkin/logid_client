@@ -61,7 +61,7 @@
     background-color: rgb(105, 105, 105, 0.8);
     color: white;
     position: fixed;
-    bottom: -300px;
+    bottom: -400px;
     left: 0;
     animation: SlideBottom 1s;
     animation-fill-mode: forwards;

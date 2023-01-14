@@ -24,7 +24,7 @@ const Main = observer(() => {
   let cookies_accepted = localStorage.getItem('cookies_accepted')
 
   useEffect(() => {
-    cookies_accepted === 'true' ? setModalActive2(false) : setModalActive2(true)
+    cookies_accepted !== 'true' && setModalActive2(true)
   }, [])
 
   useEffect(() => {
@@ -290,9 +290,11 @@ const Main = observer(() => {
           <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} />
         )}
       </PageContainer>
-      <ModalBottom modalActive={modalActive2}>
-        <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
-      </ModalBottom>
+      
+        <ModalBottom modalActive={modalActive2}>
+          <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
+        </ModalBottom>      
+
     </>
   )
 })

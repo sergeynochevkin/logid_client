@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { SettingContext } from '../../..'
 import './Modal.css'
 
-const ModalBottom = ({ modalActive, children, ...props }) => {
+const ModalBottom = ({ modalActive,  children, ...props }) => {
 
   const { Setting } = useContext(SettingContext)
 
