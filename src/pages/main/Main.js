@@ -18,14 +18,14 @@ const Main = observer(() => {
   const uuid = queryParams.get("uuid")
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
-  const [modalActive2, setModalActive2] = useState(true)
+  const [modalActive2, setModalActive2] = useState(false)
 
 
   let cookies_accepted = localStorage.getItem('cookies_accepted')
 
   useEffect(() => {
-   cookies_accepted === 'true' && setModalActive2(false)
-   }, [])
+    cookies_accepted === 'true' ? setModalActive2(false) : setModalActive2(true)
+  }, [])
 
   useEffect(() => {
     async function handleUrlNotification() {
@@ -289,10 +289,10 @@ const Main = observer(() => {
         {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
           <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} />
         )}
-      </PageContainer>    
-        <ModalBottom modalActive={modalActive2}>
-          <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
-        </ModalBottom>      
+      </PageContainer>
+      <ModalBottom modalActive={modalActive2}>
+        <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
+      </ModalBottom>
     </>
   )
 })

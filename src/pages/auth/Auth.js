@@ -425,7 +425,7 @@ const Auth = observer(() => {
                     }}></input>
                     <>
                       <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
-                        russian: [`подтвердите, cсогласие на сбор cookie`],
+                        russian: [`подтвердите, cсогласие на сбор cookies`],
                         english: [`confirm your consent to the collection of cookies`]
                       })}</label>
                     </>
