@@ -91,6 +91,7 @@ const NavBar = observer(() => {
               user.setUser({});
               UserInfo.setUserInfo({})
               localStorage.clear()
+              localStorage.setItem('cookies_accepted', true)
             }}>{SetNativeTranslate(Translate.language, {}, 'sign_out')}</div> :
           <div className='nav_bar_item' onClick={() =>
             navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
