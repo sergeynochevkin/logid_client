@@ -22,14 +22,15 @@ const Main = observer(() => {
   const [loaded, setLoaded] = useState(false)
 
 
-  let cookies_accepted = localStorage.getItem('cookies_accepted')
+  let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
 
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true)
     }, 100)
-    if (cookies_accepted !== 'true') {
+    if (!cookies_accepted.total) {
+      localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
       setModalActive2(true)
     }
   }, [])
@@ -298,7 +299,7 @@ const Main = observer(() => {
         )}
       </PageContainer>
 
-      {cookies_accepted !== 'true' && loaded ?
+      {!cookies_accepted.main && loaded ?
         <ModalBottom modalActive={modalActive2} >
           <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
         </ModalBottom>

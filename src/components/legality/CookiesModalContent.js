@@ -11,14 +11,14 @@ const CookiesModalContent = observer(({ setModalActive, cookies_accepted }) => {
 
     const cookiesAction = (value) => {
         setTimeout(() => {
-            localStorage.setItem('cookies_accepted', value)
+            localStorage.setItem('cookies_accepted', JSON.stringify({ ...cookies_accepted, total: value, auth: value, main: value }))
         }, 1000)
         setModalActive(false)
     }
 
     return (
         <div className={'accept_cookie_container'}>
-            {cookies_accepted === 'false' ?
+            {!cookies_accepted.main ?
                 <div className='accept_cookie_text_container'>{SetNativeTranslate(Translate.language, {
                     russian: ['Для полноценного функционирования сервиса выполняется сбор и обработка cookie файлов в вашем браузере. Для продолжения работы подтвердите согласие'],
                     english: ['Cookies are collected and processed in your browser, for the full functioning of the service. Please confirm your consent to continue']
@@ -28,7 +28,7 @@ const CookiesModalContent = observer(({ setModalActive, cookies_accepted }) => {
                     english: ['You have already allowed the collection and processing of cookies in your browser']
                 })}</div>
             }
-            {cookies_accepted === 'false' &&
+            {!cookies_accepted.main &&
                 <div className={'accept_cookie_buttons_container'}>
                     <Button
                         onClick={() => {
