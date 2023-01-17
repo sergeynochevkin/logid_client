@@ -498,7 +498,7 @@ const Auth = observer(() => {
               (isRegister && !formData.user_agreement_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.age_accepted && Adress.country.value === 'russia') ||
-              (isRegister && !formData.cookies_accepted.total)
+              (isRegister && !formData.cookies_accepted.total) ||
               (isRegister && !formData.personal_data_agreement_accepted)
             }
             onClick={(event) => {
