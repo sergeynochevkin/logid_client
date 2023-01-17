@@ -129,7 +129,12 @@ const PrivacyPolicyRussia = observer(() => {
 12.2. Трансграничная передача персональных данных на территории иностранных государств, не отвечающих вышеуказанным требованиям, может осуществляться только в случае наличия согласия в письменной форме субъекта персональных данных на трансграничную передачу его персональных данных и/или исполнения договора, стороной которого является субъект персональных данных.
 13. Конфиденциальность персональных данных
 Оператор и иные лица, получившие доступ к персональным данным, обязаны не раскрывать третьим лицам и не распространять персональные данные без согласия субъекта персональных данных, если иное не предусмотрено федеральным законом.
-14. Безопасность
+14. Размещение данных в приложении
+Когда пользователь публикует в приложении заказы на перевозку берет заказы в работу или делает по ним предложения, публикует отзывы или информацию в своём профиле, персональные данные в составе такой информации становятся доступными неопределённому кругу лиц. Вы раскрываете такие данные самостоятельно без предоставления Оператору персональных данных отдельного согласия. Оператор не распространяет ваши персональные данные. Мы обрабатываем такие данные в целях исполнения договора с вами, заключенного по вашей инициативе. Цель, с которой пользователи размещают данные в приложении – установить контакт с потенциальным заказчиком или перевозчиком (клиентом, исполнителем), который заинтересован в заключении сделки по заказу на перевозку. Пользователи не вправе обрабатывать данные других пользователей для любых иных целей. Это означает, что:
+вы не можете звонить или отправлять сообщения пользователям, чтобы предлагать свои товары или услуги; 
+вы не можете копировать данные пользователей, чтобы размещать их на других сервисах;
+вы не можете использовать информацию пользователей приложения в целях скоринга.
+15. Безопасность
 Ответственное отношение к персональным данным – стандарт работы Оператора.
 Для защиты персональных данных Оператор:
 издал и опубликовали в приложении политику обработки данных. Утвердил локальные акты по вопросам обработки и защиты персональных данных.
@@ -144,13 +149,13 @@ const PrivacyPolicyRussia = observer(() => {
 базовом наборе мер защиты, установленном нормативными правовыми актами для соответствующего уровня защищенности;
 риск-ориентированном подходе при выборе оптимальных мер;
 приоритете законных интересов пользователей.
-15. Хранение персональных данных 
+16. Хранение персональных данных 
 Оператор осуществляет запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение ваших персональных данных с использованием баз данных, находящихся на территории России.
 Для хранения Оператор использует центры обработки данных, находящиеся на территории г. Москва. Оператор хранит персональные данные в соответствии со сроками обработки данных, необходимыми для достижения целей обработки.
-16. Заключительные положения
-16.1. Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, обратившись к Оператору с помощью электронной почты support@logid.app.
-16.2. В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.
-16.3. Актуальная версия Политики и все предыдущие ее версии в свободном доступе расположена в сети Интернет по адресу https://logid.app.
+17. Заключительные положения
+17.1. Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, обратившись к Оператору с помощью электронной почты support@logid.app.
+17.2. В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.
+17.3. Актуальная версия Политики и все предыдущие ее версии в свободном доступе расположена в сети Интернет по адресу https://logid.app.
           `],
           english: [`
           Policy regarding the processing of personal data
@@ -268,7 +273,12 @@ This personal data processing policy has been drawn up in accordance with the re
 12.2. Cross-border transfer of personal data on the territory of foreign states that do not meet the above requirements can be carried out only if there is a written consent of the subject of personal data to the cross-border transfer of his personal data and / or execution of an agreement to which the subject of personal data is a party.
 13. Privacy of personal data
 The operator and other persons who have gained access to personal data are obliged not to disclose to third parties and not to distribute personal data without the consent of the subject of personal data, unless otherwise provided by federal law.
-14. Safety
+14. Placement of data in the application
+When a user publishes orders for transportation in the application, takes orders for work or makes offers on them, publishes reviews or information in his profile, personal data as part of such information becomes available to an indefinite circle of persons. You disclose such data on your own without providing the Personal Data Operator with a separate consent. The operator does not distribute your personal data. We process such data in order to fulfill a contract with you entered into on your initiative. The purpose for which users place data in the application is to establish contact with a potential customer or carrier (client, contractor) who is interested in concluding a transaction on a transportation order. Users may not process other users' data for any other purpose. It means that:
+you cannot call or send messages to users to offer your goods or services;
+you may not copy user data to post it on other services;
+you may not use the information of app users for scoring purposes.
+15. Safety
 Responsible attitude to personal data is the standard of the Operator's work.
 To protect personal data, the Operator:
 issued and published in the application a data processing policy. Approved local acts on the processing and protection of personal data.
@@ -283,13 +293,13 @@ actual threats defined by the threat model;
 the basic set of protection measures established by regulatory legal acts for the corresponding level of protection;
 risk-based approach when choosing the best measures;
 priority of the legitimate interests of users.
-15. Storage of personal data
+16. Storage of personal data
 The operator records, systematizes, accumulates, stores, clarifies (updates, changes), extracts your personal data using databases located on the territory of Russia.
 For storage, the Operator uses data processing centers located on the territory of Moscow. The operator stores personal data in accordance with the terms of data processing necessary to achieve the purposes of processing.
-16. Final provisions
-16.1. The User can receive any clarifications on issues of interest regarding the processing of his personal data by contacting the Operator via e-mail support@logid.app.
-16.2. This document will reflect any changes in the policy of processing personal data by the Operator. The policy is valid indefinitely until it is replaced by a new version.
-16.3. The current version of the Policy and all its previous versions are freely available on the Internet at https://logid.app.
+17. Final provisions
+17.1. The User can receive any clarifications on issues of interest regarding the processing of his personal data by contacting the Operator via e-mail support@logid.app.
+17.2. This document will reflect any changes in the policy of processing personal data by the Operator. The policy is valid indefinitely until it is replaced by a new version.
+17.3. The current version of the Policy and all its previous versions are freely available on the Internet at https://logid.app.
           `]
         })}</div>
       }
