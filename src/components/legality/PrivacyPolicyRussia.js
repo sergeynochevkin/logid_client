@@ -129,10 +129,28 @@ const PrivacyPolicyRussia = observer(() => {
 12.2. Трансграничная передача персональных данных на территории иностранных государств, не отвечающих вышеуказанным требованиям, может осуществляться только в случае наличия согласия в письменной форме субъекта персональных данных на трансграничную передачу его персональных данных и/или исполнения договора, стороной которого является субъект персональных данных.
 13. Конфиденциальность персональных данных
 Оператор и иные лица, получившие доступ к персональным данным, обязаны не раскрывать третьим лицам и не распространять персональные данные без согласия субъекта персональных данных, если иное не предусмотрено федеральным законом.
-14. Заключительные положения
-14.1. Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, обратившись к Оператору с помощью электронной почты support@logid.app.
-14.2. В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.
-14.3. Актуальная версия Политики и все предыдущие ее версии в свободном доступе расположена в сети Интернет по адресу https://logid.app.
+14. Безопасность
+Ответственное отношение к персональным данным – стандарт работы Оператора.
+Для защиты персональных данных Оператор:
+издал и опубликовали в приложении политику обработки данных. Утвердил локальные акты по вопросам обработки и защиты персональных данных.
+несет ответственность за организацию обработки персональных данных.
+регулярно проверяет процессы и документы на их соответствие закону.
+оценивает риски и вред, который может причинить, если нарушит закон о персональных данных. С учетом проведенной оценки подбирает подходящие меры для соблюдения закона.
+применяет правовые, организационные и технические меры, чтобы обеспечить безопасность персональных данных.
+Принимая меры по защите персональных данных, оператор основывается на:
+требованиях законодательства;
+установленном уровне защищенности персональных данных;
+актуальных угрозах, определенных моделью угроз;
+базовом наборе мер защиты, установленном нормативными правовыми актами для соответствующего уровня защищенности;
+риск-ориентированном подходе при выборе оптимальных мер;
+приоритете законных интересов пользователей.
+15. Хранение персональных данных 
+Оператор осуществляет запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение ваших персональных данных с использованием баз данных, находящихся на территории России.
+Для хранения Оператор использует центры обработки данных, находящиеся на территории г. Москва. Оператор хранит персональные данные в соответствии со сроками обработки данных, необходимыми для достижения целей обработки.
+16. Заключительные положения
+16.1. Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, обратившись к Оператору с помощью электронной почты support@logid.app.
+16.2. В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.
+16.3. Актуальная версия Политики и все предыдущие ее версии в свободном доступе расположена в сети Интернет по адресу https://logid.app.
           `],
           english: [`
           Policy regarding the processing of personal data
@@ -250,10 +268,28 @@ This personal data processing policy has been drawn up in accordance with the re
 12.2. Cross-border transfer of personal data on the territory of foreign states that do not meet the above requirements can be carried out only if there is a written consent of the subject of personal data to the cross-border transfer of his personal data and / or execution of an agreement to which the subject of personal data is a party.
 13. Privacy of personal data
 The operator and other persons who have gained access to personal data are obliged not to disclose to third parties and not to distribute personal data without the consent of the subject of personal data, unless otherwise provided by federal law.
-14. Final provisions
-14.1. The User can receive any clarifications on issues of interest regarding the processing of his personal data by contacting the Operator via e-mail support@logid.app.
-14.2. This document will reflect any changes in the policy of processing personal data by the Operator. The policy is valid indefinitely until it is replaced by a new version.
-14.3. The current version of the Policy and all its previous versions are freely available on the Internet at https://logid.app.
+14. Safety
+Responsible attitude to personal data is the standard of the Operator's work.
+To protect personal data, the Operator:
+issued and published in the application a data processing policy. Approved local acts on the processing and protection of personal data.
+is responsible for organizing the processing of personal data.
+regularly checks processes and documents for their compliance with the law.
+assesses the risks and harm that it can cause if it violates the law on personal data. Based on the assessment, selects appropriate measures to comply with the law.
+applies legal, organizational and technical measures to ensure the security of personal data.
+Taking measures to protect personal data, the operator is based on:
+legal requirements;
+the established level of protection of personal data;
+actual threats defined by the threat model;
+the basic set of protection measures established by regulatory legal acts for the corresponding level of protection;
+risk-based approach when choosing the best measures;
+priority of the legitimate interests of users.
+15. Storage of personal data
+The operator records, systematizes, accumulates, stores, clarifies (updates, changes), extracts your personal data using databases located on the territory of Russia.
+For storage, the Operator uses data processing centers located on the territory of Moscow. The operator stores personal data in accordance with the terms of data processing necessary to achieve the purposes of processing.
+16. Final provisions
+16.1. The User can receive any clarifications on issues of interest regarding the processing of his personal data by contacting the Operator via e-mail support@logid.app.
+16.2. This document will reflect any changes in the policy of processing personal data by the Operator. The policy is valid indefinitely until it is replaced by a new version.
+16.3. The current version of the Policy and all its previous versions are freely available on the Internet at https://logid.app.
           `]
         })}</div>
       }
