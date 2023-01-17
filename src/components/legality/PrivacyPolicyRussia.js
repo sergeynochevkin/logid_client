@@ -130,10 +130,10 @@ const PrivacyPolicyRussia = observer(() => {
 13. Конфиденциальность персональных данных
 Оператор и иные лица, получившие доступ к персональным данным, обязаны не раскрывать третьим лицам и не распространять персональные данные без согласия субъекта персональных данных, если иное не предусмотрено федеральным законом.
 14. Размещение данных в приложении
-Когда пользователь публикует в приложении заказы на перевозку берет заказы в работу или делает по ним предложения, предоставляет другому пользователю свой уникальный id для добавления партнера, публикует отзывы или информацию в своём профиле, персональные данные в составе такой информации становятся доступными неопределённому кругу лиц. Вы раскрываете такие данные самостоятельно без предоставления Оператору персональных данных отдельного согласия. Оператор не распространяет ваши персональные данные. Мы обрабатываем такие данные в целях исполнения договора с вами, заключенного по вашей инициативе. Цель, с которой пользователи размещают данные в приложении – установить контакт с потенциальным заказчиком или перевозчиком (клиентом, исполнителем), который заинтересован в заключении сделки по заказу на перевозку. Пользователи не вправе обрабатывать данные других пользователей для любых иных целей. Это означает, что:
-вы не можете звонить или отправлять сообщения пользователям, чтобы предлагать свои товары или услуги; 
-вы не можете копировать данные пользователей, чтобы размещать их на других сервисах;
-вы не можете использовать информацию пользователей приложения в целях скоринга.
+Когда пользователь публикует в приложении заказы на перевозку берет заказы в работу или делает по ним предложения, публикует отзывы или информацию в своём профиле, предоставляет другому пользователю свой уникальный id для добавления партнера, персональные данные в составе такой информации становятся доступными неопределённому кругу лиц. Пользователь раскрывает такие данные самостоятельно без предоставления Оператору персональных данных отдельного согласия. Оператор не распространяет персональные данные пользователя. Оператор обрабатывает такие данные в целях исполнения договора с пользователем, заключенного по инициативе пользователя. Цель, с которой пользователи размещают данные в приложении – установить контакт с потенциальным заказчиком или перевозчиком (клиентом, исполнителем), который заинтересован в заключении сделки по заказу на перевозку. Пользователи не вправе обрабатывать данные других пользователей для любых иных целей. Это означает, что:
+пользователь не может звонить или отправлять сообщения пользователям, чтобы предлагать свои товары или услуги; 
+пользователь не может копировать данные пользователей, чтобы размещать их на других сервисах;
+пользователь не может использовать информацию пользователей приложения в целях скоринга.
 15. Безопасность
 Ответственное отношение к персональным данным – стандарт работы Оператора.
 Для защиты персональных данных Оператор:
@@ -274,10 +274,10 @@ This personal data processing policy has been drawn up in accordance with the re
 13. Privacy of personal data
 The operator and other persons who have gained access to personal data are obliged not to disclose to third parties and not to distribute personal data without the consent of the subject of personal data, unless otherwise provided by federal law.
 14. Placement of data in the application
-When a user publishes orders for transportation in the application, takes orders for work or makes offers on them, provides another user with his unique id to add a partner, publishes reviews or information in his profile, personal data as part of such information becomes available to an indefinite circle of persons. You disclose such data on your own without providing the Personal Data Operator with a separate consent. The operator does not distribute your personal data. We process such data in order to fulfill a contract with you entered into on your initiative. The purpose for which users place data in the application is to establish contact with a potential customer or carrier (client, contractor) who is interested in concluding a transaction on a transportation order. Users may not process other users' data for any other purpose. It means that:
-you cannot call or send messages to users to offer your goods or services;
-you may not copy user data to post it on other services;
-you may not use the information of app users for scoring purposes.
+When a user publishes transportation orders in the application, takes orders for work or makes offers on them, publishes reviews or information in his profile, provides another user with his unique id to add a partner, personal data as part of such information becomes available to an indefinite circle of persons. The User discloses such data independently without providing the Operator with personal data with a separate consent. The operator does not distribute the user's personal data. The operator processes such data in order to fulfill the contract with the user, concluded at the initiative of the user. The purpose for which users place data in the application is to establish contact with a potential customer or carrier (client, contractor) who is interested in concluding a transaction on a transportation order. Users may not process other users' data for any other purpose. It means that:
+the user cannot call or send messages to users to offer their goods or services;
+the user cannot copy user data to post it on other services;
+the user cannot use the information of the users of the application for scoring purposes.
 15. Safety
 Responsible attitude to personal data is the standard of the Operator's work.
 To protect personal data, the Operator:
