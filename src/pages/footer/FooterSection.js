@@ -10,7 +10,7 @@ const FooterSection = observer(({ section, items, setModalActive, setAgreement }
         <>
             {Adress.country.value === 'russia' ?
                 <div className={section.class}>
-                    {items.filter(el => el.id !== 5 && el.id !== 6).map(item => <FooterItem item={item} key={item.id} setModalActive={setModalActive} setAgreement={setAgreement} />)}
+                    {items.filter(el => el.id !== 5 ).map(item => <FooterItem item={item} key={item.id} setModalActive={setModalActive} setAgreement={setAgreement} />)}
                 </div>
                 :
                 <div className={section.class}>

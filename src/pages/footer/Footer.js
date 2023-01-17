@@ -56,7 +56,7 @@ const Footer = observer(() => {
       }), description: '', section_id: 1, class: 'legality_link'
     },
     {
-      id: 5, icon: '', name: SetNativeTranslate(Translate.language, {
+      id: 6, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Политика конфиденциальности'],
         english: ['Privacy policy'],
         spanish: ['Política de privacidad'],
@@ -64,7 +64,7 @@ const Footer = observer(() => {
       }), description: '', section_id: 1, class: 'legality_link'
     },
     {
-      id: 6, icon: '', name: SetNativeTranslate(Translate.language, {
+      id: 5, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Согласие на обработку персональных данных'],
         english: ['Consent to the processing of personal data'],
         spanish: ['Consentimiento para el tratamiento de datos personales'],
