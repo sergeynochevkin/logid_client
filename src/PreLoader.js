@@ -63,7 +63,11 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
-        !localStorage.getItem('cookies_accepted') && localStorage.setItem('cookies_accepted', JSON.stringify({total:false, auth:false, main:false}))
+        if (!localStorage.getItem('cookies_accepted')) {
+            localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
+        } else if (!JSON.parse(localStorage.getItem('cookies_accepted')).total) {
+            localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
+        }
         fetchData().then(UserInfo.setUserInfo({}))
     }, [])
 
