@@ -292,7 +292,11 @@ const Main = observer(() => {
   return (
     <>
       <PageContainer>
-        <title>logid</title>
+        <title>{`logid ${SetNativeTranslate(Translate.language, {
+          russian: ['здесь встречаются заказчики и перевозчики'],
+          english: ['meeting place for customers and carriers']
+        })
+          }`}</title>
         <MainBanner />
         {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
           <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} />
