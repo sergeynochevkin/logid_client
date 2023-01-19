@@ -141,7 +141,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
             event.preventDefault();
             data = await update(
                 authFormData.userId,
-                authFormData.email.value,
+                authFormData.email.value.toLowerCase(),
                 authFormData.password.value,
                 Translate.language
             )

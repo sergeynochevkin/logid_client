@@ -82,7 +82,7 @@ const UserInfoForm = observer(() => {
 
     formData.email.value = user.user.email
     formData.country.value = Adress.country.value
-    
+
     const click = async (event) => {
         try {
             let data;
@@ -91,7 +91,11 @@ const UserInfoForm = observer(() => {
                 formData
             )
             fetching()
-            ComponentFunction.setPageFunction('orderList')
+            if (user.user.role === 'carrier') {
+                ComponentFunction.setPageFunction('transport')
+            } else {
+                ComponentFunction.setPageFunction('orderList')
+            }
         } catch (e) {
             alert(e.response.data.message)
         }

@@ -8,7 +8,7 @@ import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext } from '..'
+import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
@@ -31,10 +31,17 @@ const User = observer(() => {
   const { fetcher } = useContext(FetcherContext)
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
-
+  const { Transport } = useContext(TransportContext)
   useEffect(() => {
     fetcher.setPartners(true)
     fetcher.setSubscriptions(true)
+  }, [])
+
+  useEffect(() => {
+    if (user.user.role === 'carrier' && Object.keys(UserInfo.userInfo).length !== 0 && (!Transport.transports || Transport.transports.length === 0)) {
+      ComponentFunction.setPageFunction('transport')
+      //may be something else
+    }
   }, [])
 
   const [libraries] = useState(['places']);
