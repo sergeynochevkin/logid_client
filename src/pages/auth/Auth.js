@@ -165,7 +165,7 @@ const Auth = observer(() => {
     try {
       let data;
       if (isLogin) {
-        data = await login(formData.email.value.toLowerCase(), formData.password.value, Translate.language)
+        data = await login(formData.email.value, formData.password.value, Translate.language)
         user.setUser(data)
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
@@ -178,7 +178,7 @@ const Auth = observer(() => {
         fetching()
       }
       else {
-        data = await registration(formData.email.value.toLowerCase(), formData.password.value, formData.role.value, Translate.language, formData.country.value, formData.user_agreement_accepted, formData.privacy_policy_accepted, formData.age_accepted, formData.cookies_accepted.total, formData.personal_data_agreement_accepted)
+        data = await registration(formData.email.value, formData.password.value, formData.role.value, Translate.language, formData.country.value, formData.user_agreement_accepted, formData.privacy_policy_accepted, formData.age_accepted, formData.cookies_accepted.total, formData.personal_data_agreement_accepted)
         user.setUser(data)
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
