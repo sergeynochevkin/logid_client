@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { ComponentFunctionContext, TranslateContext } from '../..'
+import { AdressContext, ComponentFunctionContext, TranslateContext } from '../..'
 import { useInput } from '../../hooks/useInput'
 import { sendCaptureFormMail } from '../../http/mailApi'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
@@ -15,6 +15,7 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
     const [formSend, setFormSend] = useState(false)
     const [agreement, setAgreement] = useState(false)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
+    const { Adress } = useContext(AdressContext)
 
     const [formData, setFormData] = useState(
         { phone: '' }
@@ -35,36 +36,38 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
                     })}</div>
                     <Phone formData={formData} />
 
-                    <CheckBoxContainer >
-                        <CheckBoxSection >
-                            <input type='checkbox' className='auth_checkbox' checked={agreement && 'checked'} value={agreement} onChange={() => {
-                                !agreement ? setAgreement(true) :
-                                    setAgreement(false)
-                            }}></input>
-                            <label className='auth_check_box_label' >
-                                <div className='auth_checkbox_text'>
-                                    <div>{SetNativeTranslate(Translate.language, {
-                                        russian: [`подтвердите`],
-                                        english: [`confirm your`]
-                                    })}</div>
-                                    <div className='auth_agreement_link'
-                                        onClick={() => {
-                                            ComponentFunction.setAgreement('PersonalDataAgreement')
-                                            ComponentFunction.setAgreementModal(true)
-                                        }}
-                                    >
-                                        {SetNativeTranslate(Translate.language, {
-                                            russian: [`согласие на обработку персональных данных`],
-                                            english: [`consent to the processing of personal data`]
-                                        })}
+                    {Adress.country.value === 'russia' &&
+                        <CheckBoxContainer >
+                            <CheckBoxSection >
+                                <input type='checkbox' className='auth_checkbox' checked={agreement && 'checked'} value={agreement} onChange={() => {
+                                    !agreement ? setAgreement(true) :
+                                        setAgreement(false)
+                                }}></input>
+                                <label className='auth_check_box_label' >
+                                    <div className='auth_checkbox_text'>
+                                        <div>{SetNativeTranslate(Translate.language, {
+                                            russian: [`подтвердите`],
+                                            english: [`confirm your`]
+                                        })}</div>
+                                        <div className='auth_agreement_link'
+                                            onClick={() => {
+                                                ComponentFunction.setAgreement('PersonalDataAgreement')
+                                                ComponentFunction.setAgreementModal(true)
+                                            }}
+                                        >
+                                            {SetNativeTranslate(Translate.language, {
+                                                russian: [`согласие на обработку персональных данных`],
+                                                english: [`consent to the processing of personal data`]
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                        </CheckBoxSection>
-                    </CheckBoxContainer>
+                                </label>
+                            </CheckBoxSection>
+                        </CheckBoxContainer>
+                    }
 
                     <Button
-                        disabled={formData.phone.notValid || !agreement}
+                        disabled={formData.phone.notValid || (!agreement && Adress.country.value === 'russia')}
                         onClick={() => {
                             sendCaptureFormMail(formData.phone.value, section.header.toLowerCase())
                             setFormSend(true)
