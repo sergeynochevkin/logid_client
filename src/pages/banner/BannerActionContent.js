@@ -10,8 +10,9 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts'
 import './Banner.css'
 import '../../components/account/Account.css'
+import CaptureForm from '../../components/captureForm/CaptureForm'
 
-const BannerActionContent = observer(() => {
+const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
 
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -46,6 +47,7 @@ const BannerActionContent = observer(() => {
                             onClick={() =>
                                 navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_up')}</Button>
                     </div>
+                    {!callRequested && <CaptureForm setCallRequested = {setCallRequested} section = {{header:'banner action'}}/>}
                     <div className='banner_disclaimer'>
                         {SetNativeTranslate(Translate.language, {
                             russian: ['Обратите внимание, сервис logid не проводит юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],

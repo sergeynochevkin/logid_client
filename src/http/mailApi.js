@@ -1,4 +1,4 @@
-import { $authHost } from "./index";
+import { $authHost, $host } from "./index";
 
 export const sendMail = async (
     language,
@@ -17,6 +17,17 @@ export const sendMail = async (
         option,
         noPartnerId,
         orderGroup
+    })
+    return data
+}
+
+export const sendCaptureFormMail = async (
+    phone,
+    section,
+) => {
+    const { data } = await $host.post('api/mail/send_capture_form_mail', {
+        phone,
+        section
     })
     return data
 }

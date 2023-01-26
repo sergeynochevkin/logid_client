@@ -11,6 +11,18 @@ import MainSection from './MainSection'
 import ModalBottom from '../../components/ui/modal/ModalBottom'
 import CookiesModalContent from '../../components/legality/CookiesModalContent'
 
+import av1 from '../../assets/avatars/av1.jpg';
+import av2 from '../../assets/avatars/av2.jpg';
+import av3 from '../../assets/avatars/av3.jpg';
+import av4 from '../../assets/avatars/av4.jpg';
+import av5 from '../../assets/avatars/av5.jpg';
+import av6 from '../../assets/avatars/av6.jpg';
+import av7 from '../../assets/avatars/av7.jpg';
+import av8 from '../../assets/avatars/av8.jpg';
+import av9 from '../../assets/avatars/av9.jpg';
+import av10 from '../../assets/avatars/av10.jpg';
+
+
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
   const { Translate } = useContext(TranslateContext)
@@ -20,10 +32,9 @@ const Main = observer(() => {
   const { Adress } = useContext(AdressContext)
   const [modalActive2, setModalActive2] = useState(false)
   const [loaded, setLoaded] = useState(false)
-
+  const [callRequested, setCallRequested] = useState(false)
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -71,7 +82,7 @@ const Main = observer(() => {
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
         english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service']
-      }), description: '', class: 'even', type: 'items',
+      }), description: '', class: 'even', type: 'options',
       role: 'customer'
     },
     {
@@ -81,8 +92,18 @@ const Main = observer(() => {
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
         english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service']
-      }), description: '', class: 'even', type: 'items',
+      }), description: '', class: 'even', type: 'options',
       role: 'carrier'
+    },
+    {
+      id: 6, header: SetNativeTranslate(Translate.language, {
+        russian: ['Отзывы пользователей'],
+        english: ['User reviews']
+      }), header_comment: SetNativeTranslate(Translate.language, {
+        russian: ['Мы внимательно относимся к вашим отзывам и оценкам, учитываем ваши пожалания в разработках и улучшениях сервиса, свяжитесь с нами по  электронной почте support@logid.app'],
+        english: [`We are attentive to your feedback and ratings, take into account your complaints in the development and improvement of the service, please contact us by e-mail support@logid.app`]
+      }), description: '', class: 'uneven', type: 'reviews',
+      role: 'both'
     },
     {
       id: 4, header: SetNativeTranslate(Translate.language, {
@@ -91,7 +112,7 @@ const Main = observer(() => {
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: [Adress.country.value === 'russia' ? 'Начните пользоваться нашим сервисом до 28.02.2023, выберите любой подходящий вам тарифный план и пользуйтесь им до окончания срока действия бесплатно!' : 'В настоящий момент нащ сервис в полностью бесплатный. Выберите любой подходящий вам тарифный план и пользуйтесь им бесплатно!'],
         english: [Adress.country.value === 'russia' ? 'Start using our service before 02/28/2022, choose any tariff plan that suits you and use it until the expiration date for free!' : 'At the moment our service in ${SetNativeTranslate(Translate.language,{},Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!']
-      }), description: '', class: 'uneven', type: 'self_content',
+      }), description: '', class: 'even', type: 'self_content',
       role: 'carrier'
     },
     {
@@ -101,7 +122,7 @@ const Main = observer(() => {
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: [Adress.country.value === 'russia' ? 'Начните пользоваться нашим сервисом до 28.02.2023, выберите любой подходящий вам тарифный план и пользуйтесь им до окончания срока действия бесплатно!' : 'В настоящий момент нащ сервис в полностью бесплатный. Выберите любой подходящий вам тарифный план и пользуйтесь им бесплатно!'],
         english: [Adress.country.value === 'russia' ? 'Start using our service before 02/28/2022, choose any tariff plan that suits you and use it until the expiration date for free!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
-      }), description: '', class: 'uneven', type: 'self_content',
+      }), description: '', class: 'even', type: 'self_content',
       role: 'customer'
     },
   ]
@@ -287,6 +308,73 @@ const Main = observer(() => {
         english: ['Carry goods, but are you ready to fulfill a walking order? Add different transport types']
       }), section_id: 3, class: ''
     },
+
+    {
+      id: 17, icon: <><span className="material-symbols-outlined">
+        transportation
+      </span></>, name: SetNativeTranslate(Translate.language, {
+        russian: ['Игорь, 25, перевозчик, междугородние перевозки'],
+        english: ['Igor, 25, carrier, intercity transportation']
+      }), description: SetNativeTranslate(Translate.language, {
+        russian: ['Очень удобно отслеживать заказы в нескольких интересующих меня городах. Не надо заниматься мониторингом, прилетают уведомления о новых заказах на почту. Отличный фильтр заказов, который не надо настраивать каждый раз, спасибо!'],
+        english: ['It is very convenient to track orders in several cities of interest to me. No need to monitor, notifications of new orders arrive by mail. An excellent order filter that does not need to be configured every time, thank you!']
+      }), section_id: 6, class: 'user_review', av:av9
+    },
+    {
+      id: 18, icon: <><span className="material-symbols-outlined">
+        transportation
+      </span></>, name: SetNativeTranslate(Translate.language, {
+        russian: ['Павел, 33, курьер на автомобиле'],
+        english: ['Pavel, 33, сourier by car']
+      }), description: SetNativeTranslate(Translate.language, {
+        russian: ['Беру попутные заказы, вижу заказы на карте, logid хороший сервис! Да, заказов пока не так много, но приходят письма о заказах, успешного развития!'],
+        english: ['I take passing orders, I see orders on the map, logid is a good service! Yes, there are not so many orders yet, but letters about orders are coming, successful development!']
+      }), section_id: 6, class: 'user_review', av:av5
+    },
+    {
+      id: 19, icon: <><span className="material-symbols-outlined">
+        transportation
+      </span></>, name: SetNativeTranslate(Translate.language, {
+        russian: ['Людмила, 37, транспортный диспетчер'],
+        english: ['Ludmila, 37, transport dispatcher']
+      }), description: SetNativeTranslate(Translate.language, {
+        russian: ['Добавила своих перевозчиков, поделила по группам. Могу дать заказ одному перевозчику могу группе или просто сделать аукцион достцупный для всех. Круто очень'],
+        english: ['I added my carriers, divided them into groups. I can give an order to one carrier, I can group or just make the auction available to everyone. very cool']
+      }), section_id: 6, class: 'user_review', av:av1
+    },
+    {
+      id: 20, icon: <><span className="material-symbols-outlined">
+        transportation
+      </span></>, name: SetNativeTranslate(Translate.language, {
+        russian: ['Святослав, 46, владелец ресторана'],
+        english: ['Svyatoslav, 46, restaurant owner']
+      }), description: SetNativeTranslate(Translate.language, {
+        russian: ['Визуально понятный маршрут, можно совместить несколько заказов, удобно заказы курьерам раздавать. Жду от вас итеграции с R-Keeper'],
+        english: ['A visually clear route, you can combine several orders, it is convenient to distribute orders to couriers. I look forward to your integration with R-Keeper']
+      }), section_id: 6, class: 'user_review', av:av8
+    },
+    {
+      id: 21, icon: <><span className="material-symbols-outlined">
+        transportation
+      </span></>, name: SetNativeTranslate(Translate.language, {
+        russian: ['Роман, 34, доставка для себя'],
+        english: ['Roman, 34, delivery for personal use']
+      }), description: SetNativeTranslate(Translate.language, {
+        russian: ['Бывает надо что то доставить из магазина или по работе, отправить документы, хорошее решение, при условии что проверил документы курьера'],
+        english: ['Sometimes you need to deliver something from a store or at work, send documents, a good solution, provided that you have checked the documents of the courier']
+      }), section_id: 6, class: 'user_review', av:av6
+    },
+    {
+      id: 22, icon: <><span className="material-symbols-outlined">
+        transportation
+      </span></>, name: SetNativeTranslate(Translate.language, {
+        russian: ['Анна, 24, продажа косметики'],
+        english: ['Anna, 24, sale of cosmetics']
+      }), description: SetNativeTranslate(Translate.language, {
+        russian: ['Не знаю другого сервиса, гже можно заказать своего курьера в такое большое количество точек подряд, расписать ему комментарии, маршрут и видеть как он отмечает и комментирует каждую из них, когда выполнил. Я отбираю курьеров и даю заказы в logid только своей группе курьеров'],
+        english: ['I don’t know any other service, where you can order your courier to such a large number of points in a row, write comments, a route for him, and see how he notes and comments on each of them when he completed it. I select couriers and give orders in logid only to my group of couriers']
+      }), section_id: 6, class: 'user_review', av:av3
+    },
   ]
 
   return (
@@ -297,9 +385,9 @@ const Main = observer(() => {
           english: ['meeting place for customers and carriers']
         })
           }`}</title>
-        <MainBanner />
+        <MainBanner callRequested = {callRequested} setCallRequested={setCallRequested}/>
         {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-          <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} />
+          <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)}  callRequested = {callRequested} setCallRequested={setCallRequested}/>
         )}
       </PageContainer>
 
