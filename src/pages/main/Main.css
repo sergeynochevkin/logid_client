@@ -100,10 +100,13 @@
     height: 70px;
 }
 
-.swipe_icon_container{
+.swipe_icon_container {
     display: none;
     position: relative;
     bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
 }
 
 @media screen and (max-width: 1920px) {}
@@ -217,7 +220,7 @@
         text-align: justify;
     }
 
-    .swipe_icon_container{
+    .swipe_icon_container {
         display: block;
         font-size: 30px;
     }
