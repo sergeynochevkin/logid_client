@@ -95,7 +95,6 @@
 }
 
 .user_image {
-    border: dotted 1px black;
     border-radius: 50%;
     width: 70px;
     height: 70px;
@@ -103,6 +102,8 @@
 
 .swipe_icon_container{
     display: none;
+    position: relative;
+    bottom: 50px;
 }
 
 @media screen and (max-width: 1920px) {}
