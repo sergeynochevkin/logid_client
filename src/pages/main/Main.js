@@ -318,7 +318,7 @@ const Main = observer(() => {
       }), description: SetNativeTranslate(Translate.language, {
         russian: ['Очень удобно отслеживать заказы в нескольких интересующих меня городах. Не надо заниматься мониторингом, прилетают уведомления о новых заказах на почту. Отличный фильтр заказов, который не надо настраивать каждый раз, спасибо!'],
         english: ['It is very convenient to track orders in several cities of interest to me. No need to monitor, notifications of new orders arrive by mail. An excellent order filter that does not need to be configured every time, thank you!']
-      }), section_id: 6, class: 'user_review', av:av9
+      }), section_id: 6, class: 'user_review', av: av9
     },
     {
       id: 18, icon: <><span className="material-symbols-outlined">
@@ -329,7 +329,7 @@ const Main = observer(() => {
       }), description: SetNativeTranslate(Translate.language, {
         russian: ['Беру попутные заказы, вижу заказы на карте, logid хороший сервис! Да, заказов пока не так много, но приходят письма о заказах, успешного развития!'],
         english: ['I take passing orders, I see orders on the map, logid is a good service! Yes, there are not so many orders yet, but letters about orders are coming, successful development!']
-      }), section_id: 6, class: 'user_review', av:av5
+      }), section_id: 6, class: 'user_review', av: av5
     },
     {
       id: 19, icon: <><span className="material-symbols-outlined">
@@ -340,7 +340,7 @@ const Main = observer(() => {
       }), description: SetNativeTranslate(Translate.language, {
         russian: ['Добавила своих перевозчиков, поделила по группам. Могу дать заказ одному перевозчику могу группе или просто сделать аукцион достцупный для всех. Круто очень'],
         english: ['I added my carriers, divided them into groups. I can give an order to one carrier, I can group or just make the auction available to everyone. very cool']
-      }), section_id: 6, class: 'user_review', av:av1
+      }), section_id: 6, class: 'user_review', av: av1
     },
     {
       id: 20, icon: <><span className="material-symbols-outlined">
@@ -351,7 +351,7 @@ const Main = observer(() => {
       }), description: SetNativeTranslate(Translate.language, {
         russian: ['Визуально понятный маршрут, можно совместить несколько заказов, удобно заказы курьерам раздавать. Жду от вас итеграции с R-Keeper'],
         english: ['A visually clear route, you can combine several orders, it is convenient to distribute orders to couriers. I look forward to your integration with R-Keeper']
-      }), section_id: 6, class: 'user_review', av:av8
+      }), section_id: 6, class: 'user_review', av: av8
     },
     {
       id: 21, icon: <><span className="material-symbols-outlined">
@@ -362,7 +362,7 @@ const Main = observer(() => {
       }), description: SetNativeTranslate(Translate.language, {
         russian: ['Бывает надо что то доставить из магазина или по работе, отправить документы, хорошее решение, при условии что проверил документы курьера'],
         english: ['Sometimes you need to deliver something from a store or at work, send documents, a good solution, provided that you have checked the documents of the courier']
-      }), section_id: 6, class: 'user_review', av:av6
+      }), section_id: 6, class: 'user_review', av: av6
     },
     {
       id: 22, icon: <><span className="material-symbols-outlined">
@@ -373,30 +373,34 @@ const Main = observer(() => {
       }), description: SetNativeTranslate(Translate.language, {
         russian: ['Не знаю другого сервиса, гже можно заказать своего курьера в такое большое количество точек подряд, расписать ему комментарии, маршрут и видеть как он отмечает и комментирует каждую из них, когда выполнил. Я отбираю курьеров и даю заказы в logid только своей группе курьеров'],
         english: ['I don’t know any other service, where you can order your courier to such a large number of points in a row, write comments, a route for him, and see how he notes and comments on each of them when he completed it. I select couriers and give orders in logid only to my group of couriers']
-      }), section_id: 6, class: 'user_review', av:av3
+      }), section_id: 6, class: 'user_review', av: av3
     },
   ]
 
   return (
     <>
-      <PageContainer>
-        <title>{`logid ${SetNativeTranslate(Translate.language, {
-          russian: ['здесь встречаются заказчики и перевозчики'],
-          english: ['meeting place for customers and carriers']
-        })
-          }`}</title>
-        <MainBanner callRequested = {callRequested} setCallRequested={setCallRequested}/>
-        {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-          <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)}  callRequested = {callRequested} setCallRequested={setCallRequested}/>
-        )}
-      </PageContainer>
+      {user.user.role !== 'admin' && user.user.role !== 'manager' ?
+        <>
+          <PageContainer>
+            <title>{`logid ${SetNativeTranslate(Translate.language, {
+              russian: ['здесь встречаются заказчики и перевозчики'],
+              english: ['meeting place for customers and carriers']
+            })
+              }`}</title>
+            <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
+            {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+              <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+            )}
+          </PageContainer>
 
-      {!cookies_accepted.main && loaded ?
-        <ModalBottom modalActive={modalActive2} >
-          <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
-        </ModalBottom>
-        : <></>
-      }
+          {!cookies_accepted.main && loaded ?
+            <ModalBottom modalActive={modalActive2} >
+              <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
+            </ModalBottom>
+            : <></>
+          }
+        </> : <PageContainer></PageContainer>}
+
     </>
   )
 })

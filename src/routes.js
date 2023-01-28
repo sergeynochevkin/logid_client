@@ -1,6 +1,5 @@
 import { ADMIN_ROUTE, USER_ROUTE,LOGIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, RECOVERY_ROUTE, REGISTRATION_ROUTE } from "./utils/consts"
-import Admin from './pages/Admin'
-import Manager from './pages/Manager'
+import Management from './pages/Management'
 import Main from './pages/main/Main'
 import Auth from './pages/auth/Auth'
 import User from "./pages/User"
@@ -8,11 +7,11 @@ import User from "./pages/User"
 export const authRoutes = [
     {
         path: ADMIN_ROUTE,
-        Component: <Admin />
+        Component: <Management />
     },
     {
         path: MANAGER_ROUTE,
-        Component: <Manager />
+        Component: <Management />
     },
     {
         path: USER_ROUTE,

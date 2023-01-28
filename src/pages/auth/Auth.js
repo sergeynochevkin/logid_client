@@ -9,7 +9,7 @@ import { Select } from '../../components/ui/form/Select'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { Comment } from '../../components/ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE } from '../../utils/consts';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE } from '../../utils/consts';
 import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
@@ -192,6 +192,8 @@ const Auth = observer(() => {
       localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
       if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
+      else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
+      else if (user.user.role === 'admin') { navigate(ADMIN_ROUTE) }
       else { navigate(MAIN_ROUTE) }
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
