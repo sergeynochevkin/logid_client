@@ -217,6 +217,10 @@
         width: 180px;
     }
 
+    .main_section_items_container{
+        flex-wrap: nowrap;
+    }
+
     .section_text {
         width: 350px;
         text-align: justify;
