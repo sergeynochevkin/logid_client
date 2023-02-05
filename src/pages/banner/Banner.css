@@ -42,6 +42,7 @@
 .main_banner_half_2_container {
     width: 30%;
     height: 60%;
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
