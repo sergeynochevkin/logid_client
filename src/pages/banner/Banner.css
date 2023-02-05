@@ -22,14 +22,14 @@
 }
 
 .main_banner_container {
-    height: 80vh;
-    min-height: 400px;
-    display: flex;
+    height: 80vh;  
+   display: flex;
     justify-content: space-around;
     align-items: center;
     z-index: 1;
     flex-wrap: wrap;
     gap: 20px;
+    min-height: 400px;
 }
 
 .main_banner_half_1_container {
