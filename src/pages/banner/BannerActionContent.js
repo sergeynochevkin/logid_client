@@ -29,8 +29,8 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                     {Adress.country.value === 'russia' ?
                         <>
                             <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
-                                russian: ['Начните пользоваться нашим сервисом до 28.02.2023, выберите любой подходящий вам тарифный план и пользуйтесь им до окончания срока действия бесплатно!'],
-                                english: ['Start using our service before 02/28/2022, choose any tariff plan that suits you and use it until the expiration date for free!']
+                                russian: ['Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!'],
+                                english: ['Register now, get a year of professional subscription for free! The offer is limited!']
                             })}</div>
                         </> :
                         <>
