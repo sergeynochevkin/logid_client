@@ -43,7 +43,7 @@
 .main_banner_half_2_container {
     width: 30%;
     height: 60%;
-    min-height: 380px;
+    min-height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -186,7 +186,7 @@
 
     .main_banner_container {
         flex-direction: column;
-        height: 70vh;
+        height: max-content;
         gap: 10px;
     }
 
