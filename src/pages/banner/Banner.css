@@ -192,6 +192,7 @@
     }
 
     .main_banner_half_1_container {
+        margin-top: 10px;
         width: 380px;
         height: 30%;
     }
@@ -199,6 +200,7 @@
     .main_banner_half_2_container {
         width: 380px;
         height: 60%;
+        margin-bottom: 10px;
     }
 
     .main_banner_slogan {
