@@ -228,7 +228,7 @@
 
 @media screen and (max-width: 1920px) and (min-width: 769px) {}
 
-@media screen and (max-width: 768px) and (min-width: 426px) {
+@media screen and (max-width: 769px) and (min-width: 426px) {
     .scroll_content_container {
         /* flex-wrap: nowrap; */
         max-width: 700px;

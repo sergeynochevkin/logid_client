@@ -68,7 +68,7 @@
     }  
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 769px) {
     .modal_doc_container {
         width: 600px;
     }
