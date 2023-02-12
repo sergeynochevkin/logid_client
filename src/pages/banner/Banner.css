@@ -148,7 +148,7 @@
 
 
 
-@media screen and (max-width: 768px) and  (min-width: 426px)  {
+@media screen and (max-width: 1380px) and  (min-width: 426px)  {
     .main_banner_container {
         flex-direction: column;
         height: 60vh;
