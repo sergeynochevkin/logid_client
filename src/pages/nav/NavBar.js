@@ -11,6 +11,10 @@ import Modal from '../../components/ui/modal/Modal';
 import CountrySelector from './CountrySelector';
 import NotificationIcon from '../../components/notification/NotificationIcon';
 import ServerNotificationList from '../../components/notification/ServerNotificationList';
+import dark_mode from '../../assets/dark_mode.png';
+import light_mode from '../../assets/light_mode.png';
+import logo_light from '../../assets/logo_light.png';
+import logo_dark from '../../assets/logo_dark.png';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -54,8 +58,8 @@ const NavBar = observer(() => {
           <ServerNotificationList setModalActive={setModalActive2} />
         </Modal>
 
-        <div className='nav_bar_logo' onClick={() =>
-          navigate(MAIN_ROUTE)}>logid</div>
+        <div className='nav_bar_logo_container' onClick={() =>
+          navigate(MAIN_ROUTE)}><img src={Setting.app_theme === 'light' ? logo_light : logo_dark} className='nav_bar_logo'/></div>
         {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Главная</Item> */}
         {user.user.role === "customer" && user.isAuth ?
@@ -97,6 +101,7 @@ const NavBar = observer(() => {
             navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
         }
 
+
         <span className="material-symbols-outlined nav_bar_theme_icon"
           onClick={() => {
             if (Setting.app_theme === 'dark') {
@@ -112,7 +117,7 @@ const NavBar = observer(() => {
             }
           }}
         >
-          {Setting.app_theme === 'light' ? 'dark_mode' : 'light_mode'}
+          {Setting.app_theme === 'light' ? <img src={dark_mode} className='nav_bar_theme_icon' /> : <img src={light_mode} className='nav_bar_theme_icon' />}
         </span>
 
         {/* language of my country + english if english is your language, no select, set language state when select if isAuth. Сheck such language for such country when loading!*/}

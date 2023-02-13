@@ -16,10 +16,16 @@
     color: white;
 }
 
-.nav_bar_logo {
-    font-weight: bold;
+.nav_bar_logo_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav_bar_logo {    
     /* padding-left: 20px; */
     cursor: pointer;
+    height: 20px;
+    width: auto;
 }
 
 .nav_bar_item {
@@ -48,7 +54,8 @@
 
 .nav_bar_theme_icon {
     cursor: pointer;
-    font-size: 24px;
+    width: 25px;
+    height: auto;
 }
 
 .nav_bar_theme_icon:hover {
