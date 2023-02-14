@@ -9,6 +9,17 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import AdressHistory from '../history/AdressHistory'
 import { v4 } from 'uuid'
 
+import repeat from '../../assets/icons/repeat.png';
+import repeat_dark from '../../assets/icons/repeat_dark.png';
+import close from '../../assets/icons/close.png';
+import close_dark from '../../assets/icons/close_dark.png';
+import arrow_up from '../../assets/icons/arrow_up.png';
+import arrow_up_dark from '../../assets/icons/arrow_up_dark.png';
+import arrow_down from '../../assets/icons/arrow_down.png';
+import arrow_down_dark from '../../assets/icons/arrow_down_dark.png';
+import add from '../../assets/icons/add.png';
+import add_dark from '../../assets/icons/add_dark.png';
+
 const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPointFormData, pointItem, index, dragStartHandler, dragLeaveHandler, dragEndHandler, dragOverHandler, dropHandler, handleFormChange, handleFormBlur, removeField, calculateTime, setCalculate, move_up, move_down, setCurrentPoint }) => {
 
     const { UserInfo } = useContext(UserInfoContext)
@@ -209,13 +220,12 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
 
                         <div className='now_container'>
                             {pointItem.sequence === 1 && pointFormData.find(el => el.time.isDirty) ?
-                                <span className="material-symbols-outlined now_icon" alt='now'
+                                <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? repeat : repeat_dark} alt='now'
                                     onClick={() => {
                                         calculateTime(false, false, false, 'now')
                                     }}
-                                >
-                                    update
-                                </span> : <></>
+                                />
+                                : <></>
                             }
                         </div>
 
@@ -272,45 +282,38 @@ const OrderFormPointItem = observer(({ pointFormData, formData, addField, setPoi
             <div className='point_action_buttons_container'>
 
                 {pointFormData.length > 2 ?
-                    <span className="material-symbols-outlined point_action_icon"
+                    <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? close : close_dark}
                         onClick={() => {
                             removeField(pointItem)
                         }}
-                    >
-                        close
-                    </span>
+                    />
+
                     : <></>}
 
                 {pointItem.sequence !== 1 ?
-                    <span className="material-symbols-outlined point_action_icon"
+                    <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? arrow_up : arrow_up_dark}
                         onClick={() => {
                             setCurrentPoint(pointItem)
                             move_up(pointItem)
                         }}
-                    >
-                        arrow_upward
-                    </span>
+                    />
                     : <></>}
 
                 {pointItem.sequence !== 50 ?
-                    <span className="material-symbols-outlined point_action_icon"
+                    <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? arrow_down : arrow_down_dark}
                         onClick={() => {
                             setCurrentPoint(pointItem)
                             move_down(pointItem)
                         }}
-                    >
-                        arrow_downward
-                    </span>
-                    : <></>}
+                    />
 
+                    : <></>}
                 {pointFormData.length !== 50 ?
-                    <span className="material-symbols-outlined point_action_icon"
+                    <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? add : add_dark}
                         onClick={() => {
                             addField(pointItem)
                         }}
-                    >
-                        add
-                    </span>
+                    />
                     : <></>}
 
             </div>

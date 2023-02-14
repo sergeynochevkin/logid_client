@@ -10,6 +10,9 @@ import '../order/Order.css'
 import './FilterAndSort.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
+import filter_off from '../../assets/icons/filter_off.png';
+import filter_off_dark from '../../assets/icons/filter_off_dark.png';
+
 const FilterAndSortComponentForServer = observer(({ parent }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
@@ -67,22 +70,22 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                     FilterAndSort.filters[ComponentFunction.Function].name !== '' ||
                     FilterAndSort.filters[ComponentFunction.Function].partnerName !== ''
                 ) ?
-                <span className={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
+                <img className={`filter_reset_icon`}
+                    src={Setting.app_theme === 'light' ? filter_off : filter_off_dark}
                     onClick={resetFilters}
-                >
-                    filter_alt_off
-                </span> : <></>
+                />
+                : <></>
             }
             {parent === 'partners' &&
                 (FilterAndSort.partnerFilters[ComponentFunction.Function].id !== '' ||
                     FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
                     FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''
                 ) ?
-                <span className={`material-symbols-outlined filter_reset_icon ${Setting.app_theme === 'dark' && 'dark'}`}
+                <img className={`filter_reset_icon`}
+                    src={Setting.app_theme === 'light' ? filter_off : filter_off_dark}
                     onClick={resetFilters}
-                >
-                    filter_alt_off
-                </span> : <></>
+                />
+                : <></>
             }
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
                 <div className='scroll_content_container'>

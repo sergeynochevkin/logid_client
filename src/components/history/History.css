@@ -15,8 +15,8 @@
 
 .adress_history_icon {
     cursor: pointer;
-    font-size: 18px;
-    background-color: transparent;
+    height: 20px;
+    width: auto;
 }
 
 .adress_history_list_container {

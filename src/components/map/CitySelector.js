@@ -5,7 +5,10 @@ import './Map.css'
 import { v4 } from "uuid";
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 
-const CitySelector = observer(({  calcAllCities, calcСityOrderBounds, setRefreshMap }) => {
+import remove from '../../assets/icons/remove.png';
+import remove_dark from '../../assets/icons/remove_dark.png';
+
+const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefreshMap }) => {
     const { Setting } = useContext(SettingContext)
     const { Adress } = useContext(AdressContext)
     const { Notification } = useContext(NotificationContext)
@@ -154,7 +157,7 @@ const CitySelector = observer(({  calcAllCities, calcСityOrderBounds, setRefres
                         }}
                     >{city.name}</div>
                     <div className={Setting.app_theme === 'light' ? "map_action_icon_container" : "map_action_icon_container dark"}>
-                        <span className={"material-symbols-outlined"}
+                        <img className={"remove_city_icon"} src={Setting.app_theme === 'light' ? remove : remove_dark}
                             alt='delete city'
                             onClick={() => {
                                 if (city.lat === Setting.user_map_city.lat && city.lng === Setting.user_map_city.lng) {
@@ -176,9 +179,7 @@ const CitySelector = observer(({  calcAllCities, calcСityOrderBounds, setRefres
                                 }
                                 fetcher.setOrders(true)
                             }}
-                        >
-                            delete_forever
-                        </span>
+                        />
                     </div>
                 </div>
             )}

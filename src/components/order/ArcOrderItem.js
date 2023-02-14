@@ -8,6 +8,11 @@ import './Order.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 
+import remove from '../../assets/icons/remove.png';
+import remove_dark from '../../assets/icons/remove_dark.png';
+import repeat from '../../assets/icons/repeat.png';
+import repeat_dark from '../../assets/icons/repeat_dark.png';
+
 const ArcOrderItem = observer(({ thisPoints, oneArcOrder }) => {
     const { order } = useContext(OrderContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -65,7 +70,7 @@ const ArcOrderItem = observer(({ thisPoints, oneArcOrder }) => {
                         {user.user.role === 'customer' ?
                             <td>
                                 <div className='order_list_icon_container'>
-                                    <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
+                                <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? repeat : repeat_dark}
                                         alt='repeat order'
                                         onClick={() => {
                                             order.setPattern(JSON.stringify(oneArcOrder))
@@ -80,10 +85,8 @@ const ArcOrderItem = observer(({ thisPoints, oneArcOrder }) => {
                                             ComponentFunction.setPageFunction('orderForm')
                                             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${ComponentFunction.Function === 'arc' ? form_from_order : form_from_template} ${oneArcOrder.id}, ${check_restored_arc}` }])
                                         }}
-                                    >
-                                        settings_backup_restore
-                                    </span>
-
+                                    />
+                                     
                                 </div>
                             </td>
                             : <></>}
@@ -92,12 +95,10 @@ const ArcOrderItem = observer(({ thisPoints, oneArcOrder }) => {
                             <div className='order_list_icon_container'>
                                 {ComponentFunction.Function === 'pattern' || (ComponentFunction.Function === 'arc' && oneArcOrder.order_final_status === 'canceled') ?
                                     <>
-                                        <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
+                                        <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? remove : remove_dark}
                                             onClick={deleteClick}
                                             alt='delete order'
-                                        >
-                                            delete_forever
-                                        </span>
+                                        />
 
                                     </>
                                     : <></>}

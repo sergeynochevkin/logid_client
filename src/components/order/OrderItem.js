@@ -22,6 +22,9 @@ import OrderStatusButtons from './OrderStatusButtons'
 import MapComponent from '../map/MapComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
+import arrow_back from '../../assets/icons/arrow_back.png';
+import arrow_back_dark from '../../assets/icons/arrow_back_dark.png';
+
 
 const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -119,16 +122,15 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
             >
                 {ComponentFunction.OrdersComponentFunction === 'orderItem' ?
                     <>
-                        <span className={`material-symbols-outlined order_action_icon ${Setting.app_theme === 'dark' ? 'dark' : ''}`}
+                    <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? arrow_back : arrow_back_dark}
                             onClick={(event) => {
                                 event.stopPropagation()
                                 ComponentFunction.setFunction(thisOrder.order_status)
                                 ComponentFunction.setOrdersComponentFunction('orderList')
                                 fetcher.setOrders(true)
                             }}
-                        >
-                            arrow_back
-                        </span>
+                        />
+                         
                     </>
                     : <></>}
 

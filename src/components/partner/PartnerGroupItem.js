@@ -12,6 +12,9 @@ import '../order/Order.css'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
+import group_remove from '../../assets/icons/group_remove.png';
+import group_remove_dark from '../../assets/icons/group_remove_dark.png';
+
 
 const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedGroups }) => {
     const { FilterAndSort } = useContext(FilterAndSortContext)
@@ -31,7 +34,7 @@ const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedG
     return (
         <>
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                <GroupPartnerList  group={group} setModalActive={setModalActive} />
+                <GroupPartnerList group={group} setModalActive={setModalActive} />
             </Modal>
 
             {parent !== 'table' ?
@@ -104,12 +107,10 @@ const PartnerGroupItem = observer(({ group, parent, selectedGroups, setSelectedG
                     <td>
                         <div className='order_list_icon_container'>
 
-                            <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
+                            <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? group_remove : group_remove_dark}
                                 alt='delete group'
                                 onClick={deleteGroupAction}
-                            >
-                                group_remove
-                            </span>
+                            />
                         </div>
                     </td>
                 </tr>

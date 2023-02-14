@@ -152,11 +152,7 @@ const Main = observer(() => {
       role: 'customer'
     },
   ]
-
-  let icon = `<span className='material-symbols-outlined'>
-  settings
-  </span>`
-
+ 
   const items = [
     {
       id: 1, icon: Setting.app_theme === 'light' ? route : route_dark
@@ -320,9 +316,7 @@ const Main = observer(() => {
     },
 
     {
-      id: 17, icon: <><span className="material-symbols-outlined">
-        transportation
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 17, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Игорь, 25, перевозчик, междугородние перевозки'],
         english: ['Igor, 25, carrier, intercity transportation']
       }), description: SetNativeTranslate(Translate.language, {
@@ -331,9 +325,7 @@ const Main = observer(() => {
       }), section_id: 6, class: 'user_review', av: av9
     },
     {
-      id: 18, icon: <><span className="material-symbols-outlined">
-        transportation
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 18, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Павел, 33, курьер на автомобиле'],
         english: ['Pavel, 33, сourier by car']
       }), description: SetNativeTranslate(Translate.language, {
@@ -342,9 +334,7 @@ const Main = observer(() => {
       }), section_id: 6, class: 'user_review', av: av5
     },
     {
-      id: 19, icon: <><span className="material-symbols-outlined">
-        transportation
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 19, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Людмила, 37, транспортный диспетчер'],
         english: ['Ludmila, 37, transport dispatcher']
       }), description: SetNativeTranslate(Translate.language, {
@@ -353,9 +343,7 @@ const Main = observer(() => {
       }), section_id: 6, class: 'user_review', av: av1
     },
     {
-      id: 20, icon: <><span className="material-symbols-outlined">
-        transportation
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 20, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Святослав, 46, владелец ресторана'],
         english: ['Svyatoslav, 46, restaurant owner']
       }), description: SetNativeTranslate(Translate.language, {
@@ -364,9 +352,7 @@ const Main = observer(() => {
       }), section_id: 6, class: 'user_review', av: av8
     },
     {
-      id: 21, icon: <><span className="material-symbols-outlined">
-        transportation
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 21, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Роман, 34, доставка для себя'],
         english: ['Roman, 34, delivery for personal use']
       }), description: SetNativeTranslate(Translate.language, {
@@ -375,9 +361,7 @@ const Main = observer(() => {
       }), section_id: 6, class: 'user_review', av: av6
     },
     {
-      id: 22, icon: <><span className="material-symbols-outlined">
-        transportation
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 22, icon: '', name: SetNativeTranslate(Translate.language, {
         russian: ['Анна, 24, продажа косметики'],
         english: ['Anna, 24, sale of cosmetics']
       }), description: SetNativeTranslate(Translate.language, {

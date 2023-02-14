@@ -102,7 +102,7 @@ const NavBar = observer(() => {
         }
 
 
-        <span className="material-symbols-outlined nav_bar_theme_icon"
+        <div className="nav_bar_theme_icon"
           onClick={() => {
             if (Setting.app_theme === 'dark') {
               Setting.setAppTheme('light')
@@ -118,7 +118,7 @@ const NavBar = observer(() => {
           }}
         >
           {Setting.app_theme === 'light' ? <img src={dark_mode} className='nav_bar_theme_icon' /> : <img src={light_mode} className='nav_bar_theme_icon' />}
-        </span>
+        </div>
 
         {/* language of my country + english if english is your language, no select, set language state when select if isAuth. Сheck such language for such country when loading!*/}
         <div className='nav_bar_item language_switch'

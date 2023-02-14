@@ -1,18 +1,17 @@
 .filter_reset_icon {
     cursor: pointer;
     position: relative;
-    top:-3px
-}
-
-.filter_reset_icon.dark {
-color: white;
+    top: -3px;
+    left: 8px;
+    width: 25px;
+    height: auto;
 }
 
 .filter_reset_icon:hover {
-    color: grey;
+    filter: invert(50%);
 }
 
 .filters_container {
     align-items: center;
     display: flex;
-   }
+}

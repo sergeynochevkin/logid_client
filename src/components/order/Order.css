@@ -129,6 +129,9 @@
     cursor: pointer;
     font-size: 22px;
     background-color: transparent;
+
+    height: 20px;
+    width: 20px;
 }
 
 .order_action_icon.dark {
@@ -137,6 +140,8 @@
 
 .order_action_icon:hover {
     color: grey;
+
+    filter: invert(50%);
 }
 
 .point_container {

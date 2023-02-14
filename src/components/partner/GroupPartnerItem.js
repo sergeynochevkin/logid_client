@@ -5,10 +5,13 @@ import { FetcherContext, SettingContext, TranslateContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 
-const GroupPartnerItem = observer(({  partner, group, setModalActive, onePartnerInfo }) => {
+import person_remove from '../../assets/icons/person_remove.png';
+import person_remove_dark from '../../assets/icons/person_remove_dark.png';
+
+const GroupPartnerItem = observer(({ partner, group, setModalActive, onePartnerInfo }) => {
     const { fetcher } = useContext(FetcherContext)
     const { Translate } = useContext(TranslateContext)
-    const {Setting} = useContext(SettingContext)
+    const { Setting } = useContext(SettingContext)
 
     const deletePartnerFromGroupAction = async function () {
         await deletePartnerFromGroup(onePartnerInfo.id, group.dataValues.id)
@@ -31,12 +34,11 @@ const GroupPartnerItem = observer(({  partner, group, setModalActive, onePartner
             <OrderTd>{partner.status === 'normal' ? SetNativeTranslate(Translate.language, {}, 'partner_normal') : partner.status === 'blocked' ? SetNativeTranslate(Translate.language, {}, 'partner_blocked') : partner.status === 'priority' ? SetNativeTranslate(Translate.language, {}, 'partner_favorite') : ''}</OrderTd>
             <td>
                 <div className='order_list_icon_container'>
-                    <span className={Setting.app_theme === 'light' ? "material-symbols-outlined order_action_icon" : "material-symbols-outlined order_action_icon dark"}
+                    <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? person_remove : person_remove_dark}
                         alt='delete group'
                         onClick={deletePartnerFromGroupAction}
-                    >
-                        person_remove
-                    </span>                  
+                    />
+
                 </div>
             </td>
         </tr>

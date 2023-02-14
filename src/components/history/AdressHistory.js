@@ -4,6 +4,8 @@ import { SettingContext } from '../..'
 import useComponentVisible from '../../hooks/useComponentVisible'
 import AdressHistoryItem from './AdressHistoryItem'
 import './History.css'
+import history from '../../assets/icons/history.png';
+import history_dark from '../../assets/icons/history_dark.png';
 
 const AdressHistory = observer(({ showHistory, setShowHistory, selectFromHistoryAction, setCustomInput }) => {
     const { Setting } = useContext(SettingContext)
@@ -20,7 +22,7 @@ const AdressHistory = observer(({ showHistory, setShowHistory, selectFromHistory
             <div className='adress_history_container'>
 
                 {Setting.adress_history.length > 0 &&
-                    <span className="material-symbols-outlined adress_history_icon"
+                    <img src={Setting.app_theme === 'light' ? history : history_dark} className="adress_history_icon"
                         onClick={() => {
                             if (showHistory) {
                                 setShowHistory(false)
@@ -32,9 +34,7 @@ const AdressHistory = observer(({ showHistory, setShowHistory, selectFromHistory
                                 setCustomInput(true)
                             }
                         }}
-                    >
-                        history
-                    </span>
+                    />                     
                 }
             </div>
 

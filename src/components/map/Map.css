@@ -62,6 +62,15 @@
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
+.remove_city_icon{
+    height: 20px;
+    width: auto;
+}
+.remove_city_icon:hover{
+    filter: invert(50%);
+}
+
+
 .map_scale_button.only {
     min-width: 150px;
 }
