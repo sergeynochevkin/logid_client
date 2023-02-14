@@ -6,6 +6,8 @@ import './Main.css'
 import MainSectionItem from './MainSectionItem'
 import '../../components/order/Order.css'
 import CaptureForm from '../../components/captureForm/CaptureForm'
+import swipe from '../../assets/icons/swipe.png';
+import swipe_dark from '../../assets/icons/swipe_dark.png';
 
 const MainSection = observer(({ section, items, callRequested, setCallRequested }) => {
 
@@ -31,9 +33,7 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
               </div>
             </div>
             <div className='swipe_icon_container'>
-              <span className="material-symbols-outlined">
-                swipe
-              </span>
+              <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark}/>
             </div>
           </div>
           : section.type === 'reviews' ?
@@ -46,9 +46,7 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
                 </div>
               </div>
               <div className='swipe_icon_container'>
-                <span className="material-symbols-outlined">
-                  swipe
-                </span>
+              <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark}/>
               </div>
             </div>
             : <div className='self_content_container'>
@@ -56,9 +54,7 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
                 <SubscriptionForm parent={'main'} mainRole={section.role} />
               </div>
               <div className='swipe_icon_container'>
-                <span className="material-symbols-outlined">
-                  swipe
-                </span>
+              <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark}/>
               </div>
             </div>
       }
