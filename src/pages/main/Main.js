@@ -22,6 +22,31 @@ import av8 from '../../assets/avatars/av8.jpg';
 import av9 from '../../assets/avatars/av9.jpg';
 import av10 from '../../assets/avatars/av10.jpg';
 
+import alert from '../../assets/icons/alert.png';
+import alert_dark from '../../assets/icons/alert_dark.png';
+import city from '../../assets/icons/city.png';
+import city_dark from '../../assets/icons/city_dark.png';
+import filter from '../../assets/icons/filter.png';
+import filter_dark from '../../assets/icons/filter_dark.png';
+import flag from '../../assets/icons/flag.png';
+import flag_dark from '../../assets/icons/flag_dark.png';
+import group_add from '../../assets/icons/group_add.png';
+import group_add_dark from '../../assets/icons/group_add_dark.png';
+import like_up_down from '../../assets/icons/like_up_down.png';
+import like_up_down_dark from '../../assets/icons/like_up_down_dark.png';
+import list from '../../assets/icons/list.png';
+import list_dark from '../../assets/icons/list_dark.png';
+import location from '../../assets/icons/location.png';
+import location_dark from '../../assets/icons/location_dark.png';
+import on_map from '../../assets/icons/on_map.png';
+import on_map_dark from '../../assets/icons/on_map_dark.png';
+import point_status from '../../assets/icons/point_status.png';
+import point_status_dark from '../../assets/icons/point_status_dark.png';
+import route from '../../assets/icons/route.png';
+import route_dark from '../../assets/icons/route_dark.png';
+import transport from '../../assets/icons/transport.png';
+import transport_dark from '../../assets/icons/transport_dark.png';
+
 
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
@@ -33,6 +58,7 @@ const Main = observer(() => {
   const [modalActive2, setModalActive2] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [callRequested, setCallRequested] = useState(false)
+  const { Setting } = useContext(SettingContext)
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -133,9 +159,8 @@ const Main = observer(() => {
 
   const items = [
     {
-      id: 1, icon: <><span className="material-symbols-outlined">
-        route
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 1, icon: Setting.app_theme === 'light' ? route : route_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['До 50 адресов'],
         english: ['Up to 50 points']
       }), description: SetNativeTranslate(Translate.language, {
@@ -144,9 +169,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 2, icon: <><span className="material-symbols-outlined">
-        flag
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 2, icon: Setting.app_theme === 'light' ? flag : flag_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Заказы по всей стране'],
         english: ['Orders across the country']
       }), description: SetNativeTranslate(Translate.language, {
@@ -155,9 +179,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 3, icon: <><span className="material-symbols-outlined">
-        group_add
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 3, icon: Setting.app_theme === 'light' ? group_add : group_add_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Группы перевозчиков'],
         english: ['Carrier groups']
       }), description: SetNativeTranslate(Translate.language, {
@@ -166,9 +189,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 4, icon: <><span className="material-symbols-outlined">
-        thumbs_up_down
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 4, icon: Setting.app_theme ==='light' ? like_up_down : like_up_down_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Избранные перевозчики'],
         english: ['Favorite carriers']
       }), description: SetNativeTranslate(Translate.language, {
@@ -177,9 +199,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 5, icon: <><span className="material-symbols-outlined">
-        route
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 5, icon: Setting.app_theme ==='light' ? route : route_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Визуализация маршрута'],
         english: ['Route visualization']
       }), description: SetNativeTranslate(Translate.language, {
@@ -188,9 +209,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 6, icon: <><span className="material-symbols-outlined">
-        list_alt
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 6, icon: Setting.app_theme ==='light' ? list : list_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Заказ или аукцион'],
         english: ['Order or auction']
       }), description: SetNativeTranslate(Translate.language, {
@@ -199,9 +219,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 7, icon: <><span className="material-symbols-outlined">
-        location_searching
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 7, icon: Setting.app_theme ==='light' ? point_status : point_status_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Статус точек заказа'],
         english: ['Order points status']
       }), description: SetNativeTranslate(Translate.language, {
@@ -210,9 +229,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 8, icon: <><span className="material-symbols-outlined">
-        notifications
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 8, icon: Setting.app_theme ==='light' ? alert : alert_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Уведомления'],
         english: ['Notifications']
       }), description: SetNativeTranslate(Translate.language, {
@@ -221,9 +239,8 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 9, icon: <><span className="material-symbols-outlined">
-        travel_explore
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 9, icon: Setting.app_theme ==='light' ? on_map : on_map_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Заказы на карте'],
         english: ['Orders on the map']
       }), description: SetNativeTranslate(Translate.language, {
@@ -232,9 +249,8 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 10, icon: <><span className="material-symbols-outlined">
-        filter_alt
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 10, icon: Setting.app_theme ==='light' ? filter : filter_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Фильтр заказов'],
         english: ['Order filter']
       }), description: SetNativeTranslate(Translate.language, {
@@ -243,9 +259,8 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 11, icon: <><span className="material-symbols-outlined">
-        thumbs_up_down
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 11, icon: Setting.app_theme ==='light' ? like_up_down : like_up_down_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Избранные заказчики'],
         english: ['Favorite customers']
       }), description: SetNativeTranslate(Translate.language, {
@@ -254,9 +269,8 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 12, icon: <><span className="material-symbols-outlined">
-        notifications
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 12, icon: Setting.app_theme ==='light' ? alert : alert_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Уведомления'],
         english: ['Notifications']
       }), description: SetNativeTranslate(Translate.language, {
@@ -265,9 +279,8 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 13, icon: <><span className="material-symbols-outlined">
-        list_alt
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 13, icon: Setting.app_theme ==='light' ? list : list_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Заказ или аукцион'],
         english: ['Order or auction']
       }), description: SetNativeTranslate(Translate.language, {
@@ -276,9 +289,8 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 14, icon: <><span className="material-symbols-outlined">
-        location_on
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 14, icon: Setting.app_theme ==='light' ? location : location_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Можно выбрать только межгород'],
         english: ['You can choose only intercity']
       }), description: SetNativeTranslate(Translate.language, {
@@ -287,9 +299,8 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 15, icon: <><span className="material-symbols-outlined">
-        location_city
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 15, icon: Setting.app_theme ==='light' ? city : city_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['До 10 городов'],
         english: ['Up to 10 cities']
       }), description: SetNativeTranslate(Translate.language, {
@@ -298,9 +309,8 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 16, icon: <><span className="material-symbols-outlined">
-        transportation
-      </span></>, name: SetNativeTranslate(Translate.language, {
+      id: 16, icon: Setting.app_theme ==='light' ? transport : transport_dark
+      , name: SetNativeTranslate(Translate.language, {
         russian: ['Разный транспорт'],
         english: ['Different transport']
       }), description: SetNativeTranslate(Translate.language, {

@@ -56,10 +56,12 @@
     cursor: pointer;
     width: 25px;
     height: auto;
+   
 }
 
 .nav_bar_theme_icon:hover {
     color: grey;
+    filter: invert(50%);
 }
 
 .language_switch {

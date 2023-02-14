@@ -18,8 +18,8 @@
 
 
 .footer_logo {
-    color: white;
-    font-weight: bold;
+    height: auto;
+    width: 50px;
 }
 
 .footer_copyright_container {

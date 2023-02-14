@@ -11,8 +11,8 @@ import Modal from '../../components/ui/modal/Modal';
 import CountrySelector from './CountrySelector';
 import NotificationIcon from '../../components/notification/NotificationIcon';
 import ServerNotificationList from '../../components/notification/ServerNotificationList';
-import dark_mode from '../../assets/dark_mode.png';
-import light_mode from '../../assets/light_mode.png';
+import dark_mode from '../../assets/icons/dark_mode.png';
+import light_mode from '../../assets/icons/light_mode.png';
 import logo_light from '../../assets/logo_light.png';
 import logo_dark from '../../assets/logo_dark.png';
 
@@ -59,7 +59,7 @@ const NavBar = observer(() => {
         </Modal>
 
         <div className='nav_bar_logo_container' onClick={() =>
-          navigate(MAIN_ROUTE)}><img src={Setting.app_theme === 'light' ? logo_light : logo_dark} className='nav_bar_logo'/></div>
+          navigate(MAIN_ROUTE)}><img src={Setting.app_theme === 'light' ? logo_light : logo_dark} className='nav_bar_logo' /></div>
         {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Главная</Item> */}
         {user.user.role === "customer" && user.isAuth ?

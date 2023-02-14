@@ -76,7 +76,9 @@
 }
 
 .section_item_icon {
-    font-size: 40px;
+    height: 30px;
+    width: auto;
+    margin-top: 20px;
 }
 
 .section_item_name {}

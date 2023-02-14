@@ -6,6 +6,7 @@ import Modal from '../../components/ui/modal/Modal'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import './Footer.css'
 import FooterSection from './FooterSection'
+import logo_dark from '../../assets/logo_dark.png';
 
 const Footer = observer(() => {
   const { Setting } = useContext(SettingContext)
@@ -44,7 +45,7 @@ const Footer = observer(() => {
   ]
 
   const items = [
-    { id: 1, icon: '', name: 'logid', description: '', section_id: 1, class: 'footer_logo' },
+    { id: 1, icon: logo_dark, name: 'logid', description: '', section_id: 1, class: 'footer_logo' },
     { id: 2, icon: '', name: 'logid 2023 © all rights reserved', description: '', section_id: 1, class: 'footer_copyright' },
     { id: 3, icon: '', name: <a href="mailto:support@logid.app">support@logid.app</a>, description: '', section_id: 1, class: 'footer_email' },
     {
