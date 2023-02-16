@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { SettingContext, UserContext } from '../../..'
 
@@ -9,10 +9,19 @@ import block from '../../../assets/icons/block.png'
 import block_dark from '../../../assets/icons/block_dark.png'
 import remove from '../../../assets/icons/remove.png'
 import remove_dark from '../../../assets/icons/remove_dark.png'
+import useComponentVisible from '../../../hooks/useComponentVisible'
 
 const UsersItem = observer(({ oneUser }) => {
     const { Setting } = useContext(SettingContext)
     const [actionMenuActive, setActionMenuActive] = useState(false)
+
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
+
+    useEffect(() => {
+        if (!isComponentVisible) {
+            setActionMenuActive(false)
+        }
+    }, [isComponentVisible])
 
     return (
         <>
@@ -24,14 +33,16 @@ const UsersItem = observer(({ oneUser }) => {
                     <img
                         onClick={() => {
                             actionMenuActive && setActionMenuActive(false)
+                            actionMenuActive && setIsComponentVisible(false)
                             !actionMenuActive && setActionMenuActive(true)
+                            !actionMenuActive && setIsComponentVisible(true)
                         }}
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
-                    {actionMenuActive &&
-                        <div className='users_item_action_menu'>
+                    {actionMenuActive && isComponentVisible  ?
+                        <div className='users_item_action_menu' ref={ref}>
                             <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
                             <img src={Setting.app_theme === 'light' ? remove : remove_dark} className='management_sync_icon' alt='remove'></img>
-                        </div>
+                        </div> : <></>
                     }
                 </div>
             </div>

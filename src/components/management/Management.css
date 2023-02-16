@@ -47,7 +47,7 @@
 
 .users_list_container {
     margin-top: 10px;
-    gap: 10px;
+    gap: 5px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
