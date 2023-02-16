@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { SettingContext, UserContext } from '../../..'
+import useComponentVisible from '../../../hooks/useComponentVisible'
 
 import more from '../../../assets/icons/more.png'
 import more_dark from '../../../assets/icons/more_dark.png'
@@ -13,9 +14,13 @@ import mail from '../../../assets/icons/mail.png'
 import mail_dark from '../../../assets/icons/mail_dark.png'
 import alert from '../../../assets/icons/alert.png'
 import alert_dark from '../../../assets/icons/alert_dark.png'
-import useComponentVisible from '../../../hooks/useComponentVisible'
+import radio_checked from '../../../assets/icons/radio_checked.png'
+import radio_checked_dark from '../../../assets/icons/radio_checked_dark.png'
+import radio_unchecked from '../../../assets/icons/radio_unchecked.png'
+import radio_unchecked_dark from '../../../assets/icons/radio_unchecked_dark.png'
 
-const UsersItem = observer(({ oneUser }) => {
+
+const UsersItem = observer(({ oneUser, selected, setSelected }) => {
     const { Setting } = useContext(SettingContext)
     const [actionMenuActive, setActionMenuActive] = useState(false)
 
@@ -29,14 +34,21 @@ const UsersItem = observer(({ oneUser }) => {
 
     return (
         <>
-            <div className='users_item_container'>
+            <div className='users_item_container'
+                style={{ border: selected.includes(oneUser.id) ? 'solid 1px orange' : '' }}
+                onClick={() => {
+                    !selected.includes(oneUser.id) && setSelected([...selected, oneUser.id])
+                    selected.includes(oneUser.id) && setSelected(selected.filter(el=>el !== oneUser.id))
+                }}
+            >
                 <div className={`users_item_properties_container ${Setting.app_theme}`}>
                     <div className='users_item_property'>{oneUser.email}</div>
                     <div className='users_item_property'>{oneUser.role}</div>
                 </div>
                 <div className='management_more_icon_container'>
                     <img
-                        onClick={() => {
+                        onClick={(event) => {
+                            event.stopPropagation()
                             actionMenuActive && setActionMenuActive(false)
                             actionMenuActive && setIsComponentVisible(false)
                             !actionMenuActive && setActionMenuActive(true)

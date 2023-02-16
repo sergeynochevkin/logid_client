@@ -17,6 +17,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 5px;
+    height: 20px;
 }
 
 .users_item_container {
@@ -29,6 +30,8 @@
     gap: 5px;
     padding: 5px;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .users_item_properties_container {
@@ -41,8 +44,8 @@
 }
 
 .users_item_properties_container.dark {
-   color: white;
-   background-color: unset;
+    color: white;
+    background-color: unset;
 }
 
 .users_list_container {
@@ -76,18 +79,19 @@
 }
 
 .users_item_action_menu {
-    width: 40px;
-    height: max-content;
+    width: max-content;
+    height: 40px;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
     background-color: rgb(105, 105, 105, 0.5);
     position: relative;
-    bottom: 20px;
-    right: 25px;
+    bottom: 67px;
+    right: 150px;
+    padding-left: 10px;
+    padding-right: 10px;
 
     display: flex;
-    flex-direction: column;
     gap: 10px;
     align-items: center;
     justify-content: center;
@@ -96,4 +100,17 @@
 .management_more_icon_container {
     width: 0px;
     height: 0px;
+}
+
+.management_search {
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid rgb(105, 105, 105, 0.5);
+    width: 340px;
+    padding: 1px;
+}
+
+.management_search.dark {
+    color: white;
+    background: transparent;
 }
