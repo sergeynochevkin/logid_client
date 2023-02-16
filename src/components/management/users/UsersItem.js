@@ -32,6 +32,7 @@ const UsersItem = observer(({ oneUser }) => {
             <div className='users_item_container'>
                 <div className={`users_item_properties_container ${Setting.app_theme}`}>
                     <div className='users_item_property'>{oneUser.email}</div>
+                    <div className='users_item_property'>{oneUser.role}</div>
                 </div>
                 <div className='management_more_icon_container'>
                     <img
