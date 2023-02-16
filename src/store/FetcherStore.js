@@ -22,6 +22,9 @@ export default class FetcherStore {
         this._new_status = ''
         this._status = ''
 
+        //management
+        this._management_users = false
+
         makeAutoObservable(this)
     }
     //set
@@ -70,6 +73,9 @@ export default class FetcherStore {
     setCreate(value) {
         this._create = value
     }
+    setManagementUsers(value) {
+        this._management_users = value
+    }
 
     //get
     get server_notifications() {
@@ -117,5 +123,8 @@ export default class FetcherStore {
     }
     get create() {
         return this._create
+    }
+    get management_users() {
+        return this._management_users
     }
 }

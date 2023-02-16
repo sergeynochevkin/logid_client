@@ -23,6 +23,7 @@ import SettingStore from './store/SettingStore';
 import LimitStore from './store/LimitStore';
 import StateStore from './store/StateStore';
 import FetcherStore from './store/FetcherStore';
+import ManagementStore from './store/ManagementStore';
 
 export const UserContext = createContext(null)
 export const UserInfoContext = createContext(null)
@@ -45,6 +46,7 @@ export const SettingContext = createContext(null)
 export const StateContext = createContext(null)
 export const LimitContext = createContext(null)
 export const FetcherContext = createContext(null)
+export const ManagementContext = createContext(null)
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -135,14 +137,18 @@ root.render(
                                           <AdressContext.Provider value={{
                                             Adress: new AdressStore(),
                                           }}>
-                                            {/* <React.StrictMode> */}
-                                            <ThemeProvider theme={theme}>
-                                              <Global />
+                                            <ManagementContext.Provider value={{
+                                              Management: new ManagementStore(),
+                                            }}>
+                                              {/* <React.StrictMode> */}
+                                              <ThemeProvider theme={theme}>
+                                                <Global />
 
-                                              <App />
+                                                <App />
 
-                                            </ThemeProvider>
-                                            {/* </React.StrictMode> */}
+                                              </ThemeProvider>
+                                              {/* </React.StrictMode> */}
+                                            </ManagementContext.Provider>
                                           </AdressContext.Provider>
                                         </TransportContext.Provider>
                                       </EquipmentTypeContext.Provider>

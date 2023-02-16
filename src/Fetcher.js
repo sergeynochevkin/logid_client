@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
-import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
+import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
 import { fetchUserLimits } from './http/limitApi'
 import { fetchNotifications, updateNotifications } from './http/notificationApi'
 import { fetchGroups, fetchPartners } from './http/partnerApi'
@@ -14,6 +14,7 @@ import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
 import { fetchUser } from './http/userAPI'
+import { fetchManagementUsers } from './http/managementApi'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -31,6 +32,7 @@ const Fetcher = observer(() => {
     const { Point } = useContext(PointContext)
     const { Offer } = useContext(OfferContext)
     const { Transport } = useContext(TransportContext)
+    const { Management } = useContext(ManagementContext)
 
     // server notifications
     useEffect(() => {
@@ -268,11 +270,24 @@ const Fetcher = observer(() => {
     useEffect(() => {
         async function fetch() {
             await fetchUserInfo(user.user.id).then(data => {
-                data && UserInfo.setUserInfo(data)})
+                data && UserInfo.setUserInfo(data)
+            })
         }
         fetch()
         fetcher.setAccountUserInfo(false)
     }, [fetcher.account_user_info])
+
+    //management:
+    //users
+    useEffect(() => {
+        async function fetch() {
+            await fetchManagementUsers().then(data => {
+                data && Management.setUsers(data)
+            })
+        }
+        fetch()
+        fetcher.setManagementUsers(false)
+    }, [fetcher.management_users])
 
     return (
         <></>)

@@ -1,18 +1,20 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { ComponentFunctionContext, SettingContext } from '..'
+import { ComponentFunctionContext, SettingContext, TranslateContext } from '..'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
-import Users from '../components/management/Users'
+import Users from '../components/management/users/Users'
 import Managers from '../components/management/Managers'
 import Orders from '../components/management/Orders'
 import Settings from '../components/management/Settings'
 import Statistics from '../components/management/Statistics'
 import Account from '../components/management/Account'
+import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 
 const Admin = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Setting } = useContext(SettingContext)
+  const { Translate } = useContext(TranslateContext)
 
   return (
     <PageContainer>
@@ -23,44 +25,62 @@ const Admin = observer(() => {
             ComponentFunction.setPageFunction('admin_users')
           }} style={{
             color: ComponentFunction.PageFunction === 'admin_users' && 'grey',
-          }}>Users</BookMark>
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Пользователи'],
+            english: ['Users']
+          })}</BookMark>
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('managers')
           }} style={{
             color: ComponentFunction.PageFunction === 'managers' && 'grey',
-          }}>Managers</BookMark>
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Менеджеры'],
+            english: ['Managers']
+          })}</BookMark>
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('admin_orders')
           }} style={{
             color: ComponentFunction.PageFunction === 'admin_orders' && 'grey',
-          }}>Orders</BookMark>
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Заказы'],
+            english: ['Orders']
+          })}</BookMark>
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('admin_statistics')
           }} style={{
             color: ComponentFunction.PageFunction === 'admin_statistics' && 'grey',
-          }}>Statistics</BookMark>
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Статистика'],
+            english: ['Statistics']
+          })}</BookMark>
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('admin_settings')
           }} style={{
             color: ComponentFunction.PageFunction === 'admin_settings' && 'grey',
-          }}>Settings</BookMark>
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Настройки'],
+            english: ['Settings']
+          })}</BookMark>
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('admin_account')
           }} style={{
             color: ComponentFunction.PageFunction === 'admin_account' && 'grey',
-          }}>Account</BookMark>
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Аккаунт'],
+            english: ['Account']
+          })}</BookMark>
 
         </div>
       </div>
 
       {
         ComponentFunction.PageFunction === 'admin_users' ? <Users /> :
-        ComponentFunction.PageFunction === 'managers' ? <Managers /> :
-        ComponentFunction.PageFunction === 'admin_statistics' ? <Statistics /> :
-        ComponentFunction.PageFunction === 'admin_settings' ? <Settings /> :
-        ComponentFunction.PageFunction === 'admin_account' ? <Account /> :
-        ComponentFunction.PageFunction === 'admin_orders' ? <Orders />         
-         : <></>
+          ComponentFunction.PageFunction === 'managers' ? <Managers /> :
+            ComponentFunction.PageFunction === 'admin_statistics' ? <Statistics /> :
+              ComponentFunction.PageFunction === 'admin_settings' ? <Settings /> :
+                ComponentFunction.PageFunction === 'admin_account' ? <Account /> :
+                  ComponentFunction.PageFunction === 'admin_orders' ? <Orders />
+                    : <></>
       }
 
     </PageContainer>

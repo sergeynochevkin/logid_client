@@ -1,0 +1,98 @@
+.management_sync_icon {
+    height: 20px;
+    width: 20px;
+    cursor: pointer
+}
+
+.management_sync_icon:hover {
+    filter: invert(50%);
+}
+
+.management_sync_icon.disabled {
+    filter: invert(50%);
+}
+
+.management_actions_container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.users_item_container {
+    background-color: rgb(105, 105, 105, 0.5);
+    border-radius: 5px;
+    width: 400px;
+    min-height: 50px;
+
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    align-items: center;
+}
+
+.users_item_properties_container {
+    width: 370px;
+    min-height: 50px;
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    height: 100%;
+}
+
+.users_item_properties_container.dark {
+   color: white;
+   background-color: unset;
+}
+
+.users_list_container {
+    margin-top: 10px;
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.users_item_property {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.management_more_icon {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    position: relative;
+    bottom: 15px;
+    right: 20px;
+}
+
+.management_more_icon:hover {
+    filter: invert(30%);
+
+}
+
+.management_more_icon.disabled {
+    filter: invert(30%);
+}
+
+.users_item_action_menu {
+    width: 40px;
+    height: 100px;
+    border-radius: 5px;
+    background-color: rgb(105, 105, 105, 0.5);
+    position: relative;
+    bottom: 20px;
+    right: 25px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.management_more_icon_container {
+    width: 0px;
+    height: 0px;
+}
