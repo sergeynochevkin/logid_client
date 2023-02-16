@@ -9,6 +9,10 @@ import block from '../../../assets/icons/block.png'
 import block_dark from '../../../assets/icons/block_dark.png'
 import remove from '../../../assets/icons/remove.png'
 import remove_dark from '../../../assets/icons/remove_dark.png'
+import mail from '../../../assets/icons/mail.png'
+import mail_dark from '../../../assets/icons/mail_dark.png'
+import alert from '../../../assets/icons/alert.png'
+import alert_dark from '../../../assets/icons/alert_dark.png'
 import useComponentVisible from '../../../hooks/useComponentVisible'
 
 const UsersItem = observer(({ oneUser }) => {
@@ -38,8 +42,10 @@ const UsersItem = observer(({ oneUser }) => {
                             !actionMenuActive && setIsComponentVisible(true)
                         }}
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
-                    {actionMenuActive && isComponentVisible  ?
+                    {actionMenuActive && isComponentVisible ?
                         <div className='users_item_action_menu' ref={ref}>
+                            <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='remove'></img>
+                            <img src={Setting.app_theme === 'light' ? alert : alert_dark} className='management_sync_icon' alt='remove'></img>
                             <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
                             <img src={Setting.app_theme === 'light' ? remove : remove_dark} className='management_sync_icon' alt='remove'></img>
                         </div> : <></>
