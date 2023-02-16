@@ -57,8 +57,8 @@ const UsersItem = observer(({ oneUser, selected, setSelected }) => {
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
                     {actionMenuActive && isComponentVisible ?
                         <div className='users_item_action_menu' ref={ref}>
-                            <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='remove'></img>
-                            <img src={Setting.app_theme === 'light' ? alert : alert_dark} className='management_sync_icon' alt='remove'></img>
+                            <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'></img>
+                            <img src={Setting.app_theme === 'light' ? alert : alert_dark} className='management_sync_icon' alt='alert'></img>
                             <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
                             <img src={Setting.app_theme === 'light' ? remove : remove_dark} className='management_sync_icon' alt='remove'></img>
                         </div> : <></>
