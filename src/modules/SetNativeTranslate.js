@@ -123,7 +123,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'carrier', russian: 'Перевозчик', english: 'Carrier', spanish: 'Transportista', turkish: 'Taşıyıcı', type: 'role' },
         { service: 'customer', russian: 'Заказчик', english: 'Customer', spanish: 'Cliente', turkish: 'Müşteri', type: 'role' },
         { service: 'manager', russian: 'Менеджер', english: 'Manager', spanish: 'Manager', turkish: 'Müdür', type: 'role' },
-        { service: 'administrator', russian: 'Администратор', english: 'Administrator', spanish: 'Administrador', turkish: 'Yönetici', type: 'role' },
+        { service: 'admin', russian: 'Администратор', english: 'Administrator', spanish: 'Administrador', turkish: 'Yönetici', type: 'role' },
 
         { service: 'not_specified', russian: 'Не указана', english: 'Not specified', spanish: 'No especificado', turkish: 'Belirtilmedi', type: 'content' },
         { service: 'no_orders', russian: 'Нет заказов', english: 'No orders', spanish: 'Sin pedidos', turkish: 'Emir yok', type: 'content' },

@@ -16,6 +16,10 @@ import alert from '../../../assets/icons/alert.png'
 import alert_dark from '../../../assets/icons/alert_dark.png'
 import block from '../../../assets/icons/block.png'
 import block_dark from '../../../assets/icons/block_dark.png'
+import select_all from '../../../assets/icons/select_all.png'
+import select_all_dark from '../../../assets/icons/select_all_dark.png'
+import deselect_all from '../../../assets/icons/deselect_all.png'
+import deselect_all_dark from '../../../assets/icons/deselect_all_dark.png'
 
 const UsersList = observer(() => {
     const { Setting } = useContext(SettingContext)
@@ -34,13 +38,17 @@ const UsersList = observer(() => {
                         fetcher.setManagementUsers(true)
                     }}
                 ></img>
+
+                <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all' />
+                <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all' />
+
                 {!searchActive ?
-                    <img src={Setting.app_theme === 'light' ? search : search_dark} className='management_sync_icon' alt='sync'
+                    <img src={Setting.app_theme === 'light' ? search : search_dark} className='management_sync_icon' alt='search'
                         onClick={() => {
                             setSearchActive(true)
                         }}
                     ></img> :
-                    <img src={Setting.app_theme === 'light' ? arrow_back : arrow_back_dark} className='management_sync_icon' alt='sync'
+                    <img src={Setting.app_theme === 'light' ? arrow_back : arrow_back_dark} className='management_sync_icon' alt='search'
                         onClick={() => {
                             setSearchActive(false)
                         }}
