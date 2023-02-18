@@ -40,22 +40,24 @@ const UsersList = observer(() => {
                     }}
                 ></img>
 
-                {!allSelected &&
-                    <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all'
-                        onClick={() => {
-                            setSelected([])
-                            setSelected([...Management.users.map(el => el.id)])
-                            setAllSelected(true)
-                        }}
-                    />}
-                {allSelected &&
-                    <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all'
-                        onClick={() => {
-                            setSelected([])
-                            setAllSelected(false)
-                        }}
-                    />
-                }
+                {Management.users.filter(el => el.id !== user.user.id).length > 0 && <>
+                    {!allSelected &&
+                        <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all'
+                            onClick={() => {
+                                setSelected([])
+                                setSelected([...Management.users.map(el => el.id)])
+                                setAllSelected(true)
+                            }}
+                        />}
+                    {allSelected &&
+                        <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all'
+                            onClick={() => {
+                                setSelected([])
+                                setAllSelected(false)
+                            }}
+                        />
+                    }
+                </>}
 
                 {!searchActive ?
                     <img src={Setting.app_theme === 'light' ? search : search_dark} className='management_sync_icon' alt='search'
