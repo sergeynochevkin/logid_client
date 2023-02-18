@@ -26,6 +26,7 @@ const UsersList = observer(() => {
     const { Management } = useContext(ManagementContext)
     const { fetcher } = useContext(FetcherContext)
     const { user } = useContext(UserContext)
+    const [allSelected, setAllSelected] = useState(false)
 
     const [selected, setSelected] = useState([])
     const [searchActive, setSearchActive] = useState(false)
@@ -39,8 +40,22 @@ const UsersList = observer(() => {
                     }}
                 ></img>
 
-                <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all' />
-                <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all' />
+                {!allSelected &&
+                    <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all'
+                        onClick={() => {
+                            setSelected([])
+                            setSelected([...Management.users.map(el => el.id)])
+                            setAllSelected(true)
+                        }}
+                    />}
+                {allSelected &&
+                    <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all'
+                        onClick={() => {
+                            setSelected([])
+                            setAllSelected(false)
+                        }}
+                    />
+                }
 
                 {!searchActive ?
                     <img src={Setting.app_theme === 'light' ? search : search_dark} className='management_sync_icon' alt='search'
@@ -53,7 +68,7 @@ const UsersList = observer(() => {
                             setSearchActive(false)
                         }}
                     ></img>}
-                {selected.length >= 2 && !searchActive ? <>
+                {selected.length >= 2 ? <>
                     <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'></img>
                     <img src={Setting.app_theme === 'light' ? alert : alert_dark} className='management_sync_icon' alt='alert'></img>
                     <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
@@ -62,7 +77,7 @@ const UsersList = observer(() => {
                 {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>}
             </div>
             <div className='users_list_container'>
-                {Management.users.filter(el => el.id !== user.user.id).map(oneUser => <UsersItem selected={selected} setSelected={setSelected} oneUser={oneUser} />)}
+                {Management.users.filter(el => el.id !== user.user.id).map(oneUser => <UsersItem allSelected={allSelected} setAllSelected={setAllSelected} selected={selected} setSelected={setSelected} oneUser={oneUser} />)}
             </div>
         </>
     )

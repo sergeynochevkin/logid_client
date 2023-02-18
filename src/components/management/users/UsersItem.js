@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
-import { SettingContext, TranslateContext, UserContext } from '../../..'
+import { ManagementContext, SettingContext, TranslateContext, UserContext } from '../../..'
 import useComponentVisible from '../../../hooks/useComponentVisible'
 
 import more from '../../../assets/icons/more.png'
@@ -17,10 +17,12 @@ import alert_dark from '../../../assets/icons/alert_dark.png'
 import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 
 
-const UsersItem = observer(({ oneUser, selected, setSelected }) => {
+const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, allSelected }) => {
     const { Setting } = useContext(SettingContext)
     const [actionMenuActive, setActionMenuActive] = useState(false)
-    const {Translate} = useContext(TranslateContext)
+    const { Translate } = useContext(TranslateContext)
+    const { Management } = useContext(ManagementContext)
+    const { user } = useContext(UserContext)
 
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
@@ -35,14 +37,22 @@ const UsersItem = observer(({ oneUser, selected, setSelected }) => {
             <div className='users_item_container'
                 style={{ border: selected.includes(oneUser.id) ? 'solid 1px orange' : '' }}
                 onClick={() => {
-                    !selected.includes(oneUser.id) && setSelected([...selected, oneUser.id])
+                    if (!selected.includes(oneUser.id)) {
+                        setSelected([...selected, oneUser.id])
+                        if (selected.length + 1 === Management.users.filter(el => el.id !== user.user.id).length) {
+                            setAllSelected(true)
+                        }
+                    }
                     selected.includes(oneUser.id) && setSelected(selected.filter(el => el !== oneUser.id))
+                    if (selected.includes(oneUser.id) && allSelected) {
+                        setAllSelected(false)
+                    }
                 }}
             >
                 <div className={`users_item_properties_container ${Setting.app_theme}`}>
                     <div className='users_item_property'>{oneUser.email}</div>
-                    <div className='users_item_property'>{SetNativeTranslate(Translate.language,'',oneUser.role) }</div>
-                    <div className='users_item_property'>{SetNativeTranslate(Translate.language,'',oneUser.user_info.country) }</div>
+                    <div className='users_item_property'>{SetNativeTranslate(Translate.language, '', oneUser.role)}</div>
+                    <div className='users_item_property'>{SetNativeTranslate(Translate.language, '', oneUser.user_info.country)}</div>
                     <div className='users_item_property'>{oneUser.user_info.city}</div>
                 </div>
                 <div className='management_more_icon_container'>
