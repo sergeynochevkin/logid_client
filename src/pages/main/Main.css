@@ -177,15 +177,9 @@
 
 .admin_console_progress_segment {
     position: absolute;
-    top: 50%;
-    left: 50%;
     width: 100vw;
-    height: 100vw;
-    background: rgba(31, 31, 31, 0.822);    
+    height: 100vw;       
 }
-
-   
-
 
 .admin_console_level_circle_value {
     font-size: 70px;
