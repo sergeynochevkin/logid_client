@@ -6,7 +6,7 @@ import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
 import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
-import { ADMIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
+import { ADMIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
 import axios from "axios";
 import { fetchTransport } from './http/transportApi'
 import PageLoader from './components/ui/loader/PageLoader '
@@ -152,8 +152,8 @@ const PreLoader = observer(({ children, ...props }) => {
 
                     user.user.role === 'carrier' && navigate(USER_ROUTE)
                     user.user.role === 'customer' && navigate(USER_ROUTE)
-                    user.user.role === 'admin' && navigate(ADMIN_ROUTE)
-                    user.user.role === 'manager' && navigate(MANAGER_ROUTE)
+                    user.user.role === 'admin' && navigate(MAIN_ROUTE)
+                    user.user.role === 'manager' && navigate(MAIN_ROUTE)
 
                 }
                 fetchData();

@@ -405,13 +405,13 @@ const Main = observer(() => {
                 russian:['Пользователи'],
                 english:['Users']
               },'')} />
-              {/* <AdminConsoleItem plan={5} currentRate={3} comment={
+              <AdminConsoleItem plan={5} currentRate={3} comment={
                 SetNativeTranslate(Translate.language,
               {
                 russian:['Транспорт'],
                 english:['Transports']
               },'')
-              } /> */}
+              } />
               <AdminConsoleItem plan={5} currentRate={Management.users.filter(el=>el.role ==='carrier').length} comment={
                 SetNativeTranslate(Translate.language,
               {
@@ -426,19 +426,19 @@ const Main = observer(() => {
                 english:['Customers']
               },'')
               } />
-              {/* <AdminConsoleItem plan={11} currentRate={11} comment={
+              <AdminConsoleItem plan={11} currentRate={11} comment={
                 SetNativeTranslate(Translate.language,
               {
                 russian:['Пользователи без профиля'],
                 english:['Users without info']
               },'')
-              } /> */}
-              {/* <AdminConsoleItem plan={4} currentRate={4} comment={SetNativeTranslate(Translate.language,
+              } />
+              <AdminConsoleItem plan={4} currentRate={4} comment={SetNativeTranslate(Translate.language,
               {
                 russian:['Перевозчики без транспорта'],
                 english:['Carriers without transport']
-              },'')} /> */}
-              {/* <AdminConsoleItem plan={4} currentRate={33} comment={SetNativeTranslate(Translate.language,
+              },'')} />
+              <AdminConsoleItem plan={4} currentRate={33} comment={SetNativeTranslate(Translate.language,
               {
                 russian:['Новые заказы'],
                 english:['New orders']
@@ -452,7 +452,7 @@ const Main = observer(() => {
               {
                 russian:['Завершенные заказы'],
                 english:['Completed orders']
-              },'')} /> */}
+              },'')} />
             </div>
             
 

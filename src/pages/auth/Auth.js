@@ -193,7 +193,7 @@ const Auth = observer(() => {
       user.setIsAuth(true)
       if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
       else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
-      else if (user.user.role === 'admin') { navigate(ADMIN_ROUTE) }
+      else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
       else { navigate(MAIN_ROUTE) }
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
