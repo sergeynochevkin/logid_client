@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdressContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
@@ -46,6 +46,7 @@ import route from '../../assets/icons/route.png';
 import route_dark from '../../assets/icons/route_dark.png';
 import transport from '../../assets/icons/transport.png';
 import transport_dark from '../../assets/icons/transport_dark.png';
+import AdminConsoleItem from './AdminConsoleItem'
 
 
 const Main = observer(() => {
@@ -59,6 +60,7 @@ const Main = observer(() => {
   const [loaded, setLoaded] = useState(false)
   const [callRequested, setCallRequested] = useState(false)
   const { Setting } = useContext(SettingContext)
+  const { Management } = useContext(ManagementContext)
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -152,7 +154,7 @@ const Main = observer(() => {
       role: 'customer'
     },
   ]
- 
+
   const items = [
     {
       id: 1, icon: Setting.app_theme === 'light' ? route : route_dark
@@ -185,7 +187,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 4, icon: Setting.app_theme ==='light' ? like_up_down : like_up_down_dark
+      id: 4, icon: Setting.app_theme === 'light' ? like_up_down : like_up_down_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Избранные перевозчики'],
         english: ['Favorite carriers']
@@ -195,7 +197,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 5, icon: Setting.app_theme ==='light' ? route : route_dark
+      id: 5, icon: Setting.app_theme === 'light' ? route : route_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Визуализация маршрута'],
         english: ['Route visualization']
@@ -205,7 +207,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 6, icon: Setting.app_theme ==='light' ? list : list_dark
+      id: 6, icon: Setting.app_theme === 'light' ? list : list_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Заказ или аукцион'],
         english: ['Order or auction']
@@ -215,7 +217,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 7, icon: Setting.app_theme ==='light' ? point_status : point_status_dark
+      id: 7, icon: Setting.app_theme === 'light' ? point_status : point_status_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Статус точек заказа'],
         english: ['Order points status']
@@ -225,7 +227,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 8, icon: Setting.app_theme ==='light' ? alert : alert_dark
+      id: 8, icon: Setting.app_theme === 'light' ? alert : alert_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Уведомления'],
         english: ['Notifications']
@@ -235,7 +237,7 @@ const Main = observer(() => {
       }), section_id: 2, class: ''
     },
     {
-      id: 9, icon: Setting.app_theme ==='light' ? on_map : on_map_dark
+      id: 9, icon: Setting.app_theme === 'light' ? on_map : on_map_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Заказы на карте'],
         english: ['Orders on the map']
@@ -245,7 +247,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 10, icon: Setting.app_theme ==='light' ? filter : filter_dark
+      id: 10, icon: Setting.app_theme === 'light' ? filter : filter_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Фильтр заказов'],
         english: ['Order filter']
@@ -255,7 +257,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 11, icon: Setting.app_theme ==='light' ? like_up_down : like_up_down_dark
+      id: 11, icon: Setting.app_theme === 'light' ? like_up_down : like_up_down_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Избранные заказчики'],
         english: ['Favorite customers']
@@ -265,7 +267,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 12, icon: Setting.app_theme ==='light' ? alert : alert_dark
+      id: 12, icon: Setting.app_theme === 'light' ? alert : alert_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Уведомления'],
         english: ['Notifications']
@@ -275,7 +277,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 13, icon: Setting.app_theme ==='light' ? list : list_dark
+      id: 13, icon: Setting.app_theme === 'light' ? list : list_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Заказ или аукцион'],
         english: ['Order or auction']
@@ -285,7 +287,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 14, icon: Setting.app_theme ==='light' ? location : location_dark
+      id: 14, icon: Setting.app_theme === 'light' ? location : location_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Можно выбрать только межгород'],
         english: ['You can choose only intercity']
@@ -295,7 +297,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 15, icon: Setting.app_theme ==='light' ? city : city_dark
+      id: 15, icon: Setting.app_theme === 'light' ? city : city_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['До 10 городов'],
         english: ['Up to 10 cities']
@@ -305,7 +307,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 16, icon: Setting.app_theme ==='light' ? transport : transport_dark
+      id: 16, icon: Setting.app_theme === 'light' ? transport : transport_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Разный транспорт'],
         english: ['Different transport']
@@ -393,7 +395,68 @@ const Main = observer(() => {
             </ModalBottom>
             : <></>
           }
-        </> : <PageContainer></PageContainer>}
+        </> : user.user.role === 'admin' ?
+          <PageContainer>
+
+            <div className={`admin_console_container ${Setting.app_theme}`}>
+              <AdminConsoleItem plan={10} currentRate={Management.users.filter(el=>el.id !== user.user.id).length} comment={
+                SetNativeTranslate(Translate.language,
+              {
+                russian:['Пользователи'],
+                english:['Users']
+              },'')} />
+              {/* <AdminConsoleItem plan={5} currentRate={3} comment={
+                SetNativeTranslate(Translate.language,
+              {
+                russian:['Транспорт'],
+                english:['Transports']
+              },'')
+              } /> */}
+              <AdminConsoleItem plan={5} currentRate={Management.users.filter(el=>el.role ==='carrier').length} comment={
+                SetNativeTranslate(Translate.language,
+              {
+                russian:['Перевозчики'],
+                english:['Carriers']
+              },'')
+              } />
+              <AdminConsoleItem plan={5} currentRate={Management.users.filter(el=>el.role ==='customer').length} comment={
+                SetNativeTranslate(Translate.language,
+              {
+                russian:['Заказчики'],
+                english:['Customers']
+              },'')
+              } />
+              {/* <AdminConsoleItem plan={11} currentRate={11} comment={
+                SetNativeTranslate(Translate.language,
+              {
+                russian:['Пользователи без профиля'],
+                english:['Users without info']
+              },'')
+              } /> */}
+              {/* <AdminConsoleItem plan={4} currentRate={4} comment={SetNativeTranslate(Translate.language,
+              {
+                russian:['Перевозчики без транспорта'],
+                english:['Carriers without transport']
+              },'')} /> */}
+              {/* <AdminConsoleItem plan={4} currentRate={33} comment={SetNativeTranslate(Translate.language,
+              {
+                russian:['Новые заказы'],
+                english:['New orders']
+              },'')} />
+              <AdminConsoleItem plan={4} currentRate={30} comment={SetNativeTranslate(Translate.language,
+              {
+                russian:['Заказы в работе'],
+                english:['In work orders']
+              },'')} />
+              <AdminConsoleItem plan={4} currentRate={20} comment={SetNativeTranslate(Translate.language,
+              {
+                russian:['Завершенные заказы'],
+                english:['Completed orders']
+              },'')} /> */}
+            </div>
+            
+
+          </PageContainer> : <></>}
 
     </>
   )
