@@ -21,7 +21,7 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment }) => {
                 <div className='admin_console_progress_circle'>
                     <div className='admin_console_progress_segment' style={{ background: `conic-gradient(rgba(90, 90, 90, 0.792) ${rate}%, 1%,rgba(194, 194, 194, 0.822)  ${field}%)` }}></div>
                     <div className={`admin_console_progress_inner ${Setting.app_theme}`}></div>
-                    <div className='admin_console_level_circle_value'>{currentRate}</div>
+                    <div className='admin_console_level_circle_value'>{currentRate}/{plan}</div>
                     <div className='admin_console_level_circle_value_comment'>{comment}</div>
                 </div>
             </div>
