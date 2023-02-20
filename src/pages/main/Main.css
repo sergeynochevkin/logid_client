@@ -157,7 +157,7 @@
     align-items: center;
     justify-content: center;
 
-    box-shadow: 0px 5px 10px 0px rgba(106, 105, 105, 0.5);
+    box-shadow: 0px 5px 10px 0px rgba(125, 125, 125, 0.5);
 
 }
 
@@ -171,6 +171,20 @@
     background: white;
     border-radius: 50%;
 }
+
+.admin_console_progress_inner_shadow{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 190px;
+    height: 190px;
+    transform: translateX(-50%) translateY(-50%);
+    background: transparent;
+    border-radius: 50%;
+
+    box-shadow: inset 0px 5px 10px 0px rgba(125, 125, 125, 0.5);
+}
+
 
 .admin_console_progress_inner.dark {
     background:#121212;
