@@ -19,7 +19,6 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
 
         }, 10);
         return () => {
-            setRefresh(false)
             clearTimeout(timeout);
         };
     }, [rate, Management.users, Management.orders, Management.transports]);
@@ -31,7 +30,6 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
             }
         }, delayValue);
         return () => {
-            setRefresh(false)
             clearTimeout(timeout);
         };
     }, [currenGrow, Management.users, Management.orders, Management.transports]);
