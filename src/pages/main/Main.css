@@ -359,7 +359,7 @@
     .admin_console_progress_inner_shadow {
         height: 110px;
         width: 110px;
-        box-shadow: 0px 2.5px 5px 0px rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0px 2.5px 5px 0px rgba(0, 0, 0, 0.5);
     }
 
     .admin_console_progress_inner_shadow.dark {
