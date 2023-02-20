@@ -426,14 +426,14 @@ const Main = observer(() => {
                     english: ['Transports']
                   }, '')
               } />
-              <AdminConsoleItem type={'value'} influence={'negative'} plan={11} currentRate={Management.users.filter(el => Object.keys(el.user_info).length === 0).length} comment={
+              <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.length} currentRate={Management.users.filter(el => Object.keys(el.user_info).length === 0).length} comment={
                 SetNativeTranslate(Translate.language,
                   {
                     russian: ['Пользователи без профиля'],
                     english: ['Users without info']
                   }, '')
               } />
-              <AdminConsoleItem type={'value'} influence={'negative'} plan={4} currentRate={Management.users.filter(el => el.role === 'carrier' && el.transports.length === 0).length} comment={SetNativeTranslate(Translate.language,
+              <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.filter(el => el.role === 'carrier').length} currentRate={Management.users.filter(el => el.role === 'carrier' && el.transports.length === 0).length} comment={SetNativeTranslate(Translate.language,
                 {
                   russian: ['Перевозчики без транспорта'],
                   english: ['Carriers without transport']
