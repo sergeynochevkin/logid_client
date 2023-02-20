@@ -60,6 +60,7 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
                 <div className='admin_console_progress_circle'>
                     <div className='admin_console_progress_segment' style={{ background: `conic-gradient(${color} ${rate}%,1%,rgba(194, 194, 194, 0.822)` }}></div>
                     <div className={`admin_console_progress_inner ${Setting.app_theme}`}></div>
+                    <div className={`admin_console_progress_inner.shadow ${Setting.app_theme}`}></div>
                     <div className='admin_console_level_circle_value'>{currenGrow}{type !== 'value' && `/${plan}`}</div>
                     <div className='admin_console_level_circle_value_comment'>{comment}</div>
                 </div>

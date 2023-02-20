@@ -30,6 +30,7 @@
     flex-wrap: wrap;
     gap: 20px;
     min-height: 400px;
+    background-attachment: fixed;
 }
 
 .main_banner_half_1_container {
