@@ -9,13 +9,7 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
     const [rate, setRate] = useState(0)
     const [currenGrow, setCurrentGrow] = useState(0)
     const [color, setColor] = useState('rgba(90, 90, 90, 0.792)')
-    const [refresh, setRefresh] = useState(false)
     let delayValue = currentRate / plan * 10
-
-
-    useEffect(() => {
-        setRefresh(true)
-    }, [Management.users, Management.orders, Management.transports])
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -28,7 +22,7 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
             setRefresh(false)
             clearTimeout(timeout);
         };
-    }, [rate, refresh]);
+    }, [rate, Management.users, Management.orders, Management.transports]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -40,7 +34,7 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
             setRefresh(false)
             clearTimeout(timeout);
         };
-    }, [currenGrow, refresh]);
+    }, [currenGrow, Management.users, Management.orders, Management.transports]);
 
     useEffect(() => {
         if (type !== 'value') {

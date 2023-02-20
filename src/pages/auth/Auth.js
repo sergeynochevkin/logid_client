@@ -119,12 +119,6 @@ const Auth = observer(() => {
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
           fetcher.setOrdersAll(true)
         }
-        if(user.user.role ==='admin'){
-          fetcher.setManagementUsers(true)
-          fetcher.setManagementOrders(true)
-          fetcher.setManagementTransports(true)
-        }
-       
       }
     })
   })

@@ -150,20 +150,12 @@ const PreLoader = observer(({ children, ...props }) => {
 
                     })
 
-                    user.user.role === 'carrier' && fetcher.setOrdersAll(true)
-                    user.user.role === 'carrier' && navigate(USER_ROUTE)
-                    user.user.role === 'customer' && fetcher.setOrdersAll(true)
-                    user.user.role === 'customer' && navigate(USER_ROUTE)
-
-                    if (user.user.role === 'admin') {
-                        fetcher.setManagementUsers(true)
-                        fetcher.setManagementOrders(true)
-                        fetcher.setManagementTransports(true)
+                    if (user.user.role === 'carrier' || user.user.role === 'customer') {
+                        fetcher.setOrdersAll(true)
+                        navigate(USER_ROUTE)
                     }
                     user.user.role === 'admin' && navigate(MAIN_ROUTE)
-
                     user.user.role === 'manager' && navigate(MAIN_ROUTE)
-
                 }
                 fetchData();
             } catch (e) {
