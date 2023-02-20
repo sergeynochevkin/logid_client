@@ -39,7 +39,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, al
                 onClick={() => {
                     if (!selected.includes(oneUser.id)) {
                         setSelected([...selected, oneUser.id])
-                        if (selected.length + 1 === Management.users.filter(el => el.id !== user.user.id).length) {
+                        if (selected.length + 1 === Management.users.length) {
                             setAllSelected(true)
                         }
                     }

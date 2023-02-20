@@ -48,11 +48,11 @@ const Fetcher = observer(() => {
         fetcher.setServerNotifications(false)
     }, [fetcher.server_notifications])
 
-    useEffect(() => {
-        setInterval(() => {
-            fetcher.setServerNotifications(true)
-        }, 60000 * 15)
-        clearInterval()
+    useEffect(() => {       
+            setInterval(() => {
+                fetcher.setServerNotifications(true)
+            }, 60000 * 15)
+            clearInterval()        
     }, [])
 
     useEffect(() => {
@@ -190,6 +190,7 @@ const Fetcher = observer(() => {
     }, [fetcher.orders_in_work])
 
     useEffect(() => {
+        if (user.user.role !== 'admin') {
         setInterval(() => {
             fetcher.setOrdersNew(true)
         }, 10000);
@@ -198,6 +199,7 @@ const Fetcher = observer(() => {
             fetcher.setOrdersInWork(true)
         }, 60000);
         clearInterval()
+    }
     }, [])
 
     //partners
@@ -281,7 +283,7 @@ const Fetcher = observer(() => {
     //users
     useEffect(() => {
         async function fetch() {
-            await fetchManagementUsers().then(data => {
+            await fetchManagementUsers(user.user.id).then(data => {
                 data && Management.setUsers(data)
             })
         }

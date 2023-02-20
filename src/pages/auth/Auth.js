@@ -116,7 +116,10 @@ const Auth = observer(() => {
             Setting.setAdressHistory(state.adress_history)
           }
         })
-        fetcher.setOrdersAll(true)
+        if (user.user.role === 'carrier' || user.user.role === 'customer') {
+          fetcher.setOrdersAll(true)
+        }
+        user.user.role === 'admin' && fetcher.setManagementUsers(true)
       }
     })
   })

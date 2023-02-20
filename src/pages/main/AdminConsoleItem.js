@@ -8,6 +8,8 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment }) => {
 
     const [rate, setRate] = useState(0)
     const [currenGrow, setCurrentGrow] = useState(0)
+const[color, setColor] = useState('rgba(90, 90, 90, 0.792)')
+
     useEffect(() => {
         const timeout = setTimeout(() => {
             if (rate < currentRate / plan * 100) {
@@ -31,12 +33,23 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment }) => {
         };
     }, [currenGrow]);
 
+    
+    useEffect(()=>{
+        if(currenGrow<plan*0.33)
+        {setColor('rgb(254, 111, 103,0.8)')} 
+        else if(currenGrow<plan*0.66){
+            {setColor('rgb(241,196,15,0.8)')}
+        } else{
+            setColor('rgb(129, 199, 132,0.8)')
+        }
+    },[currenGrow])
+
 
     return (
         <div className='admin_console_item'>
             <div className='admin_console_progress'>
                 <div className='admin_console_progress_circle'>
-                    <div className='admin_console_progress_segment' style={{ background: `conic-gradient(rgba(90, 90, 90, 0.792) ${rate}%,1%,rgba(194, 194, 194, 0.822)` }}></div>
+                    <div className='admin_console_progress_segment' style={{ background: `conic-gradient(${color} ${rate}%,1%,rgba(194, 194, 194, 0.822)` }}></div>
                     <div className={`admin_console_progress_inner ${Setting.app_theme}`}></div>
                     <div className='admin_console_level_circle_value'>{currenGrow}/{plan}</div>
                     <div className='admin_console_level_circle_value_comment'>{comment}</div>

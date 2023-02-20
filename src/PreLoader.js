@@ -148,11 +148,15 @@ const PreLoader = observer(({ children, ...props }) => {
                         })
 
                     })
-                    fetcher.setOrdersAll(true)
 
+                    user.user.role === 'carrier' && fetcher.setOrdersAll(true)
                     user.user.role === 'carrier' && navigate(USER_ROUTE)
+                    user.user.role === 'customer' && fetcher.setOrdersAll(true)
                     user.user.role === 'customer' && navigate(USER_ROUTE)
+
+                    user.user.role === 'admin' && fetcher.setManagementUsers(true)
                     user.user.role === 'admin' && navigate(MAIN_ROUTE)
+
                     user.user.role === 'manager' && navigate(MAIN_ROUTE)
 
                 }

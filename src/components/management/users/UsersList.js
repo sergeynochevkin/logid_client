@@ -40,7 +40,7 @@ const UsersList = observer(() => {
                     }}
                 ></img>
 
-                {Management.users.filter(el => el.id !== user.user.id).length > 0 && <>
+                {Management.users.length > 0 && <>
                     {!allSelected &&
                         <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all'
                             onClick={() => {
@@ -79,7 +79,7 @@ const UsersList = observer(() => {
                 {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>}
             </div>
             <div className='users_list_container'>
-                {Management.users.filter(el => el.id !== user.user.id).map(oneUser => <UsersItem key = {oneUser.id} allSelected={allSelected} setAllSelected={setAllSelected} selected={selected} setSelected={setSelected} oneUser={oneUser} />)}
+                {Management.users.map(oneUser => <UsersItem key = {oneUser.id} allSelected={allSelected} setAllSelected={setAllSelected} selected={selected} setSelected={setSelected} oneUser={oneUser} />)}
             </div>
         </>
     )
