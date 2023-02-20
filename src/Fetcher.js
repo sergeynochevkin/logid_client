@@ -280,18 +280,6 @@ const Fetcher = observer(() => {
     }, [fetcher.account_user_info])
 
     //management:
-
-    useEffect(() => {
-        if (user.user.role === 'admin') {
-            setInterval(() => {
-                fetcher.setManagementUsers(true)
-                fetcher.setManagementOrders(true)
-                fetcher.setManagementTransports(true)
-            }, 10000);
-            clearInterval()
-        }
-    }, [])
-
     //users
     useEffect(() => {
         async function fetch() {
@@ -322,6 +310,18 @@ const Fetcher = observer(() => {
         fetch()
         fetcher.setManagementTransports(false)
     }, [fetcher.management_transports])
+
+    
+    useEffect(() => {
+        if (user.user.role === 'admin') {
+            setInterval(() => {
+                fetcher.setManagementUsers(true)
+                fetcher.setManagementOrders(true)
+                fetcher.setManagementTransports(true)
+            }, 10000);
+            clearInterval()
+        }
+    }, [])
 
     return (
         <></>)
