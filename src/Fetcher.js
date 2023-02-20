@@ -318,7 +318,7 @@ const Fetcher = observer(() => {
                 fetcher.setManagementUsers(true)
                 fetcher.setManagementOrders(true)
                 fetcher.setManagementTransports(true)
-            }, 10000);
+            }, 60000);
             clearInterval()
         }
     }, [])
