@@ -157,8 +157,12 @@
     align-items: center;
     justify-content: center;
 
-    box-shadow: 0px 5px 10px 0px rgba(125, 125, 125, 0.5);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 
+}
+
+.admin_console_progress_circle.dark {
+    box-shadow: 0px 5px 10px 0px rgba(255, 255, 255, 0.5);
 }
 
 .admin_console_progress_inner {
@@ -172,7 +176,7 @@
     border-radius: 50%;
 }
 
-.admin_console_progress_inner_shadow{
+.admin_console_progress_inner_shadow {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -182,19 +186,23 @@
     background: transparent;
     border-radius: 50%;
 
-    box-shadow: inset 0px 5px 10px 0px rgba(125, 125, 125, 0.5);
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.admin_console_progress_inner_shadow.dark {
+    box-shadow: inset 0px 5px 10px 0px rgba(255, 255, 255, 0.5);
 }
 
 
 .admin_console_progress_inner.dark {
-    background:#121212;
+    background: #121212;
 }
 
 
 .admin_console_progress_segment {
     position: absolute;
     width: 100vw;
-    height: 100vw;       
+    height: 100vw;
 }
 
 .admin_console_level_circle_value {
@@ -333,16 +341,17 @@
         font-size: 30px;
     }
 
-    .admin_console_progress_circle{
+    .admin_console_progress_circle {
         width: 120px;
         height: 120px;
     }
-    .admin_console_progress_inner{
+
+    .admin_console_progress_inner {
         height: 110px;
         width: 110px;
     }
 
-    .admin_console_progress_inner_shadow{
+    .admin_console_progress_inner_shadow {
         height: 110px;
         width: 110px;
     }
@@ -350,13 +359,13 @@
     .admin_console_level_circle_value {
         font-size: 30px;
     }
-    
-        
+
+
     .admin_console_level_circle_value_comment {
         font-size: 8px;
         text-align: center;
         width: 80%;
     }
-    
+
 
 }
