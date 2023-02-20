@@ -1,15 +1,21 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { SettingContext } from '../..'
+import { ManagementContext, SettingContext } from '../..'
 
 const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence }) => {
 
     const { Setting } = useContext(SettingContext)
-
+    const { Management } = useContext(ManagementContext)
     const [rate, setRate] = useState(0)
     const [currenGrow, setCurrentGrow] = useState(0)
     const [color, setColor] = useState('rgba(90, 90, 90, 0.792)')
+    const [refresh, setRefresh] = useState(false)
     let delayValue = currentRate / plan * 10
+
+
+    useEffect(() => {
+        setRefresh(true)
+    }, [Management.users, Management.orders, Management.transports])
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -19,9 +25,10 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
 
         }, 10);
         return () => {
+            setRefresh(false)
             clearTimeout(timeout);
         };
-    }, [rate]);
+    }, [rate, refresh]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -30,9 +37,10 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
             }
         }, delayValue);
         return () => {
+            setRefresh(false)
             clearTimeout(timeout);
         };
-    }, [currenGrow]);
+    }, [currenGrow, refresh]);
 
     useEffect(() => {
         if (type !== 'value') {
