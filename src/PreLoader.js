@@ -111,6 +111,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     user.setUser(data)
                     // await fetching()
                     user.setIsAuth(true)
+
                     data = await fetchUserInfo(user.user.id).then(data => {
                         if (data) {
                             if (data.role === 'carrier') {
@@ -154,7 +155,11 @@ const PreLoader = observer(({ children, ...props }) => {
                     user.user.role === 'customer' && fetcher.setOrdersAll(true)
                     user.user.role === 'customer' && navigate(USER_ROUTE)
 
-                    user.user.role === 'admin' && fetcher.setManagementUsers(true)
+                    if (user.user.role === 'admin') {
+                        fetcher.setManagementUsers(true)
+                        fetcher.setManagementOrders(true)
+                        fetcher.setManagementTransports(true)
+                    }
                     user.user.role === 'admin' && navigate(MAIN_ROUTE)
 
                     user.user.role === 'manager' && navigate(MAIN_ROUTE)

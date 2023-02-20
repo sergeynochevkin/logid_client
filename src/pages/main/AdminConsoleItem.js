@@ -2,13 +2,14 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { SettingContext } from '../..'
 
-const AdminConsoleItem = observer(({ plan, currentRate, comment }) => {
+const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence }) => {
 
     const { Setting } = useContext(SettingContext)
 
     const [rate, setRate] = useState(0)
     const [currenGrow, setCurrentGrow] = useState(0)
-const[color, setColor] = useState('rgba(90, 90, 90, 0.792)')
+    const [color, setColor] = useState('rgba(90, 90, 90, 0.792)')
+    let delayValue = currentRate / plan * 10
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -27,22 +28,30 @@ const[color, setColor] = useState('rgba(90, 90, 90, 0.792)')
             if (currenGrow < currentRate) {
                 setCurrentGrow(currenGrow + 1);
             }
-        }, 200);
+        }, delayValue);
         return () => {
             clearTimeout(timeout);
         };
     }, [currenGrow]);
 
-    
-    useEffect(()=>{
-        if(currenGrow<plan*0.33)
-        {setColor('rgb(254, 111, 103,0.8)')} 
-        else if(currenGrow<plan*0.66){
-            {setColor('rgb(241,196,15,0.8)')}
-        } else{
-            setColor('rgb(129, 199, 132,0.8)')
+    useEffect(() => {
+        if (type !== 'value') {
+            if (currenGrow < plan * 0.33) { setColor('rgb(254, 111, 103,0.8)') }
+            else if (currenGrow < plan * 0.66) {
+                { setColor('rgb(241,196,15,0.8)') }
+            } else {
+                setColor('rgb(129, 199, 132,0.8)')
+            }
         }
-    },[currenGrow])
+        if (type === 'value') {
+            if (influence === 'positive' && currenGrow > 0) {
+                setColor('rgb(129, 199, 132,0.8)')
+            }
+            if (influence === 'negative' && currenGrow > 0) {
+                setColor('rgb(254, 111, 103,0.8)')
+            }
+        }
+    }, [currenGrow])
 
 
     return (
@@ -51,7 +60,7 @@ const[color, setColor] = useState('rgba(90, 90, 90, 0.792)')
                 <div className='admin_console_progress_circle'>
                     <div className='admin_console_progress_segment' style={{ background: `conic-gradient(${color} ${rate}%,1%,rgba(194, 194, 194, 0.822)` }}></div>
                     <div className={`admin_console_progress_inner ${Setting.app_theme}`}></div>
-                    <div className='admin_console_level_circle_value'>{currenGrow}/{plan}</div>
+                    <div className='admin_console_level_circle_value'>{currenGrow}{type !== 'value' && `/${plan}`}</div>
                     <div className='admin_console_level_circle_value_comment'>{comment}</div>
                 </div>
             </div>

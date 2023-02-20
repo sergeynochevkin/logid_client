@@ -14,7 +14,7 @@ import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
 import { fetchUser } from './http/userAPI'
-import { fetchManagementUsers } from './http/managementApi'
+import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers } from './http/managementApi'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -48,11 +48,11 @@ const Fetcher = observer(() => {
         fetcher.setServerNotifications(false)
     }, [fetcher.server_notifications])
 
-    useEffect(() => {       
-            setInterval(() => {
-                fetcher.setServerNotifications(true)
-            }, 60000 * 15)
-            clearInterval()        
+    useEffect(() => {
+        setInterval(() => {
+            fetcher.setServerNotifications(true)
+        }, 60000 * 15)
+        clearInterval()
     }, [])
 
     useEffect(() => {
@@ -191,15 +191,15 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         if (user.user.role !== 'admin') {
-        setInterval(() => {
-            fetcher.setOrdersNew(true)
-        }, 10000);
-        clearInterval()
-        setInterval(() => {
-            fetcher.setOrdersInWork(true)
-        }, 60000);
-        clearInterval()
-    }
+            setInterval(() => {
+                fetcher.setOrdersNew(true)
+            }, 10000);
+            clearInterval()
+            setInterval(() => {
+                fetcher.setOrdersInWork(true)
+            }, 60000);
+            clearInterval()
+        }
     }, [])
 
     //partners
@@ -290,6 +290,26 @@ const Fetcher = observer(() => {
         fetch()
         fetcher.setManagementUsers(false)
     }, [fetcher.management_users])
+    //orders
+    useEffect(() => {
+        async function fetch() {
+            await fetchManagementOrders().then(data => {
+                data && Management.setOrders(data)
+            })
+        }
+        fetch()
+        fetcher.setManagementOrders(false)
+    }, [fetcher.management_orders])
+    //transports
+    useEffect(() => {
+        async function fetch() {
+            await fetchManagementTransports().then(data => {
+                data && Management.setTransports(data)
+            })
+        }
+        fetch()
+        fetcher.setManagementTransports(false)
+    }, [fetcher.management_transports])
 
     return (
         <></>)

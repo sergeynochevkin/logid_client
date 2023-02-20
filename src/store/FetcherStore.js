@@ -24,6 +24,8 @@ export default class FetcherStore {
 
         //management
         this._management_users = false
+        this._management_orders = false
+        this._management_transports = false
 
         makeAutoObservable(this)
     }
@@ -76,6 +78,12 @@ export default class FetcherStore {
     setManagementUsers(value) {
         this._management_users = value
     }
+    setManagementOrders(value) {
+        this._management_orders = value
+    }
+    setManagementTransports(value) {
+        this._management_transports = value
+    }
 
     //get
     get server_notifications() {
@@ -126,5 +134,11 @@ export default class FetcherStore {
     }
     get management_users() {
         return this._management_users
+    }
+    get management_orders() {
+        return this._management_orders
+    }
+    get management_users() {
+        return this._management_transports
     }
 }
