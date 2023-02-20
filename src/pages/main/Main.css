@@ -339,7 +339,12 @@
     }
     .admin_console_progress_inner{
         height: 110px;
-        width: 110px;;
+        width: 110px;
+    }
+
+    .admin_console_progress_inner_shadow{
+        height: 110px;
+        width: 110px;
     }
 
     .admin_console_level_circle_value {
@@ -352,5 +357,6 @@
         text-align: center;
         width: 80%;
     }
+    
 
 }
