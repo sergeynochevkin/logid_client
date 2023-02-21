@@ -54,6 +54,7 @@ const Main = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const queryParams = new URLSearchParams(window.location.search)
   const uuid = queryParams.get("uuid")
+  const role = queryParams.get("role")
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive2, setModalActive2] = useState(false)
@@ -61,6 +62,7 @@ const Main = observer(() => {
   const [callRequested, setCallRequested] = useState(false)
   const { Setting } = useContext(SettingContext)
   const { Management } = useContext(ManagementContext)
+
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -384,7 +386,7 @@ const Main = observer(() => {
             })
               }`}</title>
             <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
-            {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+            {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && (el.role === 'both' || el.role === role))).map(section =>
               <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
             )}
           </PageContainer>
