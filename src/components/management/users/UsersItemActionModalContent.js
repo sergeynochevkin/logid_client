@@ -57,7 +57,7 @@ const UsersItemActionModalContent = observer(({ action, setAction, actionIcons, 
                     russian: ['Введите тему сообщения'],
                     english: ['Enter message subject']
                 })
-            } className={`management_search ${Setting.app_theme}`} value={formData.message}
+            } className={`management_search ${Setting.app_theme}`} value={formData.subject}
                 onChange={(event) => {
                     setFormData({ ...formData, subject: event.target.value })
                 }}
