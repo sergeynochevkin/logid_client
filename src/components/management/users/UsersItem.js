@@ -15,6 +15,10 @@ import mail_dark from '../../../assets/icons/mail_dark.png'
 import alert from '../../../assets/icons/alert.png'
 import alert_dark from '../../../assets/icons/alert_dark.png'
 import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
+import UsersItemActionMenu from './UsersItemActionMenu'
+import Modal from '../../ui/modal/Modal'
+import UsersItemActionModalContent from './UsersItemActionModalContent'
+
 
 
 const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, allSelected }) => {
@@ -23,6 +27,12 @@ const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, al
     const { Translate } = useContext(TranslateContext)
     const { Management } = useContext(ManagementContext)
     const { user } = useContext(UserContext)
+    const [modalActive, setModalActive] = useState(false)
+    const [action, setAction] = useState('')
+    const [actionIcons, setActionIcons] = useState({
+        one: '',
+        two: '',
+    })
 
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
@@ -35,7 +45,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, al
     return (
         <>
             <div className='users_item_container'
-                style={{ border: selected.includes(oneUser.id) ? 'solid 1px orange' : '' }}
+                style={{ boxShadow: selected.includes(oneUser.id) ? '' : `${Setting.app_theme === 'light' ? '0px 2.5px 5px 0px rgba(0, 0, 0, 0.5)' : '0px 2.5px 5px 0px rgba(255, 255, 255, 0.5)'}` }}
                 onClick={() => {
                     if (!selected.includes(oneUser.id)) {
                         setSelected([...selected, oneUser.id])
@@ -60,22 +70,24 @@ const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, al
                     <img
                         onClick={(event) => {
                             event.stopPropagation()
-                            actionMenuActive && setActionMenuActive(false)
-                            actionMenuActive && setIsComponentVisible(false)
-                            !actionMenuActive && setActionMenuActive(true)
-                            !actionMenuActive && setIsComponentVisible(true)
+                            if (actionMenuActive) {
+                                setActionMenuActive(false)
+                                setIsComponentVisible(false)
+                            }
+                            if (!actionMenuActive) {
+                                setActionMenuActive(true)
+                                setIsComponentVisible(true)
+                            }
                         }}
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
                     {actionMenuActive && isComponentVisible ?
-                        <div className='users_item_action_menu' ref={ref}>
-                            <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'></img>
-                            <img src={Setting.app_theme === 'light' ? alert : alert_dark} className='management_sync_icon' alt='alert'></img>
-                            <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
-                            <img src={Setting.app_theme === 'light' ? remove : remove_dark} className='management_sync_icon' alt='remove'></img>
-                        </div> : <></>
+                        <UsersItemActionMenu setActionMenuActive={setActionMenuActive} setModalActive={setModalActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} /> : <></>
                     }
                 </div>
             </div>
+            <Modal modalActive={modalActive} setModalActive={setModalActive}>
+                <UsersItemActionModalContent setAction={setAction} action={action} actionIcons={actionIcons} setModalActive={setModalActive} oneUser={oneUser}/>
+            </Modal>
         </>
     )
 })

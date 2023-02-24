@@ -92,7 +92,7 @@
     padding-right: 10px;
 
     display: flex;
-    gap: 10px;
+    gap: 5px;
     align-items: center;
     justify-content: center;
 }
@@ -113,4 +113,37 @@
 .management_search.dark {
     color: white;
     background: transparent;
+}
+
+.users_action_menu_modal_container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.users_action_menu_modal_container.dark {
+    color: white;
+    background: transparent;
+}
+
+.users_action_menu_modal_buttons_container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.users_action_menu_header {
+    font-size: 12px;
+    max-width: 300px;
+    text-align: center;
+}
+
+.management_checkbox_text{
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }

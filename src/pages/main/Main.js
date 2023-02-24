@@ -380,13 +380,9 @@ const Main = observer(() => {
       {user.user.role !== 'admin' && user.user.role !== 'manager' ?
         <>
           <PageContainer>
-            <title>{`logid ${SetNativeTranslate(Translate.language, {
-              russian: ['здесь встречаются заказчики и перевозчики'],
-              english: ['meeting place for customers and carriers']
-            })
-              }`}</title>
+            <title>{`logid`}</title>
             <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
-            {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer' ) )).map(section =>
+            {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
               <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
             )}
           </PageContainer>
