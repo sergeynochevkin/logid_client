@@ -141,9 +141,15 @@
     text-align: center;
 }
 
-.management_checkbox_text{
+.management_checkbox_text {
     font-size: 10px;
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+@media screen and (max-width: 425px) {
+    .users_action_menu_modal_container {
+        width: 100vw;
+    }
 }
