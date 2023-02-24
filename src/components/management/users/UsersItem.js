@@ -21,13 +21,13 @@ import UsersItemActionModalContent from './UsersItemActionModalContent'
 
 
 
-const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, allSelected, actionIcons, setActionIcons, modalActive, setModalActive, action, setAction, setGroup, setHandlingUser}) => {
+const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, setAllSelected, allSelected, actionIcons, setActionIcons, modalActive, setModalActive, action, setAction, setGroup, setHandlingUser, formData, setFormData }) => {
     const { Setting } = useContext(SettingContext)
     const [actionMenuActive, setActionMenuActive] = useState(false)
     const { Translate } = useContext(TranslateContext)
     const { Management } = useContext(ManagementContext)
     const { user } = useContext(UserContext)
-   
+
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
     useEffect(() => {
@@ -39,16 +39,21 @@ const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, al
     return (
         <>
             <div className='users_item_container'
-                style={{ boxShadow: selected.includes(oneUser.id) ? '' : `${Setting.app_theme === 'light' ? '0px 2.5px 5px 0px rgba(0, 0, 0, 0.5)' : '0px 2.5px 5px 0px rgba(255, 255, 255, 0.5)'}` }}
+                style={{ boxShadow: !formData.members.includes(oneUser.user_info.id) ? '' : `${Setting.app_theme === 'light' ? '0px 2.5px 5px 0px rgba(0, 0, 0, 0.5)' : '0px 2.5px 5px 0px rgba(255, 255, 255, 0.5)'}` }}
                 onClick={() => {
-                    if (!selected.includes(oneUser.id)) {
-                        setSelected([...selected, oneUser.id])
-                        if (selected.length + 1 === Management.users.length) {
+                    if (!formData.members.includes(oneUser.user_info.id)) {
+                        let data = [...formData.members]
+                        data.push(oneUser.user_info.id)
+                        setFormData({ ...formData, members: [...data] })
+                        if (formData.members.length + 1 === Management.users.length) {
                             setAllSelected(true)
                         }
                     }
-                    selected.includes(oneUser.id) && setSelected(selected.filter(el => el !== oneUser.id))
-                    if (selected.includes(oneUser.id) && allSelected) {
+                    if (formData.members.includes(oneUser.user_info.id)) {
+                        let data = [...formData.members.filter(el => el !== oneUser.user_info.id)]
+                        setFormData({ ...formData, members: [...data] })
+                    }
+                    if (formData.members.includes(oneUser.user_info.id) && allSelected) {
                         setAllSelected(false)
                     }
                 }}
@@ -66,16 +71,18 @@ const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, al
                             event.stopPropagation()
                             if (actionMenuActive) {
                                 setActionMenuActive(false)
+                                setFormData({ initialValue })
                                 setIsComponentVisible(false)
                             }
                             if (!actionMenuActive) {
                                 setActionMenuActive(true)
+                                setFormData({ ...formData, members: [oneUser.user_info.id] })
                                 setIsComponentVisible(true)
                             }
                         }}
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
                     {actionMenuActive && isComponentVisible ?
-                        <UsersItemActionMenu oneUser = {oneUser} setActionMenuActive={setActionMenuActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} modalActive={modalActive}  setModalActive={setModalActive} setGroup={setGroup} setHandlingUser={setHandlingUser}/> : <></>
+                        <UsersItemActionMenu oneUser={oneUser} setActionMenuActive={setActionMenuActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} modalActive={modalActive} setModalActive={setModalActive} setGroup={setGroup} setHandlingUser={setHandlingUser} /> : <></>
                     }
                 </div>
             </div>

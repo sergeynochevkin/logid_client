@@ -15,14 +15,13 @@ import send_dark from '../../../assets/icons/send_dark.png'
 import { SettingContext } from '../../..'
 import useComponentVisible from '../../../hooks/useComponentVisible'
 
-const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActionIcons, actionIcons, modalActive, setModalActive, setGroup, setHandlingUser, oneUser }) => {
+const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActionIcons, actionIcons, modalActive, setModalActive, setHandlingUser, oneUser }) => {
 
     const { Setting } = useContext(SettingContext)
 
     const buttonAction = (action, iconOne, iconTwo) => {
         setActionMenuActive(false)
         setHandlingUser({ ...oneUser })
-        setGroup(false)
         setActionIcons({ ...actionIcons, one: iconOne, two: iconTwo })
         setAction(action)
         setModalActive(true)

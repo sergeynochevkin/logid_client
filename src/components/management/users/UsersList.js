@@ -37,17 +37,25 @@ const UsersList = observer(() => {
         one: '',
         two: '',
     })
-    const [group, setGroup] = useState(true)
     const [handlingUser, setHandlingUser] = useState({})
+
+    let initialValue = {
+        type: '',
+        members: [],
+        subject: '',
+        message: ''
+    }
+
+    const [formData, setFormData] = useState(
+        initialValue
+    )
 
     const buttonAction = (action, iconOne, iconTwo) => {
         setActionIcons({ ...actionIcons, one: iconOne, two: iconTwo })
-        setGroup(true)
         setAction(action)
         setModalActive(true)
     }
 
-    const [selected, setSelected] = useState([])
     const [searchActive, setSearchActive] = useState(false)
 
     return (
@@ -63,15 +71,14 @@ const UsersList = observer(() => {
                     {!allSelected &&
                         <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all'
                             onClick={() => {
-                                setSelected([])
-                                setSelected([...Management.users.map(el => el.id)])
+                                setFormData({ ...formData, members: [...Management.users.map(el => el.user_info.id)] })
                                 setAllSelected(true)
                             }}
                         />}
                     {allSelected &&
                         <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all'
                             onClick={() => {
-                                setSelected([])
+                                setFormData(initialValue )
                                 setAllSelected(false)
                             }}
                         />
@@ -89,7 +96,7 @@ const UsersList = observer(() => {
                             setSearchActive(false)
                         }}
                     ></img>}
-                {selected.length >= 2 ? <>
+                {formData.members.length >= 2 ? <>
                     <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'
                         onClick={() => {
                             buttonAction('mail', Setting.app_theme === 'light' ? arrow_back : arrow_back_dark, Setting.app_theme === 'light' ? send : send_dark)
@@ -108,13 +115,13 @@ const UsersList = observer(() => {
                 {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>}
             </div>
             <div className='users_list_container'>
-                {Management.users.map(oneUser => <UsersItem setHandlingUser={setHandlingUser} handlingUser={handlingUser} setGroup={setGroup} key={oneUser.id} allSelected={allSelected} setAllSelected={setAllSelected} selected={selected} setSelected={setSelected} oneUser={oneUser} modalActive={modalActive} setModalActive={setModalActive}
+                {Management.users.map(oneUser => <UsersItem initialValue={initialValue} formData={formData} setFormData={setFormData} setHandlingUser={setHandlingUser} handlingUser={handlingUser} key={oneUser.id} allSelected={allSelected} setAllSelected={setAllSelected} oneUser={oneUser} modalActive={modalActive} setModalActive={setModalActive}
                     action={action} setAction={setAction} actionIcons={actionIcons} setActionIcons={setActionIcons}
                 />)}
             </div>
 
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                <UsersItemActionModalContent setAction={setAction} action={action} setModalActive={setModalActive} group={group} actionIcons={actionIcons} setActionIcons={setActionIcons} handlingUser={handlingUser} />
+                <UsersItemActionModalContent initialValue={initialValue} formData={formData} setFormData={setFormData} setAction={setAction} action={action} setModalActive={setModalActive} actionIcons={actionIcons} setActionIcons={setActionIcons} handlingUser={handlingUser} />
             </Modal>
         </>
     )
