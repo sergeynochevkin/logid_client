@@ -21,19 +21,13 @@ import UsersItemActionModalContent from './UsersItemActionModalContent'
 
 
 
-const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, allSelected }) => {
+const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, allSelected, actionIcons, setActionIcons, modalActive, setModalActive, action, setAction, setGroup, setHandlingUser}) => {
     const { Setting } = useContext(SettingContext)
     const [actionMenuActive, setActionMenuActive] = useState(false)
     const { Translate } = useContext(TranslateContext)
     const { Management } = useContext(ManagementContext)
     const { user } = useContext(UserContext)
-    const [modalActive, setModalActive] = useState(false)
-    const [action, setAction] = useState('')
-    const [actionIcons, setActionIcons] = useState({
-        one: '',
-        two: '',
-    })
-
+   
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
     useEffect(() => {
@@ -81,13 +75,10 @@ const UsersItem = observer(({ oneUser, selected, setSelected, setAllSelected, al
                         }}
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
                     {actionMenuActive && isComponentVisible ?
-                        <UsersItemActionMenu setActionMenuActive={setActionMenuActive} setModalActive={setModalActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} /> : <></>
+                        <UsersItemActionMenu oneUser = {oneUser} setActionMenuActive={setActionMenuActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} modalActive={modalActive}  setModalActive={setModalActive} setGroup={setGroup} setHandlingUser={setHandlingUser}/> : <></>
                     }
                 </div>
             </div>
-            <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                <UsersItemActionModalContent setAction={setAction} action={action} actionIcons={actionIcons} setModalActive={setModalActive} oneUser={oneUser}/>
-            </Modal>
         </>
     )
 })
