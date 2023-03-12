@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE } from '../../utils/consts';
 import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
@@ -31,7 +31,7 @@ import { CheckBoxSection } from '../../components/ui/form/CheckBoxSection'
 import Country from '../../components/account/userInfoForm/Country'
 
 
-const Auth = observer(() => {
+const Auth = observer(({ }) => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
   const navigate = useNavigate()
@@ -50,6 +50,8 @@ const Auth = observer(() => {
   const { State } = useContext(StateContext)
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
+
+
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -118,6 +120,10 @@ const Auth = observer(() => {
         })
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
           fetcher.setOrdersAll(true)
+          fetcher.setSubscriptions(true)
+        }
+        if (user.user.role === 'carrier') {
+          fetcher.setTransports(true)
         }
       }
     })

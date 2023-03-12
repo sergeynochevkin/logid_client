@@ -44,6 +44,7 @@ const User = observer(() => {
     }
   }, [])
 
+
   const [libraries] = useState(['places']);
 
   // const { isLoaded } = useJsApiLoader({
@@ -68,6 +69,7 @@ const User = observer(() => {
     region: region,
     language: language
   }) : false
+
 
   const setFunction = (Function, OrdersComponentFunction, PageFunction, OrderFormFunction) => {
     if (OrdersComponentFunction) {
@@ -132,10 +134,10 @@ const User = observer(() => {
                 }
 
                 <BookMark onClick={() => {
-                  setFunction('partners', false, user.user.role === 'customer' ? 'carriers' : 'customers', false)
+                  setFunction('partners', false, 'partners', false)
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'carriers' || ComponentFunction.PageFunction === 'customers' ? 'grey' : false,
-                }}>{SetNativeTranslate(Translate.language, {}, 'carriers')}</BookMark>
+                  color: ComponentFunction.PageFunction === 'partners'  ? 'grey' : false,
+                }}>{SetNativeTranslate(Translate.language, {}, user.user.role === 'carrier' ? 'customers' : 'carriers')}</BookMark>
 
                 <BookMark onClick={() => {
                   setFunction(false, false, 'account', false)
@@ -159,7 +161,7 @@ const User = observer(() => {
               user.user.role === 'customer' && ComponentFunction.PageFunction === 'orderForm' ?
                 <OrderForm /> :
                 user.user.role === 'carrier' && ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
-                  ComponentFunction.PageFunction === 'carriers' ? <Partners /> :
+                  ComponentFunction.PageFunction === 'partners'  ? <Partners /> :
                     ComponentFunction.PageFunction === 'settings' ? <SettingsComponent /> :
                       <OrderList />
         }
@@ -171,7 +173,8 @@ const User = observer(() => {
       </PageContainer>
     )
   }
-})
+}
+)
 
 
 export default User

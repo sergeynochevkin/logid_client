@@ -10,7 +10,7 @@ import { TranslateContext } from '../..'
 const TransportFormTag = observer( ({formData}) => {
   const { Translate } = useContext(TranslateContext)
 
-    formData.tag = useInput('', { isEmpty: true, minLength: 4, maxLength: 12 }, '')
+    formData.tag = useInput('', { isEmpty: true, minLength: 4, maxLength: 12 }, '')  
 
     return (
         <VerticalContainer

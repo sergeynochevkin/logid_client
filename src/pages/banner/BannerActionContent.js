@@ -11,6 +11,8 @@ import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts'
 import './Banner.css'
 import '../../components/account/Account.css'
 import CaptureForm from '../../components/captureForm/CaptureForm'
+import FastSignUp from '../../components/fastSignUp/FastSignUp'
+
 
 const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
 
@@ -39,15 +41,20 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                                 english: ['At the moment our service in', SetNativeTranslate(Translate.language, {}, Adress.country.value), 'is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!']
                             })}</div>
                         </>}
-                    <div className='banner_action_button_container'>
+
+                    <FastSignUp />
+
+                    {/* <div className='banner_action_button_container'>
                         <Button
                             onClick={() =>
                                 navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Button>
                         <Button
                             onClick={() =>
                                 navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_up')}</Button>
-                    </div>
-                    {!callRequested && <CaptureForm setCallRequested = {setCallRequested} section = {{header:'banner action'}}/>}
+                    </div> */}
+
+                    {/* {!callRequested && <CaptureForm setCallRequested = {setCallRequested} section = {{header:'banner action'}}/>} */}
+
                     <div className='banner_disclaimer'>
                         {SetNativeTranslate(Translate.language, {
                             russian: ['Обратите внимание, сервис logid не проводит юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
@@ -57,8 +64,8 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                 </> :
                 <>
                     <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
-                        russian: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name}, успешных доставок!`],
-                        english: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name}, happy deliveries!`]
+                        russian: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, успешных доставок!`],
+                        english: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, happy deliveries!`]
                     })}</div>
                     <div className={Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'}>
                         <FieldName>{SetNativeTranslate(Translate.language, {}, 'your_rating')}</FieldName>

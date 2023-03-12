@@ -9,6 +9,7 @@ import { Button } from '../ui/button/Button'
 import Modal from '../ui/modal/Modal'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { useInput } from '../../hooks/useInput'
 
 const Container = styled.div`
 display:flex;
@@ -47,6 +48,10 @@ const TransportComponent = observer(() => {
     formData.side_type.setDirty(false)
     setFormData(initialValue)
   }
+
+  formData.load_capacity = useInput('', { isEmpty: true },)
+  formData.side_type = useInput('', { isEmpty: true },)
+  formData.type = useInput('', { isEmpty: true },)
 
   const parent = 'TransportComponent'
 

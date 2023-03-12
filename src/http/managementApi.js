@@ -20,10 +20,10 @@ export const fetchManagementTransports = async () => {
 }
 
 export const sendManagementNotification = async (
-    formData
+   formData
 ) => {
     const { data } = await $authHost.post('api/management/send_notification', {
-        formData
+       formData
     })
     return data
 }

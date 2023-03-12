@@ -10,6 +10,7 @@
 
 .management_sync_icon.disabled {
     filter: invert(50%);
+    cursor: not-allowed;
 }
 
 .management_actions_container {
@@ -23,14 +24,13 @@
 .users_item_container {
     background-color: rgb(105, 105, 105, 0.5);
     border-radius: 5px;
-    width: 400px;
-    min-height: 50px;
+    width: 380px;
+    height: 70px;
 
     display: flex;
     gap: 5px;
     padding: 5px;
     align-items: center;
-
     cursor: pointer;
 }
 
@@ -66,7 +66,7 @@
     cursor: pointer;
     position: relative;
     bottom: 15px;
-    right: 20px;
+    right: 25px;
 }
 
 .management_more_icon:hover {
@@ -87,7 +87,7 @@
     background-color: rgb(105, 105, 105, 0.5);
     position: relative;
     bottom: 67px;
-    right: 150px;
+    right: 155px;
     padding-left: 10px;
     padding-right: 10px;
 
@@ -106,7 +106,7 @@
     border-radius: 5px;
     background-color: transparent;
     border: 1px solid rgb(105, 105, 105, 0.5);
-    width: 340px;
+    width: 300px;
     padding: 1px;
 }
 
@@ -139,6 +139,10 @@
     font-size: 12px;
     max-width: 300px;
     text-align: center;
+}
+
+.management_checkbox {
+    cursor: pointer;
 }
 
 .management_checkbox_text {

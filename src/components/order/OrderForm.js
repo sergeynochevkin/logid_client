@@ -149,6 +149,10 @@ const OrderForm = observer(() => {
     formData.order_comment = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_comment.value, { isEmpty: true, minLength: 6, maxLength: 100 }, SetNativeTranslate(Translate.language, {}, 'comment').toLowerCase())
     formData.order_type = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.order_type.value, { isEmpty: true },)
 
+    formData.load_capacity = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.load_capacity.value, { isEmpty: true },)
+    formData.side_type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.side_type.value, { isEmpty: true },)
+    formData.type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.type.value, { isEmpty: true },)
+
     formData.userId = user.user.id
     formData.country = UserInfo.userInfo.country
     formData.city = UserInfo.userInfo.city

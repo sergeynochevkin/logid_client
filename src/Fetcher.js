@@ -51,7 +51,7 @@ const Fetcher = observer(() => {
     useEffect(() => {
         setInterval(() => {
             fetcher.setServerNotifications(true)
-        }, 60000 * 15)
+        }, 10000)
         clearInterval()
     }, [])
 
@@ -224,7 +224,7 @@ const Fetcher = observer(() => {
         } else if (user.user.role === 'carrier') {
             async function fetch() {
                 if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ((ComponentFunction.PageFunction === 'customers' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
+                    if ((ComponentFunction.PageFunction === 'partners' ||ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
                         await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
                             fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                             Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))

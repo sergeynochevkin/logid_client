@@ -30,14 +30,12 @@ const UsersList = observer(() => {
     const { Management } = useContext(ManagementContext)
     const { fetcher } = useContext(FetcherContext)
     const { user } = useContext(UserContext)
-    const [allSelected, setAllSelected] = useState(false)
     const [modalActive, setModalActive] = useState(false)
     const [action, setAction] = useState('')
     const [actionIcons, setActionIcons] = useState({
         one: '',
         two: '',
     })
-    const [handlingUser, setHandlingUser] = useState({})
 
     let initialValue = {
         type: '',
@@ -51,6 +49,7 @@ const UsersList = observer(() => {
     )
 
     const buttonAction = (action, iconOne, iconTwo) => {
+        setFormData({ ...formData, type: action })
         setActionIcons({ ...actionIcons, one: iconOne, two: iconTwo })
         setAction(action)
         setModalActive(true)
@@ -68,18 +67,19 @@ const UsersList = observer(() => {
                 ></img>
 
                 {Management.users.length > 0 && <>
-                    {!allSelected &&
+                    {formData.members.length < Management.users.length &&
                         <img src={Setting.app_theme === 'light' ? select_all : select_all_dark} className='management_sync_icon' alt='select_all'
                             onClick={() => {
-                                setFormData({ ...formData, members: [...Management.users.map(el => el.user_info.id)] })
-                                setAllSelected(true)
+                                setFormData(initialValue)
+                                setFormData({ ...formData, members: [...Management.users.map(el => el.id)] })
+                                console.log(formData.members)
                             }}
                         />}
-                    {allSelected &&
+                    {formData.members.length === Management.users.length &&
                         <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all'
                             onClick={() => {
-                                setFormData(initialValue )
-                                setAllSelected(false)
+                                setFormData(initialValue)
+                                console.log(formData.members)
                             }}
                         />
                     }
@@ -115,13 +115,13 @@ const UsersList = observer(() => {
                 {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>}
             </div>
             <div className='users_list_container'>
-                {Management.users.map(oneUser => <UsersItem initialValue={initialValue} formData={formData} setFormData={setFormData} setHandlingUser={setHandlingUser} handlingUser={handlingUser} key={oneUser.id} allSelected={allSelected} setAllSelected={setAllSelected} oneUser={oneUser} modalActive={modalActive} setModalActive={setModalActive}
+                {Management.users.map(oneUser => <UsersItem initialValue={initialValue} formData={formData} setFormData={setFormData} key={oneUser.id} oneUser={oneUser} modalActive={modalActive} setModalActive={setModalActive}
                     action={action} setAction={setAction} actionIcons={actionIcons} setActionIcons={setActionIcons}
                 />)}
             </div>
 
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                <UsersItemActionModalContent initialValue={initialValue} formData={formData} setFormData={setFormData} setAction={setAction} action={action} setModalActive={setModalActive} actionIcons={actionIcons} setActionIcons={setActionIcons} handlingUser={handlingUser} />
+                <UsersItemActionModalContent initialValue={initialValue} formData={formData} setFormData={setFormData} setAction={setAction} action={action} setModalActive={setModalActive} actionIcons={actionIcons} setActionIcons={setActionIcons} />
             </Modal>
         </>
     )

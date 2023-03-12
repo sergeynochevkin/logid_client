@@ -131,19 +131,22 @@ const NavBar = observer(() => {
           }}
         >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.sector === 'one' ? 'RU' : ''}</div>
 
-        <div className={!user.isAuth ? 'nav_bar_item' : 'nav_bar_item disabled'}
+        <div 
+        // className={!user.isAuth ? 'nav_bar_item' : 'nav_bar_item disabled'}
+        className={'nav_bar_item disabled'}
           disabled={user.isAuth}
           onClick={() => {
-            if (!modalActive && !user.isAuth) {
-              setModalActive(true)
-              setName(SetNativeTranslate(Translate.language, {
-                russian: ['Выберите страну из списка'],
-                english: ['Select your country']
-              }))
-            } else if (modalActive) {
-              setModalActive(false)
-            }
-          }}>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
+            // if (!modalActive && !user.isAuth) {
+            //   setModalActive(true)
+            //   setName(SetNativeTranslate(Translate.language, {
+            //     russian: ['Выберите страну из списка'],
+            //     english: ['Select your country']
+            //   }))
+            // } else if (modalActive) {
+            //   setModalActive(false)
+            // }
+          }
+          }>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
 
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive} >

@@ -16,15 +16,16 @@ gap:10px;
 align-items:center;
 flex-direction:column;`
 
-const TransportForm = observer(({ setModalActive, formData, formReset, setFormData }) => {
+const TransportForm = observer(({ setModalActive, formData, formReset, setFormData, parent }) => {
   const { UserInfo } = useContext(UserInfoContext)
   const { Translate } = useContext(TranslateContext)
   const { fetcher } = useContext(FetcherContext)
 
   const filesFormData = new FormData()
 
-  formData.userInfoId = UserInfo.userInfo.id
-
+  if (parent !== 'fast_sign_up') {
+    formData.userInfoId = UserInfo.userInfo.id
+  }
 
   const click = async (event) => {
     event.preventDefault()
@@ -57,7 +58,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
   return (
     <div className='transport_form_container'>
       <Form enctype="multipart/form-data">
-        <TransportFormTag formData={formData}></TransportFormTag>
+        <TransportFormTag formData={formData} ></TransportFormTag>
         {/* <DragDropUpload filesFormData={filesFormData} parent={'transportForm'} formData={formData} setFormData={setFormData} length={10} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload> */}
         <TransportFormSection formData={formData} setFormData={setFormData} click={click} setModalActive={setModalActive} formReset={formReset} />
       </Form>

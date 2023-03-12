@@ -6,7 +6,6 @@ import courier from '../../assets/courier.jpg';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import BannerActionContent from './BannerActionContent';
 
-
 const MainBanner = observer(({ callRequested, setCallRequested }) => {
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)

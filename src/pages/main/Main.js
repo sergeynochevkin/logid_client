@@ -10,6 +10,7 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import MainSection from './MainSection'
 import ModalBottom from '../../components/ui/modal/ModalBottom'
 import CookiesModalContent from '../../components/legality/CookiesModalContent'
+import { useJsApiLoader } from '@react-google-maps/api'
 
 import av1 from '../../assets/avatars/av1.jpg';
 import av2 from '../../assets/avatars/av2.jpg';
@@ -47,6 +48,7 @@ import route_dark from '../../assets/icons/route_dark.png';
 import transport from '../../assets/icons/transport.png';
 import transport_dark from '../../assets/icons/transport_dark.png';
 import AdminConsoleItem from './AdminConsoleItem'
+import PageLoader from '../../components/ui/loader/PageLoader '
 
 
 const Main = observer(() => {
@@ -65,6 +67,33 @@ const Main = observer(() => {
 
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
+
+
+  const [libraries] = useState(['places']);
+
+  // const { isLoaded } = useJsApiLoader({
+  //   // id: "__googleMapsScriptId",
+  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  //   libraries: libraries,
+  //   region: 'CA',
+  //   language: 'en'
+  // })
+
+  let language = Adress.country.google_language
+  let region = Adress.country.google_code
+
+  // console.log(JSON.stringify(Adress.country));
+  // console.log(language);
+  // console.log(region);
+
+  const { isLoaded } = Adress.country && Translate.language ? useJsApiLoader({
+    // id: "__googleMapsScriptId",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: libraries,
+    region: region,
+    language: language
+  }) : false
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -374,90 +403,92 @@ const Main = observer(() => {
       }), section_id: 6, class: 'user_review', av: av3
     },
   ]
+  if (!isLoaded) { return <PageLoader /> }
+  else {
+    return (
+      <>
+        {user.user.role !== 'admin' && user.user.role !== 'manager' ?
+          <>
+            <PageContainer>
+              <title>{`logid`}</title>
+              <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
+              {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+                <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+              )}
+            </PageContainer>
 
-  return (
-    <>
-      {user.user.role !== 'admin' && user.user.role !== 'manager' ?
-        <>
-          <PageContainer>
-            <title>{`logid`}</title>
-            <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
-            {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-              <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
-            )}
-          </PageContainer>
+            {!cookies_accepted.main && loaded ?
+              <ModalBottom modalActive={modalActive2} >
+                <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
+              </ModalBottom>
+              : <></>
+            }
+          </> : user.user.role === 'admin' ?
+            <PageContainer>
 
-          {!cookies_accepted.main && loaded ?
-            <ModalBottom modalActive={modalActive2} >
-              <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
-            </ModalBottom>
-            : <></>
-          }
-        </> : user.user.role === 'admin' ?
-          <PageContainer>
-
-            <div className={`admin_console_container ${Setting.app_theme}`}>
-              <AdminConsoleItem plan={10} currentRate={Management.users.length} comment={
-                SetNativeTranslate(Translate.language,
+              <div className={`admin_console_container ${Setting.app_theme}`}>
+                <AdminConsoleItem plan={10} currentRate={Management.users.length} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Пользователи'],
+                      english: ['Users']
+                    }, '')} />
+                <AdminConsoleItem plan={5} currentRate={Management.users.filter(el => el.role === 'carrier').length} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Перевозчики'],
+                      english: ['Carriers']
+                    }, '')
+                } />
+                <AdminConsoleItem plan={5} currentRate={Management.users.filter(el => el.role === 'customer').length} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Заказчики'],
+                      english: ['Customers']
+                    }, '')
+                } />
+                <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.transports.length} currentRate={Management.transports.length} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Транспорт'],
+                      english: ['Transports']
+                    }, '')
+                } />
+                <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.length} currentRate={Management.users.filter(el => Object.keys(el.user_info).length === 0).length} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Пользователи без профиля'],
+                      english: ['Users without info']
+                    }, '')
+                } />
+                <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.filter(el => el.role === 'carrier').length} currentRate={Management.users.filter(el => el.role === 'carrier' && el.transports.length === 0).length} comment={SetNativeTranslate(Translate.language,
                   {
-                    russian: ['Пользователи'],
-                    english: ['Users']
+                    russian: ['Перевозчики без транспорта'],
+                    english: ['Carriers without transport']
                   }, '')} />
-              <AdminConsoleItem plan={5} currentRate={Management.users.filter(el => el.role === 'carrier').length} comment={
-                SetNativeTranslate(Translate.language,
+                <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'new').length} currentRate={Management.orders.filter(el => el.order_status === 'new').length} comment={SetNativeTranslate(Translate.language,
                   {
-                    russian: ['Перевозчики'],
-                    english: ['Carriers']
-                  }, '')
-              } />
-              <AdminConsoleItem plan={5} currentRate={Management.users.filter(el => el.role === 'customer').length} comment={
-                SetNativeTranslate(Translate.language,
+                    russian: ['Новые заказы'],
+                    english: ['New orders']
+                  }, '')} />
+                <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'inWork').length} currentRate={Management.orders.filter(el => el.order_status === 'inWork').length} comment={SetNativeTranslate(Translate.language,
                   {
-                    russian: ['Заказчики'],
-                    english: ['Customers']
-                  }, '')
-              } />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.transports.length} currentRate={Management.transports.length} comment={
-                SetNativeTranslate(Translate.language,
+                    russian: ['Заказы в работе'],
+                    english: ['In work orders']
+                  }, '')} />
+                <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'completed').length} currentRate={Management.orders.filter(el => el.order_status === 'completed').length} comment={SetNativeTranslate(Translate.language,
                   {
-                    russian: ['Транспорт'],
-                    english: ['Transports']
-                  }, '')
-              } />
-              <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.length} currentRate={Management.users.filter(el => Object.keys(el.user_info).length === 0).length} comment={
-                SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Пользователи без профиля'],
-                    english: ['Users without info']
-                  }, '')
-              } />
-              <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.filter(el => el.role === 'carrier').length} currentRate={Management.users.filter(el => el.role === 'carrier' && el.transports.length === 0).length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Перевозчики без транспорта'],
-                  english: ['Carriers without transport']
-                }, '')} />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'new').length} currentRate={Management.orders.filter(el => el.order_status === 'new').length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Новые заказы'],
-                  english: ['New orders']
-                }, '')} />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'inWork').length} currentRate={Management.orders.filter(el => el.order_status === 'inWork').length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Заказы в работе'],
-                  english: ['In work orders']
-                }, '')} />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'completed').length} currentRate={Management.orders.filter(el => el.order_status === 'completed').length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Завершенные заказы'],
-                  english: ['Completed orders']
-                }, '')} />
-            </div>
+                    russian: ['Завершенные заказы'],
+                    english: ['Completed orders']
+                  }, '')} />
+              </div>
 
 
-          </PageContainer> : <></>}
+            </PageContainer> : <></>}
 
-    </>
-  )
+      </>
+    )
+  }
 })
 
 export default Main

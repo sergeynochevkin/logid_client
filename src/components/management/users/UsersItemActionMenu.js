@@ -12,16 +12,18 @@ import arrow_back from '../../../assets/icons/arrow_back.png'
 import arrow_back_dark from '../../../assets/icons/arrow_back_dark.png'
 import send from '../../../assets/icons/send.png'
 import send_dark from '../../../assets/icons/send_dark.png'
+import history from '../../../assets/icons/history.png'
+import history_dark from '../../../assets/icons/history_dark.png'
 import { SettingContext } from '../../..'
 import useComponentVisible from '../../../hooks/useComponentVisible'
 
-const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActionIcons, actionIcons, modalActive, setModalActive, setHandlingUser, oneUser }) => {
+const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActionIcons, actionIcons, modalActive, setModalActive, oneUser, setFormData, formData }) => {
 
     const { Setting } = useContext(SettingContext)
 
     const buttonAction = (action, iconOne, iconTwo) => {
+        setFormData({ ...formData, type: action })
         setActionMenuActive(false)
-        setHandlingUser({ ...oneUser })
         setActionIcons({ ...actionIcons, one: iconOne, two: iconTwo })
         setAction(action)
         setModalActive(true)
@@ -51,6 +53,14 @@ const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActio
 
                     }}
                 ></img>
+
+                <img src={Setting.app_theme === 'light' ? history : history_dark} className='management_sync_icon' alt='history'
+                    onClick={(event) => {
+                        event.stopPropagation()
+                        // buttonAction('alert', Setting.app_theme === 'light' ? arrow_back : arrow_back_dark, Setting.app_theme === 'light' ? send : send_dark)
+                    }}
+                ></img>
+
                 <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'
                     onClick={(event) => {
                         event.stopPropagation()

@@ -71,6 +71,8 @@ const Account = observer(( ) => {
                         <AccountItem fieldName={SetNativeTranslate(Translate.language,{},'can_add')} fieldValue={UserInfo.userInfo.uuid} editable={false} attachedField={''}  />
                     </div>
                 </VerticalContainer>
+
+
                 <VerticalContainer>
                     <div
                         className={containerClassName}>
@@ -93,6 +95,8 @@ const Account = observer(( ) => {
                         <SubscriptionStatusComponent setModalActive={setModalActive} />
                     </div>
                 </VerticalContainer>
+
+                
             </HorizontalContainer> : <></>
         
     </>

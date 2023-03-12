@@ -22,7 +22,7 @@ display:flex;
 gap:5px;
 `
 
-const UserInfoForm = observer(() => {
+const UserInfoForm = observer(({ parent }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -103,36 +103,41 @@ const UserInfoForm = observer(() => {
 
     return (
         <Form>
-            <Name></Name>
-            <NameSurNameFathersName setFormData={setFormData} formData={formData} />
+            {/* <Name></Name> */}
+            {parent !== 'fast_sign_up' && <NameSurNameFathersName setFormData={setFormData} formData={formData} />}
             {/* <Country setFormData={setFormData} formData={formData} /> */}
-            {formData.country.value !== '' && <City setFormData={setFormData} formData={formData} />}
 
-            <Phone setFormData={setFormData} formData={formData} />
-            <Legal setFormData={setFormData} formData={formData} />
 
-            {user.user.role === 'customer' ?
+            {formData.country.value !== ''  ? <City setFormData={setFormData} formData={formData} /> : <></>}
+
+
+            {parent !== 'fast_sign_up' && <Phone setFormData={setFormData} formData={formData} />}
+            {parent !== 'fast_sign_up' && <Legal setFormData={setFormData} formData={formData} />}
+
+            {user.user.role === 'customer' && parent !== 'fast_sign_up' ?
                 <TypeOfCustomer setFormData={setFormData} formData={formData} /> : <></>
             }
-            {formData.city.value !== '' && <AdressComponent setFormData={setFormData} formData={formData} />}
+            {formData.city.value !== '' && parent !== 'fast_sign_up' ? <AdressComponent setFormData={setFormData} formData={formData} /> : <></>}
 
-            <Container>
-                <Button disabled={
-                    formData.legal.notValid ||
-                    formData.city.notValid ||
-                    formData.phone.notValid ||
-                    formData.company_adress.notValid |
-                    (formData.website.notValid && !formData.website.isEmpty && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
-                    (formData.company_name.notValid && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
-                    (formData.company_inn.notValid && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
-                    (formData.company_adress.notValid && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
-                    (formData.type_of_customer.notValid && user.user.role === 'customer') ||
-                    formData.name_surname_fathersname.notValid ||
-                    (formData.passport_number.notValid && formData.legal.value === 'person') ||
-                    (formData.passport_date_of_issue.notValid && formData.legal.value === 'person') ||
-                    (formData.passport_issued_by.notValid && formData.legal.value === 'person')
-                } onClick={click}>{SetNativeTranslate(Translate.language, {}, 'save_and_sign_in')}</Button>
-            </Container>
+            {parent !== 'fast_sign_up' &&
+                <Container>
+                    <Button disabled={
+                        formData.legal.notValid ||
+                        formData.city.notValid ||
+                        formData.phone.notValid ||
+                        formData.company_adress.notValid |
+                        (formData.website.notValid && !formData.website.isEmpty && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
+                        (formData.company_name.notValid && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
+                        (formData.company_inn.notValid && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
+                        (formData.company_adress.notValid && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity')) ||
+                        (formData.type_of_customer.notValid && user.user.role === 'customer') ||
+                        formData.name_surname_fathersname.notValid ||
+                        (formData.passport_number.notValid && formData.legal.value === 'person') ||
+                        (formData.passport_date_of_issue.notValid && formData.legal.value === 'person') ||
+                        (formData.passport_issued_by.notValid && formData.legal.value === 'person')
+                    } onClick={click}>{SetNativeTranslate(Translate.language, {}, 'save_and_sign_in')}</Button>
+                </Container>
+            }
         </Form>
     )
 })
