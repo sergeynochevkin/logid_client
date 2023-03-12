@@ -417,12 +417,13 @@ const Main = observer(() => {
               )}
             </PageContainer>
 
-            {!cookies_accepted.main && loaded ?
+            {/* {!cookies_accepted.main && loaded ?
               <ModalBottom modalActive={modalActive2} >
                 <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
               </ModalBottom>
               : <></>
-            }
+            } */}
+
           </> : user.user.role === 'admin' ?
             <PageContainer>
 
