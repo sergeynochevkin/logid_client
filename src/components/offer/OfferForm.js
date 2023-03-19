@@ -14,6 +14,7 @@ import { Smaller } from '../ui/text/Smaller'
 import { v4 } from "uuid";
 import { AdressContext, FetcherContext, NotificationContext, TranslateContext, UserContext } from '../../index'
 import { sendMail } from '../../http/mailApi'
+import './Offer.css'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
@@ -187,7 +188,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 </VerticalContainer>
 
             </Form>
-            <div>
+            <div className='offer_modal_buttons_container'>
                 <CardButton onClick={click}
                     disabled={(formData.carrier_comment.notValid && !formData.carrier_comment.isEmpty) || formData.cost.notValid || formData.time_from.notValid}
                 >{thisCarrierOffer ? SetNativeTranslate(Translate.language,{},'edit') : SetNativeTranslate(Translate.language,{},'send')}</CardButton>

@@ -18,6 +18,8 @@ import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 import TransportComponent from '../components/transport/TransportComponent'
 import MapComponent from '../components/map/MapComponent'
 import PageLoader from '../components/ui/loader/PageLoader '
+import Modal from '../components/ui/modal/Modal'
+import AccountCompletionForm from '../components/account/AccountCompletionForm'
 
 const Container = styled.div`
 display:flex;
@@ -32,6 +34,9 @@ const User = observer(() => {
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
   const { Transport } = useContext(TransportContext)
+  const [modalActive, setModalActive] = useState(false)
+
+
   useEffect(() => {
     fetcher.setPartners(true)
     fetcher.setSubscriptions(true)
@@ -116,10 +121,18 @@ const User = observer(() => {
                   color: ComponentFunction.PageFunction === 'orderList' && 'grey',
                 }}>{SetNativeTranslate(Translate.language, {}, 'orders')}</BookMark>
 
+
+                {/* userInfo stopper! */}
                 {user.user.role === 'customer' &&
                   <BookMark onClick={() => {
-                    setFunction(false, false, 'orderForm', 'newOrder')
-                    order.setIntegrationId()
+                    if (!UserInfo.userInfo.phone) {
+                      setModalActive(true)
+                    } else {
+                      setFunction(false, false, 'orderForm', 'newOrder')
+                      order.setIntegrationId()
+                    }
+
+
                   }} style={{
                     color: ComponentFunction.PageFunction === 'orderForm' && 'grey',
                   }}>{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language, {}, 'order_editing') : SetNativeTranslate(Translate.language, {}, 'create_order')}</BookMark>
@@ -136,7 +149,7 @@ const User = observer(() => {
                 <BookMark onClick={() => {
                   setFunction('partners', false, 'partners', false)
                 }} style={{
-                  color: ComponentFunction.PageFunction === 'partners'  ? 'grey' : false,
+                  color: ComponentFunction.PageFunction === 'partners' ? 'grey' : false,
                 }}>{SetNativeTranslate(Translate.language, {}, user.user.role === 'carrier' ? 'customers' : 'carriers')}</BookMark>
 
                 <BookMark onClick={() => {
@@ -161,7 +174,7 @@ const User = observer(() => {
               user.user.role === 'customer' && ComponentFunction.PageFunction === 'orderForm' ?
                 <OrderForm /> :
                 user.user.role === 'carrier' && ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
-                  ComponentFunction.PageFunction === 'partners'  ? <Partners /> :
+                  ComponentFunction.PageFunction === 'partners' ? <Partners /> :
                     ComponentFunction.PageFunction === 'settings' ? <SettingsComponent /> :
                       <OrderList />
         }
@@ -170,6 +183,11 @@ const User = observer(() => {
         {/* {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent /> : <></>} */}
 
         <Area50></Area50>
+
+        <Modal modalActive={modalActive} setModalActive={setModalActive}>
+          <AccountCompletionForm setModalActive={setModalActive} parent={'user'}  setFunction = {setFunction}/>
+        </Modal>
+
       </PageContainer>
     )
   }

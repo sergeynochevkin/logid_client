@@ -9,13 +9,15 @@ import Modal from '../ui/modal/Modal'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { setTime } from '../../modules/setTime'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import AccountCompletionForm from '../account/AccountCompletionForm'
 
-const OfferComponent = observer(({ thisOrder,  thisOrderNoPartners, thisCarrierOffer, thisOrderOffers, firstPoint }) => {
+const OfferComponent = observer(({ thisOrder, thisOrderNoPartners, thisCarrierOffer, thisOrderOffers, firstPoint }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
-    const{Translate} = useContext(TranslateContext)
+    const { Translate } = useContext(TranslateContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const [modalActive, setModalActive] = useState(false)
+    const [modalActive2, setModalActive2] = useState(false)
 
     const parent = 'OfferComponent'
 
@@ -41,13 +43,18 @@ const OfferComponent = observer(({ thisOrder,  thisOrderNoPartners, thisCarrierO
     return (<>
         <VerticalContainer>
 
+            {/* userInfo stopper! */}
             {user.user.role === 'carrier' ?
                 <CardButton
                     onClick={(event) => {
                         event.stopPropagation()
-                        setModalActive(true)
+                        if (!UserInfo.userInfo.phone) {
+                            setModalActive2(true)
+                        } else {
+                            setModalActive(true)
+                        }
                     }}
-                >{thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id) ? SetNativeTranslate(Translate.language,{},'change_offer') : SetNativeTranslate(Translate.language,{},'make_offer')}</CardButton> : <></>}
+                >{thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id) ? SetNativeTranslate(Translate.language, {}, 'change_offer') : SetNativeTranslate(Translate.language, {}, 'make_offer')}</CardButton> : <></>}
 
             {thisOrderOffers.length > 0 ? <CardRow
                 onClick={(event) => {
@@ -55,7 +62,7 @@ const OfferComponent = observer(({ thisOrder,  thisOrderNoPartners, thisCarrierO
                     setModalActive(true)
                 }}
                 style={{ cursor: 'pointer' }}
-            ><CardColName>{SetNativeTranslate(Translate.language,{},'total_offers')}</CardColName><CardColName> {thisOrderOffers.length}</CardColName></CardRow> : <></>}
+            ><CardColName>{SetNativeTranslate(Translate.language, {}, 'total_offers')}</CardColName><CardColName> {thisOrderOffers.length}</CardColName></CardRow> : <></>}
 
         </VerticalContainer>
         <Modal modalActive={modalActive} setModalActive={setModalActive} parent={parent} ComponentFunction={ComponentFunction} formReset={formReset}>
@@ -68,13 +75,19 @@ const OfferComponent = observer(({ thisOrder,  thisOrderNoPartners, thisCarrierO
                 thisOrderOffers={thisOrderOffers}
                 user={user}
                 thisCarrierOffer={thisCarrierOffer}
-                
+
                 thisOrderNoPartners={thisOrderNoPartners}
                 firstPoint={firstPoint}
                 ComponentFunction={ComponentFunction}
                 formReset={formReset}
             />
         </Modal>
+
+
+        <Modal modalActive={modalActive2} setModalActive={setModalActive2}>
+            <AccountCompletionForm setModalActive={setModalActive2} parent={'make_offer'} />
+        </Modal>
+
     </>
     )
 })

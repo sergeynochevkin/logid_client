@@ -33,7 +33,7 @@ const FastSignUp = observer(() => {
     const navigate = useNavigate()
     const { Notification } = useContext(NotificationContext)
     const { UserInfo } = useContext(UserInfoContext)
-    const {fetcher } = useContext(FetcherContext)
+    const { fetcher } = useContext(FetcherContext)
 
     let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -51,7 +51,8 @@ const FastSignUp = observer(() => {
     })
 
 
-    const click = async () => {
+    const click = async (event) => {
+        event.preventDefault()
         try {
             let data;
             data = await fast_registration(
@@ -185,288 +186,288 @@ const FastSignUp = observer(() => {
     })
 
     return (
-        <div className='fast_sign_up_container'>
+            <form className='fast_sign_up_container'>
 
-            <div className='fast_sign_up_section'>
-                <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
-            </div>
-
-            <div className='fast_sign_up_section'>
-                <VerticalContainer
-                    style={{ gap: '0px' }}
-                >
-                    <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_email')}
-                        value={formData.email.value}
-                        style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                        onChange={(e) => formData.email.onChange(e)}
-                        onBlur={e => formData.email.onBlur(e)}
-                        type="text" name="email" id="email"
-                        autoComplete='email'
-                    ></Input>
-
-                    <FieldName
-                        style={{
-                            fontWeight: 'normal',
-                            color: 'rgb(254, 111, 103,0.8)'
-                        }}
-                    >
-                        {(formData.email.isEmpty && formData.email.isDirty) || (formData.email.minLengthError) || (formData.email.maxLengthError) || (formData.email.formatError) ?
-                            formData.email.errorMessage :
-                            ''
-                        }
-                    </FieldName>
-                </VerticalContainer>
-                <VerticalContainer
-                    style={{ gap: '0px' }}
-                >
-                    <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_password')}
-                        style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                        value={formData.password.value}
-                        onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
-                        autoComplete='current-password'
-                    ></Input>
-                    <FieldName
-                        style={{
-                            fontWeight: 'normal',
-                            color: 'rgb(254, 111, 103,0.8)'
-                        }}
-                    >
-                        {(formData.password.isEmpty && formData.password.isDirty) || (formData.password.minLengthError) || (formData.password.maxLengthError) ?
-                            formData.password.errorMessage : (formData.password.formatError) ? SetNativeTranslate(Translate.language, {}, 'password_hint') :
-                                ''
-                        }
-                    </FieldName>
-                </VerticalContainer>
-                <VerticalContainer
-                    style={{ gap: '0px' }}
-                >
-                    <Input placeholder={SetNativeTranslate(Translate.language, {}, 'password_repeat')} value={comparePassword} onChange={(e) => {
-                        setComparePassword(e.target.value)
-                        setComparePasswordActive(true)
-                    }}
-                        style={{ borderLeft: formData.password.value !== comparePassword || !comparePassword ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                        onBlur={e => formData.password.onBlur(e)}
-                        type="password"
-                        autoComplete='new-password'
-                    ></Input>
-                    <FieldName
-                        style={{
-                            fontWeight: 'normal',
-                            color: 'rgb(254, 111, 103,0.8)'
-                        }}
-                    >
-                        {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
-                            SetNativeTranslate(Translate.language, {}, 'compare_passwords') : ''
-                        }
-                    </FieldName>
-                </VerticalContainer>
-                <VerticalContainer
-                    style={{ gap: '0px' }}
-                >
-                    <Select
-                        defaultValue={formData.role.value}
-                        onChange={(e) => formData.role.onChange(e)}
-                        onBlur={e => formData.role.onBlur(e)}
-                        name="role" id="role"
-                        style={{ borderLeft: formData.role.notValid || formData.role.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                    >
-                        <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language, {}, 'who_are_you')}</option>
-                        <option value='customer'>{SetNativeTranslate(Translate.language, {}, 'customer')}</option>
-                        <option value='carrier'>{SetNativeTranslate(Translate.language, {}, 'carrier')}</option>
-                        {/* <option value='admin'>admin</option> */}
-                    </Select>
-                    <FieldName
-                        style={{
-                            fontWeight: 'normal',
-                            color: 'rgb(254, 111, 103,0.8)'
-                        }}
-                    >
-                        {formData.role.isEmpty && formData.role.isDirty ?
-                            SetNativeTranslate(Translate.language, {}, 'select_role') :
-                            ''
-                        }
-                    </FieldName>
-                </VerticalContainer>
-            </div>
-
-            {formData.role.value === 'carrier' && formData.role.value !== '' ?
                 <div className='fast_sign_up_section'>
-                    <TransportFormSection parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
+                    <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
                 </div>
-                : <></>
-            }
 
-            <div className='auth_check_box_list_section'>
-                <div className='auth_check_box_list_container'>
-                    {Adress.country.value === 'russia' &&
-                        <>
-                            <CheckBoxContainer >
-                                <CheckBoxSection >
-                                    <input type='checkbox' className='auth_checkbox' checked={formData.user_agreement_accepted && 'checked'} value={formData.user_agreement_accepted} onChange={() => {
-                                        formData.user_agreement_accepted === false ? setFormData({ ...formData, user_agreement_accepted: true }) :
-                                            setFormData({ ...formData, user_agreement_accepted: false })
-                                    }}></input>
-                                    <label className='auth_check_box_label' >
-                                        <div className='auth_checkbox_text'>
-                                            <div>
-                                                {SetNativeTranslate(Translate.language, {
+                <div className='fast_sign_up_section'>
+                    <VerticalContainer
+                        style={{ gap: '0px' }}
+                    >
+                        <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_email')}
+                            value={formData.email.value}
+                            style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                            onChange={(e) => formData.email.onChange(e)}
+                            onBlur={e => formData.email.onBlur(e)}
+                            type="text" name="email" id="email"
+                            autoComplete='email'
+                        ></Input>
+
+                        <FieldName
+                            style={{
+                                fontWeight: 'normal',
+                                color: 'rgb(254, 111, 103,0.8)'
+                            }}
+                        >
+                            {(formData.email.isEmpty && formData.email.isDirty) || (formData.email.minLengthError) || (formData.email.maxLengthError) || (formData.email.formatError) ?
+                                formData.email.errorMessage :
+                                ''
+                            }
+                        </FieldName>
+                    </VerticalContainer>
+                    <VerticalContainer
+                        style={{ gap: '0px' }}
+                    >
+                        <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_password')}
+                            style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                            value={formData.password.value}
+                            onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
+                            autoComplete='current-password'
+                        ></Input>
+                        <FieldName
+                            style={{
+                                fontWeight: 'normal',
+                                color: 'rgb(254, 111, 103,0.8)'
+                            }}
+                        >
+                            {(formData.password.isEmpty && formData.password.isDirty) || (formData.password.minLengthError) || (formData.password.maxLengthError) ?
+                                formData.password.errorMessage : (formData.password.formatError) ? SetNativeTranslate(Translate.language, {}, 'password_hint') :
+                                    ''
+                            }
+                        </FieldName>
+                    </VerticalContainer>
+                    <VerticalContainer
+                        style={{ gap: '0px' }}
+                    >
+                        <Input placeholder={SetNativeTranslate(Translate.language, {}, 'password_repeat')} value={comparePassword} onChange={(e) => {
+                            setComparePassword(e.target.value)
+                            setComparePasswordActive(true)
+                        }}
+                            style={{ borderLeft: formData.password.value !== comparePassword || !comparePassword ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                            onBlur={e => formData.password.onBlur(e)}
+                            type="password"
+                            autoComplete='new-password'
+                        ></Input>
+                        <FieldName
+                            style={{
+                                fontWeight: 'normal',
+                                color: 'rgb(254, 111, 103,0.8)'
+                            }}
+                        >
+                            {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
+                                SetNativeTranslate(Translate.language, {}, 'compare_passwords') : ''
+                            }
+                        </FieldName>
+                    </VerticalContainer>
+                    <VerticalContainer
+                        style={{ gap: '0px' }}
+                    >
+                        <Select
+                            defaultValue={formData.role.value}
+                            onChange={(e) => formData.role.onChange(e)}
+                            onBlur={e => formData.role.onBlur(e)}
+                            name="role" id="role"
+                            style={{ borderLeft: formData.role.notValid || formData.role.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                        >
+                            <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language, {}, 'who_are_you')}</option>
+                            <option value='customer'>{SetNativeTranslate(Translate.language, {}, 'customer')}</option>
+                            <option value='carrier'>{SetNativeTranslate(Translate.language, {}, 'carrier')}</option>
+                            {/* <option value='admin'>admin</option> */}
+                        </Select>
+                        <FieldName
+                            style={{
+                                fontWeight: 'normal',
+                                color: 'rgb(254, 111, 103,0.8)'
+                            }}
+                        >
+                            {formData.role.isEmpty && formData.role.isDirty ?
+                                SetNativeTranslate(Translate.language, {}, 'select_role') :
+                                ''
+                            }
+                        </FieldName>
+                    </VerticalContainer>
+                </div>
+
+                {formData.role.value === 'carrier' && formData.role.value !== '' ?
+                    <div className='fast_sign_up_section'>
+                        <TransportFormSection parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
+                    </div>
+                    : <></>
+                }
+
+                <div className='auth_check_box_list_section'>
+                    <div className='auth_check_box_list_container'>
+                        {Adress.country.value === 'russia' &&
+                            <>
+                                <CheckBoxContainer >
+                                    <CheckBoxSection >
+                                        <input type='checkbox' className='auth_checkbox' checked={formData.user_agreement_accepted && 'checked'} value={formData.user_agreement_accepted} onChange={() => {
+                                            formData.user_agreement_accepted === false ? setFormData({ ...formData, user_agreement_accepted: true }) :
+                                                setFormData({ ...formData, user_agreement_accepted: false })
+                                        }}></input>
+                                        <label className='auth_check_box_label' >
+                                            <div className='auth_checkbox_text'>
+                                                <div>
+                                                    {SetNativeTranslate(Translate.language, {
+                                                        russian: [`подтвердите согласие с`],
+                                                        english: [`confirm your agreement with`]
+                                                    })}
+                                                </div>
+                                                <div className='auth_agreement_link'
+                                                    onClick={() => {
+                                                        ComponentFunction.setAgreement('UserAgeement')
+                                                        ComponentFunction.setAgreementModal(true)
+                                                    }}
+                                                >
+                                                    {SetNativeTranslate(Translate.language, {
+                                                        russian: [`пользовательским соглашением`],
+                                                        english: [`user agremeent`]
+                                                    })}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </CheckBoxSection>
+                                </CheckBoxContainer>
+                                <CheckBoxContainer >
+                                    <CheckBoxSection >
+                                        <input type='checkbox' className='auth_checkbox' checked={formData.privacy_policy_accepted && 'checked'} value={formData.privacy_policy_accepted} onChange={() => {
+                                            formData.privacy_policy_accepted === false ? setFormData({ ...formData, privacy_policy_accepted: true }) :
+                                                setFormData({ ...formData, privacy_policy_accepted: false })
+                                        }}></input>
+                                        <label className='auth_check_box_label' >
+                                            <div className='auth_checkbox_text'>
+                                                <div>{SetNativeTranslate(Translate.language, {
                                                     russian: [`подтвердите согласие с`],
                                                     english: [`confirm your agreement with`]
-                                                })}
+                                                })}</div>
+                                                <div className='auth_agreement_link'
+                                                    onClick={() => {
+                                                        ComponentFunction.setAgreement('PrivacyPolicy')
+                                                        ComponentFunction.setAgreementModal(true)
+                                                    }}
+                                                >
+                                                    {SetNativeTranslate(Translate.language, {
+                                                        russian: [`политикой конфиденциальности`],
+                                                        english: [`privacy policy`]
+                                                    })}
+                                                </div>
                                             </div>
-                                            <div className='auth_agreement_link'
-                                                onClick={() => {
-                                                    ComponentFunction.setAgreement('UserAgeement')
-                                                    ComponentFunction.setAgreementModal(true)
-                                                }}
-                                            >
-                                                {SetNativeTranslate(Translate.language, {
-                                                    russian: [`пользовательским соглашением`],
-                                                    english: [`user agremeent`]
-                                                })}
-                                            </div>
-                                        </div>
-                                    </label>
-                                </CheckBoxSection>
-                            </CheckBoxContainer>
-                            <CheckBoxContainer >
-                                <CheckBoxSection >
-                                    <input type='checkbox' className='auth_checkbox' checked={formData.privacy_policy_accepted && 'checked'} value={formData.privacy_policy_accepted} onChange={() => {
-                                        formData.privacy_policy_accepted === false ? setFormData({ ...formData, privacy_policy_accepted: true }) :
-                                            setFormData({ ...formData, privacy_policy_accepted: false })
-                                    }}></input>
-                                    <label className='auth_check_box_label' >
-                                        <div className='auth_checkbox_text'>
-                                            <div>{SetNativeTranslate(Translate.language, {
-                                                russian: [`подтвердите согласие с`],
-                                                english: [`confirm your agreement with`]
-                                            })}</div>
-                                            <div className='auth_agreement_link'
-                                                onClick={() => {
-                                                    ComponentFunction.setAgreement('PrivacyPolicy')
-                                                    ComponentFunction.setAgreementModal(true)
-                                                }}
-                                            >
-                                                {SetNativeTranslate(Translate.language, {
-                                                    russian: [`политикой конфиденциальности`],
-                                                    english: [`privacy policy`]
-                                                })}
-                                            </div>
-                                        </div>
-                                    </label>
-                                </CheckBoxSection>
-                            </CheckBoxContainer>
+                                        </label>
+                                    </CheckBoxSection>
+                                </CheckBoxContainer>
 
-                            <CheckBoxContainer >
-                                <CheckBoxSection >
-                                    <input type='checkbox' className='auth_checkbox' checked={formData.personal_data_agreement_accepted && 'checked'} value={formData.personal_data_agreement_accepted} onChange={() => {
-                                        formData.personal_data_agreement_accepted === false ? setFormData({ ...formData, personal_data_agreement_accepted: true }) :
-                                            setFormData({ ...formData, personal_data_agreement_accepted: false })
-                                    }}></input>
-                                    <label className='auth_check_box_label' >
-                                        <div className='auth_checkbox_text'>
-                                            <div>{SetNativeTranslate(Translate.language, {
-                                                russian: [`подтвердите`],
-                                                english: [`confirm your`]
-                                            })}</div>
-                                            <div className='auth_agreement_link'
-                                                onClick={() => {
-                                                    ComponentFunction.setAgreement('PersonalDataAgreement')
-                                                    ComponentFunction.setAgreementModal(true)
-                                                }}
-                                            >
-                                                {SetNativeTranslate(Translate.language, {
-                                                    russian: [`согласие на обработку персональных данных`],
-                                                    english: [`consent to the processing of personal data`]
-                                                })}
+                                <CheckBoxContainer >
+                                    <CheckBoxSection >
+                                        <input type='checkbox' className='auth_checkbox' checked={formData.personal_data_agreement_accepted && 'checked'} value={formData.personal_data_agreement_accepted} onChange={() => {
+                                            formData.personal_data_agreement_accepted === false ? setFormData({ ...formData, personal_data_agreement_accepted: true }) :
+                                                setFormData({ ...formData, personal_data_agreement_accepted: false })
+                                        }}></input>
+                                        <label className='auth_check_box_label' >
+                                            <div className='auth_checkbox_text'>
+                                                <div>{SetNativeTranslate(Translate.language, {
+                                                    russian: [`подтвердите`],
+                                                    english: [`confirm your`]
+                                                })}</div>
+                                                <div className='auth_agreement_link'
+                                                    onClick={() => {
+                                                        ComponentFunction.setAgreement('PersonalDataAgreement')
+                                                        ComponentFunction.setAgreementModal(true)
+                                                    }}
+                                                >
+                                                    {SetNativeTranslate(Translate.language, {
+                                                        russian: [`согласие на обработку персональных данных`],
+                                                        english: [`consent to the processing of personal data`]
+                                                    })}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </label>
-                                </CheckBoxSection>
-                            </CheckBoxContainer>
+                                        </label>
+                                    </CheckBoxSection>
+                                </CheckBoxContainer>
 
+                                <CheckBoxContainer >
+                                    <CheckBoxSection >
+                                        <input type='checkbox' className='auth_checkbox' checked={formData.age_accepted && 'checked'} value={formData.age_accepted} onChange={() => {
+                                            formData.age_accepted === false ? setFormData({ ...formData, age_accepted: true }) :
+                                                setFormData({ ...formData, age_accepted: false })
+                                        }}></input>
+                                        <>
+                                            <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
+                                                russian: [`подтвердите, что вам исполнилось 18 лет`],
+                                                english: [`confirm that you are over 18 years old`]
+                                            })}</label>
+                                        </>
+                                    </CheckBoxSection>
+                                </CheckBoxContainer>
+                            </>}
+                        {!cookies_accepted.auth &&
                             <CheckBoxContainer >
                                 <CheckBoxSection >
-                                    <input type='checkbox' className='auth_checkbox' checked={formData.age_accepted && 'checked'} value={formData.age_accepted} onChange={() => {
-                                        formData.age_accepted === false ? setFormData({ ...formData, age_accepted: true }) :
-                                            setFormData({ ...formData, age_accepted: false })
-                                    }}></input>
+                                    <input type='checkbox' className='auth_checkbox' checked={formData.cookies_accepted.total && 'checked'} value={formData.cookies_accepted.total}
+
+                                        onChange={() => {
+                                            let data = { ...formData }
+                                            if (!data.cookies_accepted.total) {
+                                                data.cookies_accepted.total = true
+                                            } else {
+                                                data.cookies_accepted.total = false
+                                            }
+                                            setFormData(data)
+                                        }}
+
+                                    ></input>
                                     <>
                                         <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
-                                            russian: [`подтвердите, что вам исполнилось 18 лет`],
-                                            english: [`confirm that you are over 18 years old`]
+                                            russian: [`подтвердите, cсогласие на сбор cookies`],
+                                            english: [`confirm your consent to the collection of cookies`]
                                         })}</label>
                                     </>
                                 </CheckBoxSection>
                             </CheckBoxContainer>
-                        </>}
-                    {!cookies_accepted.auth &&
-                        <CheckBoxContainer >
-                            <CheckBoxSection >
-                                <input type='checkbox' className='auth_checkbox' checked={formData.cookies_accepted.total && 'checked'} value={formData.cookies_accepted.total}
+                        }
 
-                                    onChange={() => {
-                                        let data = { ...formData }
-                                        if (!data.cookies_accepted.total) {
-                                            data.cookies_accepted.total = true
-                                        } else {
-                                            data.cookies_accepted.total = false
-                                        }
-                                        setFormData(data)
-                                    }}
-
-                                ></input>
-                                <>
-                                    <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
-                                        russian: [`подтвердите, cсогласие на сбор cookies`],
-                                        english: [`confirm your consent to the collection of cookies`]
-                                    })}</label>
-                                </>
-                            </CheckBoxSection>
-                        </CheckBoxContainer>
-                    }
-
+                    </div>
                 </div>
-            </div>
 
-            <ReCAPTCHA
-                sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
-                onChange={onRecaptchaChange}
-            />
+                <ReCAPTCHA
+                    sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
+                    onChange={onRecaptchaChange}
+                />
 
-            <Button
+                <Button
 
-                onClick={click}
-                disabled={
-                    formData.email.notValid ||
-                    formData.password.notValid ||
-                    formData.role.notValid ||
-                    formData.password.value !== comparePassword ||
-                    !reCapchaChecked ||
-                    (!formData.user_agreement_accepted && Adress.country.value === 'russia') ||
-                    (!formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
-                    (!formData.age_accepted && Adress.country.value === 'russia') ||
-                    !formData.cookies_accepted.total ||
-                    !formData.personal_data_agreement_accepted ||
+                    onClick={click}
+                    disabled={
+                        formData.email.notValid ||
+                        formData.password.notValid ||
+                        formData.role.notValid ||
+                        formData.password.value !== comparePassword ||
+                        !reCapchaChecked ||
+                        (!formData.user_agreement_accepted && Adress.country.value === 'russia') ||
+                        (!formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
+                        (!formData.age_accepted && Adress.country.value === 'russia') ||
+                        !formData.cookies_accepted.total ||
+                        !formData.personal_data_agreement_accepted ||
 
-                    formData.city.notValid ||
+                        formData.city.notValid ||
 
-                    formData.role.value === 'carrier' &&
-                    formData.type.isEmpty
-                    || (
-                        (formData.load_capacity.isEmpty && formData.type.value === 'truck') ||
-                        (formData.load_capacity.isEmpty && formData.type.value === 'minibus') ||
-                        (formData.side_type.isEmpty && formData.type.value === 'truck')
-                    )
-                }
-            >
-                {
-                    SetNativeTranslate(Translate.language, {
-                        russian: ['Быстрая регистрация'],
-                        english: ['Fast sign up']
-                    })
-                }</Button>
-        </div>
+                        formData.role.value === 'carrier' &&
+                        formData.type.isEmpty
+                        || (
+                            (formData.load_capacity.isEmpty && formData.type.value === 'truck') ||
+                            (formData.load_capacity.isEmpty && formData.type.value === 'minibus') ||
+                            (formData.side_type.isEmpty && formData.type.value === 'truck')
+                        )
+                    }
+                >
+                    {
+                        SetNativeTranslate(Translate.language, {
+                            russian: ['Быстрая регистрация'],
+                            english: ['Fast sign up']
+                        })
+                    }</Button>
+            </form>
     )
 })
 

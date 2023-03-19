@@ -252,7 +252,18 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
 
             </>
               : <NoData
-              >{SetNativeTranslate(Translate.language, {}, 'no_orders')}</NoData>}
+              >
+                {ComponentFunction.Function === 'new' && user.user.role === 'carrier' ?
+                  SetNativeTranslate(Translate.language, {
+                    russian:['Нет заказов, мы уведомим вас о поступлении новых заказов на email'],
+                    english:['No orders, we will notify you of new orders by email']
+                  }, '') : SetNativeTranslate(Translate.language, {}, 'no_orders')
+                }
+
+
+              </NoData>}
+
+
           </VerticalContainer> :
 
           ComponentFunction.OrdersComponentFunction === 'orderList' && (ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern') ?

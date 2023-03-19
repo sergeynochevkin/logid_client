@@ -14,7 +14,7 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
   let lat
   let lng
 
-  if (parent === 'account') {
+  if (parent === 'account' || parent === 'user'  ) {
     lat = parseFloat(UserInfo.userInfo.city_latitude)
     lng = parseFloat(UserInfo.userInfo.city_longitude)
   }

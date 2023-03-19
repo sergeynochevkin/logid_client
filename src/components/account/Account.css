@@ -13,5 +13,33 @@
 
 .account_container_dark {
     background-color: rgb(31, 31, 31, 0.2);
+    color: white;
 }
 
+.account_info_status_content_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    max-width: 300px;
+}
+
+.after_fast_sign_up_form_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fill_account_disclaimer{
+   max-width: 300px; 
+   text-align: center;
+   font-size: 12px;
+}
+
+@media screen and (max-width: 425px) {
+    .after_fast_sign_up_form_container {
+        width: 100vw;
+    }
+}

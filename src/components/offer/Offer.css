@@ -1,0 +1,6 @@
+.offer_modal_buttons_container{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}

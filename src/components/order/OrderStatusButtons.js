@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ComponentFunctionContext, FetcherContext, NotificationContext, OrderContext, PointContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { CardButton } from '../ui/button/CardButton'
 import { CardRow } from '../ui/card/CardRow'
@@ -10,6 +10,8 @@ import { sendMail } from '../../http/mailApi'
 import { createPartner } from '../../http/partnerApi'
 import OrderRatingComponent from '../rating/OrderRatingComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import Modal from '../ui/modal/Modal'
+import AccountCompletionForm from '../account/AccountCompletionForm'
 
 const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints }) => {
     const { Translate } = useContext(TranslateContext)
@@ -38,6 +40,8 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     const form_from_auction = SetNativeTranslate(Translate.language, {}, 'form_from_auction')
     const for_editing = SetNativeTranslate(Translate.language, {}, 'for_editing')
     const form_from_order = SetNativeTranslate(Translate.language, {}, 'form_from_order')
+
+    const [modalActive, setModalActive] = useState(false)
 
     // const sortOrders = (a, b) => {
     //     if (a && b) {
@@ -70,7 +74,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         }
         if (parent === 'selector') {
             console.log(JSON.stringify(group));
-            sendMail(Translate.language, user.user.role, group, 'order_status', status, '') 
+            sendMail(Translate.language, user.user.role, group, 'order_status', status, '')
             fetcher.setNewStatus(status)
             fetcher.setDividedOrders(true)
         }
@@ -131,7 +135,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 boost(element.id)
                 order.setGroup(order.group.filter(el => el !== element))
             })
-            afterAction('canceled',group)
+            afterAction('canceled', group)
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_canceled} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
         };
     }
@@ -156,17 +160,23 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         };
     }
 
+
+    //userInfo stopper!
     const inWork = async (event) => {
         event.stopPropagation()
-        if (parent === 'order') {
-            try {
-                await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id)
-                await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
-                await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
-                afterAction('inWork')
-                Notification.addNotification([{ id: v4(), type: 'success', message: `${you_took} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
-            } catch (e) {
-                Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+        if (!UserInfo.userInfo.phone && user.user.role === 'carrier') {
+            setModalActive(true)
+        } else {
+            if (parent === 'order') {
+                try {
+                    await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id)
+                    await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
+                    await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
+                    afterAction('inWork')
+                    Notification.addNotification([{ id: v4(), type: 'success', message: `${you_took} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
+                } catch (e) {
+                    Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+                }
             }
         }
     }
@@ -331,6 +341,10 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                                                         </CardRow> :
                                                         <></>
             }
+
+            <Modal modalActive={modalActive} setModalActive={setModalActive}>
+                <AccountCompletionForm setModalActive={setModalActive} parent = {'take_order'}/>
+            </Modal>
         </>
 
     )
