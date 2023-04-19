@@ -206,7 +206,7 @@
 }
 
 .admin_console_level_circle_value {
-    font-size: 30px;
+    font-size: 50px;
     z-index: 2;
 }
 
@@ -367,7 +367,7 @@
     }
 
     .admin_console_level_circle_value {
-        font-size:20px;
+        font-size: 30px;
     }
 
 
