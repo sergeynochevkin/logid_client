@@ -63,7 +63,7 @@ const Main = observer(() => {
   const [loaded, setLoaded] = useState(false)
   const [callRequested, setCallRequested] = useState(false)
   const { Setting } = useContext(SettingContext)
-  const { Management } = useContext(ManagementContext)
+  const { Management } = useContext(ManagementContext) 
 
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
@@ -412,6 +412,45 @@ const Main = observer(() => {
             <PageContainer>
               <title>{`logid`}</title>
               <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
+
+              {!user.isAuth &&
+                <div className='adv_rate_section'>
+                  {role === 'customer' ?
+                    <AdminConsoleItem type={'value'} influence={'positive'} plan={215} currentRate={215} comment={SetNativeTranslate(Translate.language,
+                      {
+                        russian: ['Активных перевозчиков'],
+                        english: ['Active carriers']
+                      }, '')} />
+                    :
+                    role === 'carrier' ?
+                      <AdminConsoleItem type={'value'} influence={'positive'} plan={112} currentRate={112} comment={SetNativeTranslate(Translate.language,
+                        {
+                          russian: ['Активных заказчиков'],
+                          english: ['Active customers']
+                        }, '')} />
+                      :
+                      <>
+                        <AdminConsoleItem type={'value'} influence={'positive'} plan={215} currentRate={215} comment={SetNativeTranslate(Translate.language,
+                          {
+                            russian: ['Активных перевозчиков'],
+                            english: ['Active carriers']
+                          }, '')} />
+                        <AdminConsoleItem type={'value'} influence={'positive'} plan={112} currentRate={112} comment={SetNativeTranslate(Translate.language,
+                          {
+                            russian: ['Активных заказчиков'],
+                            english: ['Active customers']
+                          }, '')} />
+                      </>
+                  }
+
+                  <AdminConsoleItem type={'value'} influence={'positive'} plan={987} currentRate={987} comment={SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Завершенных заказов'],
+                      english: ['Completed orders']
+                    }, '')} />
+                </div>
+              }
+
               {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
                 <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
               )}
