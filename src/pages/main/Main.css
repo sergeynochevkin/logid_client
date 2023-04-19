@@ -384,5 +384,9 @@
         width: 80%;
     }
 
+    .adv_rate_section{
+        gap: 10px;
+    }
+
 
 }
