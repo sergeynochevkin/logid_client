@@ -210,14 +210,20 @@
     z-index: 2;
 }
 
-
+.admin_console_level_circle_value.dark {
+    color: white;
+}
 
 .admin_console_level_circle_value_comment {
     font-size: 10px;
     z-index: 2;
 }
 
-.adv_rate_section{
+.admin_console_level_circle_value_comment.dark {
+    color: white;
+}
+
+.adv_rate_section {
     display: flex;
     gap: 30px;
     margin-top: 30px;
@@ -384,7 +390,7 @@
         width: 80%;
     }
 
-    .adv_rate_section{
+    .adv_rate_section {
         gap: 10px;
     }
 
