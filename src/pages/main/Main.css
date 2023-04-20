@@ -212,6 +212,7 @@
 
 .admin_console_level_circle_value.dark {
     color: white;
+    background-color: transparent;
 }
 
 .admin_console_level_circle_value_comment {
@@ -221,6 +222,7 @@
 
 .admin_console_level_circle_value_comment.dark {
     color: white;
+    background-color: transparent;
 }
 
 .adv_rate_section {

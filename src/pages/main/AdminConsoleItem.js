@@ -9,7 +9,7 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
     const [rate, setRate] = useState(0)
     const [currenGrow, setCurrentGrow] = useState(0)
     const [color, setColor] = useState('rgba(90, 90, 90, 0.792)')
-    let delayValue = currentRate / plan * 10
+    let delayValue = currentRate / plan * 10 //check!
 
     useEffect(() => {
         const timeout = setTimeout(() => {
