@@ -94,6 +94,12 @@ const Auth = observer(({ }) => {
     await fetchUserInfo(user.user.id).then(data => {
       if (data === null) {
         UserInfo.setUserInfo({})
+        // auth preload for admin!
+        if (user.user.role === 'admin') {
+          fetcher.setManagementUsers(true)
+          fetcher.setManagementTransports(true)
+          fetcher.setManagementOrders(true)
+        }
       } else {
         UserInfo.setUserInfo(data)
         if (data.country !== Adress.country.value) {
@@ -124,12 +130,6 @@ const Auth = observer(({ }) => {
         }
         if (user.user.role === 'carrier') {
           fetcher.setTransports(true)
-        }
-        // auth preload for admin!
-        if (user.user.role === 'admin') {
-          fetcher.setManagementUsers(true)
-          fetcher.setManagementTransports(true)
-          fetcher.setManagementOrders(true)
         }
       }
     })
