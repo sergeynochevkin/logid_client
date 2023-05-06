@@ -125,6 +125,12 @@ const Auth = observer(({ }) => {
         if (user.user.role === 'carrier') {
           fetcher.setTransports(true)
         }
+        // auth preload for admin!
+        if (user.user.role === 'admin') {
+          fetcher.setManagementUsers(true)
+          fetcher.setManagementTransports(true)
+          fetcher.setManagementOrders(true)
+        }
       }
     })
   })
