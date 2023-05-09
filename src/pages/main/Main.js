@@ -441,7 +441,7 @@ const Main = observer(() => {
                             russian: ['Активных перевозчиков'],
                             english: ['Active carriers']
                           }, '')} />
-                        <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
+                        <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
                           {
                             russian: ['Активных заказчиков'],
                             english: ['Active customers']
