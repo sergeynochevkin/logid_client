@@ -27,6 +27,9 @@ export default class FetcherStore {
         this._management_orders = false
         this._management_transports = false
 
+        //ad
+        this._main_counters = false
+
         makeAutoObservable(this)
     }
     //set
@@ -84,6 +87,9 @@ export default class FetcherStore {
     setManagementTransports(value) {
         this._management_transports = value
     }
+    setMainCounters(value) {
+        this._main_counters = value
+    }
 
     //get
     get server_notifications() {
@@ -140,5 +146,8 @@ export default class FetcherStore {
     }
     get management_users() {
         return this._management_transports
+    }
+    get main_counters() {
+        return this._main_counters
     }
 }

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
-import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
+import { AdContext, ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
 import { fetchUserLimits } from './http/limitApi'
 import { fetchNotifications, updateNotifications } from './http/notificationApi'
 import { fetchGroups, fetchPartners } from './http/partnerApi'
@@ -15,6 +15,7 @@ import { fetchOrderConnections, fetchOrders } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
 import { fetchUser } from './http/userAPI'
 import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers } from './http/managementApi'
+import { fetchMainCounters } from './http/adApi'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -33,6 +34,7 @@ const Fetcher = observer(() => {
     const { Offer } = useContext(OfferContext)
     const { Transport } = useContext(TransportContext)
     const { Management } = useContext(ManagementContext)
+    const { Ad } = useContext(AdContext)
 
     // server notifications
     useEffect(() => {
@@ -224,7 +226,7 @@ const Fetcher = observer(() => {
         } else if (user.user.role === 'carrier') {
             async function fetch() {
                 if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ((ComponentFunction.PageFunction === 'partners' ||ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
+                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
                         await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
                             fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                             Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
@@ -279,6 +281,21 @@ const Fetcher = observer(() => {
         fetcher.setAccountUserInfo(false)
     }, [fetcher.account_user_info])
 
+    //ad:
+    useEffect(() => {
+        async function fetch() {
+            await fetchMainCounters().then(data => {
+                if (data) {
+                    Ad.setCustomersCount(data.customers_count)
+                    Ad.setCarriersCount(data.carriers_count)
+                    Ad.setFinishedOrdersCount(data.finished_orders_count)
+                }
+            })
+        }
+        fetch()
+        fetcher.setMainCounters(false)
+    }, [fetcher.main_counters])
+
     //management:
     //users
     useEffect(() => {
@@ -311,7 +328,7 @@ const Fetcher = observer(() => {
         fetcher.setManagementTransports(false)
     }, [fetcher.management_transports])
 
-    
+
     useEffect(() => {
         if (user.user.role === 'admin') {
             setInterval(() => {

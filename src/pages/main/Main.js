@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
@@ -63,7 +63,9 @@ const Main = observer(() => {
   const [loaded, setLoaded] = useState(false)
   const [callRequested, setCallRequested] = useState(false)
   const { Setting } = useContext(SettingContext)
-  const { Management } = useContext(ManagementContext) 
+  const { Management } = useContext(ManagementContext)
+  const { fetcher } = useContext(FetcherContext)
+  const { Ad } = useContext(AdContext)
 
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
@@ -94,6 +96,10 @@ const Main = observer(() => {
     language: language
   }) : false
 
+
+  useEffect(() => {
+    !user.isAuth && fetcher.setMainCounters(true)
+  }, [])
 
   useEffect(() => {
     setTimeout(() => {
@@ -416,26 +422,26 @@ const Main = observer(() => {
               {!user.isAuth &&
                 <div className='adv_rate_section'>
                   {role === 'customer' ?
-                    <AdminConsoleItem type={'value'} influence={'positive'} plan={215} currentRate={215} comment={SetNativeTranslate(Translate.language,
+                    <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
                       {
                         russian: ['Активных перевозчиков'],
                         english: ['Active carriers']
                       }, '')} />
                     :
                     role === 'carrier' ?
-                      <AdminConsoleItem type={'value'} influence={'positive'} plan={112} currentRate={112} comment={SetNativeTranslate(Translate.language,
+                      <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
                         {
                           russian: ['Активных заказчиков'],
                           english: ['Active customers']
                         }, '')} />
                       :
                       <>
-                        <AdminConsoleItem type={'value'} influence={'positive'} plan={215} currentRate={215} comment={SetNativeTranslate(Translate.language,
+                        <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
                           {
                             russian: ['Активных перевозчиков'],
                             english: ['Active carriers']
                           }, '')} />
-                        <AdminConsoleItem type={'value'} influence={'positive'} plan={112} currentRate={112} comment={SetNativeTranslate(Translate.language,
+                        <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
                           {
                             russian: ['Активных заказчиков'],
                             english: ['Active customers']
@@ -443,7 +449,7 @@ const Main = observer(() => {
                       </>
                   }
 
-                  <AdminConsoleItem type={'value'} influence={'positive'} plan={987} currentRate={987} comment={SetNativeTranslate(Translate.language,
+                  <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.finished_orders_count} comment={SetNativeTranslate(Translate.language,
                     {
                       russian: ['Завершенных заказов'],
                       english: ['Completed orders']
