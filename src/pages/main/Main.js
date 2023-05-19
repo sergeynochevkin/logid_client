@@ -473,7 +473,7 @@ const Main = observer(() => {
             <PageContainer>
 
               <div className={`admin_console_container ${Setting.app_theme}`}>
-                <AdminConsoleItem plan={600} currentRate={Management.users.length} comment={
+                <AdminConsoleItem plan={510} currentRate={Management.users.length} comment={
                   SetNativeTranslate(Translate.language,
                     {
                       russian: ['Пользователи'],
