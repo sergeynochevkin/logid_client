@@ -473,20 +473,20 @@ const Main = observer(() => {
             <PageContainer>
 
               <div className={`admin_console_container ${Setting.app_theme}`}>
-                <AdminConsoleItem plan={100} currentRate={Management.users.length} comment={
+                <AdminConsoleItem plan={600} currentRate={Management.users.length} comment={
                   SetNativeTranslate(Translate.language,
                     {
                       russian: ['Пользователи'],
                       english: ['Users']
                     }, '')} />
-                <AdminConsoleItem plan={100} currentRate={Management.users.filter(el => el.role === 'carrier').length} comment={
+                <AdminConsoleItem plan={500} currentRate={Management.users.filter(el => el.role === 'carrier').length} comment={
                   SetNativeTranslate(Translate.language,
                     {
                       russian: ['Перевозчики'],
                       english: ['Carriers']
                     }, '')
                 } />
-                <AdminConsoleItem plan={0} currentRate={Management.users.filter(el => el.role === 'customer').length} comment={
+                <AdminConsoleItem plan={10} currentRate={Management.users.filter(el => el.role === 'customer').length} comment={
                   SetNativeTranslate(Translate.language,
                     {
                       russian: ['Заказчики'],
