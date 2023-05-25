@@ -17,6 +17,7 @@ export default class FetcherStore {
         this._orders_new = false
         this._orders_in_work = false
         this._create = false
+        this._order_viewed = false
 
         //statuses
         this._new_status = ''
@@ -90,6 +91,9 @@ export default class FetcherStore {
     setMainCounters(value) {
         this._main_counters = value
     }
+    setOrderViewed(value) {
+        this._order_viewed = value
+    }
 
     //get
     get server_notifications() {
@@ -149,5 +153,8 @@ export default class FetcherStore {
     }
     get main_counters() {
         return this._main_counters
+    }
+    get order_viewed() {
+        return this._order_viewed
     }
 }

@@ -154,6 +154,5 @@ export default class OrderStore {
     get order() {
         return this._order
     }
-
 }
 

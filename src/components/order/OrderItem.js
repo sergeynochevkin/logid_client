@@ -116,13 +116,14 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
                     Partner.setPartner(thisPartner)
                     Partner.setPartnerInfo(thisPartnerInfo)
+                    user.user.role === 'carrier' && fetcher.setOrderViewed(true)
                     ComponentFunction.setOrdersComponentFunction('orderItem')
                 }}
                 thisOrder={thisOrder}
             >
                 {ComponentFunction.OrdersComponentFunction === 'orderItem' ?
                     <>
-                    <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? arrow_back : arrow_back_dark}
+                        <img className={"order_action_icon"} src={Setting.app_theme === 'light' ? arrow_back : arrow_back_dark}
                             onClick={(event) => {
                                 event.stopPropagation()
                                 ComponentFunction.setFunction(thisOrder.order_status)
@@ -130,7 +131,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                 fetcher.setOrders(true)
                             }}
                         />
-                         
+
                     </>
                     : <></>}
 

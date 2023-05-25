@@ -29,7 +29,7 @@ export const createOrder = async (
     previousId,
     files,
     for_partner,
-    for_group,   
+    for_group,
     direction_response
 ) => {
     const { data } = await $authHost.post('api/order', {
@@ -61,15 +61,15 @@ export const createOrder = async (
         previousId,
         files,
         for_partner,
-        for_group,        
+        for_group,
         direction_response
     })
     return data
 }
 
-export const fetchOrders = async (userInfoId, role, carrierId, order_status, country,  city_place_id, transport, myBlocked, iAmBlocked, myFavorite, isArc, filters) => {
+export const fetchOrders = async (userInfoId, role, carrierId, order_status, country, city_place_id, transport, myBlocked, iAmBlocked, myFavorite, isArc, filters) => {
     const { data } = await $authHost.post('api/order/get_orders', {
-        userInfoId, role, carrierId, order_status, country,  city_place_id, transport, myBlocked, iAmBlocked, myFavorite, isArc, filters
+        userInfoId, role, carrierId, order_status, country, city_place_id, transport, myBlocked, iAmBlocked, myFavorite, isArc, filters
     })
     return data
 }
@@ -150,10 +150,12 @@ export const editOrder = async (
     })
 }
 
-
 export const deleteOrder = async (pointsIntegrationId) => {
     const { data } = await $authHost.delete('api/order/delete_order', { params: { pointsIntegrationId } })
     return data
 }
 
-
+export const setOrderViewed = async (orderId, userInfoId) => {
+    const { data } = await $authHost.post('api/order/set_viewed', { orderId, userInfoId })
+    return data
+}

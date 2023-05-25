@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
 import { useContext } from 'react'
-import { ComponentFunctionContext, FetcherContext, PartnerContext, TranslateContext } from '../..'
+import { ComponentFunctionContext, FetcherContext, OrderContext, PartnerContext, TranslateContext } from '../..'
 import { setTime } from '../../modules/setTime'
 import { sendMail } from '../../http/mailApi'
 import { updateOrder } from '../../http/orderApi'
@@ -20,7 +20,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Translate } = useContext(TranslateContext)
   const { fetcher } = useContext(FetcherContext)
-  const { order } = useContext(OrderComment)
+  const { order } = useContext(OrderContext)
 
   useEffect(() => {
     if (ComponentFunction.OfferListMoreInfo === false) {

@@ -11,7 +11,7 @@ import { fetchUserInfo, fetchUserInfos } from './http/userInfoApi'
 import { v4 } from "uuid";
 import { fetchOffers } from './http/offerApi'
 import { fetchPoints } from './http/pointApi'
-import { fetchOrderConnections, fetchOrders } from './http/orderApi'
+import { fetchOrderConnections, fetchOrders, setOrderViewed } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
 import { fetchUser } from './http/userAPI'
 import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers } from './http/managementApi'
@@ -203,6 +203,17 @@ const Fetcher = observer(() => {
             clearInterval()
         }
     }, [])
+
+    //set_order_viewed
+    useEffect(() => {
+        async function fetch() {
+            //activate just if not viewed go to orderItem 114 and activate it, and include viewed fetch and state and show it to carrier and cusomer activate just at new?
+
+            await setOrderViewed(order.order.id, UserInfo.userInfo.id)
+        }
+        fetch()
+        fetcher.setOrderViewed(false)
+    }, [fetcher.order_viewed])
 
     //partners
     useEffect(() => {
