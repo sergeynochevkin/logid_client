@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
-import { OfferContext, OrderContext, PointContext, TranslateContext, UserContext, UserInfoContext } from '.'
+import { NotificationContext, OfferContext, OrderContext, PointContext, TranslateContext, UserContext, UserInfoContext } from '.'
 import { SetNativeTranslate } from './modules/SetNativeTranslate'
 import { v4 } from "uuid";
 
@@ -11,6 +11,8 @@ const Notificator = observer(() => {
     const { order } = useContext(OrderContext)
     const { Offer } = useContext(OfferContext)
     const { UserInfo } = useContext(UserInfoContext)
+    const { Notification } = useContext(NotificationContext)
+    
 
     const new_orders_received = SetNativeTranslate(Translate.language, {}, 'new_orders_received')
     const new_order_received = SetNativeTranslate(Translate.language, {}, 'new_order_received')

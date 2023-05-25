@@ -65,6 +65,8 @@ const OrderForm = observer(() => {
     const finish_time = SetNativeTranslate(Translate.language, {}, 'finish_time')
     const symbols = SetNativeTranslate(Translate.language, {}, 'symbols')
 
+    const parent = 'orderForm'
+
     let initialTime = new Date();
 
     if (ComponentFunction.orderFormFunction === 'newOrder') {
@@ -676,7 +678,7 @@ const OrderForm = observer(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))
     }, [pointFormData])
 
-    const parent = 'orderForm'
+
 
     return (
         <VerticalContainer
