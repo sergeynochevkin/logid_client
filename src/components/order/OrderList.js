@@ -31,7 +31,7 @@ const OrderList = observer(() => {
               ComponentFunction.setOrdersComponentFunction('orderList')
               ComponentFunction.setFunction('new')
             }} style={{
-              color: ComponentFunction.Function === 'new' && 'grey',
+              color: ComponentFunction.Function === 'new' && 'grey', cursor: ComponentFunction.Function === 'new' && 'default'
             }}>{SetNativeTranslate(Translate.language, {}, 'new_bookmark')}
               <div className='number_of_orders'>{order.totalCount.new}</div>
             </BookMark>
@@ -44,7 +44,7 @@ const OrderList = observer(() => {
                 }
                 ComponentFunction.setOrdersComponentFunction('orderList')
               }} style={{
-                color: ComponentFunction.Function === 'postponed' && 'grey',
+                color: ComponentFunction.Function === 'postponed' && 'grey', cursor: ComponentFunction.Function === 'postponed' && 'default'
               }}>{SetNativeTranslate(Translate.language, {}, 'postponed_bookmark')}
                 <div className='number_of_orders'>{order.totalCount.postponed}</div>
               </BookMark>
@@ -57,7 +57,7 @@ const OrderList = observer(() => {
               }
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'inWork' && 'grey',
+              color: ComponentFunction.Function === 'inWork' && 'grey', cursor: ComponentFunction.Function === 'inWork' && 'default'
             }}>{SetNativeTranslate(Translate.language, {}, 'inWork_bookmark')}
               <div className='number_of_orders' >{order.totalCount.inWork}</div>
             </BookMark>
@@ -69,7 +69,7 @@ const OrderList = observer(() => {
               }
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'completed' && 'grey',
+              color: ComponentFunction.Function === 'completed' && 'grey', cursor: ComponentFunction.Function === 'completed' && 'default'
             }}>{SetNativeTranslate(Translate.language, {}, 'completed_bookmark')}
               <div className='number_of_orders' >{order.totalCount.completed}</div>
             </BookMark>
@@ -81,7 +81,7 @@ const OrderList = observer(() => {
               }
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'canceled' && 'grey',
+              color: ComponentFunction.Function === 'canceled' && 'grey',cursor: ComponentFunction.Function === 'canceled' && 'default'
             }}>{SetNativeTranslate(Translate.language, {}, 'canceled_bookmark')}
               <div className='number_of_orders' >{order.totalCount.canceled}</div>
             </BookMark>
@@ -93,7 +93,7 @@ const OrderList = observer(() => {
               }
               ComponentFunction.setOrdersComponentFunction('orderList')
             }} style={{
-              color: ComponentFunction.Function === 'arc' && 'grey',
+              color: ComponentFunction.Function === 'arc' && 'grey', cursor: ComponentFunction.Function === 'arc' && 'default'
             }}>{SetNativeTranslate(Translate.language, {}, 'arc_bookmark')}
               <div className='number_of_orders'  >{order.totalCount.arc}</div>
             </BookMark>
@@ -106,7 +106,7 @@ const OrderList = observer(() => {
                 }
                 ComponentFunction.setOrdersComponentFunction('orderList')
               }} style={{
-                color: ComponentFunction.Function === 'pattern' && 'grey',
+                color: ComponentFunction.Function === 'pattern' && 'grey', cursor: ComponentFunction.Function === 'pattern' && 'default'
               }}>{SetNativeTranslate(Translate.language, {}, 'templates_bookmark')}
                 <div className='number_of_orders' >{order.totalCount.pattern}</div>
               </BookMark> : <></>}

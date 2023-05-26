@@ -54,7 +54,8 @@ const Account = observer(() => {
                     className={containerClassName}>
                     <AccountItem fieldName='id' fieldValue={UserInfo.userInfo.id} editable={false} />
 
-                    <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_validation')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} />
+                    {UserInfo.userInfo.name_surname_fathersname ?
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_validation')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} /> : <></>}
 
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'country_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.country)} editable={false} attachedField={'country'} />
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'city_content')} fieldValue={UserInfo.userInfo.city} editable={true} attachedField={'city'} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} />

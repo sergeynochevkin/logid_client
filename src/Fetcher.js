@@ -122,7 +122,7 @@ const Fetcher = observer(() => {
                     if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
                         order.setOrder(data.rows.find(el => el.id === order.order.id))
                     }
-                    if ((order_status !== 'new' || order_status !== 'postponed') && data.length !== 0) {
+                    if (order_status === 'completed' &&  data.length !== 0) {
                         await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
                     }
                     if ((order_status === 'new' || order_status === 'postponed') && data.length !== 0) {
