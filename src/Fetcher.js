@@ -220,7 +220,7 @@ const Fetcher = observer(() => {
         if (user.user.role === 'customer') {
             async function fetch() {
                 if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ((ComponentFunction.PageFunction === 'carriers' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
+                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
                         await fetchPartners(UserInfo.userInfo.id).then(async data => {
                             await fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                             await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })

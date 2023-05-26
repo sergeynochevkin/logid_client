@@ -155,6 +155,9 @@ const OrderForm = observer(() => {
     formData.side_type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.side_type.value, { isEmpty: true },)
     formData.type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.type.value, { isEmpty: true },)
 
+    formData.for_group = useInput('', { isEmpty: true },)
+    formData.for_partner = useInput('', { isEmpty: true },)
+
     formData.userId = user.user.id
     formData.country = UserInfo.userInfo.country
     formData.city = UserInfo.userInfo.city

@@ -10,8 +10,7 @@ import { VerticalContainer } from '../../ui/page/VerticalContainer'
 const OrderForWho = ({ formData, setFormData, orderForWho, setOrderForWho }) => {
     const { Translate } = useContext(TranslateContext)
     const { Partner } = useContext(PartnerContext)
-    formData.for_group = useInput('', { isEmpty: true },)
-    formData.for_partner = useInput('', { isEmpty: true },)
+   
 
     return (
 
