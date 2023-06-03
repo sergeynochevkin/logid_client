@@ -49,8 +49,8 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                             )}
                         </> :
                         <CardColName
-                            style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
-                        >{onePartnerInfo.total_solvency}</CardColName>
+                            style={{ backgroundColor: onePartnerInfo.total_solvency == 0 ? '' : onePartnerInfo.total_solvency < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_solvency < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
+                        ></CardColName>
                     }
                     <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                     <CardColName
@@ -74,8 +74,8 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                             >{grade}</CardColName>
                         )}     </> :
                     <CardColName
-                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
-                    >{onePartnerInfo.total_politeness}</CardColName>
+                        style={{ backgroundColor: onePartnerInfo.total_politeness == 0 ? '' : onePartnerInfo.total_politeness < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_politeness < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
+                    >{Math.floor(onePartnerInfo.total_politeness * 100) / 100}</CardColName>
                 }
                 <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                 <CardColName
@@ -109,7 +109,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                     </> :
                     <CardColName
                         style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
-                    >{onePartnerInfo.total_in_time}</CardColName>
+                    >{Math.floor(onePartnerInfo.total_in_time * 100) / 100}</CardColName>
                 }
                 <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                 <CardColName
@@ -141,8 +141,8 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                             >{grade}</CardColName>
                         )}   </> :
                     <CardColName
-                        style={{ backgroundColor: onePartnerInfo.total_in_time == 0 ? '' : onePartnerInfo.total_in_time < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_in_time < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
-                    >{onePartnerInfo.total_in_time}</CardColName>
+                        style={{ backgroundColor: onePartnerInfo.total_facilities == 0 ? '' : onePartnerInfo.total_facilities < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_facilities < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
+                    >{Math.floor(onePartnerInfo.total_facilities * 100) / 100}</CardColName>
                 }
                 <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                 <CardColName

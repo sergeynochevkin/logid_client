@@ -284,6 +284,15 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         {thisOrder.glass_stand === true ? <CardEquipment>{SetNativeTranslate(Translate.language, {}, 'glass_stand')}</CardEquipment> : <></>}
                     </EquipmentRow>
                 </VerticalContainer>
+
+                <div className='viwes_counter'>
+                    {SetNativeTranslate(Translate.language, {
+                        russian: ['Просмотрен', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'раз'],
+                        english: ['Viewed', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'times']
+                    }, '')}
+
+                </div>
+
                 <VerticalContainer>
                     <OrderStatusButtons
                         parent={'order'}

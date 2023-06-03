@@ -230,6 +230,12 @@
     color: grey;
 }
 
+.viwes_counter {
+    font-size: 10px;
+    padding-left: 4px;
+}
+
+
 
 @media screen and (max-width: 1920px) and (min-width: 769px) {}
 

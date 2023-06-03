@@ -14,10 +14,16 @@ export default class OrderStore {
             arc: [],
             pattern: []
         }
+
+        this._views = {
+            new: [],
+            postponed: []
+        }
+
         this._map_orders = []
         this._group = localStorage.getItem('groupOrders') ? JSON.parse(localStorage.getItem('groupOrders')) : []
         this._sortedAndFilteredOrders = []
-        this._order = localStorage.getItem('order') && localStorage.getItem('order') !=='undefined'  ? JSON.parse(localStorage.getItem('order')) : {}
+        this._order = localStorage.getItem('order') && localStorage.getItem('order') !== 'undefined' ? JSON.parse(localStorage.getItem('order')) : {}
         this._added = {}
         this._totalCount = {
             new: 0,
@@ -59,6 +65,14 @@ export default class OrderStore {
 
     get filtered_count() {
         return this._filtered_count
+    }
+
+    setViews(value, order_status) {
+        this._views[order_status] = value
+    }
+
+    get views() {
+        return this._views
     }
 
 
