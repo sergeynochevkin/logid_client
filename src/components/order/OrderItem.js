@@ -116,7 +116,11 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
                     Partner.setPartner(thisPartner)
                     Partner.setPartnerInfo(thisPartnerInfo)
-                    user.user.role === 'carrier' && fetcher.setOrderViewed(true)
+                    if(user.user.role === 'carrier'){
+                    if (order.views[thisOrder.order_status]  && !order.views[thisOrder.order_status].find(el => el.orderId === thisOrder.id && el.userInfoId === UserInfo.userInfo.id)) {
+                        fetcher.setOrderViewed(true)
+                    }
+                    }
                     ComponentFunction.setOrdersComponentFunction('orderItem')
                 }}
                 thisOrder={thisOrder}
@@ -285,13 +289,26 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     </EquipmentRow>
                 </VerticalContainer>
 
-                <div className='viwes_counter'>
-                    {SetNativeTranslate(Translate.language, {
-                        russian: ['Просмотрен', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'раз'],
-                        english: ['Viewed', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'times']
-                    }, '')}
+                {(thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') && user.user.role === 'customer' ?
+                    <div className='viwes_counter'>
+                        {SetNativeTranslate(Translate.language, {
+                            russian: ['Просмотрен', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'раз'],
+                            english: ['Viewed', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'times']
+                        }, '')}
 
-                </div>
+                    </div> : <></>}
+
+                {order.views[thisOrder.order_status] && user.user.role === 'carrier' && order.views[thisOrder.order_status].find(el => el.orderId === thisOrder.id && el.userInfoId === UserInfo.userInfo.id) ?
+                    <div className='viwes_counter'>
+                        {SetNativeTranslate(Translate.language, {
+                            russian: ['Вы просматривали этот заказ'],
+                            english: ['You viewed this order']
+                        }, '')}
+
+                    </div>
+                    :
+                    <></>
+                }
 
                 <VerticalContainer>
                     <OrderStatusButtons

@@ -159,6 +159,7 @@ const Notificator = observer(() => {
             }
         }
     }, [order.added])
+    
     useEffect(() => {
         if ( Offer.changes && Object.keys(Offer.changes).length > 0) {
             if (Offer.changes.new.length > 0 && user.user.role !== 'carrier') {
@@ -172,6 +173,7 @@ const Notificator = observer(() => {
             }
         }
     }, [Offer.changes])
+
     useEffect(() => {
         if (Point.added && Object.keys(Point.added).length > 0) {
             if (Point.added.postponed.filter(el => el.updated_by_role === 'carrier').length > 0 && user.user.role !== 'carrier') {

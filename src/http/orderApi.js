@@ -159,3 +159,8 @@ export const setOrderViewed = async (orderId, userInfoId) => {
     const { data } = await $authHost.post('api/order/set_viewed', { orderId, userInfoId })
     return data
 }
+
+export const clearOrderViewed = async (orderId) => {
+    const { data } = await $authHost.post('api/order/clear_viewed', { orderId })
+    return data
+}

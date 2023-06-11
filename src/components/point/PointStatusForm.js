@@ -105,7 +105,10 @@ const PointStatusForm = observer(({ setModalActive, onePoint, setPointFetchStart
                         click()
                     }}
                         disabled={formData.carrier_comment.minLengthError || formData.carrier_comment.maxLengthError}
-                    >{SetNativeTranslate(Translate.language,{},'finish')}</CardButton>
+                    >{SetNativeTranslate(Translate.language,{
+                        russian:['Завершить'],
+                        english:['Finish']
+                    },'')}</CardButton>
                     : <></>}
 
                 {onePoint.status === null || onePoint.status === 'new' ?
