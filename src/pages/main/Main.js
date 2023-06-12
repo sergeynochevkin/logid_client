@@ -57,6 +57,7 @@ const Main = observer(() => {
   const queryParams = new URLSearchParams(window.location.search)
   const uuid = queryParams.get("uuid")
   const role = queryParams.get("role")
+  const order_id = queryParams.get("order_id")
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive2, setModalActive2] = useState(false)
@@ -119,6 +120,13 @@ const Main = observer(() => {
     }
     if (uuid) {
       handleUrlNotification()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (order_id && user.isAuth) {
+      //set order, set component function, navigate and same activity if not auth after authoruzation!?
+
     }
   }, [])
 
