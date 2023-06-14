@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, OrderContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
@@ -49,15 +49,17 @@ import transport from '../../assets/icons/transport.png';
 import transport_dark from '../../assets/icons/transport_dark.png';
 import AdminConsoleItem from './AdminConsoleItem'
 import PageLoader from '../../components/ui/loader/PageLoader '
+import { LOGIN_ROUTE } from '../../utils/consts'
+import { useNavigate } from 'react-router-dom'
 
 
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
   const { Translate } = useContext(TranslateContext)
+  const { order } = useContext(OrderContext)
   const queryParams = new URLSearchParams(window.location.search)
   const uuid = queryParams.get("uuid")
   const role = queryParams.get("role")
-  const order_id = queryParams.get("order_id")
   const { user } = useContext(UserContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive2, setModalActive2] = useState(false)
@@ -67,6 +69,7 @@ const Main = observer(() => {
   const { Management } = useContext(ManagementContext)
   const { fetcher } = useContext(FetcherContext)
   const { Ad } = useContext(AdContext)
+  const navigate = useNavigate()
 
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
@@ -123,12 +126,7 @@ const Main = observer(() => {
     }
   }, [])
 
-  useEffect(() => {
-    if (order_id && user.isAuth) {
-      //set order, set component function, navigate and same activity if not auth after authoruzation!?
 
-    }
-  }, [])
 
   let sections = [
     {

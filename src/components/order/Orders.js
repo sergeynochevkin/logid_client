@@ -255,8 +255,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
               >
                 {ComponentFunction.Function === 'new' && user.user.role === 'carrier' ?
                   SetNativeTranslate(Translate.language, {
-                    russian:['Нет заказов, мы уведомим вас о поступлении новых заказов на email'],
-                    english:['No orders, we will notify you of new orders by email']
+                    russian: ['Нет заказов, мы уведомим вас о поступлении новых заказов на email'],
+                    english: ['No orders, we will notify you of new orders by email']
                   }, '') : SetNativeTranslate(Translate.language, {}, 'no_orders')
                 }
 

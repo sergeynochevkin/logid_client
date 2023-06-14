@@ -108,20 +108,36 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         groups = groups.map(el => el.dataValues.name).toString()
     }
 
+
+    useEffect(() => {
+        if (thisOrder.id == order.link_order.id) {
+            order.setLinkOrder('', 'id')
+            order.setLinkOrder('', 'status')
+            toOrderItem()
+        }
+    }, [])
+
+
+    const toOrderItem = () => {
+        order.setOrder(thisOrder)
+        Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
+        Partner.setPartner(thisPartner)
+        Partner.setPartnerInfo(thisPartnerInfo)
+        if (user.user.role === 'carrier') {
+            if (order.views[thisOrder.order_status] && !order.views[thisOrder.order_status].find(el => el.orderId === thisOrder.id && el.userInfoId === UserInfo.userInfo.id)) {
+                fetcher.setOrderViewed(true)
+            }
+        }
+        ComponentFunction.setOrdersComponentFunction('orderItem')
+    }
+
+
+
     return (
         <>{thisOrderPoints.length > 0 ?
             <CardContainer
                 onClick={() => {
-                    order.setOrder(thisOrder)
-                    Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
-                    Partner.setPartner(thisPartner)
-                    Partner.setPartnerInfo(thisPartnerInfo)
-                    if(user.user.role === 'carrier'){
-                    if (order.views[thisOrder.order_status]  && !order.views[thisOrder.order_status].find(el => el.orderId === thisOrder.id && el.userInfoId === UserInfo.userInfo.id)) {
-                        fetcher.setOrderViewed(true)
-                    }
-                    }
-                    ComponentFunction.setOrdersComponentFunction('orderItem')
+                    toOrderItem()
                 }}
                 thisOrder={thisOrder}
             >

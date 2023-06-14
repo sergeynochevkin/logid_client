@@ -94,6 +94,14 @@ const User = observer(() => {
     }
   }
 
+  useEffect(() => {
+    if (order.link_order.id) {
+
+      setFunction(order.link_order.status, 'orderList', 'orderList')
+
+    }
+  }, [])
+
   if (!isLoaded) { return <PageLoader /> }
   else {
     return (

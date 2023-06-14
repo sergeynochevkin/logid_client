@@ -1,17 +1,18 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AdressContext, EquipmentTypeContext, FetcherContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
+import { AdressContext, EquipmentTypeContext, FetcherContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
 import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
-import { ADMIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
+import { ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
 import axios from "axios";
 import { fetchTransport } from './http/transportApi'
 import PageLoader from './components/ui/loader/PageLoader '
 
 const PreLoader = observer(({ children, ...props }) => {
+    const queryParams = new URLSearchParams(window.location.search)
     const navigate = useNavigate()
     const { TransportType } = useContext(TransportTypeContext)
     const { EquipmentType } = useContext(EquipmentTypeContext)
@@ -25,6 +26,10 @@ const PreLoader = observer(({ children, ...props }) => {
     const { Setting } = useContext(SettingContext)
     const { Transport } = useContext(TransportContext)
     const { fetcher } = useContext(FetcherContext)
+    const { order } = useContext(OrderContext)
+    const order_id = queryParams.get("order_id")
+    const order_status = queryParams.get("order_status")
+
 
     //attach google and lets go to design!
 
@@ -160,6 +165,17 @@ const PreLoader = observer(({ children, ...props }) => {
                 fetchData();
             } catch (e) {
                 console.log(e.data.message);
+            }
+        }
+    }, [])
+
+
+    useEffect(() => {
+        if (order_id) {
+            order.setLinkOrder(order_id, 'id')
+            order.setLinkOrder(order_status, 'status')
+            if (!user.isAuth) {
+                navigate(LOGIN_ROUTE)
             }
         }
     }, [])
