@@ -48,7 +48,7 @@ const OfferComponent = observer(({ thisOrder, thisOrderNoPartners, thisCarrierOf
                 <CardButton
                     onClick={(event) => {
                         event.stopPropagation()
-                        if (!UserInfo.userInfo.phone) {
+                        if (!UserInfo.userInfo.legal) {
                             setModalActive2(true)
                         } else {
                             setModalActive(true)

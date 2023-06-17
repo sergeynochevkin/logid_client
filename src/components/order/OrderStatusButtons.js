@@ -164,7 +164,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     //userInfo stopper!
     const inWork = async (event) => {
         event.stopPropagation()
-        if (!UserInfo.userInfo.phone && user.user.role === 'carrier') {
+        if (!UserInfo.userInfo.legal && user.user.role === 'carrier') {
             setModalActive(true)
         } else {
             if (parent === 'order') {

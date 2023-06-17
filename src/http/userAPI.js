@@ -9,6 +9,7 @@ export const registration = async (email, password, role, language, country, use
 
 export const fast_registration = async (
     language,
+    phone,
     email,
     password,
     role,
@@ -34,10 +35,12 @@ export const fast_registration = async (
     refrigerator_minus,
     refrigerator_plus,
     thermo_van,
-    tag
+    tag,
+
 ) => {
     const { data } = await $host.post('api/user/fast_registration', {
         language,
+        phone,
         email,
         password,
         role,
@@ -63,7 +66,8 @@ export const fast_registration = async (
         refrigerator_minus,
         refrigerator_plus,
         thermo_van,      
-        tag
+        tag,
+
     })
     localStorage.setItem('token', data.accessToken)
     return jwt_decode(data.accessToken)

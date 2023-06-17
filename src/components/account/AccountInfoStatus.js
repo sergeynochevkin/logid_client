@@ -18,7 +18,7 @@ const AccountInfoStatus = observer(({ containerClassName }) => {
     return (
         <div
             className={containerClassName}
-            style={{ boxShadow: `0px 5px 10px 0px ${setColor(`${!UserInfo.userInfo.phone ? 'not_activated' : ''}`)}` }}
+            style={{ boxShadow: `0px 5px 10px 0px ${setColor(`${!UserInfo.userInfo.legal ? 'not_activated' : ''}`)}` }}
         >
             <div
                 className='account_info_status_content_container'

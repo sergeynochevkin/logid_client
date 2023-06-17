@@ -74,7 +74,7 @@ const Account = observer(() => {
                 </div>
             </VerticalContainer>
 
-            {UserInfo.userInfo.phone ?
+            {UserInfo.userInfo.legal ?
                 <VerticalContainer>
                     <div
                         className={containerClassName}>

@@ -133,7 +133,7 @@ const User = observer(() => {
                 {/* userInfo stopper! */}
                 {user.user.role === 'customer' &&
                   <BookMark onClick={() => {
-                    if (!UserInfo.userInfo.phone) {
+                    if (!UserInfo.userInfo.legal) {
                       setModalActive(true)
                     } else {
                       setFunction(false, false, 'orderForm', 'newOrder')
