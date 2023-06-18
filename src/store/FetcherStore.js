@@ -148,7 +148,7 @@ export default class FetcherStore {
     get management_orders() {
         return this._management_orders
     }
-    get management_users() {
+    get management_transports() {
         return this._management_transports
     }
     get main_counters() {

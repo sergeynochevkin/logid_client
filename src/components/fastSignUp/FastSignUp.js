@@ -205,7 +205,10 @@ const FastSignUp = observer(() => {
                 <VerticalContainer
                     style={{ gap: '0px' }}
                 >
-                    <Input placeholder={SetNativeTranslate(Translate.language, {}, 'phone_place_holder')} value={formData.phone.value}
+                    <Input placeholder={SetNativeTranslate(Translate.language, {
+                        russian: ['Ваш телефон'],
+                        english: ['Your phone']
+                    }, '')} value={formData.phone.value}
                         onChange={(e) => formData.phone.onChange(e)}
                         onBlur={e => formData.phone.onBlur(e)}
                         type="text" name="phone" id='phone'
