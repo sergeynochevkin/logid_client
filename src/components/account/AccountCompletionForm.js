@@ -49,7 +49,7 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
     const initialValue = {
         id: UserInfo.userInfo.id,
         legal: '',
-        // phone: '',
+        phone: '',
         website: '',
         company_name: '',
         company_inn: '',
@@ -78,8 +78,8 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
     formData.passport_issued_by = useInput('', { isEmpty: true, minLength: 10, maxLength: 60 }, SetNativeTranslate(Translate.language, {}, 'passport_issued_by_content').toLowerCase())
     const validPassportNumber = /^[а-яА-ЯёЁa-zA-Z0-9]+$/
     formData.passport_number = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPassportNumber }, SetNativeTranslate(Translate.language, {}, 'passport_number_content').toLowerCase())
-    // const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
-    // formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone_content').toLowerCase())
+    const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
+    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone_content').toLowerCase())
     formData.type_of_customer = useInput('', { isEmpty: true })
 
     return (
@@ -105,7 +105,7 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
             }
 
             <NameSurNameFathersName setFormData={setFormData} formData={formData} />
-            {/* <Phone setFormData={setFormData} formData={formData} /> */}
+            {!UserInfo.userInfo.phone && <Phone setFormData={setFormData} formData={formData} />}
             <Legal setFormData={setFormData} formData={formData} />
             {user.user.role === 'customer' &&
                 <TypeOfCustomer setFormData={setFormData} formData={formData} />
@@ -114,8 +114,8 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
             <Button disabled={
                 formData.legal.notValid
                 ||
-                // formData.phone.notValid
-                // ||
+                (!UserInfo.userInfo.phone && formData.phone.notValid)
+                ||
                 formData.company_adress.notValid
                 ||
                 (formData.website.notValid && !formData.website.isEmpty && (formData.legal.value === 'sole_trader' || formData.legal.value === 'entity'))
