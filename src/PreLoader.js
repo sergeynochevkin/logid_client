@@ -54,9 +54,9 @@ const PreLoader = observer(({ children, ...props }) => {
                     }
                     setDataLoaded(true)
                 } else {
-                    Adress.setCountry(countries.find(el => el.country_code_iso3 === 'CAN'));
+                    Adress.setCountry(countries.find(el => el.country_code_iso3 === 'RUS'));
                     //select deafault country, say that we dont have service in this country
-                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'CAN').default_language)
+                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
                     setDataLoaded(true)
                     Adress.setCountryDetected(false)
                 }
