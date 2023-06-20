@@ -27,8 +27,8 @@ const PreLoader = observer(({ children, ...props }) => {
     const { Transport } = useContext(TransportContext)
     const { fetcher } = useContext(FetcherContext)
     const { order } = useContext(OrderContext)
-    const order_id = queryParams.get("order_id")
-    const order_status = queryParams.get("order_status")
+    const order_id = queryParams.get("o_i")
+    const order_status = queryParams.get("o_s")
 
 
     //attach google and lets go to design!
