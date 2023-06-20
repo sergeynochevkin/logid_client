@@ -6,7 +6,7 @@ import OfferList from './OfferList'
 const OfferModalContent = observer(({ setModalActive, UserInfo, oneOrder, Offer, user, thisOrderOffers, thisCarrierOffer, formData, setFormData,  thisOrderNoPartners, firstPoint, ComponentFunction, formReset }) => {
 
     return (
-        <>
+        <div className='offer_modal_container'>
             {user.user.role === 'carrier' ?
                 <OfferForm
                     setModalActive={setModalActive}
@@ -31,7 +31,7 @@ const OfferModalContent = observer(({ setModalActive, UserInfo, oneOrder, Offer,
                 firstPoint={firstPoint}
                 ComponentFunction={ComponentFunction}                
             />
-        </>
+        </div>
     )
 })
 

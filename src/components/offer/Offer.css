@@ -4,3 +4,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.offer_modal_container{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}

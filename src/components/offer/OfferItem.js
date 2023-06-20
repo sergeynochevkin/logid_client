@@ -68,7 +68,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
                 style={{
                   backgroundColor: thisPartner && thisPartner.status === 'normal' ? 'rgb(241,196,15,0.8)' :
                     thisPartner && thisPartner.status === 'priority' ? 'rgb(129, 199, 132,0.8)' :
-                      thisPartner && thisPartner.status === 'blocked' ? 'rgb(254, 111, 103,0.8)' : 'lightgray',
+                      thisPartner && thisPartner.status === 'blocked' ? 'rgb(254, 111, 103,0.8)' : 'gray',
                   cursor: 'pointer'
                 }}
                 onClick={() => {
