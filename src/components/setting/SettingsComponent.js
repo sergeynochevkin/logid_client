@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { SettingContext, TranslateContext, UserInfoContext } from '../..'
-import { useFetching } from '../../hooks/useFetching'
-import { fetchSettings } from '../../http/settingApi'
+import { SettingContext } from '../..'
+
 import SettingItem from './SettingItem'
 import './Setting.css'
 import { Button } from '../ui/button/Button'
@@ -19,9 +18,7 @@ align-items:left;
 
 const SettingsComponent = observer(() => {
     const { Setting } = useContext(SettingContext)
-    const { UserInfo } = useContext(UserInfoContext)
-    const { Translate } = useContext(TranslateContext)
-    const [fetchStart, setFetchStart] = useState(false)
+
 
     const sortSetings = (a, b) => {
         if (a.id > b.id) {
@@ -30,15 +27,6 @@ const SettingsComponent = observer(() => {
             return -1
         }
     }
-
-    const [fetching, error] = useFetching(async () => {
-        await fetchSettings(UserInfo.userInfo.id).then(data => Setting.setUserSettings(data))
-        setFetchStart(false)
-    })
-
-    useEffect(() => {
-        fetching()
-    }, [])
 
     return (
         <>

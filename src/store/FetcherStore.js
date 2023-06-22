@@ -31,6 +31,9 @@ export default class FetcherStore {
         //ad
         this._main_counters = false
 
+        //setting
+        this._user_app_setting = false
+
         makeAutoObservable(this)
     }
     //set
@@ -94,6 +97,9 @@ export default class FetcherStore {
     setOrderViewed(value) {
         this._order_viewed = value
     }
+    setUserAppSetting(value) {
+        this._user_app_setting = value
+    }
 
     //get
     get server_notifications() {
@@ -156,5 +162,8 @@ export default class FetcherStore {
     }
     get order_viewed() {
         return this._order_viewed
+    }
+    get user_app_setting() {
+        return this._user_app_setting
     }
 }

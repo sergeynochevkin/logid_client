@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
-import { AdContext, ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
+import { AdContext, ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, SettingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
 import { fetchUserLimits } from './http/limitApi'
 import { fetchNotifications, updateNotifications } from './http/notificationApi'
 import { fetchGroups, fetchPartners } from './http/partnerApi'
@@ -16,6 +16,7 @@ import { fetchTransport } from './http/transportApi'
 import { fetchUser } from './http/userAPI'
 import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers } from './http/managementApi'
 import { fetchMainCounters } from './http/adApi'
+import { fetchSettings } from './http/settingApi'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -35,6 +36,7 @@ const Fetcher = observer(() => {
     const { Transport } = useContext(TransportContext)
     const { Management } = useContext(ManagementContext)
     const { Ad } = useContext(AdContext)
+    const {Setting} = useContext(SettingContext)
 
     // server notifications
     useEffect(() => {
@@ -215,9 +217,9 @@ const Fetcher = observer(() => {
             //activate just if not viewed go to orderItem 114 and activate it, and include viewed fetch and state and show it to carrier and cusomer activate just at new?
             await setOrderViewed(order.order.id, UserInfo.userInfo.id)
         }
-        
+
         fetcher.order_viewed && fetch()
-        
+
         fetcher.setOrderViewed(false)
     }, [fetcher.order_viewed])
 
@@ -262,7 +264,7 @@ const Fetcher = observer(() => {
                     }
                 }
             }
-            
+
             fetch()
         }
         fetcher.setPartners(false)
@@ -325,6 +327,7 @@ const Fetcher = observer(() => {
         fetch()
         fetcher.setManagementUsers(false)
     }, [fetcher.management_users])
+
     //orders
     useEffect(() => {
         async function fetch() {
@@ -357,6 +360,14 @@ const Fetcher = observer(() => {
             clearInterval()
         }
     }, [])
+    //settings
+    useEffect(() => {
+        async function fetch() {
+            await fetchSettings(UserInfo.userInfo.id).then(data => Setting.setUserSettings(data))
+        }
+        fetch()
+        fetcher.setUserAppSetting(false)
+    }, [fetcher.user_app_setting])
 
     return (
         <></>)

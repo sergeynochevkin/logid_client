@@ -153,6 +153,8 @@ const PreLoader = observer(({ children, ...props }) => {
                             }
                         })
 
+                        data && fetcher.setUserAppSetting(true)
+
                     })
 
                     if (user.user.role === 'carrier' || user.user.role === 'customer') {

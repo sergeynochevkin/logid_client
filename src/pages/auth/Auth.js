@@ -102,6 +102,7 @@ const Auth = observer(({ }) => {
         }
       } else {
         UserInfo.setUserInfo(data)
+        data && fetcher.setUserAppSetting(true)
         if (data.country !== Adress.country.value) {
           Adress.setCountry(Adress.countries.find(el => el.value === data.country))
         }
