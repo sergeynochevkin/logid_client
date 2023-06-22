@@ -165,12 +165,14 @@ const User = observer(() => {
                 }} style={{
                   color: ComponentFunction.PageFunction === 'account' && 'grey', cursor: ComponentFunction.PageFunction === 'account' && 'default'
                 }}>{SetNativeTranslate(Translate.language, {}, 'account')}</BookMark>
-                {/* 
+           
+                
                 <BookMark onClick={() => {
                     setFunction(false, false, 'settings', false)    
                    }} style={{
                   color: ComponentFunction.PageFunction === 'settings' && 'grey',
-                }}>{SetNativeTranslate(Translate.language,{},'settings')}</BookMark> */}
+                }}>{SetNativeTranslate(Translate.language,{},'settings')}</BookMark>
+           
               </div>
             </div>
           }

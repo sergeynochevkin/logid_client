@@ -517,8 +517,12 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'by_customer', russian: 'заказчиком', english: 'by customer', spanish: '', turkish: '', type: 'notification' },
         { service: 'finished', russian: 'завершен', english: 'finished', spanish: '', turkish: '', type: 'notification' },
         // { service: 'you_can_restore', russian: 'вы можете восстановить заказ', english: 'you can restore the order', spanish: '', turkish: '', type: 'notification' },
+
+
+        { service: 'sms_messaging', russian: 'Уведомлять по смс', english: 'Notify by sms', spanish: '', turkish: '', type: 'settings' },
+        { service: 'email_messaging', russian: 'Уведомлять по email', english: 'Notify by email', spanish: '', turkish: '', type: 'settings' },
     ]
-    
+
     let translatedText
 
     if (service) {

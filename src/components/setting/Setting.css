@@ -1,7 +1,6 @@
 .setting_container {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     align-items: left;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
     padding: 20px;
@@ -9,8 +8,23 @@
     background-color: rgb(245, 245, 245, 0.8);
     min-height: 500px;
     margin-top: 10px;
+    min-width: 250px;
+}
+
+.settings_list {
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .setting_container_dark {
     background-color: rgb(31, 31, 31, 0.8);
+    color: white;
+}
+
+.account_actions_container {
+    display: flex;
+    flex-direction: column;
+
 }
