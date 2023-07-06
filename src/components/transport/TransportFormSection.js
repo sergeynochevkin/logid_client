@@ -299,6 +299,8 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
             <CardButton
               disabled={formData.type.notValid || formData.tag.notValid || (formData.side_type.notValid && formData.type.value === 'truck') || (formData.load_capacity.notValid && (formData.type.value === 'truck' || formData.type.value === 'minibus'))}
               onClick={click}>{SetNativeTranslate(Translate.language, {}, 'add')}</CardButton>
+
+              
             <CardButton
               onClick={(event) => {
                 event.preventDefault()

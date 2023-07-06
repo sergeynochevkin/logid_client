@@ -7,7 +7,7 @@ const $host = axios.create({
 
 const $authHost = axios.create({
     withCredentials: true,
-    baseURL: process.env.REACT_APP_API_URL
+    baseURL: process.env.REACT_APP_API_URL,
 })
 
 const authInterceptor = config => {
@@ -18,7 +18,7 @@ const authInterceptor = config => {
 $authHost.interceptors.request.use(authInterceptor)
 $host.interceptors.response.use((config) => { return config; }, (async error => {
     const originalRequest = error.config
-    if (error.response.status == 401 && error.config && !error.config._isRetry !== true) {
+    if (error.response.status === 401 && error.config && !error.config._isRetry !== true) {
         originalRequest._isRetry = true;
         try {
             const { data } = await $host.get(`api/user/refresh`, {})

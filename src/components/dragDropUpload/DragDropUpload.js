@@ -6,12 +6,11 @@ import { NotificationContext, SettingContext, TranslateContext } from '../..';
 import './DragDropUpload.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const DragDropUpload = observer( ({ parent, length, extensions, filesFormData }) => {
+const DragDropUpload = observer(({ parent, length, extensions, filesFormData, files, setFiles }) => {
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
     const { Setting } = useContext(SettingContext)
     const [drag, setDrag] = useState(false)
-    const [files, setFiles] = useState([])
     const [pairs, setPairs] = useState([])
     const [errors, setErrors] = useState(
         {
@@ -47,10 +46,10 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
             setErrors({ ...errors, quantity: true })
         }
         if (notValidFiles.length > 0 && (allNewFiles.length + files.length) <= length) {
-            Notification.addNotification([{ id: v4(), type: 'error', message: `${notValidFiles.toString()} ${notValidFiles.length === 1 ? SetNativeTranslate(Translate.language,{},'invalid_file_format') : SetNativeTranslate(Translate.language,{},'invalid_files_format')}` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${notValidFiles.toString()} ${notValidFiles.length === 1 ? SetNativeTranslate(Translate.language, {}, 'invalid_file_format') : SetNativeTranslate(Translate.language, {}, 'invalid_files_format')}` }])
         }
         if (doubleFiles.length > 0 && (allNewFiles.length + files.length) <= length) {
-            Notification.addNotification([{ id: v4(), type: 'error', message: `${doubleFiles.toString()} ${SetNativeTranslate(Translate.language,{},'already_there')}` }])
+            Notification.addNotification([{ id: v4(), type: 'error', message: `${doubleFiles.toString()} ${SetNativeTranslate(Translate.language, {}, 'already_there')}` }])
         }
     }
 
@@ -80,10 +79,8 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
             let newPairs = []
             newFiles.forEach(file => {
                 let newPair = { file: file, url: URL.createObjectURL(file) }
-                newPairs.push(newPair)
-                filesFormData.append('images', file, file.name)
+                newPairs.push(newPair)       
             })
-            filesFormData.append('path', '/somepath')
             setPairs([...pairs, ...newPairs])
             setDrag(false)
         }
@@ -103,10 +100,8 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
             let newPairs = []
             newFiles.forEach(file => {
                 let newPair = { file: file, url: URL.createObjectURL(file) }
-                newPairs.push(newPair)
-                filesFormData.append('images', file, file.name)
-            })
-            filesFormData.append('path', '/somepath')
+                newPairs.push(newPair)                
+            })           
             setPairs([...pairs, ...newPairs])
             setErrors({ ...errors, quantity: false })
         }
@@ -120,9 +115,9 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
                 >
-                    {parent === 'transportForm' ? SetNativeTranslate(Translate.language,{},'drag_drop_transport') : SetNativeTranslate(Translate.language,{},'drag_drop_order')}
-                    <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetNativeTranslate(Translate.language,{},'select')}
-                        <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='images' disabled={pairs.length === length}></input>
+                    {parent === 'transportForm' ? SetNativeTranslate(Translate.language, {}, 'drag_drop_transport') : SetNativeTranslate(Translate.language, {}, 'drag_drop_order')}
+                    <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetNativeTranslate(Translate.language, {}, 'select')}
+                        <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='files' disabled={pairs.length === length}></input>
                     </label>
                 </div> :
                 <div className={'dragZone drop'}
@@ -130,11 +125,11 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
-                >{SetNativeTranslate(Translate.language,{},'drop_to_upload')}
+                >{SetNativeTranslate(Translate.language, {}, 'drop_to_upload')}
                 </div>}
             <div className={'errorMessage'}>
                 {(errors.quantity === true) ?
-                    `${SetNativeTranslate(Translate.language,{},'maximum')} ${length} ${SetNativeTranslate(Translate.language,{},'images')}` :
+                    `${SetNativeTranslate(Translate.language, {}, 'maximum')} ${length} ${SetNativeTranslate(Translate.language, {}, 'images')}` :
                     ''
                 }
             </div>
@@ -153,7 +148,7 @@ const DragDropUpload = observer( ({ parent, length, extensions, filesFormData })
                                 setErrors({ ...errors, quantity: false })
                             }
                         }}
-                    >{SetNativeTranslate(Translate.language,{},'delete')}</div>
+                    >{SetNativeTranslate(Translate.language, {}, 'delete')}</div>
                 </div>)}
             </div>
         </div>

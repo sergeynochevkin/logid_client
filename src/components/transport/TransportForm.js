@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { FetcherContext, TranslateContext, UserInfoContext } from '../..'
 import { createTransport } from '../../http/transportApi'
@@ -20,11 +20,23 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
   const { UserInfo } = useContext(UserInfoContext)
   const { Translate } = useContext(TranslateContext)
   const { fetcher } = useContext(FetcherContext)
+  const [filesFormData, setFilesFormData] = useState(new FormData)
+  const [files, setFiles] = useState([])
 
-  const filesFormData = new FormData()
+
 
   if (parent !== 'fast_sign_up') {
     formData.userInfoId = UserInfo.userInfo.id
+  }
+
+  const dataInit = (files) => {
+    setFilesFormData(new FormData)
+
+    files.forEach(file => {
+      filesFormData.append('files', file, file.name)
+    })
+
+    return filesFormData
   }
 
   const click = async (event) => {
@@ -35,18 +47,14 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
         formData
       )
         .then(async data => {
-
-          filesFormData.append('transportId', data.id)
-          await uploadImages(filesFormData, Translate.language)
-
-          //log
-          for (const value of filesFormData.values()) {
-            // console.log(value);
-          };
-          for (const key of filesFormData.keys()) {
-            // console.log(key);
-          }
-        })
+          dataInit(files)
+          console.log(filesFormData.getAll('files'))
+          // filesFormData.append('option', 'transport')
+          // filesFormData.append('id', data.id)
+          // filesFormData.append('language', Translate.language)
+          await uploadImages('transport', data.id, Translate.language, filesFormData)
+        }
+        )
       formReset()
       fetcher.setTransports(true)
       setModalActive(false)
@@ -57,10 +65,10 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
 
   return (
     <div className='transport_form_container'>
-      <Form enctype="multipart/form-data">
-        <TransportFormTag formData={formData} ></TransportFormTag>
+      <Form encType="multipart/form-data" >
+        <TransportFormTag formData={formData} ></TransportFormTag>       
         
-        <DragDropUpload filesFormData={filesFormData} parent={'transportForm'} formData={formData} setFormData={setFormData} length={10} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload>
+        <DragDropUpload filesFormData={filesFormData} files={files} setFiles={setFiles} parent={'transportForm'} formData={formData} setFormData={setFormData} length={10} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload>
 
         <TransportFormSection formData={formData} setFormData={setFormData} click={click} setModalActive={setModalActive} formReset={formReset} />
       </Form>

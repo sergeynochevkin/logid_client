@@ -1,9 +1,9 @@
 import { $authHost } from "./index";
 
-export const uploadImages = async (filesFormData, language
+export const uploadImages = async (option, id, language, files
 ) => {
     const { data } = await $authHost.post('api/file', {
-        filesFormData, language
+        option, id, language, files
     },
         // function (req, res, next) {
         //     console.log(req.body, req.files);
@@ -11,10 +11,11 @@ export const uploadImages = async (filesFormData, language
         {
             headers: {
                 "Content-Type": "multipart/form-data",
-                "Accept":"*/*",                
-                // "Accept-Encoding":"gzip, deflate, br",
+                // "Accept": "*/*",
+                // "Accept-Encoding": "gzip, deflate, br",
                 // "Accept":"*/*"
-            },
+            },    
+            // redirect: 'follow',
         }
     )
     return data
