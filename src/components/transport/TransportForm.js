@@ -68,7 +68,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
       <Form encType="multipart/form-data" >
         <TransportFormTag formData={formData} ></TransportFormTag>       
         
-        <DragDropUpload filesFormData={filesFormData} files={files} setFiles={setFiles} parent={'transportForm'} formData={formData} setFormData={setFormData} length={10} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload>
+        {/* <DragDropUpload filesFormData={filesFormData} files={files} setFiles={setFiles} parent={'transportForm'} formData={formData} setFormData={setFormData} length={10} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload> */}
 
         <TransportFormSection formData={formData} setFormData={setFormData} click={click} setModalActive={setModalActive} formReset={formReset} />
       </Form>
