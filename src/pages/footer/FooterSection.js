@@ -14,7 +14,7 @@ const FooterSection = observer(({ section, items, setModalActive, setAgreement }
                 </div>
                 :
                 <div className={section.class}>
-                    {items.filter(el => el.id !== 4 && el.id !== 5 && el.id !== 6).map(item => <FooterItem item={item} key={item.id} setModalActive={setModalActive} setAgreement={setAgreement} />)}
+                    {items.filter(el => el.id !== 4 && el.id !== 5 && el.id !== 6 && el.id !== 8).map(item => <FooterItem item={item} key={item.id} setModalActive={setModalActive} setAgreement={setAgreement} />)}
                 </div>
             }
 

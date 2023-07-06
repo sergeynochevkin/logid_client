@@ -83,9 +83,13 @@ const Footer = observer(() => {
         })
       , description: '', section_id: 1, class: 'footer_copyright'
     },
-    // { id: 6, icon: '', name: 'wswsw', description: 'asas', section_id: 2, class: '' },
-    // { id: 7, icon: '', name: 'sdsd', description: 'efefe', section_id: 2, class: '' },
-    // { id: 8, icon: '', name: 'wdwd', description: 'asas', section_id: 3, class: '' },
+    { id: 8, icon: '', name:
+    
+    SetNativeTranslate(Translate.language, {
+      russian: ['Услуги предосталяет самозанятый гражданин Российской Федерации Ночевкин Сергей Михайллович ИНН 511500911205 телефон +79531154193'],
+      english: ['Services are provided by a self-employed citizen of the Russian Federation Nochevkin Sergey TIN 511500911205 phone +79531154193']
+    })
+    , description: '', section_id: 1, class: 'footer_copyright' },
     // { id: 9, icon: '', name: 'wdwd', description: 'asas', section_id: 3, class: '' },
     // { id: 10, icon: '', name: 'wdwd', description: 'asas', section_id: 3, class: '' },
     // { id: 11, icon: '', name: 'wdwd', description: 'asas', section_id: 4, class: '' },
