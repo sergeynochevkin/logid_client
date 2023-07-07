@@ -71,7 +71,7 @@ const TransportItem = observer(({ oneTransport, files }) => {
         {oneTransport.glass_stand === true ? <CardEquipment>{SetNativeTranslate(Translate.language, {}, 'glass_stand')}</CardEquipment> : <></>}
       </EquipmentRow>
       {/* output images from the url array, you need to form such an array to do this, get names from multer*/}
-      <img src={oneTransport.image}></img>
+      {/* <img src={oneTransport.image}></img> */}
       <CardRow>
         <CardButton onClick={deleteClick}>{SetNativeTranslate(Translate.language, {}, 'delete')}</CardButton>
       </CardRow>
