@@ -148,8 +148,8 @@ const Main = observer(() => {
     },
     {
       id: 2, header: SetNativeTranslate(Translate.language, {
-        russian: ['Возможности', !user.isAuth ? 'для заказчиков' : ''],
-        english: ['Сapabilities', !user.isAuth ? 'for customers' : '']
+        russian: ['Возможности', 'для заказчиков'],
+        english: ['Сapabilities', 'for customers']
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
         english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service']
@@ -158,8 +158,8 @@ const Main = observer(() => {
     },
     {
       id: 3, header: SetNativeTranslate(Translate.language, {
-        russian: ['Возможности', !user.isAuth ? 'для перевозчиков' : ''],
-        english: ['Сapabilities', !user.isAuth ? 'for carriers' : '']
+        russian: ['Возможности', 'для перевозчиков'],
+        english: ['Сapabilities', 'for carriers']
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
         english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service']
