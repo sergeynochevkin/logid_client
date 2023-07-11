@@ -86,7 +86,7 @@ const Footer = observer(() => {
     { id: 8, icon: '', name:
     
     SetNativeTranslate(Translate.language, {
-      russian: ['Услуги предосталяет самозанятый гражданин Российской Федерации Ночевкин Сергей Михайллович ИНН 511500911204 телефон +79531154193'],
+      russian: ['Услуги предосталяет самозанятый гражданин Российской Федерации Ночевкин Сергей Михайлович ИНН 511500911204 телефон +79531154193'],
       english: ['Services are provided by a self-employed citizen of the Russian Federation Nochevkin Sergey TIN 511500911204 phone +79531154193']
     })
     , description: '', section_id: 1, class: 'footer_copyright' },
