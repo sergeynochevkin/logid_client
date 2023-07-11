@@ -11,7 +11,7 @@ import { setTime } from '../../modules/setTime'
 import { v4 } from "uuid";
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole }) => {
+const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole, setYoomoneyToken, setModalActive2, paymentId, setPaymentId }) => {
     const { Subscription } = useContext(SubscriptionContext)
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -50,9 +50,17 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole 
         paid_to = setTime(initialTime, 1440 * plan.period, 'form')
         updateSubscriptionAction = async function () {
             try {
-                await updateSubscription(Translate.language, UserInfo.userInfo.id, plan.plan_id, paid_to).then(data => Notification.addNotification([{ id: v4(), type: 'success', message: data }]))
-                fetcher.setSubscriptions(true)
-                setModalActive(false)
+                await updateSubscription('', Translate.language, UserInfo.userInfo.id, plan.plan_id, paid_to).then(data => {
+                    Notification.addNotification([{ id: v4(), type: 'success', message: data.message }])
+                    if (plan.plan_id !== 1 && plan.plan_id !== 2 && UserInfo.userInfo.country === 'russia') {
+                        setYoomoneyToken(data.token)
+                        setPaymentId(data.payment_id)
+                        setModalActive2(true)
+                    } else {
+                        fetcher.setSubscriptions(true)
+                    }
+                    setModalActive(false)
+                })
             } catch (e) {
                 Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
             }

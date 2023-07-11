@@ -13,19 +13,26 @@ import AccountActivationStatus from './AccountActivationStatus'
 import './Account.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import AccountInfoStatus from './AccountInfoStatus'
+import PaymentComponent from '../payment/PaymentComponent'
 
 
 const Account = observer(() => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [modalActive, setModalActive] = useState(false)
+    const [modalActive2, setModalActive2] = useState(false)
     const [passwordEditable, setPasswordEditable] = useState(false)
     const [loginEditable, setLoginEditable] = useState(false)
     const [cityEditable, setCityEditable] = useState(false)
     const [adressEditable, setAdressEditable] = useState(false)
     const { Setting } = useContext(SettingContext)
-
     const { Translate } = useContext(TranslateContext)
+
+    const [yoomoneyToken, setYoomoneyToken] = useState('empty_token')
+    const [paymentId, setPaymentId] = useState('')
+
+
+
 
     const containerClassName = Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'
 
@@ -33,9 +40,14 @@ const Account = observer(() => {
 
         <HorizontalContainer
             style={{ marginTop: '10px', alignItems: 'flex-start' }}>
+
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                <SubscriptionForm setModalActive={setModalActive} />
+                <SubscriptionForm setModalActive={setModalActive} setModalActive2={setModalActive2} setYoomoneyToken={setYoomoneyToken} paymentId={paymentId} setPaymentId={setPaymentId} />
             </Modal>
+
+            <PaymentComponent modalActive2={modalActive2} setModalActive2={setModalActive2} yoomoneyToken={yoomoneyToken} setYoomoneyToken={setYoomoneyToken}  paymentId={paymentId} setPaymentId={setPaymentId}/>
+
+
             <VerticalContainer>
                 <AccountActivationStatus containerClassName={containerClassName} />
                 <div

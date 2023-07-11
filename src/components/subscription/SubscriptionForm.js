@@ -5,7 +5,7 @@ import { AdressContext, SettingContext, SubscriptionContext, UserInfoContext } f
 import './Subscription.css'
 import SubscriptionPlanItem from './SubscriptionPlanItem'
 
-const SubscriptionForm = observer(({  setModalActive, parent, mainRole }) => {
+const SubscriptionForm = observer(({ setModalActive, parent, mainRole, setYoomoneyToken, setModalActive2, setActivateForm, activateForm, paymentId, setPaymentId }) => {
     const { Subscription } = useContext(SubscriptionContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Adress } = useContext(AdressContext)
@@ -18,7 +18,7 @@ const SubscriptionForm = observer(({  setModalActive, parent, mainRole }) => {
         } else {
             return 0
         }
-    } 
+    }
 
     return (
         <div
@@ -32,17 +32,17 @@ const SubscriptionForm = observer(({  setModalActive, parent, mainRole }) => {
             >
                 {parent !== 'main' ?
                     Subscription.plans.filter(el => el.plan_id !== 0 && el.country === UserInfo.userInfo.country).sort(sortPlans).map(plan =>
-                        <SubscriptionPlanItem key={plan.id} plan={plan}  setModalActive={setModalActive} parent={parent} />
+                        <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2}  activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId}/>
                     ) :
                     mainRole === 'carrier' ?
 
                         Subscription.plans.filter(el => el.plan_id !== 0 && el.country === Adress.country.value).sort(sortPlans).map(plan =>
-                            <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} />
+                            <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2} activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId}/>
                         )
                         : mainRole === 'customer' ?
 
                             Subscription.plans.filter(el => el.plan_id !== 0 && el.country === Adress.country.value).sort(sortPlans).map(plan =>
-                                <SubscriptionPlanItem key={plan.id} plan={plan}  setModalActive={setModalActive} parent={parent} mainRole={mainRole} />
+                                <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2} activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId}/>
                             )
                             : <></>
                 }

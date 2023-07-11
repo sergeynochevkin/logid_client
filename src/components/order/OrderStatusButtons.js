@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ComponentFunctionContext, FetcherContext, NotificationContext, OrderContext, PointContext, StateContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { CardButton } from '../ui/button/CardButton'
 import { CardRow } from '../ui/card/CardRow'
@@ -45,7 +45,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
 
     const [modalActive, setModalActive] = useState(false)
     const [modalActive2, setModalActive2] = useState(false)
-    const [transport, setTransport] = useState()
+    const [transport, setTransport] = useState({})
 
 
     // const sortOrders = (a, b) => {
@@ -166,21 +166,33 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     }
 
 
+    useEffect(() => {
+        if (thisOrder.order_status === 'new') {
+            if (Transport.transports.filter(el => el.type === thisOrder.type).length === 1) {
+                setTransport(Transport.transports.find(el => el.type === thisOrder.type))
+            }
+        }
+    }, [])
+
+
     //userInfo stopper!
-    const inWork = async (event) => {
-        event.stopPropagation()
+    const inWork = async (event, option, transportId) => {
+        if (option !== 'selector') {
+            event.stopPropagation()
+        }
         if (!UserInfo.userInfo.legal && user.user.role === 'carrier') {
             setModalActive(true)
         } else {
             if (parent === 'order') {
-                if (Transport.transports.length > 1) {
+                if (Object.keys(transport).length === 0 && !transportId) {
                     setModalActive2(true)
                 }
                 else {
                     try {
-                        await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id)
+                        await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id, undefined, undefined, undefined, undefined, transportId)
                         await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
                         await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
+                        Transport.setTransport({})
                         afterAction('inWork')
                         Notification.addNotification([{ id: v4(), type: 'success', message: `${you_took} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
                     } catch (e) {
@@ -269,6 +281,8 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id} ${for_editing}` }])
         }
     }
+
+
     if (parent === 'selector') {
         thisOrder.order_status = ComponentFunction.Function
     }
@@ -356,7 +370,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 <AccountCompletionForm setModalActive={setModalActive} parent={'take_order'} />
             </Modal>
             <Modal modalActive={modalActive2} setModalActive={setModalActive2}>
-                <TransportSelector thisOrder = {thisOrder}/>
+                <TransportSelector thisOrder={thisOrder} setModalActive={setModalActive2} inWork={inWork} transport={transport} setTransport={setTransport} />
             </Modal>
         </>
 

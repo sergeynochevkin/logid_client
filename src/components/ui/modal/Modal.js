@@ -17,7 +17,7 @@ const Modal = observer(({ modalActive, setModalActive, children, parent, formRes
   }
 
   const modalCloseAction = () => {
-    if (parent === 'TransportComponent' || parent === 'PointItem' || parent === 'orderRatingComponent' || parent === 'otherRatingComponent' || parent === 'createGroup' || (parent === 'OfferComponent' && user.user.role === 'carrier')) {
+    if (parent === 'TransportComponent' || parent === 'Payment' || parent === 'PointItem' || parent === 'orderRatingComponent' || parent === 'otherRatingComponent' || parent === 'createGroup' || (parent === 'OfferComponent' && user.user.role === 'carrier')) {
       formReset()
       setModalActive(false)
     }

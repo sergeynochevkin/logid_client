@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import OfferItem from './OfferItem'
 import { CardButton } from '../ui/button/CardButton'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { OrderTh } from '../ui/table/OrderTh'
 import { Smaller } from '../ui/text/Smaller'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { TranslateContext } from '../..'
 
 const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, thisOrderNoPartners,  firstPoint, ComponentFunction }) => {
+
+const{Translate} = useContext(TranslateContext)
 
   // const sortOffers = (a, b) => {
   //   if (a.cost > b.cost) {
@@ -20,7 +24,13 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
     <VerticalContainer
       style={{ alignItems: 'center' }}
     >
-      {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ? <Smaller>{user.user.role === 'carrier' ? 'Предложения других перевозчиков' : 'Предложения перевозчиков'}</Smaller> : <></>}
+      {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ? <Smaller>{user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{
+                    russian:['Предложения других перевозчиков'],
+                    english:['Offers from other carriers']
+                  }) : SetNativeTranslate(Translate.language,{
+                    russian:['Предложения перевозчиков'],
+                    english:['Carrier offers']
+                  })}</Smaller> : <></>}
       {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ?
         <HorizontalContainer
           style={{
@@ -34,11 +44,36 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
               <tbody>
                 <tr>
                   <OrderTh>Id</OrderTh>
-                  <OrderTh>Нименование</OrderTh>
-                  <OrderTh>Рейтинг</OrderTh>
-                  <OrderTh>Цена</OrderTh>
-                  <OrderTh>Время подачи</OrderTh>
-                  <OrderTh>Комментарий</OrderTh>
+                  <OrderTh>
+                  {SetNativeTranslate(Translate.language,{
+                    russian:['Наименование'],
+                    english:['Name']
+                  })}
+                  </OrderTh>
+                  <OrderTh>
+                  {SetNativeTranslate(Translate.language,{
+                    russian:['Рейтинг'],
+                    english:['Rating']
+                  })}
+                  </OrderTh>
+                  <OrderTh>
+                  {SetNativeTranslate(Translate.language,{
+                    russian:['Цена'],
+                    english:['Cost']
+                  })}
+                  </OrderTh>
+                  <OrderTh>
+                  {SetNativeTranslate(Translate.language,{
+                    russian:['Время подачи'],
+                    english:['Arrival time']
+                  })}
+                  </OrderTh>
+                  <OrderTh>
+                  {SetNativeTranslate(Translate.language,{
+                    russian:['Комментарий'],
+                    english:['Comment']
+                  })}
+                  </OrderTh>
                 </tr>
               </tbody>
               <tbody>
@@ -76,7 +111,12 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
           setModalActive(false)
           ComponentFunction.setOfferListMoreInfo(false)
         }}
-      >Закрыть окно</CardButton> : <></>}
+      >
+        {SetNativeTranslate(Translate.language,{
+                    russian:['Закрыть'],
+                    english:['Close']
+                  })}
+      </CardButton> : <></>}
     </VerticalContainer>
   )
 }

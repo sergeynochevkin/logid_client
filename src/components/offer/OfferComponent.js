@@ -29,6 +29,7 @@ const OfferComponent = observer(({ thisOrder, thisOrderNoPartners, thisCarrierOf
         orderId: undefined,
         carrier_comment: '',
         this_carrier_offer_id: undefined,
+        transportid:undefined
     }
 
     const [formData, setFormData] = useState(initialValue)
@@ -38,6 +39,7 @@ const OfferComponent = observer(({ thisOrder, thisOrderNoPartners, thisCarrierOf
         formData.cost.setDirty(false)
         formData.time_from.setValue(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '')
         formData.carrier_comment.setValue(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '')
+        formData.transportid = undefined
     }
 
     return (<>
