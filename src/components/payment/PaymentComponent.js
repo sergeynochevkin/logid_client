@@ -39,7 +39,7 @@ const PaymentComponent = observer(({ modalActive2, setModalActive2, yoomoneyToke
     }, [yoomoneyToken])
 
     const formReset = () => {
-        render === 'yookassa' && checkout.destroy()
+        checkout.destroy()
     }
     const done = async () => {
         try {
@@ -54,25 +54,24 @@ const PaymentComponent = observer(({ modalActive2, setModalActive2, yoomoneyToke
 
     checkout.on('success', () => {
         //Код, который нужно выполнить после успешной оплаты.
-        checkout.destroy();
         paymentId && done()
         setRender('payment_ok')
+
         setTimeout(() => {
             setModalActive2(false)
         }, 5000)
         //Удаление инициализированного виджета
-
+        // checkout.destroy();
     });
 
     checkout.on('fail', () => {
         //Код, который нужно выполнить после неудачной оплаты.
-        checkout.destroy();
         setRender('payment_fail')
         setTimeout(() => {
             setModalActive2(false)
         }, 3000)
         //Удаление инициализированного виджета
-
+        // checkout.destroy();
     });
 
     return (

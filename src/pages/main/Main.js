@@ -178,8 +178,8 @@ const Main = observer(() => {
     },
     {
       id: 4, header: SetNativeTranslate(Translate.language, {
-        russian: ['Тарифные планы', !user.isAuth ? 'для перевозчика' : ''],
-        english: ['Tariff plans', !user.isAuth ? 'for the carrier' : '']
+        russian: ['Тарифные планы', 'для перевозчика'],
+        english: ['Tariff plans', 'for the carrier']
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный. Выберите любой подходящий вам тарифный план и пользуйтесь им бесплатно!'],
         english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : 'At the moment our service in ${SetNativeTranslate(Translate.language,{},Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!']
@@ -188,8 +188,8 @@ const Main = observer(() => {
     },
     {
       id: 5, header: SetNativeTranslate(Translate.language, {
-        russian: ['Тарифные планы', !user.isAuth ? 'для заказчика' : ''],
-        english: ['Tariff plans', !user.isAuth ? 'for the customer' : '']
+        russian: ['Тарифные планы', 'для заказчика'],
+        english: ['Tariff plans', 'for the customer']
       }), header_comment: SetNativeTranslate(Translate.language, {
         russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный. Выберите любой подходящий вам тарифный план и пользуйтесь им бесплатно!'],
         english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!`]
