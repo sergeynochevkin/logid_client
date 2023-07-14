@@ -45,10 +45,13 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole,
         }
 
 
-        
+
         updateSubscriptionAction = async function () {
+
+            let description = `Подписка ${SetNativeTranslate('russian', {}, plan.name).toLowerCase()} ${SetNativeTranslate('russian', {}, plan.bage).toLowerCase()}`
+
             try {
-                await updateSubscription('', Translate.language, UserInfo.userInfo.id, plan).then(data => {
+                await updateSubscription('', description, Translate.language, UserInfo.userInfo.id, plan).then(data => {
                     Notification.addNotification([{ id: v4(), type: 'success', message: data.message }])
                     if (plan.plan_id !== 1 && plan.plan_id !== 2 && UserInfo.userInfo.country === 'russia') {
                         setYoomoneyToken(data.token)
