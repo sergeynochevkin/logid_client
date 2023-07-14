@@ -77,19 +77,21 @@ const PaymentComponent = observer(({ modalActive2, setModalActive2, yoomoneyToke
     return (
         <>
             <Modal modalActive={modalActive2} setModalActive={setModalActive2} parent='Payment' formReset={formReset}>
-                {render === 'yookassa' ?
-                    <div id="payment-form"></div> :
-                    render === 'payment_ok' ?
-                        <div className={Setting.app_theme === 'light' ? 'payment_form_container' : 'payment_form_message_dark'}>{SetNativeTranslate(Translate.language, {
-                            russian: ['Платеж завершен'],
-                            english: ['Payment completed']
-                        })}</div>
-                        : render === 'paiment_fail' ?
+                <div className='payment_form_container'>
+                    {render === 'yookassa' ?
+                        <div id="payment-form"></div> :
+                        render === 'payment_ok' ?
                             <div className={Setting.app_theme === 'light' ? 'payment_form_container' : 'payment_form_message_dark'}>{SetNativeTranslate(Translate.language, {
-                                russian: ['Платеж не прошел'],
-                                english: ['Payment failed']
+                                russian: ['Платеж завершен'],
+                                english: ['Payment completed']
                             })}</div>
-                            : <></>}
+                            : render === 'paiment_fail' ?
+                                <div className={Setting.app_theme === 'light' ? 'payment_form_container' : 'payment_form_message_dark'}>{SetNativeTranslate(Translate.language, {
+                                    russian: ['Платеж не прошел'],
+                                    english: ['Payment failed']
+                                })}</div>
+                                : <></>}
+                </div>
             </Modal>
         </>
     )

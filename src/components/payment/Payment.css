@@ -5,3 +5,9 @@
 .payment_form_message_dark {
     color: white;
 }
+
+@media screen and (max-width: 425px) {
+    .payment_form_container {
+        width: 100vw;
+    }
+}

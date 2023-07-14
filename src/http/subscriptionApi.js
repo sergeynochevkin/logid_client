@@ -6,9 +6,9 @@ export const fetchSubscription = async (userInfoId) => {
     return data
 }
 
-export const updateSubscription = async (payment_id,language,userInfoId, planId, paid_to) => {
+export const updateSubscription = async (payment_id, language, userInfoId, plan) => {
     const { data } = await $authHost.put('api/subscription', {
-        payment_id, language, userInfoId, planId, paid_to
+        payment_id, language, userInfoId, plan
     })
     return data
 }

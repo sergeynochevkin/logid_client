@@ -45,12 +45,10 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole,
         }
 
 
-        initialTime = new Date();
-        initialTime.setHours(23, 59, 59, 0)
-        paid_to = setTime(initialTime, 1440 * plan.period, 'form')
+        
         updateSubscriptionAction = async function () {
             try {
-                await updateSubscription('', Translate.language, UserInfo.userInfo.id, plan.plan_id, paid_to).then(data => {
+                await updateSubscription('', Translate.language, UserInfo.userInfo.id, plan).then(data => {
                     Notification.addNotification([{ id: v4(), type: 'success', message: data.message }])
                     if (plan.plan_id !== 1 && plan.plan_id !== 2 && UserInfo.userInfo.country === 'russia') {
                         setYoomoneyToken(data.token)
