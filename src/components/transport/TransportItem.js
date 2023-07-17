@@ -99,7 +99,9 @@ const TransportItem = observer(({ oneTransport, files }) => {
       </div>
 
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
-        <img src={image} className='image_modal'></img>
+        <div className='image_modal_container'>
+          <img src={image} className='image_modal'></img>
+        </div>
       </Modal>
 
     </CardContainer>

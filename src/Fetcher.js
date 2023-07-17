@@ -295,11 +295,14 @@ const Fetcher = observer(() => {
                     urlsArray: []
                 }
                 let fileNames = JSON.parse(transport.files)
-                for (const file of fileNames) {
-                    let url = await fetchImages(transport, file)
-                    transportImageObject.urlsArray.push(url)
+
+                if (fileNames) {
+                    for (const file of fileNames) {
+                        let url = await fetchImages(transport, file)
+                        transportImageObject.urlsArray.push(url)
+                    }
+                    transportsImagesArray.push(transportImageObject)
                 }
-                transportsImagesArray.push(transportImageObject)
             }
 
 

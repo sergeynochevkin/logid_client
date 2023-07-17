@@ -47,6 +47,8 @@
     width: 700px;
 }
 
+.image_modal_container {}
+
 .image_icon:hover {
     filter: brightness(40%);
 }
@@ -63,7 +65,11 @@
     }
 
     .image_modal {
-        height: auto;
+        height: 400px;
+        width: auto;
+    }
+
+    .image_modal_container {
         width: 100vw;
     }
 }
