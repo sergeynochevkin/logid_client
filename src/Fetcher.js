@@ -17,6 +17,7 @@ import { fetchUser } from './http/userAPI'
 import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers } from './http/managementApi'
 import { fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
+import { fetchFile } from './http/fileApi'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -36,7 +37,7 @@ const Fetcher = observer(() => {
     const { Transport } = useContext(TransportContext)
     const { Management } = useContext(ManagementContext)
     const { Ad } = useContext(AdContext)
-    const {Setting} = useContext(SettingContext)
+    const { Setting } = useContext(SettingContext)
 
     // server notifications
     useEffect(() => {
@@ -277,8 +278,35 @@ const Fetcher = observer(() => {
     //transport
     useEffect(() => {
         async function fetch() {
-            await fetchTransport(UserInfo.userInfo.id).then(data => Transport.setTransports(data))
+            await fetchTransport(UserInfo.userInfo.id).then(data =>
+                Transport.setTransports(data))
+
+            let fetchImages = async (transport, file) => {
+                let serverFile = await fetchFile(transport.id, 'transport', file)
+                let objectURL = await URL.createObjectURL(serverFile)
+                return (objectURL)
+            }
+
+            let transportsImagesArray = []
+
+            for (const transport of Transport.transports) {
+                let transportImageObject = {
+                    id: transport.id,
+                    urlsArray: []
+                }
+                let fileNames = JSON.parse(transport.files)
+                for (const file of fileNames) {
+                    let url = await fetchImages(transport, file)
+                    transportImageObject.urlsArray.push(url)
+                }
+                transportsImagesArray.push(transportImageObject)
+            }
+
+
+            Transport.setTransportImages(transportsImagesArray)
         }
+
+
         fetch()
         fetcher.setTransports(false)
     }, [fetcher.transports])

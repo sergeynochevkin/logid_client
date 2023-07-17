@@ -79,7 +79,7 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
             let newPairs = []
             newFiles.forEach(file => {
                 let newPair = { file: file, url: URL.createObjectURL(file) }
-                newPairs.push(newPair)       
+                newPairs.push(newPair)
             })
             setPairs([...pairs, ...newPairs])
             setDrag(false)
@@ -100,8 +100,8 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
             let newPairs = []
             newFiles.forEach(file => {
                 let newPair = { file: file, url: URL.createObjectURL(file) }
-                newPairs.push(newPair)                
-            })           
+                newPairs.push(newPair)
+            })
             setPairs([...pairs, ...newPairs])
             setErrors({ ...errors, quantity: false })
         }
@@ -117,7 +117,7 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                 >
                     {parent === 'transportForm' ? SetNativeTranslate(Translate.language, {}, 'drag_drop_transport') : SetNativeTranslate(Translate.language, {}, 'drag_drop_order')}
                     <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetNativeTranslate(Translate.language, {}, 'select')}
-                        <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='files' disabled={pairs.length === length}></input>
+                        <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='files[]' disabled={pairs.length === length}></input>
                     </label>
                 </div> :
                 <div className={'dragZone drop'}

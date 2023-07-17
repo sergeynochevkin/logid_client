@@ -1,22 +1,18 @@
 import { $authHost } from "./index";
 
-export const uploadImages = async (option, id, language, files
+export const uploadFiles = async (option, id, language, fileList
 ) => {
-    const { data } = await $authHost.post('api/file', {
-        option, id, language, files
-    },
-        // function (req, res, next) {
-        //     console.log(req.body, req.files);
-        // },
-        {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                // "Accept": "*/*",
-                // "Accept-Encoding": "gzip, deflate, br",
-                // "Accept":"*/*"
-            },    
-            // redirect: 'follow',
-        }
+    const { data } = await $authHost.postForm('api/file', {
+        option, id, language, 'files[]': fileList
+    }
+
     )
     return data
 }
+
+export const fetchFile = async (id, type, name) => {
+    const { data } = await $authHost.get('api/file', { params: { id, type, name }, responseType: 'blob' 
+ })
+    return data
+}
+

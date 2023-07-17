@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { deleteTransport } from '../../http/transportApi'
 import { CardButton } from '../ui/button/CardButton'
 import { CardColName } from '../ui/card/CardColName'
@@ -8,20 +8,33 @@ import { CardEquipment } from '../ui/card/CardEquipment'
 import { CardRow } from '../ui/card/CardRow'
 import { EquipmentRow } from '../ui/card/EquipmentRow'
 
-import { FetcherContext, TranslateContext } from '../..'
+import { FetcherContext, TranslateContext, TransportContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
+import Modal from '../ui/modal/Modal'
 
 
 const TransportItem = observer(({ oneTransport, files }) => {
   const { Translate } = useContext(TranslateContext)
   const { fetcher } = useContext(FetcherContext)
+  const { Transport } = useContext(TransportContext)
+  const [modalActive, setModalActive] = useState(false)
+  const [image, setImage] = useState('')
+
 
   const deleteClick = async () => {
     await deleteTransport(oneTransport.id);
     fetcher.setTransports(true)
   }
+
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    if (Transport.transport_images.find(el => el.id === oneTransport.id)) {
+      setImages(Transport.transport_images.find(el => el.id === oneTransport.id).urlsArray)
+    }
+  }, [Transport.transport_images])
 
   return (
     <CardContainer>
@@ -75,6 +88,20 @@ const TransportItem = observer(({ oneTransport, files }) => {
       <CardRow>
         <CardButton onClick={deleteClick}>{SetNativeTranslate(Translate.language, {}, 'delete')}</CardButton>
       </CardRow>
+
+      <div className='image_container'>
+        {images.length > 0 ? images.map(image => <img src={image} className='image_icon' key={image}
+          onClick={() => {
+            setModalActive(true);
+            setImage(image)
+          }}
+        ></img>) : <></>}
+      </div>
+
+      <Modal modalActive={modalActive} setModalActive={setModalActive}>
+        <img src={image} className='image_modal'></img>
+      </Modal>
+
     </CardContainer>
   )
 })
