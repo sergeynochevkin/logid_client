@@ -47,7 +47,11 @@
     width: 700px;
 }
 
-.image_modal_container {}
+.image_modal_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .image_icon:hover {
     filter: brightness(40%);
