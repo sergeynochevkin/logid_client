@@ -555,5 +555,9 @@
         width: 100vw;
     }
 
+    .how_to_add_text_container{
+        font-size: 8px;
+    }
+
 
 }
