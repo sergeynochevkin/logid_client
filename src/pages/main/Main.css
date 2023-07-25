@@ -550,5 +550,9 @@
         gap: 10px;
     }
 
+    .image_modal_container_ad_main{
+        width: 100vw;
+    }
+
 
 }
