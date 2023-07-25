@@ -379,6 +379,15 @@
 
 }
 
+.image_modal_container_ad_main{
+
+}
+
+.image_modal_ad_main{
+    width: 100%;
+    height: auto;
+}
+
 
 
 @media screen and (max-width: 1920px) {}

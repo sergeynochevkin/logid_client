@@ -32,8 +32,8 @@ const AdTransportItem = observer(({ transport, transports }) => {
 
     return (<>
         <Modal modalActive={modalActive} setModalActive={setModalActive}>
-            <div className='image_modal_container'>
-                <img src={image} className='image_modal'></img>
+            <div className='image_modal_container_ad_main'>
+                <img src={image} className='image_modal_ad_main'></img>
             </div>
         </Modal>
 
