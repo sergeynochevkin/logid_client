@@ -369,6 +369,7 @@
     padding: 2px;
     background-color: rgb(80, 102, 143, 0.8);
     color: white;
+    white-space: nowrap;
 }
 
 .ad_transport_equipment_container {
