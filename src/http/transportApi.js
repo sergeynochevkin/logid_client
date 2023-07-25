@@ -7,6 +7,13 @@ export const createTransport = async (formData) => {
     return data
 }
 
+export const updateTransport = async (formData) => {
+    const { data } = await $authHost.put('api/transport', {
+        formData
+    })
+    return data
+}
+
 export const fetchTransport = async (userInfoId) => {
     const { data } = await $authHost.get('api/transport', { params: { userInfoId } })
     return data

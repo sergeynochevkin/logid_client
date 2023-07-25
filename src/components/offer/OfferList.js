@@ -68,12 +68,12 @@ const{Translate} = useContext(TranslateContext)
                     english:['Arrival time']
                   })}
                   </OrderTh>
-                  <OrderTh>
+                  {/* <OrderTh>
                   {SetNativeTranslate(Translate.language,{
                     russian:['Комментарий'],
                     english:['Comment']
                   })}
-                  </OrderTh>
+                  </OrderTh> */}
                 </tr>
               </tbody>
               <tbody>
@@ -86,6 +86,7 @@ const{Translate} = useContext(TranslateContext)
                     UserInfo={UserInfo}
                     noPartner={thisOrderNoPartners.find(el => el.id === oneOffer.carrierId)}
                     setModalActive={setModalActive}
+                    thisOrderOffers={thisOrderOffers}
                     
                     firstPoint={firstPoint}
                   />)
@@ -106,7 +107,7 @@ const{Translate} = useContext(TranslateContext)
               </> : <></>
           }
         </HorizontalContainer> : <></>}
-      {user.user.role === 'customer' ? <CardButton
+      {/* {user.user.role === 'customer' ? <CardButton
         onClick={() => {
           setModalActive(false)
           ComponentFunction.setOfferListMoreInfo(false)
@@ -116,7 +117,7 @@ const{Translate} = useContext(TranslateContext)
                     russian:['Закрыть'],
                     english:['Close']
                   })}
-      </CardButton> : <></>}
+      </CardButton> : <></>} */}
     </VerticalContainer>
   )
 }

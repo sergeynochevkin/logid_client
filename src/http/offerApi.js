@@ -23,8 +23,8 @@ export const fetchOffers = async (orderIDs, userInfoId) => {
     return data
 }
 
-export const deleteOffer = async (id) => {
-    const { data } = await $authHost.delete('api/offer', { params: { id } })
+export const deleteOffer = async (id, role) => {
+    const { data } = await $authHost.delete('api/offer', { params: { id, role } })
     return data
 }
 

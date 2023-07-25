@@ -55,6 +55,7 @@ color:rgb(254, 111, 103,0.8);
 .previewContainer {
     max-width: 400px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap:3px;
 }
@@ -63,8 +64,17 @@ color:rgb(254, 111, 103,0.8);
     font-size: 10px;
     cursor: pointer;
 }
+.deletePreview_dark {
+    font-size: 10px;
+    cursor: pointer;
+    color: white;
+}
 
 .deletePreview:hover {
+    color: silver;
+}
+
+.deletePreview_dark:hover {
     color: silver;
 }
 

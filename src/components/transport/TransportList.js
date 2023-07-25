@@ -8,7 +8,7 @@ import NoData from '../ui/page/NoData'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 
-const TransportList = observer(() => {
+const TransportList = observer(({ setModalActive, formData, setFormData, formReset, pairs, setPairs, files, setFiles, setFormFunction, setTransportId }) => {
   const { Transport } = useContext(TransportContext)
   const { Translate } = useContext(TranslateContext)
 
@@ -20,12 +20,22 @@ const TransportList = observer(() => {
           {
             Transport.transports.map(oneTransport => <TransportItem
               key={oneTransport.id}
-              oneTransport={oneTransport}             
+              oneTransport={oneTransport}
+              setModalActive={setModalActive}
+              formData={formData}
+              setFormData={setFormData}
+              formReset={formReset}
+              pairs={pairs}
+              setPairs={setPairs}
+              files={files}
+              setFiles={setFiles}
+              setFormFunction={setFormFunction}
+              setTransportId={setTransportId}
             />)
           }
         </>
         : <NoData
-        >{SetNativeTranslate(Translate.language,{},'no_transport')}</NoData>}
+        >{SetNativeTranslate(Translate.language, {}, 'no_transport')}</NoData>}
 
     </HorizontalContainer>
   )

@@ -235,6 +235,27 @@
     padding-left: 4px;
 }
 
+.in_order_transport_image_icon {
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+}
+
+.in_order_transport_image_icon_container {
+    width: max-content;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+}
+
+.order_transport_info_icon_container {}
+
+.order_transport_info_icon {
+    height: 20px;
+    width: auto;
+    cursor: pointer;
+}
 
 
 @media screen and (max-width: 1920px) and (min-width: 769px) {}

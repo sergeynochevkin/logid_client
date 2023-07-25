@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { CardButton } from '../ui/button/CardButton'
-import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext, FetcherContext, SettingContext } from '../../index'
+import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext, FetcherContext, SettingContext, TransportContext } from '../../index'
 import { CardContainer } from '../ui/card/CardContainer'
 import { CardRow } from '../ui/card/CardRow'
 import { CardColName } from '../ui/card/CardColName'
@@ -25,11 +25,15 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import arrow_back from '../../assets/icons/arrow_back.png';
 import arrow_back_dark from '../../assets/icons/arrow_back_dark.png';
 
+import info from '../../assets/icons/info.png';
+import info_dark from '../../assets/icons/info_dark.png';
+
 
 const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { user } = useContext(UserContext)
     const [modalActive, setModalActive] = useState(false)
+    const [modalActive2, setModalActive2] = useState(false)
     const { order } = useContext(OrderContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [modalFunction, setModalFunction] = useState('')
@@ -42,6 +46,11 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     const { Translate } = useContext(TranslateContext)
     const { fetcher } = useContext(FetcherContext)
     const { Setting } = useContext(SettingContext)
+    const { Transport } = useContext(TransportContext)
+    const [transport, setTransport] = useState({})
+
+    const [images, setImages] = useState([])
+    const [image, setImage] = useState()
 
     let thisOrder
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisOrder = oneOrder : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisOrder = order.order : thisOrder = {}
@@ -54,6 +63,9 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     let thisCarrierOffer = thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id)
     let thisOrderPoints = oneOrderPoints
     let thisOrderNoPartners = oneOrderNoPartners
+
+
+
 
 
     const [fetching, error] = useFetching(async () => {
@@ -99,6 +111,23 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         }
         partnerNames = partnerNames.toString()
     }
+
+
+
+    useEffect(() => {
+        if (oneOrder.order_status === 'inWork') {
+            setTransport(Transport.transports.find(el => el.id === Transport.transport_by_order.find(el => el.orderId === oneOrder.id).transportId))
+        }
+    }, [Transport.transports, ComponentFunction.Function])
+
+    useEffect(() => {
+        if (transport && user.user.role === 'customer' && oneOrder.order_status === 'inWork') {
+            if (Transport.transport_images.find(el => el.id === transport.id)) {
+                setImages(Transport.transport_images.find(el => el.id === transport.id).urlsArray)
+                // setImage(Transport.transport_images.find(el => el.id === transport.id).urlsArray[0])               
+            }
+        }
+    }, [transport])
 
     let groups
     let for_group = order.ordersByGroup.filter(el => el.orderId === thisOrder.id)
@@ -266,8 +295,30 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     </CardRow> : <></>}
 
                     <CardRow>
+                        {/* for carrier at in work orders transport tag */}
                         <CardColName>{SetNativeTranslate(Translate.language, {}, 'transport')}</CardColName>
-                        <CardColValue>{SetNativeTranslate(Translate.language, {}, thisOrder.type)}</CardColValue>
+
+                        <CardColValue>{
+                            user.user.role === 'carrier' && thisOrder.order_status === 'inWork' ? transport.tag :
+
+
+
+                                user.user.role === 'customer' && thisOrder.order_status === 'inWork' && images.length > 0 ?
+
+                                    <div className='in_order_transport_image_icon_container'>{images.length > 0 ? images.map(image => <img src={image} className='in_order_transport_image_icon' key={image}
+                                        onClick={(event) => {
+                                            event.stopPropagation()
+                                            setImage(image)
+                                            setModalActive2(true)
+                                        }}
+                                    ></img>)
+                                        : <CardColValue>{thisOrder.type}</CardColValue>}</div>
+
+                                    : SetNativeTranslate(Translate.language, {}, thisOrder.type)
+
+
+                        }</CardColValue>
+
                     </CardRow>
                     {(thisOrder.side_type || thisOrder.load_capacity) &&
                         <CardRow>
@@ -358,6 +409,12 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         />
                         : <></>
                 }
+            </Modal>
+
+            <Modal modalActive={modalActive2} setModalActive={setModalActive2}>
+                <div className='image_modal_container'>
+                    <img src={image} className='image_modal'></img>
+                </div>
             </Modal>
         </>
 

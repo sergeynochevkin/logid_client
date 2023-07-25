@@ -1,13 +1,66 @@
-.offer_modal_buttons_container{
+.offer_modal_buttons_container {
     display: flex;
     gap: 5px;
     align-items: center;
     justify-content: center;
 }
 
-.offer_modal_container{
+.offer_modal_container {
     display: flex;
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.offer_action_icon {
+    height: auto;
+    width: 22px;
+    cursor: pointer;
+}
+
+.offer_action_icon:hover {
+    filter: brightness(0.4);
+}
+
+
+.offer_action_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.offer_images_container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.offer_image_icons_container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50px;
+}
+
+.offer_image_icon {
+    height: 30px;
+    width: auto;
+    cursor: pointer
+}
+
+.offer_image_icon:hover {
+    filter: brightness(40%);
+}
+
+.offer_large_image_container {
+    height: 200px;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+}
+
+.offer_large_image {
+    height: 200px;
+    width: auto;
 }

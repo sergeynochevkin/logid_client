@@ -1,9 +1,9 @@
 import { $authHost } from "./index";
 
-export const uploadFiles = async (option, id, language, fileList
+export const uploadFiles = async (option, id, language, action, fileList
 ) => {
     const { data } = await $authHost.postForm('api/file', {
-        option, id, language, 'files[]': fileList
+        option, id, language, action, 'files[]': fileList
     }
 
     )

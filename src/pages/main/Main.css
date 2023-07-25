@@ -233,6 +233,115 @@
 }
 
 
+.ad_transport_container{
+    width:100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(194, 194, 194, 0.822);
+    min-height: 260px;
+}
+
+.ad_transport_container.dark{
+    background-color: rgba(90, 90, 90, 0.792);
+    color: white;
+}
+
+.ad_transport_section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom:10px;   
+}
+.ad_transport_item {
+    height: 250px;
+    width: 200px;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    /* justify-content: center; */
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+
+}
+.ad_transport_item:hover {
+    transform: scale(1.05); 
+}
+
+.ad_transport_item.dark {
+    background-color: rgb(31, 31, 31, 0.5);
+    color: white;
+}
+
+
+.ad_transport_item_ad_text_container {
+    width: 80%;
+    font-size: 10px;
+    text-align: left;
+    height: 35%;
+}
+.ad_transport_item_ad_header_container {
+    width: 80%;
+    font-size: 11px;
+    text-align: center;    
+    font-weight: bold;
+}
+
+.ad_transport_item_ad_images_container {
+    margin-top: 15px;
+    height: 30%;
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+}
+
+.ad_transport_item_ad_main_image_container {}
+
+.ad_transport_item_ad_image_icons_container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ad_transport_image_icon {
+    width: auto;
+    height: 12.5px;
+    cursor: pointer;
+}
+
+.ad_transport_image_icon:hover {
+    filter: brightness(0.4);
+}
+
+.ad_transport_main_image {
+    width: auto;
+    height: 75px;
+    cursor: pointer;
+}
+
+
+.ad_transport_item_ad_text_action_container {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.ad_transport_item_contacts_container{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.how_to_add_text_container{
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 80%;
+}
 
 
 

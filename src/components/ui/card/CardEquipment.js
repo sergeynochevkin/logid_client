@@ -6,5 +6,5 @@ padding:5px 10px 5px 5px;
 font-size:10px;
 border-radius:10px;
 color:white;
-
+width: max-content;
 `

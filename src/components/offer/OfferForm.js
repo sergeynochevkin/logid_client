@@ -43,10 +43,10 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
 
     formData.time_from = useInput(thisCarrierOffer ? setTime(new Date(thisCarrierOffer.time_from), 0, 'form') : firstPoint ? setTime(new Date(firstPoint.time), 0, 'form') : '', { isEmpty: true }, SetNativeTranslate(Translate.language, {}, 'arrival_time_field_name').toLowerCase())
     formData.cost = useInput(thisCarrierOffer ? thisCarrierOffer.cost : '', { isEmpty: true, minLength: 2, maxLength: 6, validFormat: validCost }, SetNativeTranslate(Translate.language, {}, 'cost').toLowerCase())
-    formData.carrier_comment = useInput(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '', { isEmpty: true, minLength: 8, maxLength: 20 }, SetNativeTranslate(Translate.language, {}, 'comment').toLowerCase())
+    formData.carrier_comment = useInput(thisCarrierOffer ? thisCarrierOffer.carrier_comment : '', { isEmpty: true, minLength: 8, maxLength: 70 }, SetNativeTranslate(Translate.language, {}, 'comment').toLowerCase())
 
     useEffect(() => {
-        formData.transportid = thisCarrierOffer ? thisCarrierOffer.transportid : undefined
+        formData.transportid = thisCarrierOffer ? thisCarrierOffer.transportid : Transport.transports.filter(el => el.type === oneOrder.type).length === 1 ? Transport.transports.filter(el => el.type === oneOrder.type).id : undefined
     }, [])
 
     // am i need it?
@@ -219,7 +219,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                             <div className='transport_items_container'>
                                 {Transport.transports.filter(el => el.type === oneOrder.type).map(item => <TransportOfferSelectorItem key={item.id} thisTransport={item} setFormData={setFormData} formData={formData} />)}
                             </div>
-                            
+
                         </div> : <></>
                     }
 

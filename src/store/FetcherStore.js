@@ -30,6 +30,7 @@ export default class FetcherStore {
 
         //ad
         this._main_counters = false
+        this._ad_transports = false
 
         //setting
         this._user_app_setting = false
@@ -93,6 +94,9 @@ export default class FetcherStore {
     }
     setMainCounters(value) {
         this._main_counters = value
+    }
+    setAdTransports(value) {
+        this._ad_transports = value
     }
     setOrderViewed(value) {
         this._order_viewed = value
@@ -159,6 +163,9 @@ export default class FetcherStore {
     }
     get main_counters() {
         return this._main_counters
+    }
+    get ad_transports() {
+        return this._ad_transports
     }
     get order_viewed() {
         return this._order_viewed

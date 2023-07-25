@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { ComponentFunctionContext, EquipmentTypeContext, TranslateContext, TransportTypeContext, UserContext } from '../..'
 import { FormSection } from '../ui/form/FormSection'
@@ -21,12 +21,12 @@ align-items:center;
 flex-direction:column;`
 
 
-const TransportFormSection = ({ setFormData, formData, click, parent, setModalActive, formReset, setFiles, setPair, orderPattern, calculateRoute, setCalculate }) => {
+const TransportFormSection = ({ setFormData, formData, click, parent, setModalActive, formReset, setCalculate, files, formFunction, error }) => {
   const { TransportType } = useContext(TransportTypeContext)
   const { EquipmentType } = useContext(EquipmentTypeContext)
-  const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { user } = useContext(UserContext)
   const { Translate } = useContext(TranslateContext)
+  const [valid, setValid] = useState({ ad_text: false, tag: false })
 
   useEffect(() => {
     localStorage.setItem('orderFormData', JSON.stringify(formData))
@@ -69,8 +69,8 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
             name="type" id="type"
           >
             <option defaultValue hidden>{SetNativeTranslate(Translate.language, {
-              russian:['Способ доставки'],
-              english:['Shipping method']
+              russian: ['Способ доставки'],
+              english: ['Shipping method']
             },)}</option>
             {TransportType.types.map(type =>
               <option value={type.type} key={type.id}>{SetNativeTranslate(Translate.language, {}, type.type)}</option>
@@ -297,10 +297,23 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
         {parent !== 'orderForm' && parent !== 'fast_sign_up' ?
           <HorizontalContainer>
             <CardButton
-              disabled={formData.type.notValid || formData.tag.notValid || (formData.side_type.notValid && formData.type.value === 'truck') || (formData.load_capacity.notValid && (formData.type.value === 'truck' || formData.type.value === 'minibus'))}
-              onClick={click}>{SetNativeTranslate(Translate.language, {}, 'add')}</CardButton>
+              disabled={
+                formData.type.notValid ||
+                error.tag ||
+                files.length < 1 ||
+                error.ad_text
+                ||
+                (formData.side_type.notValid && formData.type.value === 'truck') ||
+                (formData.load_capacity.notValid && (formData.type.value === 'truck' ||
+                  formData.type.value === 'minibus'))
+              }
 
-              
+              onClick={click}>{SetNativeTranslate(Translate.language, {
+                russian: [`${formFunction === 'update' ? 'Сохранить' : 'Добавить'}`],
+                english: [`${formFunction === 'update' ? 'Save' : 'Add'}`]
+              })}</CardButton>
+
+
             <CardButton
               onClick={(event) => {
                 event.preventDefault()

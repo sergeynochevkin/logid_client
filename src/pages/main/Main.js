@@ -51,6 +51,7 @@ import AdminConsoleItem from './AdminConsoleItem'
 import PageLoader from '../../components/ui/loader/PageLoader '
 import { LOGIN_ROUTE } from '../../utils/consts'
 import { useNavigate } from 'react-router-dom'
+import AdTransportSection from './AdTransportSection'
 
 
 const Main = observer(() => {
@@ -125,6 +126,8 @@ const Main = observer(() => {
       handleUrlNotification()
     }
   }, [])
+
+
 
 
 
@@ -425,7 +428,10 @@ const Main = observer(() => {
               <title>{`logid`}</title>
               <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
-              {!user.isAuth &&
+              {Ad.transports.length > 0 && <AdTransportSection />}
+
+              
+
                 <div className='adv_rate_section'>
                   {role === 'customer' ?
                     <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
@@ -461,7 +467,8 @@ const Main = observer(() => {
                       english: ['Completed orders']
                     }, '')} />
                 </div>
-              }
+              
+
 
               {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
                 <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />

@@ -31,6 +31,22 @@
     color: white;
 }
 
+.custom_textarea {
+    min-width: 300px;
+    padding: 5px;
+    background-color: rgb(255, 255, 255, 0.8);
+    border: lightgrey solid 1px;
+    border-radius: 5px;  
+    font-size: 12px;
+    resize: none;
+}
+
+.custom_textarea.dark {
+    background-color: #121212;
+    border: solid 1px #2b2b2b;
+    color: white;
+}
+
 .custom_input.dark::-webkit-calendar-picker-indicator {
     filter: invert(1)
 }

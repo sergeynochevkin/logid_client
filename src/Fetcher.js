@@ -15,7 +15,7 @@ import { fetchOrderConnections, fetchOrders, setOrderViewed } from './http/order
 import { fetchTransport } from './http/transportApi'
 import { fetchUser } from './http/userAPI'
 import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers } from './http/managementApi'
-import { fetchMainCounters } from './http/adApi'
+import { fetchAdTransports, fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
 import { fetchFile } from './http/fileApi'
 
@@ -38,6 +38,58 @@ const Fetcher = observer(() => {
     const { Management } = useContext(ManagementContext)
     const { Ad } = useContext(AdContext)
     const { Setting } = useContext(SettingContext)
+
+    let fetchImages = async (transport, file) => {
+        let serverFile = await fetchFile(transport.id, 'transport', file)
+        let objectURL = await URL.createObjectURL(serverFile)
+        return (objectURL)
+    }
+
+    let imageHandler = async (transports) => {
+        for (const transport of transports) {
+            if (!Transport.transports.find(el => el.id === transport.id)) {
+                Transport.setTransports([...Transport.transports, transport])
+
+                let transportImageObject = {
+                    id: transport.id,
+                    urlsArray: []
+                }
+
+                let fileNames = JSON.parse(transport.files)
+
+                if (fileNames) {
+                    for (const file of fileNames) {
+                        let url = await fetchImages(transport, file)
+                        transportImageObject.urlsArray.push(url)
+                    }
+                }
+                Transport.setTransportImages([...Transport.transport_images, transportImageObject])
+            }
+        }
+    }
+
+    let adImageHandler = async (transports) => {
+        for (const transport of transports) {
+            if (!Ad.transports.find(el => el.id === transport.id)) {
+                Ad.setTransports([...Ad.transports, transport])
+
+                let transportImageObject = {
+                    id: transport.id,
+                    urlsArray: []
+                }
+
+                let fileNames = JSON.parse(transport.files)
+
+                if (fileNames) {
+                    for (const file of fileNames) {
+                        let url = await fetchImages(transport, file)
+                        transportImageObject.urlsArray.push(url)
+                    }
+                }
+                Ad.setTransportImages([...Ad.transport_images, transportImageObject])
+            }
+        }
+    }
 
     // server notifications
     useEffect(() => {
@@ -112,6 +164,11 @@ const Fetcher = observer(() => {
                         order.added && order.setAdded(data.added)
                     }
                     order.setDividedOrders(data.rows, order_status)
+
+                    // accumulate transport and find and accumulate images              
+                    await imageHandler(data.transport)
+                    data.total_count && Transport.setTransportByOrder(data.total_count.transport)
+
                     order.setMapOrders(data.map_rows)
                     if (data.rows.length !== 0) {
                         await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
@@ -138,6 +195,10 @@ const Fetcher = observer(() => {
                         await fetchOrderConnections(data.rows.map(el => el.id), 'partners').then(data => order.setOrdersByPartner(data))
                         await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
                             Offer.setOffers(data.rows)
+
+                            // get transport by offers accumulate and accumulate images 
+                            await imageHandler(data.transport)
+
                             Offer.setChanges(data.changes)
                             await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)
                             )
@@ -281,12 +342,6 @@ const Fetcher = observer(() => {
             await fetchTransport(UserInfo.userInfo.id).then(data =>
                 Transport.setTransports(data))
 
-            let fetchImages = async (transport, file) => {
-                let serverFile = await fetchFile(transport.id, 'transport', file)
-                let objectURL = await URL.createObjectURL(serverFile)
-                return (objectURL)
-            }
-
             let transportsImagesArray = []
 
             for (const transport of Transport.transports) {
@@ -346,6 +401,22 @@ const Fetcher = observer(() => {
         fetch()
         fetcher.setMainCounters(false)
     }, [fetcher.main_counters])
+
+    useEffect(() => {
+        async function fetch() {
+            await fetchAdTransports().then(data => {
+                Ad.setUsers(data.users)
+                adImageHandler(data.rows)
+            })
+        }
+        fetch()
+        fetcher.setAdTransports(false)
+    }, [fetcher.ad_transports])
+
+    useEffect(() => {
+        fetcher.setAdTransports(true)
+    }, [])
+
 
     //management:
     //users

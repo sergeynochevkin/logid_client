@@ -1,20 +1,21 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { v4 } from "uuid";
 import { NotificationContext, SettingContext, TranslateContext } from '../..';
 
 import './DragDropUpload.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const DragDropUpload = observer(({ parent, length, extensions, filesFormData, files, setFiles }) => {
+const DragDropUpload = observer(({ parent, length, extensions, filesFormData, files, setFiles, min_length, pairs, setPairs}) => {
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
     const { Setting } = useContext(SettingContext)
     const [drag, setDrag] = useState(false)
-    const [pairs, setPairs] = useState([])
+   
     const [errors, setErrors] = useState(
         {
             quantity: false,
+            min_quantity: true,
             type: false
         }
     )
@@ -106,10 +107,17 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
             setErrors({ ...errors, quantity: false })
         }
     }
+
+    useEffect(() => {
+        files.length >= min_length && setErrors({ ...errors, min_quantity: false })
+        files.length < min_length && setErrors({ ...errors, min_quantity: true })
+    }, [files])
+
     return (
         <div className={'dragCotainer'}>
             {drag === false ?
                 <div className={Setting.app_theme === 'light' ? 'dragZone' : 'dragZone dragZone_dark'}
+                    style={{ borderLeft: files.length < min_length ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                     onDragStart={e => dragStartHandler(e)}
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
@@ -132,6 +140,13 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                     `${SetNativeTranslate(Translate.language, {}, 'maximum')} ${length} ${SetNativeTranslate(Translate.language, {}, 'images')}` :
                     ''
                 }
+                {(errors.min_quantity === true) ?
+                    `${SetNativeTranslate(Translate.language, {
+                        russian: [`Загрузите хотя бы ${min_length} фотогрфию`],
+                        english: [`Upload at least ${min_length} photo`]
+                    })} ` :
+                    ''
+                }
             </div>
             <div className={'previewContainer'}>
                 {pairs.map(pair => <div key={pair.url} className={'imageContainer'}>
@@ -139,9 +154,9 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                         alt=''
                         style={{ width: '50px', height: 'auto' }}
                         src={pair.url}></img>
-                    <div className={'deletePreview'}
+                    <div className={Setting.app_theme === 'light' ? 'deletePreview' : 'deletePreview_dark'}
                         onClick={() => {
-                            filesFormData.delete(pair.file.name)
+                            // filesFormData.delete(pair.file.name)
                             setFiles(files.filter(el => el.name !== pair.file.name))
                             setPairs(pairs.filter(el => el.file.name !== pair.file.name))
                             if (files.length <= length) {
