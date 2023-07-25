@@ -142,7 +142,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
               }) :
               formData.ad_text.isEmpty ?
                 SetNativeTranslate(Translate.language, {
-                  russian: ['Для показа реклам заполните рекламный текст'],
+                  russian: ['Для показа рекламы заполните рекламный текст'],
                   english: ['To display ads, fill in the ad text']
                 }) :
                 ''
