@@ -10,6 +10,7 @@ import Settings from '../components/management/Settings'
 import Statistics from '../components/management/Statistics'
 import Account from '../components/management/Account'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
+import ManagementTransportComponent from '../components/management/transports/ManagementTransportComponent'
 
 const Admin = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -45,6 +46,16 @@ const Admin = observer(() => {
             russian: ['Заказы'],
             english: ['Orders']
           })}</BookMark>
+
+          <BookMark onClick={() => {
+            ComponentFunction.setPageFunction('admin_transports')
+          }} style={{
+            color: ComponentFunction.PageFunction === 'admin_transports' && 'grey',
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Транспорт'],
+            english: ['Transports']
+          })}</BookMark>
+
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('admin_statistics')
           }} style={{
@@ -79,8 +90,9 @@ const Admin = observer(() => {
             ComponentFunction.PageFunction === 'admin_statistics' ? <Statistics /> :
               ComponentFunction.PageFunction === 'admin_settings' ? <Settings /> :
                 ComponentFunction.PageFunction === 'admin_account' ? <Account /> :
-                  ComponentFunction.PageFunction === 'admin_orders' ? <Orders />
-                    : <></>
+                  ComponentFunction.PageFunction === 'admin_orders' ? <Orders /> :
+                    ComponentFunction.PageFunction === 'admin_transports' ? <ManagementTransportComponent />
+                      : <></>
       }
 
     </PageContainer>
