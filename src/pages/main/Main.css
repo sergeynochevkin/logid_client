@@ -207,7 +207,7 @@
 
 .admin_console_level_circle_value {
     font-size: 40px;
-    z-index: 2;
+    z-index: 1;
 }
 
 .admin_console_level_circle_value.dark {
@@ -217,7 +217,7 @@
 
 .admin_console_level_circle_value_comment {
     font-size: 10px;
-    z-index: 2;
+    z-index: 1;
 }
 
 .admin_console_level_circle_value_comment.dark {
@@ -381,12 +381,13 @@
 }
 
 .image_modal_container_ad_main{
-
+    z-index: 3;
 }
 
 .image_modal_ad_main{
     width: 100%;
     height: auto;
+   
 }
 
 
