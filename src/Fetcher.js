@@ -356,8 +356,6 @@ const Fetcher = observer(() => {
                     transportsImagesArray.push(transportImageObject)
                 }
             }
-
-
             Transport.setTransportImages(transportsImagesArray)
         }
 
@@ -419,7 +417,7 @@ const Fetcher = observer(() => {
         setInterval(() => {
             fetcher.setAdTransports(true)
         }, 60000)
-        
+
     }, [])
 
 
@@ -449,8 +447,26 @@ const Fetcher = observer(() => {
     useEffect(() => {
         async function fetch() {
             await fetchManagementTransports().then(data => {
-                data && Management.setTransports(data)
+                data && Management.setTransports(data);
             })
+
+            let transportsImagesArray = []
+            for (const transport of Management.transports) {
+                let transportImageObject = {
+                    id: transport.id,
+                    urlsArray: []
+                }
+                let fileNames = JSON.parse(transport.files)
+
+                if (fileNames) {
+                    for (const file of fileNames) {
+                        let url = await fetchImages(transport, file)
+                        transportImageObject.urlsArray.push(url)
+                    }
+                    transportsImagesArray.push(transportImageObject)
+                }
+            }
+            Management.setTransportImages(transportsImagesArray)
         }
         fetch()
         fetcher.setManagementTransports(false)
