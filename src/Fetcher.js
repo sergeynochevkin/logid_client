@@ -109,7 +109,6 @@ const Fetcher = observer(() => {
         setInterval(() => {
             fetcher.setServerNotifications(true)
         }, 10000)
-        clearInterval()
     }, [])
 
     useEffect(() => {
@@ -265,11 +264,9 @@ const Fetcher = observer(() => {
             setInterval(() => {
                 fetcher.setOrdersNew(true)
             }, 10000);
-            clearInterval()
             setInterval(() => {
                 fetcher.setOrdersInWork(true)
             }, 60000);
-            clearInterval()
         }
     }, [])
 
@@ -418,6 +415,14 @@ const Fetcher = observer(() => {
     }, [])
 
 
+    useEffect(() => {
+        setInterval(() => {
+            fetcher.setAdTransports(true)
+        }, 60000)
+        
+    }, [])
+
+
     //management:
     //users
     useEffect(() => {
@@ -459,7 +464,6 @@ const Fetcher = observer(() => {
                 fetcher.setManagementOrders(true)
                 fetcher.setManagementTransports(true)
             }, 60000);
-            clearInterval()
         }
     }, [])
     //settings
