@@ -66,12 +66,6 @@ const PreLoader = observer(({ children, ...props }) => {
             });
     };
 
-
-    useEffect(() => {
-        fetcher.setAdTransports(true)
-    }, [])
-
-
     useEffect(() => {
         localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
         if (!localStorage.getItem('cookies_accepted')) {
