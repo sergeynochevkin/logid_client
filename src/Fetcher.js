@@ -68,6 +68,31 @@ const Fetcher = observer(() => {
         }
     }
 
+    let adImageHandler = async (transports) => {
+        let imagesArray = []
+
+        for (const transport of transports) {
+            if (!Ad.transports.find(el => el.id === transport.id)) {
+                Ad.setTransports([...Ad.transports, transport])
+
+                let transportImageObject = {
+                    id: transport.id,
+                    urlsArray: []
+                }
+
+                let fileNames = JSON.parse(transport.files)
+
+                if (fileNames) {
+                    for (const file of fileNames) {
+                        let url = await fetchImages(transport, file)
+                        transportImageObject.urlsArray.push(url)
+                    }
+                }
+                Ad.setTransportImages([...Ad.transport_images, transportImageObject])
+            }
+        }
+    }
+
     // server notifications
     useEffect(() => {
         if (UserInfo && Object.keys(UserInfo.userInfo).length > 0) {
@@ -378,27 +403,8 @@ const Fetcher = observer(() => {
         async function fetch() {
             await fetchAdTransports().then(data => {
                 Ad.setUsers(data.users)
-                Ad.setTransports(data.rows)
-
+                adImageHandler(data.rows)
             })
-            let transportsImagesArray = []
-
-            for (const transport of Ad.transports) {
-                let transportImageObject = {
-                    id: transport.id,
-                    urlsArray: []
-                }
-                let fileNames = JSON.parse(transport.files)
-
-                if (fileNames) {
-                    for (const file of fileNames) {
-                        let url = await fetchImages(transport, file)
-                        transportImageObject.urlsArray.push(url)
-                    }
-                    transportsImagesArray.push(transportImageObject)
-                }
-            }
-            Ad.setTransportImages(transportsImagesArray)
         }
         fetch()
         fetcher.setAdTransports(false)
