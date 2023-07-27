@@ -408,10 +408,7 @@ const Fetcher = observer(() => {
         fetcher.setAdTransports(false)
     }, [fetcher.ad_transports])
 
-    useEffect(() => {
-        fetcher.setAdTransports(true)
-    }, [])
-
+   
 
     useEffect(() => {
         setInterval(() => {
