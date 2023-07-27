@@ -171,12 +171,15 @@
     padding: 5px;
     border-radius: 5px;
 }
+.management_transport_item.activated{
+    cursor: pointer;
+}
 
-.management_transport_item:hover{
+.management_transport_item:hover {
     filter: brightness(0.8);
 }
 
-.management_transport_item.ad_text{
+.management_transport_item.ad_text {
     max-width: 300px;
     white-space: pre-wrap;
 }
@@ -192,8 +195,23 @@
     cursor: pointer;
 }
 
-.management_transport_image_icon:hover{
+.management_transport_image_icon:hover {
     filter: brightness(0.8);
+}
+
+.management_transport_icon_container {
+    display: flex;
+    align-items: center;
+}
+
+.management_transport_icon {
+    height: 20px;
+    width: auto;
+    cursor: pointer;
+}
+
+.management_transport_icon:hover {
+  background-color: grey;
 }
 
 

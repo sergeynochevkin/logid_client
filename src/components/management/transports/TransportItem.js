@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
-import { ManagementContext } from '../../..'
+import { ManagementContext, SettingContext } from '../../..'
 import { useState } from 'react'
 import Modal from '../../ui/modal/Modal'
 
@@ -8,6 +8,7 @@ const TransportItem = observer(({ transport }) => {
     const [images, setImages] = useState([])
     const [image, setImage] = useState('')
     const [modalActive1, setModalActive1] = useState(false)
+    const { Setting } = useContext(SettingContext)
 
 
     const { Management } = useContext(ManagementContext)
@@ -21,8 +22,13 @@ const TransportItem = observer(({ transport }) => {
         }
     }, [Management.transport_images])
 
+    const setModerated = () => {
+
+    }
+
     return (
         <div className='management_transport_row'>
+
             <div className='management_transport_item'>{transport.id}</div>
             <div className='management_transport_item'>{transport.userInfoId}</div>
             <div className='management_transport_item'>{transport.tag}</div>
@@ -31,7 +37,7 @@ const TransportItem = observer(({ transport }) => {
             {transport.load_capacity && <div className='management_transport_item'>{transport.load_capacity}</div>}
             {transport.ad_text && <div className='management_transport_item ad_text'>{transport.ad_text}</div>}
             <div className='management_transport_item'>{transport.ad_show ? 'ad on' : 'ad off'}</div>
-            <div className='management_transport_item'>{transport.moderated ? 'moderated' : 'not moderated'}</div>
+            <div className='management_transport_item activated'>{transport.moderated ? 'moderated' : 'not moderated'}</div>         
             {transport.thermo_bag === true && <div className='management_transport_item'>thermo bag</div>}
             {transport.refrigerator_minus === true && <div className='management_transport_item'>refrigerator minus</div>}
             {transport.refrigerator_plus === true && <div className='management_transport_item'>refrigerator_plus</div>}

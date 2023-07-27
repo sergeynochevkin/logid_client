@@ -36,7 +36,7 @@ const AdTransportSection = observer(() => {
   useEffect(() => {
     setTimeout(() => {
       transportAdSelect(width < 500 ? 4 : 6, 0)
-    }, 500)
+    }, 1000)
     setInterval(() => {
       transportAdSelect(width < 500 ? 4 : 6, 0)
     }, 10000)
