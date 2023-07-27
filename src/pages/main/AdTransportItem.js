@@ -37,7 +37,7 @@ const AdTransportItem = observer(({ transport, transports }) => {
             </div>
         </Modal>
 
-        <div className={`ad_transport_item ${Setting.app_theme}`} >
+        {images.length > 0 && <div className={`ad_transport_item ${Setting.app_theme}`} >
             <div className='ad_transport_item_ad_images_container'>
                 <div className='ad_transport_item_ad_main_image_container'>
                     <img className='ad_transport_main_image' src={mainImage}
@@ -82,7 +82,7 @@ const AdTransportItem = observer(({ transport, transports }) => {
                 })}</div>
             </div>
 
-        </div>
+        </div>}
     </>
     )
 })
