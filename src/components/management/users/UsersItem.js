@@ -21,7 +21,7 @@ import UsersItemActionModalContent from './UsersItemActionModalContent'
 
 
 
-const UsersItem = observer(({ oneUser, selected, setSelected, initialValue,  actionIcons, setActionIcons, modalActive, setModalActive, action, setAction, setGroup, formData, setFormData }) => {
+const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, actionIcons, setActionIcons, modalActive, setModalActive, action, setAction, setGroup, formData, setFormData }) => {
     const { Setting } = useContext(SettingContext)
     const [actionMenuActive, setActionMenuActive] = useState(false)
     const { Translate } = useContext(TranslateContext)
@@ -44,12 +44,12 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue,  act
                     if (!formData.members.includes(oneUser.id)) {
                         let data = [...formData.members]
                         data.push(oneUser.id)
-                        setFormData({ ...formData, members: [...data] })                       
+                        setFormData({ ...formData, members: [...data] })
                     }
                     if (formData.members.includes(oneUser.id)) {
                         let data = [...formData.members.filter(el => el !== oneUser.id)]
                         setFormData({ ...formData, members: [...data] })
-                    }                   
+                    }
                 }}
             >
                 <div className={`users_item_properties_container ${Setting.app_theme}`}>
@@ -58,7 +58,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue,  act
                     <div className='users_item_property'>{SetNativeTranslate(Translate.language, '', oneUser.user_info.country)}</div>
                     <div className='users_item_property'>{oneUser.user_info.city}</div>
                     <div className='users_item_property'>{oneUser.transports.length}</div>
-                    <div className='users_item_property'>{!oneUser.user_info && 'No profile!' }</div>
+                    <div className='users_item_property'>{!Object.keys(oneUser.user_info).length === 0 && 'No profile!'}</div>
                 </div>
                 <div className='management_more_icon_container'>
                     <img
@@ -66,13 +66,13 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue,  act
                             event.stopPropagation()
                             if (actionMenuActive) {
                                 setActionMenuActive(false)
-                                setFormData( initialValue )
+                                setFormData(initialValue)
                                 setIsComponentVisible(false)
                                 console.log(formData.members)
                             }
                             if (!actionMenuActive) {
                                 setActionMenuActive(true)
-                                setFormData( initialValue )
+                                setFormData(initialValue)
                                 setFormData({ ...formData, members: [oneUser.id] })
                                 setIsComponentVisible(true)
                                 console.log(formData.members)
@@ -80,7 +80,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue,  act
                         }}
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
                     {actionMenuActive && isComponentVisible ?
-                        <UsersItemActionMenu formData={formData} setFormData={setFormData} oneUser={oneUser} setActionMenuActive={setActionMenuActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} modalActive={modalActive} setModalActive={setModalActive} setGroup={setGroup}  /> : <></>
+                        <UsersItemActionMenu formData={formData} setFormData={setFormData} oneUser={oneUser} setActionMenuActive={setActionMenuActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} modalActive={modalActive} setModalActive={setModalActive} setGroup={setGroup} /> : <></>
                     }
                 </div>
             </div>
