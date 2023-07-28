@@ -55,8 +55,6 @@ const UsersList = observer(() => {
         setModalActive(true)
     }
 
-console.log(JSON.stringify(Management.users));
-
     const [searchActive, setSearchActive] = useState(false)
 
     return (
