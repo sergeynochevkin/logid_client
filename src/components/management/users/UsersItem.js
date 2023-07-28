@@ -58,7 +58,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                     <div className='management_item'>{SetNativeTranslate(Translate.language, '', oneUser.user_info.country)}</div>
                     <div className='management_item'>{oneUser.user_info.city}</div>
                     <div className='management_item'>{`Transports ${oneUser.transports.length}`}</div>
-                    {Object.keys(oneUser.user_info).length === 0 ? <div className='management_item'> 'No profile!' </div> : <></>}
+                    {Object.keys(oneUser.user_info).length === 0 ? <div className='management_item'> No profile! </div> : <></>}
                 </div>
                 <div className='management_more_icon_container'>
                     <img
