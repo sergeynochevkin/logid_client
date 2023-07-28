@@ -28,3 +28,10 @@ export const sendManagementNotification = async (
     return data
 }
 
+
+export const updateField = async (option, field, new_value, id) => {
+    const { data } = await $authHost.put('api/management', {
+        option, field, new_value, id
+    })
+    return data
+}

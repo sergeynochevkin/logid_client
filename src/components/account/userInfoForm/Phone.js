@@ -17,7 +17,7 @@ const Phone =  ({ formData, setFormData }) => {
             <Input placeholder={SetNativeTranslate(Translate.language,{},'phone_place_holder')} value={formData.phone.value}
                 onChange={(e) => formData.phone.onChange(e)}
                 onBlur={e => formData.phone.onBlur(e)}
-                type="text" name="phone" id='phone'
+                type="text" name="phone" 
                 style={{ borderLeft: formData.phone.notValid || formData.phone.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
             ></Input>
             <FieldName

@@ -173,10 +173,12 @@
 }
 .management_transport_item.activated{
     cursor: pointer;
+    box-shadow: 0px 2.5px 5px 0px rgba(127, 127, 127, 0.5)
 }
 
 .management_transport_item:hover {
     filter: brightness(0.8);
+    box-shadow: none
 }
 
 .management_transport_item.ad_text {

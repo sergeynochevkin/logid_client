@@ -1,20 +1,20 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect } from 'react'
-import { ManagementContext, SettingContext } from '../../..'
+import { FetcherContext, ManagementContext, NotificationContext, SettingContext } from '../../..'
 import { useState } from 'react'
 import Modal from '../../ui/modal/Modal'
+import { updateField } from '../../../http/managementApi'
+import { v4 } from "uuid";
 
 const TransportItem = observer(({ transport }) => {
     const [images, setImages] = useState([])
     const [image, setImage] = useState('')
     const [modalActive1, setModalActive1] = useState(false)
     const { Setting } = useContext(SettingContext)
-
+    const { fetcher } = useContext(FetcherContext)
+    const { Notification } = useContext(NotificationContext)
 
     const { Management } = useContext(ManagementContext)
-
-
-    console.log(JSON.stringify(Management.transport_images));
 
     useEffect(() => {
         if (Management.transport_images.find(el => el.id === transport.id)) {
@@ -22,8 +22,13 @@ const TransportItem = observer(({ transport }) => {
         }
     }, [Management.transport_images])
 
-    const setModerated = () => {
-
+    const managementAction = async (option, field, new_value, id) => {
+          try {
+            await updateField(option, field, new_value, id).then(data => Notification.addNotification([{ id: v4(), type: new_value === true ? 'success' : 'error', message: data }]))
+            fetcher.setManagementTransports(true)
+        } catch (e) {
+            Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+        }
     }
 
     return (
@@ -37,7 +42,11 @@ const TransportItem = observer(({ transport }) => {
             {transport.load_capacity && <div className='management_transport_item'>{transport.load_capacity}</div>}
             {transport.ad_text && <div className='management_transport_item ad_text'>{transport.ad_text}</div>}
             <div className='management_transport_item'>{transport.ad_show ? 'ad on' : 'ad off'}</div>
-            <div className='management_transport_item activated'>{transport.moderated ? 'moderated' : 'not moderated'}</div>         
+            <div className='management_transport_item activated'
+                onClick={() => {
+                    managementAction('transport', 'moderated', transport.moderated ? false : true, transport.id)
+                }}
+            >{transport.moderated ? 'moderated' : 'not moderated'}</div>
             {transport.thermo_bag === true && <div className='management_transport_item'>thermo bag</div>}
             {transport.refrigerator_minus === true && <div className='management_transport_item'>refrigerator minus</div>}
             {transport.refrigerator_plus === true && <div className='management_transport_item'>refrigerator_plus</div>}
