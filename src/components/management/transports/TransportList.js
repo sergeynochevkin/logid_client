@@ -19,7 +19,7 @@ const TransportList = observer(() => {
 
 
     return (
-        <div className='management_transport_container'>
+        <div className='management_container'>
             {Management.transports.slice().sort(sortTransport).map(transport => <TransportItem key={transport.id} transport={transport} />)}
         </div>
     )

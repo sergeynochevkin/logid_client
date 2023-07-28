@@ -39,7 +39,7 @@ const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActio
 
     return (
         <>
-            <div className='users_item_action_menu' ref={ref}>
+            <div className='item_action_menu' ref={ref}>
                 <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'
                     onClick={(event) => {
                         event.stopPropagation()

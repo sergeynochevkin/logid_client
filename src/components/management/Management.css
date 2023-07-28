@@ -21,53 +21,13 @@
     height: 20px;
 }
 
-.users_item_container {
-    background-color: rgb(105, 105, 105, 0.5);
-    border-radius: 5px;
-    width: 380px;
-    height: 70px;
-
-    display: flex;
-    gap: 5px;
-    padding: 5px;
-    align-items: center;
-    cursor: pointer;
-}
-
-.users_item_properties_container {
-    width: 370px;
-    min-height: 50px;
-    display: flex;
-    gap: 5px;
-    padding: 5px;
-    height: 100%;
-}
-
-.users_item_properties_container.dark {
-    color: white;
-    background-color: unset;
-}
-
-.users_list_container {
-    margin-top: 10px;
-    gap: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.users_item_property {
-    font-size: 12px;
-}
-
 .management_more_icon {
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: auto;
     cursor: pointer;
     position: relative;
-    bottom: 15px;
-    right: 25px;
+    bottom: 28px;
+    right: 0px;
 }
 
 .management_more_icon:hover {
@@ -79,7 +39,7 @@
     filter: invert(30%);
 }
 
-.users_item_action_menu {
+.item_action_menu {
     width: max-content;
     height: 40px;
     padding-top: 10px;
@@ -87,8 +47,8 @@
     border-radius: 5px;
     background-color: rgb(105, 105, 105, 0.5);
     position: relative;
-    bottom: 67px;
-    right: 155px;
+    bottom: 70px;
+    right: -20px;
     padding-left: 10px;
     padding-right: 10px;
 
@@ -116,7 +76,7 @@
     background: transparent;
 }
 
-.users_action_menu_modal_container {
+.management_action_menu_modal_container {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -124,19 +84,19 @@
     justify-content: center;
 }
 
-.users_action_menu_modal_container.dark {
+.management_action_menu_modal_container.dark {
     color: white;
     background: transparent;
 }
 
-.users_action_menu_modal_buttons_container {
+.management_action_menu_modal_buttons_container {
     display: flex;
     width: 100%;
     justify-content: space-between;
     gap: 5px;
 }
 
-.users_action_menu_header {
+.management_action_menu_header {
     font-size: 12px;
     max-width: 300px;
     text-align: center;
@@ -153,72 +113,99 @@
     gap: 5px;
 }
 
-.management_transport_container {
+.management_container {
     display: flex;
     flex-direction: column;
     gap: 5px;
     margin-bottom: 20px;
 }
 
-.management_transport_row {
+.management_row {
     display: flex;
     gap: 5px;
     font-size: 10px;
+    flex-wrap: wrap;
+    box-shadow: 0px 2.5px 5px 0px rgba(127, 127, 127, 0.5);
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 5px 5px 5px 20px;
 }
 
-.management_transport_item {
+.management_item {
     background-color: darkgray;
     padding: 5px;
     border-radius: 5px;
 }
-.management_transport_item.activated{
+
+.management_item.activated {
     cursor: pointer;
     box-shadow: 0px 2.5px 5px 0px rgba(127, 127, 127, 0.5)
 }
 
-.management_transport_item:hover {
+.management_item:hover {
     filter: brightness(0.8);
     box-shadow: none
 }
 
-.management_transport_item.ad_text {
+.management_item.ad_text {
     max-width: 300px;
     white-space: pre-wrap;
 }
 
-.management_transport_images_container {
+.management_images_container {
     display: flex;
     gap: 3px;
 }
 
-.management_transport_image_icon {
+.management_image_icon {
     height: 25px;
     width: auto;
     cursor: pointer;
 }
 
-.management_transport_image_icon:hover {
+.management_image_icon:hover {
     filter: brightness(0.8);
 }
 
-.management_transport_icon_container {
+.management_icon_container {
     display: flex;
     align-items: center;
 }
 
-.management_transport_icon {
+.management_icon {
     height: 20px;
     width: auto;
     cursor: pointer;
 }
 
-.management_transport_icon:hover {
-  background-color: grey;
+.management_icon:hover {
+    background-color: grey;
 }
 
 
 @media screen and (max-width: 425px) {
-    .users_action_menu_modal_container {
+    .management_action_menu_modal_container {
         width: 100vw;
+    }
+
+    .management_row {
+        max-width: 170px;
+    }
+
+    .management_container {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .management_more_icon {
+        bottom: 87px;
+        right: 0px;
+    }
+
+    .item_action_menu {
+        bottom: 130px;
+        right: -20px;       
     }
 }

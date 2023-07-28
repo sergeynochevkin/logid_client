@@ -16,7 +16,7 @@ const UsersItemActionModalContent = observer(({ action, setAction, actionIcons, 
     }
 
     return (
-        <div className={`users_action_menu_modal_container ${Setting.app_theme}`}>
+        <div className={`management_action_menu_modal_container ${Setting.app_theme}`}>
             {formData.members.length === 1 ?
                 <div className='users_action_menu_header'>{
                     action === 'mail' ? SetNativeTranslate(Translate.language, {
@@ -29,7 +29,7 @@ const UsersItemActionModalContent = observer(({ action, setAction, actionIcons, 
                         })
                 }</div>
                 :
-                <div className='users_action_menu_header'>{
+                <div className='management_action_menu_header'>{
                     action === 'mail' ? SetNativeTranslate(Translate.language, {
                         russian: ['Отправка email пользователям', Management.users.filter(el => formData.members.includes(el.id)).map(el => el.email).join(', ')],
                         english: ['Sending an email to users', Management.users.filter(el => formData.members.includes(el.id)).map(el => el.email).join(', ')]
@@ -90,7 +90,7 @@ const UsersItemActionModalContent = observer(({ action, setAction, actionIcons, 
 
                 : <></>}
 
-            <div className='users_action_menu_modal_buttons_container'>
+            <div className='management_action_menu_modal_buttons_container'>
                 <img className='management_sync_icon' src={actionIcons.one}
                     onClick={() => {
                         setModalActive(false)

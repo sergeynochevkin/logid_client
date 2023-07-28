@@ -32,30 +32,30 @@ const TransportItem = observer(({ transport }) => {
     }
 
     return (
-        <div className='management_transport_row'>
+        <div className='management_row'>
 
-            <div className='management_transport_item'>{transport.id}</div>
-            <div className='management_transport_item'>{transport.userInfoId}</div>
-            <div className='management_transport_item'>{transport.tag}</div>
-            <div className='management_transport_item'>{transport.type}</div>
-            {transport.side_type && <div className='management_transport_item'>{transport.side_type}</div>}
-            {transport.load_capacity && <div className='management_transport_item'>{transport.load_capacity}</div>}
-            {transport.ad_text && <div className='management_transport_item ad_text'>{transport.ad_text}</div>}
-            <div className='management_transport_item'>{transport.ad_show ? 'ad on' : 'ad off'}</div>
-            <div className='management_transport_item activated'
+            <div className='management_item'>{transport.id}</div>
+            <div className='management_item'>{transport.userInfoId}</div>
+            <div className='management_item'>{transport.tag}</div>
+            <div className='management_item'>{transport.type}</div>
+            {transport.side_type && <div className='management_item'>{transport.side_type}</div>}
+            {transport.load_capacity && <div className='management_item'>{transport.load_capacity}</div>}
+            {transport.ad_text && <div className='management_item ad_text'>{transport.ad_text}</div>}
+            <div className='management_item'>{transport.ad_show ? 'ad on' : 'ad off'}</div>
+            <div className='management_item activated'
                 onClick={() => {
                     managementAction('transport', 'moderated', transport.moderated ? false : true, transport.id)
                 }}
             >{transport.moderated ? 'moderated' : 'not moderated'}</div>
-            {transport.thermo_bag === true && <div className='management_transport_item'>thermo bag</div>}
-            {transport.refrigerator_minus === true && <div className='management_transport_item'>refrigerator minus</div>}
-            {transport.refrigerator_plus === true && <div className='management_transport_item'>refrigerator_plus</div>}
-            {transport.hydraulic_platform === true && <div className='management_transport_item'>hydraulic platform</div>}
-            {transport.side_loading === true && <div className='management_transport_item'>side loading</div>}
-            {transport.glass_stand === true && <div className='management_transport_item'>glass stand</div>}
-            <div className='management_transport_images_container'>
+            {transport.thermo_bag === true && <div className='management_item'>thermo bag</div>}
+            {transport.refrigerator_minus === true && <div className='management_item'>refrigerator minus</div>}
+            {transport.refrigerator_plus === true && <div className='management_item'>refrigerator_plus</div>}
+            {transport.hydraulic_platform === true && <div className='management_item'>hydraulic platform</div>}
+            {transport.side_loading === true && <div className='management_item'>side loading</div>}
+            {transport.glass_stand === true && <div className='management_item'>glass stand</div>}
+            <div className='management_images_container'>
 
-                {images.length > 0 ? images.map(image => <img src={image} className='management_transport_image_icon' key={image}
+                {images.length > 0 ? images.map(image => <img src={image} className='management_image_icon' key={image}
                     onClick={() => {
                         setModalActive1(true);
                         setImage(image)

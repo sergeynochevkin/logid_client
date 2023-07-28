@@ -38,7 +38,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
 
     return (
         <>
-            <div className='users_item_container'
+            <div
                 style={{ boxShadow: !formData.members.includes(oneUser.id) ? '' : `${Setting.app_theme === 'light' ? '0px 2.5px 5px 0px rgba(0, 0, 0, 0.5)' : '0px 2.5px 5px 0px rgba(255, 255, 255, 0.5)'}` }}
                 onClick={() => {
                     if (!formData.members.includes(oneUser.id)) {
@@ -52,13 +52,13 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                     }
                 }}
             >
-                <div className={`users_item_properties_container ${Setting.app_theme}`}>
-                    <div className='users_item_property'>{oneUser.email}</div>
-                    <div className='users_item_property'>{SetNativeTranslate(Translate.language, '', oneUser.role)}</div>
-                    <div className='users_item_property'>{SetNativeTranslate(Translate.language, '', oneUser.user_info.country)}</div>
-                    <div className='users_item_property'>{oneUser.user_info.city}</div>
-                    <div className='users_item_property'>{oneUser.transports.length}</div>
-                    <div className='users_item_property'>{Object.keys(oneUser.user_info).length === 0 ?  'No profile!' : ''}</div>
+                <div className={`management_row ${Setting.app_theme}`}>
+                    <div className='management_item'>{oneUser.email}</div>
+                    <div className='management_item'>{SetNativeTranslate(Translate.language, '', oneUser.role)}</div>
+                    <div className='management_item'>{SetNativeTranslate(Translate.language, '', oneUser.user_info.country)}</div>
+                    <div className='management_item'>{oneUser.user_info.city}</div>
+                    <div className='management_item'>{`Transports ${oneUser.transports.length}`}</div>
+                    {Object.keys(oneUser.user_info).length === 0 ? <div className='management_item'> 'No profile!' </div> : <></>}
                 </div>
                 <div className='management_more_icon_container'>
                     <img
