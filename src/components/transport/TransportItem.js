@@ -42,7 +42,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
 
 
   const editClick = async () => {
-    setFormFunction('update')
+    setFormFunction(oneTransport.from_fast ? 'update_from_fast' : 'update')
     setTransportId(oneTransport.id)
 
     formData.type.setValue(oneTransport.type)

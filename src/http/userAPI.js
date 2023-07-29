@@ -28,6 +28,8 @@ export const fast_registration = async (
     side_type,
     type,
 
+    from_fast,
+
     thermo_bag,
     hydraulic_platform,
     side_loading,
@@ -58,6 +60,8 @@ export const fast_registration = async (
         load_capacity,
         side_type,
         type,
+
+        from_fast,
 
         thermo_bag,
         hydraulic_platform,

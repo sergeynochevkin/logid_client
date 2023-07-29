@@ -78,6 +78,8 @@ const FastSignUp = observer(() => {
                 formData.side_type.value,
                 formData.type.value,
 
+                formData.from_fast,
+
                 formData.thermo_bag,
                 formData.hydraulic_platform,
                 formData.side_loading,
@@ -85,7 +87,8 @@ const FastSignUp = observer(() => {
                 formData.refrigerator_minus,
                 formData.refrigerator_plus,
                 formData.thermo_van,
-                formData.tag
+                formData.tag,
+                
 
 
             )
@@ -151,6 +154,7 @@ const FastSignUp = observer(() => {
         passport_date_of_issue: '',
         passport_issued_by: '',
         email: '',
+        from_fast: true,
 
         //transport
         thermo_bag: false,
