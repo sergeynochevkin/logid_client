@@ -7,4 +7,5 @@ font-size:10px;
 border-radius:10px;
 color:white;
 max-width: 200px;
+width:max-content;
 `
