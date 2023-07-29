@@ -50,7 +50,7 @@ const TransportItem = observer(({ transport, formData, setFormData, initialValue
                 {transport.ad_text && <div className='management_item ad_text'>{transport.ad_text}</div>}
                 <div className='management_item'>{transport.ad_show ? 'ad on' : 'ad off'}</div>
                 <div className='management_item'>{transport.moderated}</div>
-                {transport.moderation_comment !== '' && <div className='management_item'>{transport.moderation_comment}</div>}
+                {transport.moderation_comment === '' || !transport.moderation_comment ? <></> : <div className='management_item'>{transport.moderation_comment}</div>}
                 {transport.thermo_bag === true && <div className='management_item'>thermo bag</div>}
                 {transport.refrigerator_minus === true && <div className='management_item'>refrigerator minus</div>}
                 {transport.refrigerator_plus === true && <div className='management_item'>refrigerator_plus</div>}
