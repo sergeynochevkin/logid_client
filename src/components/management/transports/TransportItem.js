@@ -5,18 +5,21 @@ import { useState } from 'react'
 import Modal from '../../ui/modal/Modal'
 import { updateField } from '../../../http/managementApi'
 import { v4 } from "uuid";
-import more from '../../../assets/icons/more.png'
-import more_dark from '../../../assets/icons/more_dark.png'
+import ManagementActionMenu from '../ActionMenu/ManagementActionMenu'
+import useComponentVisible from '../../../hooks/useComponentVisible'
+import UsersItemActionMenu from '../users/UsersItemActionMenu'
+import ManagementActionMenuComponent from '../ActionMenu/ManagementActionMenuComponent'
 
-const TransportItem = observer(({ transport }) => {
+const TransportItem = observer(({ transport, formData, setFormData, initialValue, setModalActive, setActionIcons, setAction, actionIcons }) => {
     const [images, setImages] = useState([])
     const [image, setImage] = useState('')
     const [modalActive1, setModalActive1] = useState(false)
-    const { Setting } = useContext(SettingContext)
     const { fetcher } = useContext(FetcherContext)
     const { Notification } = useContext(NotificationContext)
 
     const { Management } = useContext(ManagementContext)
+
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
     useEffect(() => {
         if (Management.transport_images.find(el => el.id === transport.id)) {
@@ -33,6 +36,8 @@ const TransportItem = observer(({ transport }) => {
         }
     }
 
+
+
     return (
         <div>
             <div className='management_row'>
@@ -44,11 +49,7 @@ const TransportItem = observer(({ transport }) => {
                 {transport.load_capacity && <div className='management_item'>{transport.load_capacity}</div>}
                 {transport.ad_text && <div className='management_item ad_text'>{transport.ad_text}</div>}
                 <div className='management_item'>{transport.ad_show ? 'ad on' : 'ad off'}</div>
-                <div className='management_item activated'
-                    onClick={() => {
-                        managementAction('transport', 'moderated', transport.moderated ? false : true, transport.id)
-                    }}
-                >{transport.moderated ? 'moderated' : 'not moderated'}</div>
+                <div className='management_item'>{transport.moderated}</div>
                 {transport.thermo_bag === true && <div className='management_item'>thermo bag</div>}
                 {transport.refrigerator_minus === true && <div className='management_item'>refrigerator minus</div>}
                 {transport.refrigerator_plus === true && <div className='management_item'>refrigerator_plus</div>}
@@ -70,13 +71,13 @@ const TransportItem = observer(({ transport }) => {
                     </div>
                 </Modal>
             </div>
-            <div className='management_more_icon_container'>
-                <img
-                    className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
-                {/* {actionMenuActive && isComponentVisible ?
-                        <UsersItemActionMenu formData={formData} setFormData={setFormData} oneUser={oneUser} setActionMenuActive={setActionMenuActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} modalActive={modalActive} setModalActive={setModalActive} setGroup={setGroup} /> : <></>
-                    } */}
-            </div>
+
+            {/* action menu */}
+            <ManagementActionMenuComponent setFormData={setFormData} formData={formData} initialValue={initialValue} setModalActive={setModalActive}
+                setActionIcons={setActionIcons} setAction={setAction} actionIcons={actionIcons} item={transport}
+            />
+            {/* action menu */}
+
         </div>
     )
 })

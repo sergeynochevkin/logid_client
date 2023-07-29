@@ -68,14 +68,12 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                                 setActionMenuActive(false)
                                 setFormData(initialValue)
                                 setIsComponentVisible(false)
-                                console.log(formData.members)
                             }
                             if (!actionMenuActive) {
                                 setActionMenuActive(true)
                                 setFormData(initialValue)
                                 setFormData({ ...formData, members: [oneUser.id] })
                                 setIsComponentVisible(true)
-                                console.log(formData.members)
                             }
                         }}
                         className='management_more_icon' src={Setting.app_theme === 'light' ? more : more_dark} />
