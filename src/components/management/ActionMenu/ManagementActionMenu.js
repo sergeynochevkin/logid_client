@@ -32,10 +32,10 @@ const ManagementActionMenu = observer(({ formData, setFormData, setModalActive, 
 
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
-  const buttonAction = (action, iconOne, iconTwo) => {
+  const buttonAction = (action) => {
     setFormData({ ...formData, type: action })
+    setFormData({ ...formData, id: item.id })
     setActionMenuActive(false)
-    setActionIcons({ ...actionIcons, one: iconOne, two: iconTwo })
     setAction(action)
     setModalActive(true)
   }
@@ -47,11 +47,11 @@ const ManagementActionMenu = observer(({ formData, setFormData, setModalActive, 
 
         {
           <img src={Setting.app_theme === 'light' ? moderated : moderated_dark} className='management_sync_icon' alt='mail'
-          onClick={(event) => {
-            event.stopPropagation()
-            buttonAction('transport_moderation', Setting.app_theme === 'light' ? arrow_back : arrow_back_dark, Setting.app_theme === 'light' ? send : send_dark)
-          }}
-        ></img>
+            onClick={(event) => {
+              event.stopPropagation()
+              buttonAction('transport_moderation')
+            }}
+          ></img>
         }
 
       </div>

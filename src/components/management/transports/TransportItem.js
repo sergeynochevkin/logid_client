@@ -10,7 +10,7 @@ import useComponentVisible from '../../../hooks/useComponentVisible'
 import UsersItemActionMenu from '../users/UsersItemActionMenu'
 import ManagementActionMenuComponent from '../ActionMenu/ManagementActionMenuComponent'
 
-const TransportItem = observer(({ transport, formData, setFormData, initialValue, setModalActive, setActionIcons, setAction, actionIcons }) => {
+const TransportItem = observer(({ transport, formData, setFormData, initialValue, setModalActive, setActionIcons, setAction, actionIcons, setCurrentStatus }) => {
     const [images, setImages] = useState([])
     const [image, setImage] = useState('')
     const [modalActive1, setModalActive1] = useState(false)
@@ -50,6 +50,7 @@ const TransportItem = observer(({ transport, formData, setFormData, initialValue
                 {transport.ad_text && <div className='management_item ad_text'>{transport.ad_text}</div>}
                 <div className='management_item'>{transport.ad_show ? 'ad on' : 'ad off'}</div>
                 <div className='management_item'>{transport.moderated}</div>
+                {transport.moderation_comment !== '' && <div className='management_item'>{transport.moderation_comment}</div>}
                 {transport.thermo_bag === true && <div className='management_item'>thermo bag</div>}
                 {transport.refrigerator_minus === true && <div className='management_item'>refrigerator minus</div>}
                 {transport.refrigerator_plus === true && <div className='management_item'>refrigerator_plus</div>}
@@ -74,7 +75,7 @@ const TransportItem = observer(({ transport, formData, setFormData, initialValue
 
             {/* action menu */}
             <ManagementActionMenuComponent setFormData={setFormData} formData={formData} initialValue={initialValue} setModalActive={setModalActive}
-                setActionIcons={setActionIcons} setAction={setAction} actionIcons={actionIcons} item={transport}
+                setActionIcons={setActionIcons} setAction={setAction} actionIcons={actionIcons} item={transport} setCurrentStatus={setCurrentStatus}
             />
             {/* action menu */}
 

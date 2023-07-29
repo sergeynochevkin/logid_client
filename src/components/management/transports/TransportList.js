@@ -17,10 +17,10 @@ const TransportList = observer(() => {
     })
 
     let initialValue = {
-        type: '',
-        members: [],
-        subject: '',
-        message: ''
+        id: '',
+        moderated:'',
+        moderation_comment: '',
+        option:''
     }
 
     const [formData, setFormData] = useState(

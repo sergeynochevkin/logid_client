@@ -162,10 +162,10 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
         <CardEquipment style={{ backgroundColor: 'rgb(254, 145, 40,0.8)' }}>{SetNativeTranslate(Translate.language, {
           english: ['Moderation'],
           russian: ['На модерации']
-        })}</CardEquipment> : oneTransport.ad_show && oneTransport.moderated === 'not_accepted' ? 
-        <CardEquipment style={{ backgroundColor: 'rgb(254, 145, 40,0.8)' }}>{SetNativeTranslate(Translate.language, {
-          english: ['Not accepted'],
-          russian: ['Отклонено']
+        })}</CardEquipment> : oneTransport.ad_show && oneTransport.moderated === 'checked_not_accepted' ? 
+        <CardEquipment style={{ backgroundColor: 'rgb(254, 111, 103,0.8)' }}>{SetNativeTranslate(Translate.language, {
+          english: [`Not accepted ${oneTransport.moderation_comment}`],
+          russian: [`Отклонено ${oneTransport.moderation_comment}`]
         })}</CardEquipment> : <></>
 
       }

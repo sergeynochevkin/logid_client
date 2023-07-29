@@ -92,8 +92,9 @@
 .management_action_menu_modal_buttons_container {
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .management_action_menu_header {
@@ -129,6 +130,7 @@
     border-radius: 5px;
     background-color: transparent;
     padding: 5px 5px 5px 20px;
+    cursor: pointer;
 }
 
 .management_item {
