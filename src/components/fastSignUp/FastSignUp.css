@@ -24,7 +24,9 @@
 }
 
 .fast_sign_up_arrow_up{
-    cursor:pointer
+    cursor:pointer;
+    height: 20px;
+    width: auto;
 }
 
 .fast_sign_up_arrow_up:hover{
