@@ -70,7 +70,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
           )
       }
 
-      if (formFunction === 'update' || 'update_from_fast') {
+      if (formFunction === 'update' || formFunction === 'update_from_fast') {
         data = await updateTransport(
           formData
         )

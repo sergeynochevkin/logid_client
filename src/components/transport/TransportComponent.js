@@ -42,7 +42,7 @@ const TransportComponent = observer(() => {
     type: '',
     ad_text: '',
     ad_show: false,
-    id: ''
+    id: undefined
   }
 
   const [formData, setFormData] = useState(initialValue)

@@ -309,7 +309,7 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
               }
 
               onClick={click}>{SetNativeTranslate(Translate.language, {
-                russian: [`${formFunction === 'update' ? 'Сохранить' : 'Добавить'}`],
+                russian: [`${formFunction === 'update' || formFunction === 'update_from_fast' ? 'Сохранить' : 'Добавить'}`],
                 english: [`${formFunction === 'update' ? 'Save' : 'Add'}`]
               })}</CardButton>
 
