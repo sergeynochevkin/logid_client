@@ -76,6 +76,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    padding-bottom: 20px;
 }
 
 .banner_promo_message {
@@ -202,17 +203,18 @@
         gap: 10px;
         padding-top: 0px;
         padding-bottom: 0px;
+        min-height: 250px;
     }
 
     .main_banner_half_1_container {
         margin-top: 10px;
         width: 380px;
-        height: 30%;
+        min-height: 50px;
     }
 
     .main_banner_half_2_container {
         width: 380px;
-        height: 60%;
+        min-height: 200px;
         margin-bottom: 10px;
     }
 
