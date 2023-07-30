@@ -320,7 +320,7 @@ const Auth = observer(({ }) => {
                   <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language, {}, 'who_are_you')}</option>
                   <option value='customer'>{SetNativeTranslate(Translate.language, {}, 'customer')}</option>
                   <option value='carrier'>{SetNativeTranslate(Translate.language, {}, 'carrier')}</option>
-                  <option value='admin'>admin</option>
+                  {/* <option value='admin'>admin</option> */}
                 </Select>
                 <FieldName
                   style={{
