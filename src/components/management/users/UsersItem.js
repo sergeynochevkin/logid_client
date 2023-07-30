@@ -53,7 +53,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                 }}
             >
                 <div className={`management_row ${Setting.app_theme}`}>
-                    <div className='management_item'>{oneUser.id}</div>
+                    <div className='management_item'>{oneUser.user_info.id}</div>
                     <div className='management_item'>{oneUser.email}</div>
                     <div className='management_item'>{SetNativeTranslate(Translate.language, '', oneUser.role)}</div>
                     <div className='management_item'>{SetNativeTranslate(Translate.language, '', oneUser.user_info.country)}</div>
