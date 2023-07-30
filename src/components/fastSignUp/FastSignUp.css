@@ -22,3 +22,11 @@
     flex-direction: column;
     gap: 5px;
 }
+
+.fast_sign_up_arrow_up{
+    cursor:pointer
+}
+
+.fast_sign_up_arrow_up:hover{
+    filter: brightness(60%);
+}

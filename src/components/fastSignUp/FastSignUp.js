@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, SettingContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { useInput } from '../../hooks/useInput'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import TransportFormSection from '../transport/TransportFormSection'
@@ -13,6 +13,8 @@ import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import ReCAPTCHA from "react-google-recaptcha";
 import { v4 } from "uuid";
+import arrow_up from '../../assets/icons/arrow_up_.png';
+import arrow_up_dark from '../../assets/icons/arrow_up_dark_.png';
 
 import './FastSignUp.css'
 import City from '../account/userInfoForm/City'
@@ -25,6 +27,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 
 const FastSignUp = observer(() => {
     const { Translate } = useContext(TranslateContext)
+    const { Setting } = useContext(SettingContext)
     const { Adress } = useContext(AdressContext)
     const [comparePassword, setComparePassword] = useState('')
     const [comparePasswordActive, setComparePasswordActive] = useState(false)
@@ -39,8 +42,9 @@ const FastSignUp = observer(() => {
     const [formVisible, setFormVisible] = useState()
 
 
+
     useEffect(() => {
-        if (width < 500) {
+        if (width < 770) {
             setFormVisible(false)
         } else { setFormVisible(true) }
     }, [])
@@ -519,7 +523,12 @@ const FastSignUp = observer(() => {
                                 english: ['Fast sign up']
                             })
                         }</Button>
-                </form> : <Button
+
+                    {width < 770 && <img className='fast_sign_up_arrow_up' onClick={() => {
+                        setFormVisible(false)
+                    }} src={arrow_up_dark} ></img>}
+
+                </form > : <Button
                     onClick={() => {
                         setFormVisible(true)
                     }}
@@ -530,7 +539,8 @@ const FastSignUp = observer(() => {
                             english: ['Fast sign up']
                         })
                     }
-                </Button>}
+                </Button>
+            }
         </>
     )
 })
