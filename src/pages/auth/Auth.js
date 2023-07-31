@@ -99,6 +99,7 @@ const Auth = observer(({ }) => {
           fetcher.setManagementUsers(true)
           fetcher.setManagementTransports(true)
           fetcher.setManagementOrders(true)
+          fetcher.setManagementVisits(true)
         }
       } else {
         UserInfo.setUserInfo(data)
