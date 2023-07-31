@@ -34,9 +34,9 @@ const AdTransportSection = observer(() => {
   }
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   transportAdSelect(width < 425 ? 2 : width < 770 ? 3 : 6, 0)
-    // }, 500)
+    setTimeout(() => {
+      transportAdSelect(width < 425 ? 2 : width < 770 ? 3 : 6, 0)
+    }, 500)
     setInterval(() => {
       transportAdSelect(width < 425 ? 2 : width < 770 ? 3 : 6, 0)
     }, 10000)
@@ -45,11 +45,9 @@ const AdTransportSection = observer(() => {
   return (
     <>
       <div className={`ad_transport_container ${Setting.app_theme}`} >
-        {Ad.selected_transports &&
-          <div className={`ad_transport_section`}>
-            {Ad.selected_transports.map(transport => <AdTransportItem key={transport.id} transport={transport} />)}
-          </div>
-        }
+        <div className={`ad_transport_section`}>
+          {Ad.selected_transports.map(transport => <AdTransportItem key={transport.id} transport={transport}  />)}
+        </div>
         <div className='how_to_add_text_container'>
           {SetNativeTranslate(Translate.language,
             {

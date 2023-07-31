@@ -18,7 +18,6 @@ import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers,
 import { fetchAdTransports, fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
 import { fetchFile } from './http/fileApi'
-import useWindowDimensions from './hooks/useWindowDimensions'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -39,7 +38,6 @@ const Fetcher = observer(() => {
     const { Management } = useContext(ManagementContext)
     const { Ad } = useContext(AdContext)
     const { Setting } = useContext(SettingContext)
-    const { height, width } = useWindowDimensions();
 
     let fetchImages = async (transport, file) => {
         let serverFile = await fetchFile(transport.id, 'transport', file)
@@ -401,7 +399,6 @@ const Fetcher = observer(() => {
         fetcher.setMainCounters(false)
     }, [fetcher.main_counters])
 
-//here
     useEffect(() => {
         async function fetch() {
             await fetchAdTransports().then(data => {
@@ -415,36 +412,15 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         fetcher.setAdTransports(true)
+    }, [])
+
+
+    useEffect(() => {
         setInterval(() => {
             fetcher.setAdTransports(true)
         }, 60000)
+
     }, [])
-
-    function transportAdSelect(length, i) {
-        let indexArray = []
-        let transportsArray = []
-
-        for (; i < length + 10; i++) {
-            let index = Math.floor(Math.random() * Ad.transports.length);
-            if (!indexArray.includes(index)) {
-                indexArray.push(index)
-                if (indexArray.length === length) {
-                    break
-                }
-            }
-        }
-        for (const index of indexArray) {
-            transportsArray.push(Ad.transports[index])
-        }
-        Ad.setSelectedTransports(transportsArray)
-        indexArray = []
-        transportsArray = []
-    }
-
-    useEffect(() => {
-        transportAdSelect(width < 425 ? 2 : width < 770 ? 3 : 6, 0)
-    }, [])
-    //here
 
 
     //management:
@@ -515,7 +491,7 @@ const Fetcher = observer(() => {
 
 
     useEffect(() => {
-        if (user.user.role === 'admin') {
+        if (user.user.role === 'admin') {         
             setInterval(() => {
                 fetcher.setManagementVisits(true)
                 fetcher.setManagementUsers(true)
