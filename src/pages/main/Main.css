@@ -243,7 +243,7 @@
     flex-direction: column;
     background-color: rgba(194, 194, 194, 0.822);
     min-height: 260px;
-    margin-bottom: 30px;
+    margin-top: 30px;
     border-radius: 20px;
     width: 90%;
 }
@@ -261,7 +261,6 @@
     justify-content: center;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-top: 30px;
 
 }
 
@@ -573,7 +572,7 @@
 
 
     .ad_transport_container {      
-        margin-bottom: 0px;
+        margin-top: 00px;
         border-radius: 0px;
         width: 100%;
     }
