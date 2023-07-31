@@ -45,9 +45,11 @@ const AdTransportSection = observer(() => {
   return (
     <>
       <div className={`ad_transport_container ${Setting.app_theme}`} >
-        <div className={`ad_transport_section`}>
-          {Ad.selected_transports.map(transport => <AdTransportItem key={transport.id} transport={transport}  />)}
-        </div>
+        {Ad.selected_transports.length>0 &&
+          <div className={`ad_transport_section`}>
+            {Ad.selected_transports.map(transport => <AdTransportItem key={transport.id} transport={transport} />)}
+          </div>
+        }
         <div className='how_to_add_text_container'>
           {SetNativeTranslate(Translate.language,
             {
