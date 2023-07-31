@@ -45,7 +45,7 @@ const AdTransportSection = observer(() => {
   return (
     <>
       <div className={`ad_transport_container ${Setting.app_theme}`} >
-        {Ad.selected_transports.length>0 &&
+        {Ad.selected_transports &&
           <div className={`ad_transport_section`}>
             {Ad.selected_transports.map(transport => <AdTransportItem key={transport.id} transport={transport} />)}
           </div>
