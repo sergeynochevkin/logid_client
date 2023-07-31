@@ -8,7 +8,6 @@ export default class AdStore {
         this._ip = ''
 
         this._transports = []
-        this._selected_transports = []
         this._transport_images = []
         this._users = []
 
@@ -27,9 +26,6 @@ export default class AdStore {
     }
     setTransports(value) {
         this._transports = value
-    }
-    setSelectedTransports(value) {
-        this._selected_transports = value
     }
     setTransportImages(value) {
         this._transport_images = value
@@ -52,9 +48,6 @@ export default class AdStore {
     }
     get transports() {
         return this._transports
-    }
-    get selected_transports() {
-        return this._selected_transports
     }
     get transport_images() {
         return this._transport_images

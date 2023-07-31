@@ -28,7 +28,7 @@ const AdTransportSection = observer(() => {
     for (const index of indexArray) {
       transportsArray.push(Ad.transports[index])
     }
-    Ad.setSelectedTransports(transportsArray)
+    setTransports(transportsArray)
     indexArray = []
     transportsArray = []
   }
@@ -46,7 +46,7 @@ const AdTransportSection = observer(() => {
     <>
       <div className={`ad_transport_container ${Setting.app_theme}`} >
         <div className={`ad_transport_section`}>
-          {Ad.selected_transports.map(transport => <AdTransportItem key={transport.id} transport={transport}  />)}
+          {transports.map(transport => <AdTransportItem key={transport.id} transport={transport}  />)}
         </div>
         <div className='how_to_add_text_container'>
           {SetNativeTranslate(Translate.language,
