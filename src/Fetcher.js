@@ -491,11 +491,7 @@ const Fetcher = observer(() => {
 
 
     useEffect(() => {
-        if (user.user.role === 'admin') {
-            fetcher.setManagementVisits(true)
-            fetcher.setManagementUsers(true)
-            fetcher.setManagementOrders(true)
-            fetcher.setManagementTransports(true)
+        if (user.user.role === 'admin') {         
             setInterval(() => {
                 fetcher.setManagementVisits(true)
                 fetcher.setManagementUsers(true)

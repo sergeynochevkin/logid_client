@@ -136,6 +136,14 @@ const PreLoader = observer(({ children, ...props }) => {
                     let country
                     let data = await check()
                     user.setUser(data)
+
+                    if (data.role === 'admin') {
+                        fetcher.setManagementVisits(true)
+                        fetcher.setManagementUsers(true)
+                        fetcher.setManagementOrders(true)
+                        fetcher.setManagementTransports(true)
+                    }
+
                     // await fetching()
                     user.setIsAuth(true)
 
