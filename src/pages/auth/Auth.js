@@ -96,10 +96,10 @@ const Auth = observer(({ }) => {
         UserInfo.setUserInfo({})
         // auth preload for admin!
         if (user.user.role === 'admin') {
+          fetcher.setManagementVisits(true)
           fetcher.setManagementUsers(true)
           fetcher.setManagementTransports(true)
-          fetcher.setManagementOrders(true)
-          fetcher.setManagementVisits(true)
+          fetcher.setManagementOrders(true)          
         }
       } else {
         UserInfo.setUserInfo(data)

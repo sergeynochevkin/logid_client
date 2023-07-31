@@ -485,10 +485,9 @@ const Fetcher = observer(() => {
         fetcher.setManagementVisits(false)
     }, [fetcher.management_visits])
 
-    useEffect(() => {
-        fetcher.setManagementVisits(true)
-    }, [])
-
+    // useEffect(() => {
+    //     fetcher.setManagementVisits(true)
+    // }, [])
 
 
     useEffect(() => {

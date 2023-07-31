@@ -490,7 +490,7 @@ const Main = observer(() => {
                 <AdminConsoleItem plan={100} currentRate={Management.visits.toDay} comment={
                   SetNativeTranslate(Translate.language,
                     {
-                      russian: ['Вмзиты сегодня'],
+                      russian: ['Визиты сегодня'],
                       english: ['Today visits']
                     }, '')} />
                 <AdminConsoleItem plan={600} currentRate={Management.visits.week} comment={
