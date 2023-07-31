@@ -237,12 +237,15 @@
 
 
 .ad_transport_container {
-    width: 100%;
+    width: 90%;
     display: flex;
     align-items: center;
     flex-direction: column;
     background-color: rgba(194, 194, 194, 0.822);
     min-height: 260px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    width: 90%;
 }
 
 .ad_transport_container.dark {
@@ -258,6 +261,8 @@
     justify-content: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 30px;
+
 }
 
 .ad_transport_item {
@@ -566,5 +571,12 @@
         font-size: 10px;
     }
 
+
+    .ad_transport_container {      
+        margin-bottom: 0px;
+        border-radius: 0px;
+        width: 100%;
+    }
+    
 
 }
