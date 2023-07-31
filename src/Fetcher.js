@@ -262,7 +262,7 @@ const Fetcher = observer(() => {
     }, [fetcher.orders_in_work])
 
     useEffect(() => {
-        if (user.user.role !== 'admin') {
+        if (user && user.user.role !== 'admin') {
             setInterval(() => {
                 fetcher.setOrdersNew(true)
             }, 10000);
@@ -362,7 +362,7 @@ const Fetcher = observer(() => {
         }
 
 
-        fetch()
+        fetcher.transports && fetch()
         fetcher.setTransports(false)
     }, [fetcher.transports])
 
@@ -371,7 +371,7 @@ const Fetcher = observer(() => {
         async function fetch() {
             await fetchUser(user.user.id).then(data => user.setUser(data))
         }
-        fetch()
+        fetcher.account_user &&fetch()
         fetcher.setAccountUser(false)
     }, [fetcher.account_user])
     useEffect(() => {
@@ -380,7 +380,7 @@ const Fetcher = observer(() => {
                 data && UserInfo.setUserInfo(data)
             })
         }
-        fetch()
+        fetcher.account_user_info && fetch()
         fetcher.setAccountUserInfo(false)
     }, [fetcher.account_user_info])
 
@@ -431,7 +431,7 @@ const Fetcher = observer(() => {
                 data && Management.setUsers(data)
             })
         }
-        fetch()
+        fetcher.management_users && fetch()
         fetcher.setManagementUsers(false)
     }, [fetcher.management_users])
 
@@ -442,7 +442,7 @@ const Fetcher = observer(() => {
                 data && Management.setOrders(data)
             })
         }
-        fetch()
+        fetcher.management_orders && fetch()
         fetcher.setManagementOrders(false)
     }, [fetcher.management_orders])
     //transports
@@ -470,18 +470,19 @@ const Fetcher = observer(() => {
             }
             Management.setTransportImages(transportsImagesArray)
         }
-        fetch()
+        fetcher.management_transports &&  fetch()
         fetcher.setManagementTransports(false)
     }, [fetcher.management_transports])
     //orders
     //visits
     useEffect(() => {
+
         async function fetch() {
             await fetchManagementVisits().then(data => {
                 data && Management.setVisits(data)
             })
         }
-        fetch()
+        fetcher.management_visits && fetch()
         fetcher.setManagementVisits(false)
     }, [fetcher.management_visits])
 
@@ -491,7 +492,7 @@ const Fetcher = observer(() => {
 
 
     useEffect(() => {
-        if (user.user.role === 'admin') {         
+        if (user.user.role === 'admin') {
             setInterval(() => {
                 fetcher.setManagementVisits(true)
                 fetcher.setManagementUsers(true)
@@ -506,7 +507,7 @@ const Fetcher = observer(() => {
         async function fetch() {
             await fetchSettings(UserInfo.userInfo.id).then(data => Setting.setUserSettings(data))
         }
-        fetch()
+       fetcher.user_app_setting && fetch()
         fetcher.setUserAppSetting(false)
     }, [fetcher.user_app_setting])
 

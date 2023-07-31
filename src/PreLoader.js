@@ -137,15 +137,17 @@ const PreLoader = observer(({ children, ...props }) => {
                     let data = await check()
                     user.setUser(data)
 
+                    
+
+                    // await fetching()
+                    user.setIsAuth(true)
+
                     if (data.role === 'admin') {
                         fetcher.setManagementVisits(true)
                         fetcher.setManagementUsers(true)
                         fetcher.setManagementOrders(true)
                         fetcher.setManagementTransports(true)
                     }
-
-                    // await fetching()
-                    user.setIsAuth(true)
 
                     data = await fetchUserInfo(user.user.id).then(data => {
                         if (data) {
