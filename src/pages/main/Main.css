@@ -268,7 +268,7 @@
     height: 250px;
     width: 200px;
     border-radius: 10px;
-    background-color: rgba(245, 245, 245, 0.778);
+    background-color: white;
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -282,7 +282,7 @@
 }
 
 .ad_transport_item.dark {
-    background-color: rgb(31, 31, 31, 0.5);
+    background-color: black;
     color: white;
 }
 
