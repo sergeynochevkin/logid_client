@@ -5,7 +5,9 @@ export default class AdressStore {
     constructor() {
 
         this._countries = []
-        this._country = {}
+        //temporary one country
+        this._country = { value: 'russia', country_code_iso3: 'RUS', default_language: 'russian', google_code: 'RU', currency: 'RUR', google_language: 'ru', weight: 'tonn', distance: 'kilometer', sector: 'one' }
+        //temporary one country
         this._country_detected = true
         // this._country = localStorage.getItem('country') ? JSON.parse(localStorage.getItem('country')) : {}
 

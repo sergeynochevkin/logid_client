@@ -24,7 +24,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const { State } = useContext(StateContext)
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
-    const [dataLoaded, setDataLoaded] = useState(false)
+    const [dataLoaded, setDataLoaded] = useState(true)
     const { Setting } = useContext(SettingContext)
     const { Transport } = useContext(TransportContext)
     const { fetcher } = useContext(FetcherContext)
@@ -53,41 +53,54 @@ const PreLoader = observer(({ children, ...props }) => {
         }
     }
 
-    const getGeoInfo = (countries) => {
-        axios
-            .get("https://ipapi.co/json/")
-            .then((response) => {
-                let data = response.data;
-                getIp(data)
-                //check if we dont have cuntry state in localstorage
-                let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
-                if (country) {
-                    Adress.setCountry(country);
-                    if (localStorage.getItem('language')) {
-                        let language = localStorage.getItem('language')
-                        if (language === 'english' || language === country.default_language) {
-                            Translate.setLanguage(language)
-                        } else {
-                            Translate.setLanguage(country.default_language)
-                        }
-                    } else {
-                        Translate.setLanguage(country.default_language)
-                    }
-                    setDataLoaded(true)
-                } else {
-                    Adress.setCountry(countries.find(el => el.country_code_iso3 === 'RUS'));
-                    //select deafault country, say that we dont have service in this country
-                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
-                    setDataLoaded(true)
-                    Adress.setCountryDetected(false)
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+    //temporary one country
+    // const getGeoInfo = (countries) => {
+    //     axios
+    //         .get("https://ipapi.co/json/")
+    //         .then((response) => {
+    //             let data = response.data;
+    //             getIp(data)               
+    //check if we dont have cuntry state in localstorage
+    // let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
+
+    // if (country) {
+    //     Adress.setCountry(country);
+    //     if (localStorage.getItem('language')) {
+    //         let language = localStorage.getItem('language')
+    //         if (language === 'english' || language === country.default_language) {
+    //             Translate.setLanguage(language)
+    //         } else {
+    //             Translate.setLanguage(country.default_language)
+    //         }
+    //     } else {
+    //         Translate.setLanguage(country.default_language)
+    //     }
+    //     setDataLoaded(true)
+    // } else {
+    //     Adress.setCountry(countries.find(el => el.country_code_iso3 === 'RUS'));
+    //     //select deafault country, say that we dont have service in this country
+    //     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
+    //     setDataLoaded(true)
+    //     Adress.setCountryDetected(false)
+    // }})
+    // .catch((error) => {
+    //     console.log(error);
+    // });
+    // };
+    //temporary one country   
 
     useEffect(() => {
+        getIp()
+        //temporary one country
+        if (localStorage.getItem('language')) {
+            let language = localStorage.getItem('language')
+            Translate.setLanguage(language)
+        } else {
+            Translate.setLanguage('russian')
+        }
+        //temporary one country
+
+
         localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
         if (!localStorage.getItem('cookies_accepted')) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
@@ -108,24 +121,27 @@ const PreLoader = observer(({ children, ...props }) => {
             EquipmentType.setTypes(data.equipment_types)
             Adress.setCountries(data.countries)
 
-            if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
-                let country = JSON.parse(localStorage.getItem('country'))
-                Adress.setCountry(country)
-                if (localStorage.getItem('language')) {
-                    let language = localStorage.getItem('language')
-                    if (language === 'english' || language === country.default_language) {
-                        Translate.setLanguage(language)
-                    } else {
-                        Translate.setLanguage(country.default_language)
-                    }
-                } else {
-                    Translate.setLanguage(country.default_language)
-                }
-                getIp()
-                setDataLoaded(true)
-            } else {
-                getGeoInfo(data.countries);
-            }
+            //temporary one country
+            // if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
+            //     let country = JSON.parse(localStorage.getItem('country'))
+            //     Adress.setCountry(country)
+            //     if (localStorage.getItem('language')) {
+            //         let language = localStorage.getItem('language')
+            //         if (language === 'english' || language === country.default_language) {
+            //             Translate.setLanguage(language)
+            //         } else {
+            //             Translate.setLanguage(country.default_language)
+            //         }
+            //     } else {
+            //         Translate.setLanguage(country.default_language)
+            //     }
+            //     getIp()
+            //     setDataLoaded(true)
+            // } else {
+            //     getGeoInfo(data.countries);
+            // }
+            //temporary one country
+
         })
     }
 
