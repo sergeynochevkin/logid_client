@@ -32,9 +32,6 @@ const PreLoader = observer(({ children, ...props }) => {
     const order_id = queryParams.get("o_i")
     const order_status = queryParams.get("o_s")
 
-
-    //attach google and lets go to design!
-
     const getIp = async (data) => {
         if (data) {
             Ad.setIp(data.ip)
@@ -54,37 +51,43 @@ const PreLoader = observer(({ children, ...props }) => {
     }
 
     const getGeoInfo = (countries) => {
-        axios
-            .get("https://ipapi.co/json/")
-            .then((response) => {
-                let data = response.data;
-                getIp(data)
-                //check if we dont have cuntry state in localstorage
-                let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
-                if (country) {
-                    Adress.setCountry(country);
-                    if (localStorage.getItem('language')) {
-                        let language = localStorage.getItem('language')
-                        if (language === 'english' || language === country.default_language) {
-                            Translate.setLanguage(language)
-                        } else {
-                            Translate.setLanguage(country.default_language)
-                        }
-                    } else {
-                        Translate.setLanguage(country.default_language)
-                    }
-                    setDataLoaded(true)
-                } else {
-                    Adress.setCountry(countries.find(el => el.country_code_iso3 === 'RUS'));
-                    //select deafault country, say that we dont have service in this country
-                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
-                    setDataLoaded(true)
-                    Adress.setCountryDetected(false)
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        Adress.setCountry(countries.find(el => el.country_code_iso3 === 'RUS'));
+        Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
+        setDataLoaded(true)
+        getIp()
+
+
+        // axios
+        //     .get("https://ipapi.co/json/")
+        //     .then((response) => {
+        //         let data = response.data;
+        //         getIp(data)
+        //         //check if we dont have cuntry state in localstorage
+        //         let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
+        //         if (country) {
+        //             Adress.setCountry(country);
+        //             if (localStorage.getItem('language')) {
+        //                 let language = localStorage.getItem('language')
+        //                 if (language === 'english' || language === country.default_language) {
+        //                     Translate.setLanguage(language)
+        //                 } else {
+        //                     Translate.setLanguage(country.default_language)
+        //                 }
+        //             } else {
+        //                 Translate.setLanguage(country.default_language)
+        //             }
+        //             setDataLoaded(true)
+        //         } else {
+        //             Adress.setCountry(countries.find(el => el.country_code_iso3 === 'RUS'));
+        //             //select deafault country, say that we dont have service in this country
+        //             Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
+        //             setDataLoaded(true)
+        //             Adress.setCountryDetected(false)
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
     };
 
     useEffect(() => {
