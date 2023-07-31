@@ -492,15 +492,19 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         if (user.user.role === 'admin') {
+            fetcher.setManagementVisits(true)
+            fetcher.setManagementUsers(true)
+            fetcher.setManagementOrders(true)
+            fetcher.setManagementTransports(true)
             setInterval(() => {
+                fetcher.setManagementVisits(true)
                 fetcher.setManagementUsers(true)
                 fetcher.setManagementOrders(true)
                 fetcher.setManagementTransports(true)
-                fetcher.setManagementVisits(true)
             }, 60000);
         }
     }, [])
-    
+
     //settings
     useEffect(() => {
         async function fetch() {
