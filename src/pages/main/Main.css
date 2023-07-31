@@ -1,5 +1,4 @@
 .section_container {
-    width: 100%;
     min-height: 30vh;
     display: flex;
     align-items: center;
@@ -9,6 +8,10 @@
     text-align: center;
     padding-top: 30px;
     padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    width: 90%;
+
 }
 
 .section_container.even {
@@ -464,6 +467,9 @@
     .section_container {
         padding-top: 20px;
         padding-bottom: 20px;
+        margin-bottom: 15px;
+        border-radius: 0px;
+        width: 100%;
     }
 
     .section_header {
