@@ -6,7 +6,7 @@ import Modal from '../../components/ui/modal/Modal'
 import { CardEquipment } from '../../components/ui/card/CardEquipment'
 import { EquipmentRow } from '../../components/ui/card/EquipmentRow'
 
-const AdTransportItem = observer(({ transport, transports }) => {
+const AdTransportItem = observer(({ transport }) => {
     const { Setting } = useContext(SettingContext)
     const { Ad } = useContext(AdContext)
     const { Translate } = useContext(TranslateContext)
