@@ -110,10 +110,10 @@ const Main = observer(() => {
     setTimeout(() => {
       setLoaded(true)
     }, 100)
-    if (!cookies_accepted.total) {
-      localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
-      setModalActive2(true)
-    }
+    // if (!cookies_accepted.total) {
+    //   localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
+    //   setModalActive2(true)
+    // }
   }, [])
 
   useEffect(() => {
