@@ -14,7 +14,7 @@ import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders, setOrderViewed } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
 import { fetchUser } from './http/userAPI'
-import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers } from './http/managementApi'
+import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers, fetchManagementVisits } from './http/managementApi'
 import { fetchAdTransports, fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
 import { fetchFile } from './http/fileApi'
@@ -473,6 +473,22 @@ const Fetcher = observer(() => {
         fetch()
         fetcher.setManagementTransports(false)
     }, [fetcher.management_transports])
+    //orders
+    //visits
+    useEffect(() => {
+        async function fetch() {
+            await fetchManagementVisits().then(data => {
+                data && Management.setVisits(data)
+            })
+        }
+        fetch()
+        fetcher.setManagementVisits(false)
+    }, [fetcher.management_visits])
+
+    useEffect(() => {
+        fetcher.setManagementVisits(true)
+    }, [])
+
 
 
     useEffect(() => {
@@ -481,9 +497,11 @@ const Fetcher = observer(() => {
                 fetcher.setManagementUsers(true)
                 fetcher.setManagementOrders(true)
                 fetcher.setManagementTransports(true)
+                fetcher.setManagementVisits(true)
             }, 60000);
         }
     }, [])
+    
     //settings
     useEffect(() => {
         async function fetch() {

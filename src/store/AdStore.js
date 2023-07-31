@@ -5,6 +5,7 @@ export default class AdStore {
         this._customers_count = 0
         this._carriers_count = 0
         this._finished_orders_count = 0
+        this._ip = ''
 
         this._transports = []
         this._transport_images = []
@@ -32,6 +33,9 @@ export default class AdStore {
     setUsers(value) {
         this._users = value
     }
+    setIp(value) {
+        this._ip = value
+    }
 
     get customers_count() {
         return this._customers_count
@@ -50,5 +54,8 @@ export default class AdStore {
     }
     get users() {
         return this._users
+    }
+    get ip() {
+        return this._ip
     }
 }

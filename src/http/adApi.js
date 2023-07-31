@@ -9,9 +9,12 @@ export const fetchAdTransports = async () => {
     return data
 }
 
-
-
-
-
-
+export const addVisit = async (
+    ip
+) => {
+    const { data } = await $host.post('api/ad/visit', {
+        ip
+    })
+    return data
+}
 

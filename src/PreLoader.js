@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AdressContext, EquipmentTypeContext, FetcherContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
+import { AdContext, AdressContext, EquipmentTypeContext, FetcherContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
 import { check } from './http/userAPI'
@@ -10,10 +10,12 @@ import { ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from
 import axios from "axios";
 import { fetchTransport } from './http/transportApi'
 import PageLoader from './components/ui/loader/PageLoader '
+import { addVisit } from './http/adApi'
 
 const PreLoader = observer(({ children, ...props }) => {
     const queryParams = new URLSearchParams(window.location.search)
     const navigate = useNavigate()
+    const { Ad } = useContext(AdContext)
     const { TransportType } = useContext(TransportTypeContext)
     const { EquipmentType } = useContext(EquipmentTypeContext)
     const { Adress } = useContext(AdressContext)
@@ -33,11 +35,30 @@ const PreLoader = observer(({ children, ...props }) => {
 
     //attach google and lets go to design!
 
+    const getIp = async (data) => {
+        if (data) {
+            Ad.setIp(data.ip)
+            await addVisit(data.ip)
+        } else {
+            axios
+                .get("https://ipapi.co/json/")
+                .then((response) => {
+                    let data = response.data;
+                    Ad.setIp(data.ip)
+                    addVisit(data.ip)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
     const getGeoInfo = (countries) => {
         axios
             .get("https://ipapi.co/json/")
             .then((response) => {
                 let data = response.data;
+                getIp(data)
                 //check if we dont have cuntry state in localstorage
                 let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
                 if (country) {
@@ -100,6 +121,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 } else {
                     Translate.setLanguage(country.default_language)
                 }
+                getIp()
                 setDataLoaded(true)
             } else {
                 getGeoInfo(data.countries);

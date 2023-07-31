@@ -6,6 +6,7 @@ export default class ManagementStore {
         this._transports = []
         this._transport_images = []
         this._orders = []
+        this._visits = {}
 
         makeAutoObservable(this)
     }
@@ -22,6 +23,9 @@ export default class ManagementStore {
     setTransportImages(value) {
         this._transport_images = value
     }
+    setVisits(value) {
+        this._visits = value
+    }
 
     get users() {
         return this._users
@@ -34,5 +38,8 @@ export default class ManagementStore {
     }
     get transport_images() {
         return this._transport_images
+    }
+    get visits() {
+        return this._visits
     }
 }
