@@ -338,8 +338,10 @@
 }
 
 .ad_transport_main_image {
-    width: auto;
-    height: 65px;
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px 10px  0px 0px;
     cursor: pointer;
 }
 

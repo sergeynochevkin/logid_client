@@ -40,7 +40,7 @@ const AdTransportItem = observer(({ transport }) => {
         </Modal>
 
         <div className={`ad_transport_item ${Setting.app_theme}`} >
-            <div className='ad_transport_item_ad_images_container'>
+            {/* <div className='ad_transport_item_ad_images_container'> */}
                 <div className='ad_transport_item_ad_main_image_container'>
                     <img className='ad_transport_main_image' src={mainImage}
                         onClick={() => {
@@ -49,15 +49,15 @@ const AdTransportItem = observer(({ transport }) => {
                         }}
                     ></img>
                 </div>
-                <div className='ad_transport_item_ad_image_icons_container'>
+                {/* <div className='ad_transport_item_ad_image_icons_container'>
                     {images.length > 0 ? images.slice(1).map(image => <img src={image} className='ad_transport_image_icon' key={image}
                         onClick={() => {
                             setImage(image)
                             setModalActive(true)
                         }}
                     ></img>) : <></>}
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
 
             <div className='ad_transport_item_ad_header_container'>{`${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.load_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`}</div>
 

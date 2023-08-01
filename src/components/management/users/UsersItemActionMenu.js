@@ -54,14 +54,7 @@ const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActio
                     }}
                 ></img>
 
-                <img src={Setting.app_theme === 'light' ? history : history_dark} className='management_sync_icon' alt='history'
-                    onClick={(event) => {
-                        event.stopPropagation()
-                        // buttonAction('alert', Setting.app_theme === 'light' ? arrow_back : arrow_back_dark, Setting.app_theme === 'light' ? send : send_dark)
-                    }}
-                ></img>
-
-                <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'
+                {/* <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'
                     onClick={(event) => {
                         event.stopPropagation()
                         buttonAction('block')
@@ -73,6 +66,14 @@ const UsersItemActionMenu = observer(({ setActionMenuActive, setAction, setActio
                         buttonAction('remove')
                     }}
                 ></img>
+
+                <img src={Setting.app_theme === 'light' ? history : history_dark} className='management_sync_icon' alt='history'
+                    onClick={(event) => {
+                        event.stopPropagation()
+                        buttonAction('history')
+                    }}
+                ></img> */}
+
             </div>
 
         </>
