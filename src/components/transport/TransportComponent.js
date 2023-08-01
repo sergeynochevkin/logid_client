@@ -50,10 +50,8 @@ const TransportComponent = observer(() => {
   const formReset = () => {
     formData.tag.setValue('')
     formData.tag.setDirty(false)
-    if (formData.ad_show) {
-      formData.ad_text.setValue('')
-      formData.ad_text.setDirty(false)
-    }
+    formData.ad_text.setValue('')
+    formData.ad_text.setDirty(false)
     formData.type.setValue('')
     formData.load_capacity.setValue('')
     formData.side_type.setValue('')
@@ -77,7 +75,7 @@ const TransportComponent = observer(() => {
     <Container>
       <Button
         onClick={() => {
-          if (Transport.transports.length >= 5) {
+          if (Transport.transports.length >= 20) {
             Notification.addNotification([{
               id: v4(), type: 'error', message: SetNativeTranslate(Translate.language,
                 {

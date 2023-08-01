@@ -19,7 +19,7 @@ const Board = observer(() => {
                     <BoardFilter />
                     <BoardList />
                 </div>
-                <div className='board_right_container'></div>
+                <div className={`board_right_container ${Setting.app_theme}`}></div>
             </div>
         </div>
     )
