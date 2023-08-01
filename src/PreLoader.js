@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { AdContext, AdressContext, EquipmentTypeContext, FetcherContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
@@ -32,7 +32,8 @@ const PreLoader = observer(({ children, ...props }) => {
     const order_id = queryParams.get("o_i")
     const order_status = queryParams.get("o_s")
 
-
+    let location = useLocation();
+    
     //attach google and lets go to design!
 
     const getIp = async (data) => {
@@ -186,7 +187,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
                     })
 
-                    if (user.user.role === 'carrier' || user.user.role === 'customer') {
+                    if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !=="/board") {
                         fetcher.setOrdersAll(true)
                         navigate(USER_ROUTE)
                     }

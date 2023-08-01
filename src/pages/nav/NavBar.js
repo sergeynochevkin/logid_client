@@ -40,9 +40,9 @@ const NavBar = observer(() => {
     }
   }
 
-  useEffect(() => {
-    !Adress.country_detected && setModalActive(true)
-  }, [])
+  // useEffect(() => {
+  //   !Adress.country_detected && setModalActive(true)
+  // }, [])
 
   return (
     <>
@@ -71,7 +71,7 @@ const NavBar = observer(() => {
 
         </div>
         {/* <Item onClick={() =>
-        navigate(MAIN_ROUTE)}>Главная</Item> */}
+        navigate(MAIN_ROUTE)}>Main</Item> */}
         {user.user.role === "customer" && user.isAuth ?
           <div className='nav_bar_item' onClick={() =>
             navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</div> :
