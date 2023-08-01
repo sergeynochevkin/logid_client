@@ -11,7 +11,7 @@ import { Textarea } from '../ui/form/Textarea'
 const TransportFormAdText = observer(({ formData, oneTransport, error, setError }) => {
     const { Translate } = useContext(TranslateContext)
 
-    formData.ad_text = useInput('', { isEmpty: true, minLength: 20, maxLength: 200 }, SetNativeTranslate(Translate.language, {
+    formData.ad_text = useInput('', { isEmpty: true, minLength: 20, maxLength: 120 }, SetNativeTranslate(Translate.language, {
         russian: ['Рекламный текст'],
         english: ['Advertising text']
     }))
