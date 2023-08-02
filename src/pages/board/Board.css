@@ -292,9 +292,9 @@
 
 .board_item_page_equipment_row {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 3px;
-    width: 500px;
+    height: 300px;
 }
 
 .board_item_page_equipment_item {
@@ -309,12 +309,13 @@
 
 .board_item_page_equipment_container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     width: 0px;
     height: 0px;
-    right: -380px;
-    bottom: -100px
+    right: -20px;
+    bottom: -30px;
+
 }
 
 .board_item_page_info_container {
@@ -323,7 +324,7 @@
     flex-direction: column;
     gap: 10px;
     justify-content: left;
-    margin-top: 20px;    
+    margin-top: 20px;
 }
 
 .board_item_page_info_statistics_container {
@@ -365,15 +366,10 @@
     }
 
     .board_item_page_equipment_row {
-        width: 350px;        
+        width: 350px;
     }
 
-    .board_item_page_equipment_container{
-        right: -20px;
-        bottom: -100px
-    }
-
-    .board_item_page_info_container{
+    .board_item_page_info_container {
         width: 380px;
     }
 }
