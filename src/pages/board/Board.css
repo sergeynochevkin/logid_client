@@ -304,6 +304,7 @@
     background-color: rgb(80, 102, 143, 0.8);
     color: white;
     white-space: nowrap;
+    width: max-content;
 }
 
 
@@ -314,7 +315,7 @@
     width: 0px;
     height: 0px;
     right: -20px;
-    bottom: -40px;
+    bottom: 450px;
 
 }
 

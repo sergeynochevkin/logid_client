@@ -50,17 +50,7 @@ const BoardItemPage = observer(() => {
                 <div className='board_item_ad_container'>
 
                     <div className='board_item_page_images_container'>
-                        <div className='board_item_page_equipment_container'>
-                            <div className='board_item_page_equipment_row'>
-                                {transport.thermo_bag === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'thermo_bag')}</div> : <></>}
-                                {transport.thermo_van === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'thermo_van')}</div> : <></>}
-                                {transport.refrigerator_minus === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'refrigerator_minus')}</div> : <></>}
-                                {transport.refrigerator_plus === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'refrigerator_plus')}</div> : <></>}
-                                {transport.hydraulic_platform === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'hydraulic_platform')}</div> : <></>}
-                                {transport.side_loading === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'side_loading')}</div> : <></>}
-                                {transport.glass_stand === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'glass_stand')}</div> : <></>}
-                            </div>
-                        </div>
+                      
 
                         <div className='board_item_page_main_image_container'>
                             <img className='board_item_page_main_image' src={mainImage}
@@ -76,6 +66,18 @@ const BoardItemPage = observer(() => {
                                 src={image} className='board_item_page_image_icon' key={image}></img>) : <></>}
                         </div>
                     </div>
+
+                    <div className='board_item_page_equipment_container'>
+                            <div className='board_item_page_equipment_row'>
+                                {transport.thermo_bag === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'thermo_bag')}</div> : <></>}
+                                {transport.thermo_van === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'thermo_van')}</div> : <></>}
+                                {transport.refrigerator_minus === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'refrigerator_minus')}</div> : <></>}
+                                {transport.refrigerator_plus === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'refrigerator_plus')}</div> : <></>}
+                                {transport.hydraulic_platform === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'hydraulic_platform')}</div> : <></>}
+                                {transport.side_loading === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'side_loading')}</div> : <></>}
+                                {transport.glass_stand === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'glass_stand')}</div> : <></>}
+                            </div>
+                        </div>
 
                     <div className='board_item_page_info_container'>
                         <div>{ad_user.city}</div>
