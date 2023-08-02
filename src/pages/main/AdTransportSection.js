@@ -46,7 +46,7 @@ const AdTransportSection = observer(() => {
     <>
       <div className={`ad_transport_container ${Setting.app_theme}`} >
         <div className={`ad_transport_section`}>
-          {transports.map(transport => <AdTransportItem key={transport.id} transport={transport} images={Ad.transport_images.find(el => el.id === transport.id).urlsArray} />)}
+          {transports.map(transport => <AdTransportItem key={transport.id} transport={transport}  />)}
         </div>
         <div className='how_to_add_text_container'>
           {SetNativeTranslate(Translate.language,
