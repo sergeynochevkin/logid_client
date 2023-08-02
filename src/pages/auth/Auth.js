@@ -78,9 +78,34 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
 
   let formReset = () => {
 
+    enterAction('isLogin')
+    setComparePassword('')
+    setReCapchaChecked(false)
+
+    formData.email.setValue('')
+    formData.password.setValue('')
+    formData.role.setValue('')
+    formData.country.setValue('')
+
+    formData.email.setDirty(false)
+    formData.password.setDirty(false)
+    formData.role.setDirty(false)
+    formData.country.setDirty(false)
+
+    // formData.tag.setValue('')
+    // formData.tag.setDirty(false)
+    // formData.ad_text.setValue('')
+    // formData.ad_text.setDirty(false)
+    // formData.type.setValue('')
+    // formData.load_capacity.setValue('')
+    // formData.side_type.setValue('')
+    // formData.type.setDirty(false)
+    // formData.load_capacity.setDirty(false)
+    // formData.side_type.setDirty(false)
+    setFormData(initialValue)
   }
 
-  
+
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -330,7 +355,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
 
       fetching()
 
-      if (parent = 'navBar') {
+      if (parent === 'navBar') {
         if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
         else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
         else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
