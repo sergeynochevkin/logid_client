@@ -6,7 +6,7 @@ import Modal from '../../components/ui/modal/Modal'
 import { CardEquipment } from '../../components/ui/card/CardEquipment'
 import { EquipmentRow } from '../../components/ui/card/EquipmentRow'
 
-const AdTransportItem = observer(({ transport }) => {
+const AdTransportItem = observer(({ transport, mainImage }) => {
     const { Setting } = useContext(SettingContext)
     const { Ad } = useContext(AdContext)
     const { Translate } = useContext(TranslateContext)
@@ -14,7 +14,7 @@ const AdTransportItem = observer(({ transport }) => {
 
     const [images, setImages] = useState([])
     const [image, setImage] = useState()
-    const [mainImage, setMainImage] = useState()
+    // const [mainImage, setMainImage] = useState()
     const [modalActive, setModalActive] = useState(false)
     const [ad_user, setAdUser] = useState({})
 
@@ -26,7 +26,7 @@ const AdTransportItem = observer(({ transport }) => {
         }
         if (Ad.transport_images.find(el => el.id === transport.id)) {
             setImages(Ad.transport_images.find(el => el.id === transport.id).urlsArray)
-            setMainImage(Ad.transport_images.find(el => el.id === transport.id).urlsArray[0])
+            // setMainImage(Ad.transport_images.find(el => el.id === transport.id).urlsArray[0])
         }
     }, [])
 
