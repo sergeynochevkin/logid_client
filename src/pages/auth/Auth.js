@@ -9,7 +9,7 @@ import { Select } from '../../components/ui/form/Select'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { Comment } from '../../components/ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE } from '../../utils/consts';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE, BOARD_ITEM_ROUTE } from '../../utils/consts';
 import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
@@ -36,7 +36,7 @@ const Auth = observer(({ }) => {
   const { UserInfo } = useContext(UserInfoContext)
   const navigate = useNavigate()
   const location = useLocation()
-  const isLogin = location.pathname === LOGIN_ROUTE
+  const isLogin = location.pathname === LOGIN_ROUTE 
   const isRegister = location.pathname === REGISTRATION_ROUTE
   const isRecovery = location.pathname === RECOVERY_ROUTE
   const [comparePassword, setComparePassword] = useState('')
@@ -51,7 +51,7 @@ const Auth = observer(({ }) => {
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
 
-
+  // set without routes if parent component at stay at the component after actions
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 

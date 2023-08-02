@@ -428,7 +428,7 @@ const Main = observer(() => {
               <title>{`logid`}</title>
               <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
-              {Ad.transports.length > 0 && <AdTransportSection />}
+              {Ad.transports.length  > 0  && Ad.transport_images.length  > 0 ? <AdTransportSection />: <></>}
 
 
 

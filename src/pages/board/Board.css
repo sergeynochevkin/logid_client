@@ -334,6 +334,12 @@
     gap: 5px;
 }
 
+.board_item_page_header{
+    font-size: 22px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
 
 @media screen and (max-width: 769px) and (min-width: 426px) {
     .board_right_container {
