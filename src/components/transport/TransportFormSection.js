@@ -53,6 +53,27 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
     }
   }, [formData.type.value])
 
+  const typeReset = () => {
+    formData.load_capacity.setValue('')
+    formData.side_type.setValue('')
+    formData.load_capacity.setDirty(false)
+    formData.side_type.setDirty(false)
+    formData.hydraulic_platform = false
+    formData.side_loading = false
+    formData.glass_stand = false
+    formData.refrigerator_minus = false
+    formData.refrigerator_plus = false
+    formData.thermo_van = false
+  }
+  const sideTypeReset = () => {
+    formData.hydraulic_platform = false
+    formData.side_loading = false
+    formData.glass_stand = false
+    formData.refrigerator_minus = false
+    formData.refrigerator_plus = false
+    formData.thermo_van = false
+  }
+
   return (
     <Container>
 
@@ -63,6 +84,8 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
           <Select value={formData.type.value}
             onChange={(e) => {
               formData.type.onChange(e)
+              typeReset()
+
             }}
             onBlur={e => formData.type.onBlur(e)}
             style={{ borderLeft: (formData.type.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
@@ -187,7 +210,10 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
             >
               <Select
                 value={formData.side_type.value}
-                onChange={(e) => formData.side_type.onChange(e)}
+                onChange={(e) => {
+                  formData.side_type.onChange(e)
+                  sideTypeReset()
+                  }}
                 onBlur={e => formData.side_type.onBlur(e)}
                 style={{ borderLeft: (formData.side_type.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 name="side_type" id="side_type"

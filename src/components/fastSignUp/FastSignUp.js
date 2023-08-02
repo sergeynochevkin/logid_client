@@ -203,6 +203,7 @@ const FastSignUp = observer(() => {
     formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone_content').toLowerCase())
 
     formData.role = useInput('', { isEmpty: true })
+  
     formData.load_capacity = useInput('', { isEmpty: true },)
     formData.side_type = useInput('', { isEmpty: true },)
     formData.type = useInput('', { isEmpty: true },)
@@ -528,7 +529,7 @@ const FastSignUp = observer(() => {
                         setFormVisible(false)
                     }} src={arrow_up_dark} ></img>}
 
-                </form > : <Button
+                </form> : <Button
                     onClick={() => {
                         setFormVisible(true)
                     }}

@@ -10,7 +10,7 @@ import PageContainer from '../../components/ui/page/PageContainer'
 import { Comment } from '../../components/ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE, BOARD_ITEM_ROUTE } from '../../utils/consts';
-import { code, fast_registration, login, registration, restore, update } from '../../http/userAPI'
+import { code, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
@@ -29,18 +29,16 @@ import { fetchUserState } from '../../http/stateApi'
 import { CheckBoxContainer } from '../../components/ui/form/CheckBoxContainer'
 import { CheckBoxSection } from '../../components/ui/form/CheckBoxSection'
 import Country from '../../components/account/userInfoForm/Country'
-import TransportFormSection from '../../components/transport/TransportFormSection'
-import City from '../../components/account/userInfoForm/City'
 
 
-const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
+const Auth = observer(({ }) => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
-
-  const [isLogin, setIsLogin] = useState()
-  const [isRegister, setIsRegister] = useState()
-  const [isRecovery, setIsRecovery] = useState()
   const navigate = useNavigate()
+  const location = useLocation()
+  const isLogin = location.pathname === LOGIN_ROUTE 
+  const isRegister = location.pathname === REGISTRATION_ROUTE
+  const isRecovery = location.pathname === RECOVERY_ROUTE
   const [comparePassword, setComparePassword] = useState('')
   const [comparePasswordActive, setComparePasswordActive] = useState(false)
   const { Notification } = useContext(NotificationContext)
@@ -53,38 +51,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
 
-  const enterAction = (enterPoint) => {
-    if (enterPoint === 'isLogin') {
-      setIsLogin(true)
-      setIsRegister(false)
-      setIsRecovery(false)
-    }
-    if (enterPoint === 'isRegister') {
-      setIsLogin(false)
-      setIsRegister(true)
-      setIsRecovery(false)
-
-    }
-    if (enterPoint === 'isRecovery') {
-      setIsLogin(false)
-      setIsRegister(false)
-      setIsRecovery(true)
-    }
-  }
-
-  useEffect(() => {
-    enterAction(enterPoint)
-  }, [])
-
-  let formReset = () => {
-
-  }
-
-  
+  // set without routes if parent component at stay at the component after actions
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
-  let initialValue = {
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
     role: '',
@@ -94,58 +65,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
     privacy_policy_accepted: false,
     age_accepted: false,
     personal_data_agreement_accepted: false,
-    cookies_accepted: cookies_accepted,
+    cookies_accepted: cookies_accepted
+  })
 
-    //user info
-    userId: undefined,
-    country: '',
-    legal: '',
-    city: { value: '', isDirty: false, notValid: true },
-    city_place_id: '',
-    city_latitude: '',
-    city_longitude: '',
-    phone: '',
-    website: '',
-    company_name: '',
-    company_inn: '',
-    company_adress: { value: '', isDirty: false, notValid: true },
-    company_adress_latitude: '',
-    company_adress_longitude: '',
-    type_of_customer: '',
-    name_surname_fathersname: '',
-    passport_number: '',
-    passport_date_of_issue: '',
-    passport_issued_by: '',
-    email: '',
-    from_fast: true,
-
-    //transport
-    thermo_bag: false,
-    hydraulic_platform: false,
-    side_loading: false,
-    glass_stand: false,
-    refrigerator_minus: false,
-    refrigerator_plus: false,
-    thermo_van: false,
-    userInfoId: undefined,
-    tag: '',
-    type: '',
-  }
-
-  useEffect(() => {
-    if (!modalActive) {
-      formReset()
-    }
-  }, [modalActive])
-
-  // const isLogin = location.pathname === LOGIN_ROUTE
-  // const isRegister = location.pathname === REGISTRATION_ROUTE
-  // const isRecovery = location.pathname === RECOVERY_ROUTE
-
-
-  // set without routes if parent component at stay at the component after actions
-
-  const [formData, setFormData] = useState(initialValue)
 
 
   const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -168,14 +90,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
     english: ['confirmation code']
   }))
 
-  formData.load_capacity = useInput('', { isEmpty: true },)
-  formData.side_type = useInput('', { isEmpty: true },)
-  formData.type = useInput('', { isEmpty: true },)
-  formData.tag = SetNativeTranslate(Translate.language, {
-    russian: ['Первый способ доставки'],
-    english: ['First shipping method']
-  })
-
   const [fetching, error] = useFetching(async () => {
     await fetchUserInfo(user.user.id).then(data => {
       if (data === null) {
@@ -185,7 +99,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
           fetcher.setManagementVisits(true)
           fetcher.setManagementUsers(true)
           fetcher.setManagementTransports(true)
-          fetcher.setManagementOrders(true)
+          fetcher.setManagementOrders(true)          
         }
       } else {
         UserInfo.setUserInfo(data)
@@ -256,9 +170,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
         )
       }])
       user.setIsAuth(true)
-      // if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
-      // else { navigate(MAIN_ROUTE) }
-      setModalActive(false)
+      if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
+      else { navigate(MAIN_ROUTE) }
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
     }
@@ -281,40 +194,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
         fetching()
       }
       else {
-        data = await fast_registration(
-          Translate.language,
-          formData.phone.value,
-          formData.email.value,
-          formData.password.value,
-          formData.role.value,
-          formData.country.value,
-          formData.user_agreement_accepted,
-          formData.privacy_policy_accepted,
-          formData.age_accepted,
-          formData.cookies_accepted.total,
-          formData.personal_data_agreement_accepted,
-
-          // value?                
-          formData.city.value,
-          formData.city_place_id,
-          formData.city_latitude,
-          formData.city_longitude,
-
-          formData.load_capacity.value,
-          formData.side_type.value,
-          formData.type.value,
-
-          formData.from_fast,
-
-          formData.thermo_bag,
-          formData.hydraulic_platform,
-          formData.side_loading,
-          formData.glass_stand,
-          formData.refrigerator_minus,
-          formData.refrigerator_plus,
-          formData.thermo_van,
-          formData.tag,
-        )
+        data = await registration(formData.email.value, formData.password.value, formData.role.value, Translate.language, formData.country.value, formData.user_agreement_accepted, formData.privacy_policy_accepted, formData.age_accepted, formData.cookies_accepted.total, formData.personal_data_agreement_accepted)
         user.setUser(data)
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
@@ -327,16 +207,10 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
       }
       localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
-
-      fetching()
-
-      if (parent = 'navBar') {
-        if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
-        else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
-        else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
-        else { navigate(MAIN_ROUTE) }
-      }
-      setModalActive(false)
+      if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
+      else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
+      else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
+      else { navigate(MAIN_ROUTE) }
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
     }
@@ -347,18 +221,14 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
   }
 
   return (
-    <>
+    <PageContainer>
       {isLogin ? <title>{SetNativeTranslate(Translate.language, {}, 'authorization')}</title> : isRegister ? <title>{SetNativeTranslate(Translate.language, {}, 'registration')}</title> : isRecovery ? <title>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</title> : <></>}
+      <Area50></Area50>
 
       <Form>
         <Name>{isLogin ? SetNativeTranslate(Translate.language, {}, 'authorization') : isRegister ? SetNativeTranslate(Translate.language, {}, 'registration') : isRecovery ? SetNativeTranslate(Translate.language, {}, 'password_recovery') : ''} </Name>
 
-        {/* {isRegister && <Country setFormData={setFormData} formData={formData} parent='auth' />} */}
-
-        {isRegister &&
-          <div className='fast_sign_up_section'>
-            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
-          </div>}
+        {isRegister && <Country setFormData={setFormData} formData={formData} parent='auth' />}
 
         {(isRecovery && !codeSend) || isLogin || isRegister ?
           <VerticalContainer
@@ -437,7 +307,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
               </FieldName>
             </VerticalContainer>
 
-            {isRegister ? <>
+            {isRegister ?
               <VerticalContainer
                 style={{ gap: '0px' }}
               >
@@ -465,13 +335,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
                   }
                 </FieldName>
               </VerticalContainer>
-              {formData.role.value === 'carrier' && formData.role.value !== '' ?
-                <div className='fast_sign_up_section'>
-                  <TransportFormSection parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
-                </div>
-                : <></>
-              }
-            </>
               : <></>}
           </> :
           <></>
@@ -655,16 +518,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
               (isRegister && !formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.age_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.cookies_accepted.total) ||
-              (isRegister && !formData.personal_data_agreement_accepted) ||
-
-              (isRegister && formData.role.value === 'carrier' &&
-                formData.type.isEmpty ||
-                (
-                  (formData.load_capacity.isEmpty && formData.type.value === 'truck') ||
-                  (formData.load_capacity.isEmpty && formData.type.value === 'minibus') ||
-                  (formData.side_type.isEmpty && formData.type.value === 'truck')
-                )
-              )
+              (isRegister && !formData.personal_data_agreement_accepted)
             }
             onClick={(event) => {
               event.preventDefault()
@@ -698,22 +552,22 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
           <div
             style={{ display: 'flex', gap: '5px' }}>
 
-            <div className='auth_link' onClick={() =>
-              enterAction('isRegister')}>{SetNativeTranslate(Translate.language, {}, 'registration')}</div>
-            <div className='auth_link' onClick={() =>
-              enterAction('isRecovery')}>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</div>
+            <Link onClick={() =>
+              navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'registration')}</Link>
+            <Link onClick={() =>
+              navigate(RECOVERY_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</Link>
           </div>
           : isRegister ?
-            <Comment>{SetNativeTranslate(Translate.language, {}, 'have_an_account')}<div className='auth_link' onClick={() =>
-              enterAction('isLogin')}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div></Comment>
+            <Comment>{SetNativeTranslate(Translate.language, {}, 'have_an_account')}<Link onClick={() =>
+              navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Link></Comment>
             : isRecovery ?
               <div
                 style={{ display: 'flex', gap: '5px' }}>
 
-                <div className='auth_link' onClick={() =>
-                  enterAction('isRegister')}>{SetNativeTranslate(Translate.language, {}, 'registration')}</div>
-                <div className='auth_link' onClick={() =>
-                  enterAction('isRegister')}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
+                <Link onClick={() =>
+                  navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'registration')}</Link>
+                <Link onClick={() =>
+                  navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Link>
               </div>
               : <></>
         }
@@ -731,7 +585,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
       } */}
 
 
-    </>
+    </PageContainer>
   )
 })
 

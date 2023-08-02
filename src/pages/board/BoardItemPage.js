@@ -50,7 +50,7 @@ const BoardItemPage = observer(() => {
                 </div>
             </Modal>
             <Modal setModalActive={setModalActive1} modalActive={modalActive1}>
-                <Auth/>
+                <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} />
             </Modal>
             <div className={`board_item_page_container ${Setting.app_theme}`}>
                 <div className='board_item_ad_container'>
@@ -90,11 +90,11 @@ const BoardItemPage = observer(() => {
                     <div className='board_item_page_info_container'>
                         <div>{ad_user.city}</div>
                         <div>{ad_user.name}</div>
-                        <div>{user.user.isAuth ? ad_user.phone :
+                        <div>{user.isAuth ? ad_user.phone :
                             <Button
-                            onClick={()=>{
-                                setModalActive1(true)
-                            }}
+                                onClick={() => {
+                                    setModalActive1(true)
+                                }}
                             >
                                 {SetNativeTranslate(Translate.language, {
                                     russian: ['Показать телефон'],

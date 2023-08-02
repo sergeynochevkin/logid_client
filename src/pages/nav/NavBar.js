@@ -17,6 +17,7 @@ import logo_light from '../../assets/logo_light.png';
 import logo_dark from '../../assets/logo_dark.png';
 import logo_russian_dark from '../../assets/logo_russian_dark.png';
 import logo_russian_light from '../../assets/logo_russian_light.png';
+import Auth from '../auth/Auth';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -27,8 +28,9 @@ const NavBar = observer(() => {
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
-  const [modalActive, setModalActive] = useState(null)
-  const [modalActive2, setModalActive2] = useState(null)
+  const [modalActive, setModalActive] = useState(false)
+  const [modalActive1, setModalActive1] = useState(false)
+  const [modalActive2, setModalActive2] = useState(false)
   const [name, setName] = useState('')
 
   const setLanguage = (language) => {
@@ -58,6 +60,10 @@ const NavBar = observer(() => {
           setModalActive={setModalActive2}
         >
           <ServerNotificationList setModalActive={setModalActive2} />
+        </Modal>
+
+        <Modal setModalActive={setModalActive1} modalActive={modalActive1}>
+          <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} parent = {'navBar'} />
         </Modal>
 
         <div className='nav_bar_logo_container' onClick={() =>
@@ -108,7 +114,7 @@ const NavBar = observer(() => {
               localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: true }))
             }}>{SetNativeTranslate(Translate.language, {}, 'sign_out')}</div> :
           <div className='nav_bar_item' onClick={() =>
-            navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
+            setModalActive1(true)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
         }
 
 

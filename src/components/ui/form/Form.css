@@ -124,6 +124,7 @@
 .form_comment {
     font-size: 12px;
     color: black;
+    display: flex;
 }
 
 .form_comment_dark {

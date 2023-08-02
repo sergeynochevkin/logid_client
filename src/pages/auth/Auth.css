@@ -40,15 +40,26 @@
     color: grey;
     text-decoration: none;
 }
-.auth_checkbox_text{
+
+.auth_checkbox_text {
     display: flex;
     gap: 3px;
 }
 
-.auth_checkbox{
+.auth_checkbox {
     width: 14px;
     height: 14px;
     cursor: pointer;
+}
+
+.auth_link {
+    font-size: 12px;
+    cursor: pointer;
+    color: green;
+
+    &:hover {
+        color: grey;
+    }
 }
 
 @media screen and (max-width: 1920px) {}
