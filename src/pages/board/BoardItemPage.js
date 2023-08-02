@@ -50,8 +50,6 @@ const BoardItemPage = observer(() => {
                 <div className='board_item_ad_container'>
 
                     <div className='board_item_page_images_container'>
-                        <div className='board_item_page_main_image_container'>
-                            <div className='board_item_page_equipment_anchor'>
                                 <div className='board_item_page_equipment_container'>
                                     <div className='board_item_page_equipment_row'>
                                         {transport.thermo_bag === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'thermo_bag')}</div> : <></>}
@@ -63,9 +61,8 @@ const BoardItemPage = observer(() => {
                                         {transport.glass_stand === true ? <div className='board_item_page_equipment_item'>{SetNativeTranslate(Translate.language, {}, 'glass_stand')}</div> : <></>}
                                     </div>
                                 </div>
-                            </div>
 
-
+                        <div className='board_item_page_main_image_container'>                         
                             <img className='board_item_page_main_image' src={mainImage}
                                 onClick={() => {
                                     setModalActive(true)
