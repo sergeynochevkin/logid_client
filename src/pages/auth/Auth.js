@@ -347,7 +347,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
   }
 
   return (
-    <>
+    <div className='auth_container'>
       {isLogin ? <title>{SetNativeTranslate(Translate.language, {}, 'authorization')}</title> : isRegister ? <title>{SetNativeTranslate(Translate.language, {}, 'registration')}</title> : isRecovery ? <title>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</title> : <></>}
 
       <Form>
@@ -731,7 +731,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
       } */}
 
 
-    </>
+    </div>
   )
 })
 

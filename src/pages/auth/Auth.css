@@ -83,4 +83,8 @@
         padding-bottom: 300px;
         width: 380px;
     }
+
+    .auth_container {
+        width: 100vw;
+    }
 }
