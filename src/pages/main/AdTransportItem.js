@@ -30,7 +30,7 @@ const AdTransportItem = observer(({ transport, mainImage }) => {
         }
     }, [])
 
-   
+
 
     return (<>
         <Modal modalActive={modalActive} setModalActive={setModalActive}>
@@ -39,17 +39,17 @@ const AdTransportItem = observer(({ transport, mainImage }) => {
             </div>
         </Modal>
 
-        <div className={`ad_transport_item ${Setting.app_theme}`} >
+        {mainImage && <div className={`ad_transport_item ${Setting.app_theme}`} >
             {/* <div className='ad_transport_item_ad_images_container'> */}
-                <div className='ad_transport_item_ad_main_image_container'>
-                    <img className='ad_transport_main_image' src={mainImage}
-                        onClick={() => {
-                            setImage(mainImage)
-                            setModalActive(true)
-                        }}
-                    ></img>
-                </div>
-                {/* <div className='ad_transport_item_ad_image_icons_container'>
+            <div className='ad_transport_item_ad_main_image_container'>
+                <img className='ad_transport_main_image' src={mainImage}
+                    onClick={() => {
+                        setImage(mainImage)
+                        setModalActive(true)
+                    }}
+                ></img>
+            </div>
+            {/* <div className='ad_transport_item_ad_image_icons_container'>
                     {images.length > 0 ? images.slice(1).map(image => <img src={image} className='ad_transport_image_icon' key={image}
                         onClick={() => {
                             setImage(image)
@@ -85,6 +85,7 @@ const AdTransportItem = observer(({ transport, mainImage }) => {
             </div>
 
         </div>
+        }
     </>
     )
 })
