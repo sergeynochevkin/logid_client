@@ -55,6 +55,16 @@ const UsersList = observer(() => {
         setModalActive(true)
     }
 
+    const sortUsers = (a, b) => {
+        if (a.id > b.id) {
+            return 1
+        } else if (a.id < b.id) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
     const [searchActive, setSearchActive] = useState(false)
 
     return (
@@ -115,7 +125,7 @@ const UsersList = observer(() => {
                 {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>}
             </div>
             <div className='management_container'>
-                {Management.users.map(oneUser => <UsersItem initialValue={initialValue} formData={formData} setFormData={setFormData} key={oneUser.id} oneUser={oneUser} modalActive={modalActive} setModalActive={setModalActive}
+                {Management.users.slice().sort(sortUsers).map(oneUser => <UsersItem initialValue={initialValue} formData={formData} setFormData={setFormData} key={oneUser.id} oneUser={oneUser} modalActive={modalActive} setModalActive={setModalActive}
                     action={action} setAction={setAction} actionIcons={actionIcons} setActionIcons={setActionIcons}
                 />)}
             </div>

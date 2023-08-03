@@ -39,7 +39,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
     return (
         <>
             <div
-                style={{ boxShadow: !formData.members.includes(oneUser.id) ? '' : `${Setting.app_theme === 'light' ? '0px 2.5px 5px 0px rgba(0, 0, 0, 0.5)' : '0px 2.5px 5px 0px rgba(255, 255, 255, 0.5)'}` }}
+                style={{ boxShadow: !formData.members.includes(oneUser.id) ? '' : `${Setting.app_theme === 'light' ? '0px 2.5px 5px 0px rgb(129, 199, 132,0.8)' : '0px 2.5px 5px 0px rgb(129, 199, 132,0.8)'}` }}
                 onClick={() => {
                     if (!formData.members.includes(oneUser.id)) {
                         let data = [...formData.members]
