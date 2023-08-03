@@ -32,9 +32,6 @@ const NavBar = observer(() => {
   const [modalActive1, setModalActive1] = useState(false)
   const [modalActive2, setModalActive2] = useState(false)
   const [name, setName] = useState('')
-  
-
-
 
   const setLanguage = (language) => {
     Translate.setLanguage(language)

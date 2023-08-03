@@ -8,7 +8,6 @@ import { observer } from 'mobx-react-lite';
 import remove_dark from '../../assets/icons/remove_dark.png';
 
 const ServerNotificationItem = observer(({ notification, setModalActive }) => {
-    const { Setting } = useContext(SettingContext)
     const { Notification } = useContext(NotificationContext)
     const { fetcher } = useContext(FetcherContext)
     const deleteNotificationAction = () => {

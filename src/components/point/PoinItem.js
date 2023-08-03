@@ -10,7 +10,7 @@ import Modal from '../ui/modal/Modal'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
+const PoinItem = observer(({ onePoint, oneOrder }) => {
     const [modalActive, setModalActive] = useState(false)
     const { user } = useContext(UserContext)
     const formattedEstimatedTime = setTime(new Date(onePoint.time), 0, 'show')
@@ -77,7 +77,7 @@ const PoinItem = observer(({ onePoint, oneOrder, setPointFetchStart }) => {
                 formReset={formReset}
                 setModalActive={setModalActive}
                 onePoint={onePoint}
-                setPointFetchStart={setPointFetchStart}
+                oneOrder={oneOrder}
             />
         </Modal>
     </>

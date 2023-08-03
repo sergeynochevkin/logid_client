@@ -37,7 +37,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     const { order } = useContext(OrderContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [modalFunction, setModalFunction] = useState('')
-    const [pointFetchStart, setPointFetchStart] = useState(false)
     const { Point } = useContext(PointContext)
     const { Partner } = useContext(PartnerContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
@@ -63,32 +62,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     let thisCarrierOffer = thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id)
     let thisOrderPoints = oneOrderPoints
     let thisOrderNoPartners = oneOrderNoPartners
-
-
-
-
-
-    const [fetching, error] = useFetching(async () => {
-        await fetchPoints(thisOrder.pointsIntegrationId, UserInfo.userInfo.id).then(data => {
-            Point.setPoints(data.rows)
-            Point.setAdded(data.added)
-        })
-    })
-
-    useEffect(() => {
-        if (ComponentFunction.OrdersComponentFunction === 'orderItem') {
-            if (thisOrder.order_status === 'inWork') {
-                fetching()
-                const interval = setInterval(() => {
-                    fetching()
-                }, 2000);
-                return () => clearInterval(interval);
-            } else {
-                fetching().then(setPointFetchStart(false))
-            }
-        }
-    }, [pointFetchStart])
-
+ 
     const sortPoints = (a, b) => {
         if (a.sequence > b.sequence) {
             return 1
@@ -111,8 +85,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         }
         partnerNames = partnerNames.toString()
     }
-
-
 
     useEffect(() => {
         if (oneOrder.order_status === 'inWork') {
@@ -275,7 +247,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         onePoint={onePoint}
                         key={onePoint.id}
                         oneOrder={thisOrder}
-                        setPointFetchStart={setPointFetchStart}
                     />)}
 
                     {ComponentFunction.OrdersComponentFunction === 'orderItem' ?
@@ -284,7 +255,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                 onePoint={onePoint}
                                 key={onePoint.id}
                                 oneOrder={thisOrder}
-                                setPointFetchStart={setPointFetchStart}
                             />)}
                         </>
                         : <></>}

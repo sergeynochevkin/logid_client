@@ -83,6 +83,10 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             fetcher.setNewStatus(status)
             fetcher.setDividedOrders(true)
         }
+
+        if (status === 'inWork') {
+            fetcher.setPartners(true)
+        }
     }
 
     const toAuction = async (event) => {
@@ -189,7 +193,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 }
                 else {
                     try {
-                        await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id, undefined, undefined, undefined, undefined, transportId)
+                        await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id, undefined, undefined, undefined, undefined, transportId ? transportId : transport.id )
                         await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
                         await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
                         Transport.setTransport({})

@@ -102,7 +102,7 @@ const Fetcher = observer(() => {
                     Notification.setNewServerNotifications(data.filter(el => el.viewed === false))
                 })
             }
-            fetch()
+            fetcher.server_notifications && fetch()
         }
         fetcher.setServerNotifications(false)
     }, [fetcher.server_notifications])
@@ -115,7 +115,7 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         Notification.new_server_notifications.forEach(async element => {
-            Notification.addNotification([{ id: v4(), type: element.type, message: element.message }])
+            Notification.addNotification([{ id: element.uuid, type: element.type, message: element.message }])
         });
         let ids = Notification.new_server_notifications.map(el => el.id)
         updateNotifications(ids, true)
@@ -212,13 +212,13 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         if (fetcher.orders_all) {
-            fetch('new')
-            fetch('postponed')
-            fetch('inWork')
-            fetch('canceled')
-            fetch('completed')
-            fetch('arc')
-            fetch('pattern')
+            fetcher.orders_all && fetch('new')
+            fetcher.orders_all && fetch('postponed')
+            fetcher.orders_all && fetch('inWork')
+            fetcher.orders_all && fetch('canceled')
+            fetcher.orders_all && fetch('completed')
+            fetcher.orders_all && fetch('arc')
+            fetcher.orders_all && fetch('pattern')
         }
         fetcher.setOrdersAll(false)
     }, [fetcher.orders_all])
@@ -226,8 +226,8 @@ const Fetcher = observer(() => {
     useEffect(() => {
         if (ComponentFunction.Function !== 'partners') {
             if (fetcher.new_status !== '') {
-                fetch(ComponentFunction.Function)
-                fetch(fetcher.new_status)
+                fetcher.divided_order && fetch(ComponentFunction.Function)
+                fetcher.divided_order && fetch(fetcher.new_status)
             } else {
                 fetch(ComponentFunction.Function)
             }
@@ -237,7 +237,7 @@ const Fetcher = observer(() => {
     }, [fetcher.divided_orders])
 
     useEffect(() => {
-        fetch(fetcher.status)
+        fetcher.create && fetch(fetcher.status)
         fetcher.setStatus('')
         fetcher.setCreate(false)
     }, [fetcher.create])
@@ -251,7 +251,7 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all && !fetcher.create) {
-            fetch('new')
+            fetcher.orders_new && fetch('new')
         }
         fetcher.setOrdersNew(false)
     }, [fetcher.orders_new])
@@ -328,7 +328,7 @@ const Fetcher = observer(() => {
                 }
             }
 
-            fetch()
+            fetcher.partners && fetch()
         }
         fetcher.setPartners(false)
     }, [fetcher.partners])
@@ -397,7 +397,7 @@ const Fetcher = observer(() => {
                 }
             })
         }
-        fetch()
+        fetcher.main_counters && fetch()
         fetcher.setMainCounters(false)
     }, [fetcher.main_counters])
 
@@ -408,22 +408,16 @@ const Fetcher = observer(() => {
                 adImageHandler(data.rows)
             })
         }
-        fetch()
+        fetcher.ad_transports && fetch()
         fetcher.setAdTransports(false)
     }, [fetcher.ad_transports])
-
-    useEffect(() => {
-        fetcher.setAdTransports(true)
-    }, [])
 
 
     useEffect(() => {
         setInterval(() => {
             fetcher.setAdTransports(true)
-        }, 60000)
-
+        }, 600000)
     }, [])
-
 
     //management:
     //users
@@ -478,7 +472,6 @@ const Fetcher = observer(() => {
     //orders
     //visits
     useEffect(() => {
-
         async function fetch() {
             await fetchManagementVisits().then(data => {
                 data && Management.setVisits(data)
@@ -487,10 +480,6 @@ const Fetcher = observer(() => {
         fetcher.management_visits && fetch()
         fetcher.setManagementVisits(false)
     }, [fetcher.management_visits])
-
-    // useEffect(() => {
-    //     fetcher.setManagementVisits(true)
-    // }, [])
 
 
     useEffect(() => {

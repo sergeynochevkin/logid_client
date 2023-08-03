@@ -69,8 +69,9 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
         .then(createPartner(noPartner.id, UserInfo.userInfo.id, 'normal'))
 
         .then(spliceOrder(oneOrder.id, 1))
-        .then(fetcher.setDividedOrders(true))
-        .then(fetcher.setNewStatus('inWork'))
+      fetcher.setOrdersNew(true)
+      fetcher.setOrdersInWork(true)
+      fetcher.setPartners(true)
 
       setModalActive(false)
     } catch (e) {
@@ -82,7 +83,8 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
     try {
       await deleteOffer(oneOffer.id, user.user.role).then(data => Notification.addNotification([{
         id: v4(), type: 'success', message: data
-      }])).then(fetcher.setOrdersNew(true))
+      }]))
+      fetcher.setOrdersNew(true)
 
       thisOrderOffers.length <= 1 && setModalActive(false)
 

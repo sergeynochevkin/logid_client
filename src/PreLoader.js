@@ -89,46 +89,49 @@ const PreLoader = observer(({ children, ...props }) => {
     };
 
     useEffect(() => {
+
+        async function fetchData() {
+            await fetchDefaultData().then(data => {
+                Subscription.setPlans(data.subscripton_plans)
+                Subscription.setOptions(data.subscripton_options)
+                Subscription.setOptionsByPlans(data.subscripton_options_by_plans)
+                TransportType.setTypes(data.transport_types)
+                TransportType.setSideTypes(data.transport_side_types)
+                TransportType.setLoadCapacities(data.transport_load_capacities)
+                EquipmentType.setTypes(data.equipment_types)
+                Adress.setCountries(data.countries)
+    
+                if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
+                    let country = JSON.parse(localStorage.getItem('country'))
+                    Adress.setCountry(country)
+                    if (localStorage.getItem('language')) {
+                        let language = localStorage.getItem('language')
+                        if (language === 'english' || language === country.default_language) {
+                            Translate.setLanguage(language)
+                        } else {
+                            Translate.setLanguage(country.default_language)
+                        }
+                    } else {
+                        Translate.setLanguage(country.default_language)
+                    }
+                    getIp()
+                    setDataLoaded(true)
+                } else {
+                    getGeoInfo(data.countries);
+                }
+            })
+        }
+
         localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
         if (!localStorage.getItem('cookies_accepted')) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         } else if (!JSON.parse(localStorage.getItem('cookies_accepted')).total) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         }
-        fetchData()
+        fetchData()        
     }, [])
 
-    async function fetchData() {
-        await fetchDefaultData().then(data => {
-            Subscription.setPlans(data.subscripton_plans)
-            Subscription.setOptions(data.subscripton_options)
-            Subscription.setOptionsByPlans(data.subscripton_options_by_plans)
-            TransportType.setTypes(data.transport_types)
-            TransportType.setSideTypes(data.transport_side_types)
-            TransportType.setLoadCapacities(data.transport_load_capacities)
-            EquipmentType.setTypes(data.equipment_types)
-            Adress.setCountries(data.countries)
 
-            if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
-                let country = JSON.parse(localStorage.getItem('country'))
-                Adress.setCountry(country)
-                if (localStorage.getItem('language')) {
-                    let language = localStorage.getItem('language')
-                    if (language === 'english' || language === country.default_language) {
-                        Translate.setLanguage(language)
-                    } else {
-                        Translate.setLanguage(country.default_language)
-                    }
-                } else {
-                    Translate.setLanguage(country.default_language)
-                }
-                getIp()
-                setDataLoaded(true)
-            } else {
-                getGeoInfo(data.countries);
-            }
-        })
-    }
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -148,7 +151,14 @@ const PreLoader = observer(({ children, ...props }) => {
                     user.setIsAuth(true)
 
                     data = await fetchUserInfo(user.user.id).then(data => {
+
                         if (data) {
+                            UserInfo.setUserInfo(data)
+                            country = Adress.countries.find(el => el.value === data.country)
+                            if (country !== Adress.country.value) {
+                                Adress.setCountry(country)
+                            }
+
                             if (user.user.role === 'carrier') {
                                 fetcher.setTransports(true)
                             }
@@ -156,16 +166,8 @@ const PreLoader = observer(({ children, ...props }) => {
                             if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
                                 fetcher.setOrdersAll(true)
                             }
-                        }
-
-                        if (data) {
-                            UserInfo.setUserInfo(data)
-                            country = Adress.countries.find(el => el.value === data.country)
-
-                            if (country !== Adress.country.value) {
-                                Adress.setCountry(country)
-                            }
-                        }
+                        }                                            
+                                    
 
                         data && fetchUserState(data.id).then(stateData => {
 

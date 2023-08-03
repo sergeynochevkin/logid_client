@@ -90,6 +90,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     )
                 }])
             }
+            fetcher.setOrdersNew(true)
             setModalActive(false)
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -102,7 +103,7 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
         try {
             event.preventDefault();
             await deleteOffer(thisCarrierOffer.id).then(sendMail(Translate.language, user.user.role, oneOrder.id, 'offer', 'delete'))
-            fetcher.setOrders(true)
+            fetcher.setOrdersNew(true)
             setModalActive(false)
             Notification.addNotification([{
                 id: v4(), type: 'success', message: SetNativeTranslate(
