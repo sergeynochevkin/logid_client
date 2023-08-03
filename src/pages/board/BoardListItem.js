@@ -1,18 +1,21 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import Modal from '../../components/ui/modal/Modal'
 import { CardEquipment } from '../../components/ui/card/CardEquipment'
 import { EquipmentRow } from '../../components/ui/card/EquipmentRow'
 import { Link, useNavigate } from 'react-router-dom'
-import { BOARD_ITEM_ROUTE } from '../../utils/consts'
+import { v4 } from "uuid";
+import { transportViewed } from '../../http/transportApi'
+
 
 const BoardListItem = observer(({ transport }) => {
     const { Setting } = useContext(SettingContext)
     const { Ad } = useContext(AdContext)
     const { Translate } = useContext(TranslateContext)
     const { user } = useContext(UserContext)
+    const { UserInfo } = useContext(UserInfoContext)
     const navigate = useNavigate()
 
     // const [images, setImages] = useState([])
@@ -33,6 +36,15 @@ const BoardListItem = observer(({ transport }) => {
         }
     }, [Ad.transport_images])
 
+
+    const viewedAction = async () => {
+        try {
+            await transportViewed(transport.id, UserInfo.userInfo.id)
+        } catch (error) {
+            Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
+        }
+    }
+
     return (
         <>
             {/* <Modal modalActive={modalActive} setModalActive={setModalActive}>
@@ -40,7 +52,11 @@ const BoardListItem = observer(({ transport }) => {
                     <img src={image} className='image_modal_board_main'></img>
                 </div>
             </Modal> */}
-            <Link to={`/board/item/${transport.id}`}>
+            <Link to={`/board/item/${transport.id}`}
+                onClick={() => {
+                    user.isAuth && viewedAction()
+                }}
+            >
                 <div className={`board_transport_item ${Setting.app_theme}`}
                 // onClick={() => {
                 //     handleSelect(transport.id)

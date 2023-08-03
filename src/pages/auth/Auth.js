@@ -31,9 +31,10 @@ import { CheckBoxSection } from '../../components/ui/form/CheckBoxSection'
 import Country from '../../components/account/userInfoForm/Country'
 import TransportFormSection from '../../components/transport/TransportFormSection'
 import City from '../../components/account/userInfoForm/City'
+import { transportContactViewed } from '../../http/transportApi'
 
 
-const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
+const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
 
@@ -80,7 +81,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
 
     enterAction('isLogin')
     setComparePassword('')
-    setReCapchaChecked(false)
 
     formData.email.setValue('')
     formData.password.setValue('')
@@ -215,6 +215,13 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
       } else {
         UserInfo.setUserInfo(data)
         data && fetcher.setUserAppSetting(true)
+
+        if (after_action && data) {
+          if (after_action.action === 'transport_contact_viewed') {
+            transportContactViewed(after_action.transportId, data.id)
+          }
+        }
+
         if (data.country !== Adress.country.value) {
           Adress.setCountry(Adress.countries.find(el => el.value === data.country))
         }
@@ -281,8 +288,20 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
         )
       }])
       user.setIsAuth(true)
-      // if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
-      // else { navigate(MAIN_ROUTE) }
+
+      fetching()
+
+
+      if (parent === 'navBar') {
+        if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
+        else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
+        else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
+        else { navigate(MAIN_ROUTE) }
+      }
+
+
+      setModalActive(false)
+
       setModalActive(false)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
@@ -354,6 +373,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent }) => {
       user.setIsAuth(true)
 
       fetching()
+
+
 
       if (parent === 'navBar') {
         if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }

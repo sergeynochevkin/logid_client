@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { AdContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import BoardListItem from './BoardListItem'
 import { observer } from 'mobx-react-lite'
 import Modal from '../../components/ui/modal/Modal'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { Button } from '../../components/ui/button/Button'
 import Auth from '../auth/Auth'
+import { v4 } from "uuid";
+import { transportContactViewed } from '../../http/transportApi'
+
 
 const BoardItemPage = observer(() => {
     const { Ad } = useContext(AdContext)
     const { Translate } = useContext(TranslateContext)
     const { user } = useContext(UserContext)
+    const { UserInfo } = useContext(UserInfoContext)
     const { Setting } = useContext(SettingContext)
     let { id } = useParams()
     id = parseInt(id)
@@ -22,7 +26,7 @@ const BoardItemPage = observer(() => {
     const [ad_user, setAdUser] = useState({})
     const [modalActive, setModalActive] = useState(false)
     const [modalActive1, setModalActive1] = useState(false)
-
+    const [showContact, setShowContact] = useState(false)
 
 
     useEffect(() => {
@@ -41,6 +45,14 @@ const BoardItemPage = observer(() => {
         setTransport({ ...Ad.transports.find(el => el.id === id) })
     }, [])
 
+    const contactViewedAction = async () => {
+        try {
+            await transportContactViewed(id, UserInfo.userInfo.id)
+        } catch (error) {
+            Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
+        }
+    }
+
     return (
         <>
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
@@ -50,7 +62,7 @@ const BoardItemPage = observer(() => {
                 </div>
             </Modal>
             <Modal setModalActive={setModalActive1} modalActive={modalActive1}>
-                <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} />
+                <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} after_action={{ action: 'transport_contact_viewed', transportId: transport.id }} />
             </Modal>
             <div className={`board_item_page_container ${Setting.app_theme}`}>
                 <div className='board_item_ad_container'>
@@ -90,10 +102,15 @@ const BoardItemPage = observer(() => {
                     <div className='board_item_page_info_container'>
                         <div>{ad_user.city}</div>
                         <div>{ad_user.name}</div>
-                        <div>{user.isAuth ? ad_user.phone :
+                        <div>{user.isAuth && showContact ? ad_user.phone :
                             <Button
                                 onClick={() => {
-                                    setModalActive1(true)
+                                    if (!user.isAuth) {
+                                        setModalActive1(true)
+                                    } else {
+                                        contactViewedAction()
+                                    }
+                                    setShowContact(true)
                                 }}
                             >
                                 {SetNativeTranslate(Translate.language, {

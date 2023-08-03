@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Loader.css'
 
 const PageLoader = () => {
@@ -7,7 +7,7 @@ const PageLoader = () => {
     const waitAction = () => {
         setTimeout(() => {
             setWait(false)
-        }, 10000)
+        }, 20000)
     }
     useEffect(() => {
         waitAction()
