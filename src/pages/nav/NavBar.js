@@ -17,10 +17,10 @@ import logo_light from '../../assets/logo_light.png';
 import logo_dark from '../../assets/logo_dark.png';
 import logo_russian_dark from '../../assets/logo_russian_dark.png';
 import logo_russian_light from '../../assets/logo_russian_light.png';
-import Auth from '../auth/Auth';
+import Auth from '../../components/auth/Auth';
 
 const NavBar = observer(() => {
-  const { user } = useContext(UserContext)
+   const { user } = useContext(UserContext)
   const { order } = useContext(OrderContext)
   const { State } = useContext(StateContext)
   const navigate = useNavigate()
@@ -32,6 +32,9 @@ const NavBar = observer(() => {
   const [modalActive1, setModalActive1] = useState(false)
   const [modalActive2, setModalActive2] = useState(false)
   const [name, setName] = useState('')
+  
+
+
 
   const setLanguage = (language) => {
     Translate.setLanguage(language)
@@ -45,6 +48,12 @@ const NavBar = observer(() => {
   // useEffect(() => {
   //   !Adress.country_detected && setModalActive(true)
   // }, [])
+
+  useEffect(() => {
+    if (order.link_order.id && !user.isAuth) {
+      setModalActive1(true)
+    }
+  }, [])
 
   return (
     <>
@@ -63,7 +72,7 @@ const NavBar = observer(() => {
         </Modal>
 
         <Modal setModalActive={setModalActive1} modalActive={modalActive1}>
-          <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} parent = {'navBar'} />
+          <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} parent={'navBar'} />
         </Modal>
 
         <div className='nav_bar_logo_container' onClick={() =>

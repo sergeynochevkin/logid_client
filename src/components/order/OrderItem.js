@@ -138,8 +138,8 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     }
 
 
-    useEffect(() => {
-        if (thisOrder.id == order.link_order.id) {
+    useEffect(() => {        
+        if (thisOrder.id === order.link_order.id) {
             order.setLinkOrder('', 'id')
             order.setLinkOrder('', 'status')
             toOrderItem()

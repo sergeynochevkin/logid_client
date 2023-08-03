@@ -5,13 +5,19 @@ import BoardFilter from './BoardFilter'
 import BoardMainBanner from './BoardMainBanner'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
-import { SettingContext } from '../..'
+import { SettingContext, TranslateContext } from '../..'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const Board = observer(() => {
     const { Setting } = useContext(SettingContext)
+    const { Translate } = useContext(TranslateContext)
 
     return (
         <div className={`board_container ${Setting.app_theme}`}>
+            <title>{SetNativeTranslate(Translate.language, {
+                russian:['Доска объявлений'],
+                english:['Bulletin board']
+            })}</title>
 
             <BoardMainBanner />
             <div className={`board_content_container`}>

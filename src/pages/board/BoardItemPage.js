@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 import Modal from '../../components/ui/modal/Modal'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { Button } from '../../components/ui/button/Button'
-import Auth from '../auth/Auth'
+import Auth from '../../components/auth/Auth'
 import { v4 } from "uuid";
 import { transportContactViewed } from '../../http/transportApi'
 

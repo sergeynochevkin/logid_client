@@ -211,13 +211,15 @@ const Fetcher = observer(() => {
     }
 
     useEffect(() => {
-        fetch('new')
-        fetch('postponed')
-        fetch('inWork')
-        fetch('canceled')
-        fetch('completed')
-        fetch('arc')
-        fetch('pattern')
+        if (fetcher.orders_all) {
+            fetch('new')
+            fetch('postponed')
+            fetch('inWork')
+            fetch('canceled')
+            fetch('completed')
+            fetch('arc')
+            fetch('pattern')
+        }
         fetcher.setOrdersAll(false)
     }, [fetcher.orders_all])
 
@@ -371,7 +373,7 @@ const Fetcher = observer(() => {
         async function fetch() {
             await fetchUser(user.user.id).then(data => user.setUser(data))
         }
-        fetcher.account_user &&fetch()
+        fetcher.account_user && fetch()
         fetcher.setAccountUser(false)
     }, [fetcher.account_user])
     useEffect(() => {
@@ -470,7 +472,7 @@ const Fetcher = observer(() => {
             }
             Management.setTransportImages(transportsImagesArray)
         }
-        fetcher.management_transports &&  fetch()
+        fetcher.management_transports && fetch()
         fetcher.setManagementTransports(false)
     }, [fetcher.management_transports])
     //orders
@@ -507,7 +509,7 @@ const Fetcher = observer(() => {
         async function fetch() {
             await fetchSettings(UserInfo.userInfo.id).then(data => Setting.setUserSettings(data))
         }
-       fetcher.user_app_setting && fetch()
+        fetcher.user_app_setting && fetch()
         fetcher.setUserAppSetting(false)
     }, [fetcher.user_app_setting])
 

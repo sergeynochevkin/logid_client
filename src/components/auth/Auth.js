@@ -1,44 +1,47 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from '../../components/ui/link/Link'
-import { Area50 } from '../../components/ui/area/Area50'
-import { Button } from '../../components/ui/button/Button'
-import { Form } from '../../components/ui/form/Form'
-import { Input } from '../../components/ui/form/Input'
-import { Name } from '../../components/ui/text/Name'
-import { Select } from '../../components/ui/form/Select'
-import PageContainer from '../../components/ui/page/PageContainer'
-import { Comment } from '../../components/ui/form/Comment'
+import { Link } from '../ui/link/Link'
+import { Area50 } from '../ui/area/Area50'
+import { Button } from '../ui/button/Button'
+import { Form } from '../ui/form/Form'
+import { Input } from '../ui/form/Input'
+import { Name } from '../ui/text/Name'
+import { Select } from '../ui/form/Select'
+import PageContainer from '../ui/page/PageContainer'
+import { Comment } from '../ui/form/Comment'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE, BOARD_ITEM_ROUTE } from '../../utils/consts';
-import { code, login, registration, restore, update } from '../../http/userAPI'
+import { code, fast_registration, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
-import { VerticalContainer } from '../../components/ui/page/VerticalContainer'
-import { FieldName } from '../../components/ui/page/FieldName'
+import { VerticalContainer } from '../ui/page/VerticalContainer'
+import { FieldName } from '../ui/page/FieldName'
 import { v4 } from "uuid";
 import { NotificationContext } from '../../index'
 import ReCAPTCHA from "react-google-recaptcha";
-import { HorizontalContainer } from '../../components/ui/page/HorizontalContainer'
+import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import './Auth.css'
 import { fetchUserState } from '../../http/stateApi'
-import { CheckBoxContainer } from '../../components/ui/form/CheckBoxContainer'
-import { CheckBoxSection } from '../../components/ui/form/CheckBoxSection'
-import Country from '../../components/account/userInfoForm/Country'
+import { CheckBoxContainer } from '../ui/form/CheckBoxContainer'
+import { CheckBoxSection } from '../ui/form/CheckBoxSection'
+import Country from '../account/userInfoForm/Country'
+import TransportFormSection from '../transport/TransportFormSection'
+import City from '../account/userInfoForm/City'
+import { transportContactViewed } from '../../http/transportApi'
 
 
-const Auth = observer(({ }) => {
+const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
+
+  const [isLogin, setIsLogin] = useState()
+  const [isRegister, setIsRegister] = useState()
+  const [isRecovery, setIsRecovery] = useState()
   const navigate = useNavigate()
-  const location = useLocation()
-  const isLogin = location.pathname === LOGIN_ROUTE 
-  const isRegister = location.pathname === REGISTRATION_ROUTE
-  const isRecovery = location.pathname === RECOVERY_ROUTE
   const [comparePassword, setComparePassword] = useState('')
   const [comparePasswordActive, setComparePasswordActive] = useState(false)
   const { Notification } = useContext(NotificationContext)
@@ -51,11 +54,62 @@ const Auth = observer(({ }) => {
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
 
-  // set without routes if parent component at stay at the component after actions
+  const enterAction = (enterPoint) => {
+    if (enterPoint === 'isLogin') {
+      setIsLogin(true)
+      setIsRegister(false)
+      setIsRecovery(false)
+    }
+    if (enterPoint === 'isRegister') {
+      setIsLogin(false)
+      setIsRegister(true)
+      setIsRecovery(false)
+
+    }
+    if (enterPoint === 'isRecovery') {
+      setIsLogin(false)
+      setIsRegister(false)
+      setIsRecovery(true)
+    }
+  }
+
+  useEffect(() => {
+    enterAction(enterPoint)
+  }, [])
+
+  let formReset = () => {
+
+    enterAction('isLogin')
+    setComparePassword('')
+
+    formData.email.setValue('')
+    formData.password.setValue('')
+    formData.role.setValue('')
+    formData.country.setValue('')
+
+    formData.email.setDirty(false)
+    formData.password.setDirty(false)
+    formData.role.setDirty(false)
+    formData.country.setDirty(false)
+
+    // formData.tag.setValue('')
+    // formData.tag.setDirty(false)
+    // formData.ad_text.setValue('')
+    // formData.ad_text.setDirty(false)
+    // formData.type.setValue('')
+    // formData.load_capacity.setValue('')
+    // formData.side_type.setValue('')
+    // formData.type.setDirty(false)
+    // formData.load_capacity.setDirty(false)
+    // formData.side_type.setDirty(false)
+    setFormData(initialValue)
+  }
+
+
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
-  const [formData, setFormData] = useState({
+  let initialValue = {
     email: '',
     password: '',
     role: '',
@@ -65,9 +119,58 @@ const Auth = observer(({ }) => {
     privacy_policy_accepted: false,
     age_accepted: false,
     personal_data_agreement_accepted: false,
-    cookies_accepted: cookies_accepted
-  })
+    cookies_accepted: cookies_accepted,
 
+    //user info
+    userId: undefined,
+    country: '',
+    legal: '',
+    city: { value: '', isDirty: false, notValid: true },
+    city_place_id: '',
+    city_latitude: '',
+    city_longitude: '',
+    phone: '',
+    website: '',
+    company_name: '',
+    company_inn: '',
+    company_adress: { value: '', isDirty: false, notValid: true },
+    company_adress_latitude: '',
+    company_adress_longitude: '',
+    type_of_customer: '',
+    name_surname_fathersname: '',
+    passport_number: '',
+    passport_date_of_issue: '',
+    passport_issued_by: '',
+    email: '',
+    from_fast: true,
+
+    //transport
+    thermo_bag: false,
+    hydraulic_platform: false,
+    side_loading: false,
+    glass_stand: false,
+    refrigerator_minus: false,
+    refrigerator_plus: false,
+    thermo_van: false,
+    userInfoId: undefined,
+    tag: '',
+    type: '',
+  }
+
+  useEffect(() => {
+    if (!modalActive) {
+      formReset()
+    }
+  }, [modalActive])
+
+  // const isLogin = location.pathname === LOGIN_ROUTE
+  // const isRegister = location.pathname === REGISTRATION_ROUTE
+  // const isRecovery = location.pathname === RECOVERY_ROUTE
+
+
+  // set without routes if parent component at stay at the component after actions
+
+  const [formData, setFormData] = useState(initialValue)
 
 
   const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -90,6 +193,14 @@ const Auth = observer(({ }) => {
     english: ['confirmation code']
   }))
 
+  formData.load_capacity = useInput('', { isEmpty: true },)
+  formData.side_type = useInput('', { isEmpty: true },)
+  formData.type = useInput('', { isEmpty: true },)
+  formData.tag = SetNativeTranslate(Translate.language, {
+    russian: ['Первый способ доставки'],
+    english: ['First shipping method']
+  })
+
   const [fetching, error] = useFetching(async () => {
     await fetchUserInfo(user.user.id).then(data => {
       if (data === null) {
@@ -99,11 +210,18 @@ const Auth = observer(({ }) => {
           fetcher.setManagementVisits(true)
           fetcher.setManagementUsers(true)
           fetcher.setManagementTransports(true)
-          fetcher.setManagementOrders(true)          
+          fetcher.setManagementOrders(true)
         }
       } else {
         UserInfo.setUserInfo(data)
         data && fetcher.setUserAppSetting(true)
+
+        if (after_action && data) {
+          if (after_action.action === 'transport_contact_viewed') {
+            transportContactViewed(after_action.transportId, data.id)
+          }
+        }
+
         if (data.country !== Adress.country.value) {
           Adress.setCountry(Adress.countries.find(el => el.value === data.country))
         }
@@ -170,8 +288,21 @@ const Auth = observer(({ }) => {
         )
       }])
       user.setIsAuth(true)
-      if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
-      else { navigate(MAIN_ROUTE) }
+
+      fetching()
+
+
+      if (parent === 'navBar') {
+        if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
+        else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
+        else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
+        else { navigate(MAIN_ROUTE) }
+      }
+
+
+      setModalActive(false)
+
+      setModalActive(false)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
     }
@@ -194,7 +325,40 @@ const Auth = observer(({ }) => {
         fetching()
       }
       else {
-        data = await registration(formData.email.value, formData.password.value, formData.role.value, Translate.language, formData.country.value, formData.user_agreement_accepted, formData.privacy_policy_accepted, formData.age_accepted, formData.cookies_accepted.total, formData.personal_data_agreement_accepted)
+        data = await fast_registration(
+          Translate.language,
+          formData.phone.value,
+          formData.email.value,
+          formData.password.value,
+          formData.role.value,
+          formData.country.value,
+          formData.user_agreement_accepted,
+          formData.privacy_policy_accepted,
+          formData.age_accepted,
+          formData.cookies_accepted.total,
+          formData.personal_data_agreement_accepted,
+
+          // value?                
+          formData.city.value,
+          formData.city_place_id,
+          formData.city_latitude,
+          formData.city_longitude,
+
+          formData.load_capacity.value,
+          formData.side_type.value,
+          formData.type.value,
+
+          formData.from_fast,
+
+          formData.thermo_bag,
+          formData.hydraulic_platform,
+          formData.side_loading,
+          formData.glass_stand,
+          formData.refrigerator_minus,
+          formData.refrigerator_plus,
+          formData.thermo_van,
+          formData.tag,
+        )
         user.setUser(data)
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
@@ -207,10 +371,18 @@ const Auth = observer(({ }) => {
       }
       localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
-      if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
-      else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
-      else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
-      else { navigate(MAIN_ROUTE) }
+
+      fetching()
+
+
+
+      if (parent === 'navBar') {
+        if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
+        else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
+        else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
+        else { navigate(MAIN_ROUTE) }
+      }
+      setModalActive(false)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
     }
@@ -221,14 +393,18 @@ const Auth = observer(({ }) => {
   }
 
   return (
-    <PageContainer>
-      {isLogin ? <title>{SetNativeTranslate(Translate.language, {}, 'authorization')}</title> : isRegister ? <title>{SetNativeTranslate(Translate.language, {}, 'registration')}</title> : isRecovery ? <title>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</title> : <></>}
-      <Area50></Area50>
+    <div className='auth_container'>
+      {/* {isLogin ? <title>{SetNativeTranslate(Translate.language, {}, 'authorization')}</title> : isRegister ? <title>{SetNativeTranslate(Translate.language, {}, 'registration')}</title> : isRecovery ? <title>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</title> : <></>} */}
 
       <Form>
         <Name>{isLogin ? SetNativeTranslate(Translate.language, {}, 'authorization') : isRegister ? SetNativeTranslate(Translate.language, {}, 'registration') : isRecovery ? SetNativeTranslate(Translate.language, {}, 'password_recovery') : ''} </Name>
 
-        {isRegister && <Country setFormData={setFormData} formData={formData} parent='auth' />}
+        {/* {isRegister && <Country setFormData={setFormData} formData={formData} parent='auth' />} */}
+
+        {isRegister &&
+          <div className='fast_sign_up_section'>
+            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
+          </div>}
 
         {(isRecovery && !codeSend) || isLogin || isRegister ?
           <VerticalContainer
@@ -307,7 +483,7 @@ const Auth = observer(({ }) => {
               </FieldName>
             </VerticalContainer>
 
-            {isRegister ?
+            {isRegister ? <>
               <VerticalContainer
                 style={{ gap: '0px' }}
               >
@@ -335,6 +511,13 @@ const Auth = observer(({ }) => {
                   }
                 </FieldName>
               </VerticalContainer>
+              {formData.role.value === 'carrier' && formData.role.value !== '' ?
+                <div className='fast_sign_up_section'>
+                  <TransportFormSection parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
+                </div>
+                : <></>
+              }
+            </>
               : <></>}
           </> :
           <></>
@@ -518,7 +701,16 @@ const Auth = observer(({ }) => {
               (isRegister && !formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.age_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.cookies_accepted.total) ||
-              (isRegister && !formData.personal_data_agreement_accepted)
+              (isRegister && !formData.personal_data_agreement_accepted) ||
+
+              (isRegister && formData.role.value === 'carrier' &&
+                formData.type.isEmpty ||
+                (
+                  (formData.load_capacity.isEmpty && formData.type.value === 'truck') ||
+                  (formData.load_capacity.isEmpty && formData.type.value === 'minibus') ||
+                  (formData.side_type.isEmpty && formData.type.value === 'truck')
+                )
+              )
             }
             onClick={(event) => {
               event.preventDefault()
@@ -552,22 +744,22 @@ const Auth = observer(({ }) => {
           <div
             style={{ display: 'flex', gap: '5px' }}>
 
-            <Link onClick={() =>
-              navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'registration')}</Link>
-            <Link onClick={() =>
-              navigate(RECOVERY_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</Link>
+            <div className='auth_link' onClick={() =>
+              enterAction('isRegister')}>{SetNativeTranslate(Translate.language, {}, 'registration')}</div>
+            <div className='auth_link' onClick={() =>
+              enterAction('isRecovery')}>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</div>
           </div>
           : isRegister ?
-            <Comment>{SetNativeTranslate(Translate.language, {}, 'have_an_account')}<Link onClick={() =>
-              navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Link></Comment>
+            <Comment>{SetNativeTranslate(Translate.language, {}, 'have_an_account')}<div className='auth_link' onClick={() =>
+              enterAction('isLogin')}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div></Comment>
             : isRecovery ?
               <div
                 style={{ display: 'flex', gap: '5px' }}>
 
-                <Link onClick={() =>
-                  navigate(REGISTRATION_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'registration')}</Link>
-                <Link onClick={() =>
-                  navigate(LOGIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</Link>
+                <div className='auth_link' onClick={() =>
+                  enterAction('isRegister')}>{SetNativeTranslate(Translate.language, {}, 'registration')}</div>
+                <div className='auth_link' onClick={() =>
+                  enterAction('isRegister')}>{SetNativeTranslate(Translate.language, {}, 'sign_in')}</div>
               </div>
               : <></>
         }
@@ -585,7 +777,7 @@ const Auth = observer(({ }) => {
       } */}
 
 
-    </PageContainer>
+    </div>
   )
 })
 

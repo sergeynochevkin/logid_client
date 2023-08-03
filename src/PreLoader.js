@@ -6,7 +6,7 @@ import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
 import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
-import { ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
+import { ADMIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
 import axios from "axios";
 import { fetchTransport } from './http/transportApi'
 import PageLoader from './components/ui/loader/PageLoader '
@@ -33,7 +33,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const order_status = queryParams.get("o_s")
 
     let location = useLocation();
-    
+
     //attach google and lets go to design!
 
     const getIp = async (data) => {
@@ -80,7 +80,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     //select deafault country, say that we dont have service in this country
                     Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
                     setDataLoaded(true)
-                    Adress.setCountryDetected(false)
+                    // Adress.setCountryDetected(false)
                 }
             })
             .catch((error) => {
@@ -95,7 +95,7 @@ const PreLoader = observer(({ children, ...props }) => {
         } else if (!JSON.parse(localStorage.getItem('cookies_accepted')).total) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         }
-        fetchData().then(UserInfo.setUserInfo({}))
+        fetchData()
     }, [])
 
     async function fetchData() {
@@ -144,18 +144,24 @@ const PreLoader = observer(({ children, ...props }) => {
                         fetcher.setManagementOrders(true)
                         fetcher.setManagementTransports(true)
                     }
-                    // await fetching()
-                    user.setIsAuth(true)                 
+
+                    user.setIsAuth(true)
 
                     data = await fetchUserInfo(user.user.id).then(data => {
                         if (data) {
-                            if (data.role === 'carrier') {
-                                fetchTransport(UserInfo.userInfo.id).then(data => Transport.setTransports(data))
+                            if (user.user.role === 'carrier') {
+                                fetcher.setTransports(true)
+                            }
+
+                            if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
+                                fetcher.setOrdersAll(true)
                             }
                         }
+
                         if (data) {
                             UserInfo.setUserInfo(data)
                             country = Adress.countries.find(el => el.value === data.country)
+
                             if (country !== Adress.country.value) {
                                 Adress.setCountry(country)
                             }
@@ -187,8 +193,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
                     })
 
-                    if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !=="/board") {
-                        fetcher.setOrdersAll(true)
+                    if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
                         navigate(USER_ROUTE)
                     }
                     user.user.role === 'admin' && navigate(MAIN_ROUTE)
@@ -207,7 +212,7 @@ const PreLoader = observer(({ children, ...props }) => {
             order.setLinkOrder(order_id, 'id')
             order.setLinkOrder(order_status, 'status')
             if (!user.isAuth) {
-                navigate(LOGIN_ROUTE)
+                navigate(MAIN_ROUTE)
             }
         }
     }, [])
