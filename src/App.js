@@ -12,13 +12,13 @@ const App = observer(() => {
   return (
     <BrowserRouter>
       <PreLoader>
-        <Fetcher />
-        <Notificator />
-        <NavBar />
-        <AppRouter>
-          <div className="App"></div>
-        </AppRouter>
-        <Footer />
+        <Fetcher/>
+          <Notificator />
+          <NavBar />
+          <AppRouter>
+            <div className="App"></div>
+          </AppRouter>
+          <Footer />
       </PreLoader>
     </BrowserRouter>
   );

@@ -34,6 +34,14 @@
     background-color: black;
 }
 
+.loader_container.fetcher {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(245, 245,245,0.3);
+    position: absolute;
+    z-index: 2;
+}
+
 .loader.page {
     width: 200px;
     height: 200px;

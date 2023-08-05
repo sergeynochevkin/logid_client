@@ -36,6 +36,9 @@ export default class FetcherStore {
         //setting
         this._user_app_setting = false
 
+        //loading
+        this._loading = false
+
         makeAutoObservable(this)
     }
     //set
@@ -108,6 +111,9 @@ export default class FetcherStore {
     setUserAppSetting(value) {
         this._user_app_setting = value
     }
+    setLoading(value) {
+        this._loading = value
+    }
 
     //get
     get server_notifications() {
@@ -179,5 +185,8 @@ export default class FetcherStore {
     }
     get user_app_setting() {
         return this._user_app_setting
+    }
+    get loading() {
+        return this._loading
     }
 }

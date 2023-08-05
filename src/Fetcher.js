@@ -18,6 +18,7 @@ import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers,
 import { fetchAdTransports, fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
 import { fetchFile } from './http/fileApi'
+import FetcherLoader from './components/ui/loader/FetcherLoader'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
@@ -224,6 +225,7 @@ const Fetcher = observer(() => {
     }, [fetcher.orders_all])
 
     useEffect(() => {
+        fetcher.setLoading(true)
         if (ComponentFunction.Function !== 'partners') {
             if (fetcher.new_status !== '') {
                 fetcher.divided_order && fetch(ComponentFunction.Function)
@@ -233,34 +235,43 @@ const Fetcher = observer(() => {
             }
         }
         fetcher.setDividedOrders(false)
+        fetcher.setLoading(false)
         fetcher.setNewStatus('')
     }, [fetcher.divided_orders])
 
     useEffect(() => {
+        fetcher.setLoading(true)
         fetcher.create && fetch(fetcher.status)
         fetcher.setStatus('')
         fetcher.setCreate(false)
+        fetcher.setLoading(false)
     }, [fetcher.create])
 
     useEffect(() => {
         if (ComponentFunction.Function !== 'partners') {
+            fetcher.setLoading(true)
             fetch(ComponentFunction.Function)
         }
         fetcher.setOrders(false)
+        fetcher.setLoading(false)
     }, [fetcher.orders])
 
     useEffect(() => {
         if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all && !fetcher.create) {
+        fetcher.setLoading(true)
             fetcher.orders_new && fetch('new')
         }
         fetcher.setOrdersNew(false)
+        fetcher.setLoading(false)
     }, [fetcher.orders_new])
 
     useEffect(() => {
         if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all && !fetcher.create) {
+        fetcher.setLoading(true)
             fetch('inWork')
         }
         fetcher.setOrdersInWork(false)
+        fetcher.setLoading(false)
     }, [fetcher.orders_in_work])
 
     useEffect(() => {
@@ -503,7 +514,9 @@ const Fetcher = observer(() => {
     }, [fetcher.user_app_setting])
 
     return (
-        <></>)
+        <>
+            {fetcher.loading && <FetcherLoader />}
+        </>)
 })
 
 export default Fetcher
