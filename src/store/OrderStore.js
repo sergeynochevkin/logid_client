@@ -5,6 +5,11 @@ export default class OrderStore {
 
     constructor() {
         this._orders = []
+        this._order_images = []
+
+        this._files = []
+        this._pairs = []
+
         this._divided_orders = {
             new: [],
             inWork: [],
@@ -15,7 +20,7 @@ export default class OrderStore {
             pattern: []
         }
 
-        this._link_order = {status:'', id:''}
+        this._link_order = { status: '', id: '' }
 
         this._views = {
             new: [],
@@ -178,6 +183,31 @@ export default class OrderStore {
     }
     get order() {
         return this._order
+    }
+
+    setOrderImages(value) {
+        this._order_images = value
+    }
+
+    get order_images() {
+        return this._order_images
+    }
+
+    setFiles(value) {
+        this._files = value
+    }
+
+    get files() {
+        return this._files
+    }
+
+
+    setPairs(value) {
+        this._pairs = value
+    }
+
+    get pairs() {
+        return this._pairs
     }
 }
 

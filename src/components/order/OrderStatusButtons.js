@@ -14,7 +14,7 @@ import Modal from '../ui/modal/Modal'
 import AccountCompletionForm from '../account/AccountCompletionForm'
 import TransportSelector from '../transport/TransportSelector'
 
-const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints }) => {
+const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisPartnerInfo, thisOrderNoPartners, thisCarrierOffer, thisOrderPoints, order_images }) => {
     const { Translate } = useContext(TranslateContext)
     const { Transport } = useContext(TransportContext)
     const { user } = useContext(UserContext)
@@ -78,7 +78,6 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             }
         }
         if (parent === 'selector') {
-            console.log(JSON.stringify(group));
             sendMail(Translate.language, user.user.role, group, 'order_status', status, '')
             fetcher.setNewStatus(status)
             fetcher.setDividedOrders(true)
@@ -193,7 +192,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 }
                 else {
                     try {
-                        await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id, undefined, undefined, undefined, undefined, transportId ? transportId : transport.id )
+                        await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id, undefined, undefined, undefined, undefined, transportId ? transportId : transport.id)
                         await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
                         await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
                         Transport.setTransport({})
@@ -279,6 +278,40 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
             order.setPattern(JSON.stringify(thisOrder))
             Point.setPattern(JSON.stringify(thisOrderPoints))
             order.setIntegrationId()
+
+            //put files to state
+            if (order_images) {
+
+                order.setPairs([])
+                order.setFiles([])
+
+                let blob
+
+                const createImage = async (image) => {
+                    blob = await fetch(image).then(r => r.blob()).then(data => {
+                        let newFile = new File([data], `${v4()}.${data.type.split('/')[1]}`, { type: data.type })
+                        let newPair = { file: newFile, url: URL.createObjectURL(newFile) }
+                        // newFiles.push(newFile)// можно сразу в состояние
+                        // newPairs.push(newPair)// можно сразу в состояние
+                        order.setPairs([...order.pairs, newPair])
+                        order.setFiles([...order.files, newFile])
+
+                    })
+                }
+
+                // let newFiles = []
+                // let newPairs = []
+
+                for (const image of order_images) {
+                  await  createImage(image)
+                }
+
+                // order.setFiles(newFiles)
+                // order.setPairs(newPairs)
+
+         
+            }
+
             localStorage.removeItem('orderFormData')
             ComponentFunction.setOrderFormFunction('edit')
             ComponentFunction.setPageFunction('orderForm')

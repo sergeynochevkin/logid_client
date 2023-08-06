@@ -40,8 +40,8 @@ const Fetcher = observer(() => {
     const { Ad } = useContext(AdContext)
     const { Setting } = useContext(SettingContext)
 
-    let fetchImages = async (transport, file) => {
-        let serverFile = await fetchFile(transport.id, 'transport', file)
+    let fetchImages = async (type, item, file) => {
+        let serverFile = await fetchFile(item.id, type, file)
         let objectURL = await URL.createObjectURL(serverFile)
         return (objectURL)
     }
@@ -60,17 +60,38 @@ const Fetcher = observer(() => {
 
                 if (fileNames) {
                     for (const file of fileNames) {
-                        let url = await fetchImages(transport, file)
+                        let url = await fetchImages('transport', transport, file)
                         transportImageObject.urlsArray.push(url)
                     }
+                    Transport.setTransportImages([...Transport.transport_images, transportImageObject])
                 }
-                Transport.setTransportImages([...Transport.transport_images, transportImageObject])
+
+            }
+        }
+    }
+
+    let orderImageHandler = async (orders) => {
+        for (const oneOrder of orders) {
+            if (!order.order_images.find(el => el.id === oneOrder.id) || JSON.stringify(order.order_images.find(el => el.id === oneOrder.id).urlsArray) !== JSON.stringify(oneOrder.files)) {
+                let orderImageObject = {
+                    id: oneOrder.id,
+                    urlsArray: []
+                }
+
+                let fileNames = JSON.parse(oneOrder.files)
+                if (fileNames) {
+                    for (const file of fileNames) {
+                        let url = await fetchImages('order', oneOrder, file)
+                        orderImageObject.urlsArray.push(url)
+                    }
+                    order.setOrderImages([...order.order_images.filter(el => el.id !== oneOrder.id), orderImageObject])
+                }
+
             }
         }
     }
 
     let adImageHandler = async (transports) => {
-        let imagesArray = []
 
         for (const transport of transports) {
             if (!Ad.transports.find(el => el.id === transport.id)) {
@@ -165,8 +186,13 @@ const Fetcher = observer(() => {
                         data.total_count && order.setTotalCount(data.total_count.pattern, 'pattern')
                         order.added && order.setAdded(data.added)
                     }
+
                     order.setDividedOrders(data.rows, order_status)
 
+                    // set order images
+                    if (data.rows.length !== 0) {
+                        await orderImageHandler(data.rows)
+                    }
                     // accumulate transport and find and accumulate images              
                     await imageHandler(data.transport)
                     data.total_count && Transport.setTransportByOrder(data.total_count.transport)
@@ -258,7 +284,7 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all && !fetcher.create) {
-        fetcher.setLoading(true)
+            fetcher.setLoading(true)
             fetcher.orders_new && fetch('new')
         }
         fetcher.setOrdersNew(false)
@@ -267,7 +293,7 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         if (!fetcher.divided_orders && !fetcher.orders && !fetcher.orders_all && !fetcher.create) {
-        fetcher.setLoading(true)
+            fetcher.setLoading(true)
             fetch('inWork')
         }
         fetcher.setOrdersInWork(false)

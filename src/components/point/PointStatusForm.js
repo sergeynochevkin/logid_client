@@ -64,8 +64,6 @@ const PointStatusForm = observer(({ setModalActive, onePoint, formData, setFormD
         }
     }
 
-
-
     return (
         <VerticalContainer>
             <FieldName>{SetNativeTranslate(Translate.language, {}, 'adress')}</FieldName>

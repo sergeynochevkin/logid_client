@@ -39,6 +39,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   const { height, width } = useWindowDimensions();
 
 
+// console.log(JSON.stringify(order.order_images));
+
   useEffect(() => {
     if (ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern') {
       if (height > 768) {

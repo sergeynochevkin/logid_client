@@ -16,6 +16,8 @@ import PartnerModalContent from '../partner/PartnerModalContent'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchPoints } from '../../http/pointApi'
 // import MapComponent from './MapComponent'
+import { v4 } from "uuid";
+
 
 import { setColor } from '../../modules/setColor'
 import OrderStatusButtons from './OrderStatusButtons'
@@ -51,6 +53,11 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     const [images, setImages] = useState([])
     const [image, setImage] = useState()
 
+    const [files, setFiles] = useState()
+    const [pairs, setPairs] = useState()
+
+    const [order_images, setOrderImages] = useState([])
+
     let thisOrder
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisOrder = oneOrder : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisOrder = order.order : thisOrder = {}
     let thisPartner
@@ -62,7 +69,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     let thisCarrierOffer = thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id)
     let thisOrderPoints = oneOrderPoints
     let thisOrderNoPartners = oneOrderNoPartners
- 
+
     const sortPoints = (a, b) => {
         if (a.sequence > b.sequence) {
             return 1
@@ -101,6 +108,13 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         }
     }, [transport])
 
+    useEffect(() => {
+        if (order.order_images.find(el => el.id === oneOrder.id)) {
+            setOrderImages(order.order_images.find(el => el.id === oneOrder.id).urlsArray)
+        }
+
+    }, [order.order_images])
+
     let groups
     let for_group = order.ordersByGroup.filter(el => el.orderId === thisOrder.id)
     for_group = for_group.map(el => el.groupId)
@@ -110,7 +124,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     }
 
 
-    useEffect(() => {        
+    useEffect(() => {
         if (thisOrder.id === order.link_order.id) {
             order.setLinkOrder('', 'id')
             order.setLinkOrder('', 'status')
@@ -347,6 +361,14 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     <></>
                 }
 
+                <div className='in_order_transport_image_icon_container'>{order_images.length > 0 ? order_images.map(image => <img
+                    onClick={(event) => {
+                        event.stopPropagation()
+                        setImage(image)
+                        setModalActive2(true)
+                    }}
+                    src={image} className='in_order_transport_image_icon' key={image} />) : <></>}</div>
+
                 <VerticalContainer>
                     <OrderStatusButtons
                         parent={'order'}
@@ -358,6 +380,8 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         thisOrderNoPartners={thisOrderNoPartners}
                         thisCarrierOffer={thisCarrierOffer}
                         thisOrderPoints={thisOrderPoints}
+
+                        order_images={order_images}
                     />
                 </VerticalContainer>
 

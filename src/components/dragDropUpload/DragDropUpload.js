@@ -15,7 +15,7 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
     const [errors, setErrors] = useState(
         {
             quantity: false,
-            min_quantity: true,
+            min_quantity: min_length === 0 ? false : true,
             type: false
         }
     )

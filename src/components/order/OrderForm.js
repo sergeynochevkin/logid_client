@@ -21,6 +21,7 @@ import MapComponent from '../map/MapComponent'
 import { useInput } from '../../hooks/useInput'
 import OrderFormPointItem from './OrderFormPointItem'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { uploadFiles } from '../../http/fileApi'
 
 
 const Container = styled.div`
@@ -65,9 +66,25 @@ const OrderForm = observer(() => {
     const finish_time = SetNativeTranslate(Translate.language, {}, 'finish_time')
     const symbols = SetNativeTranslate(Translate.language, {}, 'symbols')
 
+    const [files, setFiles] = useState(order.files)
+    const [pairs, setPairs] = useState(order.pairs)
+    const [images, setImages] = useState([])
+    const [formFunction, setFormFunction] = useState('')
+
     const parent = 'orderForm'
 
     let initialTime = new Date();
+
+    let dataTransfer = new DataTransfer();
+    let fileList
+
+    const dataInit = (files) => {
+        files.forEach(file => {
+            dataTransfer.items.add(file)
+        })
+
+        fileList = dataTransfer.files
+    }
 
     if (ComponentFunction.orderFormFunction === 'newOrder') {
         var initialValue = {
@@ -100,6 +117,14 @@ const OrderForm = observer(() => {
             direction_response: JSON.stringify([])
         }
     }
+
+    useEffect(() => {
+        if (ComponentFunction.orderFormFunction !== 'newOrder' && order.files.length > 0) {
+            setPairs(order.pairs)
+            setFiles(order.files)
+        }
+    }, [])
+
 
     let orderPattern
     let pointPatternInitialValue = []
@@ -302,6 +327,8 @@ const OrderForm = observer(() => {
         }
         setFormData(initialValue)
         setPointFormData(pointInitialValue)
+        order.setPairs([])
+        order.setFiles([])
     }
 
     const send = (event) => {
@@ -332,6 +359,9 @@ const OrderForm = observer(() => {
             formData.cost.value = 0
         }
         try {
+
+
+            let orderId
             await editOrder(
                 formData.id,
                 formData.order_comment.value,
@@ -360,10 +390,14 @@ const OrderForm = observer(() => {
                 formData.for_group.value,
                 formData.oldPointsId,
                 formData.direction_response
+            ).then(async data => {
+                dataInit(files)
+                await uploadFiles('order', formData.id, Translate.language, 'update', fileList)
+            }
             )
             await createPoint(pointFormData)
-            fetcher.setStatus(formData.order_status)
-            fetcher.setCreate(true)
+            fetcher.setNewStatus('postponed')
+            fetcher.setDividedOrders(true)
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
             afterAction('edit')
         } catch (e) {
@@ -411,7 +445,12 @@ const OrderForm = observer(() => {
                 formData.for_group.value,
                 formData.direction_response
             )
-                .then(data => { orderId = data.id })
+                .then(data => { orderId = data.id }).then(async data => {
+                    dataInit(files)
+                    await uploadFiles('order', orderId, Translate.language, 'create', fileList)
+                }
+                )
+
             await createPoint(pointFormData)
             fetcher.setStatus(formData.order_status)
             fetcher.setCreate(true)
@@ -675,7 +714,7 @@ const OrderForm = observer(() => {
     useEffect(() => {
         localStorage.setItem('orderFormData', JSON.stringify(formData))
     }, [formData.order_comment, formData.cost, formData.for_partner, formData.for_group, formData.order_type])
-  
+
 
     useEffect(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))
@@ -752,7 +791,9 @@ const OrderForm = observer(() => {
                 />
 
 
-                {/* <DragDropUpload formData={formData} setFormData={setFormData} length={5} extensions={['jpeg', 'png', 'jpg']}></DragDropUpload> */}
+                <DragDropUpload formData={formData} setFormData={setFormData} length={5} extensions={['jpeg', 'png', 'jpg']} files={files} pairs={pairs} setFiles={setFiles} setPairs={setPairs} min_length={0} parent={'orderForm'}></DragDropUpload>
+
+
                 <Container>
                     <Button onClick={send}
                         disabled={

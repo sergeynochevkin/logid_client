@@ -126,6 +126,8 @@ const User = observer(() => {
                     setModalActive(true)
                   } else {
                     setFunction(false, false, 'orderForm', 'newOrder')
+                    order.setPairs([])
+                    order.setFiles([])
                     order.setIntegrationId()
                   }
 
