@@ -392,7 +392,7 @@ const Fetcher = observer(() => {
                 if (fileNames) {
                     
                     for (const file of fileNames) {
-                        let url = await fetchImages(transport, file)
+                        let url = await fetchImages('transport',transport, file)
                         transportImageObject.urlsArray.push(url)
                     }
                     transportsImagesArray.push(transportImageObject)
@@ -496,7 +496,7 @@ const Fetcher = observer(() => {
 
                 if (fileNames) {
                     for (const file of fileNames) {
-                        let url = await fetchImages(transport, file)
+                        let url = await fetchImages('transport',transport, file)
                         transportImageObject.urlsArray.push(url)
                     }
                     transportsImagesArray.push(transportImageObject)
