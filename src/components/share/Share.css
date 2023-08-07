@@ -1,0 +1,17 @@
+.share_modal_container {}
+
+.share_modal_icons_container {
+    display: flex;
+    justify-content: center;
+}
+
+.modal_social_share {}
+
+
+
+
+@media screen and (max-width: 425px) {
+    .share_modal_container {
+        width: 100vw;
+    }
+}

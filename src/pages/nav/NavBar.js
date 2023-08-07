@@ -16,11 +16,14 @@ import light_mode from '../../assets/icons/light_mode.png';
 import logo_light from '../../assets/logo_light.png';
 import logo_dark from '../../assets/logo_dark.png';
 import logo_russian_dark from '../../assets/logo_russian_dark.png';
+import share from '../../assets/icons/share.png';
+import share_dark from '../../assets/icons/share_dark.png';
 import logo_russian_light from '../../assets/logo_russian_light.png';
 import Auth from '../../components/auth/Auth';
+import ShareModalContent from '../../components/share/ShareModalContent';
 
 const NavBar = observer(() => {
-   const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const { order } = useContext(OrderContext)
   const { State } = useContext(StateContext)
   const navigate = useNavigate()
@@ -31,6 +34,7 @@ const NavBar = observer(() => {
   const [modalActive, setModalActive] = useState(false)
   const [modalActive1, setModalActive1] = useState(false)
   const [modalActive2, setModalActive2] = useState(false)
+  const [modalActive3, setModalActive3] = useState(false)
   const [name, setName] = useState('')
 
   const setLanguage = (language) => {
@@ -142,6 +146,15 @@ const NavBar = observer(() => {
           {Setting.app_theme === 'light' ? <img src={dark_mode} className='nav_bar_theme_icon' /> : <img src={light_mode} className='nav_bar_theme_icon' />}
         </div>
 
+        {!user || !user.isAuth ? <div className='nav_bar_theme_icon"'
+          onClick={() => {
+            setModalActive3(true)
+          }}
+        >
+          {Setting.app_theme === 'light' ? <img src={share} className='nav_bar_theme_icon' /> : <img src={share_dark} className='nav_bar_theme_icon' />}
+        </div> : <></>}
+
+
         {/* language of my country + english if english is your language, no select, set language state when select if isAuth. Сheck such language for such country when loading!*/}
         <div className='nav_bar_item language_switch'
           onClick={() => {
@@ -170,9 +183,13 @@ const NavBar = observer(() => {
           }
           }>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}</div>
 
+
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive} >
         <CountrySelector name={name} setModalActive={setModalActive} />
+      </Modal>
+      <Modal setModalActive={setModalActive3} modalActive={modalActive3}>
+        <ShareModalContent setModalActive={setModalActive3} />
       </Modal>
     </>
 
