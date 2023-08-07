@@ -390,14 +390,19 @@ const Fetcher = observer(() => {
                 let fileNames = JSON.parse(transport.files)
 
                 if (fileNames) {
-                    for (const file of fileNames) {
-                        let url = await fetchImages(transport, file)
-                        transportImageObject.urlsArray.push(url)
+                    try {
+                        for (const file of fileNames) {
+                            let url = await fetchImages(transport, file)
+                            transportImageObject.urlsArray.push(url)
+                        }
+                        transportsImagesArray.push(transportImageObject)
+                        Transport.setTransportImages(transportsImagesArray)
+                    } catch (error) {
+                        Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
                     }
-                    transportsImagesArray.push(transportImageObject)
                 }
             }
-            Transport.setTransportImages(transportsImagesArray)
+
         }
 
 
