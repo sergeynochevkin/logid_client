@@ -31,6 +31,9 @@ const PreLoader = observer(({ children, ...props }) => {
     const { order } = useContext(OrderContext)
     const order_id = queryParams.get("o_i")
     const order_status = queryParams.get("o_s")
+    const referal_id = queryParams.get("referal_id")
+    const action = queryParams.get("action")
+
 
     let location = useLocation();
 
@@ -95,6 +98,12 @@ const PreLoader = observer(({ children, ...props }) => {
             // if (!user.isAuth) {
             //     navigate(MAIN_ROUTE)
             // }
+        }
+    }, [])
+
+    useEffect(() => {
+        if (referal_id && action === 'add_partner') {
+            console.log('works');
         }
     }, [])
 

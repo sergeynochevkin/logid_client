@@ -73,7 +73,6 @@ const Fetcher = observer(() => {
     let orderImageHandler = async (orders) => {
         for (const oneOrder of orders) {
             if (!order.order_images.find(el => el.id === oneOrder.id) || JSON.stringify(order.order_images.find(el => el.id === oneOrder.id).urlsArray) !== JSON.stringify(oneOrder.files)) {
-                console.log('yes!');
                 let orderImageObject = {
                     id: oneOrder.id,
                     urlsArray: []
