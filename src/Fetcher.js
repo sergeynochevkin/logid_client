@@ -396,7 +396,7 @@ const Fetcher = observer(() => {
                             let url = await fetchImages(transport, file)
                             transportImageObject.urlsArray.push(url)
                         } catch (error) {
-                            Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
+                            Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message ? error.response.data.message : 'Unexpected transport image error' ,  }])
                         }
                     }
                     transportsImagesArray.push(transportImageObject)
