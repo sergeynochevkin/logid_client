@@ -120,10 +120,6 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
 
     }
 
-    useEffect(() => {
-        console.log(formData.transportid);
-    }, [formData])
-
     return (
         <Container>
             <Form>

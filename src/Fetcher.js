@@ -73,6 +73,7 @@ const Fetcher = observer(() => {
     let orderImageHandler = async (orders) => {
         for (const oneOrder of orders) {
             if (!order.order_images.find(el => el.id === oneOrder.id) || JSON.stringify(order.order_images.find(el => el.id === oneOrder.id).urlsArray) !== JSON.stringify(oneOrder.files)) {
+                console.log('yes!');
                 let orderImageObject = {
                     id: oneOrder.id,
                     urlsArray: []
@@ -84,7 +85,8 @@ const Fetcher = observer(() => {
                         let url = await fetchImages('order', oneOrder, file)
                         orderImageObject.urlsArray.push(url)
                     }
-                    order.setOrderImages([...order.order_images.filter(el => el.id !== oneOrder.id), orderImageObject])
+                    let data = [...order.order_images.filter(el => el.id !== oneOrder.id), orderImageObject]
+                    order.setOrderImages(data)
                 }
 
             }
@@ -106,7 +108,7 @@ const Fetcher = observer(() => {
 
                 if (fileNames) {
                     for (const file of fileNames) {
-                        let url = await fetchImages('transport',transport, file)
+                        let url = await fetchImages('transport', transport, file)
                         transportImageObject.urlsArray.push(url)
                     }
                 }
@@ -187,12 +189,13 @@ const Fetcher = observer(() => {
                         order.added && order.setAdded(data.added)
                     }
 
-                    order.setDividedOrders(data.rows, order_status)
-
                     // set order images
                     if (data.rows.length !== 0) {
                         await orderImageHandler(data.rows)
                     }
+
+                    order.setDividedOrders(data.rows, order_status)
+
                     // accumulate transport and find and accumulate images              
                     await imageHandler(data.transport)
                     data.total_count && Transport.setTransportByOrder(data.total_count.transport)
@@ -390,9 +393,9 @@ const Fetcher = observer(() => {
                 let fileNames = JSON.parse(transport.files)
 
                 if (fileNames) {
-                    
+
                     for (const file of fileNames) {
-                        let url = await fetchImages('transport',transport, file)
+                        let url = await fetchImages('transport', transport, file)
                         transportImageObject.urlsArray.push(url)
                     }
                     transportsImagesArray.push(transportImageObject)
@@ -496,7 +499,7 @@ const Fetcher = observer(() => {
 
                 if (fileNames) {
                     for (const file of fileNames) {
-                        let url = await fetchImages('transport',transport, file)
+                        let url = await fetchImages('transport', transport, file)
                         transportImageObject.urlsArray.push(url)
                     }
                     transportsImagesArray.push(transportImageObject)

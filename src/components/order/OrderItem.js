@@ -113,7 +113,14 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
             setOrderImages(order.order_images.find(el => el.id === oneOrder.id).urlsArray)
         }
 
-    }, [order.order_images])
+    }, [])
+
+    useEffect(() => {
+        if (order.order_images.find(el => el.id === oneOrder.id)) {
+            setOrderImages(order.order_images.find(el => el.id === oneOrder.id).urlsArray)
+        }
+
+    }, [order.dividedOrders])
 
     let groups
     let for_group = order.ordersByGroup.filter(el => el.orderId === thisOrder.id)
@@ -288,8 +295,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         <CardColName>{SetNativeTranslate(Translate.language, {}, 'transport')}</CardColName>
 
                         <CardColValue>{
-                            user.user.role === 'carrier' && thisOrder.order_status === 'inWork' ? transport.tag :
-
+                            user.user.role === 'carrier' && thisOrder.order_status === 'inWork' && transport ? transport.tag :
 
 
                                 user.user.role === 'customer' && thisOrder.order_status === 'inWork' && images.length > 0 ?
