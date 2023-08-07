@@ -14,6 +14,7 @@ import './Account.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import AccountInfoStatus from './AccountInfoStatus'
 import PaymentComponent from '../payment/PaymentComponent'
+import ShareComponent from '../share/ShareComponent'
 
 
 const Account = observer(() => {
@@ -45,7 +46,7 @@ const Account = observer(() => {
                 <SubscriptionForm setModalActive={setModalActive} setModalActive2={setModalActive2} setYoomoneyToken={setYoomoneyToken} paymentId={paymentId} setPaymentId={setPaymentId} />
             </Modal>
 
-            <PaymentComponent modalActive2={modalActive2} setModalActive2={setModalActive2} yoomoneyToken={yoomoneyToken} setYoomoneyToken={setYoomoneyToken}  paymentId={paymentId} setPaymentId={setPaymentId}/>
+            <PaymentComponent modalActive2={modalActive2} setModalActive2={setModalActive2} yoomoneyToken={yoomoneyToken} setYoomoneyToken={setYoomoneyToken} paymentId={paymentId} setPaymentId={setPaymentId} />
 
 
             <VerticalContainer>
@@ -83,6 +84,7 @@ const Account = observer(() => {
                 <div
                     className={containerClassName}>
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'can_add')} fieldValue={UserInfo.userInfo.uuid} editable={false} attachedField={''} />
+                    <ShareComponent parent = 'account_uuid' />
                 </div>
             </VerticalContainer>
 
