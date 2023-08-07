@@ -23,13 +23,13 @@ const ShareModalContent = observer(({ setModalActive, parent }) => {
                     onClick={() => {
                         setModalActive(false)
                     }}>
-                    <WhatsappShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.id}&&action=add_partner` : 'https://logid.app/'} title='logid'>
+                    <WhatsappShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : 'https://logid.app/'} title='logid'>
                         <WhatsappIcon size={32} ></WhatsappIcon>
                     </WhatsappShareButton>
-                    <TelegramShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.id}&&action=add_partner` : 'https://logid.app/'} title='logid'>
+                    <TelegramShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : 'https://logid.app/'} title='logid'>
                         <TelegramIcon size={32} ></TelegramIcon>
                     </TelegramShareButton>
-                    <VKShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.id}&&action=add_partner` : 'https://logid.app/'} title='logid'>
+                    <VKShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : 'https://logid.app/'} title='logid'>
                         <VKIcon size={32} ></VKIcon>
                     </VKShareButton>
                 </div>
