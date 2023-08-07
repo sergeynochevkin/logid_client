@@ -125,7 +125,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
 
     useEffect(() => {
-        console.log(thisOrder.id);
         if (thisOrder.id === parseInt(order.link_order.id)) {
             toOrderItem()
             order.setLinkOrder('', 'id')
@@ -233,17 +232,22 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                     {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language, {}, 'customer') :
                                         user.user.role === 'customer' ? SetNativeTranslate(Translate.language, {}, 'carrier') : ''}
                                 </CardColName>
-
-                                {onePartnerInfo.legal === 'person' ?
-                                    <CardColName
-                                        style={{ backgroundColor: setColor(thisPartner.status) }}>
-                                        {onePartnerInfo.name_surname_fathersname}
-                                    </CardColName>
-                                    :
-                                    <CardColName
-                                        style={{ backgroundColor: setColor(thisPartner.status) }}>
-                                        {onePartnerInfo.company_name}
-                                    </CardColName>}
+                                {thisPartner &&
+                                    <>
+                                        {
+                                            onePartnerInfo.legal === 'person' ?
+                                                <CardColName
+                                                    style={{ backgroundColor: setColor(thisPartner.status) }}>
+                                                    {onePartnerInfo.name_surname_fathersname}
+                                                </CardColName>
+                                                :
+                                                <CardColName
+                                                    style={{ backgroundColor: setColor(thisPartner.status) }}>
+                                                    {onePartnerInfo.company_name}
+                                                </CardColName>
+                                        }
+                                    </>
+                                }
                             </CardRow>
                         </> : <></>
                     }
