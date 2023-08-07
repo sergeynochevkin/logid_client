@@ -95,10 +95,12 @@ const User = observer(() => {
   }
 
   useEffect(() => {
-    if (order.link_order.id) {
-
+    if (order.link_order.id || !order.divided_orders) {
+      fetcher.setCustomLoading(true)
       setFunction(order.link_order.status, 'orderList', 'orderList')
-
+      setTimeout(() => {
+        fetcher.setCustomLoading(false)
+      }, 1500)
     }
   }, [])
 

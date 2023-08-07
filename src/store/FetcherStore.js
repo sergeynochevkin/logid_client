@@ -38,6 +38,7 @@ export default class FetcherStore {
 
         //loading
         this._loading = false
+        this._custom_loading = false
 
         makeAutoObservable(this)
     }
@@ -114,6 +115,9 @@ export default class FetcherStore {
     setLoading(value) {
         this._loading = value
     }
+    setCustomLoading(value) {
+        this._custom_loading = value
+    }
 
     //get
     get server_notifications() {
@@ -188,5 +192,11 @@ export default class FetcherStore {
     }
     get loading() {
         return this._loading
+    }
+    get loading() {
+        return this._loading
+    }
+    get custom_loading() {
+        return this._custom_loading
     }
 }

@@ -89,6 +89,16 @@ const PreLoader = observer(({ children, ...props }) => {
     };
 
     useEffect(() => {
+        if (order_id) {
+            order.setLinkOrder(order_id, 'id')
+            order.setLinkOrder(order_status, 'status')
+            // if (!user.isAuth) {
+            //     navigate(MAIN_ROUTE)
+            // }
+        }
+    }, [])
+
+    useEffect(() => {
 
         async function fetchData() {
             await fetchDefaultData().then(data => {
@@ -100,7 +110,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 TransportType.setLoadCapacities(data.transport_load_capacities)
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
-    
+
                 if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
                     let country = JSON.parse(localStorage.getItem('country'))
                     Adress.setCountry(country)
@@ -128,7 +138,7 @@ const PreLoader = observer(({ children, ...props }) => {
         } else if (!JSON.parse(localStorage.getItem('cookies_accepted')).total) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         }
-        fetchData()        
+        fetchData()
     }, [])
 
 
@@ -164,10 +174,18 @@ const PreLoader = observer(({ children, ...props }) => {
                             }
 
                             if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
-                                fetcher.setOrdersAll(true)
+                                if (order_status) {
+                                    order_status === 'new' && fetcher.setOrdersNew(true)
+                                    order_status === 'inWork' && fetcher.setOrdersInWork(true)
+                                    setTimeout(() => {
+                                        fetcher.setOrdersAll(true)
+                                    }, 1000)
+                                } else {
+                                    fetcher.setOrdersAll(true)
+                                }
                             }
-                        }                                            
-                                    
+                        }
+
 
                         data && fetchUserState(data.id).then(stateData => {
 
@@ -209,15 +227,7 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
 
 
-    useEffect(() => {
-        if (order_id) {
-            order.setLinkOrder(order_id, 'id')
-            order.setLinkOrder(order_status, 'status')
-            if (!user.isAuth) {
-                navigate(MAIN_ROUTE)
-            }
-        }
-    }, [])
+
 
     return (
         <div{...props}>{!dataLoaded ? <PageLoader /> : children}</div>

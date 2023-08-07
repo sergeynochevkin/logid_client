@@ -37,7 +37,7 @@ import { transportContactViewed } from '../../http/transportApi'
 const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
   const { user } = useContext(UserContext)
   const { UserInfo } = useContext(UserInfoContext)
-
+  const queryParams = new URLSearchParams(window.location.search)
   const [isLogin, setIsLogin] = useState()
   const [isRegister, setIsRegister] = useState()
   const [isRecovery, setIsRecovery] = useState()
@@ -53,6 +53,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { State } = useContext(StateContext)
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
+  const order_id = queryParams.get("o_i")
+  const order_status = queryParams.get("o_s")
 
   const enterAction = (enterPoint) => {
     if (enterPoint === 'isLogin') {
@@ -245,7 +247,19 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           }
         })
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
-          fetcher.setOrdersAll(true)
+
+
+          if (order_status) {
+            order_status === 'new' && fetcher.setOrdersNew(true)
+            order_status === 'inWork' && fetcher.setOrdersInWork(true)
+            setTimeout(() => {
+                fetcher.setOrdersAll(true)
+            }, 1000)
+        } else {
+            fetcher.setOrdersAll(true)
+        }
+          
+          
           fetcher.setSubscriptions(true)
         }
         if (user.user.role === 'carrier') {

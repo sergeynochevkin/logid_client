@@ -125,12 +125,13 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
 
     useEffect(() => {
-        if (thisOrder.id === order.link_order.id) {
+        console.log(thisOrder.id);
+        if (thisOrder.id === parseInt(order.link_order.id)) {
+            toOrderItem()
             order.setLinkOrder('', 'id')
             order.setLinkOrder('', 'status')
-            toOrderItem()
         }
-    }, [])
+    }, [order.dividedOrders])
 
 
     const toOrderItem = () => {

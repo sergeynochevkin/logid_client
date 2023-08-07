@@ -541,7 +541,8 @@ const Fetcher = observer(() => {
 
     return (
         <>
-            {fetcher.loading && <FetcherLoader />}
+            {fetcher.loading ? <FetcherLoader /> :
+                fetcher.custom_loading ? <FetcherLoader /> : <></>}
         </>)
 })
 
