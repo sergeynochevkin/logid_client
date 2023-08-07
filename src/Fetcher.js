@@ -106,7 +106,7 @@ const Fetcher = observer(() => {
 
                 if (fileNames) {
                     for (const file of fileNames) {
-                        let url = await fetchImages(transport, file)
+                        let url = await fetchImages('transport',transport, file)
                         transportImageObject.urlsArray.push(url)
                     }
                 }
@@ -390,14 +390,10 @@ const Fetcher = observer(() => {
                 let fileNames = JSON.parse(transport.files)
 
                 if (fileNames) {
-
+                    
                     for (const file of fileNames) {
-                        try {
-                            let url = await fetchImages(transport.id, file)
-                            transportImageObject.urlsArray.push(url)
-                        } catch (error) {
-                            Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message ? error.response.data.message : 'Unexpected transport image error' ,  }])
-                        }
+                        let url = await fetchImages(transport, file)
+                        transportImageObject.urlsArray.push(url)
                     }
                     transportsImagesArray.push(transportImageObject)
                 }
