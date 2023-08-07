@@ -398,7 +398,7 @@ const Fetcher = observer(() => {
                         transportsImagesArray.push(transportImageObject)
                         Transport.setTransportImages(transportsImagesArray)
                     } catch (error) {
-                        Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+                        Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
                     }
                 }
             }
