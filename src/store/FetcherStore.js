@@ -193,9 +193,6 @@ export default class FetcherStore {
     get loading() {
         return this._loading
     }
-    get loading() {
-        return this._loading
-    }
     get custom_loading() {
         return this._custom_loading
     }

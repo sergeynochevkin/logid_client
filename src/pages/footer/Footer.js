@@ -7,6 +7,33 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import './Footer.css'
 import FooterSection from './FooterSection'
 import logo_dark from '../../assets/logo_dark.png';
+import {
+  EmailIcon,
+  EmailShareButton,
+  FacebookShareButton,
+  HatenaShareButton,
+  InstapaperShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  LivejournalShareButton,
+  MailruIcon,
+  MailruShareButton,
+  OKShareButton,
+  PinterestShareButton,
+  PocketShareButton,
+  RedditShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  ViberIcon,
+  ViberShareButton,
+  VKIcon,
+  VKShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+  WorkplaceShareButton
+} from "react-share";
 
 const Footer = observer(() => {
   const { Setting } = useContext(SettingContext)
@@ -16,7 +43,7 @@ const Footer = observer(() => {
 
   const [agreement, setAgreement] = useState('')
   const { ComponentFunction } = useContext(ComponentFunctionContext)
-  
+
   const sections = [
     {
       id: 1, header: SetNativeTranslate(Translate.language, {
@@ -83,13 +110,15 @@ const Footer = observer(() => {
         })
       , description: '', section_id: 1, class: 'footer_copyright'
     },
-    { id: 8, icon: '', name:
-    
-    SetNativeTranslate(Translate.language, {
-      russian: ['Услуги предосталяет самозанятый гражданин Российской Федерации Ночевкин Сергей Михайлович ИНН 511500911204 телефон +79531154193'],
-      english: ['Services are provided by a self-employed citizen of the Russian Federation Nochevkin Sergey TIN 511500911204 phone +79531154193']
-    })
-    , description: '', section_id: 1, class: 'footer_copyright' },
+    {
+      id: 8, icon: '', name:
+
+        SetNativeTranslate(Translate.language, {
+          russian: ['Услуги предосталяет самозанятый гражданин Российской Федерации Ночевкин Сергей Михайлович ИНН 511500911204 телефон +79531154193'],
+          english: ['Services are provided by a self-employed citizen of the Russian Federation Nochevkin Sergey TIN 511500911204 phone +79531154193']
+        })
+      , description: '', section_id: 1, class: 'footer_copyright'
+    },
     // { id: 9, icon: '', name: 'wdwd', description: 'asas', section_id: 3, class: '' },
     // { id: 10, icon: '', name: 'wdwd', description: 'asas', section_id: 3, class: '' },
     // { id: 11, icon: '', name: 'wdwd', description: 'asas', section_id: 4, class: '' },
@@ -105,10 +134,26 @@ const Footer = observer(() => {
       >
         <Agreement agreement={agreement}></Agreement>
       </Modal>
-    
+  
+      <div className='social_anchor'>
+      <div className='footer_social_share'>          
+        <WhatsappShareButton url={'https://logid.app/'} title='logid'>
+          <WhatsappIcon size={32} ></WhatsappIcon>
+        </WhatsappShareButton>
+        <TelegramShareButton url={'https://logid.app/'} title='logid'>
+          <TelegramIcon size={32} ></TelegramIcon>
+        </TelegramShareButton>
+        <VKShareButton url={'https://logid.app/'} title='logid'>
+          <VKIcon size={32} ></VKIcon>
+        </VKShareButton>        
+      </div>
+      </div>
+  
+
       <div className={Setting.app_theme === 'light' ? 'footer_container' : 'footer_container dark'}>
         {sections.map(section => <FooterSection section={section} items={items.filter(el => el.section_id === section.id)} key={section.id} setModalActive={setModalActive} setAgreement={setAgreement} />)}
       </div>
+
     </>
   )
 })
