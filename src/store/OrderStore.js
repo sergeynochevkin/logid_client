@@ -20,8 +20,6 @@ export default class OrderStore {
             pattern: []
         }
 
-        this._link_order = { status: '', id: '' }
-
         this._views = {
             new: [],
             postponed: []
@@ -59,15 +57,7 @@ export default class OrderStore {
     }
 
 
-    setLinkOrder(value, item) {
-        this._link_order[item] = value
-    }
-
-    get link_order() {
-        return this._link_order
-    }
-
-    setOrdersByGroup(value) {
+       setOrdersByGroup(value) {
         this._ordersByGroup = value
     }
 

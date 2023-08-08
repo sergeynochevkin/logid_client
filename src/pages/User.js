@@ -8,7 +8,7 @@ import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
 import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext } from '..'
+import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext, LinkContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
@@ -27,6 +27,7 @@ display:flex;
 const User = observer(() => {
   const { order } = useContext(OrderContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
+  const { Link } = useContext(LinkContext)
   const { UserInfo } = useContext(UserInfoContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
@@ -95,12 +96,19 @@ const User = observer(() => {
   }
 
   useEffect(() => {
-    if (order.link_order.id || !order.divided_orders) {
+    if (Link.order.id || !order.divided_orders) {
       fetcher.setCustomLoading(true)
-      setFunction(order.link_order.status, 'orderList', 'orderList')
+      setFunction(Link.order.status, 'orderList', 'orderList')
       setTimeout(() => {
         fetcher.setCustomLoading(false)
       }, 1500)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (Link.refer.id && Link.refer.action === 'add_partner') {
+      ComponentFunction.setPageFunction('partners')
+      ComponentFunction.setPartnersComponentFunction('add')
     }
   }, [])
 

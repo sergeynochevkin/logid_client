@@ -25,6 +25,7 @@ import StateStore from './store/StateStore';
 import FetcherStore from './store/FetcherStore';
 import ManagementStore from './store/ManagementStore';
 import AdStore from './store/AdStore';
+import LinkStore from './store/LinkStore';
 
 export const UserContext = createContext(null)
 export const UserInfoContext = createContext(null)
@@ -49,6 +50,7 @@ export const LimitContext = createContext(null)
 export const FetcherContext = createContext(null)
 export const ManagementContext = createContext(null)
 export const AdContext = createContext(null)
+export const LinkContext = createContext(null)
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -81,99 +83,104 @@ root.render(
     <TranslateContext.Provider value={{
       Translate: new TranslateStore(),
     }}>
-      <AdContext.Provider value={{
-        Ad: new AdStore(),
+      <LinkContext.Provider value={{
+        Link: new LinkStore(),
       }}>
-        <SettingContext.Provider value={{
-          Setting: new SettingStore(),
+
+        <AdContext.Provider value={{
+          Ad: new AdStore(),
         }}>
-          <SubscriptionContext.Provider value={{
-            Subscription: new SubscriptionStore(),
+          <SettingContext.Provider value={{
+            Setting: new SettingStore(),
           }}>
-            <NotificationContext.Provider value={{
-              Notification: new NotificationStore(),
+            <SubscriptionContext.Provider value={{
+              Subscription: new SubscriptionStore(),
             }}>
-              <UserContext.Provider value={{
-                user: new UserStore(),
+              <NotificationContext.Provider value={{
+                Notification: new NotificationStore(),
               }}>
-                <UserInfoContext.Provider value={{
-                  UserInfo: new UserInfoStore(),
+                <UserContext.Provider value={{
+                  user: new UserStore(),
                 }}>
-
-                  <LimitContext.Provider value={{
-                    Limit: new LimitStore(),
+                  <UserInfoContext.Provider value={{
+                    UserInfo: new UserInfoStore(),
                   }}>
-                    <StateContext.Provider value={{
-                      State: new StateStore(),
+
+                    <LimitContext.Provider value={{
+                      Limit: new LimitStore(),
                     }}>
-                      <PartnerContext.Provider value={{
-                        Partner: new PartnerStore(),
+                      <StateContext.Provider value={{
+                        State: new StateStore(),
                       }}>
-                        <LoadingContext.Provider value={{
-                          loading: new LoadingStore(),
+                        <PartnerContext.Provider value={{
+                          Partner: new PartnerStore(),
                         }}>
-                          <OrderContext.Provider value={{
-                            order: new OrderStore(),
+                          <LoadingContext.Provider value={{
+                            loading: new LoadingStore(),
                           }}>
-                            <FilterAndSortContext.Provider value={{
-                              FilterAndSort: new FilterAndSortStore(),
+                            <OrderContext.Provider value={{
+                              order: new OrderStore(),
                             }}>
-                              <RatingContext.Provider value={{
-                                Rating: new RatingStore(),
+                              <FilterAndSortContext.Provider value={{
+                                FilterAndSort: new FilterAndSortStore(),
                               }}>
-                                <PointContext.Provider value={{
-                                  Point: new PointStore(),
+                                <RatingContext.Provider value={{
+                                  Rating: new RatingStore(),
                                 }}>
-                                  <OfferContext.Provider value={{
-                                    Offer: new OfferStore(),
+                                  <PointContext.Provider value={{
+                                    Point: new PointStore(),
                                   }}>
-                                    <ComponentFunctionContext.Provider value={{
-                                      ComponentFunction: new ComponentFunctionStore(),
+                                    <OfferContext.Provider value={{
+                                      Offer: new OfferStore(),
                                     }}>
-                                      <TransportTypeContext.Provider value={{
-                                        TransportType: new TransportTypeStore(),
+                                      <ComponentFunctionContext.Provider value={{
+                                        ComponentFunction: new ComponentFunctionStore(),
                                       }}>
-                                        <EquipmentTypeContext.Provider value={{
-                                          EquipmentType: new EquipmentTypeStore(),
+                                        <TransportTypeContext.Provider value={{
+                                          TransportType: new TransportTypeStore(),
                                         }}>
-                                          <TransportContext.Provider value={{
-                                            Transport: new TransportStore(),
+                                          <EquipmentTypeContext.Provider value={{
+                                            EquipmentType: new EquipmentTypeStore(),
                                           }}>
-                                            <AdressContext.Provider value={{
-                                              Adress: new AdressStore(),
+                                            <TransportContext.Provider value={{
+                                              Transport: new TransportStore(),
                                             }}>
-                                              <ManagementContext.Provider value={{
-                                                Management: new ManagementStore(),
+                                              <AdressContext.Provider value={{
+                                                Adress: new AdressStore(),
                                               }}>
-                                                {/* <React.StrictMode> */}
-                                                <ThemeProvider theme={theme}>
-                                                  <Global />
+                                                <ManagementContext.Provider value={{
+                                                  Management: new ManagementStore(),
+                                                }}>
+                                                  {/* <React.StrictMode> */}
+                                                  <ThemeProvider theme={theme}>
+                                                    <Global />
 
-                                                  <App />
+                                                    <App />
 
-                                                </ThemeProvider>
-                                                {/* </React.StrictMode> */}
-                                              </ManagementContext.Provider>
-                                            </AdressContext.Provider>
-                                          </TransportContext.Provider>
-                                        </EquipmentTypeContext.Provider>
-                                      </TransportTypeContext.Provider>
-                                    </ComponentFunctionContext.Provider>
-                                  </OfferContext.Provider>
-                                </PointContext.Provider>
-                              </RatingContext.Provider>
-                            </FilterAndSortContext.Provider>
-                          </OrderContext.Provider>
-                        </LoadingContext.Provider>
-                      </PartnerContext.Provider>
-                    </StateContext.Provider>
-                  </LimitContext.Provider>
-                </UserInfoContext.Provider>
-              </UserContext.Provider>
-            </NotificationContext.Provider>
-          </SubscriptionContext.Provider>
-        </SettingContext.Provider>
-      </AdContext.Provider>
+                                                  </ThemeProvider>
+                                                  {/* </React.StrictMode> */}
+                                                </ManagementContext.Provider>
+                                              </AdressContext.Provider>
+                                            </TransportContext.Provider>
+                                          </EquipmentTypeContext.Provider>
+                                        </TransportTypeContext.Provider>
+                                      </ComponentFunctionContext.Provider>
+                                    </OfferContext.Provider>
+                                  </PointContext.Provider>
+                                </RatingContext.Provider>
+                              </FilterAndSortContext.Provider>
+                            </OrderContext.Provider>
+                          </LoadingContext.Provider>
+                        </PartnerContext.Provider>
+                      </StateContext.Provider>
+                    </LimitContext.Provider>
+                  </UserInfoContext.Provider>
+                </UserContext.Provider>
+              </NotificationContext.Provider>
+            </SubscriptionContext.Provider>
+          </SettingContext.Provider>
+        </AdContext.Provider>
+      </LinkContext.Provider>
     </TranslateContext.Provider>
   </FetcherContext.Provider>
 );

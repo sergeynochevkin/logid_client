@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
+import { AdressContext, LinkContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
 import { observer } from 'mobx-react-lite';
@@ -29,6 +29,7 @@ const NavBar = observer(() => {
   const navigate = useNavigate()
   const { UserInfo } = useContext(UserInfoContext)
   const { Setting } = useContext(SettingContext)
+  const { Link } = useContext(LinkContext)
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive, setModalActive] = useState(false)
@@ -50,7 +51,7 @@ const NavBar = observer(() => {
   // }, [])
 
   useEffect(() => {
-    if (order.link_order.id && !user.isAuth) {
+    if ((Link.order.id || Link.refer.id) && !user.isAuth) {
       setModalActive1(true)
     }
   }, [])
@@ -180,7 +181,7 @@ const NavBar = observer(() => {
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive} >
         <CountrySelector name={name} setModalActive={setModalActive} />
-      </Modal>  
+      </Modal>
     </>
 
   )

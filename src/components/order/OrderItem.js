@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { CardButton } from '../ui/button/CardButton'
-import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext, FetcherContext, SettingContext, TransportContext } from '../../index'
+import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext, FetcherContext, SettingContext, TransportContext, LinkContext } from '../../index'
 import { CardContainer } from '../ui/card/CardContainer'
 import { CardRow } from '../ui/card/CardRow'
 import { CardColName } from '../ui/card/CardColName'
@@ -34,6 +34,7 @@ import info_dark from '../../assets/icons/info_dark.png';
 const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { user } = useContext(UserContext)
+    const {Link} = useContext(LinkContext)
     const [modalActive, setModalActive] = useState(false)
     const [modalActive2, setModalActive2] = useState(false)
     const { order } = useContext(OrderContext)
@@ -132,10 +133,10 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
 
     useEffect(() => {
-        if (thisOrder.id === parseInt(order.link_order.id)) {
+        if (thisOrder.id === parseInt(Link.order.id)) {
             toOrderItem()
-            order.setLinkOrder('', 'id')
-            order.setLinkOrder('', 'status')
+            Link.setOrder('', 'id')
+            Link.setOrder('', 'status')
         }
     }, [order.dividedOrders])
 

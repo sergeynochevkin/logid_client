@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { AdContext, AdressContext, EquipmentTypeContext, FetcherContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
+import { AdContext, AdressContext, EquipmentTypeContext, FetcherContext, LinkContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
 import { check } from './http/userAPI'
@@ -18,6 +18,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const { Ad } = useContext(AdContext)
     const { TransportType } = useContext(TransportTypeContext)
     const { EquipmentType } = useContext(EquipmentTypeContext)
+    const { Link } = useContext(LinkContext)
     const { Adress } = useContext(AdressContext)
     const { Subscription } = useContext(SubscriptionContext)
     const { Translate } = useContext(TranslateContext)
@@ -93,8 +94,8 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         if (order_id) {
-            order.setLinkOrder(order_id, 'id')
-            order.setLinkOrder(order_status, 'status')
+            Link.setOrder(order_id, 'id')
+            Link.setOrder(order_status, 'status')
             // if (!user.isAuth) {
             //     navigate(MAIN_ROUTE)
             // }
@@ -103,7 +104,8 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         if (referal_id && action === 'add_partner') {
-            console.log('works');
+            Link.setRefer(action, 'action')
+            Link.setRefer(referal_id, 'id')
         }
     }, [])
 
