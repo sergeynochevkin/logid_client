@@ -102,9 +102,6 @@ const Main = observer(() => {
   }) : false
 
 
-  useEffect(() => {
-     fetcher.setMainCounters(true)
-  }, [])
 
   useEffect(() => {
     setTimeout(() => {
