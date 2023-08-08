@@ -108,6 +108,7 @@ const User = observer(() => {
   useEffect(() => {
     if (Link.refer.id && Link.refer.action === 'add_partner') {
       ComponentFunction.setPageFunction('partners')
+      ComponentFunction.setFunction('partners')
       ComponentFunction.setPartnersComponentFunction('add')
     }
   }, [])

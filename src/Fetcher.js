@@ -343,7 +343,8 @@ const Fetcher = observer(() => {
                     }
                 }
             }
-            fetch()
+            fetcher.partners && fetch()
+
         } else if (user.user.role === 'carrier') {
             async function fetch() {
                 if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {

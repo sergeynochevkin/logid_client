@@ -3,7 +3,7 @@ import { addPartnerByKey } from '../../http/partnerApi'
 import { Button } from '../ui/button/Button'
 import { Input } from '../ui/form/Input'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
-import { ComponentFunctionContext, LinkContext, NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, FetcherContext, LinkContext, NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { v4 } from "uuid";
 import { observer } from 'mobx-react-lite'
 import { FieldName } from '../ui/page/FieldName'
@@ -19,6 +19,7 @@ const AddPartnerComponent = observer(() => {
   const { user } = useContext(UserContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Translate } = useContext(TranslateContext)
+  const { fetcher } = useContext(FetcherContext)
 
   const partner_added = SetNativeTranslate(Translate.language, {}, 'partner_added')
 
@@ -31,14 +32,20 @@ const AddPartnerComponent = observer(() => {
   }, [])
 
   const addPartnerAction = async function () {
-    await addPartnerByKey(Translate.language, user.user.role, UserInfo.userInfo.id, key).then(data => {
-      if (Array.isArray(data)) {
-        Notification.addNotification([{ id: v4(), type: 'success', message: `${partner_added} ${data[0].partnerUserInfoId}` }])
-        ComponentFunction.setPartnersComponentFunction('list')
-      } else {
-        Notification.addNotification([{ id: v4(), type: 'error', message: `${data}` }])
-      }
-    })
+    try {
+      await addPartnerByKey(Translate.language, user.user.role, UserInfo.userInfo.id, key).then(data => {
+        if (Array.isArray(data)) {
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${partner_added} ${data[0].partnerUserInfoId}` }])
+          fetcher.setPartners(true)
+          ComponentFunction.setPartnersComponentFunction('list')
+        } else {
+          Notification.addNotification([{ id: v4(), type: 'error', message: `${data}` }])
+        }
+      })
+    } catch (error) {
+      Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
+    }
+
   }
 
   return (

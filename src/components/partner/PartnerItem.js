@@ -7,8 +7,9 @@ import { OrderTd } from '../ui/table/OrderTd'
 
 import OtherRatingComponent from '../rating/OtherRatingComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { observer } from 'mobx-react-lite'
 
-const PartnerItem = ({ onePartnerInfo, onePartner, onePartnerOtherRatingByThisUserInfo }) => {
+const PartnerItem = observer(({ onePartnerInfo, onePartner, onePartnerOtherRatingByThisUserInfo }) => {
   const [modalActive, setModalActive] = useState(false)
   const { Partner } = useContext(PartnerContext)
   const {Translate} = useContext(TranslateContext)
@@ -52,7 +53,7 @@ const PartnerItem = ({ onePartnerInfo, onePartner, onePartnerOtherRatingByThisUs
             setModalActive(true)
           }}
         >
-          {onePartnerInfo.legal === 'person' ?
+          {!onePartnerInfo.legal ? onePartnerInfo.email : onePartnerInfo.legal === 'person' ?
             <>{onePartnerInfo.name_surname_fathersname}</>
             :
             <>{onePartnerInfo.company_name}</>
@@ -81,7 +82,7 @@ const PartnerItem = ({ onePartnerInfo, onePartner, onePartnerOtherRatingByThisUs
       </tr>
     </>
   )
-}
+})
 
 export default PartnerItem
 
