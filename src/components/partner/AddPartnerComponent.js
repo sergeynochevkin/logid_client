@@ -25,6 +25,8 @@ const AddPartnerComponent = observer(() => {
   useEffect(() => {
     if (Link.refer.id && Link.refer.action === 'add_partner') {
       addPartnerAction()
+      Link.setRefer('', 'action')
+      Link.setRefer('', 'id')
     }
   }, [])
 
