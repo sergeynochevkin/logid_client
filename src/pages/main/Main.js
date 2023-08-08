@@ -56,6 +56,7 @@ import AdTransportSection from './AdTransportSection'
 
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
+  const { Ad } = useContext(AdContext)
   const { Translate } = useContext(TranslateContext)
   const { order } = useContext(OrderContext)
   const queryParams = new URLSearchParams(window.location.search)
@@ -68,8 +69,7 @@ const Main = observer(() => {
   const [callRequested, setCallRequested] = useState(false)
   const { Setting } = useContext(SettingContext)
   const { Management } = useContext(ManagementContext)
-  const { fetcher } = useContext(FetcherContext)
-  const { Ad } = useContext(AdContext)
+  const { fetcher } = useContext(FetcherContext)  
   const navigate = useNavigate()
 
 
@@ -103,7 +103,7 @@ const Main = observer(() => {
 
 
   useEffect(() => {
-    !user.isAuth && fetcher.setMainCounters(true)
+     fetcher.setMainCounters(true)
   }, [])
 
   useEffect(() => {
