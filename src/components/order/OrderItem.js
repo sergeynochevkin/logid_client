@@ -183,7 +183,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
                 <VerticalContainer style={{ gap: '3px' }}>
 
-                    {thisOrder.order_status === 'new' && <ShareComponent parent='order_item' thisOrder={thisOrder} />}
+                    {thisOrder.order_status === 'new' || thisOrder.order_status === 'inWork' ? <ShareComponent parent='order_item' thisOrder={thisOrder} /> : <></>}
 
                     <CardRow>
                         {(user.user.role === 'carrier' && thisOrder.order_status === 'new') || (thisOrder.order_status === 'inWork') ?

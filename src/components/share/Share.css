@@ -1,9 +1,14 @@
-.share_modal_container {}
+.share_modal_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
 
 .share_modal_icons_container {
     display: flex;
     justify-content: center;
-}
+    }
 
 .modal_social_share {}
 
@@ -11,7 +16,6 @@
     width: 360px;
     font-size: 12px;
     text-align: center;
-    margin-top: 20px;
 }
 
 

@@ -44,8 +44,8 @@ const ShareModalContent = observer(({ setModalActive, parent, thisOrder, shareNa
                 </div>
             </div>
             {parent === 'order_item' && <div className='share_modal_disclaimer'>{SetNativeTranslate(Translate.language, {
-                russian: ['Вы делитесь ссылкой на заказ, обратите внимание, что заказ сбудет доступен получателю для просмотра только после авторизации в logid и при условии, что получатель работает в том же регионе, имеет подходящий способ доставки и не заблокирован заказчиком'],
-                english: ['You share a link to an order, please note that the order will be available to the recipient for viewing only after authorization in logid and provided that the recipient works in the same region, has a suitable delivery method and is not blocked by the customer']
+                russian: ['Вы делитесь ссылкой на заказ, обратите внимание, что заказ сбудет доступен получателю для просмотра только после авторизации в logid и при условии, что получатель работает в том же регионе, имеет подходящий способ доставки и не заблокирован заказчиком. Заказ в работе доступен для просмотра только заказчику и выполняющему его перевозчику'],
+                english: ['You share a link to an order, please note that the order will be available to the recipient for viewing only after authorization in logid and provided that the recipient works in the same region, has a suitable delivery method and is not blocked by the customer. The order in progress is available for viewing only to the customer and the carrier executing it']
             })}</div>}
         </div>
     )
