@@ -22,7 +22,7 @@ const Password = ({ authFormData, setAuthFormData , comparePassword, setCompareP
                 <Input placeholder={Password}
                     style={{ borderLeft: authFormData.password.notValid || authFormData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                     value={authFormData.password.value}
-                    onChange={(e) => authFormData.password.onChange(e)} onBlur={e => authFormData.password.onBlur(e)} type="password" name="password" id="password"
+                    onChange={(e) => authFormData.password.onChange(e)} onBlur={e => authFormData.password.onBlur(e)} type="password" name="password" 
                 ></Input>
                 <FieldName
                     style={{

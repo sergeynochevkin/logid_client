@@ -429,7 +429,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
               onChange={(e) => formData.email.onChange(e)}
               onBlur={e => formData.email.onBlur(e)}
-              type="text" name="email" id="email"
+              type="text" name="email" 
               autoComplete='email'
             ></Input>
 
@@ -454,7 +454,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_password')}
               style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.password.value}
-              onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" id="password"
+              onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" 
               autoComplete='current-password'
             ></Input>
             <FieldName

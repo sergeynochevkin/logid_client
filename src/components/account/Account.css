@@ -16,6 +16,18 @@
     color: white;
 }
 
+.account_container.share {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.account_container_dark.share {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
 .account_info_status_content_container {
     display: flex;
     align-items: center;
@@ -32,10 +44,23 @@
     align-items: center;
 }
 
-.fill_account_disclaimer{
-   max-width: 300px; 
-   text-align: center;
-   font-size: 12px;
+.fill_account_disclaimer {
+    max-width: 300px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.account_share_container{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.account_share_text{
+font-size: 14px;
+font-weight: bold;
 }
 
 @media screen and (max-width: 425px) {

@@ -1,22 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Board.css'
 import BoardList from './BoardList'
 import BoardFilter from './BoardFilter'
 import BoardMainBanner from './BoardMainBanner'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
-import { SettingContext, TranslateContext } from '../..'
+import { FetcherContext, SettingContext, TranslateContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const Board = observer(() => {
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
+    const { fetcher } = useContext(FetcherContext)
+
+    useEffect(() => {
+        fetcher.setAdTransports(true)
+        setInterval(() => {
+            fetcher.setAdTransports(true)
+        }, 60000)
+    }, [])
 
     return (
         <div className={`board_container ${Setting.app_theme}`}>
             <title>{SetNativeTranslate(Translate.language, {
-                russian:['Доска объявлений'],
-                english:['Bulletin board']
+                russian: ['Доска объявлений'],
+                english: ['Bulletin board']
             })}</title>
 
             <BoardMainBanner />

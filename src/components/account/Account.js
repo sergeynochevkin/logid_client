@@ -83,8 +83,16 @@ const Account = observer(() => {
                 </div>
                 <div
                     className={containerClassName}>
+
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'can_add')} fieldValue={UserInfo.userInfo.uuid} editable={false} attachedField={''} />
-                    <ShareComponent parent = 'account_uuid' />
+
+                    <div className='account_share_container'>
+                        <div className='account_share_text't>{SetNativeTranslate(Translate.language, {
+                            russian: [`Поделитесь ссылкой ${user.user.role === 'carrier' ? 'с заказчиком' : user.user.role === 'customer' ? 'c перевозчиком' : ''}`],
+                            english: [`Share the link ${user.user.role === 'carrier' ? 'with customer' : user.user.role === 'customer' ? 'carrier' : ''}`]
+                        })}</div>
+                        <ShareComponent parent='account_uuid' />
+                    </div>
                 </div>
             </VerticalContainer>
 

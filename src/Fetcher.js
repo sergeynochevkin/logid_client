@@ -464,12 +464,6 @@ const Fetcher = observer(() => {
     }, [fetcher.ad_transports])
 
 
-    useEffect(() => {
-        setInterval(() => {
-            fetcher.setAdTransports(true)
-        }, 600000)
-    }, [])
-
     //management:
     //users
     useEffect(() => {

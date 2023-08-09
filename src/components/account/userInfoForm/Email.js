@@ -19,7 +19,7 @@ const Email = ({ authFormData, setauthFormData }) => {
             style={{ borderLeft: (authFormData.email.notValid || authFormData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
             onChange={(e) => authFormData.email.onChange(e)}
             onBlur={e => authFormData.email.onBlur(e)}
-            type="text" name="email" id="email"
+            type="text" name="email" 
           ></Input>
           <FieldName
             style={{
