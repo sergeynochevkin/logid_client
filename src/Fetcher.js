@@ -568,7 +568,13 @@ const Fetcher = observer(() => {
                 threshold={1000}
                 imageUrl="./static/media/logo_russian_light.4eac16b4e5a52618270b.png"
                 downloadSize="1781287"  //bytes
-                callbackFunctionOnNetworkDown={(speed) => {return}}
+                callbackFunctionOnNetworkDown={(speed) => {
+                    if (speed === 0) {
+                        Link.setInternet(false)
+                    } else {
+                        Link.setInternet(true)
+                    }
+                }}
                 callbackFunctionOnNetworkTest={(speed) => Link.setInternetSpeed(speed)}
             />
         </>)

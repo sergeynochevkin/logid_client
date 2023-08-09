@@ -105,6 +105,7 @@ const User = observer(() => {
   useEffect(() => {
 
     let i = 0
+    let delay = Link.internet_speed < 5 ? 40 : Link.internet_speed < 20 ? 20 : 10
 
     let interval = setInterval(() => {
       if (order.totalCount[ComponentFunction.Function] > 0) {
@@ -114,7 +115,7 @@ const User = observer(() => {
       } else {
         i++
       }
-      if (i > 40) { // depends on internet speed
+      if (i > delay) { // depends on internet speed
         fetcher.setCustomLoading(false)
         clearInterval(interval)
       }

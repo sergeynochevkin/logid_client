@@ -6,7 +6,9 @@ const InternedSpeed = observer(() => {
     const { Link } = useContext(LinkContext)
 
     return (
-        <div className='internet_speed_container'>{Link.internet_speed}</div>
+    <>
+        <div className='internet_speed_container' style = {{backgroundColor:!Link.internet ? 'red' : Link.internet_speed < 5 ? 'yellow' :  Link.internet_speed < 20 ? 'orange' : 'green'  }}></div>
+    </>
     )
 })
 
