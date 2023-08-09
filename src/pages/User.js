@@ -114,7 +114,7 @@ const User = observer(() => {
       } else {
         i++
       }
-      if (i > 10) { // depends on internet speed
+      if (i > 20) { // depends on internet speed
         clearInterval(interval)
         fetcher.setCustomLoading(false)
       }
