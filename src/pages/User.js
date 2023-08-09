@@ -102,12 +102,13 @@ const User = observer(() => {
   }, [])
 
   useEffect(() => {
-
-    if (order.map_orders && order.map_orders.find(el => el === Link.order.id)) {
+    if (Link.order && Link.order.status === 'new' && !fetcher.orders_new) {
       fetcher.setCustomLoading(false)
     }
-
-  }, [order.map_orders])
+    if (Link.order && Link.order.status === 'inWork' && !fetcher.orders_in_work) {
+      fetcher.setCustomLoading(false)
+    }
+  }, [fetcher.orders_new, fetcher.orders_in_work])
 
   useEffect(() => {
     if (Link.refer.id && Link.refer.action === 'add_partner') {
