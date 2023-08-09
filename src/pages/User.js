@@ -104,21 +104,20 @@ const User = observer(() => {
 
   useEffect(() => {
 
-    let i = 0 
+    let i = 0
 
     let interval = setInterval(() => {
       if (order.totalCount[ComponentFunction.Function] > 0) {
         // check if now order id show sorry
-        clearInterval(interval)
         fetcher.setCustomLoading(false)
+        clearInterval(interval)
       } else {
         i++
       }
-      if (i > 20) { // depends on internet speed
-        clearInterval(interval)
+      if (i > 100) { // depends on internet speed
         fetcher.setCustomLoading(false)
+        clearInterval(interval)
       }
-
     }, 500)
 
   }, [order.totalCount[ComponentFunction.Function]])
