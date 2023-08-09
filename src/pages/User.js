@@ -104,7 +104,7 @@ const User = observer(() => {
 
   useEffect(()=>{
     let interval = setInterval(() => {
-      if (order.totalCount[ComponentFunction.Function] > 0) {
+      if (order.totalCount[ComponentFunction.Function]) {
         fetcher.setCustomLoading(false)
         clearInterval(interval)
       }
