@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect } from 'react'
-import { AdContext, ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, SettingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
+import React, { useContext, useEffect, useState } from 'react'
+import { AdContext, ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, LinkContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, SettingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
 import { fetchUserLimits } from './http/limitApi'
 import { fetchNotifications, updateNotifications } from './http/notificationApi'
 import { fetchGroups, fetchPartners } from './http/partnerApi'
@@ -20,11 +20,15 @@ import { fetchSettings } from './http/settingApi'
 import { fetchFile } from './http/fileApi'
 import FetcherLoader from './components/ui/loader/FetcherLoader'
 
+import { ReactInternetSpeedMeter } from 'react-internet-meter'
+// import 'react-internet-speed-meter/dist/index.css'
+
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Notification } = useContext(NotificationContext)
     const { Limit } = useContext(LimitContext)
+    const { Link } = useContext(LinkContext)
     const { State } = useContext(StateContext)
     const { Subscription } = useContext(SubscriptionContext)
     const { user } = useContext(UserContext)
@@ -39,6 +43,9 @@ const Fetcher = observer(() => {
     const { Management } = useContext(ManagementContext)
     const { Ad } = useContext(AdContext)
     const { Setting } = useContext(SettingContext)
+    const [wifiSpeed, setwifiSpeed] = useState('')
+
+
 
     let fetchImages = async (type, item, file) => {
         let serverFile = await fetchFile(item.id, type, file)
@@ -551,6 +558,19 @@ const Fetcher = observer(() => {
         <>
             {fetcher.loading ? <FetcherLoader /> :
                 fetcher.custom_loading ? <FetcherLoader /> : <></>}
+            <ReactInternetSpeedMeter
+                txtSubHeading="Internet is too slow"
+                outputType="empty"
+                customClassName={null}
+                txtMainHeading="Opps..."
+                pingInterval={4000} // milliseconds 
+                thresholdUnit='megabyte' // "byte" , "kilobyte", "megabyte" 
+                threshold={1000}
+                imageUrl="./static/media/logo_russian_light.4eac16b4e5a52618270b.png"
+                downloadSize="1781287"  //bytes
+                callbackFunctionOnNetworkDown={(speed) => {return}}
+                callbackFunctionOnNetworkTest={(speed) => Link.setInternetSpeed(speed)}
+            />
         </>)
 })
 
