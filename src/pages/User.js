@@ -104,10 +104,15 @@ const User = observer(() => {
 
   useEffect(()=>{
     let interval = setInterval(() => {
-      if (order.totalCount[ComponentFunction.Function] >= 0 ) {
+setTimeout(()=>{},)
+//if now any after 20 sec orders stop loading?!
+
+      if (order.totalCount[ComponentFunction.Function] > 0 ) {
+        // check if now order id show sorry
         fetcher.setCustomLoading(false)
         clearInterval(interval)
       }
+
     }, 500)
   },[order.totalCount[ComponentFunction.Function]])
 
