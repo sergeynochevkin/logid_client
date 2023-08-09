@@ -7,19 +7,18 @@ import { Area50 } from '../components/ui/area/Area50'
 import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
-import UserInfoForm from '../components/account/UserInfoForm'
-import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext, LinkContext } from '..'
+import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext, LinkContext, NotificationContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
 import SettingsComponent from '../components/setting/SettingsComponent'
-import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 import TransportComponent from '../components/transport/TransportComponent'
-import MapComponent from '../components/map/MapComponent'
 import PageLoader from '../components/ui/loader/PageLoader '
 import Modal from '../components/ui/modal/Modal'
 import AccountCompletionForm from '../components/account/AccountCompletionForm'
+import { v4 } from "uuid";
+
 
 const Container = styled.div`
 display:flex;
@@ -29,6 +28,7 @@ const User = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Link } = useContext(LinkContext)
   const { UserInfo } = useContext(UserInfoContext)
+  const { Notification } = useContext(NotificationContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
   const { fetcher } = useContext(FetcherContext)
@@ -106,18 +106,26 @@ const User = observer(() => {
 
     let i = 0
     let delay = Link.internet_speed < 5 ? 40 : Link.internet_speed < 20 ? 20 : 10
+    let message = SetNativeTranslate(Translate.language, {
+      russian: [`Заказ ${Link.order.id} уже не доступен`],
+      english: ['Order ${Link.order.id} is no longer available']
+    })
 
     let interval = setInterval(() => {
       if (order.totalCount[ComponentFunction.Function] > 0) {
         // check if now order id show sorry
         fetcher.setCustomLoading(false)
         clearInterval(interval)
+        if (!order.map_orders.find(el => el => Link.order.id)) {
+          Notification.addNotification([{ id: v4(), type: 'error', message: message }])
+        }
       } else {
         i++
       }
       if (i > delay) { // depends on internet speed
         fetcher.setCustomLoading(false)
         clearInterval(interval)
+        Notification.addNotification([{ id: v4(), type: 'error', message: message }])
       }
     }, 500)
 

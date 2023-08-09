@@ -8,7 +8,6 @@ import { fetchOrderRatings, fetchOtherRatings } from './http/ratingApi'
 import { fetchUserState } from './http/stateApi'
 import { fetchSubscription } from './http/subscriptionApi'
 import { fetchUserInfo, fetchUserInfos } from './http/userInfoApi'
-import { v4 } from "uuid";
 import { fetchOffers } from './http/offerApi'
 import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders, setOrderViewed } from './http/orderApi'
