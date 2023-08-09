@@ -35,9 +35,9 @@ const AddPartnerComponent = observer(() => {
     try {
       await addPartnerByKey(Translate.language, user.user.role, UserInfo.userInfo.id, key).then(data => {
         if (Array.isArray(data)) {
-          Notification.addNotification([{ id: v4(), type: 'success', message: `${partner_added} ${data[0].partnerUserInfoId}` }])
-          fetcher.setPartners(true)
+          Notification.addNotification([{ id: v4(), type: 'success', message: `${partner_added} ${data[0].partnerUserInfoId}` }])        
           ComponentFunction.setPartnersComponentFunction('list')
+          fetcher.setPartners(true)
         } else {
           Notification.addNotification([{ id: v4(), type: 'error', message: `${data}` }])
         }

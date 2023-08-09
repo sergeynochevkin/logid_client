@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, OrderContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdContext, AdressContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
@@ -8,20 +8,15 @@ import { deleteNotification, fetchNotification } from '../../http/notificationAp
 import './Main.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import MainSection from './MainSection'
-import ModalBottom from '../../components/ui/modal/ModalBottom'
-import CookiesModalContent from '../../components/legality/CookiesModalContent'
+
 import { useJsApiLoader } from '@react-google-maps/api'
 
 import av1 from '../../assets/avatars/av1.jpg';
-import av2 from '../../assets/avatars/av2.jpg';
 import av3 from '../../assets/avatars/av3.jpg';
-import av4 from '../../assets/avatars/av4.jpg';
 import av5 from '../../assets/avatars/av5.jpg';
 import av6 from '../../assets/avatars/av6.jpg';
-import av7 from '../../assets/avatars/av7.jpg';
 import av8 from '../../assets/avatars/av8.jpg';
 import av9 from '../../assets/avatars/av9.jpg';
-import av10 from '../../assets/avatars/av10.jpg';
 
 import alert from '../../assets/icons/alert.png';
 import alert_dark from '../../assets/icons/alert_dark.png';
@@ -49,16 +44,12 @@ import transport from '../../assets/icons/transport.png';
 import transport_dark from '../../assets/icons/transport_dark.png';
 import AdminConsoleItem from './AdminConsoleItem'
 import PageLoader from '../../components/ui/loader/PageLoader '
-import { LOGIN_ROUTE } from '../../utils/consts'
-import { useNavigate } from 'react-router-dom'
-import AdTransportSection from './AdTransportSection'
 
 
 const Main = observer(() => {
   const { Notification } = useContext(NotificationContext)
   const { Ad } = useContext(AdContext)
   const { Translate } = useContext(TranslateContext)
-  const { order } = useContext(OrderContext)
   const queryParams = new URLSearchParams(window.location.search)
   const uuid = queryParams.get("uuid")
   const role = queryParams.get("role")
@@ -69,8 +60,6 @@ const Main = observer(() => {
   const [callRequested, setCallRequested] = useState(false)
   const { Setting } = useContext(SettingContext)
   const { Management } = useContext(ManagementContext)
-  const { fetcher } = useContext(FetcherContext)  
-  const navigate = useNavigate()
 
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))

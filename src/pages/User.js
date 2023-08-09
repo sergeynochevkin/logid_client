@@ -7,16 +7,13 @@ import { Area50 } from '../components/ui/area/Area50'
 import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
-import UserInfoForm from '../components/account/UserInfoForm'
 import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext, LinkContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
 import SettingsComponent from '../components/setting/SettingsComponent'
-import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 import TransportComponent from '../components/transport/TransportComponent'
-import MapComponent from '../components/map/MapComponent'
 import PageLoader from '../components/ui/loader/PageLoader '
 import Modal from '../components/ui/modal/Modal'
 import AccountCompletionForm from '../components/account/AccountCompletionForm'
@@ -39,7 +36,9 @@ const User = observer(() => {
 
 
   useEffect(() => {
-    fetcher.setPartners(true)
+    if (!Link.refer.id) {
+      fetcher.setPartners(true)
+    }
     fetcher.setSubscriptions(true)
   }, [])
 
@@ -99,11 +98,16 @@ const User = observer(() => {
     if (Link.order.id || !order.divided_orders) {
       fetcher.setCustomLoading(true)
       setFunction(Link.order.status, 'orderList', 'orderList')
-      setTimeout(() => {
-        fetcher.setCustomLoading(false)
-      }, 1500)
     }
   }, [])
+
+  useEffect(() => {
+
+    if (order.map_orders.find(el => el === Link.order.id)) {
+      fetcher.setCustomLoading(false)
+    }
+
+  }, [order.map_orders])
 
   useEffect(() => {
     if (Link.refer.id && Link.refer.action === 'add_partner') {
