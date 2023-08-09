@@ -117,7 +117,7 @@ const User = observer(() => {
         fetcher.setCustomLoading(false)
         clearInterval(interval)
         if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === Link.order.id)) {
-          Notification.addNotification([{ id: v4(), type: 'error', message: message }])
+          !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
         }
       } else {
         i++
@@ -125,7 +125,7 @@ const User = observer(() => {
       if (i > delay) { // depends on internet speed
         fetcher.setCustomLoading(false)
         clearInterval(interval)
-        Notification.addNotification([{ id: v4(), type: 'error', message: message }])
+        !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
       }
     }, 500)
 
