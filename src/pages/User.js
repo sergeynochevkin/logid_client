@@ -105,11 +105,11 @@ const User = observer(() => {
   useEffect(() => {
     // let i = 0
     let interval = setInterval(() => {
-      if (order.totalCount[ComponentFunction.Function] >= 0) {
+      if (order.totalCount[ComponentFunction.Function] > 0 || order.totalCount[ComponentFunction.Function] === 0) {
         // check if now order id show sorry
         clearInterval(interval)
         fetcher.setCustomLoading(false)
-      } 
+      }
       // else {
       //   i++
       // }
