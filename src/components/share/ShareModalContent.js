@@ -10,11 +10,20 @@ import {
     WorkplaceShareButton
 } from "react-share";
 import { observer } from 'mobx-react-lite';
-import { UserInfoContext } from '../..';
+import { TranslateContext, UserInfoContext } from '../..';
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 
 
-const ShareModalContent = observer(({ setModalActive, parent }) => {
+const ShareModalContent = observer(({ setModalActive, parent, thisOrder, shareName }) => {
     const { UserInfo } = useContext(UserInfoContext)
+    const { Translate } = useContext(TranslateContext)
+
+    let title = SetNativeTranslate(Translate.language, {
+        russian: [parent === 'account_uuid' ? `Ccылка для добавления партнера ${shareName} в сервисе logid` : parent === 'order_item' ? `Ссылка на заказ ${thisOrder.id} в сервисе logid. Заказ будет доступен для просмотра после авторизации в logid, при условии, что вы работаете в том же регионе, имеетe подходящий способ доставки и не заблокированы заказчиком` : 'Ссылка на logid - сервис для заказчиков,перевозчиков, курьеров, диспетчеров и логистов'],
+        english: [parent === 'account_uuid' ? `Link to add a ${shareName} partner in the logid service` : parent === 'order_item' ? `Link to orfder ${thisOrder.id} in logid service. The order will be available for viewing after authorization in logid, provided that you work in the same region, have a suitable delivery method and are not blocked by the customer` : 'Link to logid - service for customers, carriers, couriers, dispatchers and logisticians']
+    })
+
+    let url = parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : parent === 'order_item' ? `https://logid.app?o_i=${thisOrder.id}&&o_s=${thisOrder.order_status}` : 'https://logid.app/'
 
     return (
         <div className='share_modal_container'>
@@ -23,17 +32,21 @@ const ShareModalContent = observer(({ setModalActive, parent }) => {
                     onClick={() => {
                         setModalActive(false)
                     }}>
-                    <WhatsappShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : 'https://logid.app/'} title='logid'>
+                    <WhatsappShareButton url={url} title={title}>
                         <WhatsappIcon size={32} ></WhatsappIcon>
                     </WhatsappShareButton>
-                    <TelegramShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : 'https://logid.app/'} title='logid'>
+                    <TelegramShareButton url={url} title={title}>
                         <TelegramIcon size={32} ></TelegramIcon>
                     </TelegramShareButton>
-                    <VKShareButton url={parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : 'https://logid.app/'} title='logid'>
+                    <VKShareButton url={url} title={title}>
                         <VKIcon size={32} ></VKIcon>
                     </VKShareButton>
                 </div>
             </div>
+            {parent === 'order_item' && <div className='share_modal_disclaimer'>{SetNativeTranslate(Translate.language, {
+                russian: ['Вы делитесь ссылкой на заказ, обратите внимание, что заказ сбудет доступен получателю для просмотра только после авторизации в logid и при условии, что получатель работает в том же регионе, имеет подходящий способ доставки и не заблокирован заказчиком'],
+                english: ['You share a link to an order, please note that the order will be available to the recipient for viewing only after authorization in logid and provided that the recipient works in the same region, has a suitable delivery method and is not blocked by the customer']
+            })}</div>}
         </div>
     )
 })

@@ -7,6 +7,12 @@
 
 .modal_social_share {}
 
+.share_modal_disclaimer{
+    width: 360px;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 20px;
+}
 
 
 

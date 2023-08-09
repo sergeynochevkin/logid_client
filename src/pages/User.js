@@ -116,8 +116,9 @@ const User = observer(() => {
           // check if now order id show sorry
           fetcher.setCustomLoading(false)
           clearInterval(interval)
-          if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === Link.order.id)) {
-            !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
+   
+          if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === parseInt(Link.order.id))) {
+                        !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
           }
         } else {
           i++
@@ -127,11 +128,10 @@ const User = observer(() => {
           clearInterval(interval)
           !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
         }
-      }, 500)
-
-      Link.setOrder('', 'id')
-      Link.setOrder('', 'status')
+      }, 500)    
     }
+      // Link.setOrder('', 'id')
+      // Link.setOrder('', 'status')
   }, [order.totalCount[ComponentFunction.Function]])
 
   useEffect(() => {

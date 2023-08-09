@@ -29,12 +29,13 @@ import arrow_back_dark from '../../assets/icons/arrow_back_dark.png';
 
 import info from '../../assets/icons/info.png';
 import info_dark from '../../assets/icons/info_dark.png';
+import ShareComponent from '../share/ShareComponent'
 
 
 const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { user } = useContext(UserContext)
-    const {Link} = useContext(LinkContext)
+    const { Link } = useContext(LinkContext)
     const [modalActive, setModalActive] = useState(false)
     const [modalActive2, setModalActive2] = useState(false)
     const { order } = useContext(OrderContext)
@@ -135,8 +136,10 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     useEffect(() => {
         if (thisOrder.id === parseInt(Link.order.id)) {
             toOrderItem()
-            Link.setOrder('', 'id')
-            Link.setOrder('', 'status')
+            setTimeout(() => {
+                Link.setOrder('', 'id')
+                Link.setOrder('', 'status')
+            }, 1000)
         }
     }, [order.dividedOrders])
 
@@ -179,6 +182,8 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     : <></>}
 
                 <VerticalContainer style={{ gap: '3px' }}>
+
+                    {thisOrder.order_status === 'new' && <ShareComponent parent='order_item' thisOrder={thisOrder} />}
 
                     <CardRow>
                         {(user.user.role === 'carrier' && thisOrder.order_status === 'new') || (thisOrder.order_status === 'inWork') ?
@@ -380,6 +385,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         setModalActive2(true)
                     }}
                     src={image} className='in_order_transport_image_icon' key={image} />) : <></>}</div>
+
 
                 <VerticalContainer>
                     <OrderStatusButtons

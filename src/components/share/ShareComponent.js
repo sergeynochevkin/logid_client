@@ -6,7 +6,7 @@ import ShareModalContent from './ShareModalContent'
 import share from '../../assets/icons/share.png';
 import share_dark from '../../assets/icons/share_dark.png';
 
-const ShareComponent = observer(({parent}) => {
+const ShareComponent = observer(({parent,thisOrder, shareName}) => {
     const { user } = useContext(UserContext)
     const { Setting } = useContext(SettingContext)
     const [modalActive, setModalActive] = useState(false)
@@ -14,14 +14,15 @@ const ShareComponent = observer(({parent}) => {
     return (
         <>
             <div className='nav_bar_theme_icon"'
-                onClick={() => {
+                onClick={(event) => {
+                    event.stopPropagation()
                     setModalActive(true)
                 }}
             >
                 {Setting.app_theme === 'light' ? <img src={share} className='nav_bar_theme_icon' /> : <img src={share_dark} className='nav_bar_theme_icon' />}
             </div>
             <Modal setModalActive={setModalActive} modalActive={modalActive}>
-                <ShareModalContent setModalActive={setModalActive} parent = 'account_uuid' />
+                <ShareModalContent setModalActive={setModalActive} parent = {parent} thisOrder = {thisOrder} shareName = {shareName}/>
             </Modal>
         </>
     )

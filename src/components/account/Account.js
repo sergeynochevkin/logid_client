@@ -32,7 +32,7 @@ const Account = observer(() => {
     const [yoomoneyToken, setYoomoneyToken] = useState('empty_token')
     const [paymentId, setPaymentId] = useState('')
 
-
+    let shareName = !UserInfo.userInfo.legal ? UserInfo.userInfo.email : UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name
 
 
     const containerClassName = Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'
@@ -87,11 +87,12 @@ const Account = observer(() => {
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'can_add')} fieldValue={UserInfo.userInfo.uuid} editable={false} attachedField={''} />
 
                     <div className='account_share_container'>
-                        <div className='account_share_text't>{SetNativeTranslate(Translate.language, {
+                        <div className='account_share_text' t>{SetNativeTranslate(Translate.language, {
                             russian: [`Поделитесь ссылкой ${user.user.role === 'carrier' ? 'с заказчиком' : user.user.role === 'customer' ? 'c перевозчиком' : ''}`],
                             english: [`Share the link ${user.user.role === 'carrier' ? 'with customer' : user.user.role === 'customer' ? 'carrier' : ''}`]
                         })}</div>
-                        <ShareComponent parent='account_uuid' />
+                        <ShareComponent parent={'account_uuid'} shareName={shareName}
+                        />
                     </div>
                 </div>
             </VerticalContainer>
