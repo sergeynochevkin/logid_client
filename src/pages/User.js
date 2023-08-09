@@ -103,32 +103,35 @@ const User = observer(() => {
   }, [])
 
   useEffect(() => {
+    if (Link.order.id) {
+      let i = 0
+      let delay = Link.internet_speed < 5 ? 40 : Link.internet_speed < 20 ? 20 : 10
+      let message = SetNativeTranslate(Translate.language, {
+        russian: [`Заказ ${Link.order.id} уже не доступен`],
+        english: [`Order ${Link.order.id} is no longer available`]
+      })
 
-    let i = 0
-    let delay = Link.internet_speed < 5 ? 40 : Link.internet_speed < 20 ? 20 : 10
-    let message = SetNativeTranslate(Translate.language, {
-      russian: [`Заказ ${Link.order.id} уже не доступен`],
-      english: [`Order ${Link.order.id} is no longer available`]
-    })
-
-    let interval = setInterval(() => {
-      if (order.totalCount[ComponentFunction.Function] > 0) {
-        // check if now order id show sorry
-        fetcher.setCustomLoading(false)
-        clearInterval(interval)
-        if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === Link.order.id)) {
+      let interval = setInterval(() => {
+        if (order.totalCount[ComponentFunction.Function] > 0) {
+          // check if now order id show sorry
+          fetcher.setCustomLoading(false)
+          clearInterval(interval)
+          if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === Link.order.id)) {
+            !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
+          }
+        } else {
+          i++
+        }
+        if (i > delay) { // depends on internet speed
+          fetcher.setCustomLoading(false)
+          clearInterval(interval)
           !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
         }
-      } else {
-        i++
-      }
-      if (i > delay) { // depends on internet speed
-        fetcher.setCustomLoading(false)
-        clearInterval(interval)
-        !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
-      }
-    }, 500)
+      }, 500)
 
+      Link.setOrder(order_id, 'id')
+      Link.setOrder(order_status, 'status')
+    }
   }, [order.totalCount[ComponentFunction.Function]])
 
   useEffect(() => {
