@@ -96,7 +96,7 @@ const User = observer(() => {
   }
 
   useEffect(() => {
-    if (Link.order.id || !order.divided_orders) {
+    if (Link.order.id ) {
       fetcher.setCustomLoading(true)
       setFunction(Link.order.status, 'orderList', 'orderList')     
     }
