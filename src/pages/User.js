@@ -108,7 +108,7 @@ const User = observer(() => {
     let delay = Link.internet_speed < 5 ? 40 : Link.internet_speed < 20 ? 20 : 10
     let message = SetNativeTranslate(Translate.language, {
       russian: [`Заказ ${Link.order.id} уже не доступен`],
-      english: ['Order ${Link.order.id} is no longer available']
+      english: [`Order ${Link.order.id} is no longer available`]
     })
 
     let interval = setInterval(() => {
@@ -116,7 +116,7 @@ const User = observer(() => {
         // check if now order id show sorry
         fetcher.setCustomLoading(false)
         clearInterval(interval)
-        if (!order.map_orders.find(el => el => Link.order.id)) {
+        if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === Link.order.id)) {
           Notification.addNotification([{ id: v4(), type: 'error', message: message }])
         }
       } else {
