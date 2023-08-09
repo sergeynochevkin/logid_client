@@ -7,13 +7,16 @@ import { Area50 } from '../components/ui/area/Area50'
 import PageBanner from './banner/PageBanner'
 import { BookMark } from '../components/ui/button/BookMark'
 import PageContainer from '../components/ui/page/PageContainer'
+import UserInfoForm from '../components/account/UserInfoForm'
 import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext, LinkContext } from '..'
 import { observer } from 'mobx-react-lite'
 import Account from '../components/account/Account'
 import Partners from '../components/partner/Partners'
 import SettingsComponent from '../components/setting/SettingsComponent'
+import { VerticalContainer } from '../components/ui/page/VerticalContainer'
 import { SetNativeTranslate } from '../modules/SetNativeTranslate'
 import TransportComponent from '../components/transport/TransportComponent'
+import MapComponent from '../components/map/MapComponent'
 import PageLoader from '../components/ui/loader/PageLoader '
 import Modal from '../components/ui/modal/Modal'
 import AccountCompletionForm from '../components/account/AccountCompletionForm'
@@ -36,9 +39,7 @@ const User = observer(() => {
 
 
   useEffect(() => {
-    if (!Link.refer.id) {
-      fetcher.setPartners(true)
-    }
+    fetcher.setPartners(true)
     fetcher.setSubscriptions(true)
   }, [])
 
@@ -98,22 +99,15 @@ const User = observer(() => {
     if (Link.order.id || !order.divided_orders) {
       fetcher.setCustomLoading(true)
       setFunction(Link.order.status, 'orderList', 'orderList')
+      setTimeout(() => {
+        fetcher.setCustomLoading(false)
+      }, 3000)
     }
   }, [])
 
   useEffect(() => {
-    if (Link.order && Link.order.status === 'new' && !fetcher.orders_new) {
-      fetcher.setCustomLoading(false)
-    }
-    if (Link.order && Link.order.status === 'inWork' && !fetcher.orders_in_work) {
-      fetcher.setCustomLoading(false)
-    }
-  }, [fetcher.orders_new, fetcher.orders_in_work])
-
-  useEffect(() => {
     if (Link.refer.id && Link.refer.action === 'add_partner') {
       ComponentFunction.setPageFunction('partners')
-      ComponentFunction.setFunction('partners')
       ComponentFunction.setPartnersComponentFunction('add')
     }
   }, [])
