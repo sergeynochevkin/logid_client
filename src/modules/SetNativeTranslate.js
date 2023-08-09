@@ -117,7 +117,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'number_of_members', russian: 'Количество участников', english: 'Number of members', spanish: 'Número de participantes', turkish: 'Katılımcı sayısı', type: 'field_name' },
         { service: 'groups_field_name', russian: 'Группы', english: 'Groups', spanish: 'Grupos', turkish: 'Gruplar', type: 'field_name' },
         { service: 'rating_field_name', russian: 'Рейтинг', english: 'Rating', spanish: 'Clasificación', turkish: 'Derecelendirme', type: 'field_name' },
-        { service: 'arrival_time_field_name', russian: 'Время подачи', english: 'Arrival_time', spanish: 'Tiempo de llegada', turkish: 'Varış zamanı', type: 'field_name' },
+        { service: 'arrival_time_field_name', russian: 'Время подачи', english: 'Arrival time', spanish: 'Tiempo de llegada', turkish: 'Varış zamanı', type: 'field_name' },
         { service: 'points_in_the_order', russian: 'Всего точек в заказе', english: 'Total points in the order', spanish: 'Total de direcciones en orden', turkish: 'Sırayla toplam adresler', type: 'field_name' },
 
         { service: 'carrier', russian: 'Перевозчик', english: 'Carrier', spanish: 'Transportista', turkish: 'Taşıyıcı', type: 'role' },

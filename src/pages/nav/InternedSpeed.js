@@ -7,7 +7,7 @@ const InternedSpeed = observer(() => {
 
     return (
     <>
-        <div className='internet_speed_container' style = {{backgroundColor:!Link.internet ? 'red' : Link.internet_speed < 5 ? 'yellow' :  Link.internet_speed < 20 ? 'orange' : 'green'  }}></div>
+        <div className='internet_speed_container' style = {{backgroundColor:!Link.internet ? 'grey' : Link.internet_speed < 5 ? 'red' :  Link.internet_speed < 20 ? 'orange' : 'green'  }}></div>
     </>
     )
 })
