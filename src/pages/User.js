@@ -129,8 +129,8 @@ const User = observer(() => {
         }
       }, 500)
 
-      Link.setOrder(order_id, 'id')
-      Link.setOrder(order_status, 'status')
+      Link.setOrder('', 'id')
+      Link.setOrder('', 'status')
     }
   }, [order.totalCount[ComponentFunction.Function]])
 
