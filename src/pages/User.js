@@ -96,25 +96,30 @@ const User = observer(() => {
   }
 
   useEffect(() => {
-    if (Link.order.id ) {
+    if (Link.order.id) {
       fetcher.setCustomLoading(true)
-      setFunction(Link.order.status, 'orderList', 'orderList')     
+      setFunction(Link.order.status, 'orderList', 'orderList')
     }
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
+    // let i = 0
     let interval = setInterval(() => {
-setTimeout(()=>{},)
-//if now any after 20 sec orders stop loading?!
-
-      if (order.totalCount[ComponentFunction.Function] > 0 ) {
+      if (order.totalCount[ComponentFunction.Function] >= 0) {
         // check if now order id show sorry
-        fetcher.setCustomLoading(false)
         clearInterval(interval)
-      }
-
+        fetcher.setCustomLoading(false)
+      } 
+      // else {
+      //   i++
+      // }
+      // if (i > 10) { // depends on internet speed
+      //   clearInterval(interval)
+      //   fetcher.setCustomLoading(false)
+      // }
     }, 500)
-  },[order.totalCount[ComponentFunction.Function]])
+
+  }, [order.totalCount[ComponentFunction.Function]])
 
   useEffect(() => {
     if (Link.refer.id && Link.refer.action === 'add_partner') {

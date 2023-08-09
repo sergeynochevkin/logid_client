@@ -31,13 +31,13 @@ export default class OrderStore {
         this._order = localStorage.getItem('order') && localStorage.getItem('order') !== 'undefined' ? JSON.parse(localStorage.getItem('order')) : {}
         this._added = {}
         this._totalCount = {
-            new: 0,
-            inWork: 0,
-            completed: 0,
-            canceled: 0,
-            postponed: 0,
-            arc: 0,
-            pattern: 0
+            new: undefined,
+            inWork: undefined,
+            completed: undefined,
+            canceled: undefined,
+            postponed: undefined,
+            arc: undefined,
+            pattern: undefined
         }
         this._filtered_count = {
             new: 0,
