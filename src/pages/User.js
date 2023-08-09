@@ -99,9 +99,12 @@ const User = observer(() => {
     if (Link.order.id || !order.divided_orders) {
       fetcher.setCustomLoading(true)
       setFunction(Link.order.status, 'orderList', 'orderList')
-      setTimeout(() => {
-        fetcher.setCustomLoading(false)
-      }, 3000)
+      let interval = setInterval(() => {
+        if (order.totalCount[ComponentFunction.Function] > 0) {
+          fetcher.setCustomLoading(false)
+          clearInterval(interval)
+        }
+      }, 500)
     }
   }, [])
 
