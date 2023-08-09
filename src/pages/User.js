@@ -103,7 +103,7 @@ const User = observer(() => {
 
   useEffect(() => {
 
-    if (order.map_orders.find(el => el === Link.order.id)) {
+    if (order.map_orders && order.map_orders.find(el => el === Link.order.id)) {
       fetcher.setCustomLoading(false)
     }
 
