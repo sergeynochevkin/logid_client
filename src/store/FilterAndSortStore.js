@@ -95,6 +95,24 @@ export default class FilterAndSortStore {
             partnersByGroups: []
         }
 
+        this._board_filters = {
+            transports: {
+                userInfoId: '',
+                type: '',
+                ad_text: '',
+                side_type: '',
+                load_capacity: '',
+                type: '',
+                thermo_bag: '',
+                hydraulic_platform: '',
+                side_loading: '',
+                glass_stand: '',
+                refrigerator_minus: '',
+                refrigerator_plus: '',
+                thermo_van: ''
+            }
+        }
+
         makeAutoObservable(this)
     }
 
@@ -114,6 +132,15 @@ export default class FilterAndSortStore {
 
     get filters() {
         return this._filters
+    }
+
+    setBoardFilters(value, option) {
+        this._board_filters[option] = value
+        localStorage.setItem('boardFilters', JSON.stringify(this._boardFilters))
+    }
+
+    get _boardFiltersFilters() {
+        return this._boardFilters
     }
 }
 

@@ -11,7 +11,7 @@ import { Textarea } from '../ui/form/Textarea'
 const TransportFormAdText = observer(({ formData, oneTransport, error, setError }) => {
     const { Translate } = useContext(TranslateContext)
 
-    formData.ad_text = useInput('', { isEmpty: true, minLength: 20, maxLength: 120 }, SetNativeTranslate(Translate.language, {
+    formData.ad_text = useInput('', { isEmpty: true, minLength: 20, maxLength: 150 }, SetNativeTranslate(Translate.language, {
         russian: ['Рекламный текст'],
         english: ['Advertising text']
     }))
@@ -28,8 +28,8 @@ const TransportFormAdText = observer(({ formData, oneTransport, error, setError 
         >
             <Textarea value={formData.ad_text.value} rows="6"
                 placeholder={SetNativeTranslate(Translate.language, {
-                    russian: ['Рекламный текст, не более 300 символов, пожалуйста не указывайте телефон, email, сайт. Транспорт с этими данными показан не будет. Мы отобразим контактные данные из вашего профиля'],
-                    english: ['Advertising text, no more than 300 characters, please do not include phone, email, website. Vehicles with this data will not be displayed. We will display contact details from your profile']
+                    russian: ['Рекламный текст, не более 150 символов, пожалуйста не указывайте телефон, email, сайт. Транспорт с этими данными показан не будет. Мы отобразим контактные данные из вашего профиля'],
+                    english: ['Advertising text, no more than 150 characters, please do not include phone, email, website. Vehicles with this data will not be displayed. We will display contact details from your profile']
                 })}
                 onInput={(e) => {
                     formData.ad_text.onChange(e)
