@@ -392,7 +392,7 @@ const OrderForm = observer(() => {
                 formData.direction_response
             ).then(async data => {
                 dataInit(files)
-                await uploadFiles('order', formData.id, Translate.language, 'update', fileList)
+                await uploadFiles('order', formData.id, Translate.language, JSON.parse(orderPattern.files).length > 0 ? 'update' : 'create', fileList)
             }
             )
             await createPoint(pointFormData)
