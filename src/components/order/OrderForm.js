@@ -389,13 +389,14 @@ const OrderForm = observer(() => {
                 formData.for_partner.value,
                 formData.for_group.value,
                 formData.oldPointsId,
-                formData.direction_response
+                formData.direction_response,
+                pointFormData
             ).then(async data => {
                 dataInit(files)
                 await uploadFiles('order', formData.id, Translate.language, JSON.parse(orderPattern.files).length > 0 ? 'update' : 'create', fileList)
             }
             )
-            await createPoint(pointFormData)
+            // await createPoint(pointFormData)
             fetcher.setNewStatus('postponed')
             fetcher.setDividedOrders(true)
             Notification.addNotification([{ id: v4(), type: 'success', message: formData.order_type.value === 'order' ? `${Order} ${formData.id} ${Edited}` : `${Auction} ${formData.id} ${Edited}` }])
@@ -443,7 +444,8 @@ const OrderForm = observer(() => {
                 formData.files,
                 formData.for_partner.value,
                 formData.for_group.value,
-                formData.direction_response
+                formData.direction_response,
+                pointFormData
             )
                 .then(data => { orderId = data.id }).then(async data => {
                     dataInit(files)
@@ -451,7 +453,7 @@ const OrderForm = observer(() => {
                 }
                 )
 
-            await createPoint(pointFormData)
+            // await createPoint(pointFormData)
             fetcher.setStatus(formData.order_status)
             fetcher.setCreate(true)
             if (formData.order_status === 'new') {

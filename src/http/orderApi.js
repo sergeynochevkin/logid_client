@@ -30,7 +30,8 @@ export const createOrder = async (
     files,
     for_partner,
     for_group,
-    direction_response
+    direction_response,
+    pointFormData
 ) => {
     const { data } = await $authHost.post('api/order', {
         language,
@@ -62,7 +63,8 @@ export const createOrder = async (
         files,
         for_partner,
         for_group,
-        direction_response
+        direction_response,
+        pointFormData
     })
     return data
 }
@@ -116,7 +118,7 @@ export const editOrder = async (
     for_group,
     oldPointsId,
     direction_response,
-    city_place_id
+    pointFormData
 ) => {
     await $authHost.post('api/order/edit', {
         id,
@@ -146,7 +148,7 @@ export const editOrder = async (
         for_group,
         oldPointsId,
         direction_response,
-        city_place_id
+        pointFormData
     })
 }
 
