@@ -1,18 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from '../ui/link/Link'
-import { Area50 } from '../ui/area/Area50'
 import { Button } from '../ui/button/Button'
 import { Form } from '../ui/form/Form'
 import { Input } from '../ui/form/Input'
 import { Name } from '../ui/text/Name'
 import { Select } from '../ui/form/Select'
-import PageContainer from '../ui/page/PageContainer'
 import { Comment } from '../ui/form/Comment'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, RECOVERY_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE, BOARD_ITEM_ROUTE } from '../../utils/consts';
+import { useNavigate } from 'react-router-dom'
+import { MAIN_ROUTE, USER_ROUTE, MANAGER_ROUTE } from '../../utils/consts';
 import { code, fast_registration, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
@@ -28,7 +25,6 @@ import './Auth.css'
 import { fetchUserState } from '../../http/stateApi'
 import { CheckBoxContainer } from '../ui/form/CheckBoxContainer'
 import { CheckBoxSection } from '../ui/form/CheckBoxSection'
-import Country from '../account/userInfoForm/Country'
 import TransportFormSection from '../transport/TransportFormSection'
 import City from '../account/userInfoForm/City'
 import { transportContactViewed } from '../../http/transportApi'
@@ -53,7 +49,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { State } = useContext(StateContext)
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
-  const order_id = queryParams.get("o_i")
   const order_status = queryParams.get("o_s")
 
   const enterAction = (enterPoint) => {
@@ -221,6 +216,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         if (after_action && data) {
           if (after_action.action === 'transport_contact_viewed') {
             transportContactViewed(after_action.transportId, data.id)
+            fetcher.setAdTransports(true)
           }
         }
 

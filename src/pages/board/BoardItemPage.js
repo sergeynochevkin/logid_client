@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { AdContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
-import BoardListItem from './BoardListItem'
+import { AdContext, FetcherContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import Modal from '../../components/ui/modal/Modal'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
@@ -9,6 +8,10 @@ import { Button } from '../../components/ui/button/Button'
 import Auth from '../../components/auth/Auth'
 import { v4 } from "uuid";
 import { transportContactViewed } from '../../http/transportApi'
+import phone from '../../assets/icons/phone.png';
+import phone_dark from '../../assets/icons/phone_dark.png';
+import eye from '../../assets/icons/eye.png';
+import eye_dark from '../../assets/icons/eye_dark.png';
 
 
 const BoardItemPage = observer(() => {
@@ -17,11 +20,11 @@ const BoardItemPage = observer(() => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Setting } = useContext(SettingContext)
+    const { fetcher } = useContext(FetcherContext)
     let { id } = useParams()
     id = parseInt(id)
     const [transport, setTransport] = useState({})
     const [images, setImages] = useState([])
-    const [image, setImage] = useState()
     const [mainImage, setMainImage] = useState()
     const [ad_user, setAdUser] = useState({})
     const [modalActive, setModalActive] = useState(false)
@@ -48,6 +51,7 @@ const BoardItemPage = observer(() => {
     const contactViewedAction = async () => {
         try {
             await transportContactViewed(id, UserInfo.userInfo.id)
+            fetcher.setAdTransports(true)
         } catch (error) {
             Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
         }
@@ -121,8 +125,12 @@ const BoardItemPage = observer(() => {
                         }</div>
                         <div>{transport.ad_text}</div>
                         <div className='board_item_page_info_statistics_container'>
-                            <div>number of visits</div>
-                            <div>number_of_visits_today</div>
+                            <img className = 'board_item_page_icon' src={Setting.app_theme === 'light' ? eye : eye_dark}></img>
+                            <div>{ad_user.viewed}</div>
+                            <div>({ad_user.viewed_today})</div>
+                            <img  className = 'board_item_page_icon' src={Setting.app_theme === 'light' ? phone : phone_dark}></img>
+                            <div>{ad_user.contact_viewed}</div>
+                            <div>({ad_user.contact_viewed_today})</div>
                         </div>
                     </div>
 

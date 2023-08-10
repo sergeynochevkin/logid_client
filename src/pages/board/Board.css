@@ -332,12 +332,18 @@
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+    align-items: center;
 }
 
 .board_item_page_header{
     font-size: 22px;
     margin-top: 20px;
     font-weight: bold;
+}
+
+.board_item_page_icon{
+    height: 20px;
+    width: auto;
 }
 
 

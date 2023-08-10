@@ -322,12 +322,9 @@ const Fetcher = observer(() => {
     //set_order_viewed
     useEffect(() => {
         async function fetch() {
-            //activate just if not viewed go to orderItem 114 and activate it, and include viewed fetch and state and show it to carrier and cusomer activate just at new?
             await setOrderViewed(order.order.id, UserInfo.userInfo.id)
         }
-
         fetcher.order_viewed && fetch()
-
         fetcher.setOrderViewed(false)
     }, [fetcher.order_viewed])
 
