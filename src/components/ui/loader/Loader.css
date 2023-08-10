@@ -30,7 +30,7 @@
 
 .loader_container.page {
     height: 100vh;
-    width: 100vw;
+    width: 99vw;
     background-color: black;
 }
 
@@ -80,4 +80,7 @@
     .page_loader_error_message{
         text-align: justify;
     }
+    .loader_container.page {
+        width: 100vw;
+    }    
 }
