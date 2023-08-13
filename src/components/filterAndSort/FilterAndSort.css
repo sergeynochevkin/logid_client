@@ -11,7 +11,120 @@
     filter: invert(50%);
 }
 
+.board_filter_icon {
+    cursor: pointer;
+    width: 25px;
+    height: auto;
+}
+
+.board_filter_icon:hover {
+    filter: invert(50%);
+}
+
+
 .filters_container {
     align-items: center;
     display: flex;
+}
+
+
+.vertical_filters_container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: left;
+    align-items: top;
+    width: 100%;
+}
+
+.filter_checkbox_label {
+    font-size: 10px;
+}
+
+.filter_check_box_container {
+    display: flex;
+    align-items: center;
+}
+
+.board_filter_buttons_container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+
+}
+
+.board_filters_search_string_container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 20px;
+}
+
+.board_filters_selectors_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.board_filters_selectors {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 200px;
+    border-radius: 20px;
+    background-color: rgb(245, 245, 245, 0.5);
+    padding: 20px;
+    /* change with media queries */
+}
+
+.board_filters_selectors.dark {
+    background-color: rgb(31, 31, 31, 0.5);
+}
+
+
+@media screen and (max-width: 769px) and (min-width: 426px) {
+
+    .vertical_filters_container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .board_filters_selectors {
+        background-color: transparent;
+    }
+
+    .board_filters_selectors.dark {
+        background-color: transparent;
+    }
+
+    .filters_container {
+        flex-direction: column;
+        justify-content: center;
+
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    .vertical_filters_container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .board_filters_selectors {
+        background-color: transparent;
+    }
+
+    .board_filters_selectors.dark {
+        background-color: transparent;
+    }
+
+    .filters_container {
+        width: 100vw;
+        flex-direction: column;
+        justify-content: center;
+
+    }
 }

@@ -101,8 +101,8 @@ const Fetcher = observer(() => {
     let adImageHandler = async (transports) => {
 
         for (const transport of transports) {
-            if (!Ad.transports.find(el => el.id === transport.id)) {
-                Ad.setTransports([...Ad.transports, transport])
+            if (!Ad.transport_images.find(el => el.id === transport.id)) {
+                // Ad.setTransports([...Ad.transports, transport])
 
                 let transportImageObject = {
                     id: transport.id,
@@ -451,9 +451,10 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         async function fetch() {
-            await fetchAdTransports().then(data => {
-                Ad.setUsers(data.users)
+            await fetchAdTransports(FilterAndSort.boardFilters).then(data => {
                 adImageHandler(data.rows)
+                Ad.setUsers(data.users)
+                Ad.setTransports(data.rows)        
             })
         }
         fetcher.ad_transports && fetch()

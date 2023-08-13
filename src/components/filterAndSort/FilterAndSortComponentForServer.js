@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, FilterAndSortContext, PartnerContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { ComponentFunctionContext, EquipmentTypeContext, FetcherContext, FilterAndSortContext, PartnerContext, SettingContext, TranslateContext, TransportTypeContext, UserContext } from '../..'
 import PartnerGroupItem from '../partner/PartnerGroupItem'
 import FilterInput from '../ui/form/FilterInput'
 import { FilterSelect } from '../ui/form/FilterSelect'
@@ -11,8 +11,14 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 import filter_off from '../../assets/icons/filter_off.png';
 import filter_off_dark from '../../assets/icons/filter_off_dark.png';
+import { Select } from '../ui/form/Select'
+import { CheckBoxContainer } from '../ui/form/CheckBoxContainer'
+import { CheckBoxSection } from '../ui/form/CheckBoxSection'
+import { FilterCheckBox } from '../ui/form/FilterCheckBox'
+import { CardButton } from '../ui/button/CardButton'
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 
-const FilterAndSortComponentForServer = observer(({ parent }) => {
+const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModalActive }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const [timeFromOnFocus, setTimeFromOnFocus] = useState(false)
@@ -21,6 +27,11 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
     const { user } = useContext(UserContext)
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
+    const { TransportType } = useContext(TransportTypeContext)
+    const { EquipmentType } = useContext(EquipmentTypeContext)
+    const { fetcher } = useContext(FetcherContext)
+    const { height, width } = useWindowDimensions();
+
 
 
     useEffect(() => {
@@ -28,13 +39,16 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
         setTimeToOnFocus(false)
     }, [ComponentFunction.Function])
 
-
     const inputHandler = (e) => {
         if (parent === 'orders') {
             FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], [e.target.name]: e.target.value }, ComponentFunction.Function)
         }
         if (parent === 'partners') {
             FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters[ComponentFunction.Function], [e.target.name]: e.target.value }, ComponentFunction.Function)
+        }
+        if (parent === 'board') {
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, [e.target.name]: e.target.value }, 'transports')
+            fetcher.setAdTransports(true)
         }
     }
 
@@ -54,11 +68,144 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
             FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters[ComponentFunction.Function], partnerName: '' }, ComponentFunction.Function)
             FilterAndSort.setPartnerFilters({ ...FilterAndSort.partnerFilters[ComponentFunction.Function], selectedSort: '' }, ComponentFunction.Function)
         }
+        if (parent === 'board') {
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, limit: 20 }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, searchString: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, selectedSort: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, city: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, type: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, side_type: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, load_capacity: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, thermo_bag: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, hydraulic_platform: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, side_loading: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, glass_stand: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, refrigerator_minus: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, refrigerator_plus: '' }, 'transports')
+            FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, thermo_van: '' }, 'transports')
+            fetcher.setAdTransports(true)
+        }
     }
 
     return (
         <div className='filters_container'
             style={{ flexDirection: 'unset' }}>
+
+
+            {parent === 'board' && <>
+
+                <div className='vertical_filters_container'>
+
+                    <div className='board_filters_selectors_container'>
+                        <div className={`board_filters_selectors ${Setting.app_theme}`}>
+
+
+                            <FilterSelect
+                                fieldName='type'
+                                inputHandler={inputHandler}
+                                filterSet={'boardFilters'}
+                                filterSection={'transports'}
+                                defaultvalue={SetNativeTranslate(Translate.language, {
+                                    russian: ['Способ доставки'],
+                                    english: ['Way of delivery']
+                                })}
+                                sortOptions={
+                                    FilterAndSort.boardFilters.transports.hydraulic_platform || FilterAndSort.boardFilters.transports.side_loading || FilterAndSort.boardFilters.transports.glass_stand || FilterAndSort.boardFilters.transports.load_capacity === '10' || FilterAndSort.boardFilters.transports.load_capacity === '20' || FilterAndSort.boardFilters.transports.load_capacity === '5' ? [...TransportType.types.slice(7, 8)] :
+                                        FilterAndSort.boardFilters.transports.refrigerator_minus || FilterAndSort.boardFilters.transports.refrigerator_plus || FilterAndSort.boardFilters.transports.thermo_van || FilterAndSort.boardFilters.transports.load_capacity === '1.5' || FilterAndSort.boardFilters.transports.load_capacity === '3' ? [...TransportType.types.slice(5, 9)] :
+                                            FilterAndSort.boardFilters.transports.thermo_bag ? [...TransportType.types.slice(1, 5)] :
+                                                !FilterAndSort.boardFilters.transports.load_capacity && !FilterAndSort.boardFilters.transports.side_type ?
+                                                    [...TransportType.types] :
+                                                    FilterAndSort.boardFilters.transports.side_type ? [...TransportType.types.slice(7, 8)] :
+                                                        FilterAndSort.boardFilters.transports.load_capacity === '1.5' || FilterAndSort.boardFilters.transports.load_capacity === '3' ?
+                                                            [...TransportType.types.slice(6, 8)] : (FilterAndSort.boardFilters.transports.load_capacity === '5' || FilterAndSort.boardFilters.transports.load_capacity === '10' || FilterAndSort.boardFilters.transports.load_capacity === '20') ? [...TransportType.types.slice(7, 8)] : [...TransportType.types.slice(5, 10)]
+                                }
+                            ></FilterSelect>
+
+                            {/* all module */}
+                            {/* {!FilterAndSort.boardFilters.transports.type && */}
+                            <>
+
+                                {!FilterAndSort.boardFilters.transports.thermo_bag && FilterAndSort.boardFilters.transports.type !== 'walk' && FilterAndSort.boardFilters.transports.type !== 'car' && FilterAndSort.boardFilters.transports.type !== 'electric_scooter' && FilterAndSort.boardFilters.transports.type !== 'scooter' && FilterAndSort.boardFilters.transports.type !== 'bike' && FilterAndSort.boardFilters.transports.type !== 'combi' ?
+                                    <FilterSelect
+                                        fieldName='load_capacity'
+                                        inputHandler={inputHandler}
+                                        filterSet={'boardFilters'}
+                                        filterSection={'transports'}
+                                        defaultvalue={SetNativeTranslate(Translate.language, {
+                                            russian: ['Грузоподъемность'],
+                                            english: ['Load capacity']
+                                        })}
+                                        sortOptions={[
+                                            ...TransportType.load_capacities
+                                        ]}
+                                    /> : <></>
+                                }
+
+                                {!FilterAndSort.boardFilters.transports.thermo_bag && FilterAndSort.boardFilters.transports.type !== 'walk' && FilterAndSort.boardFilters.transports.type !== 'car' && FilterAndSort.boardFilters.transports.type !== 'electric_scooter' && FilterAndSort.boardFilters.transports.type !== 'scooter' && FilterAndSort.boardFilters.transports.type !== 'bike' && FilterAndSort.boardFilters.transports.type !== 'combi' ?
+                                    <FilterSelect
+                                        fieldName='side_type'
+                                        inputHandler={inputHandler}
+                                        filterSet={'boardFilters'}
+                                        filterSection={'transports'}
+                                        defaultvalue={SetNativeTranslate(Translate.language, {
+                                            russian: ['Тип кузова'],
+                                            english: ['Side type']
+                                        })}
+                                        sortOptions={
+                                            (FilterAndSort.boardFilters.transports.thermo_van || FilterAndSort.boardFilters.transports.refrigerator_minus || FilterAndSort.boardFilters.transports.refrigerator_plus ? [...TransportType.side_types.slice(2, 3)] : [...TransportType.side_types])
+                                        }
+                                    /> : <></>}
+
+                                {(FilterAndSort.boardFilters.transports.thermo_bag ? [...EquipmentType.types.slice(0, 1)] :
+                                    FilterAndSort.boardFilters.transports.side_loading || FilterAndSort.boardFilters.transports.glass_stand || FilterAndSort.boardFilters.transports.thermo_van || FilterAndSort.boardFilters.transports.refrigerator_minus || FilterAndSort.boardFilters.transports.refrigerator_plus || FilterAndSort.boardFilters.transports.hydraulic_platform ? [...EquipmentType.types.slice(1, 9)] :
+                                        FilterAndSort.boardFilters.transports.load_capacity ? [...EquipmentType.types.slice(2, 7)] :
+                                            !FilterAndSort.boardFilters.transports.type ? [...EquipmentType.types] :
+                                                FilterAndSort.boardFilters.transports.type === 'walk' || FilterAndSort.boardFilters.transports.type === 'car' || FilterAndSort.boardFilters.transports.type === 'electric_scooter' || FilterAndSort.boardFilters.transports.type === 'scooter' || FilterAndSort.boardFilters.transports.type === 'bike' ? [...EquipmentType.types.slice(0, 1)] :
+                                                    FilterAndSort.boardFilters.transports.type === 'combi' || FilterAndSort.boardFilters.transports.type === 'minibus' ? [...EquipmentType.types.slice(1, 4)] :
+                                                        FilterAndSort.boardFilters.transports.type === 'truck' && FilterAndSort.boardFilters.transports.side_type !== 'hard_top' ? [...EquipmentType.types.slice(4, 7)] :
+                                                            [...EquipmentType.types.slice(1, 7)])
+                                    .map(equipment =>
+                                        <FilterCheckBox
+                                            key={equipment.id}
+                                            fieldName={equipment.type}
+                                            inputHandler={inputHandler}
+                                            filterSet={'boardFilters'}
+                                            filterSection={'transports'}
+                                        />
+                                    )}
+
+                            </>
+                            {/* } */}
+
+
+                            <div className='board_filter_buttons_container'>
+                                {width < 770 &&
+                                    <CardButton
+                                        onClick={() => { setModalActive(false) }}
+                                    >{SetNativeTranslate(Translate.language, {
+                                        russian: ['Показать'],
+                                        english: ['Show']
+                                    })}</CardButton>
+                                }
+
+
+                                <CardButton
+                                    onClick={() => {
+                                        resetFilters()
+                                        setModalActive(false)
+                                    }}
+
+                                >{SetNativeTranslate(Translate.language, {
+                                    russian: ['Сбросить'],
+                                    english: ['Reset']
+                                })}</CardButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </>}
+
             {parent === 'orders' &&
                 (FilterAndSort.filters[ComponentFunction.Function].id !== '' ||
                     FilterAndSort.filters[ComponentFunction.Function].selectedSort !== '' ||
@@ -75,26 +222,29 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                 />
                 : <></>
             }
-            {parent === 'partners' &&
-                (FilterAndSort.partnerFilters[ComponentFunction.Function].id !== '' ||
-                    FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
-                    FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''
-                ) ?
-                <img className={`filter_reset_icon`}
-                    src={Setting.app_theme === 'light' ? filter_off : filter_off_dark}
-                    onClick={resetFilters}
-                />
-                : <></>
+            {
+                parent === 'partners' &&
+                    (FilterAndSort.partnerFilters[ComponentFunction.Function].id !== '' ||
+                        FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
+                        FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''
+                    ) ?
+                    <img className={`filter_reset_icon`}
+                        src={Setting.app_theme === 'light' ? filter_off : filter_off_dark}
+                        onClick={resetFilters}
+                    />
+                    : <></>
             }
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
                 <div className='scroll_content_container'>
-                    <FilterInput
-                        fieldName='id'
-                        inputHandler={inputHandler}
-                        placeHolder={SetNativeTranslate(Translate.language, {}, 'filter_id')}
-                        type='number'
-                        filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
-                    />
+                    {parent !== 'board' &&
+                        <FilterInput
+                            fieldName='id'
+                            inputHandler={inputHandler}
+                            placeHolder={SetNativeTranslate(Translate.language, {}, 'filter_id')}
+                            type='number'
+                            filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
+                        />
+                    }
                     {parent === 'orders' ? <>
                         <FilterInput
                             fieldName='name'
@@ -184,18 +334,21 @@ const FilterAndSortComponentForServer = observer(({ parent }) => {
                 </div>
             </div>
 
-            <HorizontalContainer>
-                {user.user.role === 'carrier' && ComponentFunction.Function === 'new' && Partner.groups.length > 0 ?
-                    <>
-                        {Partner.groups.filter(el => el.partners.length > 0).map(
-                            group => <PartnerGroupItem key={group.dataValues.id} group={group} parent={'orders'} />
-                        )}
-                    </> :
-                    <></>
-                }
-            </HorizontalContainer>
+            {
+                parent !== 'board' &&
+                <HorizontalContainer>
+                    {user.user.role === 'carrier' && ComponentFunction.Function === 'new' && Partner.groups.length > 0 ?
+                        <>
+                            {Partner.groups.filter(el => el.partners.length > 0).map(
+                                group => <PartnerGroupItem key={group.dataValues.id} group={group} parent={'orders'} />
+                            )}
+                        </> :
+                        <></>
+                    }
+                </HorizontalContainer>
+            }
 
-        </div>
+        </div >
 
     )
 })

@@ -95,14 +95,16 @@ export default class FilterAndSortStore {
             partnersByGroups: []
         }
 
-        this._board_filters = {
+        this._boardFilters = localStorage.getItem('boardFilters') ? JSON.parse(localStorage.getItem('boardFilters')) : {
             transports: {
-                userInfoId: '',
+                limit: 20,
+                searchString: '',
+                selectedSort: '',
+                country: 'russia',
+                city: '',
                 type: '',
-                ad_text: '',
                 side_type: '',
                 load_capacity: '',
-                type: '',
                 thermo_bag: '',
                 hydraulic_platform: '',
                 side_loading: '',
@@ -135,11 +137,11 @@ export default class FilterAndSortStore {
     }
 
     setBoardFilters(value, option) {
-        this._board_filters[option] = value
+        this._boardFilters[option] = value
         localStorage.setItem('boardFilters', JSON.stringify(this._boardFilters))
     }
 
-    get _boardFiltersFilters() {
+    get boardFilters() {
         return this._boardFilters
     }
 }

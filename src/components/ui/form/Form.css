@@ -81,6 +81,11 @@
     color: black;
 }
 
+.filter_input.board_search {
+    width: 380px;
+}
+
+
 .filter_input.dark {
     background-color: #121212;
     border: solid 1px #2b2b2b;

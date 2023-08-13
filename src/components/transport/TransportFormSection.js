@@ -114,7 +114,6 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
 
         {formData.type.value === 'walk' || formData.type.value === 'scooter' || formData.type.value === 'bike' || formData.type.value === 'electric_scooter' || formData.type.value === 'car' ?
           <div>
-
             {EquipmentType.types.slice(0, 1).map(equipment =>
               <CheckBoxContainer key={equipment.id}>
                 <CheckBoxSection key={equipment.id}>
