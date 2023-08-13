@@ -75,7 +75,7 @@ const TransportComponent = observer(() => {
     <Container>
       <Button
         onClick={() => {
-          if (Transport.transports.length >= 5) {
+          if (Transport.transports.length >= 20) {
             Notification.addNotification([{
               id: v4(), type: 'error', message: SetNativeTranslate(Translate.language,
                 {

@@ -77,7 +77,7 @@ const BoardListItem = observer(({ transport }) => {
                 </div> */}
                     {/* </div> */}
 
-                    <div className='board_list_item_header_container'>{`${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.loboard_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`}</div>
+                    <div className='board_list_item_header_container'>{`${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.load_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`}</div>
 
                     <div className={`board_transport_item_board_text_container ${Setting.app_theme}`}>{transport.ad_text}</div>
 
