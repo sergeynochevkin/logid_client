@@ -11,7 +11,7 @@ const CardButton = observer(({ children, ...props }) => {
         const { fetcher } = useContext(FetcherContext)
 
         return (
-                <button className={Setting.app_theme === 'light' ? 'card_button' : 'card_button card_button_dark'} {...props}>{fetcher.loading ? <ButtonLoader /> : children}</button>
+                <button  disabled={fetcher.loading} className={Setting.app_theme === 'light' ? 'card_button' : 'card_button card_button_dark'} {...props}>{fetcher.loading ? <ButtonLoader /> : children}</button>
         )
 })
 
