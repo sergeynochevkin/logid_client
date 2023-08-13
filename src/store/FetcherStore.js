@@ -38,7 +38,7 @@ export default class FetcherStore {
 
         //loading
         this._loading = false
-        this._custom_loading = false
+        this._custom_loading = true
 
         makeAutoObservable(this)
     }
