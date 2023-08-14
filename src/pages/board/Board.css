@@ -103,9 +103,9 @@
 .board_transport_item_board_text_container {
     width: 80%;
     font-size: 10px;
-    text-align: center;
+    text-align: left;
     height: 35%;
-    line-height: 80%;
+    line-height: 85%;
     /* border: solid 0.5px black; */
     padding: 5px;
     border-radius: 5px;
