@@ -28,6 +28,7 @@ import { CheckBoxSection } from '../ui/form/CheckBoxSection'
 import TransportFormSection from '../transport/TransportFormSection'
 import City from '../account/userInfoForm/City'
 import { transportContactViewed } from '../../http/transportApi'
+import { addContactView } from '../../http/adApi'
 
 
 const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
@@ -50,6 +51,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const order_status = queryParams.get("o_s")
+
+  let ip = localStorage.getItem('currentIp')
 
   const enterAction = (enterPoint) => {
     if (enterPoint === 'isLogin') {
@@ -215,7 +218,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
         if (after_action && data) {
           if (after_action.action === 'transport_contact_viewed') {
-            transportContactViewed(after_action.transportId, data.id)
+            addContactView('transport', after_action.transportId, ip, data.id)
             fetcher.setAdTransports(true)
           }
         }
@@ -249,13 +252,13 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             order_status === 'new' && fetcher.setOrdersNew(true)
             order_status === 'inWork' && fetcher.setOrdersInWork(true)
             setTimeout(() => {
-                fetcher.setOrdersAll(true)
+              fetcher.setOrdersAll(true)
             }, 1000)
-        } else {
+          } else {
             fetcher.setOrdersAll(true)
-        }
-          
-          
+          }
+
+
           fetcher.setSubscriptions(true)
         }
         if (user.user.role === 'carrier') {
@@ -425,7 +428,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
               onChange={(e) => formData.email.onChange(e)}
               onBlur={e => formData.email.onBlur(e)}
-              type="text" name="email" 
+              type="text" name="email"
               autoComplete='email'
             ></Input>
 
@@ -450,7 +453,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_password')}
               style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
               value={formData.password.value}
-              onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" 
+              onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password"
               autoComplete='current-password'
             ></Input>
             <FieldName

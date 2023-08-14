@@ -12,6 +12,7 @@ import phone from '../../assets/icons/phone.png';
 import phone_dark from '../../assets/icons/phone_dark.png';
 import eye from '../../assets/icons/eye.png';
 import eye_dark from '../../assets/icons/eye_dark.png';
+import { addContactView } from '../../http/adApi'
 
 
 const BoardItemPage = observer(() => {
@@ -31,6 +32,7 @@ const BoardItemPage = observer(() => {
     const [modalActive1, setModalActive1] = useState(false)
     const [showContact, setShowContact] = useState(false)
 
+    let ip = localStorage.getItem('currentIp')
 
     useEffect(() => {
         if (Ad.users.find(el => el.transport_id === id)) {
@@ -50,7 +52,7 @@ const BoardItemPage = observer(() => {
 
     const contactViewedAction = async () => {
         try {
-            await transportContactViewed(id, UserInfo.userInfo.id)
+            await addContactView('transport',id,ip, UserInfo.userInfo.id)
             fetcher.setAdTransports(true)
         } catch (error) {
             Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])

@@ -8,6 +8,7 @@ import { EquipmentRow } from '../../components/ui/card/EquipmentRow'
 import { Link, useNavigate } from 'react-router-dom'
 import { v4 } from "uuid";
 import { transportViewed } from '../../http/transportApi'
+import { addView } from '../../http/adApi'
 
 
 const BoardListItem = observer(({ transport }) => {
@@ -24,7 +25,7 @@ const BoardListItem = observer(({ transport }) => {
     const [modalActive, setModalActive] = useState(false)
     const [board_user, setAdUser] = useState({})
 
-
+    let ip = localStorage.getItem('currentIp')
 
     useEffect(() => {
         if (Ad.users.find(el => el.transport_id === transport.id)) {
@@ -39,7 +40,7 @@ const BoardListItem = observer(({ transport }) => {
 
     const viewedAction = async () => {
         try {
-            await transportViewed(transport.id, UserInfo.userInfo.id)
+            await addView('transport', transport.id, ip)
         } catch (error) {
             Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
         }
@@ -54,7 +55,7 @@ const BoardListItem = observer(({ transport }) => {
             </Modal> */}
             <Link to={`/board/item/${transport.id}`} className='board_list_link'
                 onClick={() => {
-                    user.isAuth && viewedAction()
+                    viewedAction()
                 }}
             >
                 <div className={`board_transport_item ${Setting.app_theme}`}

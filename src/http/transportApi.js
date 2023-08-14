@@ -8,20 +8,6 @@ export const createTransport = async (formData) => {
     return data
 }
 
-export const transportContactViewed = async (transportId, userInfoId) => {
-    const { data } = await $authHost.post('api/transport/contact_viewed', {
-        transportId, userInfoId
-    })
-    return data
-}
-
-export const transportViewed = async (transportId, userInfoId) => {
-    const { data } = await $host.post('api/transport/viewed', {
-        transportId, userInfoId
-    })
-    return data
-}
-
 export const updateTransport = async (formData) => {
     const { data } = await $authHost.put('api/transport', {
         formData
