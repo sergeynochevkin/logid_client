@@ -14,7 +14,7 @@ export const addView = async (option, item_id, ip) => {
     return data
 }
 
-export const addContactView = async (option, item_id, id) => {
+export const addContactView = async (option, item_id, ip, id) => {
     const { data } = await $authHost.post('api/ad/add_contact_view', { option, item_id, ip, id })
     return data
 }
