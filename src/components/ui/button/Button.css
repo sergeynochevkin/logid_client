@@ -31,7 +31,9 @@
     border-radius: 5px;
     cursor: pointer;
     background-color: transparent;
-     min-width: 50px;
+    min-width: 50px;
+    width: max-content;
+    white-space: nowrap;
 }
 
 .card_button:disabled {
@@ -48,7 +50,7 @@
 }
 
 .custom_button {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     min-width: 100px;
@@ -105,4 +107,3 @@
     background-color: rgb(255, 255, 255, 0.5);
     box-shadow: none;
 }
-
