@@ -543,9 +543,9 @@ const FastSignUp = observer(() => {
                 </Button>
                     <Link to={`/board`} >
                         <Button>
-                            {SetNativeTranslate(Translate.language,{
-                                russian:['Объявления перевозчиков'],
-                                english:['Carrier offers']
+                            {SetNativeTranslate(Translate.language, {
+                                russian: ['Предложения перевозчиков'],
+                                english: ['Carrier offers']
                             })}
                         </Button>
                     </Link>

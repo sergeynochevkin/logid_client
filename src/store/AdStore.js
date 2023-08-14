@@ -35,6 +35,7 @@ export default class AdStore {
     }
     setIp(value) {
         this._ip = value
+        localStorage.setItem('currentIp', JSON.stringify(this._ip))
     }
 
     get customers_count() {
