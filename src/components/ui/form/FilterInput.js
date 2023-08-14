@@ -12,7 +12,7 @@ const FilterInput = observer(({ fieldName, inputHandler, placeHolder, type, onBl
         <input
             className={Setting.app_theme === 'light' ? `filter_input ${filterSet === 'boardFilters' && 'board_search'}` : `filter_input dark ${filterSet === 'boardFilters' && 'board_search'}`}
             name={fieldName}
-            value={filterSet !== 'boardFilters' ? FilterAndSort[filterSet][ComponentFunction.Function][fieldName] : FilterAndSort[filterSet][filterSection][fieldName]}
+            value={filterSet !== 'boardFilters'  ?  FilterAndSort[filterSet][ComponentFunction.Function][fieldName] : FilterAndSort[filterSet][filterSection][fieldName]}
             onChange={e => inputHandler(e)}
             placeholder={placeHolder}
             type={type}

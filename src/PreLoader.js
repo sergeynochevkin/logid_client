@@ -18,7 +18,7 @@ const PreLoader = observer(({ children, ...props }) => {
     const { Ad } = useContext(AdContext)
     const { TransportType } = useContext(TransportTypeContext)
     const { EquipmentType } = useContext(EquipmentTypeContext)
-    const { Link } = useContext(LinkContext)
+    const { link } = useContext(LinkContext)
     const { Adress } = useContext(AdressContext)
     const { Subscription } = useContext(SubscriptionContext)
     const { Translate } = useContext(TranslateContext)
@@ -94,8 +94,8 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         if (order_id) {
-            Link.setOrder(order_id, 'id')
-            Link.setOrder(order_status, 'status')
+            link.setOrder(order_id, 'id')
+            link.setOrder(order_status, 'status')
             // if (!user.isAuth) {
             //     navigate(MAIN_ROUTE)
             // }
@@ -104,8 +104,8 @@ const PreLoader = observer(({ children, ...props }) => {
 
     useEffect(() => {
         if (referal_id && action === 'add_partner') {
-            Link.setRefer(action, 'action')
-            Link.setRefer(referal_id, 'id')
+            link.setRefer(action, 'action')
+            link.setRefer(referal_id, 'id')
         }
     }, [])
 

@@ -255,7 +255,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                         />
                     </> : <></>
                     }
-                    {(user.user.role === 'customer' && (ComponentFunction.Function !== 'new' && ComponentFunction.Function !== 'postponed')) || user.user.role === 'carrier' ?
+                    {(user.user.role === 'customer' && (ComponentFunction.Function !== 'new' && ComponentFunction.Function !== 'postponed') && parent !== 'board') || (user.user.role === 'carrier' && parent !== 'board') ?
                         <FilterInput
                             fieldName='partnerName'
                             inputHandler={inputHandler}

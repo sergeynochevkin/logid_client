@@ -84,7 +84,7 @@ root.render(
       Translate: new TranslateStore(),
     }}>
       <LinkContext.Provider value={{
-        Link: new LinkStore(),
+        link: new LinkStore(),
       }}>
 
         <AdContext.Provider value={{

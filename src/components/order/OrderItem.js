@@ -35,7 +35,7 @@ import ShareComponent from '../share/ShareComponent'
 const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { user } = useContext(UserContext)
-    const { Link } = useContext(LinkContext)
+    const { link } = useContext(LinkContext)
     const [modalActive, setModalActive] = useState(false)
     const [modalActive2, setModalActive2] = useState(false)
     const { order } = useContext(OrderContext)
@@ -134,11 +134,11 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
 
     useEffect(() => {
-        if (thisOrder.id === parseInt(Link.order.id)) {
+        if (thisOrder.id === parseInt(link.order.id)) {
             toOrderItem()
             setTimeout(() => {
-                Link.setOrder('', 'id')
-                Link.setOrder('', 'status')
+                link.setOrder('', 'id')
+                link.setOrder('', 'status')
             }, 1000)
         }
     }, [order.dividedOrders])

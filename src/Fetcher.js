@@ -27,7 +27,7 @@ const Fetcher = observer(() => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Notification } = useContext(NotificationContext)
     const { Limit } = useContext(LimitContext)
-    const { Link } = useContext(LinkContext)
+    const { link } = useContext(LinkContext)
     const { State } = useContext(StateContext)
     const { Subscription } = useContext(SubscriptionContext)
     const { user } = useContext(UserContext)
@@ -561,12 +561,12 @@ const Fetcher = observer(() => {
                 downloadSize="1781287"  //bytes
                 callbackFunctionOnNetworkDown={(speed) => {
                     if (speed === 0) {
-                        Link.setInternet(false)
+                        link.setInternet(false)
                     } else {
-                        Link.setInternet(true)
+                        link.setInternet(true)
                     }
                 }}
-                callbackFunctionOnNetworkTest={(speed) => Link.setInternetSpeed(speed)}
+                callbackFunctionOnNetworkTest={(speed) => link.setInternetSpeed(speed)}
             />
         </>)
 })

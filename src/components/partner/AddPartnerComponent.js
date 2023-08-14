@@ -12,8 +12,8 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const AddPartnerComponent = observer(() => {
   const { UserInfo } = useContext(UserInfoContext)
-  const { Link } = useContext(LinkContext)
-  const [key, setKey] = useState(Link.refer.id ? Link.refer.id : '')
+  const { link } = useContext(LinkContext)
+  const [key, setKey] = useState(link.refer.id ? link.refer.id : '')
   const [isDirty, setIsDirty] = useState(false)
   const { Notification } = useContext(NotificationContext)
   const { user } = useContext(UserContext)
@@ -24,10 +24,10 @@ const AddPartnerComponent = observer(() => {
   const partner_added = SetNativeTranslate(Translate.language, {}, 'partner_added')
 
   useEffect(() => {
-    if (Link.refer.id && Link.refer.action === 'add_partner') {
+    if (link.refer.id && link.refer.action === 'add_partner') {
       addPartnerAction()
-      Link.setRefer('', 'action')
-      Link.setRefer('', 'id')
+      link.setRefer('', 'action')
+      link.setRefer('', 'id')
     }
   }, [])
 

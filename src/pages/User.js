@@ -26,7 +26,7 @@ display:flex;
 const User = observer(() => {
   const { order } = useContext(OrderContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
-  const { Link } = useContext(LinkContext)
+  const { link } = useContext(LinkContext)
   const { UserInfo } = useContext(UserInfoContext)
   const { Notification } = useContext(NotificationContext)
   const { Setting } = useContext(SettingContext)
@@ -96,19 +96,19 @@ const User = observer(() => {
   }
 
   useEffect(() => {
-    if (Link.order.id) {
+    if (link.order.id) {
       fetcher.setCustomLoading(true)
-      setFunction(Link.order.status, 'orderList', 'orderList')
+      setFunction(link.order.status, 'orderList', 'orderList')
     }
   }, [])
 
   useEffect(() => {
-    if (Link.order.id) {
+    if (link.order.id) {
       let i = 0
-      let delay = Link.internet_speed < 5 ? 40 : Link.internet_speed < 20 ? 20 : 10
+      let delay = link.internet_speed < 5 ? 40 : link.internet_speed < 20 ? 20 : 10
       let message = SetNativeTranslate(Translate.language, {
-        russian: [`Заказ ${Link.order.id} уже не доступен`],
-        english: [`Order ${Link.order.id} is no longer available`]
+        russian: [`Заказ ${link.order.id} уже не доступен`],
+        english: [`Order ${link.order.id} is no longer available`]
       })
 
       let interval = setInterval(() => {
@@ -117,7 +117,7 @@ const User = observer(() => {
           fetcher.setCustomLoading(false)
           clearInterval(interval)
    
-          if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === parseInt(Link.order.id))) {
+          if (!order.divided_orders[ComponentFunction.Function].find(el => el.id === parseInt(link.order.id))) {
                         !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{ id: v4(), type: 'error', message: message }])
           }
         } else {
@@ -130,12 +130,12 @@ const User = observer(() => {
         }
       }, 500)    
     }
-      // Link.setOrder('', 'id')
-      // Link.setOrder('', 'status')
+      // link.setOrder('', 'id')
+      // link.setOrder('', 'status')
   }, [order.totalCount[ComponentFunction.Function]])
 
   useEffect(() => {
-    if (Link.refer.id && Link.refer.action === 'add_partner') {
+    if (link.refer.id && link.refer.action === 'add_partner') {
       ComponentFunction.setPageFunction('partners')
       ComponentFunction.setPartnersComponentFunction('add')
     }

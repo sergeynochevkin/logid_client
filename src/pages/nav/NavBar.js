@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AdressContext, LinkContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
-import { useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
 import { observer } from 'mobx-react-lite';
 import NotificationComponent from '../../components/notification/NotificationComponent';
@@ -13,10 +13,11 @@ import NotificationIcon from '../../components/notification/NotificationIcon';
 import ServerNotificationList from '../../components/notification/ServerNotificationList';
 import dark_mode from '../../assets/icons/dark_mode.png';
 import light_mode from '../../assets/icons/light_mode.png';
+import board from '../../assets/icons/board.png';
+import board_dark from '../../assets/icons/board_dark.png';
 import logo_light from '../../assets/logo_light.png';
 import logo_dark from '../../assets/logo_dark.png';
 import logo_russian_dark from '../../assets/logo_russian_dark.png';
-
 import logo_russian_light from '../../assets/logo_russian_light.png';
 import Auth from '../../components/auth/Auth';
 import ShareModalContent from '../../components/share/ShareModalContent';
@@ -28,9 +29,10 @@ const NavBar = observer(() => {
   const { order } = useContext(OrderContext)
   const { State } = useContext(StateContext)
   const navigate = useNavigate()
+  let location = useLocation();
   const { UserInfo } = useContext(UserInfoContext)
   const { Setting } = useContext(SettingContext)
-  const { Link } = useContext(LinkContext)
+  const { link } = useContext(LinkContext)
   const { Translate } = useContext(TranslateContext)
   const { Adress } = useContext(AdressContext)
   const [modalActive, setModalActive] = useState(false)
@@ -52,7 +54,7 @@ const NavBar = observer(() => {
   // }, [])
 
   useEffect(() => {
-    if ((Link.order.id || Link.refer.id) && !user.isAuth) {
+    if ((link.order.id || link.refer.id) && !user.isAuth) {
       setModalActive1(true)
     }
   }, [])
@@ -147,6 +149,14 @@ const NavBar = observer(() => {
         >
           {Setting.app_theme === 'light' ? <img src={dark_mode} className='nav_bar_theme_icon' /> : <img src={light_mode} className='nav_bar_theme_icon' />}
         </div>
+
+        {location.pathname !== "/board" &&
+          <Link to={`/board`} >
+            <div className="nav_bar_theme_icon">
+              <img className='nav_bar_theme_icon' src={Setting.app_theme === 'light' ? board : board_dark}></img>
+            </div>
+          </Link>
+        }
 
         {!user.isAuth && <ShareComponent />}
 
