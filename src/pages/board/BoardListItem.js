@@ -81,7 +81,7 @@ const BoardListItem = observer(({ transport }) => {
 
                     <div className='board_list_item_header_container'>{`${header.slice(0, 30)}${header.length > 30 ? '...' : ''}`}</div>
 
-                    <div className={`board_transport_item_board_text_container ${Setting.app_theme}`}>{`${transport.ad_text.slice(1, 60)}${transport.ad_text.length > 60 ? '...' : ''}`}</div>
+                    <div className={`board_transport_item_board_text_container ${Setting.app_theme}`}>{`${transport.ad_text.slice(0, 60)}${transport.ad_text.length > 60 ? '...' : ''}`}</div>
 
 
                     <div className='board_list_item_equipment_container'>
