@@ -33,18 +33,18 @@
     gap: 20px;
     flex-direction: column;
     align-items: center;
-    
+
     /* justify-content: center; */
 }
 
 .board_right_container {
-    width:30%;
+    width: 30%;
     min-width: 380px;
     /* background-color: whitesmoke; */
     display: flex;
     flex-direction: column;
     /* align-items: flex-end; */
-    border-radius: 20px;   
+    border-radius: 20px;
     padding-bottom: 20px;
 }
 
@@ -85,7 +85,6 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    gap: 3px;
     align-items: center;
     cursor: pointer;
     /* justify-content: center; */
@@ -104,16 +103,16 @@
 .board_transport_item_board_text_container {
     width: 80%;
     font-size: 10px;
-    text-align: left;
+    text-align: center;
     height: 35%;
     line-height: 75%;
-    border: solid 0.5px black;
+    /* border: solid 0.5px black; */
     padding: 5px;
     border-radius: 5px;
 }
 
 .board_transport_item_board_text_container.dark {
-    border: solid 0.5px white;
+    /* border: solid 0.5px white; */
     background: transparent;
 }
 
@@ -149,7 +148,7 @@
     cursor: pointer;
 }
 
-.board_list_link{
+.board_list_link {
     color: black;
 }
 
@@ -184,12 +183,15 @@
     width: 80%;
 }
 
+
+
 .board_list_item_equipment_row {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 3px;
-    width: 90%;
-    justify-content: center;
+    position: relative;
+    bottom: 220px;
+    right: 90px;
 }
 
 .board_list_item_equipment_item {
@@ -199,18 +201,17 @@
     background-color: rgb(80, 102, 143, 0.8);
     color: white;
     white-space: nowrap;
+    width: max-content;
 }
 
 .board_list_item_equipment_container {
-    /* height: 20%; */
     display: flex;
     flex-direction: column;
-    align-items: center;
-
+    width: 0px;
+    height: 0px;
 }
 
-.image_modal_container_board_main {
-}
+.image_modal_container_board_main {}
 
 .image_modal_board_main {
     width: 100%;
@@ -218,14 +219,13 @@
 
 }
 
-
-
 /* page */
 
 .board_item_ad_container {
     min-height: 600px;
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
 .board_item_page_container {
@@ -245,8 +245,8 @@
 .board_item_page_images_container {
     /* height: 50%; */
     display: flex;
-    gap: 20px;
-    flex-direction: column;
+    gap: 5px;
+    /* flex-direction: column; */
     /* justify-content: center; */
     /* align-items: center; */
 }
@@ -260,8 +260,8 @@
 
 .board_item_page_image_icons_container {
     display: flex;
+    flex-direction: column;
     gap: 5px;
-    flex-wrap: wrap;
     justify-content: left;
     width: 100%;
 }
@@ -317,17 +317,16 @@
     width: 0px;
     height: 0px;
     right: -20px;
-    bottom: 450px;
+    bottom: 390px;
 
 }
 
 .board_item_page_info_container {
     width: 550px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    /* gap: 10px; */
     align-items: flex-start;
-    margin-top: 20px;
+    gap: 20px;
 }
 
 .board_item_page_info_statistics_container {
@@ -335,19 +334,38 @@
     flex-wrap: wrap;
     gap: 5px;
     align-items: center;
+    font-size: 10px;
+    align-self: flex-end;
 }
 
-.board_item_page_header{
-    font-size: 22px;
-    margin-top: 20px;
+.board_item_page_header {
+    font-size: 18px;
     font-weight: bold;
+    white-space: wrap;
 }
 
-.board_item_page_icon{
-    height: 20px;
+.board_item_page_icon {
+    height: 15px;
     width: auto;
 }
 
+.board_item_page_info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+
+.board_item_page_ad_text {
+    font-size: 12px;
+    /* min-width: 200px; */
+}
+
+.board_item_page_header_container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
 
 @media screen and (max-width: 769px) and (min-width: 426px) {
     .board_right_container {
@@ -356,6 +374,14 @@
 
     .board_left_container {
         width: 100%;
+    }
+
+    .board_item_page_images_container {
+        flex-direction: column;
+    }
+
+    .board_item_page_image_icons_container {
+        flex-direction: unset;
     }
 }
 
@@ -386,5 +412,13 @@
 
     .board_item_page_info_container {
         width: 380px;
+    }
+
+    .board_item_page_images_container {
+        flex-direction: column;
+    }
+
+    .board_item_page_image_icons_container {
+        flex-direction: unset;
     }
 }

@@ -13,6 +13,7 @@ import phone_dark from '../../assets/icons/phone_dark.png';
 import eye from '../../assets/icons/eye.png';
 import eye_dark from '../../assets/icons/eye_dark.png';
 import { addContactView } from '../../http/adApi'
+import ShareComponent from '../../components/share/ShareComponent'
 
 
 const BoardItemPage = observer(() => {
@@ -45,14 +46,13 @@ const BoardItemPage = observer(() => {
     }, [])
 
 
-
     useEffect(() => {
         setTransport({ ...Ad.transports.find(el => el.id === id) })
     }, [])
 
     const contactViewedAction = async () => {
         try {
-            await addContactView('transport',id,ip, UserInfo.userInfo.id)
+            await addContactView('transport', id, ip, UserInfo.userInfo.id)
             fetcher.setAdTransports(true)
         } catch (error) {
             Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
@@ -72,10 +72,12 @@ const BoardItemPage = observer(() => {
             </Modal>
             <div className={`board_item_page_container ${Setting.app_theme}`}>
                 <div className='board_item_ad_container'>
+                    <div className='board_item_page_header_container'>
+                        <div className='board_item_page_header'>{`${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.load_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`}</div>
+                        <ShareComponent />
+                    </div>
 
                     <div className='board_item_page_images_container'>
-
-                        <div className='board_item_page_header'>{`${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.load_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`}</div>
 
                         <div className='board_item_page_main_image_container'>
                             <img className='board_item_page_main_image' src={mainImage}
@@ -106,38 +108,41 @@ const BoardItemPage = observer(() => {
 
 
                     <div className='board_item_page_info_container'>
-                        <div>{ad_user.city}</div>
-                        <div>{ad_user.name}</div>
-                        <div>{user.isAuth && showContact ? ad_user.phone :
-                            <Button
-                                onClick={() => {
-                                    if (!user.isAuth) {
-                                        setModalActive1(true)
-                                    } else {
-                                        contactViewedAction()
-                                    }
-                                    setShowContact(true)
-                                }}
-                            >
-                                {SetNativeTranslate(Translate.language, {
-                                    russian: ['Показать телефон'],
-                                    english: ['Show phone']
-                                })}
-                            </Button>
-                        }</div>
-                        <div>{transport.ad_text}</div>
-                        <div className='board_item_page_info_statistics_container'>
-                            <img className = 'board_item_page_icon' src={Setting.app_theme === 'light' ? eye : eye_dark}></img>
-                            <div>{ad_user.viewed}</div>
-                            <div>({ad_user.viewed_today})</div>
-                            <img  className = 'board_item_page_icon' src={Setting.app_theme === 'light' ? phone : phone_dark}></img>
-                            <div>{ad_user.contact_viewed}</div>
-                            <div>({ad_user.contact_viewed_today})</div>
+                        <div className='board_item_page_info'>
+                            <div className='board_item_page_ad_text'>{ad_user.city}</div>
+                            <div>{ad_user.name}</div>
+                            <div>{user.isAuth && showContact ? ad_user.phone :
+                                <Button
+                                    onClick={() => {
+                                        if (!user.isAuth) {
+                                            setModalActive1(true)
+                                        } else {
+                                            contactViewedAction()
+                                        }
+                                        setShowContact(true)
+                                    }}
+                                >
+                                    {SetNativeTranslate(Translate.language, {
+                                        russian: ['Показать телефон'],
+                                        english: ['Show phone']
+                                    })}
+                                </Button>
+                            }</div>
                         </div>
+
+                        <div className='board_item_page_ad_text'>{transport.ad_text}</div>
+                    </div>
+                    <div className='board_item_page_info_statistics_container'>
+                        <img className='board_item_page_icon' src={Setting.app_theme === 'light' ? eye : eye_dark}></img>
+                        <div>{ad_user.viewed}</div>
+                        <div>({ad_user.viewed_today})</div>
+                        <img className='board_item_page_icon' src={Setting.app_theme === 'light' ? phone : phone_dark}></img>
+                        <div>{ad_user.contact_viewed}</div>
+                        <div>({ad_user.contact_viewed_today})</div>
                     </div>
 
                 </div>
-                <div className={`board_right_container ${Setting.app_theme}`}></div>
+                {/* <div className={`board_right_container ${Setting.app_theme}`}></div> */}
             </div>
 
 

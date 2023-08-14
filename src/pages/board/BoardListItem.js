@@ -26,6 +26,7 @@ const BoardListItem = observer(({ transport }) => {
     const [board_user, setAdUser] = useState({})
 
     let ip = localStorage.getItem('currentIp')
+    let header = `${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.load_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`
 
     useEffect(() => {
         if (Ad.users.find(el => el.transport_id === transport.id)) {
@@ -78,9 +79,10 @@ const BoardListItem = observer(({ transport }) => {
                 </div> */}
                     {/* </div> */}
 
-                    <div className='board_list_item_header_container'>{`${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.load_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`}</div>
+                    <div className='board_list_item_header_container'>{`${header.slice(0, 30)}${header.length > 30 ? '...' : ''}`}</div>
 
-                    <div className={`board_transport_item_board_text_container ${Setting.app_theme}`}>{transport.ad_text}</div>
+                    <div className={`board_transport_item_board_text_container ${Setting.app_theme}`}>{`${transport.ad_text.slice(1, 60)}${transport.ad_text.length > 60 ? '...' : ''}`}</div>
+
 
                     <div className='board_list_item_equipment_container'>
                         <div className='board_list_item_equipment_row'>
@@ -95,12 +97,13 @@ const BoardListItem = observer(({ transport }) => {
                     </div>
 
 
+
                     <div className='board_list_item_contacts_container'>
-                        <div className='board_transport_item_board_text_action_container'>{board_user.name}, {board_user.city}</div>
-                        <div className='board_transport_item_board_text_action_container'>{SetNativeTranslate(Translate.language, {
+                        <div className='board_transport_item_board_text_action_container'> {board_user.city}</div>
+                        {/* <div className='board_transport_item_board_text_action_container'>{SetNativeTranslate(Translate.language, {
                             russian: [`${user && user.isAuth ? board_user.phone : 'Авторизуйтесь,чтобы увидеть телефон'}`],
                             english: [`${user && user.isAuth ? board_user.phone : 'Log in to see the phone'}`],
-                        })}</div>
+                        })}</div> */}
                     </div>
 
                 </div>
