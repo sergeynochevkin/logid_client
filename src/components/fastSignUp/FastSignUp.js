@@ -21,7 +21,7 @@ import City from '../account/userInfoForm/City'
 import { useFetching } from '../../hooks/useFetching'
 import { fast_registration } from '../../http/userAPI'
 import { MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE } from '../../utils/consts'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 
@@ -203,7 +203,7 @@ const FastSignUp = observer(() => {
     formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone_content').toLowerCase())
 
     formData.role = useInput('', { isEmpty: true })
-  
+
     formData.load_capacity = useInput('', { isEmpty: true },)
     formData.side_type = useInput('', { isEmpty: true },)
     formData.type = useInput('', { isEmpty: true },)
@@ -257,7 +257,7 @@ const FastSignUp = observer(() => {
                                 style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                                 onChange={(e) => formData.email.onChange(e)}
                                 onBlur={e => formData.email.onBlur(e)}
-                                type="text"  
+                                type="text"
                                 autoComplete='email'
                             ></Input>
 
@@ -279,7 +279,7 @@ const FastSignUp = observer(() => {
                             <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_password')}
                                 style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                                 value={formData.password.value}
-                                onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password" 
+                                onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password"
                                 autoComplete='current-password'
                             ></Input>
                             <FieldName
@@ -529,7 +529,7 @@ const FastSignUp = observer(() => {
                         setFormVisible(false)
                     }} src={arrow_up_dark} ></img>}
 
-                </form> : <Button
+                </form> : <div className='fast_sign_up_buttons_container'><Button
                     onClick={() => {
                         setFormVisible(true)
                     }}
@@ -541,6 +541,15 @@ const FastSignUp = observer(() => {
                         })
                     }
                 </Button>
+                    <Link to={`/board`} >
+                        <Button>
+                            {SetNativeTranslate(Translate.language,{
+                                russian:['Объявления перевозчиков'],
+                                english:['Carrier offers']
+                            })}
+                        </Button>
+                    </Link>
+                </div>
             }
         </>
     )

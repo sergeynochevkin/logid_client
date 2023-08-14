@@ -32,3 +32,8 @@
 .fast_sign_up_arrow_up:hover{
     filter: brightness(60%);
 }
+
+.fast_sign_up_buttons_container{
+    display: flex;
+    gap: 5px
+}
