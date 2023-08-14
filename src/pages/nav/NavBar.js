@@ -158,7 +158,7 @@ const NavBar = observer(() => {
           </Link>
         }
 
-        {!user.isAuth && <ShareComponent />}
+        {!user.isAuth && <ShareComponent parent={location.pathname === "/board" ? 'nav_board' : ''} />}
 
 
         {/* language of my country + english if english is your language, no select, set language state when select if isAuth. Сheck such language for such country when loading!*/}

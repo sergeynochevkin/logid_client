@@ -19,11 +19,11 @@ const ShareModalContent = observer(({ setModalActive, parent, thisOrder, shareNa
     const { Translate } = useContext(TranslateContext)
 
     let title = SetNativeTranslate(Translate.language, {
-        russian: [parent === 'account_uuid' ? `Ccылка для добавления партнера ${shareName} в сервисе logid` : parent === 'order_item' ? `Ссылка на заказ ${thisOrder.id} в сервисе logid. Заказ будет доступен для просмотра после авторизации в logid, при условии, что вы работаете в том же регионе, имеетe подходящий способ доставки и не заблокированы заказчиком` : 'Ссылка на logid - сервис для заказчиков,перевозчиков, курьеров, диспетчеров и логистов'],
-        english: [parent === 'account_uuid' ? `Link to add a ${shareName} partner in the logid service` : parent === 'order_item' ? `Link to orfder ${thisOrder.id} in logid service. The order will be available for viewing after authorization in logid, provided that you work in the same region, have a suitable delivery method and are not blocked by the customer` : 'Link to logid - service for customers, carriers, couriers, dispatchers and logisticians']
+        russian: [parent === 'account_uuid' ? `Ccылка для добавления партнера ${shareName} в сервисе logid` : parent === 'order_item' ? `Ссылка на заказ ${thisOrder.id} в сервисе logid. Заказ будет доступен для просмотра после авторизации в logid, при условии, что вы работаете в том же регионе, имеетe подходящий способ доставки и не заблокированы заказчиком` : parent === 'nav_board' ? 'Ссылка на предложения перевозчиков в сервисе logid' : 'Ссылка на logid - сервис для заказчиков,перевозчиков, курьеров, диспетчеров и логистов'],
+        english: [parent === 'account_uuid' ? `Link to add a ${shareName} partner in the logid service` : parent === 'order_item' ? `Link to orfder ${thisOrder.id} in logid service. The order will be available for viewing after authorization in logid, provided that you work in the same region, have a suitable delivery method and are not blocked by the customer` : parent === 'nav_board' ? 'Link to carrier offers in the logid service' : 'Link to logid - service for customers, carriers, couriers, dispatchers and logisticians']
     })
 
-    let url = parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : parent === 'order_item' ? `https://logid.app?o_i=${thisOrder.id}&&o_s=${thisOrder.order_status}` : 'https://logid.app/'
+    let url = parent === 'account_uuid' ? `https://logid.app?referal_id=${UserInfo.userInfo.uuid}&&action=add_partner` : parent === 'order_item' ? `https://logid.app?o_i=${thisOrder.id}&&o_s=${thisOrder.order_status}` : parent === 'nav_board' ? 'https://logid.app/board' : 'https://logid.app/'
 
     return (
         <div className='share_modal_container'>
