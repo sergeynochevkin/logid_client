@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { AdContext, SettingContext, TranslateContext } from '../..'
-import AdTransportItem from './AdTransportItem'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import BoardListItem from '../board/BoardListItem'
