@@ -38,6 +38,10 @@ const BoardItemPage = observer(() => {
     let ip = localStorage.getItem('currentIp')
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
         setTransport({ ...Ad.transports.find(el => el.id === id) })
     }, [Ad.transports])
 
@@ -83,7 +87,7 @@ const BoardItemPage = observer(() => {
                                 </Link>
                                 <div className='board_item_page_header'>{`${SetNativeTranslate(Translate.language, {}, transport.type)} ${transport.type === 'minibus' || transport.type === 'truck' ? `${SetNativeTranslate(Translate.language, {}, transport.load_capacity)} ${SetNativeTranslate(Translate.language, {}, transport.side_type)}` : ''}`}</div>
                             </div>
-                            <ShareComponent parent='board_item' shareName ={ad_user.name}  itemId ={id}/>
+                            <ShareComponent parent='board_item' shareName={ad_user.name} itemId={id} />
                         </div>
 
                         <div className='board_item_page_images_container'>
