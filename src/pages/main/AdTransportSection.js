@@ -4,6 +4,7 @@ import { AdContext, SettingContext, TranslateContext } from '../..'
 import AdTransportItem from './AdTransportItem'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import BoardListItem from '../board/BoardListItem'
 
 const AdTransportSection = observer(() => {
   const { Ad } = useContext(AdContext)
@@ -46,7 +47,7 @@ const AdTransportSection = observer(() => {
     <>
       <div className={`ad_transport_container ${Setting.app_theme}`} >
         <div className={`ad_transport_section`}>
-          {transports.map(transport => <AdTransportItem key={transport.id} transport={transport}  />)}
+          {transports.map(transport => <BoardListItem transport = {transport}/>)}
         </div>
         <div className='how_to_add_text_container'>
           {SetNativeTranslate(Translate.language,
