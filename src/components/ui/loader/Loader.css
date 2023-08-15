@@ -19,7 +19,7 @@
 }
 
 .loader_container.card {
-    height: 10px;
+    height: 50px;
     min-width: 50px;
 }
 
@@ -37,7 +37,7 @@
 .loader_container.fetcher {
     height: 100%;
     width: 100%;
-    background-color: rgb(245, 245,245,0.3);
+    background-color: rgb(245, 245, 245, 0.3);
     position: absolute;
     z-index: 2;
 }
@@ -48,7 +48,7 @@
     /* color: white; */
 }
 
-.page_loader_error_message{
+.page_loader_error_message {
     text-align: left;
     max-width: 70%;
     color: grey;
@@ -77,10 +77,11 @@
 }
 
 @media screen and (max-width: 425px) {
-    .page_loader_error_message{
+    .page_loader_error_message {
         text-align: justify;
     }
+
     .loader_container.page {
         width: 100vw;
-    }    
+    }
 }
