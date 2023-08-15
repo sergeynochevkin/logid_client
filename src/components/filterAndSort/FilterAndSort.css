@@ -54,11 +54,11 @@
 }
 
 .board_filters_search_string_container {
-    width: 80%;
     display: flex;
     justify-content: center;
     gap: 10px;
     border-radius: 20px;
+    width: 50%;
 }
 
 .board_filters_selectors_container {
@@ -104,6 +104,10 @@
         justify-content: center;
 
     }
+
+    .board_filters_search_string_container {
+        width: 80%;
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -126,5 +130,9 @@
         flex-direction: column;
         justify-content: center;
 
+    }
+
+    .board_filters_search_string_container {
+        width: 80%;
     }
 }

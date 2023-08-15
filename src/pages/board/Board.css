@@ -58,9 +58,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-
+    gap: 5px;
 }
 
 .board_items_container {
@@ -366,6 +364,16 @@
 .board_item_page_header_back_container {
     display: flex;
     gap: 20px;
+}
+
+.board_add_ad_icon {
+    cursor: pointer;
+    width: 30px;
+    height: auto;
+}
+
+.board_add_ad_icon:hover {
+    filter: brightness(0.4);
 }
 
 @media screen and (max-width: 769px) and (min-width: 426px) {

@@ -20,7 +20,6 @@ import logo_dark from '../../assets/logo_dark.png';
 import logo_russian_dark from '../../assets/logo_russian_dark.png';
 import logo_russian_light from '../../assets/logo_russian_light.png';
 import Auth from '../../components/auth/Auth';
-import ShareModalContent from '../../components/share/ShareModalContent';
 import ShareComponent from '../../components/share/ShareComponent';
 import InternedSpeed from './InternedSpeed';
 
