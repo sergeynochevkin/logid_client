@@ -8,7 +8,7 @@ const BoardList = observer(() => {
 
   return (
     <div className='board_items_container'>
-      {Ad.transports.map(transport => <BoardListItem key = {transport.id} transport={transport}/>)}
+      {Ad.transports.board.map(transport => <BoardListItem key = {transport.id} transport={transport}/>)}
     </div>
   )
 })

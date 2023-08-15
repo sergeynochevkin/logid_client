@@ -32,8 +32,8 @@ import like_up_down from '../../assets/icons/like_up_down.png';
 import like_up_down_dark from '../../assets/icons/like_up_down_dark.png';
 import list from '../../assets/icons/list.png';
 import list_dark from '../../assets/icons/list_dark.png';
-import location from '../../assets/icons/location.png';
-import location_dark from '../../assets/icons/location_dark.png';
+import location_icon from '../../assets/icons/location.png';
+import location_icon_dark from '../../assets/icons/location_dark.png';
 import on_map from '../../assets/icons/on_map.png';
 import on_map_dark from '../../assets/icons/on_map_dark.png';
 import point_status from '../../assets/icons/point_status.png';
@@ -45,6 +45,7 @@ import transport_dark from '../../assets/icons/transport_dark.png';
 import AdminConsoleItem from './AdminConsoleItem'
 import PageLoader from '../../components/ui/loader/PageLoader '
 import AdTransportSection from './AdTransportSection'
+import { useLocation } from 'react-router-dom'
 
 
 const Main = observer(() => {
@@ -63,11 +64,14 @@ const Main = observer(() => {
   const { Setting } = useContext(SettingContext)
   const { Management } = useContext(ManagementContext)
 
+  let location = useLocation()
+
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
 
   const [libraries] = useState(['places']);
+
 
   // const { isLoaded } = useJsApiLoader({
   //   // id: "__googleMapsScriptId",
@@ -98,15 +102,16 @@ const Main = observer(() => {
   }, [])
 
   useEffect(() => {
-    Ad.setTransportOption('random')
+    Ad.setTransportOption('main')
     fetcher.setAdTransports(true)
-    // setInterval(() => {
-    //   if (location) {
-    //     Ad.setTransportOption('random')       
-    //     fetcher.setAdTransports(true)
-    //   }
-    // }, 5000)
+    setInterval(() => {
+      if (location.pathname === '/') {
+        Ad.setTransportOption('main')
+        fetcher.setAdTransports(true)
+      }
+    }, 5000)
   }, [])
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -332,7 +337,7 @@ const Main = observer(() => {
       }), section_id: 3, class: ''
     },
     {
-      id: 14, icon: Setting.app_theme === 'light' ? location : location_dark
+      id: 14, icon: Setting.app_theme === 'light' ? location_icon : location_icon_dark
       , name: SetNativeTranslate(Translate.language, {
         russian: ['Можно выбрать только межгород'],
         english: ['You can choose only intercity']
@@ -427,7 +432,7 @@ const Main = observer(() => {
               <title>{`logid`}</title>
               <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
-              {Ad.transports.length > 0 && <AdTransportSection />}
+              {Ad.transports.main.length > 0 && <AdTransportSection />}
 
               {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ?
                 <div className='adv_rate_section'>

@@ -42,18 +42,18 @@ const BoardItemPage = observer(() => {
     }, [])
 
     useEffect(() => {
-        setTransport({ ...Ad.transports.find(el => el.id === id) })
+        setTransport({ ...Ad.transports[Ad.transport_option].find(el => el.id === id) })
     }, [Ad.transports])
 
     useEffect(() => {
-        if (Ad.users.find(el => el.transport_id === id)) {
-            setAdUser(Ad.users.find(el => el.transport_id === id))
+        if (Ad.users[Ad.transport_option].find(el => el.transport_id === id)) {
+            setAdUser(Ad.users[Ad.transport_option].find(el => el.transport_id === id))
         }
-        if (Ad.transport_images.find(el => el.id === parseInt(id))) {
-            setImages(Ad.transport_images.find(el => el.id === id).urlsArray)
-            setMainImage(Ad.transport_images.find(el => el.id === id).urlsArray[0])
+        if (Ad.transport_images[Ad.transport_option].find(el => el.id === parseInt(id))) {
+            setImages(Ad.transport_images[Ad.transport_option].find(el => el.id === id).urlsArray)
+            setMainImage(Ad.transport_images[Ad.transport_option].find(el => el.id === id).urlsArray[0])
         }
-    }, [Ad.transport_images])
+    }, [Ad.transport_images[Ad.transport_option]])
 
 
     const contactViewedAction = async () => {

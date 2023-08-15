@@ -98,10 +98,10 @@ const Fetcher = observer(() => {
         }
     }
 
-    let adImageHandler = async (transports) => {
+    let adImageHandler = async (transports, option) => {
 
         for (const transport of transports) {
-            if (!Ad.transport_images.find(el => el.id === transport.id)) {
+            if (!Ad.transport_images[option].find(el => el.id === transport.id)) {
                 // Ad.setTransports([...Ad.transports, transport])
 
                 let transportImageObject = {
@@ -117,7 +117,7 @@ const Fetcher = observer(() => {
                         transportImageObject.urlsArray.push(url)
                     }
                 }
-                Ad.setTransportImages([...Ad.transport_images, transportImageObject])
+                Ad.setTransportImages([...Ad.transport_images[option], transportImageObject], option)
             }
         }
     }
@@ -448,11 +448,11 @@ const Fetcher = observer(() => {
 
 
     useEffect(() => {
-        async function fetch() {       
+        async function fetch() {
             await fetchAdTransports(FilterAndSort.boardFilters, Ad.transport_option).then(data => {
-                adImageHandler(data.rows)
-                Ad.setUsers(data.users)
-                Ad.setTransports(data.rows)
+                adImageHandler(data.rows, Ad.transport_option)
+                Ad.setUsers(data.users,Ad.transport_option)
+                Ad.setTransports(data.rows, Ad.transport_option)
             })
         }
         fetcher.ad_transports && fetch()

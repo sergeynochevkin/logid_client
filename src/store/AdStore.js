@@ -7,10 +7,19 @@ export default class AdStore {
         this._finished_orders_count = 0
         this._ip = ''
 
-        this._transports = []
+        this._transports = {
+            main: [],
+            board: []
+        }
         this._transport_option = ''
-        this._transport_images = []
-        this._users = []
+        this._transport_images = {
+            main: [],
+            board: []
+        }
+        this._users = {
+            main: [],
+            board: []
+        }
 
 
         makeAutoObservable(this)
@@ -25,14 +34,14 @@ export default class AdStore {
     setFinishedOrdersCount(value) {
         this._finished_orders_count = value
     }
-    setTransports(value) {
-        this._transports = value
+    setTransports(value,option) {
+        this._transports[option] = value
     }
-    setTransportImages(value) {
-        this._transport_images = value
+    setTransportImages(value, option) {
+        this._transport_images[option] = value
     }
-    setUsers(value) {
-        this._users = value
+    setUsers(value, option) {
+        this._users[option] = value
     }
     setIp(value) {
         this._ip = value

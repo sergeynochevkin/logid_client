@@ -20,7 +20,7 @@ const Board = observer(() => {
 
 
     useEffect(() => {
-        Ad.setTransportOption('')
+        Ad.setTransportOption('board')
         fetcher.setAdTransports(true)
         // setInterval(() => {
         //     Ad.setTransportOption('')
