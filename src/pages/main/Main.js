@@ -109,7 +109,7 @@ const Main = observer(() => {
         Ad.setTransportOption('main')
         fetcher.setAdTransports(true)
       }
-    }, 5000)
+    }, 10000)
   }, [])
 
 
