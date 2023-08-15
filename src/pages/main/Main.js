@@ -44,6 +44,7 @@ import transport from '../../assets/icons/transport.png';
 import transport_dark from '../../assets/icons/transport_dark.png';
 import AdminConsoleItem from './AdminConsoleItem'
 import PageLoader from '../../components/ui/loader/PageLoader '
+import AdTransportSection from './AdTransportSection'
 
 
 const Main = observer(() => {
