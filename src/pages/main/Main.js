@@ -47,7 +47,7 @@ import PageLoader from '../../components/ui/loader/PageLoader '
 
 
 const Main = observer(() => {
-  const { Fetcher } = useContext(FetcherContext)
+  const { fetcher } = useContext(FetcherContext)
   const { Notification } = useContext(NotificationContext)
   const { Ad } = useContext(AdContext)
   const { Translate } = useContext(TranslateContext)
