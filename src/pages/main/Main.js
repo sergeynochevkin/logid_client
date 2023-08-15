@@ -90,7 +90,9 @@ const Main = observer(() => {
     language: language
   }) : false
 
-
+  useEffect(() => {
+    fetcher.setMainCounters(true)
+  }, [])
 
   useEffect(() => {
     setTimeout(() => {

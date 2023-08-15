@@ -446,10 +446,6 @@ const Fetcher = observer(() => {
     }, [fetcher.main_counters])
 
     useEffect(() => {
-        fetcher.setMainCounters(true)
-    }, [])
-
-    useEffect(() => {
         async function fetch() {
             await fetchAdTransports(FilterAndSort.boardFilters).then(data => {
                 adImageHandler(data.rows)
