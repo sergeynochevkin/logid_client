@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { v4 } from "uuid";
 import { transportViewed } from '../../http/transportApi'
 import { addView } from '../../http/adApi'
+import Loader from '../../components/ui/loader/Loader'
 
 
 const BoardListItem = observer(({ transport }) => {
@@ -113,7 +114,7 @@ const BoardListItem = observer(({ transport }) => {
 
                 </div>
             </Link>
-        : <></>}
+        : <Loader/>}
         </>
     )
 })
