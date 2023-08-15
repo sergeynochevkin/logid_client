@@ -104,13 +104,13 @@ const Main = observer(() => {
   useEffect(() => {
     Ad.setTransportOption('main')
     fetcher.setAdTransports(true)
-    clearInterval()
-    setInterval(() => {
-      if (location.pathname === '/') {
-        Ad.setTransportOption('main')
-        fetcher.setAdTransports(true)
-      }
-    }, 10000)
+    // clearInterval()
+    // setInterval(() => {
+    //   if (location.pathname === '/') {
+    //     Ad.setTransportOption('main')
+    //     fetcher.setAdTransports(true)
+    //   }
+    // }, 10000)
   }, [])
 
 
