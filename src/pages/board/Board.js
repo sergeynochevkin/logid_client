@@ -15,6 +15,8 @@ const Board = observer(() => {
     const { fetcher } = useContext(FetcherContext)
     const [modalActive, setModalActive] = useState(false)
 
+    
+
 
     useEffect(() => {
         fetcher.setAdTransports(true)

@@ -293,13 +293,11 @@
     text-align: left;
     height: 15%;
     line-height: 75%;
-    border: solid 0.5px black;
     padding: 5px;
     border-radius: 5px;
 }
 
 .ad_transport_item_ad_text_container.dark {
-    border: solid 0.5px white;
     background: transparent;
 }
 

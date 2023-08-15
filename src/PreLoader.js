@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AdContext, AdressContext, EquipmentTypeContext, FetcherContext, LinkContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
 import { fetchDefaultData } from './http/defaultDataApi'
 import { fetchUserState } from './http/stateApi'
@@ -35,8 +35,14 @@ const PreLoader = observer(({ children, ...props }) => {
     const referal_id = queryParams.get("referal_id")
     const action = queryParams.get("action")
 
-
-    let location = useLocation();
+    let location = useLocation()
+    let id
+    if (location) {
+        location = location.pathname.split('/')
+        if (location[1] === 'board' && location[2] === 'item') {
+            id = location[3]
+        }
+    }  
 
     //attach google and lets go to design!
 
@@ -148,6 +154,9 @@ const PreLoader = observer(({ children, ...props }) => {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         } else if (!JSON.parse(localStorage.getItem('cookies_accepted')).total) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
+        }
+        if(id){
+            fetcher.setAdTransports(true)
         }
         fetchData()
     }, [])

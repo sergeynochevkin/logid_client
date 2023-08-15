@@ -68,9 +68,6 @@ const Global = createGlobalStyle`
   a:hover{
   color:grey;
      }
-  img{
-  border: none
-  }
 `
 const theme = {
   media: {
