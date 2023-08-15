@@ -78,7 +78,7 @@ const BoardItemPage = observer(() => {
             </Modal>
 
             <div className={`board_item_page_container ${Setting.app_theme}`}>
-                {Object.keys(transport).length > 0 && image ?
+                {Object.keys(transport).length > 0 && images.length>0 ?
                     <div className='board_item_ad_container'>
                         <div className='board_item_page_header_container'>
                             <div className='board_item_page_header_back_container'>
