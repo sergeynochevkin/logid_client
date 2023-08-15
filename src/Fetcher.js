@@ -454,7 +454,7 @@ const Fetcher = observer(() => {
             await fetchAdTransports(FilterAndSort.boardFilters).then(data => {
                 adImageHandler(data.rows)
                 Ad.setUsers(data.users)
-                Ad.setTransports(data.rows)        
+                Ad.setTransports(data.rows)
             })
         }
         fetcher.ad_transports && fetch()
@@ -557,7 +557,7 @@ const Fetcher = observer(() => {
                 pingInterval={4000} // milliseconds 
                 thresholdUnit='megabyte' // "byte" , "kilobyte", "megabyte" 
                 threshold={1000}
-                imageUrl="./static/media/logo_russian_light.4eac16b4e5a52618270b.png"
+                imageUrl={Setting.app_theme === 'light' ? "./static/media/logo_russian_light.4eac16b4e5a52618270b.png" : "https://logid.app/static/media/logo_russian_dark.6615465e2e42772091bd.png"}
                 downloadSize="1781287"  //bytes
                 callbackFunctionOnNetworkDown={(speed) => {
                     if (speed === 0) {
