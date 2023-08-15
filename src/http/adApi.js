@@ -4,8 +4,8 @@ export const fetchMainCounters = async (userInfoId) => {
     const { data } = await $host.get('api/ad/counters')
     return data
 }
-export const fetchAdTransports = async (filters) => {
-    const { data } = await $host.post('api/ad/get_transports', { filters })
+export const fetchAdTransports = async (filters, option) => {
+    const { data } = await $host.post('api/ad/get_transports', { filters, option })
     return data
 }
 

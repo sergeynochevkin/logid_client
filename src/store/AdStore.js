@@ -8,6 +8,7 @@ export default class AdStore {
         this._ip = ''
 
         this._transports = []
+        this._transport_option = ''
         this._transport_images = []
         this._users = []
 
@@ -37,6 +38,9 @@ export default class AdStore {
         this._ip = value
         localStorage.setItem('currentIp', JSON.stringify(this._ip))
     }
+    setTransportOption(value) {
+        this._transport_option = value
+    }
 
     get customers_count() {
         return this._customers_count
@@ -58,5 +62,8 @@ export default class AdStore {
     }
     get ip() {
         return this._ip
+    }
+    get transport_option() {
+        return this._transport_option
     }
 }

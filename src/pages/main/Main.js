@@ -97,6 +97,16 @@ const Main = observer(() => {
     fetcher.setMainCounters(true)
   }, [])
 
+  useEffect(() => {
+    Ad.setTransportOption('random')
+    fetcher.setAdTransports(true)
+    // setInterval(() => {
+    //   if (location) {
+    //     Ad.setTransportOption('random')       
+    //     fetcher.setAdTransports(true)
+    //   }
+    // }, 5000)
+  }, [])
 
   useEffect(() => {
     setTimeout(() => {
@@ -417,7 +427,7 @@ const Main = observer(() => {
               <title>{`logid`}</title>
               <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
-              {/* {Ad.transports.length > 0 && <AdTransportSection />} */}
+              {Ad.transports.length > 0 && <AdTransportSection />}
 
               {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ?
                 <div className='adv_rate_section'>

@@ -5,24 +5,27 @@ import BoardFilter from './BoardFilter'
 import BoardMainBanner from './BoardMainBanner'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
-import { FetcherContext, SettingContext, TranslateContext } from '../..'
+import { AdContext, FetcherContext, SettingContext, TranslateContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import BoardActionComponent from './BoardActionComponent'
 
 const Board = observer(() => {
     const { Setting } = useContext(SettingContext)
+    const { Ad } = useContext(AdContext)
     const { Translate } = useContext(TranslateContext)
     const { fetcher } = useContext(FetcherContext)
     const [modalActive, setModalActive] = useState(false)
 
-    
+
 
 
     useEffect(() => {
+        Ad.setTransportOption('')
         fetcher.setAdTransports(true)
-        setInterval(() => {
-            fetcher.setAdTransports(true)
-        }, 60000)
+        // setInterval(() => {
+        //     Ad.setTransportOption('')
+        //     fetcher.setAdTransports(true)
+        // }, 60000)
     }, [])
 
     return (
@@ -35,10 +38,10 @@ const Board = observer(() => {
             <BoardMainBanner />
             <div className={`board_content_container`}>
                 <div className='board_left_container'>
-                    <BoardFilter modalActive={modalActive} setModalActive={setModalActive}/>
+                    <BoardFilter modalActive={modalActive} setModalActive={setModalActive} />
                     <BoardList />
                 </div>
-                <BoardActionComponent  />
+                <BoardActionComponent />
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, SettingContext, TranslateContext } from '../..'
+import { AdContext, FilterAndSortContext, SettingContext, TranslateContext } from '../..'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import BoardListItem from '../board/BoardListItem'
@@ -11,42 +11,17 @@ const AdTransportSection = observer(() => {
   const [transports, setTransports] = useState([])
   const { height, width } = useWindowDimensions();
   const { Translate } = useContext(TranslateContext)
-
-  function transportAdSelect(length, i) {
-    let indexArray = []
-    let transportsArray = []
-
-    for (; i < length + 10; i++) {
-      let index = Math.floor(Math.random() * Ad.transports.length);
-      if (!indexArray.includes(index)) {
-        indexArray.push(index)
-        if (indexArray.length === length) {
-          break
-        }
-      }
-    }
-    for (const index of indexArray) {
-      transportsArray.push(Ad.transports[index])
-    }
-    setTransports(transportsArray)
-    indexArray = []
-    transportsArray = []
-  }
+  const { FilterAndSort } = useContext(FilterAndSortContext)
 
   useEffect(() => {
-    setTimeout(() => {
-      transportAdSelect(width < 425 ? 2 : width < 770 ? 3 : 6, 0)
-    }, 500)
-    setInterval(() => {
-      transportAdSelect(width < 425 ? 2 : width < 770 ? 3 : 6, 0)
-    }, 10000)
+    FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, main_limit: width < 425 ? 2 : width < 770 ? 3 : 6 }, 'transports')
   }, [])
-
+  
   return (
     <>
       <div className={`ad_transport_container ${Setting.app_theme}`} >
         <div className={`ad_transport_section`}>
-          {transports.map(transport => <BoardListItem transport = {transport}/>)}
+          {Ad.transports.map(transport => <BoardListItem transport={transport} />)}
         </div>
         <div className='how_to_add_text_container'>
           {SetNativeTranslate(Translate.language,
