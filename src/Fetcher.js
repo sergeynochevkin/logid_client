@@ -445,9 +445,7 @@ const Fetcher = observer(() => {
         fetcher.setMainCounters(false)
     }, [fetcher.main_counters])
 
-    useEffect(() => {
-        fetcher.setMainCounters(true)
-    }, [])
+ 
 
     useEffect(() => {
         async function fetch() {

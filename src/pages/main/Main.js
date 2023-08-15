@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, AdressContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
@@ -47,6 +47,7 @@ import PageLoader from '../../components/ui/loader/PageLoader '
 
 
 const Main = observer(() => {
+  const { Fetcher } = useContext(FetcherContext)
   const { Notification } = useContext(NotificationContext)
   const { Ad } = useContext(AdContext)
   const { Translate } = useContext(TranslateContext)
@@ -90,6 +91,10 @@ const Main = observer(() => {
     language: language
   }) : false
 
+
+  useEffect(() => {
+    fetcher.setMainCounters(true)
+  }, [])
 
 
   useEffect(() => {
