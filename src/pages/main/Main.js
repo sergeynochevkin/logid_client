@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { AdContext, AdressContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
@@ -47,7 +47,6 @@ import PageLoader from '../../components/ui/loader/PageLoader '
 
 
 const Main = observer(() => {
-  const {fetcher} = useContext(FetcherContext)
   const { Notification } = useContext(NotificationContext)
   const { Ad } = useContext(AdContext)
   const { Translate } = useContext(TranslateContext)
@@ -91,9 +90,7 @@ const Main = observer(() => {
     language: language
   }) : false
 
-  useEffect(() => {
-    fetcher.setMainCounters(true)
-  }, [])
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -115,9 +112,6 @@ const Main = observer(() => {
       handleUrlNotification()
     }
   }, [])
-
-
-
 
 
   let sections = [
@@ -419,36 +413,17 @@ const Main = observer(() => {
 
               {/* {Ad.transports.length > 0 && <AdTransportSection />} */}
 
-
-
               <div className='adv_rate_section'>
-                {role === 'customer' ?
-                  <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
-                    {
-                      russian: ['Активных перевозчиков'],
-                      english: ['Active carriers']
-                    }, '')} />
-                  :
-                  role === 'carrier' ?
-                    <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
-                      {
-                        russian: ['Активных заказчиков'],
-                        english: ['Active customers']
-                      }, '')} />
-                    :
-                    <>
-                      <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
-                        {
-                          russian: ['Активных перевозчиков'],
-                          english: ['Active carriers']
-                        }, '')} />
-                      <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
-                        {
-                          russian: ['Активных заказчиков'],
-                          english: ['Active customers']
-                        }, '')} />
-                    </>
-                }
+                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
+                  {
+                    russian: ['Активных перевозчиков'],
+                    english: ['Active carriers']
+                  }, '')} />
+                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
+                  {
+                    russian: ['Активных заказчиков'],
+                    english: ['Active customers']
+                  }, '')} />
 
                 <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.finished_orders_count} comment={SetNativeTranslate(Translate.language,
                   {
@@ -456,7 +431,6 @@ const Main = observer(() => {
                     english: ['Completed orders']
                   }, '')} />
               </div>
-
 
               {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
                 <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
