@@ -418,24 +418,26 @@ const Main = observer(() => {
 
               {/* {Ad.transports.length > 0 && <AdTransportSection />} */}
 
-              <div className='adv_rate_section'>
-                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Активных перевозчиков'],
-                    english: ['Active carriers']
-                  }, '')} />
-                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Активных заказчиков'],
-                    english: ['Active customers']
-                  }, '')} />
+              {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ?
+                <div className='adv_rate_section'>
+                  <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Активных перевозчиков'],
+                      english: ['Active carriers']
+                    }, '')} />
+                  <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Активных заказчиков'],
+                      english: ['Active customers']
+                    }, '')} />
 
-                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.finished_orders_count} comment={SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Завершенных заказов'],
-                    english: ['Completed orders']
-                  }, '')} />
-              </div>
+                  <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.finished_orders_count} comment={SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Завершенных заказов'],
+                      english: ['Completed orders']
+                    }, '')} />
+                </div>
+                : <></>}
 
               {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
                 <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
