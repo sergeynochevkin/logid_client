@@ -103,6 +103,9 @@ const Main = observer(() => {
 
   useEffect(() => {
     Ad.setTransportOption('main')
+    Ad.setUsers([], 'main')
+    Ad.setTransports([], 'main')
+    Ad.setTransportImages([], 'main')
     fetcher.setAdTransports(true)
     // clearInterval()
     // setInterval(() => {
