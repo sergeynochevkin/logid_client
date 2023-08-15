@@ -54,6 +54,7 @@ const BoardListItem = observer(({ transport }) => {
                     <img src={image} className='image_modal_board_main'></img>
                 </div>
             </Modal> */}
+            {mainImage ? 
             <Link to={`/board/item/${transport.id}`} className='board_list_link'
                 onClick={() => {
                     viewedAction()
@@ -112,6 +113,7 @@ const BoardListItem = observer(({ transport }) => {
 
                 </div>
             </Link>
+        : <></>}
         </>
     )
 })
