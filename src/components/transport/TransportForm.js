@@ -15,6 +15,7 @@ import { CheckBoxSection } from '../ui/form/CheckBoxSection'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { v4 } from "uuid";
 import { FieldName } from '../ui/page/FieldName'
+import TransportFormAdName from './TransportFormAdName'
 
 const TransportForm = observer(({ setModalActive, formData, formReset, setFormData, parent, pairs, setPairs, files, setFiles, formFunction, transportId }) => {
   const { UserInfo } = useContext(UserInfoContext)
@@ -103,12 +104,13 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
 
         <TransportFormTag formData={formData} setError={setError} error={error} />
 
+        <TransportFormAdName formData={formData} setError={setError} error={error} />
         <TransportFormAdText formData={formData} setError={setError} error={error} />
 
         <div className='transport_form_check_box_and_error_container'>
           <CheckBoxContainer >
             <CheckBoxSection >
-              <input disabled={!UserInfo.userInfo.legal || formData.ad_text.isEmpty} style={{ cursor: !UserInfo.userInfo.legal ? 'not-allowed' : '' }} type='checkbox' className='auth_checkbox' checked={formData.ad_show && 'checked'} value={formData.ad_show}
+              <input disabled={formData.ad_text.isEmpty || formData.ad_name.isEmpty} style={{ cursor: formData.ad_text.isEmpty || formData.ad_name.isEmpty ? 'not-allowed' : '' }} type='checkbox' className='auth_checkbox' checked={formData.ad_show && 'checked'} value={formData.ad_show}
 
                 onChange={() => {
                   let data = { ...formData }
@@ -135,15 +137,11 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
               color: 'rgb(254, 111, 103,0.8)'
             }}
           >
-            {!UserInfo.userInfo.legal ?
-              SetNativeTranslate(Translate.language, {
-                russian: ['Для показа рекламы заполните данные в разделе аккаунт'],
-                english: ['To enable ads, fill in the data in the account section']
-              }) :
+            {
               formData.ad_text.isEmpty ?
                 SetNativeTranslate(Translate.language, {
-                  russian: ['Для показа рекламы заполните рекламный текст'],
-                  english: ['To display ads, fill in the ad text']
+                  russian: ['Для показа рекламы заполните рекламный текст и имя'],
+                  english: ['To display ads, fill in the ad text and name']
                 }) :
                 ''
             }

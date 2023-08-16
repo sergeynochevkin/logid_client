@@ -59,6 +59,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
     formData.thermo_van = oneTransport.thermo_van
     formData.ad_show = oneTransport.ad_show
     formData.id = oneTransport.id
+    formData.ad_name = oneTransport.ad_name
 
     let blob
     const createImage = async (image) => {
@@ -146,6 +147,14 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
         {oneTransport.glass_stand === true ? <CardEquipment>{SetNativeTranslate(Translate.language, {}, 'glass_stand')}</CardEquipment> : <></>}
       </EquipmentRow>
 
+      {oneTransport.ad_name &&
+        <CardRow>          <CardColName>{SetNativeTranslate(Translate.language, {
+          english: ['Advertising name'],
+          russian: ['Имя для рекламы']
+        })}</CardColName>
+          <CardColValue>{oneTransport.ad_name}</CardColValue>
+        </CardRow>
+      }
       {oneTransport.ad_text &&
         <>
           <CardColName>{SetNativeTranslate(Translate.language, {
@@ -162,11 +171,11 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
         <CardEquipment style={{ backgroundColor: 'rgb(254, 145, 40,0.8)' }}>{SetNativeTranslate(Translate.language, {
           english: ['Moderation'],
           russian: ['На модерации']
-        })}</CardEquipment> : oneTransport.ad_show && oneTransport.moderated === 'checked_not_accepted' ? 
-        <CardEquipment style={{ backgroundColor: 'rgb(254, 111, 103,0.8)' }}>{SetNativeTranslate(Translate.language, {
-          english: [`Not accepted ${oneTransport.moderation_comment}`],
-          russian: [`Отклонено ${oneTransport.moderation_comment}`]
-        })}</CardEquipment> : <></>
+        })}</CardEquipment> : oneTransport.ad_show && oneTransport.moderated === 'checked_not_accepted' ?
+          <CardEquipment style={{ backgroundColor: 'rgb(254, 111, 103,0.8)' }}>{SetNativeTranslate(Translate.language, {
+            english: [`Not accepted ${oneTransport.moderation_comment}`],
+            russian: [`Отклонено ${oneTransport.moderation_comment}`]
+          })}</CardEquipment> : <></>
 
       }
 

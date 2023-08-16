@@ -41,6 +41,7 @@ const TransportComponent = observer(() => {
     userInfoId: undefined,
     tag: '',
     type: '',
+    ad_name: '',
     ad_text: '',
     ad_show: false,
     id: undefined
@@ -81,7 +82,7 @@ const TransportComponent = observer(() => {
     <Container>
       <Button
         onClick={() => {
-          if (Transport.transports.length >= 20) {
+          if (Transport.transports.length >= 5) {
             Notification.addNotification([{
               id: v4(), type: 'error', message: SetNativeTranslate(Translate.language,
                 {
