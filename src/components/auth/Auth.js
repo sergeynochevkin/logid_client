@@ -234,13 +234,15 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               ComponentFunction.setPageFunction('transport')
             }
             if (user.user.role === 'customer') {
-              Notification.addNotification([{
-                id: v4(), type: 'error', message: SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Вы являетесь заказчиком и не можете добавить объявление, как перевозчик. Создайте аккаунт перевозчика'],
-                    english: ['You are a customer and cannot add an ad as a carrier. Create a carrier account']
-                  }
-                )
+              let message = SetNativeTranslate(Translate.language,
+                {
+                  russian: ['Вы являетесь заказчиком и не можете добавить объявление, как перевозчик. Создайте аккаунт перевозчика'],
+                  english: ['You are a customer and cannot add an ad as a carrier. Create a carrier account']
+                }
+              )
+
+              !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{
+                id: v4(), type: 'error', message: message
               }])
             }
 
