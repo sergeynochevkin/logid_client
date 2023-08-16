@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, MANAGER_ROUTE } from '../../utils/consts';
 import { code, fast_registration, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { AdressContext, ComponentFunctionContext, FetcherContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LinkContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
@@ -33,6 +33,7 @@ import { addContactView } from '../../http/adApi'
 
 const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
   const { user } = useContext(UserContext)
+  const { link } = useContext(LinkContext)
   const { UserInfo } = useContext(UserInfoContext)
   const queryParams = new URLSearchParams(window.location.search)
   const [isLogin, setIsLogin] = useState()
@@ -201,6 +202,13 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     english: ['First shipping method']
   })
 
+
+  useEffect(() => {
+    if (link.after_actions.add_transport_form) {
+      formData.role.setValue('carrier')
+    }
+  }, [])
+
   const [fetching, error] = useFetching(async () => {
     await fetchUserInfo(user.user.id).then(data => {
       if (data === null) {
@@ -220,6 +228,10 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           if (after_action.action === 'transport_contact_viewed') {
             addContactView('transport', after_action.transportId, ip, data.id)
             fetcher.setAdTransports(true)
+          }
+          if (after_action.action === 'add_ad') {
+            ComponentFunction.setPageFunction('transport')
+            navigate(USER_ROUTE)
           }
         }
 
@@ -497,34 +509,36 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             </VerticalContainer>
 
             {isRegister ? <>
-              <VerticalContainer
-                style={{ gap: '0px' }}
-              >
-                <Select
-                  defaultValue={formData.role.value}
-                  onChange={(e) => formData.role.onChange(e)}
-                  onBlur={e => formData.role.onBlur(e)}
-                  name="role" id="role"
-                  style={{ borderLeft: formData.role.notValid || formData.role.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+              {!link.after_actions.add_transport_form ?
+                <VerticalContainer
+                  style={{ gap: '0px' }}
                 >
-                  <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language, {}, 'who_are_you')}</option>
-                  <option value='customer'>{SetNativeTranslate(Translate.language, {}, 'customer')}</option>
-                  <option value='carrier'>{SetNativeTranslate(Translate.language, {}, 'carrier')}</option>
-                  {/* <option value='admin'>admin</option> */}
-                </Select>
-                <FieldName
-                  style={{
-                    fontWeight: 'normal',
-                    color: 'rgb(254, 111, 103,0.8)'
-                  }}
-                >
-                  {formData.role.isEmpty && formData.role.isDirty ?
-                    SetNativeTranslate(Translate.language, {}, 'select_role') :
-                    ''
-                  }
-                </FieldName>
-              </VerticalContainer>
-              {formData.role.value === 'carrier' && formData.role.value !== '' ?
+                  <Select
+                    defaultValue={formData.role.value}
+                    onChange={(e) => formData.role.onChange(e)}
+                    onBlur={e => formData.role.onBlur(e)}
+                    name="role" id="role"
+                    style={{ borderLeft: formData.role.notValid || formData.role.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                  >
+                    <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language, {}, 'who_are_you')}</option>
+                    <option value='customer'>{SetNativeTranslate(Translate.language, {}, 'customer')}</option>
+                    <option value='carrier'>{SetNativeTranslate(Translate.language, {}, 'carrier')}</option>
+                    {/* <option value='admin'>admin</option> */}
+                  </Select>
+                  <FieldName
+                    style={{
+                      fontWeight: 'normal',
+                      color: 'rgb(254, 111, 103,0.8)'
+                    }}
+                  >
+                    {formData.role.isEmpty && formData.role.isDirty ?
+                      SetNativeTranslate(Translate.language, {}, 'select_role') :
+                      ''
+                    }
+                  </FieldName>
+                </VerticalContainer> : <></>}
+
+              {formData.role.value === 'carrier' && formData.role.value !== '' && !link.after_actions.add_transport_form ?
                 <div className='fast_sign_up_section'>
                   <TransportFormSection parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
                 </div>
@@ -717,13 +731,12 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               (isRegister && !formData.personal_data_agreement_accepted) ||
 
               (isRegister && formData.role.value === 'carrier' &&
-                formData.type.isEmpty ||
-                (
-                  (formData.load_capacity.isEmpty && formData.type.value === 'truck') ||
-                  (formData.load_capacity.isEmpty && formData.type.value === 'minibus') ||
-                  (formData.side_type.isEmpty && formData.type.value === 'truck')
-                )
+                formData.type.isEmpty && !link.after_actions.add_transport_form
+                || (formData.load_capacity.isEmpty && formData.type.value === 'truck')
+                || (formData.load_capacity.isEmpty && formData.type.value === 'minibus')
+                || (formData.side_type.isEmpty && formData.type.value === 'truck')
               )
+
             }
             onClick={(event) => {
               event.preventDefault()

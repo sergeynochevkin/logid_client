@@ -3,7 +3,7 @@ import FilterAndSortSeparateSearchAndSort from '../../components/filterAndSort/F
 import { Button } from '../../components/ui/button/Button'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
-import { ComponentFunctionContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { ComponentFunctionContext, LinkContext, SettingContext, TranslateContext, UserContext } from '../..'
 import board_add from '../../assets/icons/board_add.png';
 import board_add_dark from '../../assets/icons/board_add_dark.png';
 import useWindowDimensions from '../../hooks/useWindowDimensions'
@@ -16,6 +16,7 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
     const { Translate } = useContext(TranslateContext)
     const { Setting } = useContext(SettingContext)
     const { user } = useContext(UserContext)
+    const { link } = useContext(LinkContext)
     const [modalActive1, setModalActive1] = useState(false)
     const navigate = useNavigate()
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -24,9 +25,11 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
 
     const addAdAction = () => {
         if (user.isAuth) {
+            link.setAfterActions(true, 'add_transport_form')
             ComponentFunction.setPageFunction('transport')
             navigate(USER_ROUTE)
         } else {
+            link.setAfterActions(true, 'add_transport_form')
             setModalActive1(true)
         }
     }
@@ -34,7 +37,7 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
     return (
         <>
             <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
-                <Auth modalActive={modalActive1} setModalActive={setModalActive1} />
+                <Auth modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: 'add_ad' }} />
             </Modal>
 
             <div className='board_filter_container'>

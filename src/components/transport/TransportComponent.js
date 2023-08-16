@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { FileContext, NotificationContext, TranslateContext, TransportContext } from '../..'
+import { FileContext, LinkContext, NotificationContext, TranslateContext, TransportContext } from '../..'
 import { fetchFile } from '../../http/fileApi'
 import TransportForm from './TransportForm'
 import TransportList from './TransportList'
@@ -27,6 +27,7 @@ const TransportComponent = observer(() => {
   const [pairs, setPairs] = useState([])
   const [formFunction, setFormFunction] = useState('')
   const [transportId, setTransportId] = useState('')
+  const { link } = useContext(LinkContext)
 
 
   const initialValue = {
@@ -66,10 +67,15 @@ const TransportComponent = observer(() => {
   formData.load_capacity = useInput('', { isEmpty: true },)
   formData.side_type = useInput('', { isEmpty: true },)
   formData.type = useInput('', { isEmpty: true },)
-
-
-
   const parent = 'TransportComponent'
+
+  useEffect(() => {
+    if (link.after_actions.add_transport_form) {
+      setModalActive(true)
+      link.setAfterActions(false, 'add_transport_form')
+    }
+  }, [])
+
 
   return (
     <Container>

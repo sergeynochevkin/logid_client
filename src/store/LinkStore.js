@@ -6,6 +6,9 @@ export default class LinktStore {
         this._order = { status: '', id: '' }
         this._internet_speed = ''
         this._internet = true
+        this._after_actions = {
+            add_transport_form: false
+        }
 
         makeAutoObservable(this)
     }
@@ -22,6 +25,11 @@ export default class LinktStore {
     setInternet(value) {
         this._internet = value
     }
+    setAfterActions(value, option) {
+        this._after_actions[option] = value
+    }
+
+
     get order() {
         return this._order
     }
@@ -33,5 +41,8 @@ export default class LinktStore {
     }
     get internet() {
         return this._internet
+    }
+    get after_actions() {
+        return this._after_actions
     }
 }
