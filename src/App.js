@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import PreLoader from "./PreLoader";
 import Fetcher from "./Fetcher";
 import Notificator from "./Notificator";
+import './App.css'
 
 const App = observer(() => {
 

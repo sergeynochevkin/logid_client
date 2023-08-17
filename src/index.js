@@ -26,6 +26,8 @@ import FetcherStore from './store/FetcherStore';
 import ManagementStore from './store/ManagementStore';
 import AdStore from './store/AdStore';
 import LinkStore from './store/LinkStore';
+import '../src/fonts/Jost-VariableFont_wght.ttf'
+
 
 export const UserContext = createContext(null)
 export const UserInfoContext = createContext(null)
@@ -56,10 +58,11 @@ export const LinkContext = createContext(null)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const Global = createGlobalStyle`
+
 *{
   margin:0;
   padding:0;
-  font-family: 'Jost', sans-serif;      
+  font-family: "Jost";
      }
  a{
   color:lightgrey;
