@@ -38,12 +38,15 @@ const BoardItemPage = observer(() => {
     let ip = localStorage.getItem('currentIp')
 
     useEffect(() => {
+        Ad.setTransportOption('board')
+        fetcher.setAdTransports(true)
         window.scrollTo(0, 0)
     }, [])
 
+
     useEffect(() => {
         setTransport({ ...Ad.transports[Ad.transport_option].find(el => el.id === id) })
-    }, [Ad.transports])
+    }, [Ad.transports[Ad.transport_option]])
 
     useEffect(() => {
         if (Ad.users[Ad.transport_option].find(el => el.transport_id === id)) {
@@ -78,7 +81,7 @@ const BoardItemPage = observer(() => {
             </Modal>
 
             <div className={`board_item_page_container ${Setting.app_theme}`}>
-                {Object.keys(transport).length > 0 && images.length>0 ?
+                {Object.keys(transport).length > 0 && images.length > 0 ?
                     <div className='board_item_ad_container'>
                         <div className='board_item_page_header_container'>
                             <div className='board_item_page_header_back_container'>

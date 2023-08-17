@@ -433,11 +433,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     setReCapchaChecked(true)
   }
 
-  useEffect(()=>{
-    console.log(JSON.stringify(formData.role));
-  },[formData])
-
-
   return (
     <div className='auth_container'>
       {/* {isLogin ? <title>{SetNativeTranslate(Translate.language, {}, 'authorization')}</title> : isRegister ? <title>{SetNativeTranslate(Translate.language, {}, 'registration')}</title> : isRecovery ? <title>{SetNativeTranslate(Translate.language, {}, 'password_recovery')}</title> : <></>} */}
