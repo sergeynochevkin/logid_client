@@ -212,7 +212,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
 
     return (
-        <div{...props}>{!dataLoaded && !isLoaded ? <PageLoader /> : children}</div>
+        <div{...props}>{!dataLoaded || !isLoaded ? <PageLoader /> : children}</div>
     )
 
 })
