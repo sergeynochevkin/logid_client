@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { Suspense, useContext } from 'react'
 import { ComponentFunctionContext } from '../..'
+import './Legality.css'
 
 // import UserAgreementRussia from './UserAgreementRussia'
 // import PersonalDataAgreementRussia from './PersonalDataAgreementRussia'
