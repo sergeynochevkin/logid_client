@@ -110,7 +110,10 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
         <div className='transport_form_check_box_and_error_container'>
           <CheckBoxContainer >
             <CheckBoxSection >
-              <input disabled={formData.ad_text.isEmpty || formData.ad_name.isEmpty} style={{ cursor: formData.ad_text.isEmpty || formData.ad_name.isEmpty ? 'not-allowed' : '' }} type='checkbox' className='auth_checkbox' checked={formData.ad_show && 'checked'} value={formData.ad_show}
+              <input 
+              // disabled={formData.ad_text.isEmpty || formData.ad_name.isEmpty}
+               style={{ cursor: formData.ad_text.isEmpty || formData.ad_name.isEmpty ? 'not-allowed' : '' }} 
+              type='checkbox' className='auth_checkbox' checked={formData.ad_show && 'checked'} value={formData.ad_show}
 
                 onChange={() => {
                   let data = { ...formData }
