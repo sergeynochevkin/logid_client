@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react'
 import { SettingContext, TranslateContext } from '../..';
-import logistics from '../../assets/logistics.jpg';
+import logistics from '../../assets/logistics.webp';
 import courier from '../../assets/courier.jpg';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import BannerActionContent from './BannerActionContent';

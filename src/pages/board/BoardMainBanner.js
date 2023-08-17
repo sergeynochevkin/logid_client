@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import logistics from '../../assets/logistics.jpg';
+import logistics from '../../assets/logistics.webp';
 import courier from '../../assets/courier.jpg';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import { TranslateContext } from '../..';
