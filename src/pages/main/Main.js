@@ -11,12 +11,12 @@ import MainSection from './MainSection'
 
 import { useJsApiLoader } from '@react-google-maps/api'
 
-import av1 from '../../assets/avatars/av1.jpg';
-import av3 from '../../assets/avatars/av3.jpg';
-import av5 from '../../assets/avatars/av5.jpg';
-import av6 from '../../assets/avatars/av6.jpg';
-import av8 from '../../assets/avatars/av8.jpg';
-import av9 from '../../assets/avatars/av9.jpg';
+import av1 from '../../assets/avatars/av1.webp';
+import av3 from '../../assets/avatars/av3.webp';
+import av5 from '../../assets/avatars/av5.webp';
+import av6 from '../../assets/avatars/av6.webp';
+import av8 from '../../assets/avatars/av8.webp';
+import av9 from '../../assets/avatars/av9.webp';
 
 import alert from '../../assets/icons/alert.png';
 import alert_dark from '../../assets/icons/alert_dark.png';
