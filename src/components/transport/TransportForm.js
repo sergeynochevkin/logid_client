@@ -24,7 +24,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
   const { Notification } = useContext(NotificationContext)
   const [filesFormData, setFilesFormData] = useState(new FormData)
 
-  const [error, setError] = useState({ tag: true, ad_text: true })
+  const [error, setError] = useState({ tag: true, ad_text: true, ad_name:true })
 
   let dataTransfer = new DataTransfer();
   let fileList

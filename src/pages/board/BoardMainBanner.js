@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import logistics from '../../assets/logistics.webp';
-import courier from '../../assets/courier.jpg';
+import courier from '../../assets/courier.webp';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import { TranslateContext } from '../..';
 import { observer } from 'mobx-react-lite';

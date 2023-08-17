@@ -19,7 +19,7 @@ const TransportFormAdName = observer(({ formData, setError, error }) => {
 
     useEffect(() => {
         formData.ad_name.notValid ? setError({ ...error, ad_name: true }) : setError({ ...error, ad_name: false })
-    }, [formData.ad_name.notValid])
+    }, [formData.ad_name.minLengthError, formData.ad_name.maxLengthError])
 
     return (
         <VerticalContainer

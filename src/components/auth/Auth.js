@@ -761,29 +761,29 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
         <HorizontalContainer>
           <Button
-            disabled={
-              formData.email.notValid ||
-              formData.phone.notValid ||//check!
-              (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) ||
-              (formData.role.notValid && isRegister) ||
-              (formData.password.value !== comparePassword && (isRegister ||
-                (isRecovery && codeSend))) ||
-              !reCapchaChecked ||
-              (isRecovery && codeSend && formData.code.isEmpty) ||
-              (isRegister && !formData.user_agreement_accepted && Adress.country.value === 'russia') ||
-              (isRegister && !formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
-              (isRegister && !formData.age_accepted && Adress.country.value === 'russia') ||
-              (isRegister && !formData.cookies_accepted.total) ||
-              (isRegister && !formData.personal_data_agreement_accepted) ||
+            // disabled={
+            //   formData.email.notValid ||
+            //   formData.phone.notValid ||//check!
+            //   (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) ||
+            //   (formData.role.notValid && isRegister) ||
+            //   (formData.password.value !== comparePassword && (isRegister ||
+            //     (isRecovery && codeSend))) ||
+            //   !reCapchaChecked ||
+            //   (isRecovery && codeSend && formData.code.isEmpty) ||
+            //   (isRegister && !formData.user_agreement_accepted && Adress.country.value === 'russia') ||
+            //   (isRegister && !formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
+            //   (isRegister && !formData.age_accepted && Adress.country.value === 'russia') ||
+            //   (isRegister && !formData.cookies_accepted.total) ||
+            //   (isRegister && !formData.personal_data_agreement_accepted) ||
 
-              (isRegister && formData.role.value === 'carrier' &&
-                formData.type.isEmpty && !link.after_actions.add_transport_form
-                || (formData.load_capacity.isEmpty && formData.type.value === 'truck')
-                || (formData.load_capacity.isEmpty && formData.type.value === 'minibus')
-                || (formData.side_type.isEmpty && formData.type.value === 'truck')
-              )
+            //   (isRegister && formData.role.value === 'carrier' &&
+            //     formData.type.isEmpty && !link.after_actions.add_transport_form
+            //     || (formData.load_capacity.isEmpty && formData.type.value === 'truck')
+            //     || (formData.load_capacity.isEmpty && formData.type.value === 'minibus')
+            //     || (formData.side_type.isEmpty && formData.type.value === 'truck')
+            //   )
 
-            }
+            // }
             onClick={(event) => {
               event.preventDefault()
               if (isRegister || isLogin) {
