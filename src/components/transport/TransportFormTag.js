@@ -19,7 +19,7 @@ const TransportFormTag = observer(({ formData, setError,error }) => {
 
     useEffect(() => {
         formData.tag.notValid ? setError({ ...error, tag: true }) : setError({ ...error, tag: false })
-    }, [formData.tag.notValid])
+    }, [formData.tag.value])
 
     return (
         <VerticalContainer

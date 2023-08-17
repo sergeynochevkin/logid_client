@@ -18,8 +18,8 @@ const TransportFormAdText = observer(({ formData, oneTransport, error, setError 
 
 
     useEffect(() => {
-        formData.ad_text.minLengthError || formData.ad_text.maxLengthError ? setError({ ...error, ad_text: true }) : setError({ ...error, ad_text: false })
-    }, [formData.ad_text.minLengthError, formData.ad_text.maxLengthError])
+        formData.ad_text.notValid && !formData.ad_text.isEmpty  ? setError({ ...error, ad_text: true }) : setError({ ...error, ad_text: false })
+    }, [formData.ad_text])
 
 
     return (
@@ -33,6 +33,7 @@ const TransportFormAdText = observer(({ formData, oneTransport, error, setError 
                 })}
                 onInput={(e) => {
                     formData.ad_text.onChange(e)
+                    formData.ad_show = false
                 }}
                 onBlur={e => formData.ad_text.onBlur(e)}
                 style={{ borderLeft: ((formData.ad_text.minLengthError && !formData.ad_text.isEmpty) || (formData.ad_text.maxLengthError && !formData.ad_text.isEmpty)) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}

@@ -18,8 +18,8 @@ const TransportFormAdName = observer(({ formData, setError, error }) => {
 
 
     useEffect(() => {
-        formData.ad_name.notValid ? setError({ ...error, ad_name: true }) : setError({ ...error, ad_name: false })
-    }, [formData.ad_name.minLengthError, formData.ad_name.maxLengthError])
+        formData.ad_name.notValid && !formData.ad_name.isEmpty ? setError({ ...error, ad_name: true }) : setError({ ...error, ad_name: false })
+    }, [formData.ad_name])
 
     return (
         <VerticalContainer
@@ -30,7 +30,11 @@ const TransportFormAdName = observer(({ formData, setError, error }) => {
                     russian: ['Имя для рекламы'],
                     english: ['Ad name']
                 })}
-                onChange={(e) => formData.ad_name.onChange(e)}
+                onChange={(e) => {
+                    formData.ad_name.onChange(e);
+                    formData.ad_show = false
+                }
+                }
                 onBlur={e => formData.ad_name.onBlur(e)}
                 style={{ borderLeft: (formData.ad_name.notValid && !formData.ad_name.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 name="ad_name" id="ad_name"
@@ -41,7 +45,7 @@ const TransportFormAdName = observer(({ formData, setError, error }) => {
                     color: 'rgb(254, 111, 103,0.8)'
                 }}
             >
-                { (formData.ad_name.minLengthError) || (formData.ad_name.maxLengthError) ?
+                {(formData.ad_name.minLengthError) || (formData.ad_name.maxLengthError) ?
                     formData.ad_name.errorMessage :
                     ''
                 }

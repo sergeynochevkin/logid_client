@@ -87,11 +87,13 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     formData.password.setValue('')
     formData.role.setValue('')
     formData.country.setValue('')
+    formData.phone.setValue('')
 
     formData.email.setDirty(false)
     formData.password.setDirty(false)
     formData.role.setDirty(false)
     formData.country.setDirty(false)
+    formData.phone.setDirty(false)
 
     // formData.tag.setValue('')
     // formData.tag.setDirty(false)
@@ -180,8 +182,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
   formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone_content'))
 
-  formData.country.value = Adress.country.value
-
   formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {
     russian: ['email'],
     english: ['email']
@@ -204,12 +204,10 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     english: ['First shipping method']
   })
 
-
-  useEffect(() => {
-    if (link.after_actions.add_transport_form) {
-      formData.role.setValue('carrier')
-    }
-  }, [])
+  formData.country.value = Adress.country.value
+  formData.role.value = !link.after_actions.add_transport_form ? '' : 'carrier'
+  formData.role.isEmpty = !link.after_actions.add_transport_form ? true : false
+  formData.role.notValid = !link.after_actions.add_transport_form ? true : false
 
   const [fetching, error] = useFetching(async () => {
     await fetchUserInfo(user.user.id).then(data => {
@@ -434,6 +432,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   function onRecaptchaChange() {
     setReCapchaChecked(true)
   }
+
+  useEffect(()=>{
+    console.log(JSON.stringify(formData.role));
+  },[formData])
+
 
   return (
     <div className='auth_container'>
@@ -763,7 +766,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           <Button
             disabled={
               formData.email.notValid ||
-              formData.phone.notValid ||//check!
+              formData.phone.notValid && isRegister ||
               (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) ||
               (formData.role.notValid && isRegister) ||
               (formData.password.value !== comparePassword && (isRegister ||
@@ -774,14 +777,12 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               (isRegister && !formData.privacy_policy_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.age_accepted && Adress.country.value === 'russia') ||
               (isRegister && !formData.cookies_accepted.total) ||
-              (isRegister && !formData.personal_data_agreement_accepted) ||
-
-              (isRegister && formData.role.value === 'carrier' &&
-                formData.type.isEmpty && !link.after_actions.add_transport_form
-                || (formData.load_capacity.isEmpty && formData.type.value === 'truck')
-                || (formData.load_capacity.isEmpty && formData.type.value === 'minibus')
-                || (formData.side_type.isEmpty && formData.type.value === 'truck')
-              )
+              (isRegister && !formData.personal_data_agreement_accepted)
+              ||
+              (isRegister && formData.role.value === 'carrier' && formData.type.isEmpty && !link.after_actions.add_transport_form)
+              || (formData.load_capacity.isEmpty && formData.type.value === 'truck' && !link.after_actions.add_transport_form)
+              || (formData.load_capacity.isEmpty && formData.type.value === 'minibus' && !link.after_actions.add_transport_form)
+              || (formData.side_type.isEmpty && formData.type.value === 'truck' && !link.after_actions.add_transport_form)
 
             }
             onClick={(event) => {
@@ -836,6 +837,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               : <></>
         }
       </Form>
+
 
       {/* {Adress.country.value === 'russia' ?
         <div className={Setting.app_theme === 'light' ? 'auth_disclaimer' : 'auth_disclaimer dark'}>{SetNativeTranslate(Translate.language, {

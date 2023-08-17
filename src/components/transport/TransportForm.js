@@ -24,7 +24,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
   const { Notification } = useContext(NotificationContext)
   const [filesFormData, setFilesFormData] = useState(new FormData)
 
-  const [error, setError] = useState({ tag: true, ad_text: true, ad_name:true })
+  const [error, setError] = useState({ tag: true, ad_text: false, ad_name: false })
 
   let dataTransfer = new DataTransfer();
   let fileList
@@ -110,10 +110,10 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
         <div className='transport_form_check_box_and_error_container'>
           <CheckBoxContainer >
             <CheckBoxSection >
-              <input 
-              // disabled={formData.ad_text.isEmpty || formData.ad_name.isEmpty}
-              //  style={{ cursor: formData.ad_text.isEmpty || formData.ad_name.isEmpty ? 'not-allowed' : '' }} 
-              type='checkbox' className='auth_checkbox' checked={formData.ad_show && 'checked'} value={formData.ad_show}
+              <input
+                disabled={error.ad_name || error.ad_text}
+                style={{ cursor: error.ad_name || error.ad_text ? 'not-allowed' : '' }}
+                type='checkbox' className='auth_checkbox' checked={formData.ad_show && 'checked'} value={formData.ad_show}
 
                 onChange={() => {
                   let data = { ...formData }

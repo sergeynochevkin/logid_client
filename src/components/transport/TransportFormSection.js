@@ -212,7 +212,7 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                 onChange={(e) => {
                   formData.side_type.onChange(e)
                   sideTypeReset()
-                  }}
+                }}
                 onBlur={e => formData.side_type.onBlur(e)}
                 style={{ borderLeft: (formData.side_type.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 name="side_type" id="side_type"
@@ -326,8 +326,8 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                 formData.type.notValid ||
                 error.tag ||
                 files.length < 1 ||
-                error.ad_text
-                ||
+                error.ad_text ||
+                error.ad_name ||
                 (formData.side_type.notValid && formData.type.value === 'truck') ||
                 (formData.load_capacity.notValid && (formData.type.value === 'truck' ||
                   formData.type.value === 'minibus'))

@@ -24,12 +24,11 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
     const { height, width } = useWindowDimensions();
 
     const addAdAction = () => {
+        link.setAfterActions(true, 'add_transport_form')
         if (user.isAuth) {
-            link.setAfterActions(true, 'add_transport_form')
             ComponentFunction.setPageFunction('transport')
             navigate(USER_ROUTE)
         } else {
-            link.setAfterActions(true, 'add_transport_form')
             setModalActive1(true)
         }
     }
