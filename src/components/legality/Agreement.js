@@ -1,9 +1,15 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
+import React, { Suspense, useContext } from 'react'
 import { ComponentFunctionContext } from '../..'
-import PersonalDataAgreementRussia from './PersonalDataAgreementRussia'
-import PrivacyPolicyRussia from './PrivacyPolicyRussia'
-import UserAgreementRussia from './UserAgreementRussia'
+
+// import UserAgreementRussia from './UserAgreementRussia'
+// import PersonalDataAgreementRussia from './PersonalDataAgreementRussia'
+// import PrivacyPolicyRussia from './PrivacyPolicyRussia'
+
+const PersonalDataAgreementRussia = React.lazy(() => import('./PersonalDataAgreementRussia'))
+const PrivacyPolicyRussia = React.lazy(() => import('./PrivacyPolicyRussia'))
+const UserAgreementRussia = React.lazy(() => import('./UserAgreementRussia'))
+
 
 const Agreement = observer(() => {
 
@@ -12,9 +18,9 @@ const Agreement = observer(() => {
     return (
         <>
             {
-                ComponentFunction.agreement === 'UserAgeement' ? <UserAgreementRussia /> :
-                    ComponentFunction.agreement === 'PersonalDataAgreement' ? <PersonalDataAgreementRussia /> :
-                        ComponentFunction.agreement === 'PrivacyPolicy' ? <PrivacyPolicyRussia /> : <></>
+                ComponentFunction.agreement === 'UserAgeement' ? <Suspense><UserAgreementRussia /></Suspense> :
+                    ComponentFunction.agreement === 'PersonalDataAgreement' ? <Suspense><PersonalDataAgreementRussia /></Suspense> :
+                        ComponentFunction.agreement === 'PrivacyPolicy' ? <Suspense><PrivacyPolicyRussia /></Suspense> : <></>
             }
         </>
 
