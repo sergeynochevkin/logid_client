@@ -70,34 +70,7 @@ const Main = observer(() => {
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
 
-  const [libraries] = useState(['places']);
-
-
-  // const { isLoaded } = useJsApiLoader({
-  //   // id: "__googleMapsScriptId",
-  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  //   libraries: libraries,
-  //   region: 'CA',
-  //   language: 'en'
-  // })
-
-  let language = Adress.country.google_language
-  let region = Adress.country.google_code
-
-  // console.log(JSON.stringify(Adress.country));
-  // console.log(language);
-  // console.log(region);
-
-  const { isLoaded } = Adress.country && Translate.language ? useJsApiLoader({
-    // id: "__googleMapsScriptId",
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: libraries,
-    region: region,
-    language: language
-  }) : false
-
-
-  useEffect(() => {
+   useEffect(() => {
     fetcher.setMainCounters(true)
   }, [])
 
@@ -426,8 +399,7 @@ const Main = observer(() => {
       }), section_id: 6, class: 'user_review', av: av3
     },
   ]
-  if (!isLoaded) { return <PageLoader /> }
-  else {
+ 
     return (
       <>
         {user.user.role !== 'admin' && user.user.role !== 'manager' ?
@@ -559,7 +531,7 @@ const Main = observer(() => {
 
       </>
     )
-  }
+  
 })
 
 export default Main

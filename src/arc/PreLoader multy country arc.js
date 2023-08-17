@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { AdContext, AdressContext, EquipmentTypeContext, FetcherContext, LinkContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '.'
-import { fetchDefaultData } from './http/defaultDataApi'
-import { fetchUserState } from './http/stateApi'
-import { check } from './http/userAPI'
-import { fetchUserInfo } from './http/userInfoApi'
-import { ADMIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
+import { AdContext, AdressContext, EquipmentTypeContext, FetcherContext, LinkContext, OrderContext, SettingContext, StateContext, SubscriptionContext, TranslateContext, TransportContext, TransportTypeContext, UserContext, UserInfoContext } from '..'
+import { fetchDefaultData } from '../http/defaultDataApi'
+import { fetchUserState } from '../http/stateApi'
+import { check } from '../http/userAPI'
+import { fetchUserInfo } from '../http/userInfoApi'
+import { ADMIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from '../utils/consts'
 import axios from "axios";
-import { fetchTransport } from './http/transportApi'
-import PageLoader from './components/ui/loader/PageLoader '
-import { addVisit } from './http/adApi'
+import { fetchTransport } from '../http/transportApi'
+import PageLoader from '../components/ui/loader/PageLoader '
+import { addVisit } from '../http/adApi'
 import { useJsApiLoader } from '@react-google-maps/api'
 
 const PreLoader = observer(({ children, ...props }) => {
@@ -43,35 +43,74 @@ const PreLoader = observer(({ children, ...props }) => {
         if (location[1] === 'board' && location[2] === 'item') {
             id = location[3]
         }
-    }
+    }  
 
     //now just in russia!
     const [libraries] = useState(['places']);
     let language = "ru"
     let region = "RU"
 
-    const { isLoaded } = useJsApiLoader({
+    const { isLoaded } =  useJsApiLoader({
         // id: "__googleMapsScriptId",
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries: libraries,
         region: region,
         language: language
-    })
+      }) 
 
     //attach google and lets go to design!
 
-    const getIp = async () => {
+    const getIp = async (data) => {
+        if (data) {
+            Ad.setIp(data.ip)
+            await addVisit(data.ip)
+        } else {
+            axios
+                .get("https://ipapi.co/json/")
+                .then((response) => {
+                    let data = response.data;
+                    Ad.setIp(data.ip)
+                    addVisit(data.ip)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }
+
+    const getGeoInfo = (countries) => {
         axios
             .get("https://ipapi.co/json/")
             .then((response) => {
                 let data = response.data;
-                Ad.setIp(data.ip)
-                addVisit(data.ip)
+                getIp(data)
+                //check if we dont have cuntry state in localstorage
+                let country = countries.find(el => el.country_code_iso3 === data.country_code_iso3)
+                if (country) {
+                    Adress.setCountry(country);
+                    if (localStorage.getItem('language')) {
+                        let language = localStorage.getItem('language')
+                        if (language === 'english' || language === country.default_language) {
+                            Translate.setLanguage(language)
+                        } else {
+                            Translate.setLanguage(country.default_language)
+                        }
+                    } else {
+                        Translate.setLanguage(country.default_language)
+                    }
+                    setDataLoaded(true)
+                } else {
+                    Adress.setCountry(countries.find(el => el.country_code_iso3 === 'RUS'));
+                    //select deafault country, say that we dont have service in this country
+                    Translate.setLanguage(Adress.countries.find(el => el.country_code_iso3 === 'RUS').default_language)
+                    setDataLoaded(true)
+                    // Adress.setCountryDetected(false)
+                }
             })
             .catch((error) => {
                 console.log(error);
             });
-    }
+    };
 
     useEffect(() => {
         if (order_id) {
@@ -91,6 +130,7 @@ const PreLoader = observer(({ children, ...props }) => {
     }, [])
 
     useEffect(() => {
+
         async function fetchData() {
             await fetchDefaultData().then(data => {
                 Subscription.setPlans(data.subscripton_plans)
@@ -101,29 +141,41 @@ const PreLoader = observer(({ children, ...props }) => {
                 TransportType.setLoadCapacities(data.transport_load_capacities)
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
-                let country = data.countries.find(el => el.google_code === 'RU')
-                Adress.setCountry(country)
-                if (localStorage.getItem('language')) {
-                    let language = localStorage.getItem('language')
-                    Translate.setLanguage(language)
+
+                if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
+                    let country = JSON.parse(localStorage.getItem('country'))
+                    Adress.setCountry(country)
+                    if (localStorage.getItem('language')) {
+                        let language = localStorage.getItem('language')
+                        if (language === 'english' || language === country.default_language) {
+                            Translate.setLanguage(language)
+                        } else {
+                            Translate.setLanguage(country.default_language)
+                        }
+                    } else {
+                        Translate.setLanguage(country.default_language)
+                    }
+                    getIp()
+                    setDataLoaded(true)
                 } else {
-                    Translate.setLanguage('russian')
+                    getGeoInfo(data.countries);
                 }
-                setDataLoaded(true)
             })
         }
+
         localStorage.getItem('app_theme') && Setting.setAppTheme(localStorage.getItem('app_theme'))
         if (!localStorage.getItem('cookies_accepted')) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         } else if (!JSON.parse(localStorage.getItem('cookies_accepted')).total) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         }
-        if (id) {
+        if(id){
             fetcher.setAdTransports(true)
         }
         fetchData()
-        getIp()
     }, [])
+
+
 
     useEffect(() => {
         if (localStorage.getItem('token')) {

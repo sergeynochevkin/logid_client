@@ -50,33 +50,6 @@ const User = observer(() => {
     }
   }, [])
 
-
-  const [libraries] = useState(['places']);
-
-  // const { isLoaded } = useJsApiLoader({
-  //   // id: "__googleMapsScriptId",
-  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-  //   libraries: libraries,
-  //   region: 'CA',
-  //   language: 'en'
-  // })
-
-  let language = Adress.country.google_language
-  let region = Adress.country.google_code
-
-  // console.log(JSON.stringify(Adress.country));
-  // console.log(language);
-  // console.log(region);
-
-  const { isLoaded } = Adress.country && Translate.language ? useJsApiLoader({
-    // id: "__googleMapsScriptId",
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: libraries,
-    region: region,
-    language: language
-  }) : false
-
-
   const setFunction = (Function, OrdersComponentFunction, PageFunction, OrderFormFunction) => {
     if (OrdersComponentFunction) {
       ComponentFunction.setOrdersComponentFunction(OrdersComponentFunction)
@@ -141,8 +114,7 @@ const User = observer(() => {
     }
   }, [])
 
-  if (!isLoaded) { return <PageLoader /> }
-  else {
+
     return (
       <PageContainer>
         <title>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</title>
@@ -229,7 +201,7 @@ const User = observer(() => {
 
       </PageContainer>
     )
-  }
+  
 }
 )
 

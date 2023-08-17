@@ -177,6 +177,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   formData.country = useInput('', { isEmpty: true })
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/
+  const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
+  formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone_content'))
 
   formData.country.value = Adress.country.value
 
@@ -446,6 +448,33 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           <div className='fast_sign_up_section'>
             <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
           </div>}
+
+        {isRegister &&
+          <VerticalContainer
+            style={{ gap: '0px' }}
+          >
+            <Input placeholder={SetNativeTranslate(Translate.language, {
+              russian: ['Ваш телефон'],
+              english: ['Your phone']
+            }, '')} value={formData.phone.value}
+              onChange={(e) => formData.phone.onChange(e)}
+              onBlur={e => formData.phone.onBlur(e)}
+              type="text" name="phone" id='phone'
+              style={{ borderLeft: formData.phone.notValid || formData.phone.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+            ></Input>
+            <FieldName
+              style={{
+                fontWeight: 'normal',
+                color: 'rgb(254, 111, 103,0.8)'
+              }}
+            >
+              {(formData.phone.isEmpty && formData.phone.isDirty) || (formData.phone.minLengthError) || (formData.phone.maxLengthError) || (formData.phone.formatError) ?
+                formData.phone.errorMessage :
+                ''
+              }
+            </FieldName>
+          </VerticalContainer>
+        }
 
         {(isRecovery && !codeSend) || isLogin || isRegister ?
           <VerticalContainer
@@ -734,6 +763,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           <Button
             disabled={
               formData.email.notValid ||
+              formData.phone.notValid ||//check!
               (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) ||
               (formData.role.notValid && isRegister) ||
               (formData.password.value !== comparePassword && (isRegister ||
