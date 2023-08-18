@@ -363,7 +363,7 @@
 
 .board_item_page_header_back_container {
     display: flex;
-    gap: 20px;
+    gap: 10px;
 }
 
 .board_add_ad_icon {
