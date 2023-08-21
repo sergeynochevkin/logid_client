@@ -7,19 +7,9 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 import { TranslateContext } from '../..'
 
-const TransportFormTag = observer(({ formData, setError,error }) => {
+const TransportFormTag = ({ formData}) => {
     const { Translate } = useContext(TranslateContext)
 
-    formData.tag = useInput('', { isEmpty: true, minLength: 4, maxLength: 20 }, SetNativeTranslate(Translate.language, {
-        russian: ['Метка'],
-        english: ['Tag']
-    }))
-
-
-
-    useEffect(() => {
-        formData.tag.notValid ? setError({ ...error, tag: true }) : setError({ ...error, tag: false })
-    }, [formData.tag.value])
 
     return (
         <VerticalContainer
@@ -45,6 +35,6 @@ const TransportFormTag = observer(({ formData, setError,error }) => {
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default TransportFormTag

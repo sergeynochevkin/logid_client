@@ -69,8 +69,8 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
         newFiles.push(newFile)
         newPairs.push(newPair)
       })
-      setFiles(newFiles)
-      setPairs(newPairs)
+      setFiles([...files, ...newFiles])
+      setPairs([...pairs, ...newPairs])
     }
 
     let newFiles = []

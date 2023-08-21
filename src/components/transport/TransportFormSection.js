@@ -21,7 +21,7 @@ align-items:center;
 flex-direction:column;`
 
 
-const TransportFormSection = ({ setFormData, formData, click, parent, setModalActive, formReset, setCalculate, files, formFunction, error }) => {
+const TransportFormSection = ({ setFormData, formData, click, parent, setModalActive, formReset, setCalculate, files, formFunction }) => {
   const { TransportType } = useContext(TransportTypeContext)
   const { EquipmentType } = useContext(EquipmentTypeContext)
   const { user } = useContext(UserContext)
@@ -324,10 +324,10 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
             <CardButton
               disabled={
                 formData.type.notValid ||
-                error.tag ||
+                formData.tag.notValid ||
                 files.length < 1 ||
-                error.ad_text ||
-                error.ad_name ||
+                (formData.ad_text.notValid && !formData.ad_text.isEmpty ) ||
+                (formData.ad_name.notValid && !formData.ad_name.isEmpty) ||
                 (formData.side_type.notValid && formData.type.value === 'truck') ||
                 (formData.load_capacity.notValid && (formData.type.value === 'truck' ||
                   formData.type.value === 'minibus'))

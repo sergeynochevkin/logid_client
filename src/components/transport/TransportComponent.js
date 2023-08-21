@@ -43,7 +43,7 @@ const TransportComponent = observer(() => {
     type: '',
     ad_name: '',
     ad_text: '',
-    ad_show: false,
+    ad_show: true,
     id: undefined
   }
 

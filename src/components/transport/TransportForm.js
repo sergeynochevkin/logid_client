@@ -16,6 +16,7 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { v4 } from "uuid";
 import { FieldName } from '../ui/page/FieldName'
 import TransportFormAdName from './TransportFormAdName'
+import { useInput } from '../../hooks/useInput'
 
 const TransportForm = observer(({ setModalActive, formData, formReset, setFormData, parent, pairs, setPairs, files, setFiles, formFunction, transportId }) => {
   const { UserInfo } = useContext(UserInfoContext)
@@ -24,20 +25,34 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
   const { Notification } = useContext(NotificationContext)
   const [filesFormData, setFilesFormData] = useState(new FormData)
 
-  const [error, setError] = useState({ tag: true, ad_text: false, ad_name: false })
+
+  console.log(files);
 
   let dataTransfer = new DataTransfer();
   let fileList
+
+
+  formData.ad_name = useInput('', { isEmpty: false, minLength: 4, maxLength: 22 }, SetNativeTranslate(Translate.language, {
+    russian: ['Имя для рекламы'],
+    english: ['Ad name']
+  }))
+
+  formData.ad_text = useInput('', { isEmpty: false, minLength: 20, maxLength: 150 }, SetNativeTranslate(Translate.language, {
+    russian: ['Рекламный текст'],
+    english: ['Advertising text']
+  }))
+
+  formData.tag = useInput('', { isEmpty: true, minLength: 4, maxLength: 20 }, SetNativeTranslate(Translate.language, {
+    russian: ['Метка'],
+    english: ['Tag']
+  }))
+
+
 
   if (parent !== 'fast_sign_up') {
     formData.userInfoId = UserInfo.userInfo.id
   }
 
-  useEffect(() => {
-    if (formData.ad_text.isEmpty) {
-      formData.ad_show = false
-    }
-  }, [formData.ad_text.isEmpty])
 
   const dataInit = (files) => {
     files.forEach(file => {
@@ -98,21 +113,30 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
     }
   }
 
+
+  useEffect(() => {
+    if (formData.ad_text.isEmpty || formData.ad_text.notValid || formData.ad_name.notValid || formData.ad_name.isEmpty) {
+      setFormData({ ...formData, ad_show: false })
+    } else if (!formData.ad_show_dirty && !formData.ad_text.isEmpty && !formData.ad_text.notValid && !formData.ad_name.isEmpty && !formData.ad_name.notValid) {
+      setFormData({ ...formData, ad_show: true })
+    }
+  }, [formData.ad_name.value, formData.ad_text.value])
+
   return (
     <div className='transport_form_container'>
       <Form encType="multipart/form-data" >
 
-        <TransportFormTag formData={formData} setError={setError} error={error} />
+        <TransportFormTag formData={formData} />
 
-        <TransportFormAdName formData={formData} setError={setError} error={error} />
-        <TransportFormAdText formData={formData} setError={setError} error={error} />
+        <TransportFormAdName formData={formData} />
+        <TransportFormAdText formData={formData} />
 
         <div className='transport_form_check_box_and_error_container'>
           <CheckBoxContainer >
             <CheckBoxSection >
               <input
-                disabled={error.ad_name || error.ad_text}
-                style={{ cursor: error.ad_name || error.ad_text ? 'not-allowed' : '' }}
+                disabled={formData.ad_name.isEmpty || formData.ad_name.notValid || formData.ad_text.isEmpty || formData.ad_text.notValid}
+                style={{ cursor: formData.ad_name.isEmpty || formData.ad_name.notValid || formData.ad_text.isEmpty || formData.ad_text.notValid ? 'not-allowed' : '' }}
                 type='checkbox' className='auth_checkbox' checked={formData.ad_show && 'checked'} value={formData.ad_show}
 
                 onChange={() => {
@@ -121,6 +145,9 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
                     data.ad_show = true
                   } else {
                     data.ad_show = false
+                  }
+                  if (!data.ad_show_dirty) {
+                    data.ad_show_dirty = true
                   }
                   setFormData(data)
                 }}
@@ -141,7 +168,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
             }}
           >
             {
-              formData.ad_text.isEmpty ?
+              formData.ad_text.isEmpty || formData.ad_name.isEmpty || formData.ad_text.notValid || formData.ad_name.notValid ?
                 SetNativeTranslate(Translate.language, {
                   russian: ['Для показа рекламы заполните рекламный текст и имя'],
                   english: ['To display ads, fill in the ad text and name']
@@ -153,7 +180,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
 
         <DragDropUpload filesFormData={filesFormData} pairs={pairs} setPairs={setPairs} files={files} setFiles={setFiles} parent={'transportForm'} formData={formData} setFormData={setFormData} length={5} min_length={1} extensions={['jpeg', 'png', 'jpg']} ></DragDropUpload>
 
-        <TransportFormSection formData={formData} setFormData={setFormData} click={click} setModalActive={setModalActive} formReset={formReset} files={files} formFunction={formFunction} error={error} />
+        <TransportFormSection formData={formData} setFormData={setFormData} click={click} setModalActive={setModalActive} formReset={formReset} files={files} formFunction={formFunction} />
 
 
       </Form>

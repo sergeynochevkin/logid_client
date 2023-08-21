@@ -8,19 +8,8 @@ import { observer } from 'mobx-react-lite'
 import { TranslateContext } from '../..'
 import { Textarea } from '../ui/form/Textarea'
 
-const TransportFormAdText = observer(({ formData, oneTransport, error, setError }) => {
-    const { Translate } = useContext(TranslateContext)
-
-    formData.ad_text = useInput('', { isEmpty: true, minLength: 20, maxLength: 150 }, SetNativeTranslate(Translate.language, {
-        russian: ['Рекламный текст'],
-        english: ['Advertising text']
-    }))
-
-
-    useEffect(() => {
-        formData.ad_text.notValid && !formData.ad_text.isEmpty  ? setError({ ...error, ad_text: true }) : setError({ ...error, ad_text: false })
-    }, [formData.ad_text])
-
+const TransportFormAdText = ({ formData }) => {
+    const { Translate } = useContext(TranslateContext)  
 
     return (
         <VerticalContainer
@@ -32,8 +21,7 @@ const TransportFormAdText = observer(({ formData, oneTransport, error, setError 
                     english: ['Advertising text, no more than 150 characters, please do not include phone, email, website. Vehicles with this data will not be displayed. We will display contact details from your profile']
                 })}
                 onInput={(e) => {
-                    formData.ad_text.onChange(e)
-                    formData.ad_show = false
+                    formData.ad_text.onChange(e)                  
                 }}
                 onBlur={e => formData.ad_text.onBlur(e)}
                 style={{ borderLeft: ((formData.ad_text.minLengthError && !formData.ad_text.isEmpty) || (formData.ad_text.maxLengthError && !formData.ad_text.isEmpty)) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
@@ -53,6 +41,6 @@ const TransportFormAdText = observer(({ formData, oneTransport, error, setError 
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default TransportFormAdText

@@ -7,19 +7,12 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 import { TranslateContext } from '../..'
 
-const TransportFormAdName = observer(({ formData, setError, error }) => {
+const TransportFormAdName = ({ formData }) => {
     const { Translate } = useContext(TranslateContext)
 
-    formData.ad_name = useInput('', { isEmpty: true, minLength: 4, maxLength: 20 }, SetNativeTranslate(Translate.language, {
-        russian: ['Имя для рекламы'],
-        english: ['Ad name']
-    }))
 
 
 
-    useEffect(() => {
-        formData.ad_name.notValid && !formData.ad_name.isEmpty ? setError({ ...error, ad_name: true }) : setError({ ...error, ad_name: false })
-    }, [formData.ad_name])
 
     return (
         <VerticalContainer
@@ -31,8 +24,7 @@ const TransportFormAdName = observer(({ formData, setError, error }) => {
                     english: ['Ad name']
                 })}
                 onChange={(e) => {
-                    formData.ad_name.onChange(e);
-                    formData.ad_show = false
+                    formData.ad_name.onChange(e);                 
                 }
                 }
                 onBlur={e => formData.ad_name.onBlur(e)}
@@ -52,6 +44,6 @@ const TransportFormAdName = observer(({ formData, setError, error }) => {
             </FieldName>
         </VerticalContainer>
     )
-})
+}
 
 export default TransportFormAdName
