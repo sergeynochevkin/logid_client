@@ -7,12 +7,15 @@ import { CardContainer } from '../ui/card/CardContainer'
 import { CardEquipment } from '../ui/card/CardEquipment'
 import { CardRow } from '../ui/card/CardRow'
 import { EquipmentRow } from '../ui/card/EquipmentRow'
-import { FetcherContext, NotificationContext, TranslateContext, TransportContext } from '../..'
+import { FetcherContext, NotificationContext, SettingContext, TranslateContext, TransportContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import Modal from '../ui/modal/Modal'
 import { v4 } from "uuid";
+import { Link } from 'react-router-dom'
+import link from '../../assets/icons/link.png';
+import link_dark from '../../assets/icons/link_dark.png';
 
 
 const TransportItem = observer(({ oneTransport, setModalActive, formData, setFormData, formReset, pairs, setPairs, files, setFiles, setFormFunction, setTransportId }) => {
@@ -20,6 +23,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
   const { fetcher } = useContext(FetcherContext)
   const { Transport } = useContext(TransportContext)
   const { Notification } = useContext(NotificationContext)
+  const { Setting } = useContext(SettingContext)
   const [modalActive1, setModalActive1] = useState(false)
   const [image, setImage] = useState('')
   const [images, setImages] = useState([])
@@ -163,8 +167,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           })}</CardColName>
           <CardColValue>{oneTransport.ad_text}</CardColValue>
         </>}
-
-      {oneTransport.ad_show && oneTransport.moderated === 'checked_accepted' ? <CardEquipment style={{ backgroundColor: 'rgb(129, 199, 132,0.8)' }}>{SetNativeTranslate(Translate.language, {
+      <CardRow>      {oneTransport.ad_show && oneTransport.moderated === 'checked_accepted' ? <CardEquipment style={{ backgroundColor: 'rgb(129, 199, 132,0.8)' }}>{SetNativeTranslate(Translate.language, {
         english: ['Shown on main page'],
         russian: ['Показывается на главной']
       })}</CardEquipment> : oneTransport.ad_show && oneTransport.moderated === 'not_checked' ?
@@ -176,8 +179,12 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
             english: [`Not accepted ${oneTransport.moderation_comment}`],
             russian: [`Отклонено ${oneTransport.moderation_comment}`]
           })}</CardEquipment> : <></>
-
       }
+        {oneTransport.ad_show && oneTransport.moderated === 'checked_accepted' ? <Link to={`/board/item/${oneTransport.id}`}>
+          <img  className = 'nav_bar_theme_icon' src={Setting.app_theme === 'light' ? link : link_dark}></img>
+        </Link> : <></>}
+      </CardRow>
+
 
       <CardRow>
         <CardButton onClick={deleteClick}>{SetNativeTranslate(Translate.language, {}, 'delete')}</CardButton>
