@@ -16,6 +16,7 @@ import arrow_back from '../../assets/icons/arrow_back.png';
 import arrow_back_dark from '../../assets/icons/arrow_back_dark.png';
 import { addContactView } from '../../http/adApi'
 import ShareComponent from '../../components/share/ShareComponent'
+import { setTime } from '../../modules/setTime'
 
 
 const BoardItemPage = observer(() => {
@@ -149,6 +150,7 @@ const BoardItemPage = observer(() => {
                             <div className='board_item_page_ad_text'>{transport.ad_text}</div>
                         </div>
                         <div className='board_item_page_info_statistics_container'>
+                            <div>{setTime(new Date(transport.updatedAt), 0, 'show')}</div>
                             <img className='board_item_page_icon' src={Setting.app_theme === 'light' ? eye : eye_dark}></img>
                             <div>{ad_user.viewed}</div>
                             <div>({ad_user.viewed_today})</div>
@@ -158,6 +160,7 @@ const BoardItemPage = observer(() => {
                         </div>
                     </div> : <></>}
                 {/* <div className={`board_right_container ${Setting.app_theme}`}></div> */}
+
             </div>
 
 
