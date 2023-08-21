@@ -448,7 +448,7 @@ const Main = observer(() => {
 
             <div className={`admin_console_container ${Setting.app_theme}`}>
 
-              {Management.visits &&
+              {Management.visits ?
                 <>
                   <AdminConsoleItem plan={70} currentRate={Management.visits.toDay} comment={
                     SetNativeTranslate(Translate.language,
@@ -470,7 +470,7 @@ const Main = observer(() => {
                         english: ['Visits per month']
                       }, '')
                   } />
-                </>
+                </> : <></>
               }
 
 
