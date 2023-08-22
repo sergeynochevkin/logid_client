@@ -15,7 +15,7 @@ const BoardList = observer(() => {
       {FilterAndSort.boardFilters.transports.city && FilterAndSort.boardFilters.transports.city !== 'Все' && FilterAndSort.boardFilters.transports.city !== 'All' && Ad.transports.board.length === 0 ?
         <NoData>
           {SetNativeTranslate(Translate.language, {
-            russian: ['Перевозчики в выбранном городе еще не опубликовали предложений, разместите зака'],
+            russian: ['Перевозчики в выбранном городе еще не опубликовали предложений, разместите заказ'],
             english: ['Carriers in the selected city have not yet published offers, place an order']
           })}
 
