@@ -15,7 +15,7 @@ export const FilterSelect = observer(({ fieldName, inputHandler, defaultvalue, s
             name={fieldName}
         >
             <option hidden>{defaultvalue}</option>
-            {sortOptions.map(option => <option key={option.name} value={ filterSet !== 'boardFilters' ? option.value : fieldName  === 'load_capacity' ? option.capacity : option.type  }>{option.name}</option>
+            {sortOptions.map(option => <option key={option.name} value={filterSet !== 'boardFilters' ? option.value : fieldName === 'load_capacity' ? option.capacity : option.type}>{fieldName === 'city' ? option : option.name}</option>
             )}
         </select>
 

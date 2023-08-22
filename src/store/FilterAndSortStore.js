@@ -96,8 +96,8 @@ export default class FilterAndSortStore {
         }
 
         this._boardFilters = localStorage.getItem('boardFilters') ? JSON.parse(localStorage.getItem('boardFilters')) : {
-            transports: {
-                limit: 20,
+            transports: {                
+                limit: 30,
                 main_limit: 5,
                 searchString: '',
                 selectedSort: '',

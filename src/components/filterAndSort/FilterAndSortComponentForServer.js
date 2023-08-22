@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, EquipmentTypeContext, FetcherContext, FilterAndSortContext, PartnerContext, SettingContext, TranslateContext, TransportTypeContext, UserContext } from '../..'
+import { AdressContext, ComponentFunctionContext, EquipmentTypeContext, FetcherContext, FilterAndSortContext, PartnerContext, SettingContext, TranslateContext, TransportTypeContext, UserContext } from '../..'
 import PartnerGroupItem from '../partner/PartnerGroupItem'
 import FilterInput from '../ui/form/FilterInput'
 import { FilterSelect } from '../ui/form/FilterSelect'
@@ -21,6 +21,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModalActive }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
+    const {Adress} = useContext(AdressContext)
     const [timeFromOnFocus, setTimeFromOnFocus] = useState(false)
     const [timeToOnFocus, setTimeToOnFocus] = useState(false)
     const { Partner } = useContext(PartnerContext)
@@ -98,6 +99,24 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
 
                     <div className='board_filters_selectors_container'>
                         <div className={`board_filters_selectors ${Setting.app_theme}`}>
+
+
+                            <FilterSelect
+                                fieldName='city'
+                                inputHandler={inputHandler}
+                                defaultvalue={SetNativeTranslate(Translate.language, {
+                                    russian: ['Город'],
+                                    english: ['City']
+                                },)}
+                                filterSet={'boardFilters'}
+                                filterSection={'transports'}
+                                sortOptions={[                                  
+                                      SetNativeTranslate(Translate.language, {
+                                            russian: ['Все'],
+                                            english: ['All']
+                                        }),...Adress.cities                                
+                                     ]}
+                            ></FilterSelect>
 
 
                             <FilterSelect

@@ -5,6 +5,7 @@ export default class AdressStore {
     constructor() {
 
         this._countries = []
+        this._cities = []
         this._country = {}
         this._country_detected = true
         // this._country = localStorage.getItem('country') ? JSON.parse(localStorage.getItem('country')) : {}
@@ -35,6 +36,14 @@ export default class AdressStore {
 
     get country_detected() {
         return this._country_detected
+    }
+
+    setCities(value) {
+        this._cities = value
+    }
+
+    get cities() {
+        return this._cities
     }
 }
 
