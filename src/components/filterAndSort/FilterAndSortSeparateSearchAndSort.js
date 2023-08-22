@@ -42,7 +42,7 @@ const FilterAndSortSeparateSearchAndSort = observer(({ parent, modalActive, setM
                     })}
                 />
 
-                <FilterSelect
+                {/* <FilterSelect
                     fieldName='selectedSort'
                     inputHandler={inputHandler}
                     defaultvalue={SetNativeTranslate(Translate.language, {}, 'sorting')}
@@ -54,7 +54,8 @@ const FilterAndSortSeparateSearchAndSort = observer(({ parent, modalActive, setM
                         { type: 'ratingUp', name: SetNativeTranslate(Translate.language, {}, 'rating_up') },
                         { type: 'ratingDown', name: SetNativeTranslate(Translate.language, {}, 'rating_down') }
                     ]}
-                ></FilterSelect>
+                ></FilterSelect> */}
+
                 {width < 770 &&
                     <img className='board_filter_icon' src={Setting.app_theme === 'light' ? tune : tune_dark}
                         onClick={() => {
