@@ -332,6 +332,10 @@
     font-size: 10px;
     align-self: flex-end;
 }
+.board_item_page_info_statistics_rating{
+    font-weight: bold;
+}
+
 
 .board_item_page_header {
     font-size: 18px;

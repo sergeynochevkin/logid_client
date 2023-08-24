@@ -150,6 +150,17 @@ const BoardItemPage = observer(() => {
                             <div className='board_item_page_ad_text'>{transport.ad_text}</div>
                         </div>
                         <div className='board_item_page_info_statistics_container'>
+                            <div>{SetNativeTranslate(Translate.language, {
+                                russian:['рейтинг logid'],
+                                english:['logid rating']
+                            })}</div>
+                            <div className='board_item_page_info_statistics_rating'>{ad_user.rating === 'no_rating' ?
+                            SetNativeTranslate(Translate.language, {
+                                russian:['нет оценок'],
+                                english:['no ratings']
+                            })
+                            : ad_user.rating
+                            }</div>
                             <div>{setTime(new Date(transport.updatedAt), 0, 'show')}</div>
                             <img className='board_item_page_icon' src={Setting.app_theme === 'light' ? eye : eye_dark}></img>
                             <div>{ad_user.viewed}</div>
