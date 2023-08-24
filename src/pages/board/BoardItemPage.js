@@ -159,7 +159,7 @@ const BoardItemPage = observer(() => {
                                 russian:['нет оценок'],
                                 english:['no ratings']
                             })
-                            : ad_user.rating
+                            : `${ad_user.rating}/10`
                             }</div>
                             <div>{setTime(new Date(transport.updatedAt), 0, 'show')}</div>
                             <img className='board_item_page_icon' src={Setting.app_theme === 'light' ? eye : eye_dark}></img>
