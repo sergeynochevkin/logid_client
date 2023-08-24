@@ -449,9 +449,9 @@ const Fetcher = observer(() => {
 
     useEffect(() => {
         async function fetch() {
-            await fetchAdTransports(FilterAndSort.boardFilters, Ad.transport_option).then(data => {
+            await fetchAdTransports(FilterAndSort.boardFilters, Ad.transport_option, user.isAuth ? UserInfo.userInfo.id : '').then(data => {
                 adImageHandler(data.rows, Ad.transport_option)
-                Ad.setUsers(data.users,Ad.transport_option)
+                Ad.setUsers(data.users, Ad.transport_option)
                 Ad.setTransports(data.rows, Ad.transport_option)
             })
         }

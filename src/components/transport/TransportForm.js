@@ -25,9 +25,6 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
   const { Notification } = useContext(NotificationContext)
   const [filesFormData, setFilesFormData] = useState(new FormData)
 
-
-  console.log(files);
-
   let dataTransfer = new DataTransfer();
   let fileList
 
