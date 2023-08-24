@@ -128,7 +128,7 @@ const BoardItemPage = observer(() => {
                             <div className='board_item_page_info'>
                                 <div className='board_item_page_ad_text'>{ad_user.city}</div>
                                 <div>{ad_user.name}</div>
-                                <div>{user.isAuth && showContact ? ad_user.phone :
+                                <div>{(user.isAuth && showContact) || transport.userInfoId === UserInfo.userInfo.id ? ad_user.phone :
                                     <Button
                                         onClick={() => {
                                             if (!user.isAuth) {
