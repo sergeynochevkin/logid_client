@@ -9,7 +9,6 @@ import './Main.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import MainSection from './MainSection'
 
-import { useJsApiLoader } from '@react-google-maps/api'
 
 import av1 from '../../assets/avatars/av1.webp';
 import av3 from '../../assets/avatars/av3.webp';

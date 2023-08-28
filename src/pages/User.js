@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useJsApiLoader } from '@react-google-maps/api'
 import styled from 'styled-components'
 import OrderForm from '../components/order/OrderForm'
 import OrderList from '../components/order/OrderList'
