@@ -408,7 +408,6 @@ const Main = observer(() => {
             <title>{`logid`}</title>
             <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
-            {/* {Ad.transports.main.length > 0 && <AdTransportSection />} */}
 
             {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ?
               <div className='adv_rate_section'>
@@ -431,10 +430,12 @@ const Main = observer(() => {
               </div>
               : <></>}
 
-            {sections.filter(el=>el.id !==4 & el.id !==5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+            {Ad.transports.main.length > 0 && <AdTransportSection />}
+
+            {sections.filter(el => el.id !== 4 & el.id !== 5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
               <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
             )}
-            
+
           </PageContainer>
 
           {/* {!cookies_accepted.main && loaded ?
@@ -449,7 +450,7 @@ const Main = observer(() => {
 
             <div className={`admin_console_container ${Setting.app_theme}`}>
 
-              {Management.visits.month>0 ?
+              {Management.visits.month > 0 ?
                 <>
                   <AdminConsoleItem plan={70} currentRate={Management.visits.toDay} comment={
                     SetNativeTranslate(Translate.language,
