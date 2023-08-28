@@ -544,7 +544,7 @@ const FastSignUp = observer(() => {
                     }
                 </Button>
 
-                    {role && role === 'customer' ?
+                    {!role || role === 'customer' ?
                         <Link to={`/board`} >
                             <Button>
                                 {SetNativeTranslate(Translate.language, {
