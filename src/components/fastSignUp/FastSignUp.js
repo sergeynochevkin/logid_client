@@ -39,15 +39,17 @@ const FastSignUp = observer(() => {
     const { UserInfo } = useContext(UserInfoContext)
     const { fetcher } = useContext(FetcherContext)
     const { height, width } = useWindowDimensions();
-    const [formVisible, setFormVisible] = useState()
+    const [formVisible, setFormVisible] = useState(true)
+    const queryParams = new URLSearchParams(window.location.search)
+    const role = queryParams.get("role")
 
 
 
-    useEffect(() => {
-        if (width < 770) {
-            setFormVisible(false)
-        } else { setFormVisible(true) }
-    }, [])
+    // useEffect(() => {
+    //     if (width < 770) {
+    //         setFormVisible(false)
+    //     } else { setFormVisible(true) }
+    // }, [])
 
     let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -541,14 +543,18 @@ const FastSignUp = observer(() => {
                         })
                     }
                 </Button>
-                    <Link to={`/board`} >
-                        <Button>
-                            {SetNativeTranslate(Translate.language, {
-                                russian: ['Предложения перевозчиков'],
-                                english: ['Carrier offers']
-                            })}
-                        </Button>
-                    </Link>
+
+                    {role && role === 'customer' ?
+                        <Link to={`/board`} >
+                            <Button>
+                                {SetNativeTranslate(Translate.language, {
+                                    russian: ['Предложения перевозчиков'],
+                                    english: ['Carrier offers']
+                                })}
+                            </Button>
+                        </Link> : <></>
+                    }
+
                 </div>
             }
         </>

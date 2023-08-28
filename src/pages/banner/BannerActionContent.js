@@ -31,8 +31,8 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                     {Adress.country.value === 'russia' ?
                         <>
                             <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
-                                russian: ['Регистрируйтесь сейчас, это бесплатно!'],
-                                english: ['Register now, it is free!']
+                                russian: ['Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно. Предложение ограничено!'],
+                                english: ['Register now, we give you a year of professional subscription for free. The offer is limited!']
                             })}</div>
                         </> :
                         <>
