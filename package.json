@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "css-loader": "^6.8.1",
     "webpack-bundle-analyzer": "^4.9.0"
   }
 }
