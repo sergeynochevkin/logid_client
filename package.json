@@ -28,8 +28,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-stats":"npm run build -- --stats",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "run-webpack-bundle-analyzer":"webpack-bundle-analyzer ./build/bundle-stats.json"
   },
   "eslintConfig": {
     "extends": [
@@ -48,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^4.9.0"
   }
 }
