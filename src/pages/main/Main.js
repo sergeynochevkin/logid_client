@@ -6,6 +6,7 @@ import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../../http/notificationApi'
 import './Main.css'
+import '../board/Board.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import MainSection from './MainSection'
 
