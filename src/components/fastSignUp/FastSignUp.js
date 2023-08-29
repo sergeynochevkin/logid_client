@@ -11,7 +11,7 @@ import { Input } from '../ui/form/Input'
 import { Select } from '../ui/form/Select'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import { v4 } from "uuid";
 import arrow_up from '../../assets/icons/arrow_up_.png';
 import arrow_up_dark from '../../assets/icons/arrow_up_dark_.png';
@@ -24,6 +24,10 @@ import { MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE } from '../../utils/consts'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
+
+
+const ReCAPTCHA = React.lazy(() => import('react-google-recaptcha'))
+
 
 const FastSignUp = observer(() => {
     const { Translate } = useContext(TranslateContext)
