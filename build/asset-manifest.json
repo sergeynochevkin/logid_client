@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9a025035.css",
+    "main.js": "/static/js/main.3a6fc850.js",
+    "static/js/386.0d2a59dc.chunk.js": "/static/js/386.0d2a59dc.chunk.js",
+    "static/js/537.6dff6ea3.chunk.js": "/static/js/537.6dff6ea3.chunk.js",
+    "static/js/535.9eda9b1f.chunk.js": "/static/js/535.9eda9b1f.chunk.js",
+    "static/media/courier.webp": "/static/media/courier.b450a95d2d83d6bfff43.webp",
+    "static/media/Jost-VariableFont_wght.ttf": "/static/media/Jost-VariableFont_wght.6de07354a7108bacf175.ttf",
+    "static/media/logistics.webp": "/static/media/logistics.0b90d7dfc12b0268000d.webp",
+    "static/media/av1.webp": "/static/media/av1.69fa5c14ed3c49cbeaad.webp",
+    "static/media/av6.webp": "/static/media/av6.676fbbeb51f5cac2bfe8.webp",
+    "static/media/av5.webp": "/static/media/av5.0387c1f8e6a290ab0178.webp",
+    "static/media/av3.webp": "/static/media/av3.1cbae3327442d99efb39.webp",
+    "static/media/av8.webp": "/static/media/av8.b7a9ec460c048cf6e5fb.webp",
+    "static/media/logo_russian_dark.webp": "/static/media/logo_russian_dark.2ca2a7849d59407f8972.webp",
+    "static/media/logo_russian_light.webp": "/static/media/logo_russian_light.51958d972cc50e58d95f.webp",
+    "static/media/logo_light.webp": "/static/media/logo_light.f82b3104a4aeff6c0990.webp",
+    "static/media/logo_dark.webp": "/static/media/logo_dark.2a90702b6f827fc82528.webp",
+    "static/media/av9.webp": "/static/media/av9.016d2029b2d79dd3468b.webp",
+    "index.html": "/index.html",
+    "main.9a025035.css.map": "/static/css/main.9a025035.css.map",
+    "main.3a6fc850.js.map": "/static/js/main.3a6fc850.js.map",
+    "386.0d2a59dc.chunk.js.map": "/static/js/386.0d2a59dc.chunk.js.map",
+    "537.6dff6ea3.chunk.js.map": "/static/js/537.6dff6ea3.chunk.js.map",
+    "535.9eda9b1f.chunk.js.map": "/static/js/535.9eda9b1f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9a025035.css",
+    "static/js/main.3a6fc850.js"
+  ]
+}
