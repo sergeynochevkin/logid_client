@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Suspense, useContext, useEffect, useState } from 'react'
 import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
 import PageContainer from '../../components/ui/page/PageContainer'
@@ -7,7 +7,7 @@ import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../../http/notificationApi'
 import './Main.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-import MainSection from './MainSection'
+// import MainSection from './MainSection'
 
 
 import av1 from '../../assets/avatars/av1.webp';
@@ -46,6 +46,8 @@ import PageLoader from '../../components/ui/loader/PageLoader '
 import AdTransportSection from './AdTransportSection'
 import { useLocation } from 'react-router-dom'
 
+
+const MainSection = React.lazy(() => import('./MainSection'))
 
 
 const Main = observer(() => {
@@ -433,7 +435,9 @@ const Main = observer(() => {
             {Ad.transports.main.length > 0 && <AdTransportSection />}
 
             {sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-              <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+              <Suspense>
+                <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+              </Suspense>
             )}
 
           </PageContainer>
