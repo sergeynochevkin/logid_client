@@ -10,6 +10,8 @@ export default class AdressStore {
         this._country_detected = true
         // this._country = localStorage.getItem('country') ? JSON.parse(localStorage.getItem('country')) : {}
 
+        this._location = {}
+
         makeAutoObservable(this)
     }
 
@@ -44,6 +46,14 @@ export default class AdressStore {
 
     get cities() {
         return this._cities
+    }
+
+    setLocation(value) {
+        this._location = value
+    }
+
+    get location() {
+        return this._location
     }
 }
 

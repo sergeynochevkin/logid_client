@@ -7,19 +7,21 @@ import PreLoader from "./PreLoader";
 import Fetcher from "./Fetcher";
 import Notificator from "./Notificator";
 import './App.css'
+import Geolocator from "./Geolocator";
 
 const App = observer(() => {
 
   return (
     <BrowserRouter>
       <PreLoader>
-        <Fetcher/>
-          <Notificator />
-          <NavBar />
-          <AppRouter>
-            <div className="App"></div>
-          </AppRouter>
-          <Footer />
+        <Fetcher />
+        <Geolocator />
+        <Notificator />
+        <NavBar />
+        <AppRouter>
+          <div className="App"></div>
+        </AppRouter>
+        <Footer />
       </PreLoader>
     </BrowserRouter>
   );

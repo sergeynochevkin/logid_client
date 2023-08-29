@@ -345,6 +345,31 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
     const points_in_the_order = SetNativeTranslate(Translate.language, {}, 'points_in_the_order')
 
 
+    useEffect(
+        () => {
+            console.log(JSON.stringify(Adress.location));
+            if (gMap && Adress.location.lat) {
+                console.log('yes');
+                //eslint-disable-next-line no-undef
+                let marker = new google.maps.Marker({
+                    position: { lat: parseFloat(Adress.location.lat), lng: parseFloat(Adress.location.lng) },
+                    gMap,
+                    title: `Here i am`,
+                    // label: {
+                    //     text: labelIcon,
+                    //     fontFamily: "Material Icons",
+                    //     color: "#ffffff",
+                    //     fontSize: "16px",
+                    // }
+                })                
+                console.log(marker);
+                marker.setMap(gMap)
+            }
+        }
+        , [Adress.location, gMap])
+
+
+
     useEffect(() => {
         if (user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new' && gMap) {
             if (order.map_orders && order.map_orders.length > 0 && gMarkers.length === 0) {
@@ -468,11 +493,14 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     gMarkers.push(marker)
                     newMarkers.push(marker)
                     addInfoWindow(marker, markerContent)
-                }
+                } 
+
+
                 for (const marker of newMarkers) {
                     marker.setMap(gMap)
                 }
             }
+
             else {
                 if (gMarkers.length > 0) {
                     for (const marker of gMarkers) {
