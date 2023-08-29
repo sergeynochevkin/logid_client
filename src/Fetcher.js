@@ -555,7 +555,7 @@ const Fetcher = observer(() => {
                 pingInterval={4000} // milliseconds 
                 thresholdUnit='megabyte' // "byte" , "kilobyte", "megabyte" 
                 threshold={1000}
-                imageUrl={Setting.app_theme === 'light' ? "./static/media/logo_russian_light.4eac16b4e5a52618270b.png" : "https://logid.app/static/media/logo_russian_dark.6615465e2e42772091bd.png"}
+                imageUrl={Setting.app_theme === 'light' ? "./static/media/logo_russian_light.51958d972cc50e58d95f.webp" : "./static/media/logo_russian_dark.2ca2a7849d59407f8972.webp"}
                 downloadSize="1781287"  //bytes
                 callbackFunctionOnNetworkDown={(speed) => {
                     if (speed === 0) {
