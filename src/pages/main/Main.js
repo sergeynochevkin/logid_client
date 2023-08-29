@@ -7,7 +7,7 @@ import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../../http/notificationApi'
 import './Main.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-// import MainSection from './MainSection'
+import MainSection from './MainSection'
 
 
 import av1 from '../../assets/avatars/av1.webp';
@@ -42,11 +42,11 @@ import route_dark from '../../assets/icons/route_dark.png';
 import transport from '../../assets/icons/transport.png';
 import transport_dark from '../../assets/icons/transport_dark.png';
 import AdminConsoleItem from './AdminConsoleItem'
+import PageLoader from '../../components/ui/loader/PageLoader '
 import AdTransportSection from './AdTransportSection'
 import { useLocation } from 'react-router-dom'
 
 
-const MainSection = React.lazy(() => import('./MainSection'))
 
 const Main = observer(() => {
   const { fetcher } = useContext(FetcherContext)
