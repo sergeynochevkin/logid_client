@@ -287,11 +287,11 @@
     }
 
     .scroll_bar_container_dark {
-        max-width: 380px;
+        max-width: 90vw;
         /* color: white; */
     }
 
     .scroll_bar_container {
-        max-width: 380px;
+        max-width: 90vw;
     }
 }

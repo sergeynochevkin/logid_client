@@ -132,4 +132,8 @@
     .modalContent {
         border-radius: 5px 15px 5px 5px;
     }
+
+    .modal_container {
+        min-width: 320px;
+    }
 }

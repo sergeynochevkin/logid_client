@@ -1,6 +1,6 @@
 .fast_sign_up_container {
     /* height: 300px; */
-    width: 400px;
+    /* width: 400px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,7 @@
 }
 
 .fast_sign_up_section {
-    width: 380px;
+    /* width: 380px; */
     display: flex;
     flex-direction: column;
     justify-content: center;

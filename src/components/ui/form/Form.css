@@ -161,3 +161,16 @@
 .checkbox_container_dark {
     color: white;
 }
+
+@media screen and (max-width: 425px) {
+    /* .custom_input{
+        min-width: 220px;
+    }   
+    .custom_select{
+        min-width: 220px;
+
+    }
+    .custom_textarea{
+        min-width: 220px;
+    } */
+}

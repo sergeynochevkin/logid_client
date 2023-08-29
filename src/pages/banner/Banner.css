@@ -209,12 +209,14 @@
 
     .main_banner_half_1_container {
         margin-top: 10px;
-        width: 380px;
+        min-width: 320px;
+        width: 80vw;
         min-height: 50px;
     }
 
     .main_banner_half_2_container {
-        width: 380px;
+        min-width: 320px;
+        width: 90vw;
         min-height: 200px;
         margin-bottom: 10px;
     }

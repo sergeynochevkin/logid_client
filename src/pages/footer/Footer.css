@@ -121,7 +121,7 @@
     }
 
     .footer_copyright_container {
-        width: 360px;
+        max-width: 90vw;
     }
 
 

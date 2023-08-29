@@ -28,10 +28,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build-stats":"npm run build -- --stats",
+    "build-stats": "npm run build -- --stats",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "run-webpack-bundle-analyzer":"webpack-bundle-analyzer ./build/bundle-stats.json"
+    "run-webpack-bundle-analyzer": "webpack-bundle-analyzer ./build/bundle-stats.json"
   },
   "eslintConfig": {
     "extends": [

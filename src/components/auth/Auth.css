@@ -81,7 +81,7 @@
 @media screen and (max-width: 425px) {
     .auth_disclaimer {
         padding-bottom: 300px;
-        width: 380px;
+        width: 90vw;
     }
 
     .auth_container {
