@@ -30,7 +30,7 @@ export const authRoutes = [
 export const publicRoutes = [
     {
         path: MAIN_ROUTE,
-        Component: <Suspense fallback={null}> <Main /></Suspense>
+        Component: <Main />
     },
     {
         path: BOARD_ROUTE,
