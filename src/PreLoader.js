@@ -8,7 +8,6 @@ import { check } from './http/userAPI'
 import { fetchUserInfo } from './http/userInfoApi'
 import { ADMIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE, } from './utils/consts'
 import axios from "axios";
-import { fetchTransport } from './http/transportApi'
 import PageLoader from './components/ui/loader/PageLoader '
 import { addVisit } from './http/adApi'
 import { useJsApiLoader } from '@react-google-maps/api'
@@ -213,7 +212,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
 
     return (
-        <div{...props}>{!dataLoaded || !isLoaded ? <PageLoader /> : children}</div>
+        <div{...props}>{!dataLoaded  ? <PageLoader /> : children}</div>
     )
 
 })
