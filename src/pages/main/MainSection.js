@@ -1,15 +1,14 @@
 import { observer } from 'mobx-react-lite'
-import React, { Suspense, useContext } from 'react'
+import React, { useContext } from 'react'
 import { AdContext, SettingContext, UserContext } from '../..'
-// import SubscriptionForm from '../../components/subscription/SubscriptionForm'
+import SubscriptionForm from '../../components/subscription/SubscriptionForm'
 import './Main.css'
 import MainSectionItem from './MainSectionItem'
 import '../../components/order/Order.css'
 import CaptureForm from '../../components/captureForm/CaptureForm'
 import swipe from '../../assets/icons/swipe.png';
 import swipe_dark from '../../assets/icons/swipe_dark.png';
-
-const SubscriptionForm = React.lazy(() => import('../../components/subscription/SubscriptionForm'))
+import AdTransportSection from './AdTransportSection'
 
 const MainSection = observer(({ section, items, callRequested, setCallRequested }) => {
 
@@ -55,9 +54,7 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
             : <>
             <div className='self_content_container'>
               <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
-               <Suspense>
                 <SubscriptionForm parent={'main'} mainRole={section.role} />
-                </Suspense>
               </div>
               <div className='swipe_icon_container'>
                 <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark} />
