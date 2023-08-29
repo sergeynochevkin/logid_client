@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { AdContext, SettingContext, UserContext } from '../..'
-// import SubscriptionForm from '../../components/subscription/SubscriptionForm'
+import SubscriptionForm from '../../components/subscription/SubscriptionForm'
 import './Main.css'
 import MainSectionItem from './MainSectionItem'
 import '../../components/order/Order.css'
@@ -15,8 +15,6 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
   const { Setting } = useContext(SettingContext)
   const { user } = useContext(UserContext)
   const { Ad } = useContext(AdContext)
-
-  const SubscriptionForm = React.lazy(() => import('../../components/subscription/SubscriptionForm'))
 
   return (
     <div className={`section_container ${section.class} ${Setting.app_theme === 'light' ? '' : 'dark'}`}>
@@ -54,14 +52,14 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
               </div>
             </div>
             : <>
-              <div className='self_content_container'>
-                <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
-                  <SubscriptionForm parent={'main'} mainRole={section.role} />
-                </div>
-                <div className='swipe_icon_container'>
-                  <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark} />
-                </div>
+            <div className='self_content_container'>
+              <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
+                <SubscriptionForm parent={'main'} mainRole={section.role} />
               </div>
+              <div className='swipe_icon_container'>
+                <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark} />
+              </div>
+            </div>
             </>
       }
       {!user.user.role && !callRequested ? <CaptureForm setCallRequested={setCallRequested} section={section} /> : <></>}
