@@ -3,14 +3,14 @@ import { ADMIN_ROUTE, USER_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, BOARD_ROUTE, BOARD_
 import Main from './pages/main/Main'
 // import User from "./pages/User"
 // import Board from "./pages/board/Board"
-// import BoardItemPage from "./pages/board/BoardItemPage"
+import BoardItemPage from "./pages/board/BoardItemPage"
 import asyncComponent from "./components/AsyncComponent"
 
 const Management = asyncComponent(() => import("./pages/Management"));
 // const Main = asyncComponent(() => import("./pages/main/Main"));
 const User = asyncComponent(() => import("./pages/User"));
 const Board = asyncComponent(() => import("./pages/board/Board"));
-const BoardItemPage = asyncComponent(() => import("./pages/board/BoardItemPage"));
+// const BoardItemPage = asyncComponent(() => import("./pages/board/BoardItemPage"));
 
 
 export const authRoutes = [
