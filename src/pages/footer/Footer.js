@@ -6,7 +6,7 @@ import Modal from '../../components/ui/modal/Modal'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import './Footer.css'
 import FooterSection from './FooterSection'
-import logo_dark from '../../assets/logo_dark.png';
+import logo_dark from '../../assets/logo_dark.webp';
 import {
   TelegramIcon,
   TelegramShareButton,
