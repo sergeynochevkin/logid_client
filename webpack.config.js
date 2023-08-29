@@ -5,9 +5,6 @@ module.exports = {
     cache: false,
     devtool: 'cheap-module-source-map',
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
-        }),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             mangle: true,
