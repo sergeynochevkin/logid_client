@@ -113,12 +113,16 @@
 .internet_speed_container{
     position: fixed;
     left: 5px;
-    top:5px;
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    background-color: rgb(245,245,245,0.5);
+    top:0px; 
     z-index: 3;
+}
+.internet_speed_icon{
+    height: 22px;
+    width: auto;
+}
+
+.internet_speed_container.location{
+    top:25px; 
 }
 
 @media screen and (max-width: 1920px)and (min-width: 769px) {}

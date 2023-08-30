@@ -15,7 +15,7 @@ const App = observer(() => {
     <BrowserRouter>
       <PreLoader>
         <Fetcher />
-        {/* <Geolocator /> */}
+        <Geolocator />
         <Notificator />
         <NavBar />
         <AppRouter>

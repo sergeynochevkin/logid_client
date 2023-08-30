@@ -5,7 +5,7 @@ export default class LinktStore {
         this._refer = { action: '', id: '' }
         this._order = { status: '', id: '' }
         this._internet_speed = ''
-        this._internet = true
+        this._internet = false
         this._after_actions = {
             add_transport_form: false
         }

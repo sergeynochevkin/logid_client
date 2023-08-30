@@ -1,16 +1,18 @@
 import React, { useContext, useEffect } from 'react'
 import { useGeolocated } from "react-geolocated";
-import { AdressContext } from '.';
+import { AdressContext, UserContext } from '.';
 import { observer } from 'mobx-react-lite';
 
 const Geolocator = observer(() => {
     const { Adress } = useContext(AdressContext)
+    const { user } = useContext(UserContext)
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
         useGeolocated({
             positionOptions: {
                 enableHighAccuracy: false,
             },
             userDecisionTimeout: 1000,
+            suppressLocationOnMount: true
         });
 
     const getLocation = () => {
@@ -20,29 +22,35 @@ const Geolocator = observer(() => {
     }
 
     const showPosition = (position) => {
-        Adress.setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        })
+        Adress.setLocation(position.coords.latitude, 'lat')
+        Adress.setLocation(position.coords.longitude, 'lng')
+        Adress.setLocation('detected', 'status')
     }
 
-    useEffect(()=>{
-        getLocation()
-    },[])
+    useEffect(() => {
+        if (user && user.isAuth) {
+            getLocation()
+        }
+    }, [])
 
-    return !isGeolocationAvailable ? (
-        <div>Your browser does not support Geolocation</div>
-    ) : !isGeolocationEnabled ? (
-        <>
-            <div>Geolocation is not enabled</div>
-        </>
-    ) : coords ? (
-        <>
-            <div>We have location</div>
-        </>
-    ) : (
-        <div>Getting the location data&hellip; </div>
-    );
+    useEffect(() => {
+        if (user && user.isAuth) {
+            getLocation()
+        }
+    }, [user.isAuth])
+
+    useEffect(() => {
+        console.log('yes');
+        Adress.location.fetch && getLocation()
+        Adress.setLocation(false, 'fetch')
+    }, [Adress.location.fetch])
+
+
+    useEffect(() => {
+        !isGeolocationEnabled ? Adress.setLocation('not_enabled', 'status') : coords ? Adress.setLocation('detected', 'status') : Adress.setLocation('in_progress', 'status')
+    }, [isGeolocationEnabled, coords])
+
+    return (<></>)
 })
 
 

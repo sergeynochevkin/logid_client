@@ -22,6 +22,7 @@ import logo_russian_light from '../../assets/logo_russian_light.webp';
 import Auth from '../../components/auth/Auth';
 import ShareComponent from '../../components/share/ShareComponent';
 import InternedSpeed from './InternedSpeed';
+import LocationStatus from './LocationStatus';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -61,6 +62,7 @@ const NavBar = observer(() => {
   return (
     <>
       <InternedSpeed />
+      <LocationStatus/>
       <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
         <NotificationComponent />
 

@@ -6,8 +6,25 @@ import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
 import { setDistance } from '../../modules/setDistance'
 import { setDuration } from '../../modules/setDuration'
-    ;
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import nav from '../../assets/icons/nav.webp';
+import nav_dark from '../../assets/icons/nav_dark.webp';
+import walk from '../../assets/icons/walk.webp';
+import walk_dark from '../../assets/icons/walk_dark.webp';
+import bike from '../../assets/icons/bike.webp';
+import bike_dark from '../../assets/icons/bike_dark.webp';
+import el_scooter from '../../assets/icons/el_scooter.webp';
+import el_scooter_dark from '../../assets/icons/el_scooter_dark.webp';
+import truck from '../../assets/icons/truck.webp';
+import truck_dark from '../../assets/icons/truck_dark.webp';
+import scooter from '../../assets/icons/scooter.webp';
+import scooter_dark from '../../assets/icons/scooter_dark.webp';
+import car from '../../assets/icons/car.webp';
+import car_dark from '../../assets/icons/car_dark.webp';
+import minibus from '../../assets/icons/minibus.webp';
+import minibus_dark from '../../assets/icons/minibus_dark.webp';
+import star from '../../assets/icons/star.webp';
+import star_dark from '../../assets/icons/star_dark.webp';
 
 const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime }) => {
     const { UserInfo } = useContext(UserInfoContext)
@@ -347,22 +364,21 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
     useEffect(
         () => {
-            console.log(JSON.stringify(Adress.location));
             if (gMap && Adress.location.lat) {
-                console.log('yes');
+
                 //eslint-disable-next-line no-undef
                 let marker = new google.maps.Marker({
                     position: { lat: parseFloat(Adress.location.lat), lng: parseFloat(Adress.location.lng) },
                     gMap,
                     title: `Here i am`,
+                    icon: Setting.app_theme === 'light' ? nav : nav_dark
                     // label: {
                     //     text: labelIcon,
                     //     fontFamily: "Material Icons",
                     //     color: "#ffffff",
                     //     fontSize: "16px",
                     // }
-                })                
-                console.log(marker);
+                })
                 marker.setMap(gMap)
             }
         }
@@ -393,27 +409,28 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
                     let labelIcon =
-                        State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" :
-                            orderItem.type === 'walk' ? "\ue536" :
-                                orderItem.type === 'bike' ? "\ueb29" :
-                                    orderItem.type === 'electric_scooter' ? '\ueb1f' :
-                                        orderItem.type === 'scooter' ? "\ueb1d" :
-                                            orderItem.type === 'car' ? "\ue531" :
-                                                orderItem.type === 'combi' ? "\ueb3c" :
-                                                    orderItem.type === 'minibus' ? "\ueb3c" :
-                                                        orderItem.type === 'truck' ? '\ue558' : ''
+                        State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? (Setting.app_theme === 'light' ? star : star_dark) :
+                            orderItem.type === 'walk' ? (Setting.app_theme === 'light' ? walk : walk_dark) :
+                                orderItem.type === 'bike' ? (Setting.app_theme === 'light' ? bike : bike_dark) :
+                                    orderItem.type === 'electric_scooter' ? (Setting.app_theme === 'light' ? el_scooter : el_scooter_dark) :
+                                        orderItem.type === 'scooter' ? (Setting.app_theme === 'light' ? scooter : scooter_dark) :
+                                            orderItem.type === 'car' ? (Setting.app_theme === 'light' ? car : car_dark) :
+                                                orderItem.type === 'combi' ? (Setting.app_theme === 'light' ? minibus : minibus_dark) :
+                                                    orderItem.type === 'minibus' ? (Setting.app_theme === 'light' ? minibus : minibus_dark) :
+                                                        orderItem.type === 'truck' ? (Setting.app_theme === 'light' ? truck : truck_dark) : ''
 
                     //eslint-disable-next-line no-undef
                     let marker = new google.maps.Marker({
                         position: { lat: parseFloat(orderItem.start_lat), lng: parseFloat(orderItem.start_lng) },
+                        icon: labelIcon,
                         gMap,
                         title: `${orderItem.id}`,
-                        label: {
-                            text: labelIcon,
-                            fontFamily: "Material Icons",
-                            color: "#ffffff",
-                            fontSize: "16px",
-                        }
+                        // label: {
+                        //     text: labelIcon,
+                        //     fontFamily: "Material Icons",
+                        //     color: "#ffffff",
+                        //     fontSize: "16px",
+                        // }
                     })
                     gMarkers.push(marker)
                     addInfoWindow(marker, markerContent, orderItem.id)
@@ -469,22 +486,22 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
                     let labelIcon =
-                        State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" :
-                            orderItem.type === 'walk' ? "\ue536" :
-                                orderItem.type === 'bike' ? "\ueb29" :
-                                    orderItem.type === 'electric_scooter' ? '\ueb1f' :
-                                        orderItem.type === 'scooter' ? "\ueb1d" :
-                                            orderItem.type === 'car' ? "\ue531" :
-                                                orderItem.type === 'combi' ? "\ueb3c" :
-                                                    orderItem.type === 'minibus' ? "\ueb3c" :
-                                                        orderItem.type === 'truck' ? '\ue558' : ''
+                        State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? (Setting.app_theme === 'light' ? star : star_dark)  :
+                            orderItem.type === 'walk' ? (Setting.app_theme === 'light' ? walk : walk_dark) :
+                                orderItem.type === 'bike' ? (Setting.app_theme === 'light' ? bike : bike_dark) :
+                                    orderItem.type === 'electric_scooter' ? (Setting.app_theme === 'light' ? el_scooter : el_scooter_dark) :
+                                        orderItem.type === 'scooter' ? (Setting.app_theme === 'light' ? scooter : scooter_dark) :
+                                            orderItem.type === 'car' ? (Setting.app_theme === 'light' ? car : car_dark) :
+                                                orderItem.type === 'combi' ? (Setting.app_theme === 'light' ? minibus : minibus_dark) :
+                                                    orderItem.type === 'minibus' ? (Setting.app_theme === 'light' ? minibus : minibus_dark) :
+                                                        orderItem.type === 'truck' ? (Setting.app_theme === 'light' ? truck : truck_dark) : ''
 
                     //eslint-disable-next-line no-undef
                     let marker = new google.maps.Marker({
                         position: { lat: parseFloat(orderItem.start_lat), lng: parseFloat(orderItem.start_lng) },
                         title: `${orderItem.id}`,
                         label: {
-                            text: labelIcon,
+                            icon: labelIcon,
                             fontFamily: "Material Icons",
                             color: "#ffffff",
                             fontSize: "16px",
@@ -493,7 +510,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     gMarkers.push(marker)
                     newMarkers.push(marker)
                     addInfoWindow(marker, markerContent)
-                } 
+                }
 
 
                 for (const marker of newMarkers) {
