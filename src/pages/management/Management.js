@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { ComponentFunctionContext, SettingContext, TranslateContext } from '..'
-import { BookMark } from '../components/ui/button/BookMark'
-import PageContainer from '../components/ui/page/PageContainer'
-import Users from '../components/management/users/Users'
-import Managers from '../components/management/Managers'
-import Orders from '../components/management/Orders'
-import Settings from '../components/management/Settings'
-import Statistics from '../components/management/Statistics'
-import Account from '../components/management/Account'
-import { SetNativeTranslate } from '../modules/SetNativeTranslate'
-import ManagementTransportComponent from '../components/management/transports/ManagementTransportComponent'
+import { ComponentFunctionContext, SettingContext, TranslateContext } from '../..'
+import { BookMark } from '../../components/ui/button/BookMark'
+import Users from '../../components/management/users/Users'
+import Managers from '../../components/management/Managers'
+import Orders from '../../components/management/Orders'
+import Settings from '../../components/management/Settings'
+import Statistics from '../../components/management/Statistics'
+import Account from '../../components/management/Account'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import ManagementTransportComponent from '../../components/management/transports/ManagementTransportComponent'
+import './Management.css'
 
 const Admin = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -18,7 +18,7 @@ const Admin = observer(() => {
   const { Translate } = useContext(TranslateContext)
 
   return (
-    <PageContainer>
+    <div className={`main_page_container ${Setting.app_theme}`}>
       <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
         <div className='scroll_content_container'>
 
@@ -95,7 +95,7 @@ const Admin = observer(() => {
                       : <></>
       }
 
-    </PageContainer>
+    </div>
   )
 })
 

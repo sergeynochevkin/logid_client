@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
 import MainBanner from '../banner/MainBanner'
-import PageContainer from '../../components/ui/page/PageContainer'
 import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../../http/notificationApi'
 import './Main.css'
@@ -405,7 +404,7 @@ const Main = observer(() => {
     <>
       {user.user.role !== 'admin' && user.user.role !== 'manager' ?
         <>
-          <PageContainer>
+          <div className={`main_page_container ${Setting.app_theme}`}>
             <title>{`logid`}</title>
             <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
@@ -437,7 +436,7 @@ const Main = observer(() => {
               <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
             )}
 
-          </PageContainer>
+          </div>
 
           {/* {!cookies_accepted.main && loaded ?
               <ModalBottom modalActive={modalActive2} >
@@ -447,7 +446,7 @@ const Main = observer(() => {
             } */}
 
         </> : user.user.role === 'admin' ?
-          <PageContainer>
+          <div className={`main_page_container ${Setting.app_theme}`}>
 
             <div className={`admin_console_container ${Setting.app_theme}`}>
 
@@ -534,7 +533,7 @@ const Main = observer(() => {
             </div>
 
 
-          </PageContainer> : <></>}
+          </div> : <></>}
 
     </>
   )

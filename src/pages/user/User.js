@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import OrderForm from '../components/order/OrderForm'
-import OrderList from '../components/order/OrderList'
-import { Area50 } from '../components/ui/area/Area50'
-import PageBanner from './banner/PageBanner'
-import { BookMark } from '../components/ui/button/BookMark'
-import PageContainer from '../components/ui/page/PageContainer'
-import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext, LinkContext, NotificationContext } from '..'
+import OrderForm from '../../components/order/OrderForm'
+import OrderList from '../../components/order/OrderList'
+import { Area50 } from '../../components/ui/area/Area50'
+import PageBanner from '../banner/PageBanner'
+import { BookMark } from '../../components/ui/button/BookMark'
+import { ComponentFunctionContext, OrderContext, UserInfoContext, SettingContext, TranslateContext, FetcherContext, UserContext, AdressContext, TransportContext, LinkContext, NotificationContext } from '../..'
 import { observer } from 'mobx-react-lite'
-import Account from '../components/account/Account'
-import Partners from '../components/partner/Partners'
-import SettingsComponent from '../components/setting/SettingsComponent'
-import { SetNativeTranslate } from '../modules/SetNativeTranslate'
-import TransportComponent from '../components/transport/TransportComponent'
-import PageLoader from '../components/ui/loader/PageLoader '
-import Modal from '../components/ui/modal/Modal'
-import AccountCompletionForm from '../components/account/AccountCompletionForm'
+import Account from '../../components/account/Account'
+import Partners from '../../components/partner/Partners'
+import SettingsComponent from '../../components/setting/SettingsComponent'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import TransportComponent from '../../components/transport/TransportComponent'
+import PageLoader from '../../components/ui/loader/PageLoader '
+import Modal from '../../components/ui/modal/Modal'
+import AccountCompletionForm from '../../components/account/AccountCompletionForm'
 import { v4 } from "uuid";
+import './User.css'
 
 
 const Container = styled.div`
@@ -115,7 +115,7 @@ const User = observer(() => {
 
 
     return (
-      <PageContainer>
+      <div className={`user_page_container ${Setting.app_theme}`}>
         <title>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</title>
 
         <PageBanner>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</PageBanner>
@@ -198,7 +198,7 @@ const User = observer(() => {
           <AccountCompletionForm setModalActive={setModalActive} parent={'user'} setFunction={setFunction} />
         </Modal>
 
-      </PageContainer>
+      </div>
     )
   
 }

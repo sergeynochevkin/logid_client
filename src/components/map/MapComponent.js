@@ -364,8 +364,8 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
     useEffect(
         () => {
+            //ork with theme and current location
             if (gMap && Adress.location.lat) {
-
                 //eslint-disable-next-line no-undef
                 let marker = new google.maps.Marker({
                     position: { lat: parseFloat(Adress.location.lat), lng: parseFloat(Adress.location.lng) },

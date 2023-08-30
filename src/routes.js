@@ -8,8 +8,8 @@ import { Suspense, lazy } from "react"
 
 // const Main = lazy(() => import('./pages/main/Main'));
 const Board = lazy(() => import('./pages/board/Board'));
-const User = lazy(() => import('./pages/User'));
-const Management = lazy(() => import('./pages/Management'));
+const User = lazy(() => import('./pages/user/User'));
+const Management = lazy(() => import('./pages/management/Management'));
 const BoardItemPage = lazy(() => import('./pages/board/BoardItemPage'));
 
 export const authRoutes = [
