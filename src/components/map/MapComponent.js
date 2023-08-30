@@ -408,6 +408,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     style="font-size:10px; font-weight:bold; cursor:pointer"
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
+                    let labelText = State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" : ''
                     let labelIcon =
                         State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? (Setting.app_theme === 'light' ? star : star_dark) :
                             orderItem.type === 'walk' ? (Setting.app_theme === 'light' ? walk : walk_dark) :
@@ -426,7 +427,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         gMap,
                         title: `${orderItem.id}`,
                         // label: {
-                        //     text: labelIcon,
+                        //     text: labelText,
                         //     fontFamily: "Material Icons",
                         //     color: "#ffffff",
                         //     fontSize: "16px",
@@ -440,13 +441,13 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 }
             }
             else if (order.map_orders && order.map_orders.length > 0 && gMarkers.length > 0 && gMap) {
-                let labelIcon = "\ue838"
+                let labelIcon = Setting.app_theme === 'light' ? star : star_dark
                 for (let i = 0; i < gMarkers.length; i++) {
                     let orderItem = order.map_orders.find(el => el.id === Number(gMarkers[i].getTitle()))
                     if (!orderItem) {
                         gMarkers[i].setMap(null);
                         gMarkers.splice(i, 1)
-                    } else if ((State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getLabel().text !== labelIcon) || (State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getLabel().text === labelIcon)) {
+                    } else if ((State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getIcon() !== labelIcon) || (State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getIcon() === labelIcon)) {
                         gMarkers[i].setMap(null);
                         gMarkers.splice(i, 1)
                     }
@@ -485,6 +486,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     style="font-size:10px; font-weight:bold; cursor:pointer"
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
+                    let labelText = State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" : ''
                     let labelIcon =
                         State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? (Setting.app_theme === 'light' ? star : star_dark)  :
                             orderItem.type === 'walk' ? (Setting.app_theme === 'light' ? walk : walk_dark) :
@@ -500,12 +502,13 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     let marker = new google.maps.Marker({
                         position: { lat: parseFloat(orderItem.start_lat), lng: parseFloat(orderItem.start_lng) },
                         title: `${orderItem.id}`,
-                        label: {
-                            icon: labelIcon,
-                            fontFamily: "Material Icons",
-                            color: "#ffffff",
-                            fontSize: "16px",
-                        }
+                        icon: labelIcon,
+                        // label: {
+                        //     // text:labelText,                       
+                        //     // fontFamily: "Material Icons",
+                        //     // color: "#ffffff",
+                        //     // fontSize: "16px",
+                        // }
                     })
                     gMarkers.push(marker)
                     newMarkers.push(marker)
