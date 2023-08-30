@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Map.css'
-import { AdressContext, ComponentFunctionContext, LimitContext, OrderContext, PointContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, OrderContext, PointContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
@@ -347,7 +347,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
     useEffect(() => {
         setShowMarkers(true)
-    }, [order.map_orders, State.user_state.favorite_order_state])
+    }, [order.map_orders, State.user_state.favorite_order_state, Setting.app_theme])
 
 
     const Order = SetNativeTranslate(Translate.language, {}, 'order')
@@ -408,7 +408,6 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     style="font-size:10px; font-weight:bold; cursor:pointer"
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
-                    let labelText = State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" : ''
                     let labelIcon =
                         State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? (Setting.app_theme === 'light' ? star : star_dark) :
                             orderItem.type === 'walk' ? (Setting.app_theme === 'light' ? walk : walk_dark) :
@@ -444,13 +443,15 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 let labelIcon = Setting.app_theme === 'light' ? star : star_dark
                 for (let i = 0; i < gMarkers.length; i++) {
                     let orderItem = order.map_orders.find(el => el.id === Number(gMarkers[i].getTitle()))
-                    if (!orderItem) {
-                        gMarkers[i].setMap(null);
-                        gMarkers.splice(i, 1)
-                    } else if ((State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getIcon() !== labelIcon) || (State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getIcon() === labelIcon)) {
+                    if (orderItem || (gMarkers[i].getIcon().indexOf('dark') ===-1 && Setting.app_theme === 'light') || (gMarkers[i].getIcon().indexOf('dark') !== -1 && Setting.app_theme === 'dark')) {
                         gMarkers[i].setMap(null);
                         gMarkers.splice(i, 1)
                     }
+                    else if ((State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getIcon() !== labelIcon) || (State.user_state.favorite_order_state && !State.user_state.favorite_order_state.includes(orderItem.id) && gMarkers[i].getIcon() === labelIcon)) {
+                        gMarkers[i].setMap(null);
+                        gMarkers.splice(i, 1)
+                    }
+
                 }
                 let isOrders = []
                 for (const orderItem of order.map_orders) {
@@ -486,9 +487,8 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     style="font-size:10px; font-weight:bold; cursor:pointer"
                     >${orderItem.order_type === 'order' ? go_to_order : go_to_auction}</div>                   
                     `
-                    let labelText = State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? "\ue838" : ''
                     let labelIcon =
-                        State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? (Setting.app_theme === 'light' ? star : star_dark)  :
+                        State.user_state.favorite_order_state && State.user_state.favorite_order_state.includes(orderItem.id) ? (Setting.app_theme === 'light' ? star : star_dark) :
                             orderItem.type === 'walk' ? (Setting.app_theme === 'light' ? walk : walk_dark) :
                                 orderItem.type === 'bike' ? (Setting.app_theme === 'light' ? bike : bike_dark) :
                                     orderItem.type === 'electric_scooter' ? (Setting.app_theme === 'light' ? el_scooter : el_scooter_dark) :
