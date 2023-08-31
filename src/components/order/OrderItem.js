@@ -11,12 +11,7 @@ import { EquipmentRow } from '../ui/card/EquipmentRow'
 import Modal from '../ui/modal/Modal'
 import PointItem from '../point/PoinItem'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
-import { AddDeleteFieldButton } from '../ui/form/AddDeleteFieldButton'
 import PartnerModalContent from '../partner/PartnerModalContent'
-import { useFetching } from '../../hooks/useFetching'
-import { fetchPoints } from '../../http/pointApi'
-// import MapComponent from './MapComponent'
-import { v4 } from "uuid";
 
 
 import { setColor } from '../../modules/setColor'
@@ -26,9 +21,9 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 import arrow_back from '../../assets/icons/arrow_back.png';
 import arrow_back_dark from '../../assets/icons/arrow_back_dark.png';
+import g from '../../assets/icons/g.webp';
+import ya from '../../assets/icons/ya.webp';
 
-import info from '../../assets/icons/info.png';
-import info_dark from '../../assets/icons/info_dark.png';
 import ShareComponent from '../share/ShareComponent'
 
 
@@ -51,6 +46,12 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     const { Setting } = useContext(SettingContext)
     const { Transport } = useContext(TransportContext)
     const [transport, setTransport] = useState({})
+    const [yandex_route_url, setYandexRouteUrl] = useState('')
+    const [google_route_url, setGoogleRouteUrl] = useState({
+        origin: '',
+        waypoints: '',
+        destination: ''
+    })
 
     const [images, setImages] = useState([])
     const [image, setImage] = useState()
@@ -157,6 +158,37 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         ComponentFunction.setOrdersComponentFunction('orderItem')
     }
 
+    useEffect(() => {
+        let route_url = ''
+        for (const point of thisOrderPoints) {
+            let onePoint = `${point.latitude},${point.longitude}`
+            route_url = route_url + '~' + onePoint
+        }
+        setYandexRouteUrl(route_url.substring(1))
+    }, [order.dividedOrders])
+
+    useEffect(() => {
+        let route_url = []
+        let waypoints = ''
+        for (const point of thisOrderPoints) {
+            let onePoint = `${point.latitude},${point.longitude}`
+            route_url.push(onePoint)
+        }
+
+        setGoogleRouteUrl({ ...google_route_url, origin: route_url[0], destination: route_url[route_url.length - 1] })
+
+        if (route_url.length > 2) {
+            let origin = route_url[0]
+            let destination = route_url[route_url.length - 1]
+            route_url.shift()
+            route_url.pop()
+            for (const item of route_url) {
+                waypoints = waypoints + item + '|'
+            }
+            setGoogleRouteUrl({ ...google_route_url, origin: origin, destination: destination, waypoints: waypoints.slice(0, -1) })
+        }
+
+    }, [order.dividedOrders])
 
 
     return (
@@ -182,8 +214,29 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     : <></>}
 
                 <VerticalContainer style={{ gap: '3px' }}>
-
-                    {thisOrder.order_status === 'new' || thisOrder.order_status === 'inWork' ? <ShareComponent parent='order_item' thisOrder={thisOrder} /> : <></>}
+                    <div className='order_actions_container' 
+                    onClick={(e)=>{e.stopPropagation()}}>
+                        {thisOrder.order_status === 'new' || thisOrder.order_status === 'inWork' ? <ShareComponent parent='order_item' thisOrder={thisOrder} /> : <></>}
+                       
+                       <div className='nav_links_container'>
+                        <div><a
+                            target='blank' href={`https://yandex.ru/maps/?rtext=${yandex_route_url}&rtt=${thisOrder.type === 'bike' ? 'bc' : thisOrder.type === 'electric_scooter' ? 'sc' : thisOrder.type === 'walk' ? 'pd' : 'auto'}`}
+                        >
+                            <img src={ya} alt={SetNativeTranslate(Translate.language, {
+                                russian: ['Открыть в Яндекс навигаторе'],
+                                english: ['Open in Yandex navigator']
+                            })} />
+                        </a></div>
+                        <div><a
+                            target='blank' href={`https://www.google.com/maps/dir/?api=1&origin=${google_route_url.origin}${google_route_url.waypoints ? `&waypoints=${google_route_url.waypoints}` : ''}&destination=${google_route_url.destination}&travelmode=${thisOrder.type === 'bike' ? 'BICYCLING' : thisOrder.type === 'electric_scooter' ? 'BICYCLING' : thisOrder.type === 'walk' ? 'WALKING' : 'DRIVING'}`}
+                        >
+                            <img src={g} alt={SetNativeTranslate(Translate.language, {
+                                russian: ['Открыть в Google навигаторе'],
+                                english: ['Open in Google navigator']
+                            })} />
+                        </a></div>
+                        </div>
+                    </div>
 
                     <CardRow>
                         {(user.user.role === 'carrier' && thisOrder.order_status === 'new') || (thisOrder.order_status === 'inWork') ?

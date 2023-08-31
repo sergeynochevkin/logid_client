@@ -257,6 +257,18 @@
     cursor: pointer;
 }
 
+.order_actions_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav_links_container{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
 
 @media screen and (max-width: 1920px) and (min-width: 769px) {}
 
