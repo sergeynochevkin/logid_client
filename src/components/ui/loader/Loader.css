@@ -54,6 +54,18 @@
     color: grey;
 }
 
+.page_fallback_container{
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+.page_fallback_container.dark{
+    background-color: #121212;    
+}
+
 
 /* Safari */
 @-webkit-keyframes spin {

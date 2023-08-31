@@ -1,10 +1,11 @@
-import { ADMIN_ROUTE, USER_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, RECOVERY_ROUTE, REGISTRATION_ROUTE, BOARD_ROUTE, BOARD_ITEM_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, USER_ROUTE,  MAIN_ROUTE, MANAGER_ROUTE, BOARD_ROUTE, BOARD_ITEM_ROUTE } from "./utils/consts"
 // import Management from './pages/Management'
 import Main from './pages/main/Main'
 // import User from "./pages/User"
 // import Board from "./pages/board/Board"
 // import BoardItemPage from "./pages/board/BoardItemPage"
 import { Suspense, lazy } from "react"
+import PageFallBack from "./components/ui/loader/PageFallBack";
 
 // const Main = lazy(() => import('./pages/main/Main'));
 const Board = lazy(() => import('./pages/board/Board'));
@@ -15,15 +16,15 @@ const BoardItemPage = lazy(() => import('./pages/board/BoardItemPage'));
 export const authRoutes = [
     {
         path: ADMIN_ROUTE,
-        Component: <Suspense fallback={null}><Management /></Suspense>
+        Component: <Suspense fallback={<PageFallBack/>}><Management /></Suspense>
     },
     {
         path: MANAGER_ROUTE,
-        Component: <Suspense fallback={null}><Management /></Suspense>
+        Component: <Suspense fallback={<PageFallBack/>}><Management /></Suspense>
     },
     {
         path: USER_ROUTE,
-        Component: <Suspense fallback={null}><User /></Suspense>
+        Component: <Suspense fallback={<PageFallBack/>}><User /></Suspense>
     },
 ]
 
@@ -34,11 +35,11 @@ export const publicRoutes = [
     },
     {
         path: BOARD_ROUTE,
-        Component: <Suspense fallback={null}> <Board /></Suspense>
+        Component: <Suspense fallback={<PageFallBack/>}> <Board /></Suspense>
     }
     ,
     {
         path: BOARD_ITEM_ROUTE,
-        Component: <Suspense fallback={null}><BoardItemPage /></Suspense>
+        Component: <Suspense fallback={<PageFallBack/>}><BoardItemPage /></Suspense>
     }
 ]
