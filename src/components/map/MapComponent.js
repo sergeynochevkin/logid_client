@@ -26,7 +26,7 @@ import minibus_dark from '../../assets/icons/minibus_dark.webp';
 import star from '../../assets/icons/star.webp';
 import star_dark from '../../assets/icons/star_dark.webp';
 
-const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime }) => {
+const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime, onePartnerInfo }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Limit } = useContext(LimitContext)
     const { Setting } = useContext(SettingContext)
@@ -36,6 +36,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
     const { order } = useContext(OrderContext)
     const [gMap, setGMap] = useState(undefined)
     const [gMarkers, setGMarkers] = useState([])
+    const [locationMarker, setLocationMarker] = useState('')
     const [showMarkers, setShowMarkers] = useState(false)
     const { Point } = useContext(PointContext)
     const [directionsResponse, setDirectionsResponse] = useState(null)
@@ -362,27 +363,57 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
     const points_in_the_order = SetNativeTranslate(Translate.language, {}, 'points_in_the_order')
 
 
+
+    //delete and add when updated!
     useEffect(
         () => {
-            //ork with theme and current location
-            if (gMap && Adress.location.lat) {
-                //eslint-disable-next-line no-undef
-                let marker = new google.maps.Marker({
-                    position: { lat: parseFloat(Adress.location.lat), lng: parseFloat(Adress.location.lng) },
-                    gMap,
-                    title: `Here i am`,
-                    icon: Setting.app_theme === 'light' ? nav : nav_dark
-                    // label: {
-                    //     text: labelIcon,
-                    //     fontFamily: "Material Icons",
-                    //     color: "#ffffff",
-                    //     fontSize: "16px",
-                    // }
+            if (gMap && onePartnerInfo && onePartnerInfo.location && user.user.role === 'customer') {
+                let location = JSON.parse(onePartnerInfo.location)
+                let title = SetNativeTranslate(Translate.language, {
+                    russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
+                    english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
                 })
-                marker.setMap(gMap)
+
+                if (locationMarker && locationMarker.getTitle() !== title) {
+                    locationMarker.setMap(null)
+                    setLocationMarker('')
+                }
+                if (!locationMarker) {
+                    //eslint-disable-next-line no-undef
+                    let marker = new google.maps.Marker({
+                        position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
+                        gMap,
+                        title: title,
+                        icon: Setting.app_theme === 'light' ? nav : nav_dark
+                    })
+                    marker.setMap(gMap)
+                    setLocationMarker(marker)
+                }
+            }
+            if (gMap && UserInfo.userInfo.location && (user.user.role === 'carrier' || user.user.role === 'driver')) {
+                let location = JSON.parse(UserInfo.userInfo.location)
+                let title = SetNativeTranslate(Translate.language, {
+                    russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
+                    english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
+                })
+                if (locationMarker && locationMarker.getTitle() !== title) {
+                    locationMarker.setMap(null)
+                    setLocationMarker('')
+                }
+                if (!locationMarker) {
+                    //eslint-disable-next-line no-undef
+                    let marker = new google.maps.Marker({
+                        position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
+                        gMap,
+                        title: title,
+                        icon: Setting.app_theme === 'light' ? nav : nav_dark
+                    })
+                    marker.setMap(gMap)
+                    setLocationMarker(marker)
+                }
             }
         }
-        , [Adress.location, gMap])
+        , [onePartnerInfo && onePartnerInfo.location, UserInfo.userInfo.location, gMap, ComponentFunction.Function])
 
 
 
@@ -443,7 +474,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 let labelIcon = Setting.app_theme === 'light' ? star : star_dark
                 for (let i = 0; i < gMarkers.length; i++) {
                     let orderItem = order.map_orders.find(el => el.id === Number(gMarkers[i].getTitle()))
-                    if (orderItem || (gMarkers[i].getIcon().indexOf('dark') ===-1 && Setting.app_theme === 'light') || (gMarkers[i].getIcon().indexOf('dark') !== -1 && Setting.app_theme === 'dark')) {
+                    if (orderItem || (gMarkers[i].getIcon().indexOf('dark') === -1 && Setting.app_theme === 'light') || (gMarkers[i].getIcon().indexOf('dark') !== -1 && Setting.app_theme === 'dark')) {
                         gMarkers[i].setMap(null);
                         gMarkers.splice(i, 1)
                     }

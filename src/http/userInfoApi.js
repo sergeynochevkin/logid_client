@@ -1,10 +1,10 @@
 import { $authHost } from "./index";
 
 export const createUserInfo = async (
-formData
+    formData
 ) => {
     const { data } = await $authHost.post('api/user_info', {
-    formData
+        formData
     })
     return data
 }
@@ -27,6 +27,16 @@ export const updateUserInfo = async (
         formData
     })
 }
+
+export const updateLocation = async (
+    location
+) => {
+    await $authHost.put('api/user_info/location', {
+        location
+    })
+}
+
+
 
 
 

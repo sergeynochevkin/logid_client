@@ -97,7 +97,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     }
 
     useEffect(() => {
-        if (oneOrder.order_status === 'inWork') {
+        if (oneOrder.order_status === 'inWork' && Transport.transports) {
             setTransport(Transport.transports.find(el => el.id === Transport.transport_by_order.find(el => el.orderId === oneOrder.id).transportId))
         }
     }, [Transport.transports, ComponentFunction.Function])
@@ -165,7 +165,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
             route_url = route_url + '~' + onePoint
         }
         setYandexRouteUrl(route_url.substring(1))
-    }, [order.dividedOrders])
+    }, [])
 
     useEffect(() => {
         let route_url = []
@@ -187,8 +187,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
             }
             setGoogleRouteUrl({ ...google_route_url, origin: origin, destination: destination, waypoints: waypoints.slice(0, -1) })
         }
-
-    }, [order.dividedOrders])
+    }, [])
 
 
     return (
@@ -214,27 +213,30 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     : <></>}
 
                 <VerticalContainer style={{ gap: '3px' }}>
-                    <div className='order_actions_container' 
-                    onClick={(e)=>{e.stopPropagation()}}>
+                    <div className='order_actions_container'
+                        onClick={(e) => { e.stopPropagation() }}>
                         {thisOrder.order_status === 'new' || thisOrder.order_status === 'inWork' ? <ShareComponent parent='order_item' thisOrder={thisOrder} /> : <></>}
-                       
-                       <div className='nav_links_container'>
-                        <div><a
-                            target='blank' href={`https://yandex.ru/maps/?rtext=${yandex_route_url}&rtt=${thisOrder.type === 'bike' ? 'bc' : thisOrder.type === 'electric_scooter' ? 'sc' : thisOrder.type === 'walk' ? 'pd' : 'auto'}`}
-                        >
-                            <img src={ya} alt={SetNativeTranslate(Translate.language, {
-                                russian: ['Открыть в Яндекс навигаторе'],
-                                english: ['Open in Yandex navigator']
-                            })} />
-                        </a></div>
-                        <div><a
-                            target='blank' href={`https://www.google.com/maps/dir/?api=1&origin=${google_route_url.origin}${google_route_url.waypoints ? `&waypoints=${google_route_url.waypoints}` : ''}&destination=${google_route_url.destination}&travelmode=${thisOrder.type === 'bike' ? 'BICYCLING' : thisOrder.type === 'electric_scooter' ? 'BICYCLING' : thisOrder.type === 'walk' ? 'WALKING' : 'DRIVING'}`}
-                        >
-                            <img src={g} alt={SetNativeTranslate(Translate.language, {
-                                russian: ['Открыть в Google навигаторе'],
-                                english: ['Open in Google navigator']
-                            })} />
-                        </a></div>
+
+                        <div className='nav_links_container'>
+
+                            {yandex_route_url.length > 0 &&
+                                <div><a
+                                    target='blank' href={`https://yandex.ru/maps/?rtext=${yandex_route_url}&rtt=${thisOrder.type === 'bike' ? 'bc' : thisOrder.type === 'electric_scooter' ? 'sc' : thisOrder.type === 'walk' ? 'pd' : 'auto'}`}
+                                >
+                                    <img src={ya} alt={SetNativeTranslate(Translate.language, {
+                                        russian: ['Открыть в Яндекс навигаторе'],
+                                        english: ['Open in Yandex navigator']
+                                    })} />
+                                </a></div>}
+                            {google_route_url.origin &&
+                                <div><a
+                                    target='blank' href={`https://www.google.com/maps/dir/?api=1&origin=${google_route_url.origin}${google_route_url.waypoints ? `&waypoints=${google_route_url.waypoints}` : ''}&destination=${google_route_url.destination}&travelmode=${thisOrder.type === 'bike' ? 'BICYCLING' : thisOrder.type === 'electric_scooter' ? 'BICYCLING' : thisOrder.type === 'walk' ? 'WALKING' : 'DRIVING'}`}
+                                >
+                                    <img src={g} alt={SetNativeTranslate(Translate.language, {
+                                        russian: ['Открыть в Google навигаторе'],
+                                        english: ['Open in Google navigator']
+                                    })} />
+                                </a></div>}
                         </div>
                     </div>
 
@@ -458,7 +460,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
             </CardContainer>
             : <></>}
-            {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent /> : <></>}
+            {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent onePartnerInfo={onePartnerInfo ? onePartnerInfo : ''} /> : <></>}
 
             <Modal
                 modalActive={modalActive}
