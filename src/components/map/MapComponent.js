@@ -413,7 +413,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 }
             }
         }
-        , [onePartnerInfo && onePartnerInfo.location, UserInfo.userInfo.location, gMap, ComponentFunction.Function])
+        , [onePartnerInfo && onePartnerInfo.location, UserInfo.userInfo.location, gMap, ComponentFunction.Function, order.map_orders])
 
 
 
@@ -471,10 +471,12 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 }
             }
             else if (order.map_orders && order.map_orders.length > 0 && gMarkers.length > 0 && gMap) {
+
                 let labelIcon = Setting.app_theme === 'light' ? star : star_dark
                 for (let i = 0; i < gMarkers.length; i++) {
                     let orderItem = order.map_orders.find(el => el.id === Number(gMarkers[i].getTitle()))
-                    if (orderItem || (gMarkers[i].getIcon().indexOf('dark') === -1 && Setting.app_theme === 'light') || (gMarkers[i].getIcon().indexOf('dark') !== -1 && Setting.app_theme === 'dark')) {
+                    if (!orderItem ||  (gMarkers[i].getIcon().indexOf('dark') !== -1 && Setting.app_theme === 'light') || (gMarkers[i].getIcon().indexOf('dark') === -1 && Setting.app_theme === 'dark')) {
+                     console.log(gMarkers[i].getIcon().indexOf('dark'));
                         gMarkers[i].setMap(null);
                         gMarkers.splice(i, 1)
                     }
