@@ -135,5 +135,6 @@
 
     .modal_container {
         min-width: 320px;
+        width: 100vw;
     }
 }
