@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { useGeolocated } from "react-geolocated";
-import { AdressContext, OrderContext, UserContext, UserInfoContext } from '.';
+import { AdressContext, FetcherContext, OrderContext, UserContext, UserInfoContext } from '.';
 import { observer } from 'mobx-react-lite';
 import { updateLocation } from './http/userInfoApi';
 
 const Geolocator = observer(() => {
     const { Adress } = useContext(AdressContext)
+    const { fetcher } = useContext(FetcherContext)
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { coords, isGeolocationEnabled } =
@@ -23,16 +24,19 @@ const Geolocator = observer(() => {
         }
     }
 
-    const showPosition = async (position) => {
-        await updateLocation({
-            id: UserInfo.userInfo.id,
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            updated: new Date()
-        })
-        Adress.setLocation(position.coords.latitude, 'lat')
-        Adress.setLocation(position.coords.longitude, 'lng')
-        Adress.setLocation('detected', 'status')
+    const showPosition = async (position) => {  
+        if (user.user.role === 'carrier' || user.user.role === 'driver' || user.user.role === 'customer') {
+            await updateLocation({
+                id: UserInfo.userInfo.id,
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                updated: new Date()
+            })
+            Adress.setLocation(position.coords.latitude, 'lat')
+            Adress.setLocation(position.coords.longitude, 'lng')
+            Adress.setLocation('detected', 'status')
+            fetcher.setAccountUserInfo(true)
+        }      
     }
 
     let interval
@@ -44,6 +48,7 @@ const Geolocator = observer(() => {
     useEffect(() => {
         if (user && user.isAuth && (user.user.role === 'carrier' || user.user.role === 'driver')) {
             getLocation()
+            clearInterval(interval)
             startLocationControl()
         }
     }, [])
@@ -51,7 +56,8 @@ const Geolocator = observer(() => {
     useEffect(() => {
         if (user && user.isAuth && (user.user.role === 'carrier' || user.user.role === 'driver')) {
             getLocation()
-            !interval && startLocationControl()
+            clearInterval(interval)
+            startLocationControl()
         }
     }, [user.isAuth])
 

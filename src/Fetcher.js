@@ -377,8 +377,16 @@ const Fetcher = observer(() => {
     }, [fetcher.partners])
 
     useEffect(() => {
-        fetcher.setPartners(true)
+        fetcher.partners && fetcher.setPartners(true)
     }, [/*ComponentFunction.Function,*/ ComponentFunction.PageFunction])
+
+    useEffect(() => {
+        if (user.user.role === 'carrier' || user.user.role === 'customer') {
+            setInterval(() => {
+                fetcher.setPartners(true)
+            }, 60000);
+        }
+    }, [])
 
     //transport
     useEffect(() => {

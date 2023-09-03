@@ -98,7 +98,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
     useEffect(() => {
         if (oneOrder.order_status === 'inWork' && Transport.transports) {
-            setTransport(Transport.transports.find(el => el.id === Transport.transport_by_order.find(el => el.orderId === oneOrder.id).transportId))
+            Transport.transport_by_order.find(el => el.orderId === oneOrder.id) && setTransport(Transport.transports.find(el => el.id === Transport.transport_by_order.find(el => el.orderId === oneOrder.id).transportId))
         }
     }, [Transport.transports, ComponentFunction.Function])
 
@@ -460,7 +460,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
             </CardContainer>
             : <></>}
-            {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent onePartnerInfo={onePartnerInfo ? onePartnerInfo : ''} /> : <></>}
+            {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent thisOrder = {thisOrder} /> : <></>}
 
             <Modal
                 modalActive={modalActive}

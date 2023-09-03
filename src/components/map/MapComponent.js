@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Map.css'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, OrderContext, PointContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, OrderContext, PartnerContext, PointContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
@@ -26,7 +26,7 @@ import minibus_dark from '../../assets/icons/minibus_dark.webp';
 import star from '../../assets/icons/star.webp';
 import star_dark from '../../assets/icons/star_dark.webp';
 
-const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime, onePartnerInfo }) => {
+const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime, thisOrder }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Limit } = useContext(LimitContext)
     const { Setting } = useContext(SettingContext)
@@ -47,6 +47,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
     const [refreshMap, setRefreshMap] = useState(false)
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
+    const { Partner } = useContext(PartnerContext)
 
     function refreshMapAction() {
         if (gMap) {
@@ -365,55 +366,62 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
 
     //delete and add when updated!
+
+    const setMarker = (title, gMap, location, index) => {
+        //eslint-disable-next-line no-undef
+        let marker = new google.maps.Marker({
+            position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
+            gMap,
+            title: title,
+            icon: Setting.app_theme === 'light' ? nav : nav_dark
+        })
+        marker.setMap(gMap)
+        setLocationMarker(marker)
+    }
+
     useEffect(
         () => {
-            if (gMap && onePartnerInfo && onePartnerInfo.location && user.user.role === 'customer') {
-                let location = JSON.parse(onePartnerInfo.location)
-                let title = SetNativeTranslate(Translate.language, {
-                    russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
-                    english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
-                })
-
-                if (locationMarker && locationMarker.getTitle() !== title) {
-                    locationMarker.setMap(null)
-                    setLocationMarker('')
-                }
-                if (!locationMarker) {
-                    //eslint-disable-next-line no-undef
-                    let marker = new google.maps.Marker({
-                        position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
-                        gMap,
-                        title: title,
-                        icon: Setting.app_theme === 'light' ? nav : nav_dark
+            if (user.user.role === 'customer' && thisOrder) {
+                let onePartnerInfo = Partner.partnerInfos.find(el => el.id === thisOrder.carrierId)
+                if (gMap && onePartnerInfo && onePartnerInfo.location) {
+                    let location = JSON.parse(onePartnerInfo.location)
+                    let title = SetNativeTranslate(Translate.language, {
+                        russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
+                        english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
                     })
-                    marker.setMap(gMap)
-                    setLocationMarker(marker)
+                    if (!locationMarker) {
+                        setMarker(title, gMap, location)
+                    }
+                    else if (locationMarker && locationMarker.getTitle() !== title) {
+                        locationMarker.setMap(null)
+                        setMarker(title, gMap, location)
+                    }
                 }
             }
-            if (gMap && UserInfo.userInfo.location && (user.user.role === 'carrier' || user.user.role === 'driver')) {
-                let location = JSON.parse(UserInfo.userInfo.location)
-                let title = SetNativeTranslate(Translate.language, {
-                    russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
-                    english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
-                })
-                if (locationMarker && locationMarker.getTitle() !== title) {
-                    locationMarker.setMap(null)
-                    setLocationMarker('')
-                }
-                if (!locationMarker) {
-                    //eslint-disable-next-line no-undef
-                    let marker = new google.maps.Marker({
-                        position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
-                        gMap,
-                        title: title,
-                        icon: Setting.app_theme === 'light' ? nav : nav_dark
+
+        }
+        , [Partner.partnerInfos, gMap])
+
+    useEffect(
+        () => {
+            if (user.user.role === 'carrier' || user.user.role === 'driver') {
+                if (gMap && UserInfo.userInfo.location) {
+                    let location = JSON.parse(UserInfo.userInfo.location)
+                    let title = SetNativeTranslate(Translate.language, {
+                        russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
+                        english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
                     })
-                    marker.setMap(gMap)
-                    setLocationMarker(marker)
+                    if (!locationMarker) {
+                        setMarker(title, gMap, location)
+                    }
+                    else if (locationMarker && locationMarker.getTitle() !== title) {
+                        locationMarker.setMap(null)
+                        setMarker(title, gMap, location)
+                    }
                 }
             }
         }
-        , [onePartnerInfo && onePartnerInfo.location, UserInfo.userInfo.location, gMap, ComponentFunction.Function, order.map_orders])
+        , [UserInfo.userInfo, gMap])
 
 
 
@@ -475,8 +483,9 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 let labelIcon = Setting.app_theme === 'light' ? star : star_dark
                 for (let i = 0; i < gMarkers.length; i++) {
                     let orderItem = order.map_orders.find(el => el.id === Number(gMarkers[i].getTitle()))
-                    if (!orderItem ||  (gMarkers[i].getIcon().indexOf('dark') !== -1 && Setting.app_theme === 'light') || (gMarkers[i].getIcon().indexOf('dark') === -1 && Setting.app_theme === 'dark')) {
-                     console.log(gMarkers[i].getIcon().indexOf('dark'));
+                    if (!orderItem
+                        || (gMarkers[i].getIcon().indexOf('dark') !== -1 && Setting.app_theme === 'light') || (gMarkers[i].getIcon().indexOf('dark') === -1 && Setting.app_theme === 'dark')
+                    ) {
                         gMarkers[i].setMap(null);
                         gMarkers.splice(i, 1)
                     }
