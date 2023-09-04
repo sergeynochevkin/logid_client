@@ -25,7 +25,7 @@ export const fast_registration = async (
     city,
     city_place_id,
     city_latitude,
-    city_longitude,  
+    city_longitude,
 
     load_capacity,
     side_type,
@@ -59,7 +59,7 @@ export const fast_registration = async (
         city_place_id,
         city_latitude,
         city_longitude,
-       
+
         load_capacity,
         side_type,
         type,
@@ -72,13 +72,27 @@ export const fast_registration = async (
         glass_stand,
         refrigerator_minus,
         refrigerator_plus,
-        thermo_van,      
+        thermo_van,
         tag,
 
     })
     localStorage.setItem('token', data.accessToken)
     return jwt_decode(data.accessToken)
 }
+
+export const driver_registration = async (
+
+
+) => {
+    const { data } = await $host.post('api/user/driver_registration', {
+
+
+    })
+    // localStorage.setItem('token', data.accessToken)
+    // return jwt_decode(data.accessToken)
+}
+
+
 
 export const update = async (userId, email, password, language) => {
     const { data } = await $authHost.put('api/user/update', { userId, email, password, language })

@@ -51,13 +51,13 @@ export default class OrderStore {
         this._ordersByGroup = []
         this._ordersByPartner = []
         this._pattern = localStorage.getItem('orderPattern') ? JSON.parse(localStorage.getItem('orderPattern')) : JSON.stringify('')
-        this._integrationId = ''
+        this._pattern_for_who = localStorage.getItem('orderPatternForWho') ? JSON.parse(localStorage.getItem('orderPatternForWho')) : {partner:'', group:''}
 
         makeAutoObservable(this)
     }
 
 
-       setOrdersByGroup(value) {
+    setOrdersByGroup(value) {
         this._ordersByGroup = value
     }
 
@@ -103,8 +103,16 @@ export default class OrderStore {
         localStorage.setItem('orderPattern', JSON.stringify(value))
     }
 
+    setPatternForWho(value, option) {
+        this._pattern_for_who[option] = value
+        localStorage.setItem('orderPatternForWho', JSON.stringify(this._pattern_for_who))
+    }
+
     get pattern() {
         return this._pattern
+    }
+    get pattern_for_who() {
+        return this._pattern_for_who
     }
 
     setSelected(value) {

@@ -53,6 +53,11 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         destination: ''
     })
 
+    const [for_partner, setForPartner] = useState([])
+    const [for_group, setForGroup] = useState ([])
+    const [partnerNames, setPartnerNames] = useState()
+    const [groups, setGroups] = useState()
+
     const [images, setImages] = useState([])
     const [image, setImage] = useState()
 
@@ -81,20 +86,52 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         }
     }
 
-    let partnerNames = []
-    let for_partner = order.ordersByPartner.filter(el => el.orderId === thisOrder.id)
-    for_partner = for_partner.map(el => el.partnerId)
-    if (for_partner.length > 0) {
-        const partners = Partner.partnerInfos.filter(el => for_partner.includes(el.id))
-        for (const row of partners) {
-            if (row.legal === 'person') {
-                partnerNames.push(row.name_surname_fathersname)
-            } else {
-                partnerNames.push(row.company_name)
+
+    const setPartner = () => {
+        let partnerNames = []
+        let for_partner = []
+        for_partner = order.ordersByPartner.filter(el => el.orderId === thisOrder.id)
+        for_partner = for_partner.map(el => el.partnerId)
+        setForPartner([...for_partner])
+        if (for_partner.length > 0) {
+            const partners = Partner.partnerInfos.filter(el => for_partner.includes(el.id))
+            for (const row of partners) {
+                if (row.legal === 'person') {
+                    partnerNames.push(row.name_surname_fathersname)
+                } else {
+                    partnerNames.push(row.company_name)
+                }
             }
+            partnerNames = partnerNames.toString()
+            setPartnerNames(partnerNames)
         }
-        partnerNames = partnerNames.toString()
     }
+
+
+    const setGroup = () => {
+        let groups = []
+        let for_group = []
+        for_group = order.ordersByGroup.filter(el => el.orderId === thisOrder.id)
+        for_group = for_group.map(el => el.groupId)
+        setForGroup([...for_group])
+        if (for_group.length > 0) {
+            groups = Partner.groups.filter(el => for_group.includes(el.dataValues.id))
+            groups = groups.map(el => el.dataValues.name).toString()
+            setGroups(groups)
+        }
+    }
+
+    useEffect(() => {
+        setPartner()
+        setGroup()
+    }, [])
+
+    useEffect(() => {
+        setPartner()
+        setGroup()
+    }, [ Partner.groups, Partner.partnerInfos, ComponentFunction.OrdersComponentFunction])
+
+
 
     useEffect(() => {
         if (oneOrder.order_status === 'inWork' && Transport.transports) {
@@ -125,13 +162,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
     }, [order.dividedOrders])
 
-    let groups
-    let for_group = order.ordersByGroup.filter(el => el.orderId === thisOrder.id)
-    for_group = for_group.map(el => el.groupId)
-    if (for_group.length > 0) {
-        groups = Partner.groups.filter(el => for_group.includes(el.dataValues.id))
-        groups = groups.map(el => el.dataValues.name).toString()
-    }
+
 
 
     useEffect(() => {
@@ -460,7 +491,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
             </CardContainer>
             : <></>}
-            {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent thisOrder = {thisOrder} /> : <></>}
+            {ComponentFunction.OrdersComponentFunction === 'orderItem' && (ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed' || ComponentFunction.Function === 'inWork') ? <MapComponent thisOrder={thisOrder} /> : <></>}
 
             <Modal
                 modalActive={modalActive}

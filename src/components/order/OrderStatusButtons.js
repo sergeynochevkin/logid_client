@@ -276,6 +276,8 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
         await updateOrder('edit', '', thisOrder.id).then(event.stopPropagation())
         if (parent === 'order') {
             order.setPattern(JSON.stringify(thisOrder))
+            order.setPatternForWho(order.ordersByGroup.find(el => el.orderId === thisOrder.id) ? order.ordersByGroup.find(el => el.orderId === thisOrder.id).groupId.toString() : '', 'group')
+            order.setPatternForWho(order.ordersByPartner.find(el => el.orderId === thisOrder.id) ? order.ordersByPartner.find(el => el.orderId === thisOrder.id).partnerId.toString() : '', 'partner')
             Point.setPattern(JSON.stringify(thisOrderPoints))
             order.setIntegrationId()
 
@@ -303,13 +305,13 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                 // let newPairs = []
 
                 for (const image of order_images) {
-                  await  createImage(image)
+                    await createImage(image)
                 }
 
                 // order.setFiles(newFiles)
                 // order.setPairs(newPairs)
 
-         
+
             }
 
             localStorage.removeItem('orderFormData')

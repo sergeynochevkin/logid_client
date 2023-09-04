@@ -43,7 +43,6 @@ const OrderForm = observer(() => {
     const [pointsNotValid, setPointsNotValid] = useState(false)
     const [timeNotValid, setTimeNotValid] = useState(false)
     const [commentsNotValid, setCommentsNotValid] = useState(false)
-    const [orderForWho, setOrderForWho] = useState('all')
     const { Adress } = useContext(AdressContext)
     const { Setting } = useContext(SettingContext)
     const [calculate, setCalculate] = useState(false)
@@ -72,6 +71,10 @@ const OrderForm = observer(() => {
     const [formFunction, setFormFunction] = useState('')
 
     const parent = 'orderForm'
+
+useEffect(()=>{
+    fetcher.setPartners(true)
+},[])
 
     let initialTime = new Date();
 
@@ -114,7 +117,8 @@ const OrderForm = observer(() => {
             files: '',
             for_partner: '',
             for_group: '',
-            direction_response: JSON.stringify([])
+            direction_response: JSON.stringify([]),
+            for_who: 'all'
         }
     }
 
@@ -127,11 +131,16 @@ const OrderForm = observer(() => {
 
 
     let orderPattern
+    let orderPatternForWho
     let pointPatternInitialValue = []
     let pointPattern
 
     if (ComponentFunction.orderFormFunction !== 'newOrder') {
         orderPattern = JSON.parse(order.pattern)
+        orderPatternForWho = { ...order.pattern_for_who }
+        orderPattern.for_who = orderPatternForWho.group !== '' ? 'group' : orderPatternForWho.partner !== '' ? 'partner' : 'all'
+        orderPattern.for_group = { value: orderPatternForWho.group, notValid: false }
+        orderPattern.for_partner = { value: orderPatternForWho.partner, notValid: false }
         orderPattern.order_comment = { value: orderPattern.order_comment, isDirty: false, notValid: false }
         orderPattern.cost = { value: orderPattern.cost, isDirty: false, notValid: false }
         orderPattern.final_status = undefined
@@ -143,8 +152,6 @@ const OrderForm = observer(() => {
         orderPattern.order_type = { value: orderPattern.order_type, isDirty: false, notValid: false }
         orderPattern.oldPointsId = orderPattern.pointsIntegrationId
         orderPattern.pointsIntegrationId = ''
-        orderPattern.for_partner = { value: '', isDirty: false }
-        orderPattern.for_group = { value: '', isDirty: false }
         orderPattern.customer_arc_status = ''
         orderPattern.carrier_arc_status = ''
         orderPattern.order_final_status = ''
@@ -180,8 +187,8 @@ const OrderForm = observer(() => {
     formData.side_type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.side_type.value, { isEmpty: true },)
     formData.type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.type.value, { isEmpty: true },)
 
-    formData.for_group = useInput('', { isEmpty: true },)
-    formData.for_partner = useInput('', { isEmpty: true },)
+    formData.for_group = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.for_group.value, { isEmpty: true },)
+    formData.for_partner = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.for_partner.value, { isEmpty: true },)
 
     formData.userId = user.user.id
     formData.country = UserInfo.userInfo.country
@@ -788,8 +795,6 @@ const OrderForm = observer(() => {
                 <OrderForWho
                     formData={formData}
                     setFormData={setFormData}
-                    orderForWho={orderForWho}
-                    setOrderForWho={setOrderForWho}
                 />
 
 
@@ -800,7 +805,7 @@ const OrderForm = observer(() => {
                     <Button onClick={send}
                         disabled={
                             pointsNotValid || commentsNotValid || timeNotValid
-                            || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (orderForWho === 'partner' && formData.for_partner.isEmpty) || (orderForWho === 'group' && formData.for_group.isEmpty)
+                            || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who === 'partner' && formData.for_partner.isEmpty) || (formData.for_who === 'group' && formData.for_group.isEmpty)
                             || formData.type.isEmpty
                             ||
                             (formData.load_capacity.isEmpty && formData.type === 'truck') ||
@@ -824,7 +829,7 @@ const OrderForm = observer(() => {
                         <Button onClick={postpone}
                             disabled={
                                 pointsNotValid || commentsNotValid || timeNotValid
-                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (orderForWho === 'partner' && formData.for_partner.isEmpty) || (orderForWho === 'group' && formData.for_group.isEmpty)
+                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who === 'partner' && formData.for_partner.isEmpty) || (formData.for_who === 'group' && formData.for_group.isEmpty)
                                 || formData.type.isEmpty
                                 ||
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
@@ -838,7 +843,7 @@ const OrderForm = observer(() => {
                         <Button onClick={pattern}
                             disabled={
                                 pointsNotValid || commentsNotValid || timeNotValid
-                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (orderForWho === 'partner' && formData.for_partner.isEmpty) || (orderForWho === 'group' && formData.for_group.isEmpty)
+                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who === 'partner' && formData.for_partner.isEmpty) || (formData.for_who === 'group' && formData.for_group.isEmpty)
                                 || formData.type.isEmpty
                                 ||
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
