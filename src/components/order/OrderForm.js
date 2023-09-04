@@ -137,9 +137,9 @@ const OrderForm = observer(() => {
 
     if (ComponentFunction.orderFormFunction !== 'newOrder') {
         orderPattern = JSON.parse(order.pattern)
-        orderPattern.for_who = order.pattern.for_group ? 'group' : order.pattern.for_partner ? 'partner' : 'all'
-        orderPattern.for_group = { value: order.pattern.for_group ? order.pattern.for_group : undefined, notValid: false }
-        orderPattern.for_partner = { value: order.pattern.for_partner ? order.pattern.for_partner : undefined, notValid: false }
+        orderPattern.for_who = orderPattern.for_group ? 'group' : orderPattern.for_partner ? 'partner' : 'all'
+        orderPattern.for_group = { value: orderPattern.for_group ? orderPattern.for_group : undefined, notValid: false }
+        orderPattern.for_partner = { value: orderPattern.for_partner ? orderPattern.for_partner : undefined, notValid: false }
         orderPattern.order_comment = { value: orderPattern.order_comment, isDirty: false, notValid: false }
         orderPattern.cost = { value: orderPattern.cost, isDirty: false, notValid: false }
         orderPattern.final_status = undefined
@@ -392,8 +392,8 @@ const OrderForm = observer(() => {
                 formData.order_type.value,
                 formData.pointsIntegrationId,
                 formData.files,
-                formData.for_partner.value,
-                formData.for_group.value,
+                formData.for_partner.value ? formData.for_partner.value : undefined,
+                formData.for_group.value ? formData.for_group.value : undefined,
                 formData.oldPointsId,
                 formData.direction_response,
                 pointFormData
@@ -448,8 +448,8 @@ const OrderForm = observer(() => {
                 formData.option,
                 '',
                 formData.files,
-                formData.for_partner.value,
-                formData.for_group.value,
+                formData.for_partner.value ? formData.for_partner.value : undefined,
+                formData.for_group.value ? formData.for_group.value : undefined,
                 formData.direction_response,
                 pointFormData
             )

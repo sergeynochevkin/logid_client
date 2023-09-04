@@ -381,7 +381,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                             <CardColName>{SetNativeTranslate(Translate.language, {}, 'available')}</CardColName>
                             {user.user.role === 'customer' && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
                                 <CardColValue>
-                                    {!thisOrder.for_group && !thisOrder.for_partner ? SetNativeTranslate(Translate.language, {}, 'to_all') : thisOrder.for_group  ? `${SetNativeTranslate(Translate.language, {}, 'to_group')} ${Partner.groups.find(el=>el.dataValues.id === 1).dataValues.name}` : thisOrder.for_partner ? `${SetNativeTranslate(Translate.language, {}, 'to_partner')} ${Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).id}` : ''}
+                                    {!thisOrder.for_group && !thisOrder.for_partner ? SetNativeTranslate(Translate.language, {}, 'to_all') : thisOrder.for_group  ? `${SetNativeTranslate(Translate.language, {}, 'to_group')} ${Partner.groups.find(el=>el.dataValues.id === 1).dataValues.name}` : thisOrder.for_partner ? `${SetNativeTranslate(Translate.language, {}, 'to_partner')} ${Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).legal !== 'person' ? Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).company_name : Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).name_surname_fathersname }` : ''}
                                 </CardColValue> :
                                 user.user.role === 'carrier' && thisOrder.order_status === 'new' ?
                                     <CardColValue>
