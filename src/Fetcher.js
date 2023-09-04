@@ -331,8 +331,8 @@ const Fetcher = observer(() => {
     useEffect(() => {
         if (user.user.role === 'customer') {
             async function fetch() {
-                if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
+                // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
+                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList'|| ComponentFunction.PageFunction === 'orderForm' ) && Object.keys(UserInfo.userInfo).length !== 0) {
                         await fetchPartners(UserInfo.userInfo.id).then(async data => {
                             await fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                             await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
@@ -343,14 +343,14 @@ const Fetcher = observer(() => {
                             await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => Partner.setPartnerInfos(data))
                         })
                     }
-                }
+                // }
             }
             fetcher.partners && fetch()
 
         } else if (user.user.role === 'carrier') {
             async function fetch() {
-                if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList') && Object.keys(UserInfo.userInfo).length !== 0) {
+                // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
+                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList' || ComponentFunction.PageFunction === 'orderForm') && Object.keys(UserInfo.userInfo).length !== 0) {
                         await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
                             fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                             Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
@@ -367,7 +367,7 @@ const Fetcher = observer(() => {
                             await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
                         })
                     }
-                }
+                // }
             }
 
             fetcher.partners && fetch()

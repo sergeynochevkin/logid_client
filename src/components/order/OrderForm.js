@@ -129,11 +129,14 @@ const OrderForm = observer(() => {
         }
     }, [])
 
+   
+
 
     let orderPattern
     let orderPatternForWho
     let pointPatternInitialValue = []
     let pointPattern
+
 
     if (ComponentFunction.orderFormFunction !== 'newOrder') {
         orderPattern = JSON.parse(order.pattern)
@@ -188,6 +191,7 @@ const OrderForm = observer(() => {
 
     formData.for_group = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? undefined : orderPattern.for_group.value, { isEmpty: true },)
     formData.for_partner = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? undefined : orderPattern.for_partner.value, { isEmpty: true },)
+    formData.for_who = ComponentFunction.orderFormFunction === 'newOrder' ? 'all' : orderPattern.for_who
 
     formData.userId = user.user.id
     formData.country = UserInfo.userInfo.country
@@ -726,8 +730,7 @@ const OrderForm = observer(() => {
 
     useEffect(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))
-    }, [pointFormData])
-
+    }, [pointFormData])  
 
 
     return (

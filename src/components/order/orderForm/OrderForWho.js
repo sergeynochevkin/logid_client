@@ -12,11 +12,12 @@ const OrderForWho = ({ formData, setFormData }) => {
     const { Partner } = useContext(PartnerContext)
     const { order } = useContext(OrderContext)
 
+    console.log(JSON.stringify(Partner.partners));
 
     return (
 
         <>
-            {Partner.partnerInfos.length > 0 || Partner.groups.length > 0 ?
+            {Partner.partners.length>0 ?
                 <>
                     <Select
                         onChange={(e) => {
@@ -27,12 +28,12 @@ const OrderForWho = ({ formData, setFormData }) => {
                         multiple={false}
                         value={formData.for_who}
                     >
-                        <option value='all'>{SetNativeTranslate(Translate.language, {}, 'order_for_all')}</option>
+                        <option defaultValue value='all'>{SetNativeTranslate(Translate.language, {}, 'order_for_all')}</option>
                         {Partner.groups.length > 0 ?
                             <option value='group'>{SetNativeTranslate(Translate.language, {}, 'order_for_group')}</option>
                             : <></>}
                         {Partner.partnerInfos.length > 0 ?
-                            <option value='partner'>{SetNativeTranslate(Translate.language, {}, 'order_for_partner')}</option>
+                            <option  value='partner'>{SetNativeTranslate(Translate.language, {}, 'order_for_partner')}</option>
                             : <></>}
                     </Select>
                     {formData.for_who === 'group' ?

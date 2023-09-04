@@ -146,7 +146,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     data = await fetchUserInfo(user.user.id).then(data => {
 
                         if (data) {
-                            UserInfo.setUserInfo(data)
+                            UserInfo.setUserInfo(data)                            
                             country = Adress.countries.find(el => el.value === data.country)
                             if (country !== Adress.country.value) {
                                 Adress.setCountry(country)
@@ -156,7 +156,8 @@ const PreLoader = observer(({ children, ...props }) => {
                                 fetcher.setTransports(true)
                             }
 
-                            if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
+                            if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {              
+                                fetcher.setPartners(true)                  
                                 if (order_status) {
                                     order_status === 'new' && fetcher.setOrdersNew(true)
                                     order_status === 'inWork' && fetcher.setOrdersInWork(true)
