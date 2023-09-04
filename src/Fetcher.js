@@ -332,7 +332,7 @@ const Fetcher = observer(() => {
         if (user.user.role === 'customer') {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList'|| ComponentFunction.PageFunction === 'orderForm' ) && Object.keys(UserInfo.userInfo).length !== 0) {
+                    if ( Object.keys(UserInfo.userInfo).length !== 0) {
                         await fetchPartners(UserInfo.userInfo.id).then(async data => {
                             await fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                             await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
@@ -350,7 +350,7 @@ const Fetcher = observer(() => {
         } else if (user.user.role === 'carrier') {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ((ComponentFunction.PageFunction === 'partners' || ComponentFunction.PageFunction === 'orderList' || ComponentFunction.PageFunction === 'orderForm') && Object.keys(UserInfo.userInfo).length !== 0) {
+                    if (Object.keys(UserInfo.userInfo).length !== 0) {
                         await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
                             fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                             Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
@@ -383,7 +383,6 @@ const Fetcher = observer(() => {
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
             setInterval(() => {
                 fetcher.setPartners(true)
-                //
             }, 60000);
         }
     }, [])

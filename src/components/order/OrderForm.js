@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Form } from '../ui/form/Form'
 import { Button } from '../ui/button/Button'
 import styled from 'styled-components'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, OrderContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, OrderContext, PartnerContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { createOrder } from '../../http/orderApi'
 import { observer } from 'mobx-react-lite'
 import OrderComment from './orderForm/OrderComment'
@@ -39,12 +39,11 @@ const OrderForm = observer(() => {
     const { Point } = useContext(PointContext)
     const { Limit } = useContext(LimitContext)
     const { Translate } = useContext(TranslateContext)
+    const {Partner} = useContext( PartnerContext)
     const { fetcher } = useContext(FetcherContext)
     const [pointsNotValid, setPointsNotValid] = useState(false)
     const [timeNotValid, setTimeNotValid] = useState(false)
     const [commentsNotValid, setCommentsNotValid] = useState(false)
-    const { Adress } = useContext(AdressContext)
-    const { Setting } = useContext(SettingContext)
     const [calculate, setCalculate] = useState(false)
     const Edited = SetNativeTranslate(Translate.language, {}, 'edited').toLowerCase()
     const Order = SetNativeTranslate(Translate.language, {}, 'order')
@@ -118,7 +117,7 @@ const OrderForm = observer(() => {
             for_partner: undefined,
             for_group: undefined,
             direction_response: JSON.stringify([]),
-            for_who: 'all'
+            for_who: undefined
         }
     }
 
@@ -129,7 +128,7 @@ const OrderForm = observer(() => {
         }
     }, [])
 
-   
+
 
 
     let orderPattern
@@ -140,7 +139,7 @@ const OrderForm = observer(() => {
 
     if (ComponentFunction.orderFormFunction !== 'newOrder') {
         orderPattern = JSON.parse(order.pattern)
-        orderPattern.for_who = orderPattern.for_group ? 'group' : orderPattern.for_partner ? 'partner' : 'all'
+        orderPattern.for_who = { value: orderPattern.for_group ? 'group' : orderPattern.for_partner ? 'partner' : 'all', notValid: false }
         orderPattern.for_group = { value: orderPattern.for_group ? orderPattern.for_group : undefined, notValid: false }
         orderPattern.for_partner = { value: orderPattern.for_partner ? orderPattern.for_partner : undefined, notValid: false }
         orderPattern.order_comment = { value: orderPattern.order_comment, isDirty: false, notValid: false }
@@ -191,7 +190,7 @@ const OrderForm = observer(() => {
 
     formData.for_group = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? undefined : orderPattern.for_group.value, { isEmpty: true },)
     formData.for_partner = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? undefined : orderPattern.for_partner.value, { isEmpty: true },)
-    formData.for_who = ComponentFunction.orderFormFunction === 'newOrder' ? 'all' : orderPattern.for_who
+    formData.for_who = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? 'all' : orderPattern.for_who.value, { isEmpty: true },)
 
     formData.userId = user.user.id
     formData.country = UserInfo.userInfo.country
@@ -730,7 +729,10 @@ const OrderForm = observer(() => {
 
     useEffect(() => {
         localStorage.setItem('pointFormData', JSON.stringify(pointFormData))
-    }, [pointFormData])  
+    }, [pointFormData])
+
+
+
 
 
     return (
@@ -794,10 +796,12 @@ const OrderForm = observer(() => {
                     setFormData={setFormData}
                 />
 
-                <OrderForWho
-                    formData={formData}
-                    setFormData={setFormData}
-                />
+
+                {Partner.partners.length > 0 &&
+                    <OrderForWho
+                        formData={formData}
+                        setFormData={setFormData}
+                    />}
 
 
                 <DragDropUpload formData={formData} setFormData={setFormData} length={5} extensions={['jpeg', 'png', 'jpg']} files={files} pairs={pairs} setFiles={setFiles} setPairs={setPairs} min_length={0} parent={'orderForm'}></DragDropUpload>
@@ -807,7 +811,7 @@ const OrderForm = observer(() => {
                     <Button onClick={send}
                         disabled={
                             pointsNotValid || commentsNotValid || timeNotValid
-                            || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who === 'partner' && formData.for_partner.isEmpty) || (formData.for_who === 'group' && formData.for_group.isEmpty)
+                            || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who.value === 'partner' && formData.for_partner.isEmpty) || (formData.for_who.value === 'group' && formData.for_group.isEmpty)
                             || formData.type.isEmpty
                             ||
                             (formData.load_capacity.isEmpty && formData.type === 'truck') ||
@@ -831,7 +835,7 @@ const OrderForm = observer(() => {
                         <Button onClick={postpone}
                             disabled={
                                 pointsNotValid || commentsNotValid || timeNotValid
-                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who === 'partner' && formData.for_partner.isEmpty) || (formData.for_who === 'group' && formData.for_group.isEmpty)
+                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who.value === 'partner' && formData.for_partner.isEmpty) || (formData.for_who.value === 'group' && formData.for_group.isEmpty)
                                 || formData.type.isEmpty
                                 ||
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
@@ -845,7 +849,7 @@ const OrderForm = observer(() => {
                         <Button onClick={pattern}
                             disabled={
                                 pointsNotValid || commentsNotValid || timeNotValid
-                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who === 'partner' && formData.for_partner.isEmpty) || (formData.for_who === 'group' && formData.for_group.isEmpty)
+                                || formData.order_type.isEmpty || (formData.cost.notValid && !formData.cost.isEmpty) || (formData.order_comment.notValid && !formData.order_comment.isEmpty) || (formData.for_who.value === 'partner' && formData.for_partner.isEmpty) || (formData.for_who.value === 'group' && formData.for_group.isEmpty)
                                 || formData.type.isEmpty
                                 ||
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
