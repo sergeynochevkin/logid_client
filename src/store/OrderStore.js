@@ -48,21 +48,11 @@ export default class OrderStore {
             arc: 0,
             pattern: 0
         }
-        this._ordersByGroup = []
-        this._ordersByPartner = []
+
         this._pattern = localStorage.getItem('orderPattern') ? JSON.parse(localStorage.getItem('orderPattern')) : JSON.stringify('')
-        this._pattern_for_who = localStorage.getItem('orderPatternForWho') ? JSON.parse(localStorage.getItem('orderPatternForWho')) : {partner:'', group:''}
+   
 
         makeAutoObservable(this)
-    }
-
-
-    setOrdersByGroup(value) {
-        this._ordersByGroup = value
-    }
-
-    get ordersByGroup() {
-        return this._ordersByGroup
     }
 
     setFilteredCount(value, ComponentFunction) {
@@ -79,15 +69,6 @@ export default class OrderStore {
 
     get views() {
         return this._views
-    }
-
-
-    setOrdersByPartner(value) {
-        this._ordersByPartner = value
-    }
-
-    get ordersByPartner() {
-        return this._ordersByPartner
     }
 
     setIntegrationId() {

@@ -44,9 +44,7 @@ const OrderForWho = ({ formData, setFormData }) => {
                                 value={formData.for_group.value}
                                 style={{ borderLeft: (formData.for_group.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                                 onChange={(e) => {
-                                    formData.for_group.onChange(e)
-                                    order.setPatternForWho(e.target.value, 'group')
-                                    order.setPatternForWho('', 'partner')
+                                    formData.for_group.onChange(e)                                   
                                 }
                                 }
                                 onBlur={e => formData.for_group.onBlur(e)}
@@ -81,9 +79,7 @@ const OrderForWho = ({ formData, setFormData }) => {
                                 value={formData.for_partner.value}
                                 style={{ borderLeft: (formData.for_partner.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}
                                 onChange={(e) => {
-                                    formData.for_partner.onChange(e)
-                                    order.setPatternForWho('', 'group')
-                                    order.setPatternForWho(e.target.value, 'partner')
+                                    formData.for_partner.onChange(e)                                   
                                 }}
                                 onBlur={e => formData.for_partner.onBlur(e)}
                                 name="for_partner" id="for_partner"

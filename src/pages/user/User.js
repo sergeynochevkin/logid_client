@@ -157,14 +157,14 @@ const User = observer(() => {
 
                 {/* drivers */}
 
-                {/* <BookMark onClick={() => {
+                <BookMark onClick={() => {
                   ComponentFunction.PageFunction !== 'drivers' && setFunction(false, false, 'drivers', false)
                 }} style={{
                   color: ComponentFunction.PageFunction === 'drivers' && 'grey', cursor: ComponentFunction.PageFunction === 'drivers' && 'default'
                 }}>{SetNativeTranslate(Translate.language, {
                   russian: ['Водители'],
                   english: ['Drivers']
-                })}</BookMark> */}
+                })}</BookMark>
 
                 {/* drivers */}
 

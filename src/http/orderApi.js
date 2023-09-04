@@ -81,11 +81,6 @@ export const fetchOrder = async (id) => {
     return data
 }
 
-export const fetchOrderConnections = async (orderIds, option) => {
-    const { data } = await $authHost.post('api/order/get_order_connections', { orderIds, option })
-    return data
-}
-
 export const updateOrder = async (option, order_type, id, role, order_status, order_final_status, carrierId, userInfoId, cost, newTime, firstPointId, transport) => {
     await $authHost.post('api/order/update', { option, order_type, id, role, order_final_status, order_status, carrierId, userInfoId, cost, newTime, firstPointId, transport })
 }

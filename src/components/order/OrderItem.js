@@ -53,8 +53,10 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         destination: ''
     })
 
+
+
     const [for_partner, setForPartner] = useState([])
-    const [for_group, setForGroup] = useState ([])
+    const [for_group, setForGroup] = useState([])
     const [partnerNames, setPartnerNames] = useState()
     const [groups, setGroups] = useState()
 
@@ -78,6 +80,8 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     let thisOrderPoints = oneOrderPoints
     let thisOrderNoPartners = oneOrderNoPartners
 
+  
+
     const sortPoints = (a, b) => {
         if (a.sequence > b.sequence) {
             return 1
@@ -85,52 +89,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
             return -1
         }
     }
-
-
-    const setPartner = () => {
-        let partnerNames = []
-        let for_partner = []
-        for_partner = order.ordersByPartner.filter(el => el.orderId === thisOrder.id)
-        for_partner = for_partner.map(el => el.partnerId)
-        setForPartner([...for_partner])
-        if (for_partner.length > 0) {
-            const partners = Partner.partnerInfos.filter(el => for_partner.includes(el.id))
-            for (const row of partners) {
-                if (row.legal === 'person') {
-                    partnerNames.push(row.name_surname_fathersname)
-                } else {
-                    partnerNames.push(row.company_name)
-                }
-            }
-            partnerNames = partnerNames.toString()
-            setPartnerNames(partnerNames)
-        }
-    }
-
-
-    const setGroup = () => {
-        let groups = []
-        let for_group = []
-        for_group = order.ordersByGroup.filter(el => el.orderId === thisOrder.id)
-        for_group = for_group.map(el => el.groupId)
-        setForGroup([...for_group])
-        if (for_group.length > 0) {
-            groups = Partner.groups.filter(el => for_group.includes(el.dataValues.id))
-            groups = groups.map(el => el.dataValues.name).toString()
-            setGroups(groups)
-        }
-    }
-
-    useEffect(() => {
-        setPartner()
-        setGroup()
-    }, [])
-
-    useEffect(() => {
-        setPartner()
-        setGroup()
-    }, [ Partner.groups, Partner.partnerInfos, ComponentFunction.OrdersComponentFunction])
-
 
 
     useEffect(() => {
@@ -423,11 +381,11 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                             <CardColName>{SetNativeTranslate(Translate.language, {}, 'available')}</CardColName>
                             {user.user.role === 'customer' && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
                                 <CardColValue>
-                                    {for_group.length === 0 && for_partner.length === 0 ? SetNativeTranslate(Translate.language, {}, 'to_all') : for_group.length !== 0 ? `${SetNativeTranslate(Translate.language, {}, 'to_group')} ${groups}` : for_partner.length !== 0 ? `${SetNativeTranslate(Translate.language, {}, 'to_partner')} ${partnerNames}` : ''}
+                                    {!thisOrder.for_group && !thisOrder.for_partner ? SetNativeTranslate(Translate.language, {}, 'to_all') : thisOrder.for_group  ? `${SetNativeTranslate(Translate.language, {}, 'to_group')} ${Partner.groups.find(el=>el.dataValues.id === 1).dataValues.name}` : thisOrder.for_partner ? `${SetNativeTranslate(Translate.language, {}, 'to_partner')} ${Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).id}` : ''}
                                 </CardColValue> :
                                 user.user.role === 'carrier' && thisOrder.order_status === 'new' ?
                                     <CardColValue>
-                                        {for_group.length === 0 && for_partner.length === 0 ? SetNativeTranslate(Translate.language, {}, 'to_all') : for_group.length !== 0 ? SetNativeTranslate(Translate.language, {}, 'your_group') : for_partner.length !== 0 ? SetNativeTranslate(Translate.language, {}, 'to_you') : ''}
+                                        {!thisOrder.for_group && !thisOrder.for_partner ? SetNativeTranslate(Translate.language, {}, 'to_all') : thisOrder.for_group ? SetNativeTranslate(Translate.language, {}, 'your_group') : thisOrder.for_partner  ? SetNativeTranslate(Translate.language, {}, 'to_you') : ''}
                                     </CardColValue> : <></>}
                         </CardRow>
                     }

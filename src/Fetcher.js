@@ -227,8 +227,7 @@ const Fetcher = observer(() => {
                         await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
                     }
                     if ((order_status === 'new' || order_status === 'postponed') && data.length !== 0) {
-                        await fetchOrderConnections(data.rows.map(el => el.id), 'groups').then(data => order.setOrdersByGroup(data))
-                        await fetchOrderConnections(data.rows.map(el => el.id), 'partners').then(data => order.setOrdersByPartner(data))
+                      
                         await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
                             Offer.setOffers(data.rows)
 

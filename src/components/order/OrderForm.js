@@ -72,9 +72,9 @@ const OrderForm = observer(() => {
 
     const parent = 'orderForm'
 
-useEffect(()=>{
-    fetcher.setPartners(true)
-},[])
+    useEffect(() => {
+        fetcher.setPartners(true)
+    }, [])
 
     let initialTime = new Date();
 
@@ -115,8 +115,8 @@ useEffect(()=>{
             pointsIntegrationId: '',
             option: 'new',
             files: '',
-            for_partner: '',
-            for_group: '',
+            for_partner: undefined,
+            for_group: undefined,
             direction_response: JSON.stringify([]),
             for_who: 'all'
         }
@@ -137,10 +137,9 @@ useEffect(()=>{
 
     if (ComponentFunction.orderFormFunction !== 'newOrder') {
         orderPattern = JSON.parse(order.pattern)
-        orderPatternForWho = { ...order.pattern_for_who }
-        orderPattern.for_who = orderPatternForWho.group !== '' ? 'group' : orderPatternForWho.partner !== '' ? 'partner' : 'all'
-        orderPattern.for_group = { value: orderPatternForWho.group, notValid: false }
-        orderPattern.for_partner = { value: orderPatternForWho.partner, notValid: false }
+        orderPattern.for_who = order.pattern.for_group ? 'group' : order.pattern.for_partner ? 'partner' : 'all'
+        orderPattern.for_group = { value: order.pattern.for_group ? order.pattern.for_group : undefined, notValid: false }
+        orderPattern.for_partner = { value: order.pattern.for_partner ? order.pattern.for_partner : undefined, notValid: false }
         orderPattern.order_comment = { value: orderPattern.order_comment, isDirty: false, notValid: false }
         orderPattern.cost = { value: orderPattern.cost, isDirty: false, notValid: false }
         orderPattern.final_status = undefined
@@ -187,8 +186,8 @@ useEffect(()=>{
     formData.side_type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.side_type.value, { isEmpty: true },)
     formData.type = useInput(ComponentFunction.orderFormFunction === 'newOrder' || parent === 'fast_sign_up' ? '' : orderPattern.type.value, { isEmpty: true },)
 
-    formData.for_group = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.for_group.value, { isEmpty: true },)
-    formData.for_partner = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? '' : orderPattern.for_partner.value, { isEmpty: true },)
+    formData.for_group = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? undefined : orderPattern.for_group.value, { isEmpty: true },)
+    formData.for_partner = useInput(ComponentFunction.orderFormFunction === 'newOrder' ? undefined : orderPattern.for_partner.value, { isEmpty: true },)
 
     formData.userId = user.user.id
     formData.country = UserInfo.userInfo.country

@@ -275,9 +275,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     const edit = async (event) => {
         await updateOrder('edit', '', thisOrder.id).then(event.stopPropagation())
         if (parent === 'order') {
-            order.setPattern(JSON.stringify(thisOrder))
-            order.setPatternForWho(order.ordersByGroup.find(el => el.orderId === thisOrder.id) ? order.ordersByGroup.find(el => el.orderId === thisOrder.id).groupId.toString() : '', 'group')
-            order.setPatternForWho(order.ordersByPartner.find(el => el.orderId === thisOrder.id) ? order.ordersByPartner.find(el => el.orderId === thisOrder.id).partnerId.toString() : '', 'partner')
+            order.setPattern(JSON.stringify(thisOrder))       
             Point.setPattern(JSON.stringify(thisOrderPoints))
             order.setIntegrationId()
 
