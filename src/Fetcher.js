@@ -383,6 +383,7 @@ const Fetcher = observer(() => {
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
             setInterval(() => {
                 fetcher.setPartners(true)
+                //
             }, 60000);
         }
     }, [])
