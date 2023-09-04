@@ -275,7 +275,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     const edit = async (event) => {
         await updateOrder('edit', '', thisOrder.id).then(event.stopPropagation())
         if (parent === 'order') {
-            order.setPattern(JSON.stringify(thisOrder))       
+            order.setPattern(JSON.stringify(thisOrder))
             Point.setPattern(JSON.stringify(thisOrderPoints))
             order.setIntegrationId()
 
@@ -331,7 +331,9 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                     <><CardRow>
                         <CardButton onClick={postpone}>{SetNativeTranslate(Translate.language, {}, 'postpone')}</CardButton>
                         <CardButton onClick={cancel}>{SetNativeTranslate(Translate.language, {}, 'cancel')}</CardButton>
-                        <CardButton onClick={thisOrder.order_type === 'auction' ? toOrder : toAuction}> {SetNativeTranslate(Translate.language, {}, thisOrder.order_type === 'auction' ? 'order' : 'auction')}</CardButton>
+                        {parent !== 'selector' &&
+                            <CardButton onClick={thisOrder.order_type === 'auction' ? toOrder : toAuction}> {SetNativeTranslate(Translate.language, {}, thisOrder.order_type === 'auction' ? 'order' : 'auction')}</CardButton>
+                        }
                     </CardRow>
                         {parent === 'order' ?
                             <OfferComponent thisOrder={thisOrder} thisOrderOffers={thisOrderOffers} thisOrderNoPartners={thisOrderNoPartners} thisCarrierOffer={thisCarrierOffer}
