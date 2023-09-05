@@ -430,7 +430,7 @@
     }
 
     .board_item_page_main_image {
-        width: 380px;
+        width:   100vw;
     }
 
     .board_item_page_info_container {
@@ -458,7 +458,7 @@
     }
 
     .board_item_ad_container{
-        width: 380px;
+        width: 95vw;
     }
 }
 
@@ -480,7 +480,7 @@
     }
 
     .board_item_page_main_image {
-        width: 300px;
+        width: 100vw;
     }
 
     .board_item_page_info_container {
@@ -508,7 +508,7 @@
     }
     
     .board_item_ad_container{
-        width: 300px;
+        width: 95vw;
     }
 
 }
