@@ -23,6 +23,7 @@ import Auth from '../../components/auth/Auth';
 import ShareComponent from '../../components/share/ShareComponent';
 import InternedSpeed from './InternedSpeed';
 import LocationStatus from './LocationStatus';
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -39,6 +40,8 @@ const NavBar = observer(() => {
   const [modalActive1, setModalActive1] = useState(false)
   const [modalActive2, setModalActive2] = useState(false)
   const [name, setName] = useState('')
+  const { height, width } = useWindowDimensions();
+
 
   const setLanguage = (language) => {
     Translate.setLanguage(language)
@@ -59,10 +62,15 @@ const NavBar = observer(() => {
     }
   }, [])
 
+  let office = SetNativeTranslate(Translate.language, {
+    russian:['Кабинет'],
+    english:['Office']
+  })
+
   return (
     <>
       <InternedSpeed />
-      <LocationStatus/>
+      <LocationStatus />
       <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>
         <NotificationComponent />
 
@@ -93,29 +101,54 @@ const NavBar = observer(() => {
         </div>
         {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Main</Item> */}
-        {user.user.role === "customer" && user.isAuth ?
-          <div className='nav_bar_item' onClick={() =>
-            navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</div> :
-          <></>
-        }
+        {width > 379 ?
+          <>
+            {user.user.role === "customer" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'customers_office')}</div> :
+              <></>
+            }
+            {user.user.role === "carrier" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</div> :
+              <></>
+            }
 
-        {user.user.role === "carrier" && user.isAuth ?
-          <div className='nav_bar_item' onClick={() =>
-            navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</div> :
-          <></>
-        }
+            {user.user.role === "manager" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(MANAGER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'managers_office')}</div> :
+              <></>
+            }
 
-        {user.user.role === "manager" && user.isAuth ?
-          <div className='nav_bar_item' onClick={() =>
-            navigate(MANAGER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'managers_office')}</div> :
-          <></>
-        }
+            {user.user.role === "admin" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(ADMIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'administrators_office')}</div> :
+              <></>
+            }
+          </> : <>
+          {user.user.role === "customer" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(USER_ROUTE)}>{office}</div> :
+              <></>
+            }
+            {user.user.role === "carrier" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(USER_ROUTE)}>{office}</div> :
+              <></>
+            }
 
-        {user.user.role === "admin" && user.isAuth ?
-          <div className='nav_bar_item' onClick={() =>
-            navigate(ADMIN_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'administrators_office')}</div> :
-          <></>
-        }
+            {user.user.role === "manager" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(MANAGER_ROUTE)}>{office}</div> :
+              <></>
+            }
+
+            {user.user.role === "admin" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(ADMIN_ROUTE)}>{office}</div> :
+              <></>
+            }
+          </>}
 
         {user.isAuth ?
           <div className='nav_bar_item' onClick={
