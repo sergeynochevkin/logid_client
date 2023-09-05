@@ -6,12 +6,12 @@ import { NotificationContext, SettingContext, TranslateContext } from '../..';
 import './DragDropUpload.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-const DragDropUpload = observer(({ parent, length, extensions, filesFormData, files, setFiles, min_length, pairs, setPairs}) => {
+const DragDropUpload = observer(({ parent, length, extensions, filesFormData, files, setFiles, min_length, pairs, setPairs }) => {
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
     const { Setting } = useContext(SettingContext)
     const [drag, setDrag] = useState(false)
-   
+
     const [errors, setErrors] = useState(
         {
             quantity: false,
@@ -123,7 +123,10 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
                 >
-                    {parent === 'transportForm' ? SetNativeTranslate(Translate.language, {}, 'drag_drop_transport') : SetNativeTranslate(Translate.language, {}, 'drag_drop_order')}
+                    {parent === 'transportForm' ? SetNativeTranslate(Translate.language, {}, 'drag_drop_transport') : parent === 'driver_form' ? SetNativeTranslate(Translate.language, {
+                        russian: ['Добавьте фотографию водителя'],
+                        english: ['Add drivers foto']
+                    }) : SetNativeTranslate(Translate.language, {}, 'drag_drop_order')}
                     <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetNativeTranslate(Translate.language, {}, 'select')}
                         <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='files[]' disabled={pairs.length === length}></input>
                     </label>
@@ -140,9 +143,9 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                     `${SetNativeTranslate(Translate.language, {}, 'maximum')} ${length} ${SetNativeTranslate(Translate.language, {}, 'images')}` :
                     ''
                 }
-                {(errors.min_quantity === true) ?
+                {(errors.min_quantity === true && errors.quantity === false ) ?
                     `${SetNativeTranslate(Translate.language, {
-                        russian: [`Загрузите хотя бы ${min_length} фотогрфию`],
+                        russian: [`Загрузите хотя бы ${min_length} фотографию`],
                         english: [`Upload at least ${min_length} photo`]
                     })} ` :
                     ''

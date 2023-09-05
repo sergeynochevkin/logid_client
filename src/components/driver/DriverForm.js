@@ -143,7 +143,7 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs }) => {
                 </FieldName>
             </VerticalContainer>
 
-            <DragDropUpload filesFormData={filesFormData} pairs={pairs} setPairs={setPairs} files={files} setFiles={setFiles} parent={'driverForm'} formData={formData} setFormData={setFormData} length={5} min_length={1} extensions={['jpeg', 'png', 'jpg']} />
+            <DragDropUpload filesFormData={filesFormData} pairs={pairs} setPairs={setPairs} files={files} setFiles={setFiles} parent={'driver_form'} formData={formData} setFormData={setFormData} length={1} min_length={1} extensions={['jpeg', 'png', 'jpg']} />
 
             <CardButton>{SetNativeTranslate(Translate.language, {}, 'add')}</CardButton>
 
