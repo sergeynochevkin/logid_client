@@ -19,6 +19,42 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs }) => {
     const [filesFormData, setFilesFormData] = useState(new FormData)
 
 
+    let initialValue = {
+        //auth
+        email: '', //from form
+        password: '', //from form
+        role: '', //from form
+        code: '',
+        country: '', //from boss
+        // user_agreement_accepted: false,
+        // privacy_policy_accepted: false,
+        // age_accepted: false,
+        // personal_data_agreement_accepted: false,
+        // cookies_accepted: cookies_accepted,
+
+        //user info
+        userId: undefined,
+        country: '', //from boss
+        legal: '', //default
+        city: { value: '', isDirty: false, notValid: true }, //from boss
+        city_place_id: '', //from boss
+        city_latitude: '', //from boss
+        city_longitude: '', //from boss
+        phone: '', //from form
+        website: '', //empty
+        company_name: '', //from boss
+        company_inn: '', //from boss
+        company_adress: { value: '', isDirty: false, notValid: true }, //from boss
+        company_adress_latitude: '', //from boss
+        company_adress_longitude: '', //from boss
+        type_of_customer: '', //empty or driver
+        name_surname_fathersname: '', //from form
+        passport_number: '', //later when isAuth
+        passport_date_of_issue: '',  //later when isAuth
+        passport_issued_by: '', //later when isAuth
+        from_fast: true, //no need  
+    }
+
 
 
     const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
