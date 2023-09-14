@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, ComponentFunctionContext, FetcherContext, FilterAndSortContext, LimitContext, LinkContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, SettingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
+import { AdContext, ComponentFunctionContext, DriverContext, FetcherContext, FilterAndSortContext, LimitContext, LinkContext, ManagementContext, NotificationContext, OfferContext, OrderContext, PartnerContext, PointContext, RatingContext, SettingContext, StateContext, SubscriptionContext, TransportContext, UserContext, UserInfoContext } from '.'
 import { fetchUserLimits } from './http/limitApi'
 import { fetchNotifications, updateNotifications } from './http/notificationApi'
 import { fetchGroups, fetchPartners } from './http/partnerApi'
@@ -12,7 +12,7 @@ import { fetchOffers } from './http/offerApi'
 import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders, setOrderViewed } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
-import { fetchUser } from './http/userAPI'
+import { fetchDrivers, fetchUser } from './http/userAPI'
 import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers, fetchManagementVisits } from './http/managementApi'
 import { fetchAdTransports, fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
@@ -26,6 +26,7 @@ const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Notification } = useContext(NotificationContext)
+    const { Driver } = useContext(DriverContext)
     const { Limit } = useContext(LimitContext)
     const { link } = useContext(LinkContext)
     const { State } = useContext(StateContext)
@@ -42,7 +43,6 @@ const Fetcher = observer(() => {
     const { Management } = useContext(ManagementContext)
     const { Ad } = useContext(AdContext)
     const { Setting } = useContext(SettingContext)
-    const [wifiSpeed, setwifiSpeed] = useState('')
 
 
 
@@ -227,7 +227,7 @@ const Fetcher = observer(() => {
                         await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
                     }
                     if ((order_status === 'new' || order_status === 'postponed') && data.length !== 0) {
-                      
+
                         await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
                             Offer.setOffers(data.rows)
 
@@ -327,22 +327,24 @@ const Fetcher = observer(() => {
         fetcher.setOrderViewed(false)
     }, [fetcher.order_viewed])
 
+
+
     //partners
     useEffect(() => {
         if (user.user.role === 'customer') {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if ( Object.keys(UserInfo.userInfo).length !== 0) {
-                        await fetchPartners(UserInfo.userInfo.id).then(async data => {
-                            await fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
-                            await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
-                            Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.carrierId))
-                            Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
-                            Partner.setMyFavorite(data.filter(el => el.status === 'favorite').map(el => el.partnerUserInfoId))
-                            Partner.setPartners(data);
-                            await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => Partner.setPartnerInfos(data))
-                        })
-                    }
+                if (Object.keys(UserInfo.userInfo).length !== 0) {
+                    await fetchPartners(UserInfo.userInfo.id).then(async data => {
+                        await fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
+                        await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
+                        Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.carrierId))
+                        Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
+                        Partner.setMyFavorite(data.filter(el => el.status === 'favorite').map(el => el.partnerUserInfoId))
+                        Partner.setPartners(data);
+                        await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => Partner.setPartnerInfos(data))
+                    })
+                }
                 // }
             }
             fetcher.partners && fetch()
@@ -350,23 +352,23 @@ const Fetcher = observer(() => {
         } else if (user.user.role === 'carrier') {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
-                    if (Object.keys(UserInfo.userInfo).length !== 0) {
-                        await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
-                            fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
-                            Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
-                            await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => {
-                                Partner.setPartnerInfos(data)
-                            })
-                            Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
-                            Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
-                            Partner.setPartners(data);
-                            await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
-                                Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
-                                Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))
-                            })
-                            await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
+                if (Object.keys(UserInfo.userInfo).length !== 0) {
+                    await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
+                        fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
+                        Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
+                        await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => {
+                            Partner.setPartnerInfos(data)
                         })
-                    }
+                        Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
+                        Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
+                        Partner.setPartners(data);
+                        await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
+                            Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
+                            Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))
+                        })
+                        await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
+                    })
+                }
                 // }
             }
 
@@ -385,6 +387,41 @@ const Fetcher = observer(() => {
                 fetcher.setPartners(true)
             }, 60000);
         }
+    }, [])
+
+    //drivers
+    useEffect(() => {
+        async function fetch() {
+            await fetchDrivers(user.user.id).then(data => {
+                Driver.setDrivers(data)
+            }
+            )
+
+            // let transportsImagesArray = []
+            // for (const transport of Transport.transports) {
+            //     let transportImageObject = {
+            //         id: transport.id,
+            //         urlsArray: []
+            //     }
+            //     let fileNames = JSON.parse(transport.files)
+
+            //     if (fileNames) {
+
+            //         for (const file of fileNames) {
+            //             let url = await fetchImages('transport', transport, file)
+            //             transportImageObject.urlsArray.push(url)
+            //         }
+            //         transportsImagesArray.push(transportImageObject)
+            //     }
+            // }
+            // Transport.setTransportImages(transportsImagesArray)
+        }
+        fetcher.drivers && fetch()
+        fetcher.setDrivers(false)
+    }, [fetcher.drivers])
+
+    useEffect(() => {
+        user?.isAuth && fetcher.setDrivers(true)
     }, [])
 
     //transport

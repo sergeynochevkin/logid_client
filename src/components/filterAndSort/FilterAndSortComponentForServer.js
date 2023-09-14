@@ -242,7 +242,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                 : <></>
             }
             {
-                parent === 'partners' &&
+                parent === 'partners' && 
                     (FilterAndSort.partnerFilters[ComponentFunction.Function].id !== '' ||
                         FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
                         FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''

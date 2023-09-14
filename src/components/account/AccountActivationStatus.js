@@ -37,22 +37,22 @@ const AccountActivationStatus = observer(({ containerClassName }) => {
 
     return (
         <div
-            className={containerClassName}>
-            <FieldName>{SetNativeTranslate(Translate.language,{}, 'account_status')}</FieldName>
+            className={'activation_status_container'}>
+            {/* <FieldName>{SetNativeTranslate(Translate.language,{}, 'account_status')}</FieldName> */}
             <div
                 style={{ boxShadow: `0px 5px 10px 0px ${setColor(`${user.user.isActivated ? 'activated' : 'not_activated'}`)}`, padding: '10px 20px 10px 20px', borderRadius: '10px', backgroundColor: Setting.app_theme !== 'light' && '#141414', alignItems: 'flex-start', justifyContent: 'start', width: '270px', color: Setting.app_theme === 'light' ? 'black' : 'white' }}>
                 <HorizontalContainer
-                    style={{ justifyContent: 'center', display: 'flex', width: '100%', gap: '20px', alignItems: 'center', minHeight: '50px', flexDirection:'column' }}
+                    style={{ justifyContent: 'center', display: 'flex', width: '100%', gap: '20px', alignItems: 'center', minHeight: '50px', flexDirection: 'column' }}
                 >
                     <div
                         style={{ fontSize: '14px' }}
-                    >{user.user.isActivated ? SetNativeTranslate(Translate.language,{}, 'activated') : SetNativeTranslate(Translate.language,{}, 'not_activated')}</div>
+                    >{user.user.isActivated ? SetNativeTranslate(Translate.language, {}, 'activated') : SetNativeTranslate(Translate.language, {}, 'not_activated')}</div>
                     {!user.user.isActivated &&
                         <Button
                             onClick={() => {
                                 generateLinkAction()
                             }}
-                        >{SetNativeTranslate(Translate.language,{}, 'send_activation_link')}</Button>}
+                        >{SetNativeTranslate(Translate.language, {}, 'send_activation_link')}</Button>}
                 </HorizontalContainer>
             </div>
         </div>

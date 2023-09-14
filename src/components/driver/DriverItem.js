@@ -1,9 +1,36 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { observer } from 'mobx-react-lite'
+import { CardRow } from '../ui/card/CardRow'
+import CardColValue from '../ui/card/CardColValue'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import { TranslateContext } from '../..'
+import './Driver.css'
+import { CardColName } from '../ui/card/CardColName'
 
-const DriverItem = () => {
+const DriverItem = observer(({ driver }) => {
+
+  const { Translate } = useContext(TranslateContext)
+
   return (
-    <div>DriverItem</div>
+    <CardRow>
+      <CardColValue>{driver.id}</CardColValue>
+      {/* <CardColValue>{driver.email}</CardColValue> */}
+      <CardColValue>{driver.user_info.name_surname_fathersname}</CardColValue>
+      <CardColValue>{driver.user_info.phone}</CardColValue>
+      {driver.isActivated ?
+        <>
+          <CardColName>{SetNativeTranslate(Translate.language, {
+            russian: ['Завершил заказов'],
+            english: ['Finished orders']
+          })}</CardColName><CardColValue>{driver.user_info.complete_orders_amount}</CardColValue>
+        </> :
+        <CardColValue>{SetNativeTranslate(Translate.language, {
+          russian: ['Не активирован'],
+          english: ['Not activated']
+        })}</CardColValue>
+      }
+    </CardRow>
   )
-}
+})
 
 export default DriverItem

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { TranslateContext, UserInfoContext } from '../../..'
+import { TranslateContext, UserContext, UserInfoContext } from '../../..'
 import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Select } from '../../ui/form/Select'
 import { FieldName } from '../../ui/page/FieldName'
@@ -15,6 +15,7 @@ const Legal = ({ formData, setFormData }) => {
 
     const { UserInfo } = useContext(UserInfoContext)
     const { Translate } = useContext(TranslateContext)
+    const { user } = useContext(UserContext)
 
     return (
         <VerticalContainer>
@@ -26,10 +27,10 @@ const Legal = ({ formData, setFormData }) => {
                     name="legal" id='legal'
                     style={{ borderLeft: formData.legal.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
                 >
-                    <option defaultValue hidden>{SetNativeTranslate(Translate.language,{},'legal_place_holder')}</option>
-                    <option value="person">{SetNativeTranslate(Translate.language,{},'person')}</option>
-                    <option value="sole_trader">{SetNativeTranslate(Translate.language,{},'sole_trader')}</option>
-                    <option value="entity">{SetNativeTranslate(Translate.language,{},'entity')}</option>
+                    <option defaultValue hidden>{SetNativeTranslate(Translate.language, {}, 'legal_place_holder')}</option>
+                    <option value="person">{SetNativeTranslate(Translate.language, {}, 'person')}</option>
+                    <option value="sole_trader">{SetNativeTranslate(Translate.language, {}, 'sole_trader')}</option>
+                    <option value="entity">{SetNativeTranslate(Translate.language, {}, 'entity')}</option>
                 </Select>
                 <FieldName
                     style={{
@@ -37,7 +38,7 @@ const Legal = ({ formData, setFormData }) => {
                         color: 'rgb(254, 111, 103,0.8)'
                     }}>
                     {formData.legal.isEmpty && formData.legal.isDirty ?
-                        SetNativeTranslate(Translate.language,{},'choose_legal_form') :
+                        SetNativeTranslate(Translate.language, {}, 'choose_legal_form') :
                         ''
                     }
                 </FieldName>
@@ -55,6 +56,16 @@ const Legal = ({ formData, setFormData }) => {
                     <PassportDateOfIssue setFormData={setFormData} formData={formData} />
                     <PassportIssuedBy setFormData={setFormData} formData={formData} />
                 </>
+                : <></>}
+
+
+            {formData.legal.value === 'person' && user.user.role === 'driver' && !UserInfo.userInfo.passport_number ?
+                <>
+                    <PassportNumber setFormData={setFormData} formData={formData} />
+                    <PassportDateOfIssue setFormData={setFormData} formData={formData} />
+                    <PassportIssuedBy setFormData={setFormData} formData={formData} />
+                </>
+                
                 : <></>}
         </VerticalContainer>
     )

@@ -119,7 +119,8 @@ const User = observer(() => {
     <div className={`user_page_container ${Setting.app_theme}`}>
       <title>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</title>
 
-      <PageBanner>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</PageBanner>
+
+      <PageBanner>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : user.user.role === 'carrier' ? 'carriers_office' : user.user.role === 'driver' ? 'drivers_office' : '')}</PageBanner>
 
       <Container>
 
@@ -157,31 +158,34 @@ const User = observer(() => {
 
                 {/* drivers */}
 
-                {/* <BookMark onClick={() => {
+                <BookMark onClick={() => {
                   ComponentFunction.PageFunction !== 'drivers' && setFunction(false, false, 'drivers', false)
                 }} style={{
                   color: ComponentFunction.PageFunction === 'drivers' && 'grey', cursor: ComponentFunction.PageFunction === 'drivers' && 'default'
                 }}>{SetNativeTranslate(Translate.language, {
                   russian: ['Водители'],
                   english: ['Drivers']
-                })}</BookMark> */}
+                })}</BookMark>
 
                 {/* drivers */}
 
               </>
             }
 
-            <BookMark onClick={() => {
-              ComponentFunction.PageFunction !== 'partners' && setFunction('partners', false, 'partners', false)
-            }} style={{
-              color: ComponentFunction.PageFunction === 'partners' && 'grey', cursor: ComponentFunction.PageFunction === 'partners' && 'default'
-            }}>{SetNativeTranslate(Translate.language, {}, user.user.role === 'carrier' ? 'customers' : 'carriers')}</BookMark>
-
+            {user.user.role !== 'driver' &&
+              <BookMark onClick={() => {
+                ComponentFunction.PageFunction !== 'partners' && setFunction('partners', false, 'partners', false)
+              }} style={{
+                color: ComponentFunction.PageFunction === 'partners' && 'grey', cursor: ComponentFunction.PageFunction === 'partners' && 'default'
+              }}>{SetNativeTranslate(Translate.language, {}, user.user.role === 'carrier' ? 'customers' : 'carriers')}</BookMark>
+            }
+            
             <BookMark onClick={() => {
               ComponentFunction.PageFunction !== 'account' && setFunction(false, false, 'account', false)
             }} style={{
               color: ComponentFunction.PageFunction === 'account' && 'grey', cursor: ComponentFunction.PageFunction === 'account' && 'default'
             }}>{SetNativeTranslate(Translate.language, {}, 'account')}</BookMark>
+
 
 
             <BookMark onClick={() => {

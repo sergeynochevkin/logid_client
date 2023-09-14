@@ -7,7 +7,7 @@ import { Select } from '../ui/form/Select'
 import { Comment } from '../ui/form/Comment'
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, MANAGER_ROUTE } from '../../utils/consts';
-import { code, fast_registration, login, registration, restore, update } from '../../http/userAPI'
+import { activateDriver, code, fast_registration, login, registration, restore, update } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, ComponentFunctionContext, FetcherContext, LinkContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
@@ -245,9 +245,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                 id: v4(), type: 'error', message: message
               }])
             }
-
             navigate(USER_ROUTE)
-
           }
         }
 
@@ -274,8 +272,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           }
         })
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
-
-
           if (order_status) {
             order_status === 'new' && fetcher.setOrdersNew(true)
             order_status === 'inWork' && fetcher.setOrdersInWork(true)
@@ -286,12 +282,20 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             fetcher.setOrdersAll(true)
           }
 
-
           fetcher.setSubscriptions(true)
         }
         if (user.user.role === 'carrier') {
           fetcher.setTransports(true)
         }
+
+
+        if (parent === 'navBar' && !after_action) {
+          if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
+          else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
+          else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
+          else { navigate(MAIN_ROUTE) }
+        }
+
       }
     })
   })
@@ -332,9 +336,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
       fetching()
 
-
       if (parent === 'navBar') {
-        if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
+        if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
         else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
         else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
         else { navigate(MAIN_ROUTE) }
@@ -353,8 +356,25 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     try {
       let data;
       if (isLogin) {
-        data = await login(formData.email.value, formData.password.value, Translate.language)
+        data = await login(formData.email.value, formData.password.value, Translate.language, formData.user_agreement_accepted,
+          formData.privacy_policy_accepted,
+          formData.age_accepted,
+          formData.personal_data_agreement_accepted,
+          formData.cookies_accepted)
         user.setUser(data)
+
+        if (link.after_actions.driver_activation && !data.isActivated) {
+          try {
+            await activateDriver(data.id, Translate.language).then(data => {
+              Notification.addNotification([{
+                id: v4(), type: 'success', message: data
+              }])
+              link.setAfterActions(false, 'driver_activation')
+            })
+          } catch (error) {
+            Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
+          }
+        }
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
             {
@@ -616,7 +636,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           </VerticalContainer>
           : <></>}
 
-        {isRegister ?
+        {isRegister || (isLogin && link.after_actions.driver_activation) ?
           <div className='auth_check_box_list_section'>
             <div className='auth_check_box_list_container'>
               {Adress.country.value === 'russia' &&
@@ -779,6 +799,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               || (formData.load_capacity.isEmpty && formData.type.value === 'minibus' && !link.after_actions.add_transport_form)
               || (formData.side_type.isEmpty && formData.type.value === 'truck' && !link.after_actions.add_transport_form)
 
+              || (isLogin && link.after_actions.driver_activation && !formData.user_agreement_accepted && Adress.country.value === 'russia')
+              || (isLogin && link.after_actions.driver_activation && !formData.age_accepted && Adress.country.value === 'russia')
+              || (isLogin && link.after_actions.driver_activation && !formData.cookies_accepted.total && Adress.country.value === 'russia')
+              || (isLogin && link.after_actions.driver_activation && !formData.personal_data_agreement_accepted && Adress.country.value === 'russia')
+              || (isLogin && link.after_actions.driver_activation && !formData.privacy_policy_accepted && Adress.country.value === 'russia')
             }
             onClick={(event) => {
               event.preventDefault()

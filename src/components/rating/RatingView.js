@@ -8,6 +8,8 @@ import { CardColName } from '../ui/card/CardColName'
 import { CardRow } from '../ui/card/CardRow'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 
+import './Rating.css'
+
 const RatingView = observer(({ onePartnerInfo, user, parent }) => {
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const { Translate } = useContext(TranslateContext)
@@ -31,7 +33,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                 >{onePartnerInfo.disruption_amount}</CardColName>
             </CardRow>
 
-            {(user.user.role === 'carrier' && parent !== 'account') || (user.user.role === 'customer' && parent === 'account') ?
+            {((user.user.role === 'carrier' || user.user.role === 'driver') && parent !== 'account') || (user.user.role === 'customer' && parent === 'account') ?
                 <CardRow>
                     <CardColName>
                         {SetNativeTranslate(Translate.language,{},'solvency')}
@@ -88,12 +90,12 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
             <CardRow>
                 {parent !== 'account' ?
                     <CardColName>
-                        {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'no_downtime') :
+                        {(user.user.role === 'carrier'  || user.user.role === 'driver') ? SetNativeTranslate(Translate.language,{},'no_downtime') :
                             user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'submission_fulfillment') : ''}
                     </CardColName> :
                     <CardColName>
                         {user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'no_downtime') :
-                            user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'submission_fulfillment') : ''}
+                            (user.user.role === 'carrier' ||  user.user.role === 'driver') ? SetNativeTranslate(Translate.language,{},'submission_fulfillment') : ''}
                     </CardColName>}
                 {parent !== 'account' ?
                     <>
@@ -122,12 +124,12 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
             <CardRow>
                 {parent !== 'account' ?
                     <CardColName>
-                        {user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'loading_unloading') :
+                        {(user.user.role === 'carrier' || user.user.role === 'driver') ? SetNativeTranslate(Translate.language,{},'loading_unloading') :
                             user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'transport_quality') : ''}
                     </CardColName> :
                     <CardColName>
                         {user.user.role === 'customer' ? SetNativeTranslate(Translate.language,{},'loading_unloading') :
-                            user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{},'transport_quality') : ''}
+                            (user.user.role === 'carrier' ||   user.user.role === 'driver') ? SetNativeTranslate(Translate.language,{},'transport_quality') : ''}
                     </CardColName>}
                 {parent !== 'account' ?
                     <>

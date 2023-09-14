@@ -104,7 +104,8 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
                 </div>
             }
 
-            <NameSurNameFathersName setFormData={setFormData} formData={formData} />
+            {user.user.role !== 'driver' && <NameSurNameFathersName setFormData={setFormData} formData={formData} />}
+
             {!UserInfo.userInfo.phone && <Phone setFormData={setFormData} formData={formData} />}
             <Legal setFormData={setFormData} formData={formData} />
             {user.user.role === 'customer' &&
@@ -112,7 +113,7 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
             }
             <AdressComponent setFormData={setFormData} formData={formData} parent={'account'} />
             <Button disabled={
-                formData.legal.notValid
+                (formData.legal.notValid && user.user.role !== 'driver')
                 ||
                 (!UserInfo.userInfo.phone && formData.phone.notValid)
                 ||
@@ -129,7 +130,7 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
                 // ||
                 (formData.type_of_customer.notValid && user.user.role === 'customer')
                 ||
-                formData.name_surname_fathersname.notValid
+                (formData.name_surname_fathersname.notValid && user.user.role !== 'driver')
                 ||
                 (formData.passport_number.notValid && formData.legal.value === 'person') ||
                 (formData.passport_date_of_issue.notValid && formData.legal.value === 'person') ||

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { FileContext, LinkContext, NotificationContext, TranslateContext, TransportContext } from '../..'
+import { DriverContext, FileContext, LinkContext, NotificationContext, TranslateContext, TransportContext, UserContext } from '../..'
 import { fetchFile } from '../../http/fileApi'
 import TransportForm from './TransportForm'
 import TransportList from './TransportList'
@@ -21,6 +21,7 @@ flex-direction:column;
 const TransportComponent = observer(() => {
   const { Translate } = useContext(TranslateContext)
   const { Transport } = useContext(TransportContext)
+  const { user } = useContext(UserContext)
   const { Notification } = useContext(NotificationContext)
   const [modalActive, setModalActive] = useState(false)
   const [files, setFiles] = useState([])
@@ -28,6 +29,7 @@ const TransportComponent = observer(() => {
   const [formFunction, setFormFunction] = useState('')
   const [transportId, setTransportId] = useState('')
   const { link } = useContext(LinkContext)
+  const { Driver } = useContext(DriverContext)
 
 
   const initialValue = {
@@ -44,7 +46,8 @@ const TransportComponent = observer(() => {
     ad_name: '',
     ad_text: '',
     ad_show: true,
-    id: undefined
+    id: undefined,
+    driver_id:undefined
   }
 
   const [formData, setFormData] = useState(initialValue)
@@ -52,6 +55,8 @@ const TransportComponent = observer(() => {
   const formReset = () => {
     formData.tag.setValue('')
     formData.tag.setDirty(false)
+    formData.driver_id.setValue('')
+    formData.driver_id.setDirty(false)
     formData.ad_text.setValue('')
     formData.ad_text.setDirty(false)
     formData.type.setValue('')
@@ -68,6 +73,7 @@ const TransportComponent = observer(() => {
   formData.load_capacity = useInput('', { isEmpty: true },)
   formData.side_type = useInput('', { isEmpty: true },)
   formData.type = useInput('', { isEmpty: true },)
+  formData.driver_id = useInput( Driver.drivers.length === 0 ? user.user.id : '', { isEmpty: true },)
   const parent = 'TransportComponent'
 
   useEffect(() => {

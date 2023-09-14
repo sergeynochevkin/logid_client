@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { FetcherContext, NotificationContext, TranslateContext, UserInfoContext } from '../..'
+import { DriverContext, FetcherContext, NotificationContext, TranslateContext, UserInfoContext } from '../..'
 import { createTransport, updateTransport } from '../../http/transportApi'
 import { uploadFiles } from '../../http/fileApi'
 import { Form } from '../ui/form/Form'
@@ -17,16 +17,19 @@ import { v4 } from "uuid";
 import { FieldName } from '../ui/page/FieldName'
 import TransportFormAdName from './TransportFormAdName'
 import { useInput } from '../../hooks/useInput'
+import DriverSelector from './DriverSelector'
 
 const TransportForm = observer(({ setModalActive, formData, formReset, setFormData, parent, pairs, setPairs, files, setFiles, formFunction, transportId }) => {
   const { UserInfo } = useContext(UserInfoContext)
   const { Translate } = useContext(TranslateContext)
+  const { Driver } = useContext(DriverContext)
   const { fetcher } = useContext(FetcherContext)
   const { Notification } = useContext(NotificationContext)
   const [filesFormData, setFilesFormData] = useState(new FormData)
 
   let dataTransfer = new DataTransfer();
   let fileList
+  
 
 
   formData.ad_name = useInput('', { isEmpty: false, minLength: 4, maxLength: 22 }, SetNativeTranslate(Translate.language, {
@@ -124,6 +127,10 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
       <Form encType="multipart/form-data" >
 
         <TransportFormTag formData={formData} />
+
+        {Driver.drivers.length > 0 &&
+          <DriverSelector formData={formData} setFormData={setFormData} />
+        }
 
         <TransportFormAdName formData={formData} />
         <TransportFormAdText formData={formData} />

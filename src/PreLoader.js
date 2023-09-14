@@ -88,6 +88,9 @@ const PreLoader = observer(({ children, ...props }) => {
             link.setRefer(action, 'action')
             link.setRefer(referal_id, 'id')
         }
+        if (action === 'driver_activation') {
+            link.setAfterActions(true, 'driver_activation')
+        }
     }, [])
 
     useEffect(() => {
@@ -132,6 +135,11 @@ const PreLoader = observer(({ children, ...props }) => {
                 async function fetchData() {
                     let country
                     let data = await check()
+
+                    if (data.isActivated && action === 'driver_activation') (
+                        link.setAfterActions(false, 'driver_activation')
+                    )
+
                     user.setUser(data)
 
                     if (data.role === 'admin') {
@@ -146,7 +154,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     data = await fetchUserInfo(user.user.id).then(data => {
 
                         if (data) {
-                            UserInfo.setUserInfo(data)                            
+                            UserInfo.setUserInfo(data)
                             country = Adress.countries.find(el => el.value === data.country)
                             if (country !== Adress.country.value) {
                                 Adress.setCountry(country)
@@ -156,8 +164,8 @@ const PreLoader = observer(({ children, ...props }) => {
                                 fetcher.setTransports(true)
                             }
 
-                            if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {              
-                                fetcher.setPartners(true)                  
+                            if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
+                                fetcher.setPartners(true)
                                 if (order_status) {
                                     order_status === 'new' && fetcher.setOrdersNew(true)
                                     order_status === 'inWork' && fetcher.setOrdersInWork(true)
@@ -172,7 +180,6 @@ const PreLoader = observer(({ children, ...props }) => {
 
 
                         data && fetchUserState(data.id).then(stateData => {
-
                             let state = JSON.parse(stateData.state)
                             State.setUserState(state)
 
@@ -192,12 +199,10 @@ const PreLoader = observer(({ children, ...props }) => {
                                 State.setUserStateField(Translate.language, 'language', data.id)
                             }
                         })
-
                         data && fetcher.setUserAppSetting(true)
-
                     })
 
-                    if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
+                    if ((user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') && location.pathname !== "/board") {
                         navigate(USER_ROUTE)
                     }
                     user.user.role === 'admin' && navigate(MAIN_ROUTE)
@@ -214,7 +219,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
 
     return (
-        <div{...props}>{dataLoaded && isLoaded ? children : <PageLoader /> }</div>
+        <div{...props}>{dataLoaded && isLoaded ? children : <PageLoader />}</div>
     )
 
 })

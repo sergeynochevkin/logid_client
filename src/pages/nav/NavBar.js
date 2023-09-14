@@ -57,14 +57,14 @@ const NavBar = observer(() => {
   // }, [])
 
   useEffect(() => {
-    if ((link.order.id || link.refer.id) && !user.isAuth) {
+    if ((link.order.id || link.refer.id || link.after_actions.driver_activation) && !user.isAuth) {
       setModalActive1(true)
     }
   }, [])
 
   let office = SetNativeTranslate(Translate.language, {
-    russian:['Кабинет'],
-    english:['Office']
+    russian: ['Кабинет'],
+    english: ['Office']
   })
 
   return (
@@ -113,6 +113,14 @@ const NavBar = observer(() => {
                 navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {}, 'carriers_office')}</div> :
               <></>
             }
+            {user.user.role === "driver" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {
+                  russian: ['Кабинет водителя'],
+                  english: ['Drivers office']
+                })}</div> :
+              <></>
+            }
 
             {user.user.role === "manager" && user.isAuth ?
               <div className='nav_bar_item' onClick={() =>
@@ -126,12 +134,17 @@ const NavBar = observer(() => {
               <></>
             }
           </> : <>
-          {user.user.role === "customer" && user.isAuth ?
+            {user.user.role === "customer" && user.isAuth ?
               <div className='nav_bar_item' onClick={() =>
                 navigate(USER_ROUTE)}>{office}</div> :
               <></>
             }
             {user.user.role === "carrier" && user.isAuth ?
+              <div className='nav_bar_item' onClick={() =>
+                navigate(USER_ROUTE)}>{office}</div> :
+              <></>
+            }
+            {user.user.role === "driver" && user.isAuth ?
               <div className='nav_bar_item' onClick={() =>
                 navigate(USER_ROUTE)}>{office}</div> :
               <></>

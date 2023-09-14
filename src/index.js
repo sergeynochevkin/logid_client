@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import UserStore from './store/UserStore';
 import App from './App';
 import OrderStore from './store/OrderStore';
@@ -27,6 +27,8 @@ import ManagementStore from './store/ManagementStore';
 import AdStore from './store/AdStore';
 import LinkStore from './store/LinkStore';
 import '../src/fonts/Jost-VariableFont_wght.ttf'
+import DriverStore from './store/DriverStore';
+import { createRoot } from 'react-dom/client';
 
 
 export const UserContext = createContext(null)
@@ -53,9 +55,15 @@ export const FetcherContext = createContext(null)
 export const ManagementContext = createContext(null)
 export const AdContext = createContext(null)
 export const LinkContext = createContext(null)
+export const DriverContext = createContext(null)
 
+let domNode = document.getElementById('root')
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+let root
+
+if (domNode !== null && domNode.tagName) {
+  root = createRoot(domNode)
+}
 
 const Global = createGlobalStyle`
 
@@ -79,7 +87,7 @@ const theme = {
   }
 }
 
-root.render(
+root && root.render(
   <FetcherContext.Provider value={{
     fetcher: new FetcherStore(),
   }}>
@@ -145,26 +153,30 @@ root.render(
                                           <EquipmentTypeContext.Provider value={{
                                             EquipmentType: new EquipmentTypeStore(),
                                           }}>
-                                            <TransportContext.Provider value={{
-                                              Transport: new TransportStore(),
+                                            <DriverContext.Provider value={{
+                                              Driver: new DriverStore(),
                                             }}>
-                                              <AdressContext.Provider value={{
-                                                Adress: new AdressStore(),
+                                              <TransportContext.Provider value={{
+                                                Transport: new TransportStore(),
                                               }}>
-                                                <ManagementContext.Provider value={{
-                                                  Management: new ManagementStore(),
+                                                <AdressContext.Provider value={{
+                                                  Adress: new AdressStore(),
                                                 }}>
-                                                  {/* <React.StrictMode> */}
-                                                  <ThemeProvider theme={theme}>
-                                                    <Global />
+                                                  <ManagementContext.Provider value={{
+                                                    Management: new ManagementStore(),
+                                                  }}>
+                                                    {/* <React.StrictMode> */}
+                                                    <ThemeProvider theme={theme}>
+                                                      <Global />
 
-                                                    <App />
+                                                      <App />
 
-                                                  </ThemeProvider>
-                                                  {/* </React.StrictMode> */}
-                                                </ManagementContext.Provider>
-                                              </AdressContext.Provider>
-                                            </TransportContext.Provider>
+                                                    </ThemeProvider>
+                                                    {/* </React.StrictMode> */}
+                                                  </ManagementContext.Provider>
+                                                </AdressContext.Provider>
+                                              </TransportContext.Provider>
+                                            </DriverContext.Provider>
                                           </EquipmentTypeContext.Provider>
                                         </TransportTypeContext.Provider>
                                       </ComponentFunctionContext.Provider>

@@ -7,7 +7,7 @@ import { CardContainer } from '../ui/card/CardContainer'
 import { CardEquipment } from '../ui/card/CardEquipment'
 import { CardRow } from '../ui/card/CardRow'
 import { EquipmentRow } from '../ui/card/EquipmentRow'
-import { FetcherContext, NotificationContext, SettingContext, TranslateContext, TransportContext } from '../..'
+import { DriverContext, FetcherContext, NotificationContext, SettingContext, TranslateContext, TransportContext, UserContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
@@ -23,6 +23,8 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
   const { fetcher } = useContext(FetcherContext)
   const { Transport } = useContext(TransportContext)
   const { Notification } = useContext(NotificationContext)
+  const { user } = useContext(UserContext)
+  const { Driver } = useContext(DriverContext)
   const { Setting } = useContext(SettingContext)
   const [modalActive1, setModalActive1] = useState(false)
   const [image, setImage] = useState('')
@@ -51,6 +53,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
 
     formData.type.setValue(oneTransport.type)
     formData.tag.setValue(oneTransport.tag)
+    formData.driver_id.setValue(oneTransport.driver_id)
     formData.side_type.setValue(oneTransport.side_type)
     formData.load_capacity.setValue(oneTransport.load_capacity)
     formData.ad_text.setValue(oneTransport.ad_text)
@@ -64,6 +67,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
     formData.ad_show = oneTransport.ad_show
     formData.id = oneTransport.id
     formData.ad_name = oneTransport.ad_name
+
 
     let blob
     const createImage = async (image) => {
@@ -119,6 +123,15 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           {SetNativeTranslate(Translate.language, {}, oneTransport.type)}
         </CardColValue>
       </CardRow>
+      {oneTransport.driver_id &&
+        <CardRow><CardColName>{SetNativeTranslate(Translate.language, {
+          russian: ['Водитель'],
+          english: ['Driver']
+        })}</CardColName><CardColValue>{oneTransport.driver_id === user.user.id ? SetNativeTranslate(Translate.language, {
+          russian: ['Вы'],
+          english: ['You']
+        }) : Driver.drivers.find(el => el.id === oneTransport.driver_id).user_info.name_surname_fathersname}</CardColValue></CardRow>
+      }
       {oneTransport.type === 'minibus' || oneTransport.type === 'truck' ?
 
         <CardRow>
@@ -181,7 +194,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           })}</CardEquipment> : <></>
       }
         {oneTransport.ad_show && oneTransport.moderated === 'checked_accepted' ? <Link to={`/board/item/${oneTransport.id}`}>
-          <img  className = 'nav_bar_theme_icon' src={Setting.app_theme === 'light' ? link : link_dark}></img>
+          <img className='nav_bar_theme_icon' src={Setting.app_theme === 'light' ? link : link_dark}></img>
         </Link> : <></>}
       </CardRow>
 

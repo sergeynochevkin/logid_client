@@ -42,12 +42,14 @@ const Account = observer(() => {
         <HorizontalContainer
             style={{ marginTop: '10px', alignItems: 'flex-start' }}>
 
-            <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                <SubscriptionForm setModalActive={setModalActive} setModalActive2={setModalActive2} setYoomoneyToken={setYoomoneyToken} paymentId={paymentId} setPaymentId={setPaymentId} />
-            </Modal>
-
-            <PaymentComponent modalActive2={modalActive2} setModalActive2={setModalActive2} yoomoneyToken={yoomoneyToken} setYoomoneyToken={setYoomoneyToken} paymentId={paymentId} setPaymentId={setPaymentId} />
-
+            {user.user.role !== 'driver' &&
+                <Modal modalActive={modalActive} setModalActive={setModalActive}>
+                    <SubscriptionForm setModalActive={setModalActive} setModalActive2={setModalActive2} setYoomoneyToken={setYoomoneyToken} paymentId={paymentId} setPaymentId={setPaymentId} />
+                </Modal>
+            }
+            {user.user.role !== 'driver' &&
+                <PaymentComponent modalActive2={modalActive2} setModalActive2={setModalActive2} yoomoneyToken={yoomoneyToken} setYoomoneyToken={setYoomoneyToken} paymentId={paymentId} setPaymentId={setPaymentId} />
+            }
 
             <VerticalContainer>
                 <AccountActivationStatus containerClassName={containerClassName} />
@@ -67,11 +69,11 @@ const Account = observer(() => {
                     className={containerClassName}>
                     <AccountItem fieldName='id' fieldValue={UserInfo.userInfo.id} editable={false} />
 
-                    {UserInfo.userInfo.name_surname_fathersname ?
+                    {UserInfo.userInfo.name_surname_fathersname && user.user.role !== 'driver' ?
                         <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_validation')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} /> : <></>}
-
-                    <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'country_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.country)} editable={false} attachedField={'country'} />
-                    <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'city_content')} fieldValue={UserInfo.userInfo.city} editable={true} attachedField={'city'} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} />
+                    {user.user.role !== 'driver' && <>
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'country_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.country)} editable={false} attachedField={'country'} />
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'city_content')} fieldValue={UserInfo.userInfo.city} editable={true} attachedField={'city'} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} /></>}
                     {UserInfo.userInfo.phone ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'phone_content')} fieldValue={UserInfo.userInfo.phone} editable={true} attachedField={'phone'} /> : <></>}
 
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'notification_email_content')} fieldValue={UserInfo.userInfo.email} editable={true} attachedField={'email'} />
@@ -81,51 +83,60 @@ const Account = observer(() => {
                     /> : <></>}
                     {UserInfo.userInfo.type_of_customer ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'delivery_for')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.type_of_customer)} editable={true} attachedField={'type_of_customer'} /> : <></>}
                 </div>
-                <div
-                    className={containerClassName}>
 
-                    <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'can_add')} fieldValue={UserInfo.userInfo.uuid} editable={false} attachedField={''} />
+                {user.user.role !== 'driver' &&
+                    <div
+                        className={containerClassName}>
 
-                    <div className='account_share_container'>
-                        <div className='account_share_text' t>{SetNativeTranslate(Translate.language, {
-                            russian: [`Поделитесь ссылкой ${user.user.role === 'carrier' ? 'с заказчиком' : user.user.role === 'customer' ? 'c перевозчиком' : ''}`],
-                            english: [`Share the link ${user.user.role === 'carrier' ? 'with customer' : user.user.role === 'customer' ? 'carrier' : ''}`]
-                        })}</div>
-                        <ShareComponent parent={'account_uuid'} shareName={shareName}
-                        />
-                    </div>
-                </div>
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'can_add')} fieldValue={UserInfo.userInfo.uuid} editable={false} attachedField={''} />
+
+                        <div className='account_share_container'>
+                            <div className='account_share_text' t>{SetNativeTranslate(Translate.language, {
+                                russian: [`Поделитесь ссылкой ${user.user.role === 'carrier' ? 'с заказчиком' : user.user.role === 'customer' ? 'c перевозчиком' : ''}`],
+                                english: [`Share the link ${user.user.role === 'carrier' ? 'with customer' : user.user.role === 'customer' ? 'carrier' : ''}`]
+                            })}</div>
+                            <ShareComponent parent={'account_uuid'} shareName={shareName}
+                            />
+                        </div>
+
+                    </div>}
+
             </VerticalContainer>
 
-            {UserInfo.userInfo.legal ?
-                <VerticalContainer>
-                    <div
-                        className={containerClassName}>
-                        {UserInfo.userInfo.legal === 'sole_trader' || UserInfo.userInfo.legal === 'entity' ? <>
-                            {UserInfo.userInfo.legal ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'legal_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.legal)} editable={true} attachedField={'legal'} /> : <></>}
-                            {UserInfo.userInfo.company_name ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'company_name_content')} fieldValue={UserInfo.userInfo.company_name} editable={true} attachedField={'company_name'} /> : <></>}
-                            {UserInfo.userInfo.website ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'website_content')} fieldValue={UserInfo.userInfo.website} editable={true} attachedField={'website'} /> : <></>}
-                            {UserInfo.userInfo.company_inn ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'company_inn_content')} fieldValue={UserInfo.userInfo.company_inn} editable={true} attachedField={'company_inn'} /> : <></>}
-                        </> : <></>}
-                        {UserInfo.userInfo.legal === 'person' ? <>
-                            {UserInfo.userInfo.legal ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'legal_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.legal)} editable={true} attachedField={'legal'} /> : <></>}
-                            {UserInfo.userInfo.passport_number ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'passport_number_content')} fieldValue={UserInfo.userInfo.passport_number} editable={true} attachedField={'passport_number'} /> : <></>}
-                            {UserInfo.userInfo.passport_date_of_issue ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'passport_date_of_issue_content')} fieldValue={UserInfo.userInfo.passport_date_of_issue} editable={true} attachedField={'passport_date_of_issue'} /> : <></>}
-                            {UserInfo.userInfo.passport_issued_by ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'passport_issued_by_content')} fieldValue={UserInfo.userInfo.passport_issued_by} editable={true} attachedField={'passport_issued_by'} /> : <></>}
-                        </> : <></>}
-                    </div>
-                    <div
-                        className={containerClassName}>
-                        <FieldName>{SetNativeTranslate(Translate.language, {}, 'subscription_status')}</FieldName>
-                        <SubscriptionStatusComponent setModalActive={setModalActive} />
-                    </div>
-                </VerticalContainer>
-                :
-                <VerticalContainer>
-                    <AccountInfoStatus containerClassName={containerClassName} />
-                </VerticalContainer>
 
-            }
+            <>
+                {(user.user.role === 'driver' && UserInfo.userInfo.passport_number) || (UserInfo.userInfo.legal && user.user.role !== 'driver') ?
+                    <VerticalContainer>
+                        <div
+                            className={containerClassName}>
+                            {UserInfo.userInfo.legal === 'sole_trader' || UserInfo.userInfo.legal === 'entity' ? <>
+                                {UserInfo.userInfo.legal ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'legal_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.legal)} editable={true} attachedField={'legal'} /> : <></>}
+                                {UserInfo.userInfo.company_name ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'company_name_content')} fieldValue={UserInfo.userInfo.company_name} editable={true} attachedField={'company_name'} /> : <></>}
+                                {UserInfo.userInfo.website ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'website_content')} fieldValue={UserInfo.userInfo.website} editable={true} attachedField={'website'} /> : <></>}
+                                {UserInfo.userInfo.company_inn ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'company_inn_content')} fieldValue={UserInfo.userInfo.company_inn} editable={true} attachedField={'company_inn'} /> : <></>}
+                            </> : <></>}
+                            {UserInfo.userInfo.legal === 'person' ? <>
+                                {UserInfo.userInfo.legal ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'legal_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.legal)} editable={true} attachedField={'legal'} /> : <></>}
+                                {UserInfo.userInfo.passport_number ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'passport_number_content')} fieldValue={UserInfo.userInfo.passport_number} editable={true} attachedField={'passport_number'} /> : <></>}
+                                {UserInfo.userInfo.passport_date_of_issue ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'passport_date_of_issue_content')} fieldValue={UserInfo.userInfo.passport_date_of_issue} editable={true} attachedField={'passport_date_of_issue'} /> : <></>}
+                                {UserInfo.userInfo.passport_issued_by ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'passport_issued_by_content')} fieldValue={UserInfo.userInfo.passport_issued_by} editable={true} attachedField={'passport_issued_by'} /> : <></>}
+                            </> : <></>}
+                        </div>
+
+                        {user.user.role !== 'driver' &&
+                            <div
+                                className={containerClassName}>
+                                <FieldName>{SetNativeTranslate(Translate.language, {}, 'subscription_status')}</FieldName>
+                                <SubscriptionStatusComponent setModalActive={setModalActive} />
+                            </div>
+                        }
+                    </VerticalContainer>
+                    :
+                    <VerticalContainer>
+                        <AccountInfoStatus containerClassName={containerClassName} />
+                    </VerticalContainer>
+                }
+            </>
 
 
         </HorizontalContainer> : <></>

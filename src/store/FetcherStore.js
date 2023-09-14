@@ -40,6 +40,9 @@ export default class FetcherStore {
         this._loading = false
         this._custom_loading = false
 
+        //drivers
+        this._drivers = false
+
         makeAutoObservable(this)
     }
     //set
@@ -66,6 +69,9 @@ export default class FetcherStore {
     }
     setOrdersInWork(value) {
         this._orders_in_work = value
+    }
+    setDrivers(value) {
+        this._drivers = value
     }
     setTransports(value) {
         this._transports = value
@@ -143,6 +149,9 @@ export default class FetcherStore {
     }
     get orders_in_work() {
         return this._orders_in_work
+    }
+    get drivers() {
+        return this._drivers
     }
     get transports() {
         return this._transports

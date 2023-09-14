@@ -18,7 +18,7 @@ const AccountInfoStatus = observer(({ containerClassName }) => {
     return (
         <div
             className={containerClassName}
-            style={{ boxShadow: `0px 5px 10px 0px ${setColor(`${!UserInfo.userInfo.legal ? 'not_activated' : ''}`)}` }}
+            style={{ boxShadow: `0px 5px 10px 0px ${setColor(`not_activated`)}` }}
         >
             <div
                 className='account_info_status_content_container'
@@ -30,7 +30,7 @@ const AccountInfoStatus = observer(({ containerClassName }) => {
                             english: ['The safety of all service participants is important to us, please fill out the profile to be able to send orders']
                         }
                         , '') :
-                    user.user.role === 'carrier' ?
+                    user.user.role === 'carrier' || user.user.role === 'driver' ?
                         SetNativeTranslate(Translate.language,
                             {
                                 russian: ['Для нас важна безопасность всех участников сервиса, пожалуйста заполните профиль, чтобы иметь возможность брать в работу заказы и делать предложения по аукционам'],

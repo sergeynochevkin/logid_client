@@ -274,6 +274,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'tap_to_hide', russian: 'Каснитесь, чтобы скрыть', english: 'Tap to hide', spanish: 'Toca para ocultar', turkish: 'Gizlemek için dokunun', type: 'button' },
 
         { service: 'carriers_office', russian: 'Кабинет перевозчика', english: 'Сarrier`s office', spanish: 'Oficina del transportista', turkish: 'Taşıyıcının ofisi', type: 'header' },
+        { service: 'drivers_office', russian: 'Кабинет водителя', english: 'Driver`s office', spanish: 'Oficina del conductor', turkish: 'Sürücü ofisi', type: 'header' },
         { service: 'customers_office', russian: 'Кабинет заказчика', english: 'Customer`s office', spanish: 'Oficina del cliente', turkish: 'Müşterinin ofisi', type: 'header' },
         { service: 'managers_office', russian: 'Кабинет менеджера', english: 'Managers office', spanish: 'Oficina del gerente', turkish: 'Yöneticinin ofisi', type: 'header' },
         { service: 'administrators_office', russian: 'Кабинет администратора', english: 'Administrator`s office', spanish: 'Oficina del administrador', turkish: 'Yönetici ofisi', type: 'header' },
