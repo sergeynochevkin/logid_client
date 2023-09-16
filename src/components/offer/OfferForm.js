@@ -69,8 +69,10 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 Notification.addNotification([{
                     id: v4(), type: 'success', message: SetNativeTranslate(
                         Translate.language, {
-                        russian: ['Вы изменили предложение к', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
-                        english: ['You have changed the offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id]
+                        russian: ['Вы изменили предложение к', oneOrder.order_type === 'order' ? `заказу` : `аукциону`, oneOrder.id],
+                        english: ['You have changed the offer to the', oneOrder.order_type === 'order' ? `order` : `auction`, oneOrder.id],
+                        spanish: ['Has cambiado la oferta a la', oneOrder.order_type === 'order' ? `orden` : `subasta`, oneOrder.id],
+                        turkish: ['Teklifi şu şekilde değiştirdiniz', oneOrder.order_type === 'order' ? `emir` : `açık arttırma`, oneOrder.id],
                     }
                     )
                 }])
@@ -85,7 +87,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     id: v4(), type: 'success', message: SetNativeTranslate(
                         Translate.language, {
                         russian: ['Вы сделали предложение к', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
-                        english: ['You have made an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id]
+                        english: ['You have made an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
+                        spanish: ['Hiciste una oferta para', oneOrder.order_type === 'order' ? `orden` : `subasta`, oneOrder.id],
+                        turkish: ['Bir teklifte bulundun', oneOrder.order_type === 'order' ? `emir` : `açık arttırma`, oneOrder.id],
                     }
                     )
                 }])
@@ -109,7 +113,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 id: v4(), type: 'success', message: SetNativeTranslate(
                     Translate.language, {
                     russian: ['Вы удалили предложение к', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
-                    english: ['You have deleted an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id]
+                    english: ['You have deleted an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
+                    spanish: ['Has eliminado la oferta para', oneOrder.order_type === 'order' ? `orden` : `subasta`, oneOrder.id],
+                    turkish: ['Şu teklifi kaldırdınız', oneOrder.order_type === 'order' ? `emir` : `açık arttırma`, oneOrder.id],
                 }
                 )
             }])
@@ -126,7 +132,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                 <Smaller>{SetNativeTranslate(
                     Translate.language, {
                     russian: ['Ваше предложение'],
-                    english: ['Your offer']
+                    english: ['Your offer'],
+                    spanish: ['Tu oferta'],
+                    turkish: ['Teklifiniz'],
                 }
                 )}</Smaller>
                 <VerticalContainer
@@ -183,7 +191,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     <Input placeholder={SetNativeTranslate(
                         Translate.language, {
                         russian: ['Комментарий к предложению'],
-                        english: ['Comment on the offer']
+                        english: ['Comment on the offer'],
+                        spanish: ['Comentar la propuesta'],
+                        turkish: ['Teklif hakkında yorum yapın'],
                     }
                     )} value={formData
                         .carrier_comment.value}
@@ -209,7 +219,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                                 {SetNativeTranslate(Translate.language,
                                     {
                                         russian: ['Выбeрите способ доставки'],
-                                        english: ['Choose a shipping method']
+                                        english: ['Choose a shipping method'],
+                                        spanish: ['Seleccione el método de entrega'],
+                                        turkish: ['Teslimat yöntemini seçin'],
                                     }
                                 )}
                             </div>

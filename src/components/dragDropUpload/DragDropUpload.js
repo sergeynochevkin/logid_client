@@ -125,7 +125,9 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                 >
                     {parent === 'transportForm' ? SetNativeTranslate(Translate.language, {}, 'drag_drop_transport') : parent === 'driver_form' ? SetNativeTranslate(Translate.language, {
                         russian: ['Добавьте фотографию водителя'],
-                        english: ['Add drivers foto']
+                        english: ['Add drivers foto'],
+                        spanish: ['Agregar controladores foto'],
+                        turkish: ['Sürücü fotoğrafı ekle'],
                     }) : SetNativeTranslate(Translate.language, {}, 'drag_drop_order')}
                     <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetNativeTranslate(Translate.language, {}, 'select')}
                         <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='files[]' disabled={pairs.length === length}></input>

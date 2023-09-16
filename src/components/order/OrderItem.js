@@ -74,7 +74,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     let thisOrderPoints = oneOrderPoints
     let thisOrderNoPartners = oneOrderNoPartners
 
-  
+
 
     const sortPoints = (a, b) => {
         if (a.sequence > b.sequence) {
@@ -172,22 +172,26 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
                         <div className='nav_links_container'>
 
-                            {thisOrder.yandex_url  &&
+                            {thisOrder.yandex_url && Adress.country === 'russia' ?
                                 <div><a
                                     target='blank' href={thisOrder.yandex_url}
                                 >
                                     <img src={ya} alt={SetNativeTranslate(Translate.language, {
                                         russian: ['Открыть в Яндекс навигаторе'],
-                                        english: ['Open in Yandex navigator']
+                                        english: ['Open in Yandex navigator'],
+                                        spanish: ['Abrir en el navegador Yandex'],
+                                        turkish: ['Yandex gezgininde aç'],
                                     })} />
-                                </a></div>}
+                                </a></div> : <></>}
                             {thisOrder.google_url &&
                                 <div><a
                                     target='blank' href={thisOrder.google_url}
                                 >
                                     <img src={g} alt={SetNativeTranslate(Translate.language, {
                                         russian: ['Открыть в Google навигаторе'],
-                                        english: ['Open in Google navigator']
+                                        english: ['Open in Google navigator'],
+                                        spanish: ['Abrir en el navegador Google'],
+                                        turkish: ['Google gezgininde aç'],
                                     })} />
                                 </a></div>}
                         </div>
@@ -343,21 +347,21 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     {(ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') &&
                         <CardRow>
                             <CardColName>{SetNativeTranslate(Translate.language, {}, 'available')}</CardColName>
-                            {user.user.role === 'customer' && Partner.partnerInfos.length>0 && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
+                            {user.user.role === 'customer' && Partner.partnerInfos.length > 0 && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
                                 <CardColValue>
-                                    {!thisOrder.for_group && !thisOrder.for_partner ? SetNativeTranslate(Translate.language, {}, 'to_all') : thisOrder.for_group  ? `${SetNativeTranslate(Translate.language, {}, 'to_group')} ${Partner.groups.find(el=>el.dataValues.id === thisOrder.for_group).dataValues.name}` : thisOrder.for_partner ? `${SetNativeTranslate(Translate.language, {}, 'to_partner')} ${Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).legal !== 'person' ? Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).company_name : Partner.partnerInfos.find(el=>el.id === thisOrder.for_partner).name_surname_fathersname }` : ''}
+                                    {!thisOrder.for_group && !thisOrder.for_partner ? SetNativeTranslate(Translate.language, {}, 'to_all') : thisOrder.for_group ? `${SetNativeTranslate(Translate.language, {}, 'to_group')} ${Partner.groups.find(el => el.dataValues.id === thisOrder.for_group).dataValues.name}` : thisOrder.for_partner ? `${SetNativeTranslate(Translate.language, {}, 'to_partner')} ${Partner.partnerInfos.find(el => el.id === thisOrder.for_partner).legal !== 'person' ? Partner.partnerInfos.find(el => el.id === thisOrder.for_partner).company_name : Partner.partnerInfos.find(el => el.id === thisOrder.for_partner).name_surname_fathersname}` : ''}
                                 </CardColValue> :
                                 user.user.role === 'carrier' && thisOrder.order_status === 'new' ?
                                     <CardColValue>
                                         {!thisOrder.for_group && !thisOrder.for_partner ? SetNativeTranslate(Translate.language, {
-                                            russian:['Всем'],
-                                            english:['To all']
+                                            russian: ['Всем'],
+                                            english: ['To all']
                                         }) : thisOrder.for_group ? SetNativeTranslate(Translate.language, {
-                                            russian:['Вашей группе'],
-                                            english:['To your group']
-                                        }) : thisOrder.for_partner  ? SetNativeTranslate(Translate.language, {
-                                            russian:['Вам'],
-                                            english:['To you']
+                                            russian: ['Вашей группе'],
+                                            english: ['To your group']
+                                        }) : thisOrder.for_partner ? SetNativeTranslate(Translate.language, {
+                                            russian: ['Вам'],
+                                            english: ['To you']
                                         }) : ''}
                                     </CardColValue> : <></>}
                         </CardRow>
@@ -378,7 +382,9 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     <div className='viwes_counter'>
                         {SetNativeTranslate(Translate.language, {
                             russian: ['Просмотрен', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'раз'],
-                            english: ['Viewed', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'times']
+                            english: ['Viewed', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'times'],
+                            spanish: ['Visto', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'veces'],
+                            turkish: [order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'kez görüntülendi'],
                         }, '')}
 
                     </div> : <></>}
@@ -387,7 +393,9 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     <div className='viwes_counter'>
                         {SetNativeTranslate(Translate.language, {
                             russian: ['Вы просматривали этот заказ'],
-                            english: ['You viewed this order']
+                            english: ['You viewed this order'],
+                            spanish: ['Viste este pedido'],
+                            turkish: ['Bu siparişi görüntülediniz'],
                         }, '')}
 
                     </div>

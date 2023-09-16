@@ -50,7 +50,9 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
                             }}
                         >{SetNativeTranslate(Translate.language, {
                             russian: ['Добавить объявление'],
-                            english: ['Add ad']
+                            english: ['Add ad'],
+                            spanish: ['Para agregar un anuncio'],
+                            turkish: ['İlan eklemek için'],
                         })}</Button> :
                         <img
                             onClick={() => {
@@ -58,7 +60,9 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
                             }}
                             alt={SetNativeTranslate(Translate.language, {
                                 russian: ['Добавить объявление'],
-                                english: ['Add ad']
+                                english: ['Add ad'],
+                                spanish: ['Para agregar un anuncio'],
+                                turkish: ['İlan eklemek için'],
                             })} className='board_add_ad_icon' src={Setting.app_theme === 'light' ? board_add : board_add_dark}></img>}
                 </> : <></>}
 

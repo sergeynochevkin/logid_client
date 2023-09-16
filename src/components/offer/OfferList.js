@@ -26,10 +26,14 @@ const{Translate} = useContext(TranslateContext)
     >
       {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ? <Smaller>{user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{
                     russian:['Предложения других перевозчиков'],
-                    english:['Offers from other carriers']
+                    english:['Offers from other carriers'],
+                    spanish:['Ofertas de otros transportistas'],
+                    turkish:['Diğer operatörlerin teklifleri'],
                   }) : SetNativeTranslate(Translate.language,{
                     russian:['Предложения перевозчиков'],
-                    english:['Carrier offers']
+                    english:['Carrier offers'],
+                    spanish:['Ofertas de transportistas'],
+                    turkish:['Operatör teklifleri'],
                   })}</Smaller> : <></>}
       {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ?
         <HorizontalContainer
@@ -47,33 +51,35 @@ const{Translate} = useContext(TranslateContext)
                   <OrderTh>
                   {SetNativeTranslate(Translate.language,{
                     russian:['Наименование'],
-                    english:['Name']
+                    english:['Name'],
+                    spanish:['Nombre'],
+                    turkish:['İsim'],
                   })}
                   </OrderTh>
                   <OrderTh>
                   {SetNativeTranslate(Translate.language,{
                     russian:['Рейтинг'],
-                    english:['Rating']
+                    english:['Rating'],
+                    spanish:['Clasificación'],
+                    turkish:['Değerlendirme'],
                   })}
                   </OrderTh>
                   <OrderTh>
                   {SetNativeTranslate(Translate.language,{
                     russian:['Цена'],
-                    english:['Cost']
+                    english:['Cost'],
+                    spanish:['Precio'],
+                    turkish:['Fiyat'],
                   })}
                   </OrderTh>
                   <OrderTh>
                   {SetNativeTranslate(Translate.language,{
                     russian:['Время подачи'],
-                    english:['Arrival time']
+                    english:['Arrival time'],
+                    spanish:['Hora de llegada'],
+                    turkish:['Varış zamanı'],
                   })}
-                  </OrderTh>
-                  {/* <OrderTh>
-                  {SetNativeTranslate(Translate.language,{
-                    russian:['Комментарий'],
-                    english:['Comment']
-                  })}
-                  </OrderTh> */}
+                  </OrderTh>                
                 </tr>
               </tbody>
               <tbody>
@@ -107,17 +113,7 @@ const{Translate} = useContext(TranslateContext)
               </> : <></>
           }
         </HorizontalContainer> : <></>}
-      {/* {user.user.role === 'customer' ? <CardButton
-        onClick={() => {
-          setModalActive(false)
-          ComponentFunction.setOfferListMoreInfo(false)
-        }}
-      >
-        {SetNativeTranslate(Translate.language,{
-                    russian:['Закрыть'],
-                    english:['Close']
-                  })}
-      </CardButton> : <></>} */}
+  
     </VerticalContainer>
   )
 }

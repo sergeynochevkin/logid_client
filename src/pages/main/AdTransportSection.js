@@ -27,7 +27,9 @@ const AdTransportSection = observer(() => {
           {SetNativeTranslate(Translate.language,
             {
               russian: ['Хотите увидесь свой транспорт здесь? Зарегистрируйтесь, добавьте транспорт и фотографии, заполните рекламный текст и включите показ. Дождитесь модерации. Сейчас это бесплатно!'],
-              english: ['Would you like to see your transport here? Sign up, add a vehicle, pop up your ad text, and turn on the display. Wait for moderation. Now it is free!']
+              english: ['Would you like to see your transport here? Sign up, add a vehicle, pop up your ad text, and turn on the display. Wait for moderation. Now it is free!'],
+              spanish: ['¿Quieres ver tu transporte aquí? Regístrese, agregue transporte y fotografías, complete el texto publicitario y encienda la pantalla. Espere la moderación. ¡Ahora es gratis!'],
+              turkish: ['Taşımanızı burada görmek ister misiniz? Kayıt olun, ulaşım ve fotoğraf ekleyin, reklam metnini doldurun ve ekranı açın. Lütfen moderasyon için bekleyin. Artık ücretsiz!'],
             })}
         </div>
       </div>

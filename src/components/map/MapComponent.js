@@ -387,7 +387,9 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     let location = JSON.parse(onePartnerInfo.location)
                     let title = SetNativeTranslate(Translate.language, {
                         russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
-                        english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
+                        english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`],
+                        spanish: [`Actualizado ${setTime(new Date(location.updated), 0, 'show')}`],
+                        turkish: [`Güncellenmiş ${setTime(new Date(location.updated), 0, 'show')}`],
                     })
                     if (!locationMarker) {
                         setMarker(title, gMap, location)
@@ -409,7 +411,9 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     let location = JSON.parse(UserInfo.userInfo.location)
                     let title = SetNativeTranslate(Translate.language, {
                         russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
-                        english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`]
+                        english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`],
+                        spanish: [`Actualizado ${setTime(new Date(location.updated), 0, 'show')}`],
+                        turkish: [`Güncellenmiş ${setTime(new Date(location.updated), 0, 'show')}`],
                     })
                     if (!locationMarker) {
                         setMarker(title, gMap, location)

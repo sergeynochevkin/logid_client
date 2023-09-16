@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
 import { FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext } from '../../..'
-import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { CardButton } from '../../ui/button/CardButton'
 import { updateField } from '../../../http/managementApi'
 import { v4 } from "uuid";

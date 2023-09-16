@@ -141,7 +141,9 @@ const BoardItemPage = observer(() => {
                                     >
                                         {SetNativeTranslate(Translate.language, {
                                             russian: ['Показать телефон'],
-                                            english: ['Show phone']
+                                            english: ['Show phone'],
+                                            spanish: ['Mostrar teléfono'],
+                                            turkish: ['Telefonu göster'],
                                         })}
                                     </Button>
                                 }</div>
@@ -152,12 +154,16 @@ const BoardItemPage = observer(() => {
                         <div className='board_item_page_info_statistics_container'>
                             <div>{SetNativeTranslate(Translate.language, {
                                 russian:['рейтинг logid'],
-                                english:['logid rating']
+                                english:['logid rating'],
+                                spanish:['logid calificación'],
+                                turkish:['logid derecelendirmesi'],
                             })}</div>
                             <div className='board_item_page_info_statistics_rating'>{ad_user.rating === 'no_rating' ?
                             SetNativeTranslate(Translate.language, {
                                 russian:['нет оценок'],
-                                english:['no ratings']
+                                english:['no ratings'],
+                                spanish:['no hay votos'],
+                                turkish:['derecelendirme yok'],
                             })
                             : `${ad_user.rating}/10`
                             }</div>

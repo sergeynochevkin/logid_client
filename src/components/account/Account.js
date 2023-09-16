@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import AccountItem from './AccountItem'
@@ -28,6 +28,7 @@ const Account = observer(() => {
     const [adressEditable, setAdressEditable] = useState(false)
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
+    const { Adress } = useContext(AdressContext)
 
     const [yoomoneyToken, setYoomoneyToken] = useState('empty_token')
     const [paymentId, setPaymentId] = useState('')
@@ -123,12 +124,11 @@ const Account = observer(() => {
                             </> : <></>}
                         </div>
 
-                        {user.user.role !== 'driver' &&
+                        {user.user.role !== 'driver' && Adress.country === 'russia' ?
                             <div
                                 className={containerClassName}>
                                 <FieldName>{SetNativeTranslate(Translate.language, {}, 'subscription_status')}</FieldName>
-                                <SubscriptionStatusComponent setModalActive={setModalActive} />
-                            </div>
+                            </div> : <></>
                         }
                     </VerticalContainer>
                     :

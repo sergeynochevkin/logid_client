@@ -32,7 +32,9 @@ const Board = observer(() => {
         <div className={`board_container ${Setting.app_theme}`}>
             <title>{SetNativeTranslate(Translate.language, {
                 russian: ['Доска объявлений'],
-                english: ['Bulletin board']
+                english: ['Bulletin board'],
+                spanish: ['Tablón de anuncios'],
+                turkish: ['Bülten tahtası'],
             })}</title>
 
             <BoardMainBanner />

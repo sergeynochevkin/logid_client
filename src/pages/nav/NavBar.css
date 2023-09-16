@@ -16,12 +16,13 @@
     color: white;
 }
 
-.nav_bar_logo_container{
+.nav_bar_logo_container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.nav_bar_logo {    
+
+.nav_bar_logo {
     /* padding-left: 20px; */
     cursor: pointer;
     height: 20px;
@@ -56,7 +57,7 @@
     cursor: pointer;
     width: 25px;
     height: auto;
-   
+
 }
 
 .nav_bar_theme_icon:hover {
@@ -66,7 +67,18 @@
 
 .language_switch {
     font-size: 12px;
+    padding: 4px;
 }
+
+
+.language_switch:hover {
+    color: grey;
+}
+
+.language_switch.active {
+    background-color: unset;
+}
+
 
 .country_selector_container {
     display: flex;
@@ -92,12 +104,13 @@
 
 .country_selector_countries_container {
     font-size: 16px;
-    min-width: 300px;
+    width: 300px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .country_selector_item {
@@ -110,19 +123,42 @@
     color: grey;
 }
 
-.internet_speed_container{
+.internet_speed_container {
     position: fixed;
     left: 5px;
-    top:5px; 
+    top: 5px;
     z-index: 3;
 }
-.internet_speed_icon{
+
+.internet_speed_icon {
     height: 15px;
     width: auto;
 }
 
-.internet_speed_container.location{
-    top:25px; 
+.internet_speed_container.location {
+    top: 25px;
+}
+
+.language_switcher_anchor {
+    width: 35px;
+    height: 0px
+}
+
+.language_switcher_container {
+    display: flex;
+    width: 35px;
+    background-color: rgb(245, 245, 245, 0.8);
+    ;
+    position: relative;
+    top: -12px;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    border-radius: 3px;
+}
+
+.language_switcher_container.dark {
+    background-color: rgb(31, 31, 31, 0.8);
 }
 
 @media screen and (max-width: 1920px)and (min-width: 769px) {}

@@ -24,6 +24,7 @@ import ShareComponent from '../../components/share/ShareComponent';
 import InternedSpeed from './InternedSpeed';
 import LocationStatus from './LocationStatus';
 import useWindowDimensions from '../../hooks/useWindowDimensions'
+import LanguageSwitcher from './LanguageSwitcher';
 
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
@@ -43,18 +44,10 @@ const NavBar = observer(() => {
   const { height, width } = useWindowDimensions();
 
 
-  const setLanguage = (language) => {
-    Translate.setLanguage(language)
-    if (UserInfo.userInfo) {
-      if (user && user.isAuth) {
-        State.setUserStateField(language, 'language', UserInfo.userInfo.id)
-      }
-    }
-  }
 
-  // useEffect(() => {
-  //   !Adress.country_detected && setModalActive(true)
-  // }, [])
+  useEffect(() => {
+    !Adress.country_detected && setModalActive(true)
+  }, [])
 
   useEffect(() => {
     if ((link.order.id || link.refer.id || link.after_actions.driver_activation) && !user.isAuth) {
@@ -64,7 +57,9 @@ const NavBar = observer(() => {
 
   let office = SetNativeTranslate(Translate.language, {
     russian: ['Кабинет'],
-    english: ['Office']
+    english: ['Office'],
+    spanish: ['Oficina'],
+    turkish: ['Ofis'],
   })
 
   return (
@@ -92,16 +87,16 @@ const NavBar = observer(() => {
         <div className='nav_bar_logo_container' onClick={() =>
           navigate(MAIN_ROUTE)}>
 
-          <img src={Setting.app_theme === 'light' && Translate.language === 'russian' ? logo_russian_light :
+          <img src={Setting.app_theme === 'light' && Translate.language === 'russian' ? logo_light :
             Setting.app_theme === 'light' && Translate.language !== 'russian' ? logo_light :
-              Setting.app_theme === 'dark' && Translate.language === 'russian' ? logo_russian_dark :
+              Setting.app_theme === 'dark' && Translate.language === 'russian' ? logo_dark :
                 Setting.app_theme === 'dark' ? logo_dark : logo_light}
             className='nav_bar_logo' />
 
         </div>
         {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Main</Item> */}
-        {width > 379 ?
+        {width > 425 ?
           <>
             {user.user.role === "customer" && user.isAuth ?
               <div className='nav_bar_item' onClick={() =>
@@ -207,19 +202,10 @@ const NavBar = observer(() => {
 
         {!user.isAuth && <ShareComponent parent={location.pathname === "/board" ? 'nav_board' : ''} />}
 
+            
+        <LanguageSwitcher/>
 
-        {/* language of my country + english if english is your language, no select, set language state when select if isAuth. Сheck such language for such country when loading!*/}
-        <div className='nav_bar_item language_switch'
-          onClick={() => {
-            if (Translate.language === 'russian') {
-              setLanguage('english')
-            } else if (Translate.language === 'english' && Adress.country.sector === 'one') {
-              setLanguage('russian')
-            }
-          }}
-        >{Translate.language === 'russian' ? 'EN' : Translate.language === 'english' && Adress.country.sector === 'one' ? 'RU' : ''}</div>
-
-        {/* <div
+        <div
           className={!user.isAuth ? 'nav_bar_item' : 'nav_bar_item disabled'}
           disabled={user.isAuth}
           onClick={() => {
@@ -227,14 +213,16 @@ const NavBar = observer(() => {
               setModalActive(true)
               setName(SetNativeTranslate(Translate.language, {
                 russian: ['Выберите страну из списка'],
-                english: ['Select your country']
+                english: ['Select your country'],
+                spanish: ['Selecciona tu pais'],
+                turkish: ['Ülkeni seç'],
               }))
             } else if (modalActive) {
               setModalActive(false)
             }
           }
           }>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}
-          </div> */}
+          </div>
 
 
       </div>

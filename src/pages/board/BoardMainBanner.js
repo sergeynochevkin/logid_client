@@ -16,7 +16,9 @@ const BoardMainBanner = observer(() => {
     <div className='board_main_banner_container' style={{ backgroundImage: `url(${target !== 'courier' ? logistics : courier})`, width: '100%', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPositionY: 'center' }}>
       <div className='board_slogan'>{SetNativeTranslate(Translate.language, {
         russian: ['Доска объявлений'],
-        english: ['Bulletin board']
+        english: ['Bulletin board'],
+        spanish: ['Tablón de anuncios'],
+        turkish: ['Bülten tahtası'],
       })}</div>
     </div>
   )

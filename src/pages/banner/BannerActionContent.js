@@ -32,13 +32,17 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                         <>
                             <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
                                 russian: ['Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно. Предложение ограничено!'],
-                                english: ['Register now, we give you a year of professional subscription for free. The offer is limited!']
+                                english: ['Register now, we give you a year of professional subscription for free. The offer is limited!'],
+                                spanish: ['Regístrate ahora, te regalamos un año de suscripción profesional. ¡La oferta es limitada!'],
+                                turkish: ['Şimdi kaydolun, size bir yıllık profesyonel aboneliği ücretsiz veriyoruz. Teklif sınırlıdır!']
                             })}</div>
                         </> :
                         <>
                             <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
-                                russian: [`В настоящий момент наш сервис полностью бесплатный. Выберите любой подходящий вам тарифный план и пользуйтесь им бесплатно!`],
-                                english: ['At the moment our service in', SetNativeTranslate(Translate.language, {}, Adress.country.value), 'is absolutely free. You can familiarize yourself with the tariff plans and connect any one that suits you for free!']
+                                russian: [`В настоящий момент наш сервис в полностью бесплатный!`],
+                                english: ['At the moment our service in', SetNativeTranslate(Translate.language, {}, Adress.country.value), 'is absolutely free!'],
+                                spanish: ['¡Por el momento nuestro servicio en ', SetNativeTranslate(Translate.language, {}, Adress.country.value), ' es absolutamente gratuito!'],
+                                turkish: ['Şu anda ', SetNativeTranslate(Translate.language, {}, Adress.country.value), ' hizmetimiz tamamen ücretsizdir!'],
                             })}</div>
                         </>}
 
@@ -65,20 +69,22 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                 <>
                     <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
                         russian: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, успешных доставок!`],
-                        english: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, happy deliveries!`]
+                        english: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, happy deliveries!`],
+                        spanish: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, entregas exitosas!`],
+                        turkish: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, başarılı teslimatlar!`],
                     })}</div>
                     <div className={Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'}>
                         <FieldName>{SetNativeTranslate(Translate.language, {}, 'your_rating')}</FieldName>
                         <RatingView parent={'account'} onePartnerInfo={UserInfo.userInfo} user={user} />
                     </div>
 
-                    <div className='banner_disclaimer'>
+                    {/* <div className='banner_disclaimer'>
                         {SetNativeTranslate(Translate.language, {
                             russian: ['Обратите внимание, сервис logid не проводит юридической проверки пользователей и не несет ответственности за их благонадежность. Для работы с заказчиком или перевозчиком настоятельно рекомендуем всегда выстраивать договорные отношения, проверять документы, и поддерживать необходимый документооборот'],
                             english: ['Please note that the logid service does not conduct any legal due diligence of users and is not responsible for their reliability. To work with a customer or carrier, we strongly recommend that you always build contractual relationships, check documents, and maintain the necessary document flow']
 
                         })}
-                    </div>
+                    </div> */}
 
                 </>}
         </div>

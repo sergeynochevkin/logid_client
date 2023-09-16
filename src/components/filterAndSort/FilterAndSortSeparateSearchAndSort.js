@@ -38,7 +38,9 @@ const FilterAndSortSeparateSearchAndSort = observer(({ parent, modalActive, setM
                     filterSet={'boardFilters'}
                     placeHolder={SetNativeTranslate(Translate.language, {
                         russian: [`Имя, или часть текста объявления`],
-                        english: [`Name, or part of the ad text`]
+                        english: [`Name, or part of the ad text`],
+                        spanish: [`Nombre o parte del texto del anuncio`],
+                        turkish: [`Ad veya reklam metninin bir kısmı`],
                     })}
                 />
 

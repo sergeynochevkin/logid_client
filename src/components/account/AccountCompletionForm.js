@@ -37,7 +37,9 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
             Notification.addNotification([{
                 id: v4(), type: 'success', message: `${SetNativeTranslate(Translate.language, {
                     russian: ['Вы успешно обновили данные и можете использовать все возможности приложения', parent === 'take_order' ? 'Возьмите заказ в работу повторно' : parent === 'make_offer' ? 'Сделайте предложение повторно' : ''],
-                    english: ['You have successfully updated the data and can use all the features of the application', parent === 'take_order' ? 'Take an order again' : parent === 'make_offer' ? 'Make an offer again' : '']
+                    english: ['You have successfully updated the data and can use all the features of the application', parent === 'take_order' ? 'Take an order again' : parent === 'make_offer' ? 'Make an offer again' : ''],
+                    spanish: ['Ha actualizado correctamente los datos y puede utilizar todas las funciones de la aplicación', parent === 'take_order' ? 'Tomar un pedido nuevamente' : parent === 'make_offer' ? 'Haz una oferta nuevamente' : ''],
+                    turkish: ['Verileri başarıyla güncellediniz ve uygulamanın tüm özelliklerini kullanabilirsiniz', parent === 'take_order' ? 'Tekrar sipariş al' : parent === 'make_offer' ? 'Tekrar teklif yap' : ''],
                 }, '')}`
             }])
             setModalActive(false)
@@ -91,14 +93,18 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
                         ? SetNativeTranslate(Translate.language,
                             {
                                 russian: ['Для нас важна безопасность всех участников сервиса, пожалуйста заполните профиль, чтобы иметь возможность отправлять заказы'],
-                                english: ['The safety of all service participants is important to us, please fill out the profile to be able to send orders']
+                                english: ['The safety of all service participants is important to us, please fill out the profile to be able to send orders'],
+                                spanish: ['La seguridad de todos los participantes del servicio es importante para nosotros, complete el perfil para poder enviar pedidos'],
+                                turkish: ['Tüm hizmet katılımcılarının güvenliği bizim için önemlidir, sipariş gönderebilmek için lütfen profili doldurun'],
                             }
                             , '') :
                         user.user.role === 'carrier' ?
                             SetNativeTranslate(Translate.language,
                                 {
                                     russian: ['Для нас важна безопасность всех участников сервиса, пожалуйста заполните профиль, чтобы иметь возможность брать в работу заказы и делать предложения по аукционам'],
-                                    english: ['The safety of all participants of the service is important to us, please fill out the profile in order to be able to take orders and make offers for auctions']
+                                    english: ['The safety of all participants of the service is important to us, please fill out the profile in order to be able to take orders and make offers for auctions'],
+                                    spanish: ['La seguridad de todos los participantes del servicio es importante para nosotros, complete el perfil para poder recibir pedidos y realizar ofertas para subastas'],
+                                    turkish: ['Hizmete katılan tüm katılımcıların güvenliği bizim için önemlidir, sipariş alabilmek ve açık artırma teklifinde bulunabilmek için lütfen profili doldurun'],
                                 }
                                 , '') : ''}
                 </div>
@@ -138,7 +144,9 @@ const AccountCompletionForm = observer(({ setModalActive, parent, setFunction })
             }
                 onClick={updateUserInfoAction}>{SetNativeTranslate(Translate.language, {
                     russian: ['Сохранить'],
-                    english: ['Save']
+                    english: ['Save'],
+                    spanish: ['Ahorrar'],
+                    turkish: ['Kaydetmek'],
                 }, '')}</Button>
 
         </div>

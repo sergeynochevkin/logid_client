@@ -115,7 +115,9 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
             >
                 <Input placeholder={SetNativeTranslate(Translate.language, {
                     russian: ['Телефон водителя'],
-                    english: ['Drivers phone']
+                    english: ['Drivers phone'],
+                    spanish: ['Teléfono del conductor'],
+                    turkish: ['Sürücü telefonu'],
                 }, '')}
                     value={formData.phone.value}
                     onChange={(e) => formData.phone.onChange(e)}
@@ -141,7 +143,9 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
             >
                 <Input placeholder={SetNativeTranslate(Translate.language, {
                     russian: ['Email водителя'],
-                    english: ['Drivers email']
+                    english: ['Drivers email'],
+                    spanish: ['Email de las conductoras'],
+                    turkish: ['Sürücü e-postası'],
                 })}
                     value={formData.email.value}
                     style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}

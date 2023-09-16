@@ -120,7 +120,9 @@ const FastSignUp = observer(() => {
                 id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
                     {
                         russian: ['Вы зарегистрированы, ссылка для активации аккаунта отрправлена на указанный email'],
-                        english: ['You are registered, a link to activate your account has been sent to the specified email']
+                        english: ['You are registered, a link to activate your account has been sent to the specified email'],
+                        spanish: ['Está registrado, se ha enviado un enlace para activar su cuenta al correo electrónico especificado'],
+                        turkish: ['Kayıt oldunuz, hesabınızı etkinleştirmek için bir bağlantı belirtilen e-postaya gönderildi'],
                     }
                 )
             }])
@@ -197,11 +199,15 @@ const FastSignUp = observer(() => {
     formData.country.value = Adress.country.value
     formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {
         russian: ['email'],
-        english: ['email']
+        english: ['email'],
+        spanish: ['email'],
+        turkish: ['e-posta'],
     }))
     formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetNativeTranslate(Translate.language, {
         russian: ['пароль'],
-        english: ['password']
+        english: ['password'],
+        spanish: ['contraseña'],
+        turkish: ['şifre'],
     }))
 
 
@@ -215,7 +221,9 @@ const FastSignUp = observer(() => {
     formData.type = useInput('', { isEmpty: true },)
     formData.tag = SetNativeTranslate(Translate.language, {
         russian: ['Первый способ доставки'],
-        english: ['First shipping method']
+        english: ['First shipping method'],
+        spanish: ['Primer método de entrega'],
+        turkish: ['İlk teslimat yöntemi'],
     })
 
     return (
@@ -235,7 +243,9 @@ const FastSignUp = observer(() => {
                         >
                             <Input placeholder={SetNativeTranslate(Translate.language, {
                                 russian: ['Ваш телефон'],
-                                english: ['Your phone']
+                                english: ['Your phone'],
+                                turkish: ['Telefonunuz'],
+                                spanish: ['Su teléfono'],
                             }, '')} value={formData.phone.value}
                                 onChange={(e) => formData.phone.onChange(e)}
                                 onBlur={e => formData.phone.onBlur(e)}
@@ -374,7 +384,9 @@ const FastSignUp = observer(() => {
                                                     <div>
                                                         {SetNativeTranslate(Translate.language, {
                                                             russian: [`подтвердите согласие с`],
-                                                            english: [`confirm your agreement with`]
+                                                            english: [`confirm your agreement with`],
+                                                            spanish: ['confirma tu acuerdo con'],
+                                                            turkish: ['ile anlaşmanızı onaylayın'],
                                                         })}
                                                     </div>
                                                     <div className='auth_agreement_link'
@@ -385,7 +397,9 @@ const FastSignUp = observer(() => {
                                                     >
                                                         {SetNativeTranslate(Translate.language, {
                                                             russian: [`пользовательским соглашением`],
-                                                            english: [`user agremeent`]
+                                                            english: [`user agremeent`],
+                                                            spanish: [`acuerdo del usuariot`],
+                                                            turkish: [`kullanıcı sözleşmesi`],
                                                         })}
                                                     </div>
                                                 </div>
@@ -402,7 +416,9 @@ const FastSignUp = observer(() => {
                                                 <div className='auth_checkbox_text'>
                                                     <div>{SetNativeTranslate(Translate.language, {
                                                         russian: [`подтвердите согласие с`],
-                                                        english: [`confirm your agreement with`]
+                                                        english: [`confirm your agreement with`],
+                                                        spanish: ['confirma tu acuerdo con'],
+                                                        turkish: ['ile anlaşmanızı onaylayın'],
                                                     })}</div>
                                                     <div className='auth_agreement_link'
                                                         onClick={() => {
@@ -412,7 +428,9 @@ const FastSignUp = observer(() => {
                                                     >
                                                         {SetNativeTranslate(Translate.language, {
                                                             russian: [`политикой конфиденциальности`],
-                                                            english: [`privacy policy`]
+                                                            english: [`privacy policy`],
+                                                            spanish: ['política de privacidad'],
+                                                            turkish: ['gizlilik politikası'],
                                                         })}
                                                     </div>
                                                 </div>
@@ -430,7 +448,9 @@ const FastSignUp = observer(() => {
                                                 <div className='auth_checkbox_text'>
                                                     <div>{SetNativeTranslate(Translate.language, {
                                                         russian: [`подтвердите`],
-                                                        english: [`confirm your`]
+                                                        english: [`confirm your`],
+                                                        spanish: [`confirmar`],
+                                                        turkish: [`onaylamak`],
                                                     })}</div>
                                                     <div className='auth_agreement_link'
                                                         onClick={() => {
@@ -440,7 +460,9 @@ const FastSignUp = observer(() => {
                                                     >
                                                         {SetNativeTranslate(Translate.language, {
                                                             russian: [`согласие на обработку персональных данных`],
-                                                            english: [`consent to the processing of personal data`]
+                                                            english: [`consent to the processing of personal data`],
+                                                            spanish: [`consentimiento para el tratamiento de datos personales`],
+                                                            turkish: [`kişisel verilerin işlenmesine onay vermek`],
                                                         })}
                                                     </div>
                                                 </div>
@@ -457,7 +479,9 @@ const FastSignUp = observer(() => {
                                             <>
                                                 <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
                                                     russian: [`подтвердите, что вам исполнилось 18 лет`],
-                                                    english: [`confirm that you are over 18 years old`]
+                                                    english: [`confirm that you are over 18 years old`],
+                                                    spanish: [`confirma que eres mayor de 18 años`],
+                                                    turkish: [`18 yaşından büyük olduğunuzu onaylayın`],
                                                 })}</label>
                                             </>
                                         </CheckBoxSection>
@@ -482,7 +506,9 @@ const FastSignUp = observer(() => {
                                         <>
                                             <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
                                                 russian: [`подтвердите, cсогласие на сбор cookies`],
-                                                english: [`confirm your consent to the collection of cookies`]
+                                                english: [`confirm your consent to the collection of cookies`],
+                                                spanish: [`confirme su consentimiento para la recopilación de cookies`],
+                                                turkish: [`çerezlerin toplanmasına onay verdiğinizi onaylayın`],
                                             })}</label>
                                         </>
                                     </CheckBoxSection>
@@ -527,7 +553,9 @@ const FastSignUp = observer(() => {
                         {
                             SetNativeTranslate(Translate.language, {
                                 russian: ['Быстрая регистрация'],
-                                english: ['Fast sign up']
+                                english: ['Fast sign up'],
+                                spanish: ['Regístrate rápido'],
+                                turkish: ['Hızlı kaydol'],
                             })
                         }</Button>
 
@@ -543,7 +571,9 @@ const FastSignUp = observer(() => {
                     {
                         SetNativeTranslate(Translate.language, {
                             russian: ['Быстрая регистрация'],
-                            english: ['Fast sign up']
+                            english: ['Fast sign up'],
+                            spanish: ['Regístrate rápido'],
+                            turkish: ['Hızlı kaydol'],
                         })
                     }
                 </Button>
@@ -553,7 +583,9 @@ const FastSignUp = observer(() => {
                             <Button>
                                 {SetNativeTranslate(Translate.language, {
                                     russian: ['Предложения перевозчиков'],
-                                    english: ['Carrier offers']
+                                    english: ['Carrier offers'],
+                                    spanish: ['Ofertas de transportistas'],
+                                    turkish: ['Operatör teklifleri'],
                                 })}
                             </Button>
                         </Link> : <></>

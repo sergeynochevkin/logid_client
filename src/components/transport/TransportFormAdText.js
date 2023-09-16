@@ -18,7 +18,9 @@ const TransportFormAdText = ({ formData }) => {
             <Textarea value={formData.ad_text.value} rows="6"
                 placeholder={SetNativeTranslate(Translate.language, {
                     russian: ['Рекламный текст, не более 150 символов, пожалуйста не указывайте телефон, email, сайт. Транспорт с этими данными показан не будет. Мы отобразим контактные данные из вашего профиля'],
-                    english: ['Advertising text, no more than 150 characters, please do not include phone, email, website. Vehicles with this data will not be displayed. We will display contact details from your profile']
+                    english: ['Advertising text, no more than 150 characters, please do not include phone, email, website. Vehicles with this data will not be displayed. We will display contact details from your profile'],
+                    spanish: ['Texto publicitario, no más de 150 caracteres, por favor no incluya teléfono, correo electrónico, sitio web. Los vehículos con estos datos no se mostrarán. Mostraremos los datos de contacto de tu perfil'],
+                    turkish: ['Reklam metni en fazla 150 karakter olmalıdır; lütfen telefon, e-posta, web sitesi eklemeyin. Bu verilere sahip araçlar gösterilmeyecektir. Profilinizdeki iletişim bilgilerini görüntüleyeceğiz'],
                 })}
                 onInput={(e) => {
                     formData.ad_text.onChange(e)                  

@@ -81,7 +81,9 @@ const User = observer(() => {
       let delay = link.internet_speed < 5 ? 40 : link.internet_speed < 20 ? 20 : 10
       let message = SetNativeTranslate(Translate.language, {
         russian: [`Заказ ${link.order.id} уже не доступен`],
-        english: [`Order ${link.order.id} is no longer available`]
+        english: [`Order ${link.order.id} is no longer available`],
+        spanish: [`El pedido ${link.order.id} ya no está disponible`],
+        turkish: [`${link.order.id} siparişi artık mevcut değil`],
       })
 
       let interval = setInterval(() => {
@@ -164,7 +166,9 @@ const User = observer(() => {
                   color: ComponentFunction.PageFunction === 'drivers' && 'grey', cursor: ComponentFunction.PageFunction === 'drivers' && 'default'
                 }}>{SetNativeTranslate(Translate.language, {
                   russian: ['Водители'],
-                  english: ['Drivers']
+                  english: ['Drivers'],
+                  spanish: ['Conductores'],
+                  turkish: ['Sürücüler'],
                 })}</BookMark>
 
                 {/* drivers */}

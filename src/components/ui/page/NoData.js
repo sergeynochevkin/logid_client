@@ -14,7 +14,9 @@ const NoData = observer(({ children, ...props }) => {
             <div{...props} className={Setting.app_theme === 'light' ? 'no_data' : 'no_data dark'}>
                 {SetNativeTranslate(Translate.language, {
                     russian: ['Загрузка...'],
-                    english: ['Loading...']
+                    english: ['Loading...'],
+                    spanish: ['Cargando...'],
+                    turkish: ['Yükleniyor...'],
                 })}</div> : <div className={Setting.app_theme === 'light' ? 'no_data' : 'no_data dark'}>{children}</div>
         }
 

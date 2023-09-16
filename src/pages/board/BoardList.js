@@ -20,7 +20,9 @@ const BoardList = observer(() => {
             <NoData>
               {SetNativeTranslate(Translate.language, {
                 russian: ['Перевозчики в выбранном городе еще не опубликовали предложений, разместите заказ'],
-                english: ['Carriers in the selected city have not yet published offers, place an order']
+                english: ['Carriers in the selected city have not yet published offers, place an order'],
+                spanish: ['Transportistas de la ciudad seleccionada aún no han publicado ofertas, haz tu pedido'],
+                turkish: ['Seçilen şehirdeki operatörler henüz teklif yayınlamadı, siparişinizi verin'],
               })}
 
             </NoData> :
@@ -28,7 +30,9 @@ const BoardList = observer(() => {
               <NoData>
                 {SetNativeTranslate(Translate.language, {
                   russian: ['Нет предложений, разместите заказ'],
-                  english: ['No offers, place an order']
+                  english: ['No offers, place an order'],
+                  spanish: ['No hay ofertas, haz un pedido'],
+                  turkish: ['Teklif yok, sipariş verin'],
                 })}
               </NoData> :
               Ad.transports.board.map(transport => <BoardListItem key={transport.id} transport={transport} />)
@@ -40,7 +44,9 @@ const BoardList = observer(() => {
             <NoData>
               {SetNativeTranslate(Translate.language, {
                 russian: ['Перевозчики в выбранном городе еще не опубликовали предложений, разместите заказ'],
-                english: ['Carriers in the selected city have not yet published offers, place an order']
+                english: ['Carriers in the selected city have not yet published offers, place an order'],
+                spanish: ['Transportistas de la ciudad seleccionada aún no han publicado ofertas, haz tu pedido'],
+                turkish: ['Seçilen şehirdeki operatörler henüz teklif yayınlamadı, siparişinizi verin'],
               })}
 
             </NoData> :
@@ -48,7 +54,9 @@ const BoardList = observer(() => {
               <NoData>
                 {SetNativeTranslate(Translate.language, {
                   russian: ['Нет предложений, разместите заказ'],
-                  english: ['No offers, place an order']
+                  english: ['No offers, place an order'],
+                  spanish: ['No hay ofertas, haz un pedido'],
+                  turkish: ['Teklif yok, sipariş verin'],
                 })}
               </NoData> :
               Ad.transports.board.filter(el => el.userInfoId !== UserInfo.userInfo.id).map(transport => <BoardListItem key={transport.id} transport={transport} />)

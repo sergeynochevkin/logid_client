@@ -27,11 +27,15 @@ const DriverSelector = ({ formData, setFormData }) => {
                 >
                     <option defaultValue hidden>{SetNativeTranslate(Translate.language, {
                         russian: ['Выберите водителя'],
-                        english: ['Select driver']
+                        english: ['Select driver'],
+                        spanish: ['Seleccionar conductor'],
+                        turkish: ['Sürücüyü seçin']
                     })}</option>
                     <option value={UserInfo.userInfo.userId}>{SetNativeTranslate(Translate.language, {
                         russian: ['Я'],
-                        english: ['I am']
+                        english: ['I am'],
+                        spanish: ['I'],
+                        turkish: ['Ben']
                     })}</option>
                     {Driver.drivers.map(driver =>
                         <option value={driver.id} key={driver.id}>{driver.user_info.name_surname_fathersname}</option>
@@ -45,7 +49,9 @@ const DriverSelector = ({ formData, setFormData }) => {
                     {(formData.driver_id.isEmpty && formData.driver_id.isDirty) ?
                         SetNativeTranslate(Translate.language, {
                             russian: ['Выберите водителя'],
-                            english: ['Select driver']
+                            english: ['Select driver'],
+                            spanish: ['Seleccionar conductor'],
+                            turkish: ['Sürücüyü seçin']
                         }) :
                         ''
                     }

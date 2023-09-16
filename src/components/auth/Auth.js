@@ -184,16 +184,22 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
   formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {
     russian: ['email'],
-    english: ['email']
+    english: ['email'],
+    spanish: ['email'],
+    turkish: ['e-posta'],
   }))
   formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetNativeTranslate(Translate.language, {
     russian: ['пароль'],
-    english: ['password']
+    english: ['password'],
+    spanish: ['contraseña'],
+    turkish: ['şifre'],
   }))
   formData.role = useInput('', { isEmpty: true })
   formData.code = useInput('', { isEmpty: true }, SetNativeTranslate(Translate.language, {
     russian: ['код подтверждения'],
-    english: ['confirmation code']
+    english: ['confirmation code'],
+    spanish: ['código de confirmación'],
+    turkish: ['onay kodu'],
   }))
 
   formData.load_capacity = useInput('', { isEmpty: true },)
@@ -201,7 +207,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   formData.type = useInput('', { isEmpty: true },)
   formData.tag = SetNativeTranslate(Translate.language, {
     russian: ['Первый способ доставки'],
-    english: ['First shipping method']
+    english: ['First shipping method'],
+    spanish: ['Primer método de envío'],
+    turkish: ['İlk gönderim yöntemi`'],
   })
 
   formData.country.value = Adress.country.value
@@ -237,7 +245,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               let message = SetNativeTranslate(Translate.language,
                 {
                   russian: ['Вы являетесь заказчиком и не можете добавить объявление, как перевозчик. Создайте аккаунт перевозчика'],
-                  english: ['You are a customer and cannot add an ad as a carrier. Create a carrier account']
+                  english: ['You are a customer and cannot add an ad as a carrier. Create a carrier account'],
+                  spanish: ['Eres cliente y no puedes agregar un anuncio como transportista. Crear una cuenta de operador'],
+                  turkish: ['Müşterisiniz ve operatör olarak reklam ekleyemezsiniz. Operatör hesabı oluşturun'],
                 }
               )
 
@@ -307,7 +317,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
           {
             russian: ['Код отправлен'],
-            english: ['Code sent']
+            english: ['Code sent'],
+            spanish: ['Código enviado'],
+            turkish: ['Kod gönderildi'],
           }
         )
       }])
@@ -328,7 +340,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
           {
             russian: ['Пароль изиенен, доступ восстановлен, вы авторизованы'],
-            english: ['Password changed, access restored, you are logged in']
+            english: ['Password changed, access restored, you are logged in'],
+            spanish: ['Contraseña cambiada, acceso restaurado, has iniciado sesión'],
+            turkish: ['Şifre değiştirildi, erişim yeniden sağlandı, oturum açtınız'],
           }
         )
       }])
@@ -379,7 +393,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
             {
               russian: ['Вы авторизованы'],
-              english: ['You are logged in']
+              english: ['You are logged in'],
+              spanish: ['Has iniciado sesión'],
+              turkish: ['Giriş yaptınız'],
             }
           )
         }])
@@ -425,7 +441,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
             {
               russian: ['Вы зарегистрированы, ссылка для активации аккаунта отрправлена на указанный email'],
-              english: ['You are registered, a link to activate your account has been sent to the specified email']
+              english: ['You are registered, a link to activate your account has been sent to the specified email'],
+              spanish: ['Está registrado, se ha enviado un enlace para activar su cuenta al correo electrónico especificado'],
+              turkish: ['Kayıt oldunuz, hesabınızı etkinleştirmek için bir bağlantı belirtilen e-postaya gönderildi'],
             }
           )
         }])
@@ -473,7 +491,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           >
             <Input placeholder={SetNativeTranslate(Translate.language, {
               russian: ['Ваш телефон'],
-              english: ['Your phone']
+              english: ['Your phone'],
+              spanish: ['Su teléfono'],
+              turkish: ['Telefonunuz'],
             }, '')} value={formData.phone.value}
               onChange={(e) => formData.phone.onChange(e)}
               onBlur={e => formData.phone.onBlur(e)}
@@ -652,7 +672,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                           <div>
                             {SetNativeTranslate(Translate.language, {
                               russian: [`подтвердите согласие с`],
-                              english: [`confirm your agreement with`]
+                              english: [`confirm your agreement with`],
+                              spanish: [`confirma tu acuerdo con`],
+                              turkish: [`ile anlaşmanızı onaylayın`],
                             })}
                           </div>
                           <div className='auth_agreement_link'
@@ -663,7 +685,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                           >
                             {SetNativeTranslate(Translate.language, {
                               russian: [`пользовательским соглашением`],
-                              english: [`user agremeent`]
+                              english: [`user agremeent`],
+                              spanish: [`acuerdo del usuario`],
+                              turkish: [`kullanıcı sözleşmesi`],
                             })}
                           </div>
                         </div>
@@ -680,7 +704,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                         <div className='auth_checkbox_text'>
                           <div>{SetNativeTranslate(Translate.language, {
                             russian: [`подтвердите согласие с`],
-                            english: [`confirm your agreement with`]
+                            english: [`confirm your agreement with`],
+                            spanish: [`confirma tu acuerdo con`],
+                            turkish: [`ile anlaşmanızı onaylayın`],
                           })}</div>
                           <div className='auth_agreement_link'
                             onClick={() => {
@@ -690,7 +716,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                           >
                             {SetNativeTranslate(Translate.language, {
                               russian: [`политикой конфиденциальности`],
-                              english: [`privacy policy`]
+                              english: [`privacy policy`],
+                              spanish: [`política de privacidad`],
+                              turkish: [`gizlilik politikası`],
                             })}
                           </div>
                         </div>
@@ -708,7 +736,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                         <div className='auth_checkbox_text'>
                           <div>{SetNativeTranslate(Translate.language, {
                             russian: [`подтвердите`],
-                            english: [`confirm your`]
+                            english: [`confirm your`],
+                            spanish: [`confirmar tu`],
+                            turkish: [`onayla`],
                           })}</div>
                           <div className='auth_agreement_link'
                             onClick={() => {
@@ -718,7 +748,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                           >
                             {SetNativeTranslate(Translate.language, {
                               russian: [`согласие на обработку персональных данных`],
-                              english: [`consent to the processing of personal data`]
+                              english: [`consent to the processing of personal data`],
+                              spanish: [`consentimiento para el tratamiento de datos personales`],
+                              turkish: [`kişisel verilerin işlenmesine onay vermek`],
                             })}
                           </div>
                         </div>
@@ -735,7 +767,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                       <>
                         <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
                           russian: [`подтвердите, что вам исполнилось 18 лет`],
-                          english: [`confirm that you are over 18 years old`]
+                          english: [`confirm that you are over 18 years old`],
+                          spanish: [`confirma que eres mayor de 18 años`],
+                          turkish: [`18 yaşından büyük olduğunuzu onaylayın`],
                         })}</label>
                       </>
                     </CheckBoxSection>
@@ -760,7 +794,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                     <>
                       <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
                         russian: [`подтвердите, cсогласие на сбор cookies`],
-                        english: [`confirm your consent to the collection of cookies`]
+                        english: [`confirm your consent to the collection of cookies`],
+                        spanish: [`confirme su consentimiento para la recopilación de cookies`],
+                        turkish: [`çerezlerin toplanmasına onay verdiğinizi onaylayın`],
                       })}</label>
                     </>
                   </CheckBoxSection>
@@ -859,16 +895,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       </Form>
 
 
-      {/* {Adress.country.value === 'russia' ?
-        <div className={Setting.app_theme === 'light' ? 'auth_disclaimer' : 'auth_disclaimer dark'}>{SetNativeTranslate(Translate.language, {
-          russian: ['Все данные, предоставляемые в сервисе logid, далее сервисе, носят информационный характер и не являются публичной офертой определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации. Сервис не является перевозчиком, представителем перевозчика, заказчиком, представителем заказчика. Сервис собирает данные исключительно в представленном здесь объеме и с целью обеспечения коммуникации перевозчиков и заказчиков. В настоящий момент сервис не ведет проверки пользователей на юридическую чистоту и коммерческую добросовестность. Сервис ни в коей мере не несет ответственность за взаимные споры, разногласия, обстоятельства, возникшие в рамках выполнения договорных отношений между перевозчиками, заказчиками, диспетчерами и логистами. В том числе оп причине размещения перевозчиком или заказчиком недостоверной или не полной информации о заказе или статусе его прохождения, в том числе в случае возникновения технических ошибок в сервисе. Мы настоятельно рекомендуем связываться с выбранным партнером по представленным каналам связи, а также проверять документы, вести необходимую договорную работу и пользоваться страхованием грузов. Продолжая использование данного сервиса вы даете согласие на обработку ваших персональных данных в соответствии с соглашением о конфиденциальности и политикой использования персональных данных. Размещая заказ, соглашаясь на предложение, беря заказ в работу, вы осознаете, что представленные вами в сервис данные, а также ваш рейтинг внутри сервиса будут доступны заказчику или перевозчику с которым вы вступаете в коммуникацию, в полном объеме, с целью обеспечения юридической чистоты сделки. Сервис не предоставляет ваши данные партнеру и данные партнера вам, за исключением вашего рейтинга в сервисе, если он или вы не брали ваш заказ в работу, он или вы не соглашались на его предложение,он не добавил вас или вы не доавили его по предоставленному друг другу уникальному айди, полученному в разделе аккаунт сервиса. Сервис не предоставляет другим пользователям информацию о ваших партнерах'],
-          english: ['All data provided in the logid service, hereinafter referred to as the service, is for informational purposes and is not a public offer determined by the provisions of Article 437 of the Civil Code of the Russian Federation. The Service is not a carrier, carrier representative, customer, customer representative. The service collects data solely to the extent presented here and for the purpose of ensuring communication between carriers and customers. At the moment, the service does not check users for legal purity and commercial integrity. The service is in no way responsible for mutual disputes, disagreements, circumstances that arose as part of the implementation of contractual relations between carriers, customers, dispatchers and logisticians. Including the reason for the placement by the carrier or the customer of inaccurate or incomplete information about the order or the status of its passage, including in the event of technical errors in the service. We strongly recommend contacting the selected partner through the provided communication channels, as well as checking documents, conducting the necessary contractual work and using cargo insurance. By continuing to use this service, you consent to the processing of your personal data in accordance with the confidentiality agreement and the policy on the use of personal data. By placing an order, agreeing to an offer, taking an order to work, you understand that the data you submitted to the service, as well as your rating within the service, will be available to the customer or carrier with whom you enter into communication in full, in order to ensure the legal purity of the transaction . The service does not provide your data to the partner and the data of the partner to you, with the exception of your rating in the service, if he or you did not take your order to work, he or you did not agree to his offer, he did not add you or you did not add him using the unique ID provided to each other, obtained in the service account section. The Service does not provide other users with information about your partners']
-        })}</div> :
-        <div className={Setting.app_theme === 'light' ? 'auth_disclaimer' : 'auth_disclaimer dark'}>{SetNativeTranslate(Translate.language, {
-          russian: ['Все данные, предоставляемые в сервисе logid, далее сервисе, носят информационный характер и не являются публичной офертой. Сервис не является перевозчиком, представителем перевозчика, заказчиком, представителем заказчика. Сервис собирает данные исключительно в представленном здесь объеме и с целью обеспечения коммуникации перевозчиков и заказчиков. В настоящий момент сервис не ведет проверки пользователей на юридическую чистоту и коммерческую добросовестность. Сервис ни в коей мере не несет ответственность за взаимные споры, разногласия, обстоятельства, возникшие в рамках выполнения договорных отношений между перевозчиками, заказчиками, диспетчерами и логистами. В том числе оп причине размещения перевозчиком или заказчиком недостоверной или не полной информации о заказе или статусе его прохождения, в том числе в случае возникновения технических ошибок в сервисе. Мы настоятельно рекомендуем связываться с выбранным партнером по представленным каналам связи, а также проверять документы, вести необходимую договорную работу и пользоваться страхованием грузов. Продолжая использование данного сервиса вы даете согласие на обработку ваших персональных данных в соответствии с соглашением о конфиденциальности и политикой использования персональных данных. Размещая заказ, соглашаясь на предложение, беря заказ в работу, вы осознаете, что представленные вами в сервис данные, а также ваш рейтинг внутри сервиса будут доступны заказчику или перевозчику с которым вы вступаете в коммуникацию, в полном объеме, с целью обеспечения юридической чистоты сделки. Сервис не предоставляет ваши данные партнеру и данные партнера вам, за исключением вашего рейтинга в сервисе, если он или вы не брали ваш заказ в работу, он или вы не соглашались на его предложение,он не добавил вас или вы не доавили его по предоставленному друг другу уникальному айди, полученному в разделе аккаунт сервиса. Сервис не предоставляет другим пользователям информацию о ваших партнерах'],
-          english: ['All data provided in the logid service, hereinafter referred to as the service, is for informational purposes and is not a public offer. The Service is not a carrier, carrier representative, customer, customer representative. The service collects data solely to the extent presented here and for the purpose of ensuring communication between carriers and customers. At the moment, the service does not check users for legal purity and commercial integrity. The service is in no way responsible for mutual disputes, disagreements, circumstances that arose as part of the implementation of contractual relations between carriers, customers, dispatchers and logisticians. Including the reason for the placement by the carrier or the customer of inaccurate or incomplete information about the order or the status of its passage, including in the event of technical errors in the service. We strongly recommend contacting the selected partner through the provided communication channels, as well as checking documents, conducting the necessary contractual work and using cargo insurance. By continuing to use this service, you consent to the processing of your personal data in accordance with the confidentiality agreement and the policy on the use of personal data. By placing an order, agreeing to an offer, taking an order to work, you understand that the data you submitted to the service, as well as your rating within the service, will be available to the customer or carrier with whom you enter into communication in full, in order to ensure the legal purity of the transaction . The service does not provide your data to the partner and the data of the partner to you, with the exception of your rating in the service, if he or you did not take your order to work, he or you did not agree to his offer, he did not add you or you did not add him using the unique ID provided to each other, obtained in the service account section. The Service does not provide other users with information about your partners']
-        })}</div>
-      } */}
+
 
 
     </div>

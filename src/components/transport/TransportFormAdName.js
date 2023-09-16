@@ -21,7 +21,9 @@ const TransportFormAdName = ({ formData }) => {
             <Input value={formData.ad_name.value}
                 placeholder={SetNativeTranslate(Translate.language, {
                     russian: ['Имя для рекламы'],
-                    english: ['Ad name']
+                    english: ['Ad name'],
+                    spanish: ['Nombre publicitario'],
+                    turkish: ['Reklam adı'],
                 })}
                 onChange={(e) => {
                     formData.ad_name.onChange(e);                 

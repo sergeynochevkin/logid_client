@@ -93,7 +93,9 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
           >
             <option defaultValue hidden>{SetNativeTranslate(Translate.language, {
               russian: ['Способ доставки'],
-              english: ['Shipping method']
+              english: ['Shipping method'],
+              spanish: ['Método de entrega'],
+              turkish: ['Teslimat yöntemi'],
             },)}</option>
             {TransportType.types.map(type =>
               <option value={type.type} key={type.id}>{SetNativeTranslate(Translate.language, {}, type.type)}</option>
@@ -335,7 +337,9 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
 
               onClick={click}>{SetNativeTranslate(Translate.language, {
                 russian: [`${formFunction === 'update' || formFunction === 'update_from_fast' ? 'Сохранить' : 'Добавить'}`],
-                english: [`${formFunction === 'update' ? 'Save' : 'Add'}`]
+                english: [`${formFunction === 'update' ? 'Save' : 'Add'}`],
+                spanish: [`${formFunction === 'update' ? 'Ahorrar' : 'Agregar'}`],
+                turkish: [`${formFunction === 'update' ? 'Kaydetmek' : 'Eklemek'}`],
               })}</CardButton>
 
 

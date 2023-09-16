@@ -21,11 +21,15 @@ const CookiesModalContent = observer(({ setModalActive, cookies_accepted }) => {
             {!cookies_accepted.main ?
                 <div className='accept_cookie_text_container'>{SetNativeTranslate(Translate.language, {
                     russian: ['Для полноценного функционирования сервиса выполняется сбор и обработка cookie файлов в вашем браузере. Для продолжения работы подтвердите согласие'],
-                    english: ['Cookies are collected and processed in your browser, for the full functioning of the service. Please confirm your consent to continue']
+                    english: ['Cookies are collected and processed in your browser, for the full functioning of the service. Please confirm your consent to continue'],
+                    spanish: ['Para que el servicio funcione plenamente, las cookies se recopilan y procesan en su navegador. Por favor confirma tu consentimiento para continuar'],
+                    turkish: ['Hizmetin tam olarak çalışması için çerezler tarayıcınızda toplanır ve işlenir. Lütfen devam etmek için onayınızı onaylayın'],
                 })}</div> :
                 <div className='accept_cookie_text_container'>{SetNativeTranslate(Translate.language, {
                     russian: ['Вы уже разрешили сбор и обработку cookie файлов в вашем браузере'],
-                    english: ['You have already allowed the collection and processing of cookies in your browser']
+                    english: ['You have already allowed the collection and processing of cookies in your browser'],
+                    spanish: ['Ya has permitido la recogida y tratamiento de cookies en tu navegador'],
+                    turkish: ['Tarayıcınızda çerezlerin toplanmasına ve işlenmesine zaten izin verdiniz'],
                 })}</div>
             }
             {!cookies_accepted.main &&

@@ -88,12 +88,14 @@ const TransportComponent = observer(() => {
     <Container>
       <Button
         onClick={() => {
-          if (Transport.transports.length >= 5) {
+          if (Transport.transports.length >= 10) {
             Notification.addNotification([{
               id: v4(), type: 'error', message: SetNativeTranslate(Translate.language,
                 {
-                  russian: ['В настоящий момент вы можете добавить не более 5 способов доставки, пожалуйсте удалите не актуальные'],
-                  english: ['At the moment you can add no more than 5 delivery methods, please delete those that are not relevant']
+                  russian: ['В настоящий момент вы можете добавить не более 10 способов доставки, пожалуйсте удалите не актуальные'],
+                  english: ['At the moment you can add no more than 10 delivery methods, please delete those that are not relevant'],
+                  spanish: ['Actualmente no puede agregar más de 10 métodos de entrega; elimínelos si no son relevantes'],
+                  turkish: ['Şu anda 10`dan fazla teslimat yöntemi ekleyemezsiniz; bunlar alakalı değilse lütfen silin'],
                 }
               )
             }])

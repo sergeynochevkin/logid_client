@@ -13,7 +13,9 @@ const TransportSelector = observer(({ thisOrder, setModalActive, transport, setT
             <div className='transport_selector_header'>{SetNativeTranslate(Translate.language,
                 {
                     russian: ['Выбeрите способ доставки'],
-                    english: ['Choose a shipping method']
+                    english: ['Choose a shipping method'],
+                    spanish: ['Seleccione el método de entrega'],
+                    turkish: ['Teslimat yöntemini seçin'],
                 }
                 , '')}</div>
             <div className='transport_items_container'>

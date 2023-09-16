@@ -21,7 +21,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModalActive }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
-    const {Adress} = useContext(AdressContext)
+    const { Adress } = useContext(AdressContext)
     const [timeFromOnFocus, setTimeFromOnFocus] = useState(false)
     const [timeToOnFocus, setTimeToOnFocus] = useState(false)
     const { Partner } = useContext(PartnerContext)
@@ -106,16 +106,20 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                 inputHandler={inputHandler}
                                 defaultvalue={SetNativeTranslate(Translate.language, {
                                     russian: ['Город'],
-                                    english: ['City']
+                                    english: ['City'],
+                                    spanish: ['Ciudad'],
+                                    turkish: ['Şehir'],
                                 },)}
                                 filterSet={'boardFilters'}
                                 filterSection={'transports'}
-                                sortOptions={[                                  
-                                      SetNativeTranslate(Translate.language, {
-                                            russian: ['Все'],
-                                            english: ['All']
-                                        }),...Adress.cities                                
-                                     ]}
+                                sortOptions={[
+                                    SetNativeTranslate(Translate.language, {
+                                        russian: ['Все'],
+                                        english: ['All'],
+                                        spanish: ['Todo'],
+                                        turkish: ['Tüm'],
+                                    }), ...Adress.cities
+                                ]}
                             ></FilterSelect>
 
 
@@ -126,7 +130,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                 filterSection={'transports'}
                                 defaultvalue={SetNativeTranslate(Translate.language, {
                                     russian: ['Способ доставки'],
-                                    english: ['Way of delivery']
+                                    english: ['Way of delivery'],
+                                    spanish: ['Método de entrega'],
+                                    turkish: ['Teslimat yöntemi'],
                                 })}
                                 sortOptions={
                                     FilterAndSort.boardFilters.transports.hydraulic_platform || FilterAndSort.boardFilters.transports.side_loading || FilterAndSort.boardFilters.transports.glass_stand || FilterAndSort.boardFilters.transports.load_capacity === '10' || FilterAndSort.boardFilters.transports.load_capacity === '20' || FilterAndSort.boardFilters.transports.load_capacity === '5' ? [...TransportType.types.slice(7, 8)] :
@@ -152,7 +158,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                         filterSection={'transports'}
                                         defaultvalue={SetNativeTranslate(Translate.language, {
                                             russian: ['Грузоподъемность'],
-                                            english: ['Load capacity']
+                                            english: ['Load capacity'],
+                                            spanish: ['Capacidad de carga'],
+                                            turkish: ['Yükleme kapasitesi'],
                                         })}
                                         sortOptions={[
                                             ...TransportType.load_capacities
@@ -168,7 +176,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                         filterSection={'transports'}
                                         defaultvalue={SetNativeTranslate(Translate.language, {
                                             russian: ['Тип кузова'],
-                                            english: ['Side type']
+                                            english: ['Side type'],
+                                            spanish: ['Tipo lateral'],
+                                            turkish: ['Yan tip'],
                                         })}
                                         sortOptions={
                                             (FilterAndSort.boardFilters.transports.thermo_van || FilterAndSort.boardFilters.transports.refrigerator_minus || FilterAndSort.boardFilters.transports.refrigerator_plus ? [...TransportType.side_types.slice(2, 3)] : [...TransportType.side_types])
@@ -203,7 +213,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                         onClick={() => { setModalActive(false) }}
                                     >{SetNativeTranslate(Translate.language, {
                                         russian: ['Показать'],
-                                        english: ['Show']
+                                        english: ['Show'],
+                                        spanish: ['Espectáculo'],
+                                        turkish: ['Göstermek'],
                                     })}</CardButton>
                                 }
 
@@ -216,7 +228,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
 
                                 >{SetNativeTranslate(Translate.language, {
                                     russian: ['Сбросить'],
-                                    english: ['Reset']
+                                    english: ['Reset'],
+                                    spanish: ['Reiniciar'],
+                                    turkish: ['Sıfırla'],
                                 })}</CardButton>
                             </div>
                         </div>
@@ -242,7 +256,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                 : <></>
             }
             {
-                parent === 'partners' && 
+                parent === 'partners' &&
                     (FilterAndSort.partnerFilters[ComponentFunction.Function].id !== '' ||
                         FilterAndSort.partnerFilters[ComponentFunction.Function].partnerName !== '' ||
                         FilterAndSort.partnerFilters[ComponentFunction.Function].selectedSort !== ''

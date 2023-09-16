@@ -34,17 +34,23 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
 
   formData.ad_name = useInput('', { isEmpty: false, minLength: 4, maxLength: 22 }, SetNativeTranslate(Translate.language, {
     russian: ['Имя для рекламы'],
-    english: ['Ad name']
+    english: ['Ad name'],
+    spanish: ['Nombre publicitario'],
+    turkish: ['Reklam adı'],
   }))
 
   formData.ad_text = useInput('', { isEmpty: false, minLength: 20, maxLength: 150 }, SetNativeTranslate(Translate.language, {
     russian: ['Рекламный текст'],
-    english: ['Advertising text']
+    english: ['Advertising text'],
+    spanish: ['Texto publicitario'],
+    turkish: ['Reklam metni'],
   }))
 
   formData.tag = useInput('', { isEmpty: true, minLength: 4, maxLength: 20 }, SetNativeTranslate(Translate.language, {
     russian: ['Метка'],
-    english: ['Tag']
+    english: ['Tag'],
+    spanish: ['Etiqueta'],
+    turkish: ['Etiket'],
   }))
 
 
@@ -78,7 +84,9 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
                 id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
                   {
                     russian: ['Транспорт добавлен'],
-                    english: ['Transport created']
+                    english: ['Transport created'],
+                    spanish: ['Transporte agregado'],
+                    turkish: ['Taşıma eklendi'],
                   })
               }])
             )
@@ -97,7 +105,9 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
                 id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
                   {
                     russian: ['Транспорт обновлен'],
-                    english: ['Transport updated']
+                    english: ['Transport updated'],
+                    spanish: ['Transporte actualizado'],
+                    turkish: ['Taşıma güncellendi'],
                   })
               }])
             )
@@ -160,7 +170,9 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
               <>
                 <label className='auth_check_box_label'  >{SetNativeTranslate(Translate.language, {
                   russian: [`Рекламировать транспорт на главной странице`],
-                  english: [`Advertise transport on the main page`]
+                  english: [`Advertise transport on the main page`],
+                  spanish: [`Anunciar transporte en la página principal`],
+                  turkish: [`Ana sayfada ulaşımın reklamını yapın`],
                 })}</label>
               </>
             </CheckBoxSection>
@@ -175,7 +187,9 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
               formData.ad_text.isEmpty || formData.ad_name.isEmpty || formData.ad_text.notValid || formData.ad_name.notValid ?
                 SetNativeTranslate(Translate.language, {
                   russian: ['Для показа рекламы заполните рекламный текст и имя'],
-                  english: ['To display ads, fill in the ad text and name']
+                  english: ['To display ads, fill in the ad text and name'],
+                  spanish: ['Para mostrar publicidad, rellene el texto y el nombre del anuncio'],
+                  turkish: ['Reklam görüntülemek için reklam metnini ve adını girin'],
                 }) :
                 ''
             }

@@ -107,7 +107,9 @@ const PointStatusForm = observer(({ setModalActive, onePoint, formData, setFormD
                         disabled={formData.carrier_comment.minLengthError || formData.carrier_comment.maxLengthError}
                     >{SetNativeTranslate(Translate.language, {
                         russian: ['Завершить'],
-                        english: ['Finish']
+                        english: ['Finish'],
+                        spanish: ['Completo'],
+                        turkish: ['Tamamlamak'],
                     }, '')}</CardButton>
                     : <></>}
 

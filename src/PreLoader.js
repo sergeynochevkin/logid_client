@@ -105,6 +105,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
                 Adress.setCities(data.cities)
+                
                 let country = data.countries.find(el => el.google_code === 'RU')
                 Adress.setCountry(country)
                 if (localStorage.getItem('language') && localStorage.getItem('language') !== undefined) {
