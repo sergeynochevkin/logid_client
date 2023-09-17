@@ -110,6 +110,8 @@ const PointStatusForm = observer(({ setModalActive, onePoint, formData, setFormD
                         english: ['Finish'],
                         spanish: ['Completo'],
                         turkish: ['Tamamlamak'],
+                        сhinese: ['完全的'],
+                        hindi: ['पूरा'],
                     }, '')}</CardButton>
                     : <></>}
 

@@ -19,6 +19,8 @@ const BoardMainBanner = observer(() => {
         english: ['Bulletin board'],
         spanish: ['Tablón de anuncios'],
         turkish: ['Bülten tahtası'],
+        сhinese: ['布告栏'],
+        hindi: ['बुलेटिन बोर्ड'],
       })}</div>
     </div>
   )

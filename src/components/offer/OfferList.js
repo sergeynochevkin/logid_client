@@ -8,9 +8,9 @@ import { Smaller } from '../ui/text/Smaller'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { TranslateContext } from '../..'
 
-const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, thisOrderNoPartners,  firstPoint, ComponentFunction }) => {
+const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, thisOrderNoPartners, firstPoint, ComponentFunction }) => {
 
-const{Translate} = useContext(TranslateContext)
+  const { Translate } = useContext(TranslateContext)
 
   // const sortOffers = (a, b) => {
   //   if (a.cost > b.cost) {
@@ -24,17 +24,23 @@ const{Translate} = useContext(TranslateContext)
     <VerticalContainer
       style={{ alignItems: 'center' }}
     >
-      {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ? <Smaller>{user.user.role === 'carrier' ? SetNativeTranslate(Translate.language,{
-                    russian:['Предложения других перевозчиков'],
-                    english:['Offers from other carriers'],
-                    spanish:['Ofertas de otros transportistas'],
-                    turkish:['Diğer operatörlerin teklifleri'],
-                  }) : SetNativeTranslate(Translate.language,{
-                    russian:['Предложения перевозчиков'],
-                    english:['Carrier offers'],
-                    spanish:['Ofertas de transportistas'],
-                    turkish:['Operatör teklifleri'],
-                  })}</Smaller> : <></>}
+      {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ? <Smaller>{user.user.role === 'carrier' ? SetNativeTranslate(Translate.language, {
+        russian: ['Предложения других перевозчиков'],
+        english: ['Offers from other carriers'],
+        spanish: ['Ofertas de otros transportistas'],
+        turkish: ['Diğer operatörlerin teklifleri'],
+        сhinese: [''],
+        hindi: [''],
+
+      }) : SetNativeTranslate(Translate.language, {
+        russian: ['Предложения перевозчиков'],
+        english: ['Carrier offers'],
+        spanish: ['Ofertas de transportistas'],
+        turkish: ['Operatör teklifleri'],
+        сhinese: ['其他运营商的优惠'],
+        hindi: ['अन्य वाहकों से ऑफर'],
+
+      })}</Smaller> : <></>}
       {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ?
         <HorizontalContainer
           style={{
@@ -49,37 +55,49 @@ const{Translate} = useContext(TranslateContext)
                 <tr>
                   <OrderTh>Id</OrderTh>
                   <OrderTh>
-                  {SetNativeTranslate(Translate.language,{
-                    russian:['Наименование'],
-                    english:['Name'],
-                    spanish:['Nombre'],
-                    turkish:['İsim'],
-                  })}
+                    {SetNativeTranslate(Translate.language, {
+                      russian: ['Наименование'],
+                      english: ['Name'],
+                      spanish: ['Nombre'],
+                      turkish: ['İsim'],
+                      сhinese: ['姓名'],
+                      hindi: ['नाम'],
+
+                    })}
                   </OrderTh>
                   <OrderTh>
-                  {SetNativeTranslate(Translate.language,{
-                    russian:['Рейтинг'],
-                    english:['Rating'],
-                    spanish:['Clasificación'],
-                    turkish:['Değerlendirme'],
-                  })}
+                    {SetNativeTranslate(Translate.language, {
+                      russian: ['Рейтинг'],
+                      english: ['Rating'],
+                      spanish: ['Clasificación'],
+                      turkish: ['Değerlendirme'],
+                      сhinese: ['评分'],
+                      hindi: ['रेटिंग'],
+
+                    })}
                   </OrderTh>
                   <OrderTh>
-                  {SetNativeTranslate(Translate.language,{
-                    russian:['Цена'],
-                    english:['Cost'],
-                    spanish:['Precio'],
-                    turkish:['Fiyat'],
-                  })}
+                    {SetNativeTranslate(Translate.language, {
+                      russian: ['Цена'],
+                      english: ['Cost'],
+                      spanish: ['Precio'],
+                      turkish: ['Fiyat'],
+                      сhinese: ['价格'],
+                      hindi: ['कीमत'],
+
+                    })}
                   </OrderTh>
                   <OrderTh>
-                  {SetNativeTranslate(Translate.language,{
-                    russian:['Время подачи'],
-                    english:['Arrival time'],
-                    spanish:['Hora de llegada'],
-                    turkish:['Varış zamanı'],
-                  })}
-                  </OrderTh>                
+                    {SetNativeTranslate(Translate.language, {
+                      russian: ['Время подачи'],
+                      english: ['Arrival time'],
+                      spanish: ['Hora de llegada'],
+                      turkish: ['Varış zamanı'],
+                      сhinese: ['到达时间'],
+                      hindi: ['आगमन का समय'],
+
+                    })}
+                  </OrderTh>
                 </tr>
               </tbody>
               <tbody>
@@ -93,7 +111,7 @@ const{Translate} = useContext(TranslateContext)
                     noPartner={thisOrderNoPartners.find(el => el.id === oneOffer.carrierId)}
                     setModalActive={setModalActive}
                     thisOrderOffers={thisOrderOffers}
-                    
+
                     firstPoint={firstPoint}
                   />)
                 }
@@ -113,7 +131,7 @@ const{Translate} = useContext(TranslateContext)
               </> : <></>
           }
         </HorizontalContainer> : <></>}
-  
+
     </VerticalContainer>
   )
 }

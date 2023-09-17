@@ -129,11 +129,15 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           english: ['Driver'],
           spanish: ['Conductor'],
           turkish: ['Sürücü'],
+          сhinese: ['司机'],
+          hindi: ['चालक'],
         })}</CardColName><CardColValue>{oneTransport.driver_id === user.user.id ? SetNativeTranslate(Translate.language, {
           russian: ['Вы'],
           english: ['You'],
           spanish: ['Sen'],
           turkish: ['Sen'],
+          сhinese: ['你'],
+          hindi: ['आप'],
         }) : Driver.drivers.find(el => el.id === oneTransport.driver_id).user_info?.name_surname_fathersname}</CardColValue></CardRow>
       }
       {oneTransport.type === 'minibus' || oneTransport.type === 'truck' ?
@@ -174,6 +178,9 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           russian: ['Имя для рекламы'],
           spanish: ['Nombre publicitario'],
           turkish: ['Reklam adı'],
+          сhinese: ['广告名称'],
+          hindi: ['विज्ञापन का नाम'],
+
         })}</CardColName>
           <CardColValue>{oneTransport.ad_name}</CardColValue>
         </CardRow>
@@ -185,6 +192,9 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
             russian: ['Рекламный текст'],
             spanish: ['Texto publicitario'],
             turkish: ['Reklam metni'],
+            сhinese: ['广告文字'],
+            hindi: ['विज्ञापन पाठ'],
+
           })}</CardColName>
           <CardColValue>{oneTransport.ad_text}</CardColValue>
         </>}
@@ -193,18 +203,27 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
         russian: ['Показывается на главной'],
         spanish: ['Mostrado en la página principal'],
         turkish: ['Ana sayfada gösterilir'],
+        сhinese: ['显示在主页上'],
+        hindi: ['मुख्य पृष्ठ पर दिखाया गया है'],
+
       })}</CardEquipment> : oneTransport.ad_show && oneTransport.moderated === 'not_checked' ?
         <CardEquipment style={{ backgroundColor: 'rgb(254, 145, 40,0.8)' }}>{SetNativeTranslate(Translate.language, {
           english: ['Moderation'],
           russian: ['На модерации'],
-        spanish: ['Moderación'],
-        turkish: ['Moderasyon'],
+          spanish: ['Moderación'],
+          turkish: ['Moderasyon'],
+          сhinese: ['适度'],
+          hindi: ['संयम'],
+
         })}</CardEquipment> : oneTransport.ad_show && oneTransport.moderated === 'checked_not_accepted' ?
           <CardEquipment style={{ backgroundColor: 'rgb(254, 111, 103,0.8)' }}>{SetNativeTranslate(Translate.language, {
             english: [`Not accepted ${oneTransport.moderation_comment}`],
             russian: [`Отклонено ${oneTransport.moderation_comment}`],
-        spanish: [`Rechazado ${oneTransport.moderation_comment}`],
-        turkish: [`Reddedilmiş ${oneTransport.moderation_comment}`],
+            spanish: [`Rechazado ${oneTransport.moderation_comment}`],
+            turkish: [`Reddedilmiş ${oneTransport.moderation_comment}`],
+            сhinese: ['拒绝'],
+            hindi: ['अस्वीकार कर दिया'],
+
           })}</CardEquipment> : <></>
       }
         {oneTransport.ad_show && oneTransport.moderated === 'checked_accepted' ? <Link to={`/board/item/${oneTransport.id}`}>
@@ -219,8 +238,11 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
         <CardButton onClick={editClick}>{SetNativeTranslate(Translate.language, {
           russian: ['Редактировать'],
           english: ['Edit'],
-        spanish: ['Editar'],
-        turkish: ['Düzenlemek'],
+          spanish: ['Editar'],
+          turkish: ['Düzenlemek'],
+          сhinese: ['编辑'],
+          hindi: ['संपादन करना'],
+
         })}</CardButton>
       </CardRow>
 

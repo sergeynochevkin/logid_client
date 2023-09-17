@@ -24,9 +24,11 @@ const TransportFormAdName = ({ formData }) => {
                     english: ['Ad name'],
                     spanish: ['Nombre publicitario'],
                     turkish: ['Reklam adı'],
+                    сhinese: ['广告名称'],
+                    hindi: ['विज्ञापन का नाम'],
                 })}
                 onChange={(e) => {
-                    formData.ad_name.onChange(e);                 
+                    formData.ad_name.onChange(e);
                 }
                 }
                 onBlur={e => formData.ad_name.onBlur(e)}

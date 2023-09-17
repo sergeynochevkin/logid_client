@@ -17,6 +17,9 @@ const NoData = observer(({ children, ...props }) => {
                     english: ['Loading...'],
                     spanish: ['Cargando...'],
                     turkish: ['Yükleniyor...'],
+                    сhinese: ['加载中...'],
+                    hindi: ['लोड हो रहा है...'],
+
                 })}</div> : <div className={Setting.app_theme === 'light' ? 'no_data' : 'no_data dark'}>{children}</div>
         }
 

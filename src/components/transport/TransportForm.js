@@ -29,14 +29,14 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
 
   let dataTransfer = new DataTransfer();
   let fileList
-  
-
 
   formData.ad_name = useInput('', { isEmpty: false, minLength: 4, maxLength: 22 }, SetNativeTranslate(Translate.language, {
     russian: ['Имя для рекламы'],
     english: ['Ad name'],
     spanish: ['Nombre publicitario'],
     turkish: ['Reklam adı'],
+    сhinese: ['广告名称'],
+    hindi: ['विज्ञापन का नाम'],
   }))
 
   formData.ad_text = useInput('', { isEmpty: false, minLength: 20, maxLength: 150 }, SetNativeTranslate(Translate.language, {
@@ -44,6 +44,8 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
     english: ['Advertising text'],
     spanish: ['Texto publicitario'],
     turkish: ['Reklam metni'],
+    сhinese: ['广告文字'],
+    hindi: ['विज्ञापन पाठ'],
   }))
 
   formData.tag = useInput('', { isEmpty: true, minLength: 4, maxLength: 20 }, SetNativeTranslate(Translate.language, {
@@ -51,6 +53,8 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
     english: ['Tag'],
     spanish: ['Etiqueta'],
     turkish: ['Etiket'],
+    сhinese: ['标签'],
+    hindi: ['टैग'],
   }))
 
 
@@ -87,6 +91,8 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
                     english: ['Transport created'],
                     spanish: ['Transporte agregado'],
                     turkish: ['Taşıma eklendi'],
+                    сhinese: ['创建运输'],
+                    hindi: ['परिवहन बनाया गया'],
                   })
               }])
             )
@@ -108,6 +114,8 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
                     english: ['Transport updated'],
                     spanish: ['Transporte actualizado'],
                     turkish: ['Taşıma güncellendi'],
+                    сhinese: ['交通更新'],
+                    hindi: ['परिवहन अद्यतन किया गया'],
                   })
               }])
             )
@@ -173,6 +181,8 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
                   english: [`Advertise transport on the main page`],
                   spanish: [`Anunciar transporte en la página principal`],
                   turkish: [`Ana sayfada ulaşımın reklamını yapın`],
+                  сhinese: ['在主页上刊登交通广告'],
+                  hindi: ['मुख्य पृष्ठ पर परिवहन का विज्ञापन करें'],
                 })}</label>
               </>
             </CheckBoxSection>
@@ -190,6 +200,8 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
                   english: ['To display ads, fill in the ad text and name'],
                   spanish: ['Para mostrar publicidad, rellene el texto y el nombre del anuncio'],
                   turkish: ['Reklam görüntülemek için reklam metnini ve adını girin'],
+                  сhinese: ['如需展示广告，请填写广告文字和名称'],
+                  hindi: ['विज्ञापन प्रदर्शित करने के लिए, विज्ञापन टेक्स्ट और नाम भरें'],
                 }) :
                 ''
             }

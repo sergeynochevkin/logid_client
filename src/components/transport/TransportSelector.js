@@ -16,6 +16,10 @@ const TransportSelector = observer(({ thisOrder, setModalActive, transport, setT
                     english: ['Choose a shipping method'],
                     spanish: ['Seleccione el método de entrega'],
                     turkish: ['Teslimat yöntemini seçin'],
+                    сhinese: ['选择送货方式'],
+                    hindi: ['डिलीवरी विधि चुनें'],
+
+
                 }
                 , '')}</div>
             <div className='transport_items_container'>

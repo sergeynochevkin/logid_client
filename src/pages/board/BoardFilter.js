@@ -53,6 +53,9 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
                             english: ['Add ad'],
                             spanish: ['Para agregar un anuncio'],
                             turkish: ['İlan eklemek için'],
+                            сhinese: ['添加广告'],
+                            hindi: ['एक विज्ञापन जोड़ने के लिए'],
+
                         })}</Button> :
                         <img
                             onClick={() => {
@@ -63,6 +66,8 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
                                 english: ['Add ad'],
                                 spanish: ['Para agregar un anuncio'],
                                 turkish: ['İlan eklemek için'],
+                                сhinese: ['添加广告'],
+                                hindi: ['एक विज्ञापन जोड़ने के लिए'],
                             })} className='board_add_ad_icon' src={Setting.app_theme === 'light' ? board_add : board_add_dark}></img>}
                 </> : <></>}
 

@@ -144,6 +144,8 @@ const BoardItemPage = observer(() => {
                                             english: ['Show phone'],
                                             spanish: ['Mostrar teléfono'],
                                             turkish: ['Telefonu göster'],
+                                            сhinese: ['显示电话'],
+                                            hindi: ['फ़ोन दिखाओ'],
                                         })}
                                     </Button>
                                 }</div>
@@ -153,19 +155,23 @@ const BoardItemPage = observer(() => {
                         </div>
                         <div className='board_item_page_info_statistics_container'>
                             <div>{SetNativeTranslate(Translate.language, {
-                                russian:['рейтинг logid'],
-                                english:['logid rating'],
-                                spanish:['logid calificación'],
-                                turkish:['logid derecelendirmesi'],
+                                russian: ['рейтинг logid'],
+                                english: ['logid rating'],
+                                spanish: ['logid calificación'],
+                                turkish: ['logid derecelendirmesi'],
+                                сhinese: ['逻辑评级'],
+                                hindi: ['लॉगिड रेटिंग'],
                             })}</div>
                             <div className='board_item_page_info_statistics_rating'>{ad_user.rating === 'no_rating' ?
-                            SetNativeTranslate(Translate.language, {
-                                russian:['нет оценок'],
-                                english:['no ratings'],
-                                spanish:['no hay votos'],
-                                turkish:['derecelendirme yok'],
-                            })
-                            : `${ad_user.rating}/10`
+                                SetNativeTranslate(Translate.language, {
+                                    russian: ['нет оценок'],
+                                    english: ['no ratings'],
+                                    spanish: ['no hay votos'],
+                                    turkish: ['derecelendirme yok'],
+                                    сhinese: ['没有评级'],
+                                    hindi: ['कोई रेटिंग नहीं'],
+                                })
+                                : `${ad_user.rating}/10`
                             }</div>
                             <div>{setTime(new Date(transport.updatedAt), 0, 'show')}</div>
                             <img className='board_item_page_icon' src={Setting.app_theme === 'light' ? eye : eye_dark}></img>

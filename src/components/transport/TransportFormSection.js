@@ -96,6 +96,8 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
               english: ['Shipping method'],
               spanish: ['Método de entrega'],
               turkish: ['Teslimat yöntemi'],
+              сhinese: ['运输方式'],
+              hindi: ['डिलिवरी विधि'],
             },)}</option>
             {TransportType.types.map(type =>
               <option value={type.type} key={type.id}>{SetNativeTranslate(Translate.language, {}, type.type)}</option>
@@ -328,7 +330,7 @@ const TransportFormSection = ({ setFormData, formData, click, parent, setModalAc
                 formData.type.notValid ||
                 formData.tag.notValid ||
                 files.length < 1 ||
-                (formData.ad_text.notValid && !formData.ad_text.isEmpty ) ||
+                (formData.ad_text.notValid && !formData.ad_text.isEmpty) ||
                 (formData.ad_name.notValid && !formData.ad_name.isEmpty) ||
                 (formData.side_type.notValid && formData.type.value === 'truck') ||
                 (formData.load_capacity.notValid && (formData.type.value === 'truck' ||

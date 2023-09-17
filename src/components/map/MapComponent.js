@@ -390,6 +390,8 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`],
                         spanish: [`Actualizado ${setTime(new Date(location.updated), 0, 'show')}`],
                         turkish: [`Güncellenmiş ${setTime(new Date(location.updated), 0, 'show')}`],
+                        сhinese: [`更新 ${setTime(new Date(location.updated), 0, 'show')}`],
+                        hindi: [`अद्यतन ${setTime(new Date(location.updated), 0, 'show')}`],
                     })
                     if (!locationMarker) {
                         setMarker(title, gMap, location)
@@ -414,6 +416,8 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`],
                         spanish: [`Actualizado ${setTime(new Date(location.updated), 0, 'show')}`],
                         turkish: [`Güncellenmiş ${setTime(new Date(location.updated), 0, 'show')}`],
+                        сhinese: [`更新 ${setTime(new Date(location.updated), 0, 'show')}`],
+                        hindi: [`अद्यतन ${setTime(new Date(location.updated), 0, 'show')}`],
                     })
                     if (!locationMarker) {
                         setMarker(title, gMap, location)

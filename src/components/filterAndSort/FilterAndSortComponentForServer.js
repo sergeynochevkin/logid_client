@@ -109,6 +109,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                     english: ['City'],
                                     spanish: ['Ciudad'],
                                     turkish: ['Şehir'],
+                                    сhinese: ['城市'],
+                                    hindi: ['शहर'],
+
                                 },)}
                                 filterSet={'boardFilters'}
                                 filterSection={'transports'}
@@ -118,6 +121,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                         english: ['All'],
                                         spanish: ['Todo'],
                                         turkish: ['Tüm'],
+                                        сhinese: ['全部'],
+                                        hindi: ['सभी'],
+
                                     }), ...Adress.cities
                                 ]}
                             ></FilterSelect>
@@ -133,6 +139,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                     english: ['Way of delivery'],
                                     spanish: ['Método de entrega'],
                                     turkish: ['Teslimat yöntemi'],
+                                    сhinese: ['运输方式'],
+                                    hindi: ['डिलिवरी विधि'],
+
                                 })}
                                 sortOptions={
                                     FilterAndSort.boardFilters.transports.hydraulic_platform || FilterAndSort.boardFilters.transports.side_loading || FilterAndSort.boardFilters.transports.glass_stand || FilterAndSort.boardFilters.transports.load_capacity === '10' || FilterAndSort.boardFilters.transports.load_capacity === '20' || FilterAndSort.boardFilters.transports.load_capacity === '5' ? [...TransportType.types.slice(7, 8)] :
@@ -161,6 +170,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                             english: ['Load capacity'],
                                             spanish: ['Capacidad de carga'],
                                             turkish: ['Yükleme kapasitesi'],
+                                            сhinese: ['承载量'],
+                                            hindi: ['भार क्षमता'],
+
                                         })}
                                         sortOptions={[
                                             ...TransportType.load_capacities
@@ -179,6 +191,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                             english: ['Side type'],
                                             spanish: ['Tipo lateral'],
                                             turkish: ['Yan tip'],
+                                            сhinese: ['侧面型'],
+                                            hindi: ['पार्श्व प्रकार'],
+
                                         })}
                                         sortOptions={
                                             (FilterAndSort.boardFilters.transports.thermo_van || FilterAndSort.boardFilters.transports.refrigerator_minus || FilterAndSort.boardFilters.transports.refrigerator_plus ? [...TransportType.side_types.slice(2, 3)] : [...TransportType.side_types])
@@ -216,6 +231,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                         english: ['Show'],
                                         spanish: ['Espectáculo'],
                                         turkish: ['Göstermek'],
+                                        сhinese: ['展示'],
+                                        hindi: ['दिखाओ'],
+
                                     })}</CardButton>
                                 }
 
@@ -231,6 +249,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                     english: ['Reset'],
                                     spanish: ['Reiniciar'],
                                     turkish: ['Sıfırla'],
+                                    сhinese: ['重置'],
+                                    hindi: ['रीसेट'],
+
                                 })}</CardButton>
                             </div>
                         </div>
@@ -381,7 +402,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                 </HorizontalContainer>
             }
 
-        </div >
+        </div>
 
     )
 })

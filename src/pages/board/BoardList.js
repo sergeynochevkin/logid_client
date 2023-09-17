@@ -23,6 +23,8 @@ const BoardList = observer(() => {
                 english: ['Carriers in the selected city have not yet published offers, place an order'],
                 spanish: ['Transportistas de la ciudad seleccionada aún no han publicado ofertas, haz tu pedido'],
                 turkish: ['Seçilen şehirdeki operatörler henüz teklif yayınlamadı, siparişinizi verin'],
+                сhinese: ['所选城市运营商尚未发布优惠，请下单'],
+                hindi: ['चयनित शहर के वाहकों ने अभी तक ऑफ़र प्रकाशित नहीं किए हैं, अपना ऑर्डर दें'],
               })}
 
             </NoData> :
@@ -33,6 +35,8 @@ const BoardList = observer(() => {
                   english: ['No offers, place an order'],
                   spanish: ['No hay ofertas, haz un pedido'],
                   turkish: ['Teklif yok, sipariş verin'],
+                  сhinese: ['没有优惠，请下订单'],
+                  hindi: ['कोई ऑफ़र नहीं, ऑर्डर दें'],
                 })}
               </NoData> :
               Ad.transports.board.map(transport => <BoardListItem key={transport.id} transport={transport} />)
@@ -47,6 +51,8 @@ const BoardList = observer(() => {
                 english: ['Carriers in the selected city have not yet published offers, place an order'],
                 spanish: ['Transportistas de la ciudad seleccionada aún no han publicado ofertas, haz tu pedido'],
                 turkish: ['Seçilen şehirdeki operatörler henüz teklif yayınlamadı, siparişinizi verin'],
+                сhinese: ['所选城市运营商尚未发布优惠，请下单'],
+                hindi: ['चयनित शहर के वाहकों ने अभी तक ऑफ़र प्रकाशित नहीं किए हैं, अपना ऑर्डर दें'],
               })}
 
             </NoData> :
@@ -57,6 +63,8 @@ const BoardList = observer(() => {
                   english: ['No offers, place an order'],
                   spanish: ['No hay ofertas, haz un pedido'],
                   turkish: ['Teklif yok, sipariş verin'],
+                  сhinese: ['没有优惠，请下订单'],
+                  hindi: ['कोई ऑफ़र नहीं, ऑर्डर दें'],
                 })}
               </NoData> :
               Ad.transports.board.filter(el => el.userInfoId !== UserInfo.userInfo.id).map(transport => <BoardListItem key={transport.id} transport={transport} />)

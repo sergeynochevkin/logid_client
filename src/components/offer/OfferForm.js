@@ -90,6 +90,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                         english: ['You have made an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
                         spanish: ['Hiciste una oferta para', oneOrder.order_type === 'order' ? `orden` : `subasta`, oneOrder.id],
                         turkish: ['Bir teklifte bulundun', oneOrder.order_type === 'order' ? `emir` : `açık arttırma`, oneOrder.id],
+                        сhinese: ['您已向', oneOrder.order_type === 'order' ? `扎考` : `拍卖`, oneOrder.id],
+                        hindi: ['आपने को एक प्रस्ताव दिया है', oneOrder.order_type === 'order' ? `ज़काउ` : `नीलामी`, oneOrder.id],
+
                     }
                     )
                 }])
@@ -116,6 +119,8 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     english: ['You have deleted an offer to the', oneOrder.order_type === 'order' ? `закау` : `аукциону`, oneOrder.id],
                     spanish: ['Has eliminado la oferta para', oneOrder.order_type === 'order' ? `orden` : `subasta`, oneOrder.id],
                     turkish: ['Şu teklifi kaldırdınız', oneOrder.order_type === 'order' ? `emir` : `açık arttırma`, oneOrder.id],
+                    сhinese: ['您已删除了对', oneOrder.order_type === 'order' ? `扎考` : `拍卖`, oneOrder.id],
+                    hindi: ['आपने एक ऑफ़र हटा दिया है', oneOrder.order_type === 'order' ? `ज़काउ` : `नीलामी`, oneOrder.id],
                 }
                 )
             }])
@@ -135,6 +140,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                     english: ['Your offer'],
                     spanish: ['Tu oferta'],
                     turkish: ['Teklifiniz'],
+                    сhinese: ['您的建议'],
+                    hindi: ['आपका सुझाव'],
+
                 }
                 )}</Smaller>
                 <VerticalContainer
@@ -222,6 +230,9 @@ const OfferForm = observer(({ setModalActive, UserInfo, oneOrder, formData, setF
                                         english: ['Choose a shipping method'],
                                         spanish: ['Seleccione el método de entrega'],
                                         turkish: ['Teslimat yöntemini seçin'],
+                                        сhinese: ['选择送货方式'],
+                                        hindi: ['डिलीवरी विधि चुनें'],
+
                                     }
                                 )}
                             </div>

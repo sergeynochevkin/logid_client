@@ -39,7 +39,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   const { height, width } = useWindowDimensions();
 
 
-// console.log(JSON.stringify(order.order_images));
+  // console.log(JSON.stringify(order.order_images));
 
   useEffect(() => {
     if (ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern') {
@@ -261,6 +261,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                     english: ['No orders, we will notify you of new orders by email'],
                     spanish: ['No hay pedidos, te avisaremos de nuevos pedidos por email'],
                     turkish: ['Sipariş yok, yeni siparişleri size e-postayla bildireceğiz'],
+                    сhinese: ['没有订单，有新订单我们会通过电子邮件通知您'],
+                    hindi: ['कोई ऑर्डर नहीं है, हम आपको ईमेल द्वारा नए ऑर्डर के बारे में सूचित करेंगे'],
                   }, '') : SetNativeTranslate(Translate.language, {}, 'no_orders')
                 }
 

@@ -41,6 +41,8 @@ const FilterAndSortSeparateSearchAndSort = observer(({ parent, modalActive, setM
                         english: [`Name, or part of the ad text`],
                         spanish: [`Nombre o parte del texto del anuncio`],
                         turkish: [`Ad veya reklam metninin bir kısmı`],
+                        сhinese: ['名称或广告文字的一部分'],
+                        hindi: ['विज्ञापन टेक्स्ट का नाम या भाग'],
                     })}
                 />
 

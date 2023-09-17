@@ -29,13 +29,19 @@ const DriverSelector = ({ formData, setFormData }) => {
                         russian: ['Выберите водителя'],
                         english: ['Select driver'],
                         spanish: ['Seleccionar conductor'],
-                        turkish: ['Sürücüyü seçin']
+                        turkish: ['Sürücüyü seçin'],
+                        сhinese: ['选择驱动程序'],
+                        hindi: ['ड्राइवर का चयन करें'],
+
                     })}</option>
                     <option value={UserInfo.userInfo.userId}>{SetNativeTranslate(Translate.language, {
                         russian: ['Я'],
                         english: ['I am'],
                         spanish: ['I'],
-                        turkish: ['Ben']
+                        turkish: ['Ben'],
+                        сhinese: ['我是'],
+                        hindi: ['मैं हूँ'],
+
                     })}</option>
                     {Driver.drivers.map(driver =>
                         <option value={driver.id} key={driver.id}>{driver.user_info.name_surname_fathersname}</option>
@@ -51,7 +57,9 @@ const DriverSelector = ({ formData, setFormData }) => {
                             russian: ['Выберите водителя'],
                             english: ['Select driver'],
                             spanish: ['Seleccionar conductor'],
-                            turkish: ['Sürücüyü seçin']
+                            turkish: ['Sürücüyü seçin'],
+                            сhinese: ['选择驱动程序'],
+                            hindi: ['ड्राइवर का चयन करें'],
                         }) :
                         ''
                     }

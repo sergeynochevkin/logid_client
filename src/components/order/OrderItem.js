@@ -181,6 +181,9 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                         english: ['Open in Yandex navigator'],
                                         spanish: ['Abrir en el navegador Yandex'],
                                         turkish: ['Yandex gezgininde aç'],
+                                        сhinese: ['在 Yandex 导航器中打开'],
+                                        hindi: ['यांडेक्स नेविगेटर में खोलें'],
+
                                     })} />
                                 </a></div> : <></>}
                             {thisOrder.google_url &&
@@ -192,6 +195,9 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                         english: ['Open in Google navigator'],
                                         spanish: ['Abrir en el navegador Google'],
                                         turkish: ['Google gezgininde aç'],
+                                        сhinese: ['在谷歌导航器中打开'],
+                                        hindi: ['Google नेविगेटर में खोलें'],
+
                                     })} />
                                 </a></div>}
                         </div>
@@ -385,6 +391,8 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                             english: ['Viewed', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'times'],
                             spanish: ['Visto', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'veces'],
                             turkish: [order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'kez görüntülendi'],
+                            сhinese: ['已查看', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, '次'],
+                            hindi: ['देखा गया', order.views[thisOrder.order_status] && order.views[thisOrder.order_status].filter(el => el.orderId === thisOrder.id).length, 'बार'],
                         }, '')}
 
                     </div> : <></>}
@@ -396,6 +404,9 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                             english: ['You viewed this order'],
                             spanish: ['Viste este pedido'],
                             turkish: ['Bu siparişi görüntülediniz'],
+                            сhinese: ['您查看过此订单吗'],
+                            hindi: ['क्या आपने यह आदेश देखा है'],
+
                         }, '')}
 
                     </div>

@@ -47,7 +47,7 @@ const TransportComponent = observer(() => {
     ad_text: '',
     ad_show: true,
     id: undefined,
-    driver_id:undefined
+    driver_id: undefined
   }
 
   const [formData, setFormData] = useState(initialValue)
@@ -73,7 +73,7 @@ const TransportComponent = observer(() => {
   formData.load_capacity = useInput('', { isEmpty: true },)
   formData.side_type = useInput('', { isEmpty: true },)
   formData.type = useInput('', { isEmpty: true },)
-  formData.driver_id = useInput( Driver.drivers.length === 0 ? user.user.id : '', { isEmpty: true },)
+  formData.driver_id = useInput(Driver.drivers.length === 0 ? user.user.id : '', { isEmpty: true },)
   const parent = 'TransportComponent'
 
   useEffect(() => {
@@ -96,6 +96,8 @@ const TransportComponent = observer(() => {
                   english: ['At the moment you can add no more than 10 delivery methods, please delete those that are not relevant'],
                   spanish: ['Actualmente no puede agregar más de 10 métodos de entrega; elimínelos si no son relevantes'],
                   turkish: ['Şu anda 10`dan fazla teslimat yöntemi ekleyemezsiniz; bunlar alakalı değilse lütfen silin'],
+                  сhinese: ['目前您最多可以添加10种配送方式，请删除不相关的配送方式'],
+                  hindi: ['वर्तमान में आप 10 से अधिक डिलीवरी विधियां नहीं जोड़ सकते हैं, कृपया जो प्रासंगिक नहीं हैं उन्हें हटा दें'],
                 }
               )
             }])
