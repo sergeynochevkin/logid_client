@@ -123,6 +123,8 @@ const FastSignUp = observer(() => {
                         english: ['You are registered, a link to activate your account has been sent to the specified email'],
                         spanish: ['Está registrado, se ha enviado un enlace para activar su cuenta al correo electrónico especificado'],
                         turkish: ['Kayıt oldunuz, hesabınızı etkinleştirmek için bir bağlantı belirtilen e-postaya gönderildi'],
+                        сhinese: ['您已注册，激活帐户的链接已发送到指定的电子邮件。'],
+                        hindi: ['आप पंजीकृत हैं, आपके खाते को सक्रिय करने के लिए एक लिंक निर्दिष्ट ईमेल पर भेज दिया गया है।'],
                     }
                 )
             }])
@@ -202,12 +204,16 @@ const FastSignUp = observer(() => {
         english: ['email'],
         spanish: ['email'],
         turkish: ['e-posta'],
+        сhinese: ['电子邮件'],
+        hindi: ['ईमेल'],
     }))
     formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetNativeTranslate(Translate.language, {
         russian: ['пароль'],
         english: ['password'],
         spanish: ['contraseña'],
         turkish: ['şifre'],
+        сhinese: ['密码'],
+        hindi: ['पासवर्ड'],
     }))
 
 
@@ -224,6 +230,8 @@ const FastSignUp = observer(() => {
         english: ['First shipping method'],
         spanish: ['Primer método de entrega'],
         turkish: ['İlk teslimat yöntemi'],
+        сhinese: ['第一种发货方式'],
+        hindi: ['पहली डिलीवरी विधि'],
     })
 
     return (
@@ -246,6 +254,8 @@ const FastSignUp = observer(() => {
                                 english: ['Your phone'],
                                 turkish: ['Telefonunuz'],
                                 spanish: ['Su teléfono'],
+                                сhinese: ['您的手机'],
+                                hindi: ['अपने फोन को'],
                             }, '')} value={formData.phone.value}
                                 onChange={(e) => formData.phone.onChange(e)}
                                 onBlur={e => formData.phone.onBlur(e)}
@@ -387,6 +397,8 @@ const FastSignUp = observer(() => {
                                                             english: [`confirm your agreement with`],
                                                             spanish: ['confirma tu acuerdo con'],
                                                             turkish: ['ile anlaşmanızı onaylayın'],
+                                                            сhinese: ['确认您同意'],
+                                                            hindi: ['के साथ अपने समझौते की पुष्टि करें'],
                                                         })}
                                                     </div>
                                                     <div className='auth_agreement_link'
@@ -400,6 +412,8 @@ const FastSignUp = observer(() => {
                                                             english: [`user agremeent`],
                                                             spanish: [`acuerdo del usuariot`],
                                                             turkish: [`kullanıcı sözleşmesi`],
+                                                            сhinese: ['用户协议'],
+                                                            hindi: ['उपयोगकर्ता का समझौता'],
                                                         })}
                                                     </div>
                                                 </div>
@@ -419,6 +433,8 @@ const FastSignUp = observer(() => {
                                                         english: [`confirm your agreement with`],
                                                         spanish: ['confirma tu acuerdo con'],
                                                         turkish: ['ile anlaşmanızı onaylayın'],
+                                                        сhinese: ['确认您同意'],
+                                                        hindi: ['के साथ अपने समझौते की पुष्टि करें'],
                                                     })}</div>
                                                     <div className='auth_agreement_link'
                                                         onClick={() => {
@@ -431,6 +447,8 @@ const FastSignUp = observer(() => {
                                                             english: [`privacy policy`],
                                                             spanish: ['política de privacidad'],
                                                             turkish: ['gizlilik politikası'],
+                                                            сhinese: ['隐私政策'],
+                                                            hindi: ['गोपनीयता नीति'],
                                                         })}
                                                     </div>
                                                 </div>
@@ -449,8 +467,10 @@ const FastSignUp = observer(() => {
                                                     <div>{SetNativeTranslate(Translate.language, {
                                                         russian: [`подтвердите`],
                                                         english: [`confirm your`],
-                                                        spanish: [`confirmar`],
-                                                        turkish: [`onaylamak`],
+                                                        spanish: [`confirmar tu`],
+                                                        turkish: [`onayla`],
+                                                        сhinese: ['确认你的'],
+                                                        hindi: ['आपकी पुष्टि'],
                                                     })}</div>
                                                     <div className='auth_agreement_link'
                                                         onClick={() => {
@@ -463,6 +483,8 @@ const FastSignUp = observer(() => {
                                                             english: [`consent to the processing of personal data`],
                                                             spanish: [`consentimiento para el tratamiento de datos personales`],
                                                             turkish: [`kişisel verilerin işlenmesine onay vermek`],
+                                                            сhinese: ['同意处理个人数据'],
+                                                            hindi: ['व्यक्तिगत डेटा के प्रसंस्करण के लिए सहमति'],
                                                         })}
                                                     </div>
                                                 </div>
@@ -482,6 +504,8 @@ const FastSignUp = observer(() => {
                                                     english: [`confirm that you are over 18 years old`],
                                                     spanish: [`confirma que eres mayor de 18 años`],
                                                     turkish: [`18 yaşından büyük olduğunuzu onaylayın`],
+                                                    сhinese: ['确认您已年满 18 岁'],
+                                                    hindi: ['पुष्टि करें कि आपकी आयु 18 वर्ष से अधिक है'],
                                                 })}</label>
                                             </>
                                         </CheckBoxSection>
@@ -509,6 +533,8 @@ const FastSignUp = observer(() => {
                                                 english: [`confirm your consent to the collection of cookies`],
                                                 spanish: [`confirme su consentimiento para la recopilación de cookies`],
                                                 turkish: [`çerezlerin toplanmasına onay verdiğinizi onaylayın`],
+                                                сhinese: ['确认您同意收集 cookie'],
+                                                hindi: ['कुकीज़ के संग्रह के लिए अपनी सहमति की पुष्टि करें'],
                                             })}</label>
                                         </>
                                     </CheckBoxSection>
@@ -556,6 +582,8 @@ const FastSignUp = observer(() => {
                                 english: ['Fast sign up'],
                                 spanish: ['Regístrate rápido'],
                                 turkish: ['Hızlı kaydol'],
+                                сhinese: ['快速注册'],
+                                hindi: ['तेजी से साइन अप करें'],
                             })
                         }</Button>
 
@@ -574,6 +602,8 @@ const FastSignUp = observer(() => {
                             english: ['Fast sign up'],
                             spanish: ['Regístrate rápido'],
                             turkish: ['Hızlı kaydol'],
+                            сhinese: ['快速注册'],
+                            hindi: ['तेजी से साइन अप करें'],
                         })
                     }
                 </Button>
@@ -586,6 +616,8 @@ const FastSignUp = observer(() => {
                                     english: ['Carrier offers'],
                                     spanish: ['Ofertas de transportistas'],
                                     turkish: ['Operatör teklifleri'],
+                                    сhinese: ['承运人优惠'],
+                                    hindi: ['कैरियर ऑफर'],
                                 })}
                             </Button>
                         </Link> : <></>

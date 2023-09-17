@@ -187,12 +187,16 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     english: ['email'],
     spanish: ['email'],
     turkish: ['e-posta'],
+    сhinese: ['电子邮件'],
+    hindi: ['ईमेल'],
   }))
   formData.password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20, validFormat: validPassword }, SetNativeTranslate(Translate.language, {
     russian: ['пароль'],
     english: ['password'],
     spanish: ['contraseña'],
     turkish: ['şifre'],
+    сhinese: ['密码'],
+    hindi: ['पासवर्ड'],
   }))
   formData.role = useInput('', { isEmpty: true })
   formData.code = useInput('', { isEmpty: true }, SetNativeTranslate(Translate.language, {
@@ -200,6 +204,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     english: ['confirmation code'],
     spanish: ['código de confirmación'],
     turkish: ['onay kodu'],
+    сhinese: ['验证码'],
+    hindi: ['पुष्टि कोड'],
   }))
 
   formData.load_capacity = useInput('', { isEmpty: true },)
@@ -210,6 +216,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     english: ['First shipping method'],
     spanish: ['Primer método de envío'],
     turkish: ['İlk gönderim yöntemi`'],
+    сhinese: ['第一种运输方式'],
+    hindi: ['पहली शिपिंग विधि'],
   })
 
   formData.country.value = Adress.country.value
@@ -248,6 +256,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                   english: ['You are a customer and cannot add an ad as a carrier. Create a carrier account'],
                   spanish: ['Eres cliente y no puedes agregar un anuncio como transportista. Crear una cuenta de operador'],
                   turkish: ['Müşterisiniz ve operatör olarak reklam ekleyemezsiniz. Operatör hesabı oluşturun'],
+                  сhinese: ['您是客户，无法添加广告作为载体。 创建运营商帐户'],
+                  hindi: ['आप एक ग्राहक हैं और वाहक के रूप में कोई विज्ञापन नहीं जोड़ सकते। एक वाहक खाता बनाएँ'],
                 }
               )
 
@@ -320,6 +330,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             english: ['Code sent'],
             spanish: ['Código enviado'],
             turkish: ['Kod gönderildi'],
+            сhinese: ['代码发送'],
+            hindi: ['कोड भेजा है'],
           }
         )
       }])
@@ -343,6 +355,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             english: ['Password changed, access restored, you are logged in'],
             spanish: ['Contraseña cambiada, acceso restaurado, has iniciado sesión'],
             turkish: ['Şifre değiştirildi, erişim yeniden sağlandı, oturum açtınız'],
+            сhinese: ['密码已更改，访问已恢复，您已登录'],
+            hindi: ['पासवर्ड बदल गया, पहुंच बहाल हो गई, आप लॉग इन हैं'],
           }
         )
       }])
@@ -396,6 +410,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               english: ['You are logged in'],
               spanish: ['Has iniciado sesión'],
               turkish: ['Giriş yaptınız'],
+              сhinese: ['您已登录'],
+              hindi: ['आप लोग्ड इन हो चुके हैं'],
             }
           )
         }])
@@ -444,6 +460,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               english: ['You are registered, a link to activate your account has been sent to the specified email'],
               spanish: ['Está registrado, se ha enviado un enlace para activar su cuenta al correo electrónico especificado'],
               turkish: ['Kayıt oldunuz, hesabınızı etkinleştirmek için bir bağlantı belirtilen e-postaya gönderildi'],
+              сhinese: ['您已注册，激活帐户的链接已发送到指定的电子邮件。'],
+              hindi: ['आप पंजीकृत हैं, आपके खाते को सक्रिय करने के लिए एक लिंक निर्दिष्ट ईमेल पर भेज दिया गया है।'],
             }
           )
         }])
@@ -494,6 +512,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               english: ['Your phone'],
               spanish: ['Su teléfono'],
               turkish: ['Telefonunuz'],
+              сhinese: ['您的手机'],
+              hindi: ['अपने फोन को'],
             }, '')} value={formData.phone.value}
               onChange={(e) => formData.phone.onChange(e)}
               onBlur={e => formData.phone.onBlur(e)}
@@ -675,6 +695,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                               english: [`confirm your agreement with`],
                               spanish: [`confirma tu acuerdo con`],
                               turkish: [`ile anlaşmanızı onaylayın`],
+                              сhinese: ['确认您同意'],
+                              hindi: ['के साथ अपने समझौते की पुष्टि करें'],
                             })}
                           </div>
                           <div className='auth_agreement_link'
@@ -688,6 +710,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                               english: [`user agremeent`],
                               spanish: [`acuerdo del usuario`],
                               turkish: [`kullanıcı sözleşmesi`],
+                              сhinese: ['用户协议'],
+                              hindi: ['用户协议'],
                             })}
                           </div>
                         </div>
@@ -707,6 +731,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                             english: [`confirm your agreement with`],
                             spanish: [`confirma tu acuerdo con`],
                             turkish: [`ile anlaşmanızı onaylayın`],
+                            сhinese: ['确认您同意'],
+                            hindi: ['के साथ अपने समझौते की पुष्टि करें'],
                           })}</div>
                           <div className='auth_agreement_link'
                             onClick={() => {
@@ -719,6 +745,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                               english: [`privacy policy`],
                               spanish: [`política de privacidad`],
                               turkish: [`gizlilik politikası`],
+                              сhinese: ['隐私政策'],
+                              hindi: ['गोपनीयता नीति'],
                             })}
                           </div>
                         </div>
@@ -739,6 +767,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                             english: [`confirm your`],
                             spanish: [`confirmar tu`],
                             turkish: [`onayla`],
+                            сhinese: ['确认你的'],
+                            hindi: ['आपकी पुष्टि'],
                           })}</div>
                           <div className='auth_agreement_link'
                             onClick={() => {
@@ -751,6 +781,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                               english: [`consent to the processing of personal data`],
                               spanish: [`consentimiento para el tratamiento de datos personales`],
                               turkish: [`kişisel verilerin işlenmesine onay vermek`],
+                              сhinese: ['同意处理个人数据'],
+                              hindi: ['व्यक्तिगत डेटा के प्रसंस्करण के लिए सहमति'],
                             })}
                           </div>
                         </div>
@@ -770,6 +802,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                           english: [`confirm that you are over 18 years old`],
                           spanish: [`confirma que eres mayor de 18 años`],
                           turkish: [`18 yaşından büyük olduğunuzu onaylayın`],
+                          сhinese: ['确认您已年满 18 岁'],
+                          hindi: ['पुष्टि करें कि आपकी आयु 18 वर्ष से अधिक है'],
                         })}</label>
                       </>
                     </CheckBoxSection>
@@ -797,6 +831,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                         english: [`confirm your consent to the collection of cookies`],
                         spanish: [`confirme su consentimiento para la recopilación de cookies`],
                         turkish: [`çerezlerin toplanmasına onay verdiğinizi onaylayın`],
+                        сhinese: ['确认您同意收集 cookie'],
+                        hindi: ['कुकीज़ के संग्रह के लिए अपनी सहमति की पुष्टि करें'],
                       })}</label>
                     </>
                   </CheckBoxSection>

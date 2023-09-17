@@ -28,7 +28,7 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
         email: '', //from form
         role: 'driver', //from form
         phone: '', //from form
-        name_surname_fathersname:'', //from form
+        name_surname_fathersname: '', //from form
 
         user_id: user.user.id,
         user_info_uuid: UserInfo.userInfo.uuid,
@@ -85,7 +85,11 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
                 id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
                     {
                         russian: ['Водитель зарегистрирован, пароль отрправлен на его email'],
-                        english: ['The driver is registered, the password have been sent to his email']
+                        english: ['The driver is registered, the password have been sent to his email'],
+                        spanish: ['El conductor está registrado, la contraseña ha sido enviada a su correo electrónico.'],
+                        turkish: ['Sürücü kayıtlı, şifre e-posta adresine gönderildi'],
+                        сhinese: ['司机已注册，密码已发送至司机邮箱'],
+                        hindi: ['ड्राइवर पंजीकृत है, पासवर्ड उसके ईमेल पर भेज दिया गया है'],
                     }
                 )
             }])
@@ -101,7 +105,11 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
     const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {
         russian: ['email'],
-        english: ['email']
+        english: ['email'],
+        spanish: ['email'],
+        turkish: ['e-posta'],
+        сhinese: ['电子邮件'],
+        hindi: ['ईमेल'],
     }))
 
     formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_content').toLowerCase())
@@ -118,6 +126,8 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
                     english: ['Drivers phone'],
                     spanish: ['Teléfono del conductor'],
                     turkish: ['Sürücü telefonu'],
+                    сhinese: ['司机电话号码'],
+                    hindi: ['ड्राइवर का फ़ोन नंबर'],
                 }, '')}
                     value={formData.phone.value}
                     onChange={(e) => formData.phone.onChange(e)}
@@ -146,6 +156,8 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
                     english: ['Drivers email'],
                     spanish: ['Email de las conductoras'],
                     turkish: ['Sürücü e-postası'],
+                    сhinese: ['司机电子邮件'],
+                    hindi: ['ड्राइवर ईमेल'],
                 })}
                     value={formData.email.value}
                     style={{ borderLeft: (formData.email.notValid || formData.email.isEmpty) ? ' solid 1px rgb(254, 111, 103,0.8)' : '' }}

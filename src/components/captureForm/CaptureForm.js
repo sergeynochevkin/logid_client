@@ -34,7 +34,9 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
                         russian: ['У вас есть вопросы?'],
                         english: ['Do you have any questions?'],
                         spanish: ['¿Tiene usted alguna pregunta?'],
-                        turkish: ['Sormak istediğiniz bir şey var mı?']
+                        turkish: ['Sormak istediğiniz bir şey var mı?'],
+                        сhinese: ['你有任何问题吗'],
+                        hindi: ['क्या आपका कोई प्रश्न है?'],
                     })}</div>
                     <Phone formData={formData} />
 
@@ -52,6 +54,8 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
                                             english: [`confirm your`],
                                             spanish: [`confirmar tu`],
                                             turkish: [`onayla`],
+                                            сhinese: ['确认你的'],
+                                            hindi: ['आपकी पुष्टि'],
                                         })}</div>
                                         <div className='auth_agreement_link'
                                             onClick={() => {
@@ -64,6 +68,8 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
                                                 english: [`consent to the processing of personal data`],
                                                 spanish: [`consentimiento para el tratamiento de datos personales`],
                                                 turkish: [`kişisel verilerin işlenmesine onay vermek`],
+                                                сhinese: ['同意处理个人数据'],
+                                                hindi: ['व्यक्तिगत डेटा के प्रसंस्करण के लिए सहमति'],
                                             })}
                                         </div>
                                     </div>
@@ -86,6 +92,8 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
                         english: ['Request a call'],
                         spanish: ['Solicitar una llamada'],
                         turkish: ['Arama isteğinde bulunun'],
+                        сhinese: ['请求致电'],
+                        hindi: ['एक कॉल का अनुरोध करें'],
                     })}</Button>
                 </>
                 : <div className='capture_form_title'>{SetNativeTranslate(Translate.language, {
@@ -93,6 +101,8 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
                     english: ['We will contact you within 24 hours'],
                     spanish: ['Lo contactaremos dentro de las 24 horas'],
                     turkish: ['24 saat içinde sizinle iletişime geçeceğiz'],
+                    сhinese: ['我们将在24小时内联系您'],
+                    hindi: ['हम आपसे 24 घंटों के भीतर संपर्क करेंगे'],
                 })}</div>}
         </div>
     )

@@ -94,7 +94,12 @@ const Account = observer(() => {
                         <div className='account_share_container'>
                             <div className='account_share_text' t>{SetNativeTranslate(Translate.language, {
                                 russian: [`Поделитесь ссылкой ${user.user.role === 'carrier' ? 'с заказчиком' : user.user.role === 'customer' ? 'c перевозчиком' : ''}`],
-                                english: [`Share the link ${user.user.role === 'carrier' ? 'with customer' : user.user.role === 'customer' ? 'carrier' : ''}`]
+                                english: [`Share the link ${user.user.role === 'carrier' ? 'with customer' : user.user.role === 'customer' ? 'with carrier' : ''}`],
+                                spanish: [`Comparte el enlace ${user.user.role === 'carrier' ? 'con el cliente' : user.user.role === 'customer' ? 'con transportista' : ''}`],
+                                turkish: [`Bağlantıyı paylaş ${user.user.role === 'carrier' ? 'müşteri ile' : user.user.role === 'customer' ? 'taşıyıcı ile' : ''}`],
+                                сhinese: [`分享链接 ${user.user.role === 'carrier' ? '与客户' : user.user.role === 'customer' ? '有载体' : ''}`],
+                                hindi: [`लिंक साझा करें ${user.user.role === 'carrier' ? 'ग्राहक के साथ' : user.user.role === 'customer' ? 'वाहक के साथ' : ''}`],
+
                             })}</div>
                             <ShareComponent parent={'account_uuid'} shareName={shareName}
                             />

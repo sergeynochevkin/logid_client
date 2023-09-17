@@ -17,7 +17,7 @@ const LanguageSwitcher = () => {
         { id: 3, name: 'TR', value: 'turkish' },
         { id: 4, name: 'ES', value: 'spanish' },
         { id: 5, name: 'CN', value: 'сhinese' },
-        { id: 6, name: 'HI', value: 'hindi' },
+        { id: 6, name: 'HI', value: 'hindi' },        
     ]
     useEffect(() => {
         !isComponentVisible && setVisible(false)

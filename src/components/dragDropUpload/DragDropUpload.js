@@ -128,6 +128,9 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                         english: ['Add drivers foto'],
                         spanish: ['Agregar controladores foto'],
                         turkish: ['Sürücü fotoğrafı ekle'],
+                        сhinese: ['添加司机的照片'],
+                        hindi: ['ड्राइवर का फ़ोटो जोड़ें'],
+
                     }) : SetNativeTranslate(Translate.language, {}, 'drag_drop_order')}
                     <label className={pairs.length === length ? 'dragLabel error' : 'dragLabel'}>{SetNativeTranslate(Translate.language, {}, 'select')}
                         <input onChange={selectFiles} className={'dragInput'} multiple type='file' name='files[]' disabled={pairs.length === length}></input>
@@ -145,10 +148,14 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                     `${SetNativeTranslate(Translate.language, {}, 'maximum')} ${length} ${SetNativeTranslate(Translate.language, {}, 'images')}` :
                     ''
                 }
-                {(errors.min_quantity === true && errors.quantity === false ) ?
+                {(errors.min_quantity === true && errors.quantity === false) ?
                     `${SetNativeTranslate(Translate.language, {
                         russian: [`Загрузите хотя бы ${min_length} фотографию`],
-                        english: [`Upload at least ${min_length} photo`]
+                        english: [`Upload at least ${min_length} photo`],
+                        spanish: [`Sube al menos ${min_length} foto`],
+                        turkish: [`En az ${min_length} fotoğraf yükleyin`],
+                        сhinese: [`上传至少 ${min_length} 张照片`],
+                        hindi: [`कम से कम ${min_length} फ़ोटो अपलोड करें`],
                     })} ` :
                     ''
                 }

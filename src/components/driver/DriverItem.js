@@ -24,6 +24,10 @@ const DriverItem = observer(({ driver }) => {
             english: ['Finished orders'],
             spanish: ['Pedidos terminados'],
             turkish: ['Biten siparişler'],
+            сhinese: ['已完成订单'],
+            hindi: ['पूर्ण आदेश'],
+
+
           })}</CardColName><CardColValue>{driver.user_info.complete_orders_amount}</CardColValue>
         </> :
         <CardColValue>{SetNativeTranslate(Translate.language, {
@@ -31,6 +35,10 @@ const DriverItem = observer(({ driver }) => {
           english: ['Not activated'],
           spanish: ['No activado'],
           turkish: ['Etkinleştirilmedi'],
+          сhinese: ['未激活'],
+          hindi: ['सक्रिय नहीं'],
+
+
         })}</CardColValue>
       }
     </CardRow>
