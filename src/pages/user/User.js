@@ -84,6 +84,8 @@ const User = observer(() => {
         english: [`Order ${link.order.id} is no longer available`],
         spanish: [`El pedido ${link.order.id} ya no está disponible`],
         turkish: [`${link.order.id} siparişi artık mevcut değil`],
+        сhinese: [`订单 ${link.order.id} 不再可用`],
+        hindi: [`ऑर्डर ${link.order.id} अब उपलब्ध नहीं है`],
       })
 
       let interval = setInterval(() => {
@@ -169,6 +171,8 @@ const User = observer(() => {
                   english: ['Drivers'],
                   spanish: ['Conductores'],
                   turkish: ['Sürücüler'],
+                  сhinese: ['司机'],
+                  hindi: ['ड्राइवरों'],
                 })}</BookMark>
 
                 {/* drivers */}
@@ -183,7 +187,7 @@ const User = observer(() => {
                 color: ComponentFunction.PageFunction === 'partners' && 'grey', cursor: ComponentFunction.PageFunction === 'partners' && 'default'
               }}>{SetNativeTranslate(Translate.language, {}, user.user.role === 'carrier' ? 'customers' : 'carriers')}</BookMark>
             }
-            
+
             <BookMark onClick={() => {
               ComponentFunction.PageFunction !== 'account' && setFunction(false, false, 'account', false)
             }} style={{

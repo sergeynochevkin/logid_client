@@ -18,6 +18,9 @@ const CountrySelector = observer(({ name, setModalActive }) => {
         english: ['We could not determine your country, please select it from the list'],
         spanish: ['No pudimos determinar su país, selecciónelo de la lista'],
         turkish: ['Ülkenizi belirleyemedik, lütfen listeden seçin'],
+        сhinese: ['Мы не смогли определить вашу страну, пожалуйста выберите ее из списка'],
+        hindi: ['मेरे पास एक साधारण व्यवसाय है, एक छोटा सा छोटा सा टुकड़ा है'],
+
       }) : name}</div>
       <div className='country_selector_countries_container'>
         {Adress.countries.map(country => <CountrySelectorItem country={country} setModalActive={setModalActive} key={country.id} />)}

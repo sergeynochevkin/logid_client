@@ -60,6 +60,8 @@ const NavBar = observer(() => {
     english: ['Office'],
     spanish: ['Oficina'],
     turkish: ['Ofis'],
+    сhinese: ['办公室'],
+    hindi: ['कार्यालय'],
   })
 
   return (
@@ -112,7 +114,11 @@ const NavBar = observer(() => {
               <div className='nav_bar_item' onClick={() =>
                 navigate(USER_ROUTE)}>{SetNativeTranslate(Translate.language, {
                   russian: ['Кабинет водителя'],
-                  english: ['Drivers office']
+                  english: ['Drivers office'],
+                  spanish: ['Oficina del conductor'],
+                  turkish: ['Sürücü ofisi'],
+                  сhinese: ['司机室'],
+                  hindi: ['ड्राइवर का कार्यालय'],
                 })}</div> :
               <></>
             }
@@ -202,8 +208,8 @@ const NavBar = observer(() => {
 
         {!user.isAuth && <ShareComponent parent={location.pathname === "/board" ? 'nav_board' : ''} />}
 
-            
-        <LanguageSwitcher/>
+
+        <LanguageSwitcher />
 
         <div
           className={!user.isAuth ? 'nav_bar_item' : 'nav_bar_item disabled'}
@@ -216,13 +222,15 @@ const NavBar = observer(() => {
                 english: ['Select your country'],
                 spanish: ['Selecciona tu pais'],
                 turkish: ['Ülkeni seç'],
+                сhinese: ['从列表中选择一个国家'],
+                hindi: ['सूची से एक देश चुनें'],
               }))
             } else if (modalActive) {
               setModalActive(false)
             }
           }
           }>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}
-          </div>
+        </div>
 
 
       </div>

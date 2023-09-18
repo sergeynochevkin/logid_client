@@ -33,6 +33,8 @@ const Footer = observer(() => {
         english: ['About'],
         spanish: ['Acerca de'],
         turkish: ['Hakkında'],
+        сhinese:['关于我们'],
+        hindi:['हमारे बारे में'],
       }), header_comment: '', description: '', class: 'footer_copyright_container', type: 'text'
     },
     // {
@@ -65,8 +67,8 @@ const Footer = observer(() => {
         english: ['User agreement'],
         spanish: ['Acuerdo del usuario'],
         turkish: ['Kullanıcı sözleşmesi'],
-        сhinese: [''],
-        hindi: [''],
+        сhinese: ['使用条款'],
+        hindi: ['उपयोग की शर्तें'],
 
       }), description: '', section_id: 1, class: 'legality_link'
     },
@@ -76,8 +78,8 @@ const Footer = observer(() => {
         english: ['Privacy policy'],
         spanish: ['Política de privacidad'],
         turkish: ['Gizlilik politikası'],
-        сhinese: [''],
-        hindi: [''],
+        сhinese: ['隐私政策'],
+        hindi: ['गोपनीयता नीति'],
 
       }), description: '', section_id: 1, class: 'legality_link'
     },
@@ -87,8 +89,8 @@ const Footer = observer(() => {
         english: ['Consent to the processing of personal data'],
         spanish: ['Consentimiento para el tratamiento de datos personales'],
         turkish: ['Kişisel verilerin işlenmesine onay'],
-        сhinese: [''],
-        hindi: [''],
+        сhinese: ['同意处理个人数据'],
+        hindi: ['व्यक्तिगत डेटा के प्रसंस्करण के लिए सहमति'],
 
       }), description: '', section_id: 1, class: 'legality_link'
     },
@@ -98,8 +100,8 @@ const Footer = observer(() => {
         english: ['All data provided in the logid service, hereinafter referred to as the service, is for informational purposes and is not a public offer determined by the provisions of Article 437 of the Civil Code of the Russian Federation. The Service is not a carrier, carrier representative, customer, customer representative. At the moment, the service does not check users for legal purity and commercial integrity. The service is in no way responsible for mutual disputes, disagreements, circumstances that arose as part of the implementation of contractual relations between carriers, customers, dispatchers and logisticians. Including the reason for the placement by the carrier or the customer of inaccurate or incomplete information about the order or the status of its passage, including in the event of technical errors in the service. We strongly recommend contacting the selected partner through the provided communication channels, as well as checking documents, conducting the necessary contractual work and using cargo insurance.'],
         spanish: ['Todos los datos facilitados en el servicio logid, en lo sucesivo denominado el servicio, tienen finalidad informativa y no constituyen una oferta pública determinada por lo dispuesto en el artículo 437 del Código Civil de la Federación de Rusia. El Servicio no es un transportista, un representante del transportista, un cliente, un representante del cliente. Por el momento, el servicio no comprueba la pureza jurídica ni la integridad comercial de los usuarios. El servicio no es de ninguna manera responsable de disputas mutuas, desacuerdos, circunstancias que surjan como parte de la implementación de relaciones contractuales entre transportistas, clientes, despachadores y logísticos. Incluyendo el motivo de la presentación por parte del transportista o del cliente de información inexacta o incompleta sobre el pedido o el estado de su paso, incluso en caso de errores técnicos en el servicio. Recomendamos encarecidamente ponerse en contacto con el socio seleccionado a través de los canales de comunicación proporcionados, así como verificar los documentos, realizar el trabajo contractual necesario y utilizar un seguro de carga.'],
         turkish: ['Bundan sonra hizmet olarak anılacak olan logid hizmetinde sağlanan tüm veriler bilgilendirme amaçlıdır ve Rusya Federasyonu Medeni Kanunu`nun 437. maddesi hükümlerine göre belirlenen halka açık bir teklif değildir. Hizmet bir taşıyıcı, taşıyıcı temsilcisi, müşteri, müşteri temsilcisi değildir. Şu anda hizmet, kullanıcıları yasal saflık ve ticari bütünlük açısından kontrol etmiyor. Hizmet, taşıyıcılar, müşteriler, sevkıyatçılar ve lojistikçiler arasındaki sözleşmeye dayalı ilişkilerin uygulanmasının bir parçası olarak ortaya çıkan karşılıklı anlaşmazlıklardan, anlaşmazlıklardan ve durumlardan hiçbir şekilde sorumlu değildir. Hizmette teknik hatalar olması da dahil olmak üzere, taşıyıcı veya müşteri tarafından sipariş veya geçiş durumu hakkında yanlış veya eksik bilgi verilmesinin nedeni dahil. Seçilen iş ortağıyla sağlanan iletişim kanalları aracılığıyla iletişime geçmenizi, ayrıca belgeleri kontrol etmenizi, gerekli sözleşme çalışmalarını yürütmenizi ve kargo sigortasını kullanmanızı şiddetle tavsiye ederiz..'],
-        сhinese: [''],
-        hindi: [''],
+        сhinese: ['Logid服务（以下简称服务）中提供的所有数据仅供参考，并非俄罗斯联邦民法典第437条规定所定义的公开要约。 该服务不是承运人、承运人的代表、客户或客户的代表。 目前，该服务不会检查用户的法律纯洁性和商业诚信。 对于承运人、客户、调度员和物流商之间在执行合同关系的框架内出现的相互争议、分歧或情况，本服务不承担任何责任。 包括由于承运商或客户发布了有关订单或其完成状态的不可靠或不完整的信息，包括服务中出现技术错误。 我们强烈建议您通过提供的沟通渠道联系您选择的合作伙伴，并检查文件、进行必要的合同工作并使用货物保险'],
+        hindi: ['लॉग सेवा में प्रदान किया गया सभी डेटा, जिसे इसके बाद सेवा के रूप में संदर्भित किया गया है, केवल सूचनात्मक उद्देश्यों के लिए है और रूसी संघ के नागरिक संहिता के अनुच्छेद 437 के प्रावधानों द्वारा परिभाषित सार्वजनिक प्रस्ताव नहीं है। सेवा कोई वाहक, वाहक का प्रतिनिधि, ग्राहक या ग्राहक का प्रतिनिधि नहीं है। फिलहाल, सेवा उपयोगकर्ताओं की कानूनी शुद्धता और व्यावसायिक अखंडता की जांच नहीं करती है। सेवा किसी भी तरह से वाहक, ग्राहकों, डिस्पैचर्स और लॉजिस्टिक के बीच संविदात्मक संबंधों के कार्यान्वयन के ढांचे में उत्पन्न होने वाले आपसी विवादों, असहमति या परिस्थितियों के लिए ज़िम्मेदार नहीं है। इसमें वाहक या ग्राहक द्वारा ऑर्डर या उसके पूरा होने की स्थिति के बारे में अविश्वसनीय या अधूरी जानकारी पोस्ट करने के कारण, सेवा में तकनीकी त्रुटियों की स्थिति भी शामिल है। हम दृढ़तापूर्वक अनुशंसा करते हैं कि आप दिए गए संचार चैनलों के माध्यम से अपने चुने हुए भागीदार से संपर्क करें, साथ ही दस्तावेजों की जांच करें, आवश्यक संविदात्मक कार्य करें और कार्गो बीमा का उपयोग करें।'],
 
       }) :
         SetNativeTranslate(Translate.language, {
@@ -107,8 +109,8 @@ const Footer = observer(() => {
           english: ['All data provided in the logid service, hereinafter referred to as the service, is for informational purposes and is not a public offer. The Service is not a carrier, carrier representative, customer, customer representative. At the moment, the service does not check users for legal purity and commercial integrity. The service is in no way responsible for mutual disputes, disagreements, circumstances that arose as part of the implementation of contractual relations between carriers, customers, dispatchers and logisticians. Including the reason for the placement by the carrier or the customer of inaccurate or incomplete information about the order or the status of its passage, including in the event of technical errors in the service. We strongly recommend contacting the selected partner through the provided communication channels, as well as checking documents, conducting the necessary contractual work and using cargo insurance.'],
           spanish: ['Todos los datos facilitados en el servicio logid, en adelante el servicio, tienen finalidad informativa y no suponen una oferta pública. El Servicio no es un transportista, un representante del transportista, un cliente, un representante del cliente. Por el momento, el servicio no comprueba la pureza jurídica ni la integridad comercial de los usuarios. El servicio no es de ninguna manera responsable de disputas mutuas, desacuerdos, circunstancias que surjan como parte de la implementación de relaciones contractuales entre transportistas, clientes, despachadores y logísticos. Incluyendo el motivo de la presentación por parte del transportista o del cliente de información inexacta o incompleta sobre el pedido o el estado de su paso, incluso en caso de errores técnicos en el servicio. Recomendamos encarecidamente ponerse en contacto con el socio seleccionado a través de los canales de comunicación proporcionados, así como verificar los documentos, realizar el trabajo contractual necesario y utilizar un seguro de carga.'],
           turkish: ['Bundan sonra hizmet olarak anılacak olan logid hizmetinde sağlanan tüm veriler bilgilendirme amaçlıdır ve halka arz değildir. Hizmet bir taşıyıcı, taşıyıcı temsilcisi, müşteri, müşteri temsilcisi değildir. Şu anda hizmet, kullanıcıları yasal saflık ve ticari bütünlük açısından kontrol etmiyor. Hizmet, taşıyıcılar, müşteriler, sevkıyatçılar ve lojistikçiler arasındaki sözleşmeye dayalı ilişkilerin uygulanmasının bir parçası olarak ortaya çıkan karşılıklı anlaşmazlıklardan, anlaşmazlıklardan ve durumlardan hiçbir şekilde sorumlu değildir. Hizmette teknik hatalar olması da dahil olmak üzere, taşıyıcı veya müşteri tarafından sipariş veya geçiş durumu hakkında yanlış veya eksik bilgi verilmesinin nedeni dahil. Seçilen iş ortağıyla sağlanan iletişim kanalları aracılığıyla iletişime geçmenizi, belgeleri kontrol etmenizi, gerekli sözleşme çalışmalarını yürütmenizi ve kargo sigortasını kullanmanızı şiddetle tavsiye ederiz.'],
-          сhinese: [''],
-          hindi: [''],
+          сhinese: ['logid服务中提供的所有数据（进一步简称为服务）仅供参考，并不构成公开要约。 该服务不是承运人、承运人的代表、客户或客户的代表。 目前，该服务不会检查用户的法律纯洁性和商业诚信。 对于承运人、客户、调度员和物流商之间在执行合同关系的框架内出现的相互争议、分歧或情况，本服务不承担任何责任。 包括由于承运商或客户发布了有关订单或其完成状态的不可靠或不完整的信息，包括服务中出现技术错误。 我们强烈建议您通过提供的沟通渠道联系您选择的合作伙伴，并检查文件、进行必要的合同工作并使用货物保险'],
+          hindi: ['लॉग सेवा में प्रदान किया गया सभी डेटा, जिसे आगे सेवा के रूप में जाना जाता है, केवल सूचनात्मक उद्देश्यों के लिए है और सार्वजनिक प्रस्ताव नहीं बनता है। सेवा कोई वाहक, वाहक का प्रतिनिधि, ग्राहक या ग्राहक का प्रतिनिधि नहीं है। फिलहाल, सेवा उपयोगकर्ताओं की कानूनी शुद्धता और व्यावसायिक अखंडता की जांच नहीं करती है। सेवा किसी भी तरह से वाहक, ग्राहकों, डिस्पैचर्स और लॉजिस्टिक के बीच संविदात्मक संबंधों के कार्यान्वयन के ढांचे में उत्पन्न होने वाले आपसी विवादों, असहमति या परिस्थितियों के लिए ज़िम्मेदार नहीं है। इसमें वाहक या ग्राहक द्वारा ऑर्डर या उसके पूरा होने की स्थिति के बारे में अविश्वसनीय या अधूरी जानकारी पोस्ट करने के कारण, सेवा में तकनीकी त्रुटियों की स्थिति भी शामिल है। हम दृढ़तापूर्वक अनुशंसा करते हैं कि आप दिए गए संचार चैनलों के माध्यम से अपने चुने हुए भागीदार से संपर्क करें, साथ ही दस्तावेजों की जांच करें, आवश्यक संविदात्मक कार्य करें और कार्गो बीमा का उपयोग करें।'],
 
         })
       , description: '', section_id: 1, class: 'footer_copyright'
@@ -121,8 +123,8 @@ const Footer = observer(() => {
           english: ['Services are provided by Nochevkin Sergey TIN 511500911204 phone +79011016250'],
           spanish: ['Los servicios son proporcionados por Nochevkin Sergey TIN 511500911204 teléfono +79011016250'],
           turkish: ['Hizmetler Nochevkin Sergey TIN 511500911204 telefon +79011016250 tarafından sağlanmaktadır'],
-          сhinese: [''],
-          hindi: [''],
+          сhinese: ['服务由 Nochevkin Sergey Mikhailovich INN 511500911204 电话 +79011016250 提供'],
+          hindi: ['सेवाएं नोचेव्किन सर्गेई मिखाइलोविच आईएनएन 511500911204 फोन +79011016250 द्वारा प्रदान की जाती हैं'],
 
 
         })
