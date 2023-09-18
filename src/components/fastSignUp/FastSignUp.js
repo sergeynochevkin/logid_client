@@ -75,6 +75,7 @@ const FastSignUp = observer(() => {
         event.preventDefault()
         try {
             let data;
+            fetcher.setCustomLoading(true)
             data = await fast_registration(
                 Translate.language,
                 formData.phone.value,
@@ -128,11 +129,10 @@ const FastSignUp = observer(() => {
                     }
                 )
             }])
-
             fetching()
-
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
             user.setIsAuth(true)
+            fetcher.setCustomLoading(false)
             if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
             else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
             else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
@@ -141,6 +141,7 @@ const FastSignUp = observer(() => {
         } catch (e) {
             // no errors!
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+            fetcher.setCustomLoading(false)
         }
     }
 

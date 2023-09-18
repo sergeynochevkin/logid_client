@@ -172,7 +172,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
                         <div className='nav_links_container'>
 
-                            {thisOrder.yandex_url && Adress.country === 'russia' ?
+                            {thisOrder.yandex_url && Adress.country.value === 'russia' ?
                                 <div><a
                                     target='blank' href={thisOrder.yandex_url}
                                 >

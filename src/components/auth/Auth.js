@@ -383,6 +383,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const click = async () => {
     try {
       let data;
+      fetcher.setCustomLoading(true)
       if (isLogin) {
         data = await login(formData.email.value, formData.password.value, Translate.language, formData.user_agreement_accepted,
           formData.privacy_policy_accepted,
@@ -466,10 +467,12 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           )
         }])
       }
+      fetching()
       localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
+      fetcher.setCustomLoading(false)
 
-      fetching()
+      
 
 
 
@@ -482,6 +485,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       setModalActive(false)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+      fetcher.setCustomLoading(false)
     }
   }
 

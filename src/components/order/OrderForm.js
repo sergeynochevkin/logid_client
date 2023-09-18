@@ -334,6 +334,7 @@ const OrderForm = observer(() => {
             ComponentFunction.setOrdersComponentFunction('orderList')
             ComponentFunction.setPageFunction('orderList')
         }
+        fetcher.setCustomLoading(false)
         setFormData(initialValue)
         setPointFormData(pointInitialValue)
         order.setPairs([])
@@ -368,9 +369,8 @@ const OrderForm = observer(() => {
             formData.cost.value = 0
         }
         try {
-
-
             let orderId
+            fetcher.setCustomLoading(true)
             await editOrder(
                 formData.id,
                 formData.order_comment.value,
@@ -412,6 +412,7 @@ const OrderForm = observer(() => {
             afterAction('edit')
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+            fetcher.setCustomLoading(false)
         }
     }
 
@@ -423,6 +424,7 @@ const OrderForm = observer(() => {
             if (formData.cost.isEmpty) {
                 formData.cost.value = 0
             }
+            fetcher.setCustomLoading(true)
             data = await createOrder(
                 Translate.language,
                 formData.order_comment.value,
