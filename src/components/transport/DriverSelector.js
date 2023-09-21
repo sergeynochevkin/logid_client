@@ -34,7 +34,7 @@ const DriverSelector = ({ formData, setFormData }) => {
                         hindi: ['ड्राइवर का चयन करें'],
 
                     })}</option>
-                    <option value={UserInfo.userInfo.userId}>{SetNativeTranslate(Translate.language, {
+                    <option value={UserInfo.userInfo.id}>{SetNativeTranslate(Translate.language, {
                         russian: ['Я'],
                         english: ['I am'],
                         spanish: ['I'],
@@ -44,7 +44,7 @@ const DriverSelector = ({ formData, setFormData }) => {
 
                     })}</option>
                     {Driver.drivers.map(driver =>
-                        <option value={driver.id} key={driver.id}>{driver.user_info.name_surname_fathersname}</option>
+                        <option value={driver.user_info.id} key={driver.id}>{driver.user_info.name_surname_fathersname}</option>
                     )}
                 </Select>
                 <FieldName

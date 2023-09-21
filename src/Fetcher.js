@@ -389,7 +389,7 @@ const Fetcher = observer(() => {
         }
     }, [])
 
-    //drivers
+    //drivers postponed up to refactoring!
     useEffect(() => {
         async function fetch() {
             await fetchDrivers(user.user.id).then(data => {
@@ -420,9 +420,9 @@ const Fetcher = observer(() => {
         fetcher.setDrivers(false)
     }, [fetcher.drivers])
 
-    useEffect(() => {
-        user?.isAuth && fetcher.setDrivers(true)
-    }, [])
+    // useEffect(() => {
+    //     user?.isAuth && fetcher.setDrivers(true)
+    // }, [])
 
     //transport
     useEffect(() => {
