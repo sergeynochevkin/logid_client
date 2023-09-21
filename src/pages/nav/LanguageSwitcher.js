@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import useComponentVisible from '../../hooks/useComponentVisible';
-import { observer } from 'mobx-react-lite';
 
-const LanguageSwitcher = observer(() => {
+const LanguageSwitcher = () => {
     const { Translate } = useContext(TranslateContext)
     const { State } = useContext(StateContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -52,26 +51,31 @@ const LanguageSwitcher = observer(() => {
                     }}
                 >{languageList.find(el => el.value === Translate.language).name}</div>
 
-                <div ref={ref}>
-                    {visible && isComponentVisible && (!user.user || user.user.role !== 'admin' || user.user.role !== 'manager') ?
-                        languageList.filter(el => el.value !== Translate.language).map(item => <div
-                            onClick={() => {
-                                setLanguage(item.value)
-                                setVisible(false)
-                            }}
-                            className='nav_bar_item language_switch' key={item.id}>{item.name}</div>) :
-                        visible && isComponentVisible && (user.user && (user.user.role === 'admin' || user.user.role === 'manager')) ?
-                        languageList.filter(el => el.value !== Translate.language || ((Translate.language ==='russian' && el.value === 'english') || (Translate.language ==='english' && el.value === 'russian'))).map(item => <div
-                            onClick={() => {
-                                setLanguage(item.value)
-                                setVisible(false)
-                            }}
-                            className='nav_bar_item language_switch' key={item.id}>{item.name}</div>)
-                            : <></>}
-                </div>
+                {!user || (user && (user.user.role !== 'nmanager' || user.user.role !== 'admin')) ?
+                    <div ref={ref}>
+                        {visible && isComponentVisible ?
+                            languageList.filter(el => el.value !== Translate.language).map(item => <div
+                                onClick={() => {
+                                    setLanguage(item.value)
+                                    setVisible(false)
+                                }}
+                                className='nav_bar_item language_switch' key={item.id}>{item.name}</div>) : <></>}
+                    </div>
+                    : 
+                    <div ref={ref}>
+                        {visible && isComponentVisible ?
+                            languageList.slice(0,1).filter(el => el.value !== Translate.language).map(item => <div
+                                onClick={() => {
+                                    setLanguage(item.value)
+                                    setVisible(false)
+                                }}
+                                className='nav_bar_item language_switch' key={item.id}>{item.name}</div>) : <></>}
+                    </div>
+                }
             </div>
+
         </div>
     )
-})
+}
 
 export default LanguageSwitcher
