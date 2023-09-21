@@ -52,22 +52,21 @@ const LanguageSwitcher = () => {
                 >{languageList.find(el => el.value === Translate.language).name}</div>
 
                 <div ref={ref}>
-                    {visible && isComponentVisible && (!user || (user.user.role !== 'admin' && user.user.role !== 'manager')) ?
+                    {visible && isComponentVisible && (!user.user || user.user.role !== 'admin' || user.user.role !== 'manager') ?
                         languageList.filter(el => el.value !== Translate.language).map(item => <div
                             onClick={() => {
                                 setLanguage(item.value)
                                 setVisible(false)
                             }}
                             className='nav_bar_item language_switch' key={item.id}>{item.name}</div>) :
-                        visible && isComponentVisible && (user.user.role === 'admin' && user.user.role === 'manager') ?
-                            languageList.filter(el => el.value !== Translate.language || (Translate.language === 'russian' && el.value === 'english') || (Translate.language === 'english' && el.value === 'russian')).map(item => <div
-                                onClick={() => {
-                                    setLanguage(item.value)
-                                    setVisible(false)
-                                }}
-                                className='nav_bar_item language_switch' key={item.id}>{item.name}</div>)
-                            :
-                            <></>}
+                        visible && isComponentVisible && (user.user && (user.user.role === 'admin' || user.user.role === 'manager')) ?
+                        languageList.filter(el => el.value !== Translate.language && ((Translate.language ==='russian' && el.value === 'english') || (Translate.language ==='english' && el.value === 'russian'))).map(item => <div
+                            onClick={() => {
+                                setLanguage(item.value)
+                                setVisible(false)
+                            }}
+                            className='nav_bar_item language_switch' key={item.id}>{item.name}</div>)
+                            : <></>}
                 </div>
             </div>
         </div>
