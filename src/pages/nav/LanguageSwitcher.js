@@ -51,7 +51,7 @@ const LanguageSwitcher = () => {
                     }}
                 >{languageList.find(el => el.value === Translate.language).name}</div>
 
-                {!user || (user && (user.user.role !== 'nmanager' || user.user.role !== 'admin')) ?
+                {!user || (user && (user.user.role !== 'nmanager' && user.user.role !== 'admin')) ?
                     <div ref={ref}>
                         {visible && isComponentVisible ?
                             languageList.filter(el => el.value !== Translate.language).map(item => <div
