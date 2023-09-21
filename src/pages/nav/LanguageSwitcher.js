@@ -17,7 +17,7 @@ const LanguageSwitcher = () => {
         { id: 3, name: 'TR', value: 'turkish' },
         { id: 4, name: 'ES', value: 'spanish' },
         { id: 5, name: 'CN', value: 'сhinese' },
-        { id: 6, name: 'HI', value: 'hindi' },        
+        { id: 6, name: 'HI', value: 'hindi' },
     ]
     useEffect(() => {
         !isComponentVisible && setVisible(false)
@@ -52,13 +52,22 @@ const LanguageSwitcher = () => {
                 >{languageList.find(el => el.value === Translate.language).name}</div>
 
                 <div ref={ref}>
-                    {visible && isComponentVisible ?
+                    {visible && isComponentVisible && (!user || (user.user.role !== 'admin' && user.user.role !== 'manager')) ?
                         languageList.filter(el => el.value !== Translate.language).map(item => <div
                             onClick={() => {
                                 setLanguage(item.value)
                                 setVisible(false)
                             }}
-                            className='nav_bar_item language_switch' key={item.id}>{item.name}</div>) : <></>}
+                            className='nav_bar_item language_switch' key={item.id}>{item.name}</div>) :
+                        visible && isComponentVisible && (user.user.role === 'admin' && user.user.role === 'manager') ?
+                            languageList.filter(el => el.value === 'russian' || el.value === 'english').map(item => <div
+                                onClick={() => {
+                                    setLanguage(item.value)
+                                    setVisible(false)
+                                }}
+                                className='nav_bar_item language_switch' key={item.id}>{item.name}</div>)
+                            :
+                            <></>}
                 </div>
             </div>
         </div>
