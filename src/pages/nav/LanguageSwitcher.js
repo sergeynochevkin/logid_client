@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import useComponentVisible from '../../hooks/useComponentVisible';
+import { observer } from 'mobx-react-lite';
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = observer(() => {
     const { Translate } = useContext(TranslateContext)
     const { State } = useContext(StateContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -71,6 +72,6 @@ const LanguageSwitcher = () => {
             </div>
         </div>
     )
-}
+})
 
 export default LanguageSwitcher
