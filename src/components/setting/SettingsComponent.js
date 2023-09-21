@@ -33,7 +33,7 @@ const SettingsComponent = observer(() => {
         <>
             <div className={Setting.app_theme === 'light' ? 'setting_container' : 'setting_container setting_container_dark'}>
                 <div className='settings_list'>
-                    {Adress.country === 'russia' ? Setting.user_settings.slice().sort(sortSetings).map(setting =>
+                    {Adress.country.value === 'russia' ? Setting.user_settings.slice().sort(sortSetings).map(setting =>
                         <SettingItem id={setting.id} key={setting.id} name={setting.name} value={setting.value} />) : Setting.user_settings.slice().sort(sortSetings).filter(el=>el.name !== 'sms_messaging').map(setting =>
                         <SettingItem id={setting.id} key={setting.id} name={setting.name} value={setting.value} />)}
                 </div>

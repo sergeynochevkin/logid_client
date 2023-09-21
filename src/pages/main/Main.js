@@ -676,9 +676,15 @@ const Main = observer(() => {
 
             {Ad.transports.main.length > 0 && <AdTransportSection />}
 
-            {sections.filter(el => el.id !== 4 & el.id !== 5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-              <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
-            )}
+
+            {Adress.country.value === 'russia' ?
+              sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+                <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+              ) :
+              sections.filter(el => el.id !== 4 && el.id !== 5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+                <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+              )
+            }
 
           </div>
 

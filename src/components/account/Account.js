@@ -129,10 +129,11 @@ const Account = observer(() => {
                             </> : <></>}
                         </div>
 
-                        {user.user.role !== 'driver' && Adress.country === 'russia' ?
+                        {user.user.role !== 'driver' && Adress.country.value === 'russia' ?
                             <div
                                 className={containerClassName}>
                                 <FieldName>{SetNativeTranslate(Translate.language, {}, 'subscription_status')}</FieldName>
+                                <SubscriptionStatusComponent setModalActive = {setModalActive}/>
                             </div> : <></>
                         }
                     </VerticalContainer>
