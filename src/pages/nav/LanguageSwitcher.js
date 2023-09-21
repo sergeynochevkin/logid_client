@@ -64,7 +64,7 @@ const LanguageSwitcher = () => {
                     : 
                     <div ref={ref}>
                         {visible && isComponentVisible ?
-                            languageList.slice(0,1).filter(el => el.value !== Translate.language).map(item => <div
+                            languageList.slice(0,2).filter(el => el.value !== Translate.language).map(item => <div
                                 onClick={() => {
                                     setLanguage(item.value)
                                     setVisible(false)
