@@ -195,6 +195,7 @@ const PreLoader = observer(({ children, ...props }) => {
                     user.setUser(data)
 
                     if (data.role === 'admin') {
+                        fetcher.setManagementRgistrations(true)
                         fetcher.setManagementVisits(true)
                         fetcher.setManagementUsers(true)
                         fetcher.setManagementOrders(true)

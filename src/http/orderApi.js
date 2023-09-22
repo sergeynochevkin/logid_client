@@ -69,9 +69,9 @@ export const createOrder = async (
     return data
 }
 
-export const fetchOrders = async (userInfoId, role, carrierId, order_status, country, city_place_id, transport, myBlocked, iAmBlocked, myFavorite, isArc, filters) => {
+export const fetchOrders = async (userInfoId, carrierId, order_status, isArc, filters) => {
     const { data } = await $authHost.post('api/order/get_orders', {
-        userInfoId, role, carrierId, order_status, country, city_place_id, transport, myBlocked, iAmBlocked, myFavorite, isArc, filters
+        userInfoId, carrierId, order_status, isArc, filters
     })
     return data
 }

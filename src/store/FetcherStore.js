@@ -28,6 +28,7 @@ export default class FetcherStore {
         this._management_orders = false
         this._management_transports = false
         this._management_visits = false
+        this._management_registrations = false
 
         //ad
         this._main_counters = false
@@ -105,6 +106,9 @@ export default class FetcherStore {
     }
     setManagementVisits(value) {
         this._management_visits = value
+    }
+    setManagementRegistrations(value) {
+        this._management_registrations = value
     }
     setMainCounters(value) {
         this._main_counters = value
@@ -186,6 +190,9 @@ export default class FetcherStore {
     }
     get management_visits() {
         return this._management_visits
+    }
+    get management_registrations() {
+        return this._management_registrations
     }
     get main_counters() {
         return this._main_counters

@@ -37,6 +37,7 @@ const User = observer(() => {
   const { Transport } = useContext(TransportContext)
   const [modalActive, setModalActive] = useState(false)
 
+  console.log(JSON.stringify(user.suprvisor));
 
   useEffect(() => {
     fetcher.setPartners(true)
@@ -152,17 +153,18 @@ const User = observer(() => {
               }}>{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language, {}, 'order_editing') : SetNativeTranslate(Translate.language, {}, 'create_order')}</BookMark>
             }
 
-            {user.user.role === 'carrier' &&
+            {user.user.role === 'carrier' || user.user.role === 'driver' ?
               <>
                 <BookMark onClick={() => {
                   ComponentFunction.PageFunction !== 'transport' && setFunction(false, false, 'transport', false)
                 }} style={{
                   color: ComponentFunction.PageFunction === 'transport' && 'grey', cursor: ComponentFunction.PageFunction === 'transport' && 'default'
                 }}>{SetNativeTranslate(Translate.language, {}, 'transports')}</BookMark>
+              </> : <></>
+            }
 
-                {/* drivers */}
-
-                {/* <BookMark onClick={() => {
+            {/* drivers */}
+            {/* <BookMark onClick={() => {
                   ComponentFunction.PageFunction !== 'drivers' && setFunction(false, false, 'drivers', false)
                 }} style={{
                   color: ComponentFunction.PageFunction === 'drivers' && 'grey', cursor: ComponentFunction.PageFunction === 'drivers' && 'default'
@@ -174,11 +176,7 @@ const User = observer(() => {
                   сhinese: ['司机'],
                   hindi: ['ड्राइवरों'],
                 })}</BookMark> */}
-
-                {/* drivers */}
-
-              </>
-            }
+            {/* drivers */}
 
             {user.user.role !== 'driver' &&
               <BookMark onClick={() => {
@@ -212,7 +210,7 @@ const User = observer(() => {
           ComponentFunction.PageFunction === 'account' ? <Account /> :
             user.user.role === 'customer' && ComponentFunction.PageFunction === 'orderForm' ?
               <OrderForm /> :
-              user.user.role === 'carrier' && ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
+              (user.user.role === 'carrier' || user.user.role === 'driver') && ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
                 ComponentFunction.PageFunction === 'partners' ? <Partners /> :
                   ComponentFunction.PageFunction === 'settings' ? <SettingsComponent /> :
                     ComponentFunction.PageFunction === 'drivers' ? <DriverComponent /> :
@@ -227,7 +225,6 @@ const User = observer(() => {
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
         <AccountCompletionForm setModalActive={setModalActive} parent={'user'} setFunction={setFunction} />
       </Modal>
-
     </div>
   )
 

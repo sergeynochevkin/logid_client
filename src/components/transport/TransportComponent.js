@@ -86,28 +86,30 @@ const TransportComponent = observer(() => {
 
   return (
     <Container>
-      <Button
-        onClick={() => {
-          if (Transport.transports.length >= 10) {
-            Notification.addNotification([{
-              id: v4(), type: 'error', message: SetNativeTranslate(Translate.language,
-                {
-                  russian: ['В настоящий момент вы можете добавить не более 10 способов доставки, пожалуйсте удалите не актуальные'],
-                  english: ['At the moment you can add no more than 10 delivery methods, please delete those that are not relevant'],
-                  spanish: ['Actualmente no puede agregar más de 10 métodos de entrega; elimínelos si no son relevantes'],
-                  turkish: ['Şu anda 10`dan fazla teslimat yöntemi ekleyemezsiniz; bunlar alakalı değilse lütfen silin'],
-                  сhinese: ['目前您最多可以添加10种配送方式，请删除不相关的配送方式'],
-                  hindi: ['वर्तमान में आप 10 से अधिक डिलीवरी विधियां नहीं जोड़ सकते हैं, कृपया जो प्रासंगिक नहीं हैं उन्हें हटा दें'],
-                }
-              )
-            }])
-          } else {
-            setFormFunction('create')
-            setModalActive(true)
-          }
-        }}
-        style={{ marginTop: '10px' }}
-      >{SetNativeTranslate(Translate.language, {}, 'add')}</Button>
+
+      {user.user.role !== 'driver' &&
+        <Button
+          onClick={() => {
+            if (Transport.transports.length >= 10) {
+              Notification.addNotification([{
+                id: v4(), type: 'error', message: SetNativeTranslate(Translate.language,
+                  {
+                    russian: ['В настоящий момент вы можете добавить не более 10 способов доставки, пожалуйсте удалите не актуальные'],
+                    english: ['At the moment you can add no more than 10 delivery methods, please delete those that are not relevant'],
+                    spanish: ['Actualmente no puede agregar más de 10 métodos de entrega; elimínelos si no son relevantes'],
+                    turkish: ['Şu anda 10`dan fazla teslimat yöntemi ekleyemezsiniz; bunlar alakalı değilse lütfen silin'],
+                    сhinese: ['目前您最多可以添加10种配送方式，请删除不相关的配送方式'],
+                    hindi: ['वर्तमान में आप 10 से अधिक डिलीवरी विधियां नहीं जोड़ सकते हैं, कृपया जो प्रासंगिक नहीं हैं उन्हें हटा दें'],
+                  }
+                )
+              }])
+            } else {
+              setFormFunction('create')
+              setModalActive(true)
+            }
+          }}
+          style={{ marginTop: '10px' }}
+        >{SetNativeTranslate(Translate.language, {}, 'add')}</Button>}
       <Modal
         parent={parent}
         formReset={formReset}

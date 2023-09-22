@@ -13,7 +13,7 @@ import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders, setOrderViewed } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
 import { fetchDrivers, fetchUser } from './http/userAPI'
-import { fetchManagementOrders, fetchManagementTransports, fetchManagementUsers, fetchManagementVisits } from './http/managementApi'
+import { fetchManagementOrders, fetchManagementRegistrations, fetchManagementTransports, fetchManagementUsers, fetchManagementVisits } from './http/managementApi'
 import { fetchAdTransports, fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
 import { fetchFile } from './http/fileApi'
@@ -180,67 +180,66 @@ const Fetcher = observer(() => {
     //orders
     async function fetch(order_status) {
         if (Object.keys(UserInfo.userInfo).length !== 0 && order_status !== 'partners' && order_status !== '') {
-            await fetchOrders(UserInfo.userInfo.id, user.user.role, UserInfo.userInfo.id, order_status, UserInfo.userInfo.country, UserInfo.userInfo.city, order_status === 'arc' || order_status === 'pattern' ? [] : user.user.role === 'carrier' ? Transport.transports : [],
-                order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.iAmBlocked, order_status === 'arc' || order_status === 'pattern' ? [] : Partner.myFavorite, order_status === 'arc' ? 'arc' : '', FilterAndSort.filters).then(async data => {
-                    order.setFilteredCount(data.filtered_count, order_status)
-                    if (order.divided_orders && order_status !== 'arc' && order_status) {
-                        data.total_count && order.setTotalCount(data.total_count.new, 'new')
-                        data.total_count && order.setTotalCount(data.total_count.canceled, 'canceled')
-                        data.total_count && order.setTotalCount(data.total_count.completed, 'completed')
-                        data.total_count && order.setTotalCount(data.total_count.postponed, 'postponed')
-                        data.total_count && order.setTotalCount(data.total_count.inWork, 'inWork')
-                        data.total_count && order.setTotalCount(data.total_count.arc, 'arc')
-                        data.total_count && order.setTotalCount(data.total_count.pattern, 'pattern')
-                        order.added && order.setAdded(data.added)
-                    }
+            await fetchOrders(UserInfo.userInfo.id, UserInfo.userInfo.id, order_status, order_status === 'arc' ? 'arc' : '', FilterAndSort.filters).then(async data => {
+                order.setFilteredCount(data.filtered_count, order_status)
+                if (order.divided_orders && order_status !== 'arc' && order_status) {
+                    data.total_count && order.setTotalCount(data.total_count.new, 'new')
+                    data.total_count && order.setTotalCount(data.total_count.canceled, 'canceled')
+                    data.total_count && order.setTotalCount(data.total_count.completed, 'completed')
+                    data.total_count && order.setTotalCount(data.total_count.postponed, 'postponed')
+                    data.total_count && order.setTotalCount(data.total_count.inWork, 'inWork')
+                    data.total_count && order.setTotalCount(data.total_count.arc, 'arc')
+                    data.total_count && order.setTotalCount(data.total_count.pattern, 'pattern')
+                    order.added && order.setAdded(data.added)
+                }
 
-                    // set order images
-                    if (data.rows.length !== 0) {
-                        await orderImageHandler(data.rows)
-                    }
+                // set order images
+                if (data.rows.length !== 0) {
+                    await orderImageHandler(data.rows)
+                }
 
-                    order.setDividedOrders(data.rows, order_status)
+                order.setDividedOrders(data.rows, order_status)
 
-                    // accumulate transport and find and accumulate images              
-                    await imageHandler(data.transport)
-                    data.total_count && Transport.setTransportByOrder(data.total_count.transport)
+                // accumulate transport and find and accumulate images              
+                await imageHandler(data.transport)
+                data.total_count && Transport.setTransportByOrder(data.total_count.transport)
 
-                    order.setMapOrders(data.map_rows)
-                    if (data.rows.length !== 0) {
-                        await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
-                            Point.setDividedPoints(data.rows, order_status);
-                            Point.setAdded(data.added)
-                            if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId).length > 0) {
-                                Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
-                            }
-                        })
-                    }
+                order.setMapOrders(data.map_rows)
+                if (data.rows.length !== 0) {
+                    await fetchPoints(data.rows.map(el => el.pointsIntegrationId), UserInfo.userInfo.id).then(data => {
+                        Point.setDividedPoints(data.rows, order_status);
+                        Point.setAdded(data.added)
+                        if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId).length > 0) {
+                            Point.setThisOrderPoints(data.rows.filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
+                        }
+                    })
+                }
 
-                    if (data.views && data.views.length !== 0) {
-                        order.setViews(data.views, order_status)
-                    }
+                if (data.views && data.views.length !== 0) {
+                    order.setViews(data.views, order_status)
+                }
 
-                    if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
-                        order.setOrder(data.rows.find(el => el.id === order.order.id))
-                    }
-                    if (order_status === 'completed' && data.length !== 0) {
-                        await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
-                    }
-                    if ((order_status === 'new' || order_status === 'postponed') && data.length !== 0) {
+                if (ComponentFunction.OrdersComponentFunction === 'orderItem' && data.rows.find(el => el.id === order.order.id)) {
+                    order.setOrder(data.rows.find(el => el.id === order.order.id))
+                }
+                if (order_status === 'completed' && data.length !== 0) {
+                    await fetchOrderRatings(data.rows.map(el => el.id), UserInfo.userInfo.id).then(data => Rating.setOrderRatings(data))
+                }
+                if ((order_status === 'new' || order_status === 'postponed') && data.length !== 0) {
 
-                        await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
-                            Offer.setOffers(data.rows)
+                    await fetchOffers(data.rows.filter(el => el.order_type !== 'order').map(el => el.id), UserInfo.userInfo.id).then(async data => {
+                        Offer.setOffers(data.rows)
 
-                            // get transport by offers accumulate and accumulate images 
-                            await imageHandler(data.transport)
+                        // get transport by offers accumulate and accumulate images 
+                        await imageHandler(data.transport)
 
-                            Offer.setChanges(data.changes)
-                            await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)
-                            )
-                        })
-                    }
-                    // order.setOrders(data.rows) // delete whent check point notifications                 
-                })
+                        Offer.setChanges(data.changes)
+                        await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)
+                        )
+                    })
+                }
+                // order.setOrders(data.rows) // delete whent check point notifications                 
+            })
         }
     }
 
@@ -565,12 +564,23 @@ const Fetcher = observer(() => {
         fetcher.management_visits && fetch()
         fetcher.setManagementVisits(false)
     }, [fetcher.management_visits])
+    //registratiosns
+    useEffect(() => {
+        async function fetch() {
+            await fetchManagementRegistrations().then(data => {
+                data && Management.setRegistrations(data)
+            })
+        }
+        fetcher.management_registrations && fetch()
+        fetcher.setManagementRegistrations(false)
+    }, [fetcher.management_registrations])
 
 
     useEffect(() => {
         if (user.user.role === 'admin') {
             setInterval(() => {
                 fetcher.setManagementVisits(true)
+                fetcher.setManagementRegistrations(true)
                 fetcher.setManagementUsers(true)
                 fetcher.setManagementOrders(true)
                 fetcher.setManagementTransports(true)

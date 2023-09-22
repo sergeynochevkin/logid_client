@@ -231,20 +231,19 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
         </Link> : <></>}
       </CardRow>
 
-
-      <CardRow>
-        <CardButton onClick={deleteClick}>{SetNativeTranslate(Translate.language, {}, 'delete')}</CardButton>
-
-        <CardButton onClick={editClick}>{SetNativeTranslate(Translate.language, {
-          russian: ['Редактировать'],
-          english: ['Edit'],
-          spanish: ['Editar'],
-          turkish: ['Düzenlemek'],
-          сhinese: ['编辑'],
-          hindi: ['संपादन करना'],
-
-        })}</CardButton>
-      </CardRow>
+      {user.user.role === 'carrier' &&
+        <CardRow>
+          <CardButton onClick={deleteClick}>{SetNativeTranslate(Translate.language, {}, 'delete')}</CardButton>
+          <CardButton onClick={editClick}>{SetNativeTranslate(Translate.language, {
+            russian: ['Редактировать'],
+            english: ['Edit'],
+            spanish: ['Editar'],
+            turkish: ['Düzenlemek'],
+            сhinese: ['编辑'],
+            hindi: ['संपादन करना'],
+          })}</CardButton>
+        </CardRow>
+      }
 
       <div className='image_container'>
         {images.length > 0 ? images.map(image => <img src={image} className='image_icon' key={image}

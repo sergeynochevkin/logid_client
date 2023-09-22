@@ -105,7 +105,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
                 Adress.setCities(data.cities)
-                
+
                 let country = data.countries.find(el => el.google_code === 'RU')
                 Adress.setCountry(country)
                 if (localStorage.getItem('language') && localStorage.getItem('language') !== undefined) {
@@ -144,11 +144,17 @@ const PreLoader = observer(({ children, ...props }) => {
                     user.setUser(data)
 
                     if (data.role === 'admin') {
+                        fetcher.setManagementRegistrations(true)
                         fetcher.setManagementVisits(true)
                         fetcher.setManagementUsers(true)
                         fetcher.setManagementOrders(true)
                         fetcher.setManagementTransports(true)
                     }
+
+                    if (data.role === 'driver') {
+                        await fetchUserInfo(data.user_id).then(data => { user.setSupervisor(data) })
+                    }
+
 
                     user.setIsAuth(true)
 

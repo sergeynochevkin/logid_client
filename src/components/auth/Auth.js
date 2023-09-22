@@ -225,12 +225,14 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   formData.role.isEmpty = !link.after_actions.add_transport_form ? true : false
   formData.role.notValid = !link.after_actions.add_transport_form ? true : false
 
-  const [fetching, error] = useFetching(async () => {
+  const [fetching, error] = useFetching(async () => {  
+
     await fetchUserInfo(user.user.id).then(data => {
       if (data === null) {
         UserInfo.setUserInfo({})
         // auth preload for admin!
         if (user.user.role === 'admin') {
+          fetcher.setManagementRegistrations(true)
           fetcher.setManagementVisits(true)
           fetcher.setManagementUsers(true)
           fetcher.setManagementTransports(true)
@@ -238,7 +240,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         }
       } else {
         UserInfo.setUserInfo(data)
-        data && fetcher.setUserAppSetting(true)
+        data && fetcher.setUserAppSetting(true)    
+        
+        if (user.user.role === 'driver') {
+          fetchUserInfo(user.user.user_id).then(data => { user.setSupervisor(data) })
+        }
 
         if (after_action && data) {
           if (after_action.action === 'transport_contact_viewed') {
@@ -454,6 +460,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           formData.tag,
         )
         user.setUser(data)
+
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
             {
@@ -472,7 +479,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       user.setIsAuth(true)
       fetcher.setCustomLoading(false)
 
-      
+
 
 
 

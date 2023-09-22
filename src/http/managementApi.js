@@ -24,6 +24,12 @@ export const fetchManagementVisits = async () => {
     )
     return data
 }
+export const fetchManagementRegistrations = async () => {
+    const { data } = await $authHost.get('api/management/get_registrations',
+        {}
+    )
+    return data
+}
 
 export const sendManagementNotification = async (
     formData

@@ -725,6 +725,29 @@ const Main = observer(() => {
                 </> : <></>
               }
 
+                <>
+                  <AdminConsoleItem plan={70} currentRate={Management.registrations.toDay} comment={
+                    SetNativeTranslate(Translate.language,
+                      {
+                        russian: ['Регистрации сегодня'],
+                        english: ['Today registrationss']
+                      }, '')} />
+                  <AdminConsoleItem plan={490} currentRate={Management.registrations.week} comment={
+                    SetNativeTranslate(Translate.language,
+                      {
+                        russian: ['Регистрации за неделю'],
+                        english: ['Registrationss per week']
+                      }, '')
+                  } />
+                  <AdminConsoleItem plan={2170} currentRate={Management.registrations.month} comment={
+                    SetNativeTranslate(Translate.language,
+                      {
+                        russian: ['Регистрации за месяц'],
+                        english: ['Registrationss per month']
+                      }, '')
+                  } />
+                </> 
+
 
               <AdminConsoleItem plan={510} currentRate={Management.users.length} comment={
                 SetNativeTranslate(Translate.language,

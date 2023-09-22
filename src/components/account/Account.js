@@ -15,6 +15,7 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import AccountInfoStatus from './AccountInfoStatus'
 import PaymentComponent from '../payment/PaymentComponent'
 import ShareComponent from '../share/ShareComponent'
+import SupervisorInfoComponent from './SupervisorInfoComponent'
 
 
 const Account = observer(() => {
@@ -85,6 +86,8 @@ const Account = observer(() => {
                     {UserInfo.userInfo.type_of_customer ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'delivery_for')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.type_of_customer)} editable={true} attachedField={'type_of_customer'} /> : <></>}
                 </div>
 
+                {user.user.role === 'driver' && <SupervisorInfoComponent containerClassName={containerClassName} />}
+
                 {user.user.role !== 'driver' &&
                     <div
                         className={containerClassName}>
@@ -133,7 +136,7 @@ const Account = observer(() => {
                             <div
                                 className={containerClassName}>
                                 <FieldName>{SetNativeTranslate(Translate.language, {}, 'subscription_status')}</FieldName>
-                                <SubscriptionStatusComponent setModalActive = {setModalActive}/>
+                                <SubscriptionStatusComponent setModalActive={setModalActive} />
                             </div> : <></>
                         }
                     </VerticalContainer>
