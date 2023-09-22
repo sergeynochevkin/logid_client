@@ -726,20 +726,20 @@ const Main = observer(() => {
               }
 
                 <>
-                  <AdminConsoleItem plan={70} currentRate={Management.registrations.toDay} comment={
+                  <AdminConsoleItem plan={5} currentRate={Management.registrations.toDay} comment={
                     SetNativeTranslate(Translate.language,
                       {
                         russian: ['Регистрации сегодня'],
                         english: ['Today registrationss']
                       }, '')} />
-                  <AdminConsoleItem plan={490} currentRate={Management.registrations.week} comment={
+                  <AdminConsoleItem plan={35} currentRate={Management.registrations.week} comment={
                     SetNativeTranslate(Translate.language,
                       {
                         russian: ['Регистрации за неделю'],
                         english: ['Registrationss per week']
                       }, '')
                   } />
-                  <AdminConsoleItem plan={2170} currentRate={Management.registrations.month} comment={
+                  <AdminConsoleItem plan={150} currentRate={Management.registrations.month} comment={
                     SetNativeTranslate(Translate.language,
                       {
                         russian: ['Регистрации за месяц'],
