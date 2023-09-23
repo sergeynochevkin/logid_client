@@ -725,6 +725,7 @@ const Main = observer(() => {
                 </> : <></>
               }
 
+              {Management.registrations.month > 0 ?
                 <>
                   <AdminConsoleItem plan={5} currentRate={Management.registrations.toDay} comment={
                     SetNativeTranslate(Translate.language,
@@ -746,7 +747,7 @@ const Main = observer(() => {
                         english: ['Registrationss per month']
                       }, '')
                   } />
-                </> 
+                </> : <></>}
 
 
               <AdminConsoleItem plan={510} currentRate={Management.users.length} comment={
