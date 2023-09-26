@@ -310,8 +310,13 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
           fetcher.setSubscriptions(true)
         }
-        if (user.user.role === 'carrier') {
+
+        if (user.user.role === 'carrier' ||user.user.role === 'driver' ) {
           fetcher.setTransports(true)
+        }
+
+        if(user.user.role === 'carrier'){
+          fetcher.setDrivers(true)
         }
 
 

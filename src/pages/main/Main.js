@@ -677,7 +677,7 @@ const Main = observer(() => {
             {Ad.transports.main.length > 0 && <AdTransportSection />}
 
 
-            {Adress.country.value === 'russia' ?
+            {Adress.country.value === 'russia' && user?.user?.role !== 'driver' ?
               sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
                 <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
               ) :

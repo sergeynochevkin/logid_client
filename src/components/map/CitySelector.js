@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, FetcherContext, FilterAndSortContext, LimitContext, NotificationContext, SettingContext, StateContext, TranslateContext, TransportContext, UserInfoContext } from '../..'
+import { AdressContext, FetcherContext, FilterAndSortContext, LimitContext, NotificationContext, SettingContext, StateContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import './Map.css'
 import { v4 } from "uuid";
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
@@ -19,6 +19,7 @@ const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefresh
     const { FilterAndSort } = useContext(FilterAndSortContext)
     const { Translate } = useContext(TranslateContext)
     const { fetcher } = useContext(FetcherContext)
+    const { user } = useContext(UserContext)
 
     let userCity = { lat: undefined, lng: undefined, name: '' }
     userCity.name = UserInfo.userInfo.city
@@ -97,9 +98,11 @@ const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefresh
 
     return (
         <>
-            <input className='city_selector_input' id='city'
-                placeholder={SetNativeTranslate(Translate.language, {}, 'enter_a_city_to_track')}
-            ></input>
+
+            {user.user.role !== 'driver' ?
+                <input className='city_selector_input' id='city'
+                    placeholder={SetNativeTranslate(Translate.language, {}, 'enter_a_city_to_track')}
+                ></input> : <></>}
 
             {((Transport.transports.map(el => el.type).includes('car') || Transport.transports.map(el => el.type).includes('truck') || Transport.transports.map(el => el.type).includes('minibus') || Transport.transports.map(el => el.type).includes('combi')) && Setting.user_map_cities.length >= 1) &&
                 <div className='button_row'>
@@ -156,31 +159,34 @@ const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefresh
                             resetAllCities()
                         }}
                     >{city.name}</div>
-                    <div className={Setting.app_theme === 'light' ? "map_action_icon_container" : "map_action_icon_container dark"}>
-                        <img className={"remove_city_icon"} src={Setting.app_theme === 'light' ? remove : remove_dark}
-                            alt='delete city'
-                            onClick={() => {
-                                if (city.lat === Setting.user_map_city.lat && city.lng === Setting.user_map_city.lng) {
-                                    Setting.setUserMapCity(userCity)
-                                    State.setUserStateField(Setting.user_map_city, 'user_map_city', UserInfo.userInfo.id)
-                                }
-                                Setting.setUserMapCities([...Setting.user_map_cities].filter(el => el.lat !== city.lat && el.lng !== city.lng))
-                                State.setUserStateField(Setting.user_map_cities, 'user_map_cities', UserInfo.userInfo.id)
-                                if (Setting.user_map_cities.length >= 1 && Setting.all_cities === true) {
-                                    calcAllCities()
-                                    setRefreshMap(true)
-                                }
-                                else if (Setting.user_map_cities.length >= 1 && Setting.all_cities === false) {
-                                    calcСityOrderBounds()
-                                    setRefreshMap(true)
-                                }
-                                else if (Setting.user_map_cities.length === 0 && Setting.all_cities === true) {
-                                    resetAllCities()
-                                }
-                                fetcher.setOrders(true)
-                            }}
-                        />
-                    </div>
+
+                    {user.user.role !== 'driver' ?
+                        <div className={Setting.app_theme === 'light' ? "map_action_icon_container" : "map_action_icon_container dark"}>
+                            <img className={"remove_city_icon"} src={Setting.app_theme === 'light' ? remove : remove_dark}
+                                alt='delete city'
+                                onClick={() => {
+                                    if (city.lat === Setting.user_map_city.lat && city.lng === Setting.user_map_city.lng) {
+                                        Setting.setUserMapCity(userCity)
+                                        State.setUserStateField(Setting.user_map_city, 'user_map_city', UserInfo.userInfo.id)
+                                    }
+                                    Setting.setUserMapCities([...Setting.user_map_cities].filter(el => el.lat !== city.lat && el.lng !== city.lng))
+                                    State.setUserStateField(Setting.user_map_cities, 'user_map_cities', UserInfo.userInfo.id)
+                                    if (Setting.user_map_cities.length >= 1 && Setting.all_cities === true) {
+                                        calcAllCities()
+                                        setRefreshMap(true)
+                                    }
+                                    else if (Setting.user_map_cities.length >= 1 && Setting.all_cities === false) {
+                                        calcСityOrderBounds()
+                                        setRefreshMap(true)
+                                    }
+                                    else if (Setting.user_map_cities.length === 0 && Setting.all_cities === true) {
+                                        resetAllCities()
+                                    }
+                                    fetcher.setOrders(true)
+                                }}
+                            />
+                        </div> : <></>}
+
                 </div>
             )}
         </>

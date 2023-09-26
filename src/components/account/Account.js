@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { AdressContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, DriverContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import AccountItem from './AccountItem'
@@ -30,6 +30,7 @@ const Account = observer(() => {
     const { Setting } = useContext(SettingContext)
     const { Translate } = useContext(TranslateContext)
     const { Adress } = useContext(AdressContext)
+    const { Driver } = useContext(DriverContext)
 
     const [yoomoneyToken, setYoomoneyToken] = useState('empty_token')
     const [paymentId, setPaymentId] = useState('')
@@ -75,7 +76,7 @@ const Account = observer(() => {
                         <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_validation')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} /> : <></>}
                     {user.user.role !== 'driver' && <>
                         <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'country_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.country)} editable={false} attachedField={'country'} />
-                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'city_content')} fieldValue={UserInfo.userInfo.city} editable={true} attachedField={'city'} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} /></>}
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'city_content')} fieldValue={UserInfo.userInfo.city} editable={Driver.drivers.length >0 ? false : true} attachedField={'city'} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} /></>}
                     {UserInfo.userInfo.phone ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'phone_content')} fieldValue={UserInfo.userInfo.phone} editable={true} attachedField={'phone'} /> : <></>}
 
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'notification_email_content')} fieldValue={UserInfo.userInfo.email} editable={true} attachedField={'email'} />

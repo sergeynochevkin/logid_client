@@ -39,7 +39,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   const { height, width } = useWindowDimensions();
 
 
-  // console.log(JSON.stringify(order.order_images));
+  // console.log(JSON.stringify(order.divided_orders.arc));
+  
 
   useEffect(() => {
     if (ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern') {
@@ -280,7 +281,9 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                   alignItems: 'center',
                 }}
               >
-                {(order.totalCount.arc > 0 && ComponentFunction.Function === 'arc') || (order.totalCount.pattern > 0 && ComponentFunction.Function === 'pattern') ?
+                {(
+                  order.totalCount.arc >= 0 && 
+                ComponentFunction.Function === 'arc') || (order.totalCount.pattern > 0 && ComponentFunction.Function === 'pattern') ?
                   <>
                     <FilterAndSortComponentForServer parent={'orders'} />
                     <div className={'scroll_bar_container'}>
@@ -382,7 +385,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
               : <></>}
       </div>
       <div style={{ width: '100%' }}>
-        {(ComponentFunction.Function === 'new' && user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction !== 'orderItem') && <MapComponent />}
+        {(ComponentFunction.Function === 'new' && (user.user.role === 'carrier' || user.user.role === 'driver') && ComponentFunction.OrdersComponentFunction !== 'orderItem') && <MapComponent />}
       </div>
     </>
   )

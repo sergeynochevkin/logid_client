@@ -176,7 +176,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             State.user_state.user_map_scale ? Setting.setBoundsLimit(State.user_state.user_map_scale / 100) : Setting.setBoundsLimit(0.5)
             Setting.setZoom(5)
         }
-        if (user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new') {
+        if ((user.user.role === 'carrier' || user.user.role === 'driver') && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new') {
             Setting.setBoundsLimit(50)
             State.user_state.user_map_city ? Setting.setCenter({ lat: parseFloat(State.user_state.user_map_city.lat), lng: parseFloat(State.user_state.user_map_city.lng) }) : Setting.setCenter({ lat: parseFloat(UserInfo.userInfo.city_latitude), lng: parseFloat(UserInfo.userInfo.city_longitude) })
             Setting.setZoom(5)
@@ -325,7 +325,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
     }, [refreshMap])
 
     useEffect(() => {
-        if ((ComponentFunction.OrdersComponentFunction === 'orderList' && user.user.role === 'carrier')) {
+        if ((ComponentFunction.OrdersComponentFunction === 'orderList' && (user.user.role === 'carrier' || user.user.role === 'driver'))) {
             refreshMapAction()
         }
     }, [refreshMap])
@@ -434,7 +434,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
 
     useEffect(() => {
-        if (user.user.role === 'carrier' && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new' && gMap) {
+        if ((user.user.role === 'carrier' || user.user.role === 'driver') && ComponentFunction.OrdersComponentFunction === 'orderList' && ComponentFunction.Function === 'new' && gMap) {
             if (order.map_orders && order.map_orders.length > 0 && gMarkers.length === 0) {
                 for (const orderItem of order.map_orders) {
                     let points = Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === orderItem.pointsIntegrationId)
@@ -728,7 +728,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
                 </div>
             }
-            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && user.user.role === 'carrier' && Limit.user_limits.carrier_take_order_city_limit !== 0) &&
+            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && (user.user.role === 'carrier' || user.user.role === 'driver') && Limit.user_limits.carrier_take_order_city_limit !== 0) &&
                 <div className={'map_info_container'}>
                     <CitySelector calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
                 </div>

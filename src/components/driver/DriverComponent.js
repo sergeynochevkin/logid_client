@@ -10,7 +10,6 @@ import './Driver.css'
 
 const DriverComponent = observer(() => {
     const { Translate } = useContext(TranslateContext)
-    const { fetcher } = useContext(FetcherContext)
     const [modalActive, setModalActive] = useState(false)
     const [files, setFiles] = useState([])
     const [pairs, setPairs] = useState([])

@@ -43,21 +43,21 @@ const PreLoader = observer(({ children, ...props }) => {
         if (location[1] === 'board' && location[2] === 'item') {
             id = location[3]
         }
-    }  
+    }
 
-//here!
+    //here!
     //now just in russia!
     const [libraries] = useState(['places']);
     let language = "ru"
     let region = "RU"
 
-    const { isLoaded } =  useJsApiLoader({
+    const { isLoaded } = useJsApiLoader({
         // id: "__googleMapsScriptId",
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries: libraries,
         region: region,
         language: language
-      }) 
+    })
 
     //attach google and lets go to design!
 
@@ -98,7 +98,7 @@ const PreLoader = observer(({ children, ...props }) => {
             link.setAfterActions(true, 'driver_activation')
         }
     }, [])
-//here
+    //here
     const getGeoInfo = (countries) => {
         axios
             .get("https://ipapi.co/json/")
@@ -145,7 +145,7 @@ const PreLoader = observer(({ children, ...props }) => {
                 EquipmentType.setTypes(data.equipment_types)
                 Adress.setCountries(data.countries)
                 Adress.setCities(data.cities)
-//here
+                //here
                 if (localStorage.getItem('country') && localStorage.getItem('country') !== 'undefined') {
                     let country = JSON.parse(localStorage.getItem('country'))
                     Adress.setCountry(country)
@@ -173,7 +173,7 @@ const PreLoader = observer(({ children, ...props }) => {
         } else if (!JSON.parse(localStorage.getItem('cookies_accepted')).total) {
             localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
         }
-        if(id){
+        if (id) {
             fetcher.setAdTransports(true)
         }
         fetchData()
@@ -213,8 +213,12 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
 
-                            if (user.user.role === 'carrier') {
+                            if (user.user.role === 'carrier' || user.user.role === 'driver') {
                                 fetcher.setTransports(true)
+                            }
+
+                            if (user.user.role === 'carrier') {
+                                fetcher.setDrivers(true)
                             }
 
                             if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {

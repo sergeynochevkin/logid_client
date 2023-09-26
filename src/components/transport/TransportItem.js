@@ -123,7 +123,8 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           {SetNativeTranslate(Translate.language, {}, oneTransport.type)}
         </CardColValue>
       </CardRow>
-      {/* {oneTransport.driver_id &&
+
+      {(oneTransport.driver_id && user.user.role !== 'driver') &&
         <CardRow><CardColName>{SetNativeTranslate(Translate.language, {
           russian: ['Водитель'],
           english: ['Driver'],
@@ -139,7 +140,8 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           сhinese: ['你'],
           hindi: ['आप'],
         }) : Driver.drivers.find(el => el.id === oneTransport.driver_id).user_info?.name_surname_fathersname}</CardColValue></CardRow>
-      } */}
+      }
+      
       {oneTransport.type === 'minibus' || oneTransport.type === 'truck' ?
 
         <CardRow>

@@ -4,29 +4,18 @@ import { SettingContext, UserInfoContext } from '../../../..'
 import { updateSetting } from '../../../../http/settingApi'
 import './Toggle.css'
 
-const Toggle = ({ id, value }) => {
-   const { UserInfo } = useContext(UserInfoContext)
-  const { Setting } = useContext(SettingContext)
+const Toggle = ({ setting, disabled, updateSettingAction }) => {
 
-  const updateSettingAction = async () => {
-    if (value === false) {
-      await updateSetting(id, true, UserInfo.userInfo.id).then(data => Setting.setUserSettings(data))
-    }
-    if (value === true) {
-      await updateSetting(id, false, UserInfo.userInfo.id).then(data => Setting.setUserSettings(data))
-    }
-    
-  }
 
   return (
     <>      
-      <div className={'toggle'}>
-        <input type='checkbox' checked={value} id={id} value={value}
+      <div className={`toggle ${disabled ? 'disabled' : ''}`}>
+        <input disabled = {disabled} type='checkbox' checked={setting.value} id={setting.id} value={setting.value}
           onChange={() => {
-            updateSettingAction()
+            updateSettingAction(setting)
           }}
         ></input>
-        <label htmlFor={id}><h2>OFF</h2><h1>ON</h1></label>
+        <label htmlFor={setting.id}><h2>OFF</h2><h1>ON</h1></label>
       </div>
     </>
   )

@@ -49,16 +49,12 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
 
 
 
-    const [for_partner, setForPartner] = useState([])
-    const [for_group, setForGroup] = useState([])
-    const [partnerNames, setPartnerNames] = useState()
-    const [groups, setGroups] = useState()
+
 
     const [images, setImages] = useState([])
     const [image, setImage] = useState()
 
-    const [files, setFiles] = useState()
-    const [pairs, setPairs] = useState()
+
 
     const [order_images, setOrderImages] = useState([])
 
@@ -206,7 +202,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     <CardRow>
                         {(user.user.role === 'carrier' && thisOrder.order_status === 'new') || (thisOrder.order_status === 'inWork') ?
                             <></>
-                            : ComponentFunction.OrdersComponentFunction !== 'orderItem' ?
+                            : ComponentFunction.OrdersComponentFunction !== 'orderItem' && user.user.role !=='driver' ?
                                 <CardButton
                                     onClick={(event) => {
                                         event.stopPropagation();
@@ -350,7 +346,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         <CardColValue>{thisOrder.cost === 0 ? SetNativeTranslate(Translate.language, {}, 'not_specified') : `${thisOrder.cost} ${Adress.country.currency}`}</CardColValue>
                     </CardRow>
 
-                    {(ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') &&
+                    {((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed')&& user.user.role !=='driver') &&
                         <CardRow>
                             <CardColName>{SetNativeTranslate(Translate.language, {}, 'available')}</CardColName>
                             {user.user.role === 'customer' && Partner.partnerInfos.length > 0 && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?

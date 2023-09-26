@@ -3,6 +3,9 @@
     position: relative;
     margin: 0 0 2em 0;    
 }
+.toggle.disabled{
+    filter: opacity(0.2);   
+}
 
 .toggle input {
     display: none;
@@ -68,6 +71,9 @@
     box-shadow: 0px 0px 0px #ebebeb;
     transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
     transform: scale(0.3, 0.3);
+}
+.toggle.disabled input+label:after {
+    cursor: not-allowed;  
 }
 
 .toggle input:checked+label:after {

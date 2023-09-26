@@ -44,12 +44,12 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
       {thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).length > 0 ?
         <HorizontalContainer
           style={{
-            flexDirection: user.user.role === 'customer' ? 'column' : 'default',
-            gap: user.user.role === 'customer' ? '0px' : 'default',
+            flexDirection: user.user.role === 'customer'  || user.user.role === 'driver'  ? 'column' : 'default',
+            gap: user.user.role === 'customer' || user.user.role === 'driver'  ? '0px' : 'default',
           }}
         >
 
-          {user.user.role === 'customer' ?
+          {user.user.role === 'customer' || user.user.role === 'driver' ?
             <table>
               <tbody>
                 <tr>
@@ -102,7 +102,7 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
               </tbody>
               <tbody>
                 {
-                  thisOrderOffers.filter(el => el.carrierId !== UserInfo.userInfo.id).map(oneOffer => <OfferItem
+                  thisOrderOffers.filter(el => el.carrierId !== 10).map(oneOffer => <OfferItem
                     key={oneOffer.id}
                     oneOffer={oneOffer}
                     oneOrder={oneOrder}

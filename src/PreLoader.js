@@ -141,6 +141,11 @@ const PreLoader = observer(({ children, ...props }) => {
                         link.setAfterActions(false, 'driver_activation')
                     )
 
+                    if (data.role === 'carrier') {
+                        fetcher.setDrivers(true)
+                    }
+
+
                     user.setUser(data)
 
                     if (data.role === 'admin') {
@@ -167,9 +172,12 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
 
-                            if (user.user.role === 'carrier') {
+                           
+                            if (user.user.role === 'carrier' || user.user.role === 'driver') {
                                 fetcher.setTransports(true)
                             }
+
+                          
 
                             if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
                                 fetcher.setPartners(true)

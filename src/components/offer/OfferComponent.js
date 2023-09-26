@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
-import { ComponentFunctionContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import OfferModalContent from './OfferModalContent'
 import { CardButton } from '../ui/button/CardButton'
 import { CardColName } from '../ui/card/CardColName'
@@ -14,12 +14,14 @@ import AccountCompletionForm from '../account/AccountCompletionForm'
 const OfferComponent = observer(({ thisOrder, thisOrderNoPartners, thisCarrierOffer, thisOrderOffers, firstPoint }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
+    const { Setting } = useContext(SettingContext)    
     const { Translate } = useContext(TranslateContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const [modalActive, setModalActive] = useState(false)
     const [modalActive2, setModalActive2] = useState(false)
 
     const parent = 'OfferComponent'
+
 
     const initialValue = {
         userInfoId: undefined,
@@ -42,11 +44,13 @@ const OfferComponent = observer(({ thisOrder, thisOrderNoPartners, thisCarrierOf
         formData.transportid = undefined
     }
 
+
+
     return (<>
         <VerticalContainer>
 
             {/* userInfo stopper! */}
-            {user.user.role === 'carrier' ?
+            {user.user.role === 'carrier'  ?
                 <CardButton
                     onClick={(event) => {
                         event.stopPropagation()

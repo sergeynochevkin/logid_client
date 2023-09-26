@@ -12,7 +12,6 @@ import Partners from '../../components/partner/Partners'
 import SettingsComponent from '../../components/setting/SettingsComponent'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import TransportComponent from '../../components/transport/TransportComponent'
-import PageLoader from '../../components/ui/loader/PageLoader '
 import Modal from '../../components/ui/modal/Modal'
 import AccountCompletionForm from '../../components/account/AccountCompletionForm'
 import { v4 } from "uuid";
@@ -37,7 +36,6 @@ const User = observer(() => {
   const { Transport } = useContext(TransportContext)
   const [modalActive, setModalActive] = useState(false)
 
-  console.log(JSON.stringify(user.suprvisor));
 
   useEffect(() => {
     fetcher.setPartners(true)
@@ -122,7 +120,7 @@ const User = observer(() => {
 
   return (
     <div className={`user_page_container ${Setting.app_theme}`}>
-      <title>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : 'carriers_office')}</title>
+      <title>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : user.user.role === 'carrier' ? 'carriers_office' : user.user.role === 'driver' ? 'drivers_office' : '')}</title>
 
 
       <PageBanner>{SetNativeTranslate(Translate.language, {}, user.user.role === 'customer' ? 'customers_office' : user.user.role === 'carrier' ? 'carriers_office' : user.user.role === 'driver' ? 'drivers_office' : '')}</PageBanner>
@@ -162,21 +160,19 @@ const User = observer(() => {
                 }}>{SetNativeTranslate(Translate.language, {}, 'transports')}</BookMark>
               </> : <></>
             }
-
-            {/* drivers */}
-            {/* <BookMark onClick={() => {
-                  ComponentFunction.PageFunction !== 'drivers' && setFunction(false, false, 'drivers', false)
-                }} style={{
-                  color: ComponentFunction.PageFunction === 'drivers' && 'grey', cursor: ComponentFunction.PageFunction === 'drivers' && 'default'
-                }}>{SetNativeTranslate(Translate.language, {
-                  russian: ['Водители'],
-                  english: ['Drivers'],
-                  spanish: ['Conductores'],
-                  turkish: ['Sürücüler'],
-                  сhinese: ['司机'],
-                  hindi: ['ड्राइवरों'],
-                })}</BookMark> */}
-            {/* drivers */}
+            {user.user.role === 'carrier' &&
+              <BookMark onClick={() => {
+                ComponentFunction.PageFunction !== 'drivers' && setFunction(false, false, 'drivers', false)
+              }} style={{
+                color: ComponentFunction.PageFunction === 'drivers' && 'grey', cursor: ComponentFunction.PageFunction === 'drivers' && 'default'
+              }}>{SetNativeTranslate(Translate.language, {
+                russian: ['Водители'],
+                english: ['Drivers'],
+                spanish: ['Conductores'],
+                turkish: ['Sürücüler'],
+                сhinese: ['司机'],
+                hindi: ['ड्राइवरों'],
+              })}</BookMark>}
 
             {user.user.role !== 'driver' &&
               <BookMark onClick={() => {

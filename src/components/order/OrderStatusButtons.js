@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, FetcherContext, NotificationContext, OrderContext, PointContext, StateContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
+import { ComponentFunctionContext, FetcherContext, NotificationContext, OrderContext, PointContext, SettingContext, StateContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { CardButton } from '../ui/button/CardButton'
 import { CardRow } from '../ui/card/CardRow'
 import { v4 } from "uuid";
@@ -24,6 +24,7 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     const { order } = useContext(OrderContext)
     const { Point } = useContext(PointContext)
     const { State } = useContext(StateContext)
+    const { Setting } = useContext(SettingContext)
     const { fetcher } = useContext(FetcherContext)
     const Auction = SetNativeTranslate(Translate.language, {}, 'auction')
     const Order = SetNativeTranslate(Translate.language, {}, 'order')
@@ -207,24 +208,27 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
     }
 
     const completed = async (event) => {
-        if (parent === 'order') {
-
-            await updateOrder('', '', thisOrder.id, user.user.role, 'completed', thisOrder.order_status, thisOrder.carrierId, thisOrder.userInfoId)
-                .then(event.stopPropagation());
-            afterAction('completed')
-            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
-        }
-        if (parent === 'selector') {
-            let group = [...order.group]
-            order.group.forEach(async element => {
-                await updateOrder('', '', element, user.user.role, 'completed', ComponentFunction.Function)
+        try {
+            if (parent === 'order') {
+                await updateOrder('', '', thisOrder.id, user.user.role, 'completed', thisOrder.order_status, thisOrder.carrierId, thisOrder.userInfoId)
                     .then(event.stopPropagation());
-                boost(element.id)
-                order.setGroup(order.group.filter(el => el !== element))
-            })
-            afterAction('completed', group)
-            Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
-        };
+                afterAction('completed')
+                Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
+            }
+            if (parent === 'selector') {
+                let group = [...order.group]
+                order.group.forEach(async element => {
+                    await updateOrder('', '', element, user.user.role, 'completed', ComponentFunction.Function)
+                        .then(event.stopPropagation());
+                    boost(element.id)
+                    order.setGroup(order.group.filter(el => el !== element))
+                })
+                afterAction('completed', group)
+                Notification.addNotification([{ id: v4(), type: 'success', message: `${you_finished} ${orders_notification.toLowerCase()} ${order.group.toString()}` }])
+            };
+        } catch (error) {
+            Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
+        }
     }
 
     const arc = async (event) => {
@@ -381,17 +385,22 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                                         </CardRow> :
                                         thisOrder.order_status === 'new' ?
                                             <CardRow>
-                                                {thisOrder.order_type === 'order' ? <CardButton onClick={inWork}>{SetNativeTranslate(Translate.language, {}, 'take')}</CardButton> :
+                                                {thisOrder.order_type === 'order' && ((user.user.role === 'driver' && Setting.user_settings.find(el => el.name === 'can_take_order').value) || user.user.role === 'carrier') ? <CardButton onClick={inWork}>{SetNativeTranslate(Translate.language, {}, 'take')}</CardButton> :
                                                     thisOrder.order_type === 'auction' && parent === 'order' ? <OfferComponent thisOrder={thisOrder} thisOrderOffers={thisOrderOffers} thisOrderNoPartners={thisOrderNoPartners} thisCarrierOffer={thisCarrierOffer} firstPoint={ComponentFunction.OrdersComponentFunction === 'orderItem' ? Point.thisOrderPoints.find(el => el.sequence === 1) : thisOrderPoints.find(el => el.sequence === 1)} /> :
                                                         <></>
                                                 }
                                             </CardRow> :
-                                            user.user.role === 'carrier' && thisOrder.order_status === 'inWork' ?
+                                            (user.user.role === 'carrier' || user.user.role === 'driver') && thisOrder.order_status === 'inWork' ?
                                                 <CardRow>
-                                                    <CardButton onClick={disrupt}>{SetNativeTranslate(Translate.language, {}, 'not_loading_button')}</CardButton>
-                                                    <CardButton onClick={completed}>{SetNativeTranslate(Translate.language, {}, 'finish_button')}</CardButton>
+
+                                                    {user.user.role === 'driver' && !Setting.user_settings.find(el => el.name === 'can_set_order_as_disrupted').value ? <></> :
+                                                        <CardButton onClick={disrupt}>{SetNativeTranslate(Translate.language, {}, 'not_loading_button')}</CardButton>}
+
+                                                    {user.user.role === 'driver' && !Setting.user_settings.find(el => el.name === 'can_finish_order').value ? <></> :
+                                                        <CardButton onClick={completed}>{SetNativeTranslate(Translate.language, {}, 'finish_button')}</CardButton>}
+
                                                 </CardRow> :
-                                                user.user.role === 'carrier' && thisOrder.order_status === 'completed' ?
+                                                (user.user.role === 'carrier') && thisOrder.order_status === 'completed' ?
                                                     <CardRow>
                                                         <CardButton onClick={arc}>{SetNativeTranslate(Translate.language, {}, 'to_arc')}</CardButton>
                                                         {parent !== 'selector' ?

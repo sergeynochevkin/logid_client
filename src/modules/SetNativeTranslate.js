@@ -276,6 +276,7 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
         { service: 'carriers_office', russian: 'Кабинет перевозчика', english: 'Сarrier`s office', spanish: 'Oficina del transportista', turkish: 'Taşıyıcının ofisi', сhinese: '柜式搬运车', hindi: 'कैबिनेट वाहक', type: 'header' },
         { service: 'drivers_office', russian: 'Кабинет водителя', english: 'Driver`s office', spanish: 'Oficina del conductor', turkish: 'Sürücü ofisi', сhinese: '司机室', hindi: 'ड्राइवर का कार्यालय', type: 'header' },
         { service: 'customers_office', russian: 'Кабинет заказчика', english: 'Customer`s office', spanish: 'Oficina del cliente', turkish: 'Müşterinin ofisi', сhinese: '客户办公室', hindi: 'ग्राहक का कार्यालय', type: 'header' },
+        { service: 'drivers_office', russian: 'Кабинет водителя', english: 'Drivers`s office', spanish: 'Oficina del conductor', turkish: 'Sürücü ofisi', сhinese: '司机室', hindi: 'ड्राइवर का कार्यालय', type: 'header' },
         { service: 'managers_office', russian: 'Кабинет менеджера', english: 'Managers office', spanish: 'Oficina del gerente', turkish: 'Yöneticinin ofisi', сhinese: '经理办公室', hindi: 'प्रबन्धक का कार्यालय', type: 'header' },
         { service: 'administrators_office', russian: 'Кабинет администратора', english: 'Administrator`s office', spanish: 'Oficina del administrador', turkish: 'Yönetici ofisi', сhinese: '管理员办公室', hindi: 'प्रशासक का कार्यालय', type: 'header' },
         { service: 'registration', russian: 'Регистрация', english: 'Registration', spanish: 'Registro', turkish: 'Kayıt ol', сhinese: '登记', hindi: 'पंजीकरण', type: 'header' },
@@ -523,6 +524,11 @@ export const SetNativeTranslate = (language, phrase_object, service) => {
 
         { service: 'sms_messaging', russian: 'Уведомлять по смс', english: 'Notify by sms', spanish: 'Notificar por sms', turkish: 'SMS ile bildir', сhinese: '短信通知', hindi: 'एसएमएस द्वारा सूचित करें', type: 'settings' },
         { service: 'email_messaging', russian: 'Уведомлять по email', english: 'Notify by email', spanish: 'Notificar por correo electrónico', turkish: 'E-postayla bildir', сhinese: '通过电子邮件通知', hindi: 'ईमेल द्वारा सूचित करें', type: 'settings' },
+        { service: 'can_see_new_orders', russian: 'Показывать новые заказы', english: 'Show new orders', spanish: 'Mostrar nuevos pedidos', turkish: 'Yeni siparişleri göster', сhinese: '显示新订单', hindi: 'नए ऑर्डर दिखाएं', type: 'settings' },
+        { service: 'can_take_order', russian: 'Брать заказы в работу', english: 'Take orders to work', spanish: 'Tomar órdenes para trabajar', turkish: 'Çalışmak için emir alın', сhinese: '接受命令去上班', hindi: 'काम करने के लिए आदेश लें', type: 'settings' },
+        { service: 'can_make_offer', russian: 'Делать предложения', english: 'Make offers', spanish: 'Haz ofertas', turkish: 'Teklifler sun', сhinese: '提出报价', hindi: 'पेशकश करना', type: 'settings' },
+        { service: 'can_finish_order', russian: 'Завершать заказы', english: 'Complete orders', spanish: 'Orden completa', turkish: 'Siparişi tamamla', сhinese: '完成订单', hindi: 'आदेश पूरा', type: 'settings' },
+        { service: 'can_set_order_as_disrupted', russian: 'Отмечать заказы как сорваные', english: 'Set orders as disrupted', spanish: 'Establecer pedidos como interrumpidos', turkish: 'Siparişleri kesintiye uğradı olarak ayarla', сhinese: '将订单设置为中断', hindi: 'ऑर्डर को बाधित के रूप में सेट करें', type: 'settings' },
     ]
 
     let translatedText

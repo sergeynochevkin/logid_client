@@ -125,6 +125,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
 
       formReset()
       fetcher.setTransports(true)
+      fetcher.setDrivers(true)
       setModalActive(false)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
