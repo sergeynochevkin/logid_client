@@ -172,7 +172,10 @@ const Fetcher = observer(() => {
         if (UserInfo && Object.keys(UserInfo.userInfo).length > 0) {
             async function fetch() {
                 if (Object.keys(UserInfo.userInfo).length !== 0) {
-                    await fetchUserState(UserInfo.userInfo.id).then(data => { State.setUserState(JSON.parse(data.state)) })
+                    await fetchUserState(UserInfo.userInfo.id).then(data => {
+                        State.setUserState(JSON.parse(data.state))
+                        user.user.role === 'driver' && State.setSupervisorState(data.supervisor_state)
+                    })
                 }
             }
             fetch()
@@ -406,6 +409,15 @@ const Fetcher = observer(() => {
         fetcher.user_app_setting && fetch()
         fetcher.setUserAppSetting(false)
     }, [fetcher.user_app_setting])
+
+
+    useEffect(() => {
+        if (user.user.role === 'driver') {
+            setInterval(() => {
+                fetcher.setUserAppSetting(true)
+            }, 60000)
+        }
+    }, [])
 
     return (
         <>

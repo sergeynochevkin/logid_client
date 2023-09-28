@@ -102,7 +102,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
     <>
       {user.user.role === 'carrier' && noPartner ?
         <CardColName>{oneOffer.cost}</CardColName> :
-        user.user.role === 'customer' && noPartner ?
+        (user.user.role === 'customer' || user.user.role === 'driver') && noPartner ?
           <>
             <tr>
               <OrderTd>{thisPartnerInfo.id}</OrderTd>
@@ -125,7 +125,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
               <OrderTd>{formattedOfferTime}</OrderTd>
 
 
-              {thisPartner && thisPartner.status === 'blocked' ? <></> :
+              {(thisPartner && thisPartner.status === 'blocked') || user.user.role === 'driver' ? <></> :
                 <td>
                   <div className='offer_action_container'>
                     <img src={

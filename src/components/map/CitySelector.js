@@ -95,7 +95,7 @@ const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefresh
         //убрать из стейт
         State.setUserStateField(Setting.all_cities, 'all_cities', UserInfo.userInfo.id)
     }
-
+    
     return (
         <>
 
@@ -128,9 +128,9 @@ const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefresh
                             if (Setting.all_cities === false) {
                                 calcAllCities()
                                 setRefreshMap(true)
+                                FilterAndSort.setFilters('', 'city')
                                 State.setUserStateField(Setting.all_cities, 'all_cities', UserInfo.userInfo.id)
-                            } else {
-                                resetAllCities()
+                                fetcher.setOrdersNew(true)
                             }
                         }}
                     >{SetNativeTranslate(Translate.language, {}, 'all_cities')}</div>
@@ -143,11 +143,13 @@ const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefresh
                     onClick={() => {
                         Setting.setUserMapCity(userCity)
                         State.setUserStateField(userCity, 'user_map_city', UserInfo.userInfo.id)
+                        FilterAndSort.setFilters(userCity, 'city')
+                        fetcher.setOrdersNew(true)
                         resetAllCities()
                     }}
                 >{userCity.name}</div>
             </div>
-            {Setting.user_map_cities.map(city =>
+            {[...Setting.user_map_cities, ...State.supervisor_state.cities].map(city =>
                 <div className='button_row'
                     key={city.name}
                 >
@@ -156,7 +158,10 @@ const CitySelector = observer(({ calcAllCities, calcСityOrderBounds, setRefresh
                         onClick={() => {
                             Setting.setUserMapCity(city)
                             State.setUserStateField(city, 'user_map_city', UserInfo.userInfo.id)
+                            FilterAndSort.setFilters(city, 'city')
+                            fetcher.setOrdersNew(true)
                             resetAllCities()
+
                         }}
                     >{city.name}</div>
 

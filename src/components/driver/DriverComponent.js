@@ -7,6 +7,7 @@ import DriverForm from './DriverForm'
 import Modal from '../ui/modal/Modal'
 import DriverList from './DriverList'
 import './Driver.css'
+import useComponentVisible from '../../hooks/useComponentVisible'
 
 const DriverComponent = observer(() => {
     const { Translate } = useContext(TranslateContext)
@@ -14,10 +15,11 @@ const DriverComponent = observer(() => {
     const [files, setFiles] = useState([])
     const [pairs, setPairs] = useState([])
 
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
     return (
         <>
-            <div className='driver_component_container'>
+            <div className='driver_component_container' ref = {ref}>
                 <Button
                     style={{ marginTop: '10px' }}
                     onClick={() => {

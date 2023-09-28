@@ -83,7 +83,8 @@ export default class FilterAndSortStore {
             },
             selected: [],
             partnersByGroups: [],
-            intercity: false
+            intercity: false,
+            city:''
         }
 
         this._partnerFilters = localStorage.getItem('partnerFilters') ? JSON.parse(localStorage.getItem('partnerFilters')) : {

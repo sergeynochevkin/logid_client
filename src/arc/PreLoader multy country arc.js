@@ -194,6 +194,12 @@ const PreLoader = observer(({ children, ...props }) => {
 
                     user.setUser(data)
 
+                    if (data.role === 'carrier' || data.role === 'customer') {
+                        console.log('works');
+                        fetcher.setDrivers(true)
+                    }
+
+
                     if (data.role === 'admin') {
                         fetcher.setManagementRgistrations(true)
                         fetcher.setManagementVisits(true)
@@ -217,10 +223,7 @@ const PreLoader = observer(({ children, ...props }) => {
                                 fetcher.setTransports(true)
                             }
 
-                            if (user.user.role === 'carrier') {
-                                fetcher.setDrivers(true)
-                            }
-
+                        
                             if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
                                 fetcher.setPartners(true)
                                 if (order_status) {
@@ -240,6 +243,10 @@ const PreLoader = observer(({ children, ...props }) => {
 
                             let state = JSON.parse(stateData.state)
                             State.setUserState(state)
+                            if (user.user.role === 'carrier') {
+                                State.setSupervisorState(stateData.supervisor_state)
+                            }
+
 
                             if (state.app_theme) {
                                 Setting.setAppTheme(state.app_theme)

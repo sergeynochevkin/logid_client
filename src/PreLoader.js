@@ -139,14 +139,13 @@ const PreLoader = observer(({ children, ...props }) => {
 
                     if (data.isActivated && action === 'driver_activation') (
                         link.setAfterActions(false, 'driver_activation')
-                    )
-
-                    if (data.role === 'carrier') {
-                        fetcher.setDrivers(true)
-                    }
-
+                    )                  
 
                     user.setUser(data)
+
+                    if (data.role === 'carrier' || data.role === 'customer') {
+                        fetcher.setDrivers(true)
+                    }
 
                     if (data.role === 'admin') {
                         fetcher.setManagementRegistrations(true)
@@ -160,7 +159,6 @@ const PreLoader = observer(({ children, ...props }) => {
                         await fetchUserInfo(data.user_id).then(data => { user.setSupervisor(data) })
                     }
 
-
                     user.setIsAuth(true)
 
                     data = await fetchUserInfo(user.user.id).then(data => {
@@ -172,12 +170,9 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
 
-                           
                             if (user.user.role === 'carrier' || user.user.role === 'driver') {
                                 fetcher.setTransports(true)
                             }
-
-                          
 
                             if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
                                 fetcher.setPartners(true)
@@ -193,10 +188,12 @@ const PreLoader = observer(({ children, ...props }) => {
                             }
                         }
 
-
                         data && fetchUserState(data.id).then(stateData => {
                             let state = JSON.parse(stateData.state)
                             State.setUserState(state)
+                            if (user.user.role === 'driver') {
+                                State.setSupervisorState(stateData.supervisor_state)
+                            }
 
                             if (state.app_theme) {
                                 Setting.setAppTheme(state.app_theme)

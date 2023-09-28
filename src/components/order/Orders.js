@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ComponentFunctionContext, FetcherContext, FilterAndSortContext, OfferContext, OrderContext, PartnerContext, PointContext, StateContext, TranslateContext, UserInfoContext } from '../../index'
+import { ComponentFunctionContext, DriverContext, FetcherContext, FilterAndSortContext, OfferContext, OrderContext, PartnerContext, PointContext, SettingContext, StateContext, TranslateContext, UserInfoContext } from '../../index'
 import { UserContext } from '../../index'
 import { observer } from 'mobx-react-lite'
 import OrderItem from './OrderItem'
@@ -22,8 +22,10 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   const { fetcher } = useContext(FetcherContext)
   const { order } = useContext(OrderContext)
   const { user } = useContext(UserContext)
+  const { Driver } = useContext(DriverContext)
   const { UserInfo } = useContext(UserInfoContext)
   const { FilterAndSort } = useContext(FilterAndSortContext)
+  const { Setting } = useContext(SettingContext)
   const { Offer } = useContext(OfferContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Point } = useContext(PointContext)
@@ -39,8 +41,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
   const { height, width } = useWindowDimensions();
 
 
-  // console.log(JSON.stringify(order.divided_orders.arc));
-  
+
 
   useEffect(() => {
     if (ComponentFunction.Function === 'arc' || ComponentFunction.Function === 'pattern') {
@@ -214,6 +215,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                       setOrderItemFunction={setOrderItemFunction}
                       onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === oneOrder.carrierId) : ''}
                       onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.carrierId) : ''}
+                      driverInfo={(user.user.role === 'carrier' || user.user.role === 'customer') && oneOrder.order_status !== 'new' && oneOrder.order_status !== 'postponed' && oneOrder.order_status !== 'canceled' && oneOrder.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === oneOrder.driver_id).user_info : ''}
                     />)}
                 </HorizontalContainer>
 
@@ -264,7 +266,16 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                     turkish: ['Sipariş yok, yeni siparişleri size e-postayla bildireceğiz'],
                     сhinese: ['没有订单，有新订单我们会通过电子邮件通知您'],
                     hindi: ['कोई ऑर्डर नहीं है, हम आपको ईमेल द्वारा नए ऑर्डर के बारे में सूचित करेंगे'],
-                  }, '') : SetNativeTranslate(Translate.language, {}, 'no_orders')
+                  }, '') : (user.user.role === 'driver' && Setting.user_settings.length > 0 && Setting.user_settings.find(el => el.name === 'can_see_new_orders').value === false) ?
+                    SetNativeTranslate(Translate.language, {
+                      russian: ['Показ новых заказов отключен, обратитесь в автопарк'],
+                      english: ['Display of new orders is disabled, contact the fleet'],
+                      spanish: ['La visualización de nuevos pedidos está deshabilitada, contacta con la flota'],
+                      turkish: ['Yeni siparişlerin görüntülenmesi devre dışı bırakıldı, filoyla iletişime geçin'],
+                      сhinese: ['新订单显示已禁用，请联系车队'],
+                      hindi: ['नए ऑर्डर का प्रदर्शन अक्षम है, बेड़े से संपर्क करें'],
+                    }, '')
+                    : SetNativeTranslate(Translate.language, {}, 'no_orders')
                 }
 
 
@@ -282,8 +293,8 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                 }}
               >
                 {(
-                  order.totalCount.arc >= 0 && 
-                ComponentFunction.Function === 'arc') || (order.totalCount.pattern > 0 && ComponentFunction.Function === 'pattern') ?
+                  order.totalCount.arc >= 0 &&
+                  ComponentFunction.Function === 'arc') || (order.totalCount.pattern > 0 && ComponentFunction.Function === 'pattern') ?
                   <>
                     <FilterAndSortComponentForServer parent={'orders'} />
                     <div className={'scroll_bar_container'}>
@@ -374,11 +385,12 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                   user={user}
                   orderItemFunction={orderItemFunction}
                   setOrderItemFunction={setOrderItemFunction}
-
+                  driverInfo={(user.user.role === 'carrier' || user.user.role === 'customer') && order.order.order_status !== 'new' && order.order.order_status !== 'postponed' && order.order.order_status !== 'canceled' && order.order.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === order.order.driver_id).userInfo : ''}
                   onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === order.order.userInfoId) :
                     user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === order.order.carrierId) : ''}
                   onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.userInfoId) :
                     user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.carrierId) : ''}
+
 
                 />
               </>

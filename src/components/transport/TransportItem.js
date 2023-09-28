@@ -139,7 +139,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           turkish: ['Sen'],
           сhinese: ['你'],
           hindi: ['आप'],
-        }) : Driver.drivers.find(el => el.id === oneTransport.driver_id).user_info?.name_surname_fathersname}</CardColValue></CardRow>
+        }) : Driver.drivers.find(el => el.user_info.id === oneTransport.driver_id).user_info.name_surname_fathersname}</CardColValue></CardRow>
       }
       
       {oneTransport.type === 'minibus' || oneTransport.type === 'truck' ?

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Map.css'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, OrderContext, PartnerContext, PointContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, DriverContext, FetcherContext, LimitContext, OrderContext, PartnerContext, PointContext, SettingContext, StateContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
@@ -28,14 +28,17 @@ import star_dark from '../../assets/icons/star_dark.webp';
 
 const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime, thisOrder }) => {
     const { UserInfo } = useContext(UserInfoContext)
+    const { Transport } = useContext(TransportContext)
     const { Limit } = useContext(LimitContext)
     const { Setting } = useContext(SettingContext)
     const { user } = useContext(UserContext)
     const { State } = useContext(StateContext)
+    const { Driver } = useContext(DriverContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { order } = useContext(OrderContext)
     const [gMap, setGMap] = useState(undefined)
     const [gMarkers, setGMarkers] = useState([])
+    const [driverMarkers, setDriverMarkers] = useState([])
     const [locationMarker, setLocationMarker] = useState('')
     const [showMarkers, setShowMarkers] = useState(false)
     const { Point } = useContext(PointContext)
@@ -47,7 +50,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
     const [refreshMap, setRefreshMap] = useState(false)
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
-    const { Partner } = useContext(PartnerContext)
+
 
     function refreshMapAction() {
         if (gMap) {
@@ -366,7 +369,6 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
 
     //delete and add when updated!
-
     const setMarker = (title, gMap, location, index) => {
         //eslint-disable-next-line no-undef
         let marker = new google.maps.Marker({
@@ -379,12 +381,13 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
         setLocationMarker(marker)
     }
 
+    //driver instead partner and also for carrier state for customers? 
     useEffect(
         () => {
-            if (user.user.role === 'customer' && thisOrder) {
-                let onePartnerInfo = Partner.partnerInfos.find(el => el.id === thisOrder.carrierId)
-                if (gMap && onePartnerInfo && onePartnerInfo.location) {
-                    let location = JSON.parse(onePartnerInfo.location)
+            if (user.user.role === 'customer' && thisOrder && thisOrder.order_status === 'inWork') {
+                let driverInfo = Driver.drivers.find(el => el.user_info.id === thisOrder.driver_id)
+                if (gMap && driverInfo && driverInfo.user_info.location) {
+                    let location = JSON.parse(driverInfo.user_info.location)
                     let title = SetNativeTranslate(Translate.language, {
                         russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
                         english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`],
@@ -402,13 +405,107 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                     }
                 }
             }
-
         }
-        , [Partner.partnerInfos, gMap])
+        , [Driver.drivers, gMap])
+
+
+
 
     useEffect(
         () => {
-            if (user.user.role === 'carrier' || user.user.role === 'driver') {
+            if (user.user.role === 'carrier') {
+                if (thisOrder && thisOrder.order_status === 'inWork') {
+                    let driverInfo = Driver.drivers.find(el => el.user_info.id === thisOrder.driver_id)
+                    if (gMap && driverInfo && driverInfo.user_info.location) {
+                        let location = JSON.parse(driverInfo.user_info.location)
+                        let title = SetNativeTranslate(Translate.language, {
+                            russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
+                            english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`],
+                            spanish: [`Actualizado ${setTime(new Date(location.updated), 0, 'show')}`],
+                            turkish: [`Güncellenmiş ${setTime(new Date(location.updated), 0, 'show')}`],
+                            сhinese: [`更新 ${setTime(new Date(location.updated), 0, 'show')}`],
+                            hindi: [`अद्यतन ${setTime(new Date(location.updated), 0, 'show')}`],
+                        })
+                        if (!locationMarker) {
+                            setMarker(title, gMap, location)
+                        }
+                        else if (locationMarker && locationMarker.getTitle() !== title) {
+                            locationMarker.setMap(null)
+                            setMarker(title, gMap, location)
+                        }
+                    }
+                } else {
+                    if (gMap) {
+                        if (driverMarkers.length > 0) {
+
+                            //clean if no driver
+                            for (const marker of driverMarkers) {
+                                let driver = marker.getTitle().split(':')[0]
+                                if (!Driver.drivers.map(el => el.user_info).find(el => el.name_surname_fathersname === driver)) {
+                                    marker.setMap(null)
+                                    let data = [...driverMarkers]
+                                    data.filter(el => el.getTitle() === driver)
+                                    setDriverMarkers([...data])
+                                }
+                            }
+
+                            //clean if old
+                            for (const driver of Driver.drivers) {
+                                let location = JSON.parse(driver.user_info.location)
+                                let title = SetNativeTranslate(Translate.language, {
+                                    russian: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                    english: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                    spanish: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                    turkish: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                    сhinese: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                    hindi: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                })
+
+                                let marker = driverMarkers.find(el => el.getTitle().split(':')[0] === title.split(':')[0])
+                                if (marker.getTitle() !== title) {
+                                    marker.setMap(null)
+                                    let data = [...driverMarkers]
+                                    data.filter(el => el.getTitle() === driver)
+                                    setDriverMarkers([...data])
+                                }
+                            }
+                        }
+                        //add if absent
+                        for (const driver of Driver.drivers) {
+                            let location = JSON.parse(driver.user_info.location)
+                            let title = SetNativeTranslate(Translate.language, {
+                                russian: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                english: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                spanish: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                turkish: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                сhinese: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                                hindi: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
+                            })
+                            if (!driverMarkers.find(el => el.getTitle() === title)) {
+                                //eslint-disable-next-line no-undef
+                                let marker = new google.maps.Marker({
+                                    position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
+                                    gMap,
+                                    title: title,
+                                    icon: Setting.app_theme === 'light' ? nav : nav_dark
+                                })
+                                marker.setMap(gMap)
+                                setDriverMarkers([...driverMarkers, marker]
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        , [UserInfo.userInfo, Driver.drivers, gMap])
+
+
+    //self position for driver drivers positions for cerrier at order in work map, all drivers position for orders map
+
+    useEffect(
+        () => {
+            if (user.user.role === 'driver') {
                 if (gMap && UserInfo.userInfo.location) {
                     let location = JSON.parse(UserInfo.userInfo.location)
                     let title = SetNativeTranslate(Translate.language, {
@@ -430,6 +527,9 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             }
         }
         , [UserInfo.userInfo, gMap])
+
+
+
 
 
 
@@ -676,6 +776,8 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
         });
     }
 
+
+
     return (
         <div className='map_container'>
             <div id='map' className='map'>
@@ -728,10 +830,14 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
                 </div>
             }
-            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && (user.user.role === 'carrier' || user.user.role === 'driver') && Limit.user_limits.carrier_take_order_city_limit !== 0) &&
-                <div className={'map_info_container'}>
-                    <CitySelector calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
-                </div>
+
+            {/* for driver upervisor transport and self transport dependency */}
+            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && (user.user.role === 'carrier' || (user.user.role === 'driver' && (Transport.transports.find(el => el.type === 'combi' || el.type === 'truck' || el.type === 'car' || el.type === 'minibus')))) && Limit.user_limits.carrier_take_order_city_limit !== 0) &&
+                <>
+                    <div className={'map_info_container'}>
+                        <CitySelector calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
+                    </div>
+                </>
             }
         </div>
     )

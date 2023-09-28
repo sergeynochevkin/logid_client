@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { CardButton } from '../ui/button/CardButton'
-import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext, FetcherContext, SettingContext, TransportContext, LinkContext } from '../../index'
+import { UserContext, ComponentFunctionContext, OrderContext, UserInfoContext, PointContext, PartnerContext, FilterAndSortContext, StateContext, AdressContext, TranslateContext, FetcherContext, SettingContext, TransportContext, LinkContext, DriverContext } from '../../index'
 import { CardContainer } from '../ui/card/CardContainer'
 import { CardRow } from '../ui/card/CardRow'
 import { CardColName } from '../ui/card/CardColName'
@@ -25,15 +25,18 @@ import g from '../../assets/icons/g.webp';
 import ya from '../../assets/icons/ya.webp';
 
 import ShareComponent from '../share/ShareComponent'
+import DriverModalContent from '../partner/DriverModalContent'
 
 
-const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartnerInfo, onePartner, oneOrderNoPartners }) => {
+const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartnerInfo, onePartner, oneOrderNoPartners, driverInfo }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { user } = useContext(UserContext)
     const { link } = useContext(LinkContext)
     const [modalActive, setModalActive] = useState(false)
     const [modalActive2, setModalActive2] = useState(false)
+    const [modalActive3, setModalActive3] = useState(false)
     const { order } = useContext(OrderContext)
+    const { Driver } = useContext(DriverContext)
     const { UserInfo } = useContext(UserInfoContext)
     const [modalFunction, setModalFunction] = useState('')
     const { Point } = useContext(PointContext)
@@ -47,29 +50,24 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
     const { Transport } = useContext(TransportContext)
     const [transport, setTransport] = useState({})
 
-
-
-
-
     const [images, setImages] = useState([])
     const [image, setImage] = useState()
-
-
 
     const [order_images, setOrderImages] = useState([])
 
     let thisOrder
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisOrder = oneOrder : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisOrder = order.order : thisOrder = {}
     let thisPartner
+    let thisDriverInfo
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisPartner = onePartner : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisPartner = Partner.partner : thisPartner = {}
     let thisPartnerInfo
     ComponentFunction.OrdersComponentFunction === 'orderList' ? thisPartnerInfo = onePartnerInfo : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisPartnerInfo = Partner.partnerInfo : thisPartnerInfo = {}
+    ComponentFunction.OrdersComponentFunction === 'orderList' ? thisDriverInfo = driverInfo : ComponentFunction.OrdersComponentFunction === 'orderItem' ? thisDriverInfo = Driver.driver : thisDriverInfo = {}
 
     let thisOrderOffers = oneOrderOffers
     let thisCarrierOffer = thisOrderOffers.find(el => el.carrierId === UserInfo.userInfo.id)
     let thisOrderPoints = oneOrderPoints
     let thisOrderNoPartners = oneOrderNoPartners
-
 
 
     const sortPoints = (a, b) => {
@@ -79,7 +77,6 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
             return -1
         }
     }
-
 
     useEffect(() => {
         if (oneOrder.order_status === 'inWork' && Transport.transports) {
@@ -128,6 +125,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
         order.setOrder(thisOrder)
         Point.setThisOrderPoints(Point.divided_points[ComponentFunction.Function].filter(el => el.orderIntegrationId === order.order.pointsIntegrationId))
         Partner.setPartner(thisPartner)
+        Driver.setDriver(thisDriverInfo)
         Partner.setPartnerInfo(thisPartnerInfo)
         if (user.user.role === 'carrier') {
             if (order.views[thisOrder.order_status] && !order.views[thisOrder.order_status].find(el => el.orderId === thisOrder.id && el.userInfoId === UserInfo.userInfo.id)) {
@@ -202,7 +200,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                     <CardRow>
                         {(user.user.role === 'carrier' && thisOrder.order_status === 'new') || (thisOrder.order_status === 'inWork') ?
                             <></>
-                            : ComponentFunction.OrdersComponentFunction !== 'orderItem' && user.user.role !=='driver' ?
+                            : ComponentFunction.OrdersComponentFunction !== 'orderItem' && user.user.role !== 'driver' ?
                                 <CardButton
                                     onClick={(event) => {
                                         event.stopPropagation();
@@ -279,6 +277,24 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         </> : <></>
                     }
 
+                    {thisDriverInfo && thisDriverInfo.id !== onePartnerInfo.id ? <CardRow style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                            setModalActive3(true)
+                        }}
+                    >
+                        <CardColName>{SetNativeTranslate(Translate.language, {
+                            russian: ['Водитель'],
+                            english: ['Driver'],
+                            spanish: ['Conductor'],
+                            turkish: ['Sürücü'],
+                            сhinese: ['司机'],
+                            hindi: ['चालक'],
+                        }, '')}</CardColName>
+                        <CardColValue>{thisDriverInfo.name_surname_fathersname}</CardColValue>
+                    </CardRow> : <></>}
+
+
+
                     {ComponentFunction.OrdersComponentFunction === 'orderItem' && (thisOrder.order_status !== 'new' && thisOrder.order_status !== 'postponed' && thisOrder.order_status !== 'canceled') && thisPartnerInfo ?
                         <>
                             <CardRow>
@@ -346,7 +362,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         <CardColValue>{thisOrder.cost === 0 ? SetNativeTranslate(Translate.language, {}, 'not_specified') : `${thisOrder.cost} ${Adress.country.currency}`}</CardColValue>
                     </CardRow>
 
-                    {((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed')&& user.user.role !=='driver') &&
+                    {((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && user.user.role !== 'driver') &&
                         <CardRow>
                             <CardColName>{SetNativeTranslate(Translate.language, {}, 'available')}</CardColName>
                             {user.user.role === 'customer' && Partner.partnerInfos.length > 0 && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
@@ -453,6 +469,9 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         />
                         : <></>
                 }
+            </Modal>
+            <Modal modalActive={modalActive3} setModalActive={setModalActive3}>
+                <DriverModalContent setModalActive={setModalActive3} onePartnerInfo={thisDriverInfo} />
             </Modal>
 
             <Modal modalActive={modalActive2} setModalActive={setModalActive2}>

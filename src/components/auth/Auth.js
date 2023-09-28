@@ -225,7 +225,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   formData.role.isEmpty = !link.after_actions.add_transport_form ? true : false
   formData.role.notValid = !link.after_actions.add_transport_form ? true : false
 
-  const [fetching, error] = useFetching(async () => {  
+  const [fetching, error] = useFetching(async () => {
 
     await fetchUserInfo(user.user.id).then(data => {
       if (data === null) {
@@ -240,8 +240,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         }
       } else {
         UserInfo.setUserInfo(data)
-        data && fetcher.setUserAppSetting(true)    
-        
+        data && fetcher.setUserAppSetting(true)
+
         if (user.user.role === 'driver') {
           fetchUserInfo(user.user.user_id).then(data => { user.setSupervisor(data) })
         }
@@ -280,6 +280,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         }
         fetchUserState(data.id).then(stateData => {
           let state = JSON.parse(stateData.state)
+          if (user.user.role === 'driver') {
+            State.setSupervisorState(stateData.supervisor_state)
+          }
           if (state.app_theme) {
             Setting.setAppTheme(state.app_theme)
           }
@@ -298,6 +301,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           }
         })
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
+          fetcher.setDrivers(true)
           if (order_status) {
             order_status === 'new' && fetcher.setOrdersNew(true)
             order_status === 'inWork' && fetcher.setOrdersInWork(true)
@@ -311,12 +315,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           fetcher.setSubscriptions(true)
         }
 
-        if (user.user.role === 'carrier' ||user.user.role === 'driver' ) {
+        if (user.user.role === 'carrier' || user.user.role === 'driver') {
           fetcher.setTransports(true)
-        }
-
-        if(user.user.role === 'carrier'){
-          fetcher.setDrivers(true)
         }
 
 

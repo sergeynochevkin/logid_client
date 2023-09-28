@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { CardRow } from '../ui/card/CardRow'
 import CardColValue from '../ui/card/CardColValue'
@@ -9,6 +9,7 @@ import { CardColName } from '../ui/card/CardColName'
 import SettingItem from '../setting/SettingItem'
 import { CardButton } from '../ui/button/CardButton'
 import { updateSetting } from '../../http/settingApi'
+import useComponentVisible from '../../hooks/useComponentVisible'
 
 const DriverItem = observer(({ driver }) => {
   const { fetcher } = useContext(FetcherContext)
@@ -16,6 +17,7 @@ const DriverItem = observer(({ driver }) => {
   const { Translate } = useContext(TranslateContext)
   const [settingsVisible, setSettingsVisible] = useState(false)
 
+  const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
 
   const updateSettingAction = async (setting) => {
     if (setting.value === false) {
@@ -35,6 +37,8 @@ const DriverItem = observer(({ driver }) => {
       return -1
     }
   }
+
+
 
 
   return (
@@ -67,23 +71,27 @@ const DriverItem = observer(({ driver }) => {
 
         })}</CardColValue>
       }
-      <CardButton onClick={() => {
-        settingsVisible && setSettingsVisible(false)
-        !settingsVisible && setSettingsVisible(true)
-      }}>{settingsVisible ? 
-      SetNativeTranslate(Translate.language,{
-        russian: ['Скрыть настройки'],
-        english: ['Hide settings'],
-          spanish: ['Ocultar configuración'],
-          turkish: ['Ayarları gizle'],
-          сhinese: ['隐藏设置'],
-          hindi: ['सेटिंग्स छिपाएँ'],
-      })
-       : 
-       SetNativeTranslate(Translate.language,{}, 'settings')
-       }</CardButton>
-      <img></img>
-      {settingsVisible && driver.user_info.user_app_settings.slice().sort(sortSetings).filter(el=>el.name !=='can_make_offer' && el.name !=='can_set_order_as_disrupted').map(setting => <SettingItem key={setting.id} setting={setting} updateSettingAction={updateSettingAction} />)}
+
+      <div ref={ref}>
+        <CardButton onClick={() => {
+          !isComponentVisible && setIsComponentVisible(true)
+          isComponentVisible && setIsComponentVisible(false)
+        }}>{isComponentVisible ?
+          SetNativeTranslate(Translate.language, {
+            russian: ['Скрыть настройки'],
+            english: ['Hide settings'],
+            spanish: ['Ocultar configuración'],
+            turkish: ['Ayarları gizle'],
+            сhinese: ['隐藏设置'],
+            hindi: ['सेटिंग्स छिपाएँ'],
+          })
+          :
+          SetNativeTranslate(Translate.language, {}, 'settings')
+          }</CardButton>
+        {isComponentVisible ?
+          <div >{driver.user_info.user_app_settings.slice().sort(sortSetings).filter(el => el.name !== 'can_make_offer' && el.name !== 'can_set_order_as_disrupted').map(setting => <SettingItem key={setting.id} setting={setting} updateSettingAction={updateSettingAction} />)}</div> : <></>
+        }
+      </div>
     </div>
   )
 })

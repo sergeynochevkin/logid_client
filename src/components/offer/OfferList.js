@@ -20,6 +20,7 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
   //   }
   // }
 
+
   return (
     <VerticalContainer
       style={{ alignItems: 'center' }}
@@ -102,7 +103,7 @@ const OfferList = ({ oneOrder, user, setModalActive, thisOrderOffers, UserInfo, 
               </tbody>
               <tbody>
                 {
-                  thisOrderOffers.filter(el => el.carrierId !== 10).map(oneOffer => <OfferItem
+                  thisOrderOffers.map(oneOffer => <OfferItem
                     key={oneOffer.id}
                     oneOffer={oneOffer}
                     oneOrder={oneOrder}
