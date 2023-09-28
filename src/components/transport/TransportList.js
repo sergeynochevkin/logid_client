@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { TranslateContext, TransportContext, UserContext } from '../..'
+import { DriverContext, TranslateContext, TransportContext, UserContext } from '../..'
 import TransportItem from './TransportItem'
 import { HorizontalContainer } from '../ui/page/HorizontalContainer'
 
@@ -12,6 +12,7 @@ const TransportList = observer(({ setModalActive, formData, setFormData, formRes
   const { Transport } = useContext(TransportContext)
   const { Translate } = useContext(TranslateContext)
   const { user } = useContext(UserContext)
+  const { Driver } = useContext(DriverContext)
 
   return (
 
@@ -22,6 +23,7 @@ const TransportList = observer(({ setModalActive, formData, setFormData, formRes
             Transport.transports.map(oneTransport => <TransportItem
               key={oneTransport.id}
               oneTransport={oneTransport}
+              oneDriver={Driver.drivers.find(el => el.user_info.id === oneTransport.driver_id)}
               setModalActive={setModalActive}
               formData={formData}
               setFormData={setFormData}

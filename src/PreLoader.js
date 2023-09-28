@@ -137,15 +137,17 @@ const PreLoader = observer(({ children, ...props }) => {
                     let country
                     let data = await check()
 
+                    if (data && (data.role === 'carrier' || data.role === 'customer')) {
+                        fetcher.setDrivers(true)
+                    }
+
                     if (data.isActivated && action === 'driver_activation') (
                         link.setAfterActions(false, 'driver_activation')
                     )                  
 
                     user.setUser(data)
 
-                    if (data.role === 'carrier' || data.role === 'customer') {
-                        fetcher.setDrivers(true)
-                    }
+             
 
                     if (data.role === 'admin') {
                         fetcher.setManagementRegistrations(true)

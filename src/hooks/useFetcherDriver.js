@@ -24,10 +24,12 @@ export const useFetcherDriver = (fetchImages) => {
             fetcher.drivers && fetch()
         fetcher.setDrivers(false)
     }, [order.divided_orders.inWork])
+    
     useEffect(() => {
+        fetcher.setDrivers(true)
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
             setInterval(() => {
-                fetcher.divided_orders(true)
+                fetcher.setDrivers(true)
             }, 60000)
         }
     }, [])

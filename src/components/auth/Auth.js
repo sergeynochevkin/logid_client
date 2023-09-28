@@ -227,6 +227,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
   const [fetching, error] = useFetching(async () => {
 
+
+    if (user.user.role === 'carrier' || user.user.role === 'customer') {
+      fetcher.setDrivers(true)
+    }
+
     await fetchUserInfo(user.user.id).then(data => {
       if (data === null) {
         UserInfo.setUserInfo({})
@@ -301,7 +306,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           }
         })
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
-          fetcher.setDrivers(true)
+
           if (order_status) {
             order_status === 'new' && fetcher.setOrdersNew(true)
             order_status === 'inWork' && fetcher.setOrdersInWork(true)

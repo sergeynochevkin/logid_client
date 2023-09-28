@@ -18,13 +18,12 @@ import link from '../../assets/icons/link.png';
 import link_dark from '../../assets/icons/link_dark.png';
 
 
-const TransportItem = observer(({ oneTransport, setModalActive, formData, setFormData, formReset, pairs, setPairs, files, setFiles, setFormFunction, setTransportId }) => {
+const TransportItem = observer(({ oneTransport, setModalActive, formData, pairs, setPairs, files, setFiles, setFormFunction, setTransportId, oneDriver }) => {
   const { Translate } = useContext(TranslateContext)
   const { fetcher } = useContext(FetcherContext)
   const { Transport } = useContext(TransportContext)
   const { Notification } = useContext(NotificationContext)
   const { user } = useContext(UserContext)
-  const { Driver } = useContext(DriverContext)
   const { Setting } = useContext(SettingContext)
   const [modalActive1, setModalActive1] = useState(false)
   const [image, setImage] = useState('')
@@ -139,7 +138,7 @@ const TransportItem = observer(({ oneTransport, setModalActive, formData, setFor
           turkish: ['Sen'],
           сhinese: ['你'],
           hindi: ['आप'],
-        }) : Driver.drivers.find(el => el.user_info.id === oneTransport.driver_id).user_info.name_surname_fathersname}</CardColValue></CardRow>
+        }) : oneDriver?  oneDriver.user_info.name_surname_fathersname : ''}</CardColValue></CardRow>
       }
       
       {oneTransport.type === 'minibus' || oneTransport.type === 'truck' ?
