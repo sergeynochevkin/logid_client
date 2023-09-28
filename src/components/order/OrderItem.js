@@ -277,7 +277,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         </> : <></>
                     }
 
-                    {thisDriverInfo && thisDriverInfo.id !== onePartnerInfo.id ? <CardRow style={{ cursor: 'pointer' }}
+                    {thisDriverInfo && onePartnerInfo && thisDriverInfo.id !== onePartnerInfo.id ? <CardRow style={{ cursor: 'pointer' }}
                         onClick={() => {
                             setModalActive3(true)
                         }}
