@@ -505,7 +505,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
     useEffect(
         () => {
-            if (user.user.role === 'driver') {
+            if (user.user.role === 'driver' || (user.user.role === 'carrier' && Driver.drivers.length === 0) ) {
                 if (gMap && UserInfo.userInfo.location) {
                     let location = JSON.parse(UserInfo.userInfo.location)
                     let title = SetNativeTranslate(Translate.language, {

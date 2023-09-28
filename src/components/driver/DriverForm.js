@@ -3,52 +3,19 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 import { observer } from 'mobx-react-lite'
 import { FieldName } from '../ui/page/FieldName'
-import { FetcherContext, NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { FetcherContext, NotificationContext, TranslateContext } from '../..'
 import { Input } from '../ui/form/Input'
-import { useInput } from '../../hooks/useInput'
 import { CardButton } from '../ui/button/CardButton'
-import DragDropUpload from '../dragDropUpload/DragDropUpload'
 import { Form } from '../ui/form/Form'
 import NameSurNameFathersName from '../account/userInfoForm/NameSurNameFathersName'
 import { driver_registration } from '../../http/userAPI'
 import { v4 } from "uuid";
 
 
-const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive }) => {
+const DriverForm = ({ setModalActive, formData, setFormData, formReset }) => {
     const { Translate } = useContext(TranslateContext)
     const { Notification } = useContext(NotificationContext)
     const { fetcher } = useContext(FetcherContext)
-    const [comparePassword, setComparePassword] = useState('')
-    const [comparePasswordActive, setComparePasswordActive] = useState(false)
-    const [filesFormData, setFilesFormData] = useState(new FormData)
-    const { UserInfo } = useContext(UserInfoContext)
-    const { user } = useContext(UserContext)
-
-    let initialValue = {
-        email: '', //from form
-        role: 'driver', //from form
-        phone: '', //from form
-        name_surname_fathersname: '', //from form
-
-        user_id: user.user.id,
-        user_info_uuid: UserInfo.userInfo.uuid,
-
-        // user_agreement_accepted: false,
-        // privacy_policy_accepted: false,
-        // age_accepted: false,
-        // personal_data_agreement_accepted: false,
-        // cookies_accepted: cookies_accepted,
-
-        country: UserInfo.userInfo.country,
-        legal: 'person',
-        city: UserInfo.userInfo.city,
-        city_place_id: UserInfo.userInfo.city_place_id,
-        city_latitude: UserInfo.userInfo.city_latitude,
-        city_longitude: UserInfo.userInfo.city_longitude
-
-    }
-
-    const [formData, setFormData] = useState(initialValue)
 
 
     const click = async (event) => {
@@ -93,6 +60,7 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
                     }
                 )
             }])
+            formReset()
             fetcher.setDrivers(true)
             setModalActive(false)
         } catch (e) {
@@ -100,19 +68,12 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
         }
     }
 
-    const validPhone = /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/
-    formData.phone = useInput('', { isEmpty: true, minLength: 6, maxLength: 18, validFormat: validPhone }, SetNativeTranslate(Translate.language, {}, 'phone_content'))
-    const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    formData.email = useInput('', { isEmpty: true, minLength: 6, maxLength: 40, validFormat: validEmail }, SetNativeTranslate(Translate.language, {
-        russian: ['email'],
-        english: ['email'],
-        spanish: ['email'],
-        turkish: ['e-posta'],
-        сhinese: ['电子邮件'],
-        hindi: ['ईमेल'],
-    }))
 
-    formData.name_surname_fathersname = useInput('', { isEmpty: true, minLength: 10, maxLength: 50 }, SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_content').toLowerCase())
+
+
+
+
+
 
     return (
         <Form encType="multipart/form-data" >
@@ -183,12 +144,16 @@ const DriverForm = observer(({ files, pairs, setFiles, setPairs, setModalActive 
             <NameSurNameFathersName formData={formData} setFormData={setFormData} />
 
             <CardButton
-                onClick={click}>{SetNativeTranslate(Translate.language, {}, 'add')}</CardButton>
+                onClick={click}
+                disabled = {formData.phone.isEmpty || formData.email.notValid ||formData.name_surname_fathersname.notValid }
+            >{SetNativeTranslate(Translate.language, {}, 'add')}
+
+            </CardButton>
 
             {/* <div>Text about drivers account and responsibility</div> */}
         </Form>
 
     )
-})
+}
 
 export default DriverForm
