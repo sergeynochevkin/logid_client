@@ -215,7 +215,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                       setOrderItemFunction={setOrderItemFunction}
                       onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === oneOrder.carrierId) : ''}
                       onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.userInfoId) : user.user.role === 'customer' ? Partner.partners.find(el => el.partnerUserInfoId === oneOrder.carrierId) : ''}
-                      driverInfo={((user.user.role === 'carrier' && oneOrder.driver_id !== UserInfo.userInfo.id) || user.user.role === 'customer') && oneOrder && oneOrder.order_status !== 'new' && oneOrder.order_status !== 'postponed' && oneOrder.order_status !== 'canceled' && oneOrder.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === oneOrder.driver_id).user_info : ''}
+                      driverInfo={Driver.drivers.length>0 && ((user.user.role === 'carrier' && oneOrder.driver_id !== UserInfo.userInfo.id) || user.user.role === 'customer') && oneOrder && oneOrder.order_status !== 'new' && oneOrder.order_status !== 'postponed' && oneOrder.order_status !== 'canceled' && oneOrder.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === oneOrder.driver_id).user_info : ''}
                     />)}
                 </HorizontalContainer>
 
@@ -385,7 +385,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                   user={user}
                   orderItemFunction={orderItemFunction}
                   setOrderItemFunction={setOrderItemFunction}
-                  driverInfo={((user.user.role === 'carrier' && order.order.driver_id !== UserInfo.userInfo.id) || user.user.role === 'customer') && order.order.order_status !== 'new' && order.order.order_status !== 'postponed' && order.order.order_status !== 'canceled' && order.order.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === order.order.driver_id).userInfo : ''}
+                  driverInfo={(Driver.drivers.length>0 && (user.user.role === 'carrier' && order.order.driver_id !== UserInfo.userInfo.id) || user.user.role === 'customer') && order.order.order_status !== 'new' && order.order.order_status !== 'postponed' && order.order.order_status !== 'canceled' && order.order.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === order.order.driver_id).userInfo : ''}
                   onePartnerInfo={user.user.role === 'carrier' ? Partner.partnerInfos.find(el => el.id === order.order.userInfoId) :
                     user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === order.order.carrierId) : ''}
                   onePartner={user.user.role === 'carrier' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.userInfoId) :
