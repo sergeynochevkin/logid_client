@@ -228,12 +228,12 @@ const Fetcher = observer(() => {
                         Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
                         await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => {
                             Partner.setPartnerInfos(data)
+                            Partner.setPartners(data);
                         })
 
                         if (user.user.role === 'carrier') {
                             Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
-                            Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
-                            Partner.setPartners(data);
+                            Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))                            
                             await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
                                 Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
                                 Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))

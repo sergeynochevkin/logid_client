@@ -262,12 +262,12 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                         {
                                             onePartnerInfo.legal === 'person' ?
                                                 <CardColName
-                                                    style={{ backgroundColor: user.user.role !=='driver' ?  setColor(thisPartner.status) : '' }}>
+                                                    style={{ backgroundColor: user.user.role !=='driver' && thisPartner ?  setColor(thisPartner?.status) : '' }}>
                                                     {onePartnerInfo.name_surname_fathersname}
                                                 </CardColName>
                                                 :
                                                 <CardColName
-                                                    style={{ backgroundColor:  user.user.role !=='driver' ? setColor(thisPartner.status) : '' }}>
+                                                    style={{ backgroundColor:  user.user.role !=='driver' && thisPartner ? setColor(thisPartner?.status) : '' }}>
                                                     {onePartnerInfo.company_name}
                                                 </CardColName>
                                         }
