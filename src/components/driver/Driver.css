@@ -6,11 +6,15 @@
     flex-direction: column;
     height: max-content;
 }
-
 .driver_list_container {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
     gap: 5px;
+}
+.driver_settings_container{
+display: flex;
+flex-direction: column;
+gap: 5px;
 }

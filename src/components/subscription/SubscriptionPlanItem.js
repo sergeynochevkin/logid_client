@@ -70,8 +70,8 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole,
 
     return (
         <>
-            {plan ?
-                <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.plan_id === Subscription.subscription.planId && user.user.role ? 'plan_item_container current' :
+            {plan  ?
+                <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.plan_id === Subscription.subscription?.planId && user.user.role ? 'plan_item_container current' :
                     'plan_item_container'}
                     style={{
                         boxShadow: `0px 5px 10px 0px ${setColor(plan.name)}`,
@@ -95,7 +95,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole,
                         {plan && plan.plan_id !== 1 ?
                             <div className='price_and_validity'>
                                 <div className={'plan_item_name_bage'}>{Adress.country.currency}</div>
-                                {plan.plan_id === Subscription.subscription.planId && user.user.role && Adress.country.value === 'russia' ?
+                                {Subscription.subscription?.planId === plan.plan_id  && user.user.role && Adress.country.value === 'russia' ?
                                     <div className={'plan_item_name_bage'}>{`${SetNativeTranslate(Translate.language, {}, 'active_until')} ${setTime(new Date(Subscription.subscription.paid_to), 0, 'show')}`}</div>
                                     : <div className='paid_to_place_holder'></div>}
                             </div>
@@ -111,7 +111,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole,
                                     updateSubscriptionAction()
                                 }
                             }}
-                        >{Subscription.subscription.planId === 1 ? SetNativeTranslate(Translate.language, {}, 'subscribe') : plan.plan_id === Subscription.subscription.planId ? SetNativeTranslate(Translate.language, {}, 'renew') : SetNativeTranslate(Translate.language, {}, 'switch')}</Button>
+                        >{Subscription.subscription?.planId === 1 ? SetNativeTranslate(Translate.language, {}, 'subscribe') : plan.plan_id === Subscription.subscription.planId ? SetNativeTranslate(Translate.language, {}, 'renew') : SetNativeTranslate(Translate.language, {}, 'switch')}</Button>
                     }
                 </div> : <></>}
         </>

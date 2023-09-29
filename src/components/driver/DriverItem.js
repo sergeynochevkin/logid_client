@@ -72,7 +72,7 @@ const DriverItem = observer(({ driver }) => {
         })}</CardColValue>
       }
 
-      <div ref={ref}>
+      <div  ref={ref}>
         <CardButton onClick={() => {
           !isComponentVisible && setIsComponentVisible(true)
           isComponentVisible && setIsComponentVisible(false)
@@ -89,7 +89,7 @@ const DriverItem = observer(({ driver }) => {
           SetNativeTranslate(Translate.language, {}, 'settings')
           }</CardButton>
         {isComponentVisible ?
-          <div >{driver.user_info.user_app_settings.slice().sort(sortSetings).filter(el => el.name !== 'can_make_offer' && el.name !== 'can_set_order_as_disrupted').map(setting => <SettingItem key={setting.id} setting={setting} updateSettingAction={updateSettingAction} />)}</div> : <></>
+          <div className = 'driver_settings_container'>{driver.user_info.user_app_settings.slice().sort(sortSetings).filter(el => el.name !== 'can_make_offer' && el.name !== 'can_set_order_as_disrupted').map(setting => <SettingItem key={setting.id} setting={setting} updateSettingAction={updateSettingAction} />)}</div> : <></>
         }
       </div>
     </div>
