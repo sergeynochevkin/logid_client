@@ -23,7 +23,7 @@ const TransportList = observer(({ setModalActive, formData, setFormData, formRes
             Transport.transports.map(oneTransport => <TransportItem
               key={oneTransport.id}
               oneTransport={oneTransport}
-              oneDriver={Driver.drivers.find(el => el.user_info.id === oneTransport.driver_id)}
+              oneDriver={user.user.role !=='driver' ? Driver.drivers.find(el => el.user_info.id === oneTransport.driver_id) : ''}
               setModalActive={setModalActive}
               formData={formData}
               setFormData={setFormData}
