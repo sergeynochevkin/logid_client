@@ -832,7 +832,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             }
 
             {/* for driver upervisor transport and self transport dependency */}
-            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && (user.user.role === 'carrier' || (user.user.role === 'driver' && (Transport.transports.find(el => el.type === 'combi' || el.type === 'truck' || el.type === 'car' || el.type === 'minibus')))) && Limit.user_limits.carrier_take_order_city_limit !== 0) &&
+            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && (user.user.role === 'carrier' || (user.user.role === 'driver' && (Transport.transports.find(el => el.type === 'combi' || el.type === 'truck' || el.type === 'car' || el.type === 'minibus')))) && (user.user.role !== 'driver' && Limit.user_limits.carrier_take_order_city_limit !== 0 )) &&
                 <>
                     <div className={'map_info_container'}>
                         <CitySelector calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />
