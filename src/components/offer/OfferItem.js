@@ -65,9 +65,7 @@ const OfferItem = observer(({ oneOffer, user, noPartner, oneOrder, UserInfo, set
     try {
       await updateOrder('', '', oneOrder.id, user.user.role, 'inWork', oneOrder.order_status, noPartner.id, UserInfo.userInfo.id, oneOffer.cost, oneOffer.time_from, firstPoint.id, oneOffer.transportid)
         .then(sendMail(Translate.language, user.user.role, oneOrder.id, 'order_status', 'inWork', noPartner.id))
-        .then(createPartner(UserInfo.userInfo.id, noPartner.id, 'normal'))
-        .then(createPartner(noPartner.id, UserInfo.userInfo.id, 'normal'))
-
+        .then(createPartner(UserInfo.userInfo.id, noPartner.id, 'normal'))      
         .then(spliceOrder(oneOrder.id, 1))
       fetcher.setOrdersNew(true)
       fetcher.setOrdersInWork(true)

@@ -195,7 +195,6 @@ const OrderStatusButtons = observer(({ parent, thisOrder, thisOrderOffers, thisP
                     try {
                         await updateOrder('', '', thisOrder.id, user.user.role, 'inWork', thisOrder.order_status, UserInfo.userInfo.id, undefined, undefined, undefined, undefined, transportId ? transportId : transport.id)
                         await createPartner(UserInfo.userInfo.id, thisOrder.userInfoId, 'normal')//to the server
-                        await createPartner(thisOrder.userInfoId, UserInfo.userInfo.id, 'normal')//to the server
                         Transport.setTransport({})
                         afterAction('inWork')
                         Notification.addNotification([{ id: v4(), type: 'success', message: `${you_took} ${the.toLowerCase()} ${thisOrder.order_type === 'order' ? Order.toLowerCase() : Auction.toLowerCase()} ${thisOrder.id}` }])
