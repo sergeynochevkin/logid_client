@@ -81,9 +81,9 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
                     <CardColValue>{onePartnerInfo.id}</CardColValue>
                     <CardColName
                         style={{
-                            backgroundColor: onePartner.status === 'normal' ? 'rgb(241,196,15,0.8)' :
-                                onePartner.status === 'priority' ? 'rgb(129, 199, 132,0.8)' :
-                                    onePartner.status === 'blocked' ? 'rgb(254, 111, 103,0.8)' : ''
+                            backgroundColor: user.user.role !== 'driver' && onePartner.status === 'normal' ? 'rgb(241,196,15,0.8)' :
+                                user.user.role !== 'driver' && onePartner.status === 'priority' ? 'rgb(129, 199, 132,0.8)' :
+                                    user.user.role !== 'driver' && onePartner.status === 'blocked' ? 'rgb(254, 111, 103,0.8)' : ''
                         }}
                     >
 
@@ -139,24 +139,26 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
                 <RatingView onePartnerInfo={onePartnerInfo} user={user} parent={'account'} />
                 <HorizontalContainer>
 
-                    {onePartner.status === 'normal' ?
-                        <>
-                            <CardButton onClick={priority}>{SetNativeTranslate(Translate.language, {}, 'partner_to_favorite')}</CardButton>
-                            <CardButton onClick={blocked}>{SetNativeTranslate(Translate.language, {}, 'partner_to_blocked')}</CardButton>
-                        </>
-                        :
-                        onePartner.status === 'blocked' ?
+                    {user.user.role !== 'driver' && <>
+                        {onePartner.status === 'normal' ?
                             <>
                                 <CardButton onClick={priority}>{SetNativeTranslate(Translate.language, {}, 'partner_to_favorite')}</CardButton>
-                                <CardButton onClick={normal}>{SetNativeTranslate(Translate.language, {}, 'partner_from_blocked')}</CardButton>
-                            </> :
-                            onePartner.status === 'priority' ?
+                                <CardButton onClick={blocked}>{SetNativeTranslate(Translate.language, {}, 'partner_to_blocked')}</CardButton>
+                            </>
+                            :
+                            onePartner.status === 'blocked' ?
                                 <>
-                                    <CardButton onClick={normal}>{SetNativeTranslate(Translate.language, {}, 'partner_to_normal')}</CardButton>
-                                    <CardButton onClick={blocked}>{SetNativeTranslate(Translate.language, {}, 'partner_to_blocked')}</CardButton>
-                                </>
-                                :
-                                <></>}
+                                    <CardButton onClick={priority}>{SetNativeTranslate(Translate.language, {}, 'partner_to_favorite')}</CardButton>
+                                    <CardButton onClick={normal}>{SetNativeTranslate(Translate.language, {}, 'partner_from_blocked')}</CardButton>
+                                </> :
+                                onePartner.status === 'priority' ?
+                                    <>
+                                        <CardButton onClick={normal}>{SetNativeTranslate(Translate.language, {}, 'partner_to_normal')}</CardButton>
+                                        <CardButton onClick={blocked}>{SetNativeTranslate(Translate.language, {}, 'partner_to_blocked')}</CardButton>
+                                    </>
+                                    :
+                                    <></>}
+                    </>}
 
                     <CardButton
                         onClick={() => {

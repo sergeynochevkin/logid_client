@@ -217,24 +217,29 @@ const Fetcher = observer(() => {
             }
             fetcher.partners && fetch()
 
-        } else if (user.user.role === 'carrier') {
+        } else if (user.user.role === 'carrier' || user.user.role === 'driver') {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
                 if (Object.keys(UserInfo.userInfo).length !== 0) {
                     await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
-                        fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
+                     
+                        user.user.role === 'carrier' &&   fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
+                     
                         Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
                         await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => {
                             Partner.setPartnerInfos(data)
                         })
-                        Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
-                        Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
-                        Partner.setPartners(data);
-                        await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
-                            Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
-                            Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))
-                        })
-                        await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
+
+                        if (user.user.role === 'carrier') {
+                            Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
+                            Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
+                            Partner.setPartners(data);
+                            await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
+                                Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
+                                Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))
+                            })
+                            await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
+                        }
                     })
                 }
                 // }
