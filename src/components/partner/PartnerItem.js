@@ -16,7 +16,6 @@ const PartnerItem = observer(({ onePartnerInfo, onePartner, onePartnerOtherRatin
   const [modalFunction, setModalFunction] = useState('')
   const [partnerGroups, setPartnerGroups] = useState([1])
 
-console.log(JSON.stringify(onePartner));
 
   useEffect(() => {
     setPartnerGroups(Partner.groups.filter(el => el.partners.includes(onePartnerInfo.id)).map(el => el.dataValues.id))
@@ -41,11 +40,12 @@ console.log(JSON.stringify(onePartner));
         }
 
       </Modal>
+      {onePartner &&
       <tr>
         <OrderTd>{onePartnerInfo.id}</OrderTd>
         <OrderTd
           style={{
-            backgroundColor: onePartner.status === 'normal' ? 'rgb(241,196,15,0.6)' :
+            backgroundColor: onePartner?.status === 'normal' ? 'rgb(241,196,15,0.6)' :
               onePartner.status === 'priority' ? 'rgb(129, 199, 132,0.6)' :
                 onePartner.status === 'blocked' ? 'rgb(254, 111, 103,0.6)' : '',
             cursor: 'pointer'
@@ -82,6 +82,7 @@ console.log(JSON.stringify(onePartner));
         <OrderTd>{onePartner.status === 'normal' ? SetNativeTranslate(Translate.language,{},'partner_normal') : onePartner.status === 'blocked' ? SetNativeTranslate(Translate.language,{},'partner_blocked') : onePartner.status === 'priority' ? SetNativeTranslate(Translate.language,{},'partner_favorite') : ''}</OrderTd>
         <OtherRatingComponent onePartnerInfo={onePartnerInfo} onePartnerOtherRatingByThisUserInfo={onePartnerOtherRatingByThisUserInfo}  onePartner={onePartner}/>
       </tr>
+    }
     </>
   )
 })

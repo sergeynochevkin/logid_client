@@ -64,7 +64,9 @@ const PartnersList = observer(() => {
                 </tr>
               </tbody>
               <tbody>
-                {
+
+              
+                {Partner.partners.length>0 &&
                   Partner.partnerInfos.map(onePartnerInfo =>
                     <PartnerItem
                       key={onePartnerInfo.id}
