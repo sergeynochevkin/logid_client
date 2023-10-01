@@ -18,8 +18,8 @@ export const addPartnerByKey = async (
     return data
 }
 
-export const fetchPartners = async (userInfoId, partnerUserInfoId) => {
-    const { data } = await $authHost.get('api/partner', { params: { userInfoId, partnerUserInfoId } })
+export const fetchPartners = async (userInfoId) => {
+    const { data } = await $authHost.get('api/partner', { params: { userInfoId } })
     return data
 }
 

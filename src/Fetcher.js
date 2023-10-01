@@ -269,7 +269,7 @@ const Fetcher = observer(() => {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
                 if (Object.keys(UserInfo.userInfo).length !== 0) {
-                    await fetchPartners(undefined,UserInfo.userInfo.id).then(async data => {
+                    await fetchPartners(UserInfo.userInfo.id).then(async data => {
                         await fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
                         await fetchOtherRatings(UserInfo.userInfo.id).then(data => { Rating.setOtherRatings(data) })
                         Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.carrierId))
@@ -288,7 +288,7 @@ const Fetcher = observer(() => {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
                 if (Object.keys(UserInfo.userInfo).length !== 0) {
-                    await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
+                    await fetchPartners( UserInfo.userInfo.id).then(async data => {
 
                         user.user.role === 'carrier' && fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
 
@@ -300,7 +300,7 @@ const Fetcher = observer(() => {
                         if (user.user.role === 'carrier' || user.user.role === 'driver') {
                             user.user.role !== 'driver' && Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
                             user.user.role !== 'driver' && Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
-                            await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
+                            await fetchPartners(UserInfo.userInfo.id).then(async data => {
                                 Partner.setPartners(data);
                                 user.user.role !== 'driver' && Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
                                 user.user.role !== 'driver' && Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))
