@@ -23,12 +23,12 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
             </div>
 
 
-            {role === 'customer' &&
+            {/* {role === 'customer' &&
                 <Button>Добавить заказ</Button>
             }
             {role === 'carrier' &&
                 <Button>Добавить транспорт</Button>
-            }
+            } */}
 
 
             <div className={Setting.app_theme === 'light' ? 'main_banner_half_2_container' : 'main_banner_half_2_container dark'}>

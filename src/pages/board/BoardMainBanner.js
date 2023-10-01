@@ -23,7 +23,7 @@ const BoardMainBanner = observer(() => {
         сhinese: ['布告栏'],
         hindi: ['बुलेटिन बोर्ड'],
       })}</div>
-      <Button>Добавить объявление</Button>
+      {/* <Button>Добавить объявление</Button> */}
     </div>
   )
 })
