@@ -3,10 +3,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CardButton } from '../ui/button/CardButton'
 import Modal from '../ui/modal/Modal'
 import AvatarModalContent from './AvatarModalContent'
-import { UserInfoContext } from '../..'
+import { TranslateContext, UserInfoContext } from '../..'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
 const AvatarComponent = observer(() => {
     const { UserInfo } = useContext(UserInfoContext)
+    const { Translate } = useContext(TranslateContext)
     const [files, setFiles] = useState([])
     const [pairs, setPairs] = useState([])
     const [modalActive, setModalActive] = useState(false)
@@ -30,7 +32,14 @@ const AvatarComponent = observer(() => {
                     !modalActive ? setModalActive(true) : setModalActive(false)
                 }}
                     className='avatar_container' style={{ backgroundImage: `url(${images[0]})`, backgroundPosition: 'center', backgroundSize: 'contain' }}>
-                    <CardButton>{!images[0] ? 'Add foto' : ''}</CardButton>
+                    <CardButton>{!images[0] ? SetNativeTranslate(Translate.language, {
+                        russian: ['Добавить фото'],
+                        english: ['Add foto'],
+                        spanish: ['Añadir foto'],
+                        turkish: ['Fotoğraf ekle'],
+                        сhinese: ['添加照片'],
+                        hindi: ['तस्वीर जोड़ो'],
+                    }, '') : ''}</CardButton>
                 </div>
 
             </div>
