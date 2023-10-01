@@ -4,6 +4,7 @@ export default class PartnerStore {
     constructor() {
         this._partners = []
         this._partnerInfos = []
+        this._images = []
         this._partner = {}
         this._partnerInfo = {}
 
@@ -62,6 +63,9 @@ export default class PartnerStore {
     setIAmFavorite(iAmFavorite) {
         this._iAmFavorite = iAmFavorite
     }
+    setImages(value) {
+        this._images = value
+    }
 
     get partners() {
         return this._partners
@@ -97,5 +101,8 @@ export default class PartnerStore {
 
     get iAmFavorite() {
         return this._iAmFavorite
+    }
+    get images() {
+        return this._images
     }
 }

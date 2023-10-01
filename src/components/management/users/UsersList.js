@@ -82,14 +82,12 @@ const UsersList = observer(() => {
                             onClick={() => {
                                 setFormData(initialValue)
                                 setFormData({ ...formData, members: [...Management.users.map(el => el.id)] })
-                                console.log(formData.members)
                             }}
                         />}
                     {formData.members.length === Management.users.length &&
                         <img src={Setting.app_theme === 'light' ? deselect_all : deselect_all_dark} className='management_sync_icon' alt='select_all'
                             onClick={() => {
                                 setFormData(initialValue)
-                                console.log(formData.members)
                             }}
                         />
                     }

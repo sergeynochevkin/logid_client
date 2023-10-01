@@ -247,6 +247,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         UserInfo.setUserInfo(data)
         data && fetcher.setUserAppSetting(true)
 
+        fetcher.setUserInfo(true)
+
         if (user.user.role === 'driver') {
           fetchUserInfo(user.user.user_id).then(data => { user.setSupervisor(data) })
         }

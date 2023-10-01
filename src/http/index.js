@@ -25,7 +25,7 @@ $host.interceptors.response.use((config) => { return config; }, (async error => 
             localStorage.setItem('token', data.accessToken)
             return $host.request(originalRequest)
         } catch (error) {
-            console.log('Не авторизован');
+            console.log('Not auth');
         }
     }
     throw error

@@ -123,9 +123,9 @@ const DragDropUpload = observer(({ parent, length, extensions, filesFormData, fi
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
                 >
-                    {parent === 'transportForm' ? SetNativeTranslate(Translate.language, {}, 'drag_drop_transport') : parent === 'driver_form' ? SetNativeTranslate(Translate.language, {
-                        russian: ['Добавьте фотографию водителя'],
-                        english: ['Add drivers foto'],
+                    {parent === 'transportForm' ? SetNativeTranslate(Translate.language, {}, 'drag_drop_transport') : parent === 'avatarForm' ? SetNativeTranslate(Translate.language, {
+                        russian: ['Добавьте фотографию'],
+                        english: ['Add foto'],
                         spanish: ['Agregar controladores foto'],
                         turkish: ['Sürücü fotoğrafı ekle'],
                         сhinese: ['添加司机的照片'],

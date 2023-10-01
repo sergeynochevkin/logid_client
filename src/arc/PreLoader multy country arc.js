@@ -195,7 +195,6 @@ const PreLoader = observer(({ children, ...props }) => {
                     user.setUser(data)
 
                     if (data.role === 'carrier' || data.role === 'customer') {
-                        console.log('works');
                         fetcher.setDrivers(true)
                     }
 

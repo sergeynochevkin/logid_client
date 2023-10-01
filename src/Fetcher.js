@@ -23,13 +23,13 @@ import { ReactInternetSpeedMeter } from 'react-internet-meter'
 import { useFetcherTransport } from './hooks/useFetcherTransport'
 import { useFetcherDriver } from './hooks/useFetcherDriver'
 import { useFetcherOrders } from './hooks/useFetcherOrders'
+import { useFetcherUserInfo } from './hooks/useFetcherUserInfo'
 // import 'react-internet-speed-meter/dist/index.css'
 
 const Fetcher = observer(() => {
     const { fetcher } = useContext(FetcherContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Notification } = useContext(NotificationContext)
-    const { Driver } = useContext(DriverContext)
     const { Limit } = useContext(LimitContext)
     const { link } = useContext(LinkContext)
     const { State } = useContext(StateContext)
@@ -39,9 +39,8 @@ const Fetcher = observer(() => {
     const { Rating } = useContext(RatingContext)
     const { order } = useContext(OrderContext)
     const { Partner } = useContext(PartnerContext)
+    const { Driver } = useContext(DriverContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
-    const { Point } = useContext(PointContext)
-    const { Offer } = useContext(OfferContext)
     const { Transport } = useContext(TransportContext)
     const { Management } = useContext(ManagementContext)
     const { Ad } = useContext(AdContext)
@@ -55,7 +54,7 @@ const Fetcher = observer(() => {
         return (objectURL)
     }
 
-    let imageHandler = async (transports) => {
+    let transportImageHandler = async (transports) => {
         for (const transport of transports) {
             if (!Transport.transports.find(el => el.id === transport.id)) {
                 Transport.setTransports([...Transport.transports, transport])
@@ -101,6 +100,71 @@ const Fetcher = observer(() => {
         }
     }
 
+    let imageHandler = async (objects) => {
+        for (const object of objects) {
+            if (!UserInfo.images.find(el => el.id === object.id) || JSON.stringify(UserInfo.images.find(el => el.id === object.id).urlsArray) !== JSON.stringify(object.files)) {
+                let imageObject = {
+                    id: object.id,
+                    urlsArray: []
+                }
+                if (object.files) {
+                    let fileNames = JSON.parse(object.files)
+                    for (const file of fileNames) {
+                        let url = await fetchImages('avatar', object, file)
+                        imageObject.urlsArray.push(url)
+                    }
+                    let data = [...UserInfo.images.filter(el => el.id !== object.id), imageObject]
+                    UserInfo.setImages(data)
+                }
+            }
+        }
+    }
+
+    let partnerImageHandler = async (objects) => {
+        for (const object of objects) {
+            if (!Partner.images.find(el => el.id === object.id) || JSON.stringify(Partner.images.find(el => el.id === object.id).urlsArray) !== JSON.stringify(object.files)) {
+                let imageObject = {
+                    id: object.id,
+                    urlsArray: []
+                }
+                if (object.files) {
+                    let fileNames = JSON.parse(object.files)
+                    for (const file of fileNames) {
+                        let url = await fetchImages('avatar', object, file)
+                        imageObject.urlsArray.push(url)
+                    }
+                    let data = [...Partner.images.filter(el => el.id !== object.id), imageObject]
+                    Partner.setImages(data)
+                }
+            }
+        }
+    }
+
+
+
+    let driverImageHandler = async (objects) => {
+        for (const object of objects) {
+            if (!Driver.images.find(el => el.id === object.id) || JSON.stringify(Driver.images.find(el => el.id === object.id).urlsArray) !== JSON.stringify(object.files)) {
+                let imageObject = {
+                    id: object.id,
+                    urlsArray: []
+                }
+
+                if (object.files) {
+                    let fileNames = JSON.parse(object.files)
+                    for (const file of fileNames) {
+                        let url = await fetchImages('avatar', object, file)
+                        imageObject.urlsArray.push(url)
+                    }
+                    let data = [...Driver.images.filter(el => el.id !== object.id), imageObject]
+                    Driver.setImages(data)
+                }
+            }
+        }
+    }
+
+
+
     let adImageHandler = async (transports, option) => {
 
         for (const transport of transports) {
@@ -111,6 +175,7 @@ const Fetcher = observer(() => {
                     id: transport.id,
                     urlsArray: []
                 }
+
 
                 let fileNames = JSON.parse(transport.files)
 
@@ -184,7 +249,10 @@ const Fetcher = observer(() => {
     }, [fetcher.user_state])
 
     //orders done!
-    useFetcherOrders(orderImageHandler, imageHandler)
+    useFetcherOrders(orderImageHandler, transportImageHandler)
+
+    //userInfo done
+    useFetcherUserInfo(imageHandler)
 
     //set_order_viewed
     useEffect(() => {
@@ -194,8 +262,6 @@ const Fetcher = observer(() => {
         fetcher.order_viewed && fetch()
         fetcher.setOrderViewed(false)
     }, [fetcher.order_viewed])
-
-
 
     //partners
     useEffect(() => {
@@ -210,6 +276,7 @@ const Fetcher = observer(() => {
                         Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
                         Partner.setMyFavorite(data.filter(el => el.status === 'favorite').map(el => el.partnerUserInfoId))
                         Partner.setPartners(data);
+                        partnerImageHandler(data)
                         await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => Partner.setPartnerInfos(data))
                     })
                 }
@@ -222,18 +289,19 @@ const Fetcher = observer(() => {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
                 if (Object.keys(UserInfo.userInfo).length !== 0) {
                     await fetchPartners(UserInfo.userInfo.id, undefined).then(async data => {
-                     
-                        user.user.role === 'carrier' &&   fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
-                     
+
+                        user.user.role === 'carrier' && fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
+
                         Partner.setPartner(data.find(el => el.partnerUserInfoId === order.order.userInfoId))
                         await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => {
                             Partner.setPartnerInfos(data)
                             Partner.setPartners(data);
+                            partnerImageHandler(data)
                         })
 
                         if (user.user.role === 'carrier') {
                             Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
-                            Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))                            
+                            Partner.setMyFavorite(data.filter(el => el.status === 'priority').map(el => el.partnerUserInfoId))
                             await fetchPartners(undefined, UserInfo.userInfo.id).then(async data => {
                                 Partner.setIAmBlocked(data.filter(el => el.status === 'blocked').map(el => el.userInfoId))
                                 Partner.setIAmFavorite(data.filter(el => el.status === 'favorite').map(el => el.userInfoId))
@@ -244,7 +312,6 @@ const Fetcher = observer(() => {
                 }
                 // }
             }
-
             fetcher.partners && fetch()
         }
         fetcher.setPartners(false)
@@ -263,7 +330,7 @@ const Fetcher = observer(() => {
     }, [])
 
     //drivers done!
-    useFetcherDriver()
+    useFetcherDriver(driverImageHandler)
 
     //transport done!
     useFetcherTransport(fetchImages)

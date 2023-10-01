@@ -16,6 +16,8 @@ const PartnerItem = observer(({ onePartnerInfo, onePartner, onePartnerOtherRatin
   const [modalFunction, setModalFunction] = useState('')
   const [partnerGroups, setPartnerGroups] = useState([1])
 
+console.log(JSON.stringify(onePartner));
+
   useEffect(() => {
     setPartnerGroups(Partner.groups.filter(el => el.partners.includes(onePartnerInfo.id)).map(el => el.dataValues.id))
   }, [Partner.groups])

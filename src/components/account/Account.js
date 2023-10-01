@@ -16,6 +16,7 @@ import AccountInfoStatus from './AccountInfoStatus'
 import PaymentComponent from '../payment/PaymentComponent'
 import ShareComponent from '../share/ShareComponent'
 import SupervisorInfoComponent from './SupervisorInfoComponent'
+import AvatarComponent from './AvatarComponent'
 
 
 const Account = observer(() => {
@@ -40,6 +41,7 @@ const Account = observer(() => {
 
     const containerClassName = Setting.app_theme === 'light' ? 'account_container' : 'account_container account_container_dark'
 
+
     return (<>
 
         <HorizontalContainer
@@ -55,6 +57,7 @@ const Account = observer(() => {
             }
 
             <VerticalContainer>
+            <AvatarComponent/>
                 <AccountActivationStatus containerClassName={containerClassName} />
                 <div
                     className={containerClassName}>

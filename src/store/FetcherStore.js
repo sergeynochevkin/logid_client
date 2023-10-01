@@ -9,6 +9,7 @@ export default class FetcherStore {
         this._transports = false
         this._account_user = false
         this._account_user_info = false
+        this._user_info = false
 
         //orders
         this._orders = false
@@ -128,6 +129,9 @@ export default class FetcherStore {
     setCustomLoading(value) {
         this._custom_loading = value
     }
+    setUserInfo(value) {
+        this._user_info = value
+    }
 
     //get
     get server_notifications() {
@@ -211,5 +215,8 @@ export default class FetcherStore {
     }
     get custom_loading() {
         return this._custom_loading
+    }
+    get user_info() {
+        return this._user_info
     }
 }

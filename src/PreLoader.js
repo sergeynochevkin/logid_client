@@ -172,6 +172,8 @@ const PreLoader = observer(({ children, ...props }) => {
                                 Adress.setCountry(country)
                             }
 
+                            fetcher.setUserInfo(true)
+
                             if (user.user.role === 'carrier' || user.user.role === 'driver') {
                                 fetcher.setTransports(true)
                             }

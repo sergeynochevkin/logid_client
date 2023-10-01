@@ -7,7 +7,7 @@ import { fetchOffers } from "../http/offerApi"
 import { fetchUserInfos } from "../http/userInfoApi"
 
 
-export const useFetcherOrders = (orderImageHandler, imageHandler) => {
+export const useFetcherOrders = (orderImageHandler, transportImageHandler) => {
     const { fetcher } = useContext(FetcherContext)
     const { order } = useContext(OrderContext)
     const { UserInfo } = useContext(UserInfoContext)
@@ -44,7 +44,7 @@ export const useFetcherOrders = (orderImageHandler, imageHandler) => {
                 order.setDividedOrders(data.rows, order_status)
 
                 // accumulate transport and find and accumulate images              
-                await imageHandler(data.transport)
+                await transportImageHandler(data.transport)
                 data.total_count && Transport.setTransportByOrder(data.total_count.transport)
 
                 order.setMapOrders(data.map_rows)
@@ -74,7 +74,7 @@ export const useFetcherOrders = (orderImageHandler, imageHandler) => {
                         Offer.setOffers(data.rows)
 
                         // get transport by offers accumulate and accumulate images 
-                        await imageHandler(data.transport)
+                        await transportImageHandler(data.transport)
 
                         Offer.setChanges(data.changes)
                         await fetchUserInfos(Offer.offers.map(el => el.carrierId), FilterAndSort.partnerFilters).then(data => Partner.setNoPartnerInfos(data)

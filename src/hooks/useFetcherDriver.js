@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import { DriverContext, FetcherContext, OrderContext, UserContext } from ".."
 import { fetchDrivers } from "../http/userAPI"
 
-export const useFetcherDriver = (fetchImages) => {
+export const useFetcherDriver = (driverImageHandler) => {
     const { Driver } = useContext(DriverContext)
     const { user } = useContext(UserContext)
     const { fetcher } = useContext(FetcherContext)
@@ -12,6 +12,7 @@ export const useFetcherDriver = (fetchImages) => {
     async function fetch() {
         await fetchDrivers(user.user.id).then(data => {
             Driver.setDrivers(data)
+            driverImageHandler(data)
         }
         )
     }
@@ -24,7 +25,7 @@ export const useFetcherDriver = (fetchImages) => {
             fetcher.drivers && fetch()
         fetcher.setDrivers(false)
     }, [order.divided_orders.inWork])
-    
+
     useEffect(() => {
         fetcher.setDrivers(true)
         if (user.user.role === 'carrier' || user.user.role === 'customer') {
