@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
-import { FetcherContext, OrderContext, TranslateContext, UserContext } from '../..'
+import React, { useContext, useEffect, useState } from 'react'
+import { FetcherContext, OrderContext, PartnerContext, TranslateContext, UserContext } from '../..'
 import { updatePartner } from '../../http/partnerApi'
 import RatingView from '../rating/RatingView'
 import { CardButton } from '../ui/button/CardButton'
@@ -18,7 +18,9 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
     const { user } = useContext(UserContext)
     const { Notification } = useContext(NotificationContext)
     const { Translate } = useContext(TranslateContext)
+    const { Partner } = useContext(PartnerContext)
     const { fetcher } = useContext(FetcherContext)
+    const [images, setImages] = useState([])
     const you_added = SetNativeTranslate(Translate.language, {}, 'you_added')
     const you_blocked = SetNativeTranslate(Translate.language, {}, 'you_blocked')
     const you_have_changed_status = SetNativeTranslate(Translate.language, {}, 'you_have_changed_status')
@@ -72,11 +74,22 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
         }
     }
 
+    useEffect(() => {
+        if (Partner.images.find(el => el.id === onePartnerInfo.id)) {
+            setImages(Partner.images.find(el => el.id === onePartnerInfo.id).urlsArray)
+        }
+    }, [])
+
     return (
         <div
             className='partner_modal_content_container'
         >
             <div className='partner_view_container'>
+                {images[0] &&
+                    <div className='patner_avatar_container' style={{ backgroundImage: `url(${images[0]})`, backgroundPosition: 'center', backgroundSize: 'contain' }}>
+                    </div>
+                }
+
                 <CardRow>
                     <CardColValue>{onePartnerInfo.id}</CardColValue>
                     <CardColName

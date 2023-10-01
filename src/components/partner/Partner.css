@@ -25,11 +25,17 @@
     margin-bottom: 20px;
 }
 
-.partner_view_container{
+.partner_view_container {
     align-items: left;
     display: flex;
     flex-direction: column;
-    gap: 10px; 
+    gap: 10px;
+}
+
+.patner_avatar_container {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
 }
 
 @media screen and (max-width: 425px) {
@@ -40,7 +46,8 @@
     .partner_modal_content_container {
         width: 100vw;
     }
-    .partner_view_container{
-        width: 350px;
+
+    .partner_view_container {
+        width: 100vw;
     }
 }

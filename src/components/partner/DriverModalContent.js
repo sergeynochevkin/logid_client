@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
-import { TranslateContext, UserContext } from '../..'
+import React, { useContext, useEffect, useState } from 'react'
+import { DriverContext, TranslateContext, UserContext } from '../..'
 import RatingView from '../rating/RatingView'
 import { CardButton } from '../ui/button/CardButton'
 import { CardColName } from '../ui/card/CardColName'
@@ -13,14 +13,27 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 const DriverModalContent = observer(({ setModalActive, onePartnerInfo }) => {
     const { user } = useContext(UserContext)
     const { Translate } = useContext(TranslateContext)
+    const {Driver} = useContext(DriverContext)
+    const [images, setImages] = useState([])
 
-
+    useEffect(() => {
+        if (Driver.images.find(el => el.id === onePartnerInfo.id)) {
+            setImages(Driver.images.find(el => el.id === onePartnerInfo.id).urlsArray)
+        }
+    }, [])
 
     return (
         <div
             className='partner_modal_content_container'
         >
             <div className='partner_view_container'>
+
+            {images[0] &&
+                    <div className='patner_avatar_container' style={{ backgroundImage: `url(${images[0]})`, backgroundPosition: 'center', backgroundSize: 'contain' }}>
+                    </div>
+                }
+
+
                 <CardRow>
                     <CardColValue>{onePartnerInfo.id}</CardColValue>
                     <CardColName>

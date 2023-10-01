@@ -144,14 +144,15 @@ const Fetcher = observer(() => {
 
     let driverImageHandler = async (objects) => {
         for (const object of objects) {
-            if (!Driver.images.find(el => el.id === object.id) || JSON.stringify(Driver.images.find(el => el.id === object.id).urlsArray) !== JSON.stringify(object.files)) {
+
+            if (!Driver.images.find(el => el.id === object.user_info.id) || JSON.stringify(Driver.images.find(el => el.id === object.user_info.id).urlsArray) !== JSON.stringify(object.user_info.files)) {
                 let imageObject = {
-                    id: object.id,
+                    id: object.user_info.id,
                     urlsArray: []
                 }
 
-                if (object.files) {
-                    let fileNames = JSON.parse(object.files)
+                if (object.user_info.files) {
+                    let fileNames = JSON.parse(object.user_info.files)
                     for (const file of fileNames) {
                         let url = await fetchImages('avatar', object, file)
                         imageObject.urlsArray.push(url)
@@ -276,8 +277,10 @@ const Fetcher = observer(() => {
                         Partner.setMyBlocked(data.filter(el => el.status === 'blocked').map(el => el.partnerUserInfoId))
                         Partner.setMyFavorite(data.filter(el => el.status === 'favorite').map(el => el.partnerUserInfoId))
                         Partner.setPartners(data);
-                        partnerImageHandler(data)
-                        await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => Partner.setPartnerInfos(data))
+                        await fetchUserInfos(data.map(el => el.partnerUserInfoId), FilterAndSort.partnerFilters).then(data => {
+                            Partner.setPartnerInfos(data)
+                            partnerImageHandler(data)
+                        })
                     })
                 }
                 // }
@@ -288,7 +291,7 @@ const Fetcher = observer(() => {
             async function fetch() {
                 // if (ComponentFunction.Function !== 'new' || ComponentFunction.Function !== 'postponed') {
                 if (Object.keys(UserInfo.userInfo).length !== 0) {
-                    await fetchPartners( UserInfo.userInfo.id).then(async data => {
+                    await fetchPartners(UserInfo.userInfo.id).then(async data => {
 
                         user.user.role === 'carrier' && fetchGroups(UserInfo.userInfo.id, data.map(el => el.partnerUserInfoId)).then(data => Partner.setGroups(data))
 

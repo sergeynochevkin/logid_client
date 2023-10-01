@@ -7,7 +7,7 @@ export const useFetcherDriver = (driverImageHandler) => {
     const { user } = useContext(UserContext)
     const { fetcher } = useContext(FetcherContext)
     const { order } = useContext(OrderContext)
-
+    
 
     async function fetch() {
         await fetchDrivers(user.user.id).then(data => {
