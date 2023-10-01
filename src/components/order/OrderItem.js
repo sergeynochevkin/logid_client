@@ -254,20 +254,20 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                                     setModalActive(true)
                                 }}>
                                 <CardColName>
-                                    {user.user.role === 'carrier'  ||user.user.role === 'driver'? SetNativeTranslate(Translate.language, {}, 'customer') :
+                                    {user.user.role === 'carrier' || user.user.role === 'driver' ? SetNativeTranslate(Translate.language, {}, 'customer') :
                                         user.user.role === 'customer' ? SetNativeTranslate(Translate.language, {}, 'carrier') : ''}
-                                </CardColName>                                
+                                </CardColName>
                                 {onePartnerInfo &&
                                     <>
                                         {
                                             onePartnerInfo.legal === 'person' ?
                                                 <CardColName
-                                                    style={{ backgroundColor: user.user.role !=='driver' && thisPartner ?  setColor(thisPartner?.status) : '' }}>
+                                                    style={{ backgroundColor: user.user.role !== 'driver' && thisPartner ? setColor(thisPartner?.status) : '' }}>
                                                     {onePartnerInfo.name_surname_fathersname}
                                                 </CardColName>
                                                 :
                                                 <CardColName
-                                                    style={{ backgroundColor:  user.user.role !=='driver' && thisPartner ? setColor(thisPartner?.status) : '' }}>
+                                                    style={{ backgroundColor: user.user.role !== 'driver' && thisPartner ? setColor(thisPartner?.status) : '' }}>
                                                     {onePartnerInfo.company_name}
                                                 </CardColName>
                                         }
@@ -470,9 +470,11 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         : <></>
                 }
             </Modal>
-            <Modal modalActive={modalActive3} setModalActive={setModalActive3}>
-                <DriverModalContent setModalActive={setModalActive3} onePartnerInfo={thisDriverInfo} />
-            </Modal>
+            {thisDriverInfo &&
+                <Modal modalActive={modalActive3} setModalActive={setModalActive3}>
+                    <DriverModalContent setModalActive={setModalActive3} onePartnerInfo={thisDriverInfo} />
+                </Modal>
+            }
 
             <Modal modalActive={modalActive2} setModalActive={setModalActive2}>
                 <div className='image_modal_container'>
