@@ -23,7 +23,7 @@ const AvatarComponent = observer(() => {
         if (UserInfo.images.find(el => el.id === UserInfo.userInfo.id)) {
             setImages(UserInfo.images.find(el => el.id === UserInfo.userInfo.id).urlsArray)
         }
-    }, [UserInfo.userInfo.images])
+    }, [UserInfo.images])
 
     return (
         <>

@@ -47,7 +47,6 @@ const AvatarModalContent = observer(({ files, pairs, setFiles, setPairs, formRes
             formReset()
             fetcher.setUserInfo(true)
             setModalActive(false)
-
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
         }
