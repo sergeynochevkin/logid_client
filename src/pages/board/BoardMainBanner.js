@@ -4,6 +4,7 @@ import courier from '../../assets/courier.webp';
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import { TranslateContext } from '../..';
 import { observer } from 'mobx-react-lite';
+import { Button } from '../../components/ui/button/Button';
 
 const BoardMainBanner = observer(() => {
 
@@ -22,6 +23,7 @@ const BoardMainBanner = observer(() => {
         сhinese: ['布告栏'],
         hindi: ['बुलेटिन बोर्ड'],
       })}</div>
+      <Button>Добавить объявление</Button>
     </div>
   )
 })

@@ -64,7 +64,7 @@ const DriverItem = observer(({ driver }) => {
 
 
 
-        {images[0] &&
+        {images[0] ?
           <div
             onClick={(event) => {
               event.stopPropagation()
@@ -72,6 +72,8 @@ const DriverItem = observer(({ driver }) => {
               setModalActive(true)
             }}
             className='driver_avatar_container' style={{ backgroundImage: `url(${images[0]})`, backgroundPosition: 'center', backgroundSize: 'contain' }}>
+          </div> : <div className={`driver_avatar_container ${Setting.app_theme} ${!images[0] && 'disabled'}`}>
+          {!images[0] && driver.email.charAt().toUpperCase()}
           </div>
         }
 

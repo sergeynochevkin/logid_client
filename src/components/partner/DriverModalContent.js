@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { DriverContext, TranslateContext, UserContext } from '../..'
+import { DriverContext, SettingContext, TranslateContext, UserContext } from '../..'
 import RatingView from '../rating/RatingView'
 import { CardButton } from '../ui/button/CardButton'
 import { CardColName } from '../ui/card/CardColName'
@@ -13,7 +13,8 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 const DriverModalContent = observer(({ setModalActive, onePartnerInfo }) => {
     const { user } = useContext(UserContext)
     const { Translate } = useContext(TranslateContext)
-    const {Driver} = useContext(DriverContext)
+    const { Setting } = useContext(SettingContext)
+    const { Driver } = useContext(DriverContext)
     const [images, setImages] = useState([])
 
     useEffect(() => {
@@ -28,10 +29,11 @@ const DriverModalContent = observer(({ setModalActive, onePartnerInfo }) => {
         >
             <div className='partner_view_container'>
 
-            {images[0] &&
-                    <div className='patner_avatar_container' style={{ backgroundImage: `url(${images[0]})`, backgroundPosition: 'center', backgroundSize: 'contain' }}>
-                    </div>
-                }
+
+                <div className={`patner_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
+                    {!images[0] && onePartnerInfo.email.charAt().toUpperCase()}
+                </div>
+
 
 
                 <CardRow>

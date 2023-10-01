@@ -50,6 +50,9 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                             })}</div>
                         </>}
 
+
+                 
+
                     <FastSignUp />
 
                     {/* <div className='banner_action_button_container'>

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { FetcherContext, OrderContext, PartnerContext, TranslateContext, UserContext } from '../..'
+import { FetcherContext, OrderContext, PartnerContext, SettingContext, TranslateContext, UserContext } from '../..'
 import { updatePartner } from '../../http/partnerApi'
 import RatingView from '../rating/RatingView'
 import { CardButton } from '../ui/button/CardButton'
@@ -20,6 +20,7 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
     const { Translate } = useContext(TranslateContext)
     const { Partner } = useContext(PartnerContext)
     const { fetcher } = useContext(FetcherContext)
+    const {Setting}  = useContext(SettingContext)
     const [images, setImages] = useState([])
     const you_added = SetNativeTranslate(Translate.language, {}, 'you_added')
     const you_blocked = SetNativeTranslate(Translate.language, {}, 'you_blocked')
@@ -85,10 +86,11 @@ const PartnerModalContent = observer(({ setModalActive, onePartnerInfo, onePartn
             className='partner_modal_content_container'
         >
             <div className='partner_view_container'>
-                {images[0] &&
-                    <div className='patner_avatar_container' style={{ backgroundImage: `url(${images[0]})`, backgroundPosition: 'center', backgroundSize: 'contain' }}>
+             
+                    <div className={`patner_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain'}}>
+                  { !images[0] && onePartnerInfo.email.charAt().toUpperCase()}
                     </div>
-                }
+                
 
                 <CardRow>
                     <CardColValue>{onePartnerInfo.id}</CardColValue>
