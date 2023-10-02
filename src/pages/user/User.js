@@ -205,7 +205,7 @@ const User = observer(() => {
         ComponentFunction.PageFunction === 'orderList' ? <OrderList /> :
           ComponentFunction.PageFunction === 'account' ? <Account /> :
             user.user.role === 'customer' && ComponentFunction.PageFunction === 'orderForm' ?
-              <OrderForm /> :
+              <OrderForm modalActive = {modalActive} setModalActive = {setModalActive}/> :
               (user.user.role === 'carrier' || user.user.role === 'driver') && ComponentFunction.PageFunction === 'transport' ? <TransportComponent /> :
                 ComponentFunction.PageFunction === 'partners' ? <Partners /> :
                   ComponentFunction.PageFunction === 'settings' ? <SettingsComponent /> :

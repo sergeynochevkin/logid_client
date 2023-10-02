@@ -44,7 +44,7 @@ const BoardMainBanner = observer(({ modalActive1, setModalActive1, addAdAction }
 
 
       <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
-        <Auth modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: 'add_ad' }} />
+        <Auth enterPoint={'isRegister'} modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: 'add_ad' }} />
       </Modal>
 
     </div>

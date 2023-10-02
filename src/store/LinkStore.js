@@ -8,7 +8,8 @@ export default class LinktStore {
         this._internet = false
         this._after_actions = {
             add_transport_form: false,
-            driver_activation:false            
+            driver_activation:false, 
+            add_order:false            
         }
 
         makeAutoObservable(this)

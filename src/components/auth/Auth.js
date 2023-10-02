@@ -62,15 +62,15 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       setIsRecovery(false)
     }
     if (enterPoint === 'isRegister') {
-      setIsLogin(false)
       setIsRegister(true)
+      setIsLogin(false)
       setIsRecovery(false)
 
     }
     if (enterPoint === 'isRecovery') {
+      setIsRecovery(true)
       setIsLogin(false)
       setIsRegister(false)
-      setIsRecovery(true)
     }
   }
 
@@ -79,8 +79,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   }, [])
 
   let formReset = () => {
-
-    enterAction('isLogin')
+    enterAction('isRegister')
     setComparePassword('')
 
     formData.email.setValue('')
@@ -253,35 +252,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           fetchUserInfo(user.user.user_id).then(data => { user.setSupervisor(data) })
         }
 
-        if (after_action && data) {
-          if (after_action.action === 'transport_contact_viewed') {
-            addContactView('transport', after_action.transportId, ip, data.id)
-            fetcher.setAdTransports(true)
-          }
-          if (after_action.action === 'add_ad') {
-            if (user.user.role === 'carrier') {
-              ComponentFunction.setPageFunction('transport')
-            }
-            if (user.user.role === 'customer') {
-              let message = SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Вы являетесь заказчиком и не можете добавить объявление, как перевозчик. Создайте аккаунт перевозчика'],
-                  english: ['You are a customer and cannot add an ad as a carrier. Create a carrier account'],
-                  spanish: ['Eres cliente y no puedes agregar un anuncio como transportista. Crear una cuenta de operador'],
-                  turkish: ['Müşterisiniz ve operatör olarak reklam ekleyemezsiniz. Operatör hesabı oluşturun'],
-                  сhinese: ['您是客户，无法添加广告作为载体。 创建运营商帐户'],
-                  hindi: ['आप एक ग्राहक हैं और वाहक के रूप में कोई विज्ञापन नहीं जोड़ सकते। एक वाहक खाता बनाएँ'],
-                }
-              )
-
-              !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{
-                id: v4(), type: 'error', message: message
-              }])
-            }
-            navigate(USER_ROUTE)
-          }
-        }
-
+      
         if (data.country !== Adress.country.value) {
           Adress.setCountry(Adress.countries.find(el => el.value === data.country))
         }
@@ -325,6 +296,60 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         if (user.user.role === 'carrier' || user.user.role === 'driver') {
           fetcher.setTransports(true)
         }
+
+        if (after_action && data) {
+          if (after_action.action === 'transport_contact_viewed') {
+            addContactView('transport', after_action.transportId, ip, data.id)
+            fetcher.setAdTransports(true)
+          }
+          
+          if (after_action.action === 'add_ad') {
+            if (user.user.role === 'carrier') {
+              ComponentFunction.setPageFunction('transport')
+            }
+         
+            if (user.user.role === 'customer') {
+              let message = SetNativeTranslate(Translate.language,
+                {
+                  russian: ['Вы являетесь заказчиком и не можете добавить объявление, как перевозчик. Создайте аккаунт перевозчика'],
+                  english: ['You are a customer and cannot add an ad as a carrier. Create a carrier account'],
+                  spanish: ['Eres cliente y no puedes agregar un anuncio como transportista. Crear una cuenta de operador'],
+                  turkish: ['Müşterisiniz ve operatör olarak reklam ekleyemezsiniz. Operatör hesabı oluşturun'],
+                  сhinese: ['您是客户，无法添加广告作为载体。 创建运营商帐户'],
+                  hindi: ['आप एक ग्राहक हैं और वाहक के रूप में कोई विज्ञापन नहीं जोड़ सकते। एक वाहक खाता बनाएँ'],
+                }
+              )
+
+              !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{
+                id: v4(), type: 'error', message: message
+              }])
+            }
+          }
+
+          //problems!
+          if (after_action.action === 'add_order') {
+            if (user.user.role === 'carrier' || user.user.role === 'driver') {
+              let message = SetNativeTranslate(Translate.language,
+                {
+                  russian: ['Вы являетесь перевозчиком и не можете создавать заказы. Создайте аккаунт заказчика'],
+                  english: ['You are a carrier and cannot create orders. Create a customer account'],
+                  spanish: ['Eres transportista y no puedes crear pedidos. Crear una cuenta de cliente'],
+                  turkish: ['Taşıyıcısınız ve sipariş oluşturamazsınız. Müşteri hesabı oluşturun'],
+                  сhinese: ['您是承运人，无法创建订单。 创建客户帐户'],
+                  hindi: ['आप एक वाहक हैं और ऑर्डर नहीं बना सकते. एक ग्राहक खाता बनाएं'],
+                }
+              )
+              !Notification.notifications.find(el => el.message === message) && Notification.addNotification([{
+                id: v4(), type: 'error', message: message
+              }])
+            } else if (user.user.role === 'customer') {
+              ComponentFunction.setPageFunction('orderForm')
+              ComponentFunction.setOrderFormFunction('newOrder')            
+            }
+          }
+          navigate(USER_ROUTE)
+        }
+
 
 
         if (parent === 'navBar' && !after_action) {

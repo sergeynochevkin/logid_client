@@ -20,6 +20,7 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const navigate = useNavigate()
     const [modalActive1, setModalActive1] = useState(false)
+    const [action, setAction] = useState('')
 
 
 
@@ -29,15 +30,20 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
     const role = queryParams.get("role")
 
 
-    const addAdAction = () => {
-        link.setAfterActions(true, 'add_transport_form')
+    const addAdAction = (option) => {
+        link.setAfterActions(true, option)
         if (user.isAuth) {
-            ComponentFunction.setPageFunction('transport')
+            if (option === 'add_transport_form') {
+                ComponentFunction.setPageFunction('transport')
+            }       
             navigate(USER_ROUTE)
         } else {
             setModalActive1(true)
         }
     }
+
+
+
 
 
     return (
@@ -47,24 +53,40 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
             </div>
 
 
-            {/* {role === 'customer' &&
-                <AdButton>Добавить заказ</AdButton>
-            } */}
-            {role === 'carrier' &&
+            {role === 'customer' &&
                 <AdButton
                     onClick={() => {
-                        addAdAction()
+                        setAction('add_order')
+                        addAdAction('add_order')
                     }}
                 >
                     {SetNativeTranslate(Translate.language, {
-                            russian: ['Добавить транспорт'],
-                            english: ['Add transport'],
-                            spanish: ['Añadir transporte'],
-                            turkish: ['Taşıma ekle'],
-                            сhinese: ['添加交通工具'],
-                            hindi: ['परिवहन जोड़ें'],
+                        russian: ['Добавить заказ'],
+                        english: ['Add an order'],
+                        spanish: ['Añadir un pedido'],
+                        turkish: ['Sipariş ekle'],
+                        сhinese: ['添加订单'],
+                        hindi: ['एक ऑर्डर जोड़ें'],
 
-                        })}
+                    })}
+                </AdButton>
+            }
+            {role === 'carrier' &&
+                <AdButton
+                    onClick={() => {
+                        setAction('add_ad')
+                        addAdAction('add_transport_form')
+                    }}
+                >
+                    {SetNativeTranslate(Translate.language, {
+                        russian: ['Добавить транспорт'],
+                        english: ['Add transport'],
+                        spanish: ['Añadir transporte'],
+                        turkish: ['Taşıma ekle'],
+                        сhinese: ['添加交通工具'],
+                        hindi: ['परिवहन जोड़ें'],
+
+                    })}
                 </AdButton>
             }
 
@@ -75,7 +97,7 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
             </div>
 
             <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
-                <Auth modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: 'add_ad' }} />
+                <Auth enterPoint={'isRegister'} modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: action }} />
             </Modal>
 
         </div>

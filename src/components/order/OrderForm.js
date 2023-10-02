@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Form } from '../ui/form/Form'
 import { Button } from '../ui/button/Button'
 import styled from 'styled-components'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, OrderContext, PartnerContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, LinkContext, NotificationContext, OrderContext, PartnerContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { createOrder } from '../../http/orderApi'
 import { observer } from 'mobx-react-lite'
 import OrderComment from './orderForm/OrderComment'
@@ -30,7 +30,7 @@ gap:5px;
 align-items:center;
 `
 
-const OrderForm = observer(() => {
+const OrderForm = observer(({ modalActive, setModalActive }) => {
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
@@ -38,8 +38,9 @@ const OrderForm = observer(() => {
     const { order } = useContext(OrderContext)
     const { Point } = useContext(PointContext)
     const { Limit } = useContext(LimitContext)
+    const { link } = useContext(LinkContext)
     const { Translate } = useContext(TranslateContext)
-    const {Partner} = useContext( PartnerContext)
+    const { Partner } = useContext(PartnerContext)
     const { fetcher } = useContext(FetcherContext)
     const [pointsNotValid, setPointsNotValid] = useState(false)
     const [timeNotValid, setTimeNotValid] = useState(false)
@@ -128,6 +129,14 @@ const OrderForm = observer(() => {
         }
     }, [])
 
+    useEffect(() => {
+        if (link.after_actions.add_order) {
+            if (UserInfo.userInfo.legal) {
+                setModalActive(true)
+                link.setAfterActions(false, 'add_order')
+            }
+        }
+    }, [])
 
 
 
