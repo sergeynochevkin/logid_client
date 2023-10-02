@@ -36,9 +36,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { link } = useContext(LinkContext)
   const { UserInfo } = useContext(UserInfoContext)
   const queryParams = new URLSearchParams(window.location.search)
-  const [isLogin, setIsLogin] = useState()
-  const [isRegister, setIsRegister] = useState()
-  const [isRecovery, setIsRecovery] = useState()
+  const [isLogin, setIsLogin] = useState(enterPoint ==='isLogin' ?  true : false)
+  const [isRegister, setIsRegister] = useState(enterPoint ==='isRegister' ?  true : false)
+  const [isRecovery, setIsRecovery] = useState(enterPoint ==='isRecovery' ?  true : false)
   const navigate = useNavigate()
   const [comparePassword, setComparePassword] = useState('')
   const [comparePasswordActive, setComparePasswordActive] = useState(false)
@@ -75,11 +75,12 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   }
 
   useEffect(() => {
-    enterAction(enterPoint)
-  }, [])
+    if (!modalActive) {
+      formReset()
+    }
+  }, [modalActive])
 
   let formReset = () => {
-    enterAction('isRegister')
     setComparePassword('')
 
     formData.email.setValue('')
@@ -159,11 +160,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     type: '',
   }
 
-  useEffect(() => {
-    if (!modalActive) {
-      formReset()
-    }
-  }, [modalActive])
+ 
 
   // const isLogin = location.pathname === LOGIN_ROUTE
   // const isRegister = location.pathname === REGISTRATION_ROUTE
