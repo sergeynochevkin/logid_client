@@ -55,7 +55,7 @@ const TransportComponent = observer(() => {
   const formReset = () => {
     formData.tag.setValue('')
     formData.tag.setDirty(false)
-    formData.driver_id.setValue('')
+    formData.driver_id.setValue(Driver.drivers.length === 0 ? user.user.id : '')
     formData.driver_id.setDirty(false)
     formData.ad_text.setValue('')
     formData.ad_text.setDirty(false)
