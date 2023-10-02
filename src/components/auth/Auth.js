@@ -7,7 +7,7 @@ import { Select } from '../ui/form/Select'
 import { Comment } from '../ui/form/Comment'
 import { useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, MANAGER_ROUTE } from '../../utils/consts';
-import { activateDriver, code, fast_registration, login, registration, restore, update } from '../../http/userAPI'
+import { activateDriver, code, fast_registration, login, restore } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, ComponentFunctionContext, FetcherContext, LinkContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
@@ -27,7 +27,6 @@ import { CheckBoxContainer } from '../ui/form/CheckBoxContainer'
 import { CheckBoxSection } from '../ui/form/CheckBoxSection'
 import TransportFormSection from '../transport/TransportFormSection'
 import City from '../account/userInfoForm/City'
-import { transportContactViewed } from '../../http/transportApi'
 import { addContactView } from '../../http/adApi'
 
 
@@ -36,9 +35,10 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { link } = useContext(LinkContext)
   const { UserInfo } = useContext(UserInfoContext)
   const queryParams = new URLSearchParams(window.location.search)
-  const [isLogin, setIsLogin] = useState(enterPoint ==='isLogin' ?  true : false)
-  const [isRegister, setIsRegister] = useState(enterPoint ==='isRegister' ?  true : false)
-  const [isRecovery, setIsRecovery] = useState(enterPoint ==='isRecovery' ?  true : false)
+
+  const [isRegister, setIsRegister] = useState(false)
+  const [isLogin, setIsLogin] = useState(false)
+  const [isRecovery, setIsRecovery] = useState(false)
   const navigate = useNavigate()
   const [comparePassword, setComparePassword] = useState('')
   const [comparePasswordActive, setComparePasswordActive] = useState(false)
@@ -73,6 +73,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       setIsRegister(false)
     }
   }
+
+  useEffect(() => {
+    console.log('works');
+    enterAction(enterPoint)
+  }, [])
 
   useEffect(() => {
     if (!modalActive) {
@@ -160,7 +165,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     type: '',
   }
 
- 
+
 
   // const isLogin = location.pathname === LOGIN_ROUTE
   // const isRegister = location.pathname === REGISTRATION_ROUTE
@@ -249,7 +254,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           fetchUserInfo(user.user.user_id).then(data => { user.setSupervisor(data) })
         }
 
-      
+
         if (data.country !== Adress.country.value) {
           Adress.setCountry(Adress.countries.find(el => el.value === data.country))
         }
@@ -299,12 +304,12 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             addContactView('transport', after_action.transportId, ip, data.id)
             fetcher.setAdTransports(true)
           }
-          
+
           if (after_action.action === 'add_ad') {
             if (user.user.role === 'carrier') {
               ComponentFunction.setPageFunction('transport')
             }
-         
+
             if (user.user.role === 'customer') {
               let message = SetNativeTranslate(Translate.language,
                 {
@@ -341,7 +346,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               }])
             } else if (user.user.role === 'customer') {
               ComponentFunction.setPageFunction('orderForm')
-              ComponentFunction.setOrderFormFunction('newOrder')            
+              ComponentFunction.setOrderFormFunction('newOrder')
             }
           }
           navigate(USER_ROUTE)

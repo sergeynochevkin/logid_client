@@ -11,6 +11,8 @@ import BoardActionComponent from './BoardActionComponent'
 import { USER_ROUTE } from '../../utils/consts'
 import { useNavigate } from 'react-router-dom'
 import { v4 } from "uuid";
+import Modal from '../../components/ui/modal/Modal'
+import Auth from '../../components/auth/Auth'
 
 
 const Board = observer(() => {
@@ -89,6 +91,10 @@ const Board = observer(() => {
                 </div>
                 <BoardActionComponent />
             </div>
+
+            <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
+                <Auth enterPoint={'isRegister'} modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: 'add_ad' }} />
+            </Modal>
         </div>
     )
 })

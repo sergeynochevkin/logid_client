@@ -8,7 +8,7 @@ import { AdButton } from '../../components/ui/button/AdButton';
 import Modal from '../../components/ui/modal/Modal';
 import Auth from '../../components/auth/Auth';
 
-const BoardMainBanner = observer(({ modalActive1, setModalActive1, addAdAction }) => {
+const BoardMainBanner = observer(({  addAdAction }) => {
 
   const queryParams = new URLSearchParams(window.location.search)
   const target = queryParams.get("target")
@@ -43,9 +43,7 @@ const BoardMainBanner = observer(({ modalActive1, setModalActive1, addAdAction }
       </AdButton>
 
 
-      <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
-        <Auth enterPoint={'isRegister'} modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: 'add_ad' }} />
-      </Modal>
+     
 
     </div>
   )

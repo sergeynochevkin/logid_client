@@ -12,7 +12,7 @@ import Auth from '../../components/auth/Auth'
 import { useNavigate } from 'react-router-dom'
 import { USER_ROUTE } from '../../utils/consts'
 
-const BoardFilter = observer(({ modalActive, setModalActive, addAdAction, modalActive1, setModalActive1 }) => {
+const BoardFilter = observer(({ modalActive, setModalActive, addAdAction }) => {
     const { Translate } = useContext(TranslateContext)
     const { Setting } = useContext(SettingContext)
     const { user } = useContext(UserContext)
@@ -23,9 +23,6 @@ const BoardFilter = observer(({ modalActive, setModalActive, addAdAction, modalA
 
     return (
         <>
-            <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
-                <Auth modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: 'add_ad' }} />
-            </Modal>
 
             <div className='board_filter_container'>
                 <FilterAndSortSeparateSearchAndSort parent={'board'} modalActive={modalActive} setModalActive={setModalActive} />
