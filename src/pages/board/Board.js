@@ -5,12 +5,19 @@ import BoardFilter from './BoardFilter'
 import BoardMainBanner from './BoardMainBanner'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
-import { AdContext, FetcherContext, SettingContext, TranslateContext } from '../..'
+import { AdContext, ComponentFunctionContext, FetcherContext, LinkContext, SettingContext, TranslateContext, UserContext } from '../..'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import BoardActionComponent from './BoardActionComponent'
+import { USER_ROUTE } from '../../utils/consts'
+import { useNavigate } from 'react-router-dom'
 
 const Board = observer(() => {
     const { Setting } = useContext(SettingContext)
+    const { ComponentFunction } = useContext(ComponentFunctionContext)
+    const { link } = useContext(LinkContext)
+    const { user } = useContext(UserContext)
+    const navigate = useNavigate()
+    const [modalActive1, setModalActive1] = useState(false)
     const { Ad } = useContext(AdContext)
     const { Translate } = useContext(TranslateContext)
     const { fetcher } = useContext(FetcherContext)
@@ -28,6 +35,16 @@ const Board = observer(() => {
         // }, 60000)
     }, [])
 
+    const addAdAction = () => {
+        link.setAfterActions(true, 'add_transport_form')
+        if (user.isAuth) {
+            ComponentFunction.setPageFunction('transport')
+            navigate(USER_ROUTE)
+        } else {
+            setModalActive1(true)
+        }
+    }
+
     return (
         <div className={`board_container ${Setting.app_theme}`}>
             <title>{SetNativeTranslate(Translate.language, {
@@ -39,10 +56,10 @@ const Board = observer(() => {
                 hindi: ['बुलेटिन बोर्ड'],
             })}</title>
 
-            <BoardMainBanner />
+            <BoardMainBanner addAdAction={addAdAction} />
             <div className={`board_content_container`}>
                 <div className='board_left_container'>
-                    <BoardFilter modalActive={modalActive} setModalActive={setModalActive} />
+                    <BoardFilter modalActive={modalActive} modalActive1={modalActive1} setModalActive1={setModalActive1} setModalActive={setModalActive} addAdAction={addAdAction} />
                     <BoardList />
                 </div>
                 <BoardActionComponent />

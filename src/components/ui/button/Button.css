@@ -109,3 +109,27 @@
     background-color: rgb(255, 255, 255, 0.5);
     box-shadow: none;
 }
+
+.ad_button{
+    width: 300px;
+    height:100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color:rgb(31, 31, 31, 0.5);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+.ad_button.dark{
+
+}
+.ad_button:hover{
+background-color: rgb(245, 245, 245, 0.5);
+color: black;
+box-shadow: none;
+}

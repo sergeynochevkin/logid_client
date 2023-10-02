@@ -12,26 +12,14 @@ import Auth from '../../components/auth/Auth'
 import { useNavigate } from 'react-router-dom'
 import { USER_ROUTE } from '../../utils/consts'
 
-const BoardFilter = observer(({ modalActive, setModalActive }) => {
+const BoardFilter = observer(({ modalActive, setModalActive, addAdAction, modalActive1, setModalActive1 }) => {
     const { Translate } = useContext(TranslateContext)
     const { Setting } = useContext(SettingContext)
     const { user } = useContext(UserContext)
-    const { link } = useContext(LinkContext)
-    const [modalActive1, setModalActive1] = useState(false)
-    const navigate = useNavigate()
-    const { ComponentFunction } = useContext(ComponentFunctionContext)
 
     const { height, width } = useWindowDimensions();
 
-    const addAdAction = () => {
-        link.setAfterActions(true, 'add_transport_form')
-        if (user.isAuth) {
-            ComponentFunction.setPageFunction('transport')
-            navigate(USER_ROUTE)
-        } else {
-            setModalActive1(true)
-        }
-    }
+
 
     return (
         <>
@@ -44,19 +32,7 @@ const BoardFilter = observer(({ modalActive, setModalActive }) => {
 
                 {!user || !user.isAuth || user.user.role === 'carrier' ? <>
                     {width > 770 ?
-                        <Button
-                            onClick={() => {
-                                addAdAction()
-                            }}
-                        >{SetNativeTranslate(Translate.language, {
-                            russian: ['Добавить объявление'],
-                            english: ['Add ad'],
-                            spanish: ['Para agregar un anuncio'],
-                            turkish: ['İlan eklemek için'],
-                            сhinese: ['添加广告'],
-                            hindi: ['एक विज्ञापन जोड़ने के लिए'],
-
-                        })}</Button> :
+                        <></> :
                         <img
                             onClick={() => {
                                 addAdAction()
