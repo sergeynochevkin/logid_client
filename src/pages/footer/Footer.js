@@ -60,6 +60,17 @@ const Footer = observer(() => {
   const items = [
     { id: 1, icon: logo_dark, name: 'logid', description: '', section_id: 1, class: 'footer_logo' },
     { id: 2, icon: '', name: 'logid 2023 © all rights reserved', description: '', section_id: 1, class: 'footer_copyright' },
+    { id: 9, icon: '', name: <a href="https://logid.app/fleet">{
+      SetNativeTranslate(Translate.language, {
+        russian: ['Автопаркам м курьерским службам'],
+        english: ['Vehicle fleets and courier services'],
+        spanish: ['Flotas de vehículos y servicios de mensajería'],
+        turkish: ['Araç filoları ve kurye hizmetleri'],
+        сhinese: ['车队和快递服务'],
+        hindi: ['वाहन बेड़े और कूरियर सेवाएँ'],
+
+      })
+    }</a>, description: '', section_id: 1, class: 'footer_email' },
     { id: 3, icon: '', name: <a href="mailto:support@logid.app">support@logid.app</a>, description: '', section_id: 1, class: 'footer_email' },
     {
       id: 4, icon: '', name: SetNativeTranslate(Translate.language, {
