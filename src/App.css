@@ -19,7 +19,7 @@
 }
 
 .banner {
-    height: 40vh;
+    height: max-content;
     width: 100%;
     display: flex;
     align-items: center;
@@ -144,7 +144,6 @@
 @media screen and (max-width: 1200px) and (min-width: 769px) and (max-height: 500px) {
     .banner {
         flex-direction: column;
-        height:800px;
         margin-bottom: 20px;
         margin-top: 20px;
     }
@@ -160,7 +159,6 @@
 @media screen and (max-width: 769px) and (min-width: 426px) {
     .banner {
         flex-direction: column;
-        height: 70vh;
         margin-bottom: 20px;
         margin-top: 20px;
     }
@@ -180,7 +178,6 @@
 @media screen and (max-width: 425px) {
     .banner {
         flex-direction: column;
-        height: 70vh;
         margin-bottom: 20px;
         margin-top: 20px;
     }
