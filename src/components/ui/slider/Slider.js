@@ -56,7 +56,7 @@ const Slider = observer(({ images }) => {
                     //     setImage2(require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.png`))
                     //     setModalActive5(true)
                     // }}
-                    src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.png`)} className='slider_image' alt={image.alt} />
+                    src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.webp`)} className='slider_image' alt={image.alt} />
                 <img className='icon active'
                     onClick={() => {
                         changeSlide('forward')
