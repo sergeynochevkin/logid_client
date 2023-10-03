@@ -51,21 +51,13 @@ const Slider = observer(({ images }) => {
                     }}
                     src={Setting.app_theme === 'light' ? arrow_left : arrow_left_dark} />
 
-                <img
-                    // onClick={() => {
-                    //     setImage2(require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.png`))
-                    //     setModalActive5(true)
-                    // }}
-                    src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.webp`)} className='slider_image' alt={image.alt} />
+                <img src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.webp`)} className='slider_image' alt={image.alt} />
                 <img className='icon active'
                     onClick={() => {
                         changeSlide('forward')
                     }}
                     src={Setting.app_theme === 'light' ? arrow_right : arrow_right_dark} />
-            </div>
-            <Modal modalActive={modalActive5} setModalActive={setModalActive5}>
-
-            </Modal>
+            </div>           
         </>
     )
 })

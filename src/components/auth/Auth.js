@@ -354,7 +354,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
 
 
-        if (parent === 'navBar' && !after_action) {
+        if ((parent === 'navBar' || parent ==='fleet' ) && !after_action) {
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
           else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }

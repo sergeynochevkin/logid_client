@@ -673,7 +673,7 @@ const Fleet = observer(() => {
       </div>
 
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
-        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} />
+        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} parent ='fleet' />
       </Modal>
     </>
 
