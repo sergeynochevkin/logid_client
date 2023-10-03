@@ -2,7 +2,7 @@ import { ADMIN_ROUTE, USER_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, BOARD_ROUTE, BOARD_
 import Main from './pages/main/Main'
 import { Suspense, lazy } from "react"
 import PageFallBack from "./components/ui/loader/PageFallBack";
-import Fleet from "./pages/Fleet";
+import Fleet from "./pages/fleet/Fleet";
 
 const Board = lazy(() => import('./pages/board/Board'));
 const User = lazy(() => import('./pages/user/User'));
@@ -40,6 +40,6 @@ export const publicRoutes = [
     },
     {
         path: FLEET_ROUTE,
-        Component: <Suspense fallback={<Fleet/>}> </Suspense>
+        Component: <Suspense fallback={<PageFallBack/>}><Fleet/> </Suspense>
     }
 ]

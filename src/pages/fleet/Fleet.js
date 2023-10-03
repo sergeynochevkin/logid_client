@@ -1,15 +1,9 @@
+import React from 'react'
+import '../../App.css'
+import { AdressContext, SettingContext, TranslateContext, UserContext } from '../..'
+import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect, useState } from 'react'
-import { AdContext, AdressContext, FetcherContext, ManagementContext, NotificationContext, SettingContext, TranslateContext, UserContext } from '../..'
-import MainBanner from '../banner/MainBanner'
-import { v4 } from "uuid";
-import { deleteNotification, fetchNotification } from '../../http/notificationApi'
-import './Main.css'
-import '../board/Board.css'
-import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-import MainSection from './MainSection'
-
-import { useJsApiLoader } from '@react-google-maps/api'
+import { useState } from 'react'
 
 import av1 from '../../assets/avatars/av1.webp';
 import av3 from '../../assets/avatars/av3.webp';
@@ -42,123 +36,79 @@ import route from '../../assets/icons/route.png';
 import route_dark from '../../assets/icons/route_dark.png';
 import transport from '../../assets/icons/transport.png';
 import transport_dark from '../../assets/icons/transport_dark.png';
-import AdminConsoleItem from './AdminConsoleItem'
-import AdTransportSection from './AdTransportSection'
-import { useLocation } from 'react-router-dom'
 
 
-const Main = observer(() => {
-  const { fetcher } = useContext(FetcherContext)
-  const { Notification } = useContext(NotificationContext)
-  const { Ad } = useContext(AdContext)
-  const { Translate } = useContext(TranslateContext)
-  const queryParams = new URLSearchParams(window.location.search)
-  const uuid = queryParams.get("uuid")
-  const role = queryParams.get("role")
-  const { user } = useContext(UserContext)
-  const { Adress } = useContext(AdressContext)
-  const [modalActive2, setModalActive2] = useState(false)
-  const [loaded, setLoaded] = useState(false)
-  const [callRequested, setCallRequested] = useState(false)
+import Slider from '../../components/ui/slider/Slider'
+import { AdButton } from '../../components/ui/button/AdButton'
+import Modal from '../../components/ui/modal/Modal'
+import Auth from '../../components/auth/Auth'
+import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import MainSection from '../main/MainSection'
+
+
+
+
+
+const Fleet = observer(() => {
   const { Setting } = useContext(SettingContext)
-  const { Management } = useContext(ManagementContext)
+  const [modalActive, setModalActive] = useState(false)
+  const { user } = useContext(UserContext)
+  const { Translate } = useContext(TranslateContext)
+  const { Adress } = useContext(AdressContext)
+  const queryParams = new URLSearchParams(window.location.search)
+  const role = queryParams.get("role")
 
-  let location = useLocation()
-
-
-  let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
-
-
-  useEffect(() => {
-    fetcher.setMainCounters(true)
-  }, [])
-
-  useEffect(() => {
-    Ad.setTransportOption('main')
-    Ad.setUsers([], 'main')
-    Ad.setTransports([], 'main')
-    Ad.setTransportImages([], 'main')
-    fetcher.setAdTransports(true)
-    // clearInterval()
-    // setInterval(() => {
-    //   if (location.pathname === '/') {
-    //     Ad.setTransportOption('main')
-    //     fetcher.setAdTransports(true)
-    //   }
-    // }, 10000)
-  }, [])
-
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoaded(true)
-    }, 100)
-    if (!cookies_accepted.total) {
-      localStorage.setItem('cookies_accepted', JSON.stringify({ total: false, auth: false, main: false }))
-      setModalActive2(true)
-    }
-  }, [])
-
-  useEffect(() => {
-    async function handleUrlNotification() {
-      let notification = await fetchNotification(uuid)
-      Notification.addNotification([{ id: v4(), type: notification.type, message: notification.message }])
-      await deleteNotification(notification.id)
-    }
-    if (uuid) {
-      handleUrlNotification()
-    }
-  }, [])
+  const [callRequested, setCallRequested] = useState(false)
 
 
   let sections = [
-    {
-      id: 1, header: SetNativeTranslate(Translate.language, {
-        russian: ['О нас'],
-        english: ['About'],
-        spanish: ['Sobre nosotros'],
-        turkish: ['Hakkımızda'],
-        сhinese: ['关于我们'],
-        hindi: ['हमारे बारे में'],
-      }),
-      header_comment: SetNativeTranslate(Translate.language, {
-        russian: ['Сервис для заказчиков, курьеров, перевозчиков, диспетчеров и логистов'],
-        english: ['Service for customers, couriers, carriers, dispatchers and logisticians'],
-        spanish: ['Servicio para clientes, mensajeros, transportistas, despachadores y logísticos'],
-        turkish: ['Müşterilere, kuryelere, nakliyecilere, dağıtım görevlilerine ve lojistikçilere yönelik hizmet'],
-        сhinese: ['为客户、快递员、承运人、调度员和物流员提供服务'],
-        hindi: ['ग्राहकों, कूरियर, वाहक, डिस्पैचर और लॉजिस्टिक के लिए सेवा'],
-      }),
-      description: SetNativeTranslate(Translate.language, {
-        russian: ['Добро пожаловать в logid. Сервис заказчиков, курьеров, перевозчиков а также диспетчеров и логистов. С помощью нашего сервиса перевозчики могут отслеживать и обеспечивать необходимую загрузку в городе или стране для своего транспорта. Заказчики имеют возможность размещать заказы, управляя их доступностью для перевозчиков. Стоимость доставки может быть определена заказчиком или предложена перевозчиками, если заказчик выбрал тип заказа аукцион. Приоритет того или иного заказчика или перевозчика определяется рейтингом формируемым на основе взаимных оценок к завершенным или сорванным заказам'],
-        english: ['Welcome to logid. Service of customers, couriers, carriers as well as dispatchers and logisticians. Using our service, carriers can track and provide the necessary loading in a city or country for their vehicles. Customers have the ability to place orders, managing their availability for carriers. The shipping cost can be determined by the customer or offered by carriers if the customer has chosen the auction type of order. The priority of a particular customer or carrier is determined by a rating formed on the basis of mutual assessments of completed or disrupted orders'],
-        spanish: ['Bienvenido a logid. Servicio de clientes, mensajeros, transportistas, así como despachadores y logísticos. Utilizando nuestro servicio, los transportistas pueden rastrear y proporcionar la carga necesaria en una ciudad o país para sus vehículos. Los clientes tienen la posibilidad de realizar pedidos, gestionando su disponibilidad para los transportistas. El costo de envío puede ser determinado por el cliente u ofrecido por los transportistas si el cliente ha elegido el tipo de pedido de subasta. La prioridad de un cliente o transportista en particular está determinada por una calificación formada sobre la base de evaluaciones mutuas de pedidos completados o interrumpidos'],
-        turkish: ['Logid`e hoş geldiniz. Müşterilere, kuryelere, nakliyecilere, sevk görevlilerine ve lojistikçilere hizmet. Taşımacılar hizmetimizi kullanarak araçlarının bir şehir veya ülkede gerekli yüklemelerini takip edebilir ve sağlayabilirler. Müşteriler, taşıyıcılar için uygunluk durumunu yöneterek sipariş verme olanağına sahiptir. Kargo ücreti müşteri tarafından belirlenebileceği gibi, müşterinin açık artırma sipariş türünü seçmesi durumunda kargo şirketleri tarafından da teklif edilebilir. Belirli bir müşterinin veya nakliyecinin önceliği, tamamlanan veya kesintiye uğrayan siparişlerin karşılıklı değerlendirilmesi esas alınarak oluşturulan bir derecelendirmeyle belirlenir'],
-        сhinese: ['欢迎来到“logid”。 为客户、快递员、承运人以及调度员和物流员提供服务。 使用我们的服务，承运人可以跟踪并确保其车辆在一个城市或国家/地区所需的负载。 客户能够下订单，同时管理其对运营商的可用性。 如果客户选择了拍卖订单类型，则交付费用可以由客户确定或由承运商提供。 特定客户或承运商的优先级是根据对已完成或失败订单的相互评估而形成的评级确定的'],
-        hindi: ['लॉगिड में आपका स्वागत है। ग्राहकों, कूरियर, कैरियर के साथ-साथ डिस्पैचर और लॉजिस्टिक के लिए सेवा। हमारी सेवा का उपयोग करके, वाहक अपने वाहनों के लिए किसी शहर या देश में आवश्यक लोड को ट्रैक और सुनिश्चित कर सकते हैं। ग्राहकों के पास वाहकों के लिए अपनी उपलब्धता का प्रबंधन करते हुए ऑर्डर देने की क्षमता होती है। डिलीवरी की लागत ग्राहक द्वारा निर्धारित की जा सकती है या वाहक द्वारा प्रस्तावित की जा सकती है यदि ग्राहक ने नीलामी ऑर्डर प्रकार चुना है। किसी विशेष ग्राहक या वाहक की प्राथमिकता पूर्ण या विफल आदेशों के पारस्परिक मूल्यांकन के आधार पर बनाई गई रेटिंग द्वारा निर्धारित की जाती है'],
-      }),
-      class: 'uneven',
-      type: 'text',
-      role: 'both'
-    },
-    {
-      id: 2, header: SetNativeTranslate(Translate.language, {
-        russian: ['Возможности', 'для заказчиков'],
-        english: ['Сapabilities', 'for customers'],
-        spanish: ['Oportunidades para los clientes'],
-        turkish: ['Müşteriler için fırsatlar'],
-        сhinese: ['客户的机会'],
-        hindi: ['ग्राहकों के लिए अवसर'],
-      }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
-        english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service'],
-        spanish: ['Ofrecemos todas las opciones para cualquier nivel de suscripción. Los niveles de suscripción están personalizados para diferentes tipos de usuarios de nuestro servicio'],
-        turkish: ['Her abonelik düzeyi için tüm seçenekleri sunuyoruz. Abonelik seviyeleri, hizmetimizin farklı kullanıcı türleri için özelleştirilmiştir'],
-        сhinese: ['我们为任何订阅级别提供所有选项。 订阅级别是针对我们服务的不同类型的用户定制的'],
-        hindi: ['हम किसी भी सदस्यता स्तर के लिए सभी विकल्प प्रदान करते हैं। हमारी सेवा के विभिन्न प्रकार के उपयोगकर्ताओं के लिए सदस्यता स्तर अनुकूलित किए गए हैं'],
-      }), description: '', class: 'even', type: 'options',
-      role: 'customer'
-    },
+    // {
+    //   id: 1, header: SetNativeTranslate(Translate.language, {
+    //     russian: ['О нас'],
+    //     english: ['About'],
+    //     spanish: ['Sobre nosotros'],
+    //     turkish: ['Hakkımızda'],
+    //     сhinese: ['关于我们'],
+    //     hindi: ['हमारे बारे में'],
+    //   }),
+    //   header_comment: SetNativeTranslate(Translate.language, {
+    //     russian: ['Сервис для заказчиков, курьеров, перевозчиков, диспетчеров и логистов'],
+    //     english: ['Service for customers, couriers, carriers, dispatchers and logisticians'],
+    //     spanish: ['Servicio para clientes, mensajeros, transportistas, despachadores y logísticos'],
+    //     turkish: ['Müşterilere, kuryelere, nakliyecilere, dağıtım görevlilerine ve lojistikçilere yönelik hizmet'],
+    //     сhinese: ['为客户、快递员、承运人、调度员和物流员提供服务'],
+    //     hindi: ['ग्राहकों, कूरियर, वाहक, डिस्पैचर और लॉजिस्टिक के लिए सेवा'],
+    //   }),
+    //   description: SetNativeTranslate(Translate.language, {
+    //     russian: ['Добро пожаловать в logid. Сервис заказчиков, курьеров, перевозчиков а также диспетчеров и логистов. С помощью нашего сервиса перевозчики могут отслеживать и обеспечивать необходимую загрузку в городе или стране для своего транспорта. Заказчики имеют возможность размещать заказы, управляя их доступностью для перевозчиков. Стоимость доставки может быть определена заказчиком или предложена перевозчиками, если заказчик выбрал тип заказа аукцион. Приоритет того или иного заказчика или перевозчика определяется рейтингом формируемым на основе взаимных оценок к завершенным или сорванным заказам'],
+    //     english: ['Welcome to logid. Service of customers, couriers, carriers as well as dispatchers and logisticians. Using our service, carriers can track and provide the necessary loading in a city or country for their vehicles. Customers have the ability to place orders, managing their availability for carriers. The shipping cost can be determined by the customer or offered by carriers if the customer has chosen the auction type of order. The priority of a particular customer or carrier is determined by a rating formed on the basis of mutual assessments of completed or disrupted orders'],
+    //     spanish: ['Bienvenido a logid. Servicio de clientes, mensajeros, transportistas, así como despachadores y logísticos. Utilizando nuestro servicio, los transportistas pueden rastrear y proporcionar la carga necesaria en una ciudad o país para sus vehículos. Los clientes tienen la posibilidad de realizar pedidos, gestionando su disponibilidad para los transportistas. El costo de envío puede ser determinado por el cliente u ofrecido por los transportistas si el cliente ha elegido el tipo de pedido de subasta. La prioridad de un cliente o transportista en particular está determinada por una calificación formada sobre la base de evaluaciones mutuas de pedidos completados o interrumpidos'],
+    //     turkish: ['Logid`e hoş geldiniz. Müşterilere, kuryelere, nakliyecilere, sevk görevlilerine ve lojistikçilere hizmet. Taşımacılar hizmetimizi kullanarak araçlarının bir şehir veya ülkede gerekli yüklemelerini takip edebilir ve sağlayabilirler. Müşteriler, taşıyıcılar için uygunluk durumunu yöneterek sipariş verme olanağına sahiptir. Kargo ücreti müşteri tarafından belirlenebileceği gibi, müşterinin açık artırma sipariş türünü seçmesi durumunda kargo şirketleri tarafından da teklif edilebilir. Belirli bir müşterinin veya nakliyecinin önceliği, tamamlanan veya kesintiye uğrayan siparişlerin karşılıklı değerlendirilmesi esas alınarak oluşturulan bir derecelendirmeyle belirlenir'],
+    //     сhinese: ['欢迎来到“logid”。 为客户、快递员、承运人以及调度员和物流员提供服务。 使用我们的服务，承运人可以跟踪并确保其车辆在一个城市或国家/地区所需的负载。 客户能够下订单，同时管理其对运营商的可用性。 如果客户选择了拍卖订单类型，则交付费用可以由客户确定或由承运商提供。 特定客户或承运商的优先级是根据对已完成或失败订单的相互评估而形成的评级确定的'],
+    //     hindi: ['लॉगिड में आपका स्वागत है। ग्राहकों, कूरियर, कैरियर के साथ-साथ डिस्पैचर और लॉजिस्टिक के लिए सेवा। हमारी सेवा का उपयोग करके, वाहक अपने वाहनों के लिए किसी शहर या देश में आवश्यक लोड को ट्रैक और सुनिश्चित कर सकते हैं। ग्राहकों के पास वाहकों के लिए अपनी उपलब्धता का प्रबंधन करते हुए ऑर्डर देने की क्षमता होती है। डिलीवरी की लागत ग्राहक द्वारा निर्धारित की जा सकती है या वाहक द्वारा प्रस्तावित की जा सकती है यदि ग्राहक ने नीलामी ऑर्डर प्रकार चुना है। किसी विशेष ग्राहक या वाहक की प्राथमिकता पूर्ण या विफल आदेशों के पारस्परिक मूल्यांकन के आधार पर बनाई गई रेटिंग द्वारा निर्धारित की जाती है'],
+    //   }),
+    //   class: 'uneven',
+    //   type: 'text',
+    //   role: 'both'
+    // },
+    // {
+    //   id: 2, header: SetNativeTranslate(Translate.language, {
+    //     russian: ['Возможности', 'для заказчиков'],
+    //     english: ['Сapabilities', 'for customers'],
+    //     spanish: ['Oportunidades para los clientes'],
+    //     turkish: ['Müşteriler için fırsatlar'],
+    //     сhinese: ['客户的机会'],
+    //     hindi: ['ग्राहकों के लिए अवसर'],
+    //   }), header_comment: SetNativeTranslate(Translate.language, {
+    //     russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
+    //     english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service'],
+    //     spanish: ['Ofrecemos todas las opciones para cualquier nivel de suscripción. Los niveles de suscripción están personalizados para diferentes tipos de usuarios de nuestro servicio'],
+    //     turkish: ['Her abonelik düzeyi için tüm seçenekleri sunuyoruz. Abonelik seviyeleri, hizmetimizin farklı kullanıcı türleri için özelleştirilmiştir'],
+    //     сhinese: ['我们为任何订阅级别提供所有选项。 订阅级别是针对我们服务的不同类型的用户定制的'],
+    //     hindi: ['हम किसी भी सदस्यता स्तर के लिए सभी विकल्प प्रदान करते हैं। हमारी सेवा के विभिन्न प्रकार के उपयोगकर्ताओं के लिए सदस्यता स्तर अनुकूलित किए गए हैं'],
+    //   }), description: '', class: 'even', type: 'options',
+    //   role: 'customer'
+    // },
     {
       id: 3, header: SetNativeTranslate(Translate.language, {
         russian: ['Возможности', 'для перевозчиков'],
@@ -213,24 +163,24 @@ const Main = observer(() => {
       }), description: '', class: 'even', type: 'self_content',
       role: 'carrier'
     },
-    {
-      id: 5, header: SetNativeTranslate(Translate.language, {
-        russian: ['Тарифные планы', 'для заказчика'],
-        english: ['Tariff plans', 'for the customer'],
-        spanish: ['Planes tarifarios para el cliente'],
-        turkish: ['Müşteri için tarife planları'],
-        сhinese: ['客户的资费计划'],
-        hindi: ['ग्राहक के लिए टैरिफ योजनाएँ'],
-      }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
-        english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-        spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-        turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
-        сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
-        hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
-      }), description: '', class: 'even', type: 'self_content',
-      role: 'customer'
-    },
+    // {
+    //   id: 5, header: SetNativeTranslate(Translate.language, {
+    //     russian: ['Тарифные планы', 'для заказчика'],
+    //     english: ['Tariff plans', 'for the customer'],
+    //     spanish: ['Planes tarifarios para el cliente'],
+    //     turkish: ['Müşteri için tarife planları'],
+    //     сhinese: ['客户的资费计划'],
+    //     hindi: ['ग्राहक के लिए टैरिफ योजनाएँ'],
+    //   }), header_comment: SetNativeTranslate(Translate.language, {
+    //     russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
+    //     english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
+    //     spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
+    //     turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
+    //     сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
+    //     hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
+    //   }), description: '', class: 'even', type: 'self_content',
+    //   role: 'customer'
+    // },
   ]
 
   const items = [
@@ -631,186 +581,89 @@ const Main = observer(() => {
     },
   ]
 
+
+
+  const images = [
+    { id: 0, name: 'partner', alt: '' },
+    { id: 1, name: 'transport', alt: '' },
+    { id: 2, name: 'add_partner', alt: '' },
+    { id: 3, name: 'profile', alt: '' },
+    { id: 4, name: 'canceled_orders', alt: '' },
+    { id: 5, name: 'orders_on_map', alt: '' },
+    { id: 6, name: 'order_form', alt: '' },
+    { id: 7, name: 'new_order', alt: '' },
+    { id: 8, name: 'drivers', alt: '' },
+    { id: 9, name: 'board', alt: '' },
+  ]
+  const [image, setImage] = useState(images[0])
+
+  const changeSlide = (action) => {
+    let index
+    if (action === 'forward') {
+      if (image.id === images.length - 1) {
+        index = 0
+      } else {
+        index = image.id + 1
+      }
+      setImage(images[index])
+    }
+    if (action === 'backward') {
+      if (image.id === 0) {
+        index = images.length - 1
+      } else {
+        index = image.id - 1
+      }
+    }
+    setImage(images[index])
+  }
+
+
   return (
     <>
-      {user.user.role !== 'admin' && user.user.role !== 'manager' ?
-        <>
-          <div className={`main_page_container ${Setting.app_theme}`}>
-            <title>{`logid`}</title>
-            <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
+      <div className={`page_container ${Setting.app_theme}`}>
+        <div className='banner'>
+          <div className='banner_section'>
 
-
-            {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ?
-              <div className='adv_rate_section'>
-                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Активных перевозчиков'],
-                    english: ['Active carriers'],
-                    spanish: ['Portadores activos'],
-                    turkish: ['Aktif taşıyıcılar'],
-                    сhinese: ['活跃运营商'],
-                    hindi: ['सक्रिय वाहक'],
-                  }, '')} />
-                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Активных заказчиков'],
-                    english: ['Active customers'],
-                    spanish: ['Clientes activos'],
-                    turkish: ['Aktif müşteriler'],
-                    сhinese: ['活跃客户'],
-                    hindi: ['सक्रिय ग्राहक'],
-                  }, '')} />
-
-                <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.finished_orders_count} comment={SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Завершенных заказов'],
-                    english: ['Completed orders'],
-                    spanish: ['Orden completada'],
-                    turkish: ['Sipariş tamamlandı'],
-                    сhinese: ['已完成订单'],
-                    hindi: ['पूर्ण आदेश'],
-                  }, '')} />
+            <div className='text_section'>
+              <div className='text_middle'>
+                Создайте свой автопарк или курьерскую службу с logid
               </div>
-              : <></>}
-
-            {Ad.transports.main.length > 0 && <AdTransportSection />}
-
-
-            {Adress.country.value === 'russia' && user?.user?.role !== 'driver' ?
-              sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-                <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
-              ) :
-              sections.filter(el => el.id !== 4 && el.id !== 5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-                <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
-              )
-            }
-
-          </div>
-
-          {/* {!cookies_accepted.main && loaded ?
-              <ModalBottom modalActive={modalActive2} >
-                <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
-              </ModalBottom>
-              : <></>
-            } */}
-
-        </> : user.user.role === 'admin' ?
-          <div className={`main_page_container ${Setting.app_theme}`}>
-
-            <div className={`admin_console_container ${Setting.app_theme}`}>
-
-              {Management.visits.month > 0 ?
-                <>
-                  <AdminConsoleItem plan={70} currentRate={Management.visits.toDay} comment={
-                    SetNativeTranslate(Translate.language,
-                      {
-                        russian: ['Визиты сегодня'],
-                        english: ['Today visits']
-                      }, '')} />
-                  <AdminConsoleItem plan={490} currentRate={Management.visits.week} comment={
-                    SetNativeTranslate(Translate.language,
-                      {
-                        russian: ['Визиты за неделю'],
-                        english: ['Visits per week']
-                      }, '')
-                  } />
-                  <AdminConsoleItem plan={2170} currentRate={Management.visits.month} comment={
-                    SetNativeTranslate(Translate.language,
-                      {
-                        russian: ['Визиты за месяц'],
-                        english: ['Visits per month']
-                      }, '')
-                  } />
-                </> : <></>
-              }
-
-              {Management.registrations.month > 0 ?
-                <>
-                  <AdminConsoleItem plan={5} currentRate={Management.registrations.toDay} comment={
-                    SetNativeTranslate(Translate.language,
-                      {
-                        russian: ['Регистрации сегодня'],
-                        english: ['Today registrationss']
-                      }, '')} />
-                  <AdminConsoleItem plan={35} currentRate={Management.registrations.week} comment={
-                    SetNativeTranslate(Translate.language,
-                      {
-                        russian: ['Регистрации за неделю'],
-                        english: ['Registrationss per week']
-                      }, '')
-                  } />
-                  <AdminConsoleItem plan={150} currentRate={Management.registrations.month} comment={
-                    SetNativeTranslate(Translate.language,
-                      {
-                        russian: ['Регистрации за месяц'],
-                        english: ['Registrationss per month']
-                      }, '')
-                  } />
-                </> : <></>}
-
-
-              <AdminConsoleItem plan={510} currentRate={Management.users.length} comment={
-                SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Пользователи'],
-                    english: ['Users']
-                  }, '')} />
-              <AdminConsoleItem plan={500} currentRate={Management.users.filter(el => el.role === 'carrier').length} comment={
-                SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Перевозчики'],
-                    english: ['Carriers']
-                  }, '')
-              } />
-              <AdminConsoleItem plan={10} currentRate={Management.users.filter(el => el.role === 'customer').length} comment={
-                SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Заказчики'],
-                    english: ['Customers']
-                  }, '')
-              } />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.transports.length} currentRate={Management.transports.length} comment={
-                SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Транспорт'],
-                    english: ['Transports']
-                  }, '')
-              } />
-              <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.length} currentRate={Management.users.filter(el => Object.keys(el.user_info).length === 0).length} comment={
-                SetNativeTranslate(Translate.language,
-                  {
-                    russian: ['Пользователи без профиля'],
-                    english: ['Users without info']
-                  }, '')
-              } />
-              <AdminConsoleItem type={'value'} influence={'negative'} plan={Management.users.filter(el => el.role === 'carrier').length} currentRate={Management.users.filter(el => el.role === 'carrier' && el.transports.length === 0).length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Перевозчики без транспорта'],
-                  english: ['Carriers without transport']
-                }, '')} />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'new').length} currentRate={Management.orders.filter(el => el.order_status === 'new').length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Новые заказы'],
-                  english: ['New orders']
-                }, '')} />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'inWork').length} currentRate={Management.orders.filter(el => el.order_status === 'inWork').length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Заказы в работе'],
-                  english: ['In work orders']
-                }, '')} />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'completed').length} currentRate={Management.orders.filter(el => el.order_status === 'completed').length} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Завершенные заказы'],
-                  english: ['Completed orders']
-                }, '')} />
+              <div className='text_small'>
+                Зарегистрируйтесь как перевозчик, добавьте водителей и транспорт, поделитесь ссылкой из раздела аккаунт с заказчиком. Заказчик выбирает вас как перевозчика, водители видят и могут брать ваши заказы. Настраивайте права водителей, отслеживайте статус заказов, следите за местоположением водителей на основе данных их браузера. Согласуем индивидуальные условия и лимиты, отличающиеся от доступных подписок. Регистрируйтесь, или звоните <a style={{ color: Setting.app_theme === 'light' ? 'grey' : '' }} href='tel:+79011016250'>+79011016250</a>
+              </div>
             </div>
 
+            <AdButton
+              onClick={() => {
+                !modalActive && setModalActive(true)
+                modalActive && setModalActive(false)
+              }
+              }>Регистрация</AdButton>
+          </div>
+          <div className='banner_section'>
+            <Slider images={images} />
+          </div>
+        </div>
 
-          </div> : <></>}
+        {Adress.country.value === 'russia' && user?.user?.role !== 'driver' ?
+          sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+            <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+          ) :
+          sections.filter(el => el.id !== 4 && el.id !== 5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+            <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+          )
+        }
 
+      </div>
+
+      <Modal modalActive={modalActive} setModalActive={setModalActive}>
+        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} />
+      </Modal>
     </>
-  )
 
+
+
+  )
 })
 
-export default Main
+export default Fleet

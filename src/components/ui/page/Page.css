@@ -7,7 +7,7 @@
     padding-top: 50px;
 }
 
-.dark {
+.page_container.dark {
     background-color: #121212;
     /* color: white; */
 }
