@@ -40,6 +40,6 @@ export const publicRoutes = [
     },
     {
         path: FLEET_ROUTE,
-        Component: <Suspense fallback={<PageFallBack/>}><Fleet/> </Suspense>
+        Component: <Fleet/>
     }
 ]
