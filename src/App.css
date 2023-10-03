@@ -102,8 +102,6 @@
     flex-direction: column;
 }
 
-
-
 .item_container.driver {
     gap: 5px;
     background-color: rgb(245, 245, 245, 0.5);
@@ -119,6 +117,8 @@
 
 
 @media screen and (max-width: 1920px) and (min-width: 769px) {}
+
+
 
 @media screen and (max-width: 1380px) and (min-width: 769px) {
     .banner {
@@ -140,6 +140,21 @@
     }
 }
 
+
+@media screen and (max-width: 1200px) and (min-width: 769px) and (max-height: 500px) {
+    .banner {
+        flex-direction: column;
+        height:800px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .banner_section {
+        width: 90%;
+        height: 50%;
+        gap: 20px;
+    }
+}
 
 
 @media screen and (max-width: 769px) and (min-width: 426px) {
@@ -179,5 +194,19 @@
     .slider_image {
         width: 90%;
         height: auto;
+    }
+
+    .text_large {
+        font-size: 1.8rem;
+    }
+    
+    .text_middle {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+    
+    .text_small {
+        font-size: 0.6rem;
+        line-height: 1.2;
     }
 }
