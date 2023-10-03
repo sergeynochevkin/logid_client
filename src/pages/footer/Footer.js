@@ -62,7 +62,7 @@ const Footer = observer(() => {
     { id: 2, icon: '', name: 'logid 2023 © all rights reserved', description: '', section_id: 1, class: 'footer_copyright' },
     { id: 9, icon: '', name: <a href="https://logid.app/fleet">{
       SetNativeTranslate(Translate.language, {
-        russian: ['Автопаркам м курьерским службам'],
+        russian: ['Автопаркам и курьерским службам'],
         english: ['Vehicle fleets and courier services'],
         spanish: ['Flotas de vehículos y servicios de mensajería'],
         turkish: ['Araç filoları ve kurye hizmetleri'],
