@@ -45,6 +45,7 @@
     z-index: 0;
     height: 100%;
     
+    
 }
 
 .main_banner_half_2_container {
@@ -59,6 +60,8 @@
     z-index: 1;
     background-color: rgb(31, 31, 31, 0.5);
     border-radius: 20px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
 }
 
 .main_banner_half_2_container.dark {
