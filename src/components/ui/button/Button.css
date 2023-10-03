@@ -111,14 +111,14 @@
 }
 
 .ad_button{
-    width: 300px;
-    height:100px;
+    width: 200px;
+    height:80px;
     display: flex;
     align-items: center;
     justify-content: center;
     align-items: center;
     color: white;
-    background-color:rgb(31, 31, 31, 0.5);
+    background-color:rgb(129, 199, 132, 0.8);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     cursor: pointer;
