@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { USER_ROUTE } from '../../utils/consts';
 import Modal from '../../components/ui/modal/Modal';
 import Auth from '../../components/auth/Auth';
+import Slider from '../../components/ui/slider/Slider';
 
 const MainBanner = observer(({ callRequested, setCallRequested }) => {
     const { Setting } = useContext(SettingContext)
@@ -42,15 +43,33 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
         }
     }
 
+    const images = [
+        { id: 0, name: 'partner', alt: 'Partner card' },
+        { id: 1, name: 'transport', alt: 'Transport screen' },
+        { id: 2, name: 'add_partner', alt: 'Add partner screen' },
+        { id: 3, name: 'profile', alt: 'Profile screen' },
+        { id: 4, name: 'canceled_orders', alt: 'Canceled orders screen' },
+        { id: 5, name: 'orders_on_map', alt: 'Order on map' },
+        { id: 6, name: 'order_form', alt: 'New order form' },
+        { id: 7, name: 'new_order', alt: 'New order screen' },
+        { id: 8, name: 'drivers', alt: 'Drivers screen' },
+        { id: 9, name: 'board', alt: 'Board screen' },
+      ]
 
 
 
 
     return (
-        <div className={'main_banner_container'} style={{ backgroundImage: `url(${target !== 'courier' ? logistics : courier})`, width: '100%', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPositionX: 'center' }}>
-            <div className={'main_banner_half_1_container'}>
-                <div className={Setting.app_theme === 'light' ? 'main_banner_slogan' : 'main_banner_slogan main_banner_slogan_dark'}>{SetNativeTranslate(Translate.language, {}, 'main_slogan')}</div>
+        <div className={'main_banner_container'} 
+        // style={{ backgroundImage: `url(${target !== 'courier' ? logistics : courier})`, width: '100%', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPositionX: 'center' }}
+        >
+         
+         <div className={Setting.app_theme === 'light' ? 'main_banner_half_2_container' : 'main_banner_half_2_container dark'}>
+         <div className={Setting.app_theme === 'light' ? 'main_banner_slogan' : 'main_banner_slogan main_banner_slogan_dark'}>{SetNativeTranslate(Translate.language, {}, 'main_slogan')}</div>
+         <BannerActionContent callRequested={callRequested} setCallRequested={setCallRequested} />
+
             </div>
+
 
 
             {role === 'customer' &&
@@ -90,11 +109,13 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
                 </AdButton>
             }
 
+            <div className={'main_banner_half_1_container'}>
+            <Slider images = {images}/>
 
-            <div className={Setting.app_theme === 'light' ? 'main_banner_half_2_container' : 'main_banner_half_2_container dark'}>
-
-                <BannerActionContent callRequested={callRequested} setCallRequested={setCallRequested} />
+               
             </div>
+
+          
 
             <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
                 <Auth enterPoint={'isRegister'} modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: action }} />
