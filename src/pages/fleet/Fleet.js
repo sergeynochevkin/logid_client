@@ -584,16 +584,16 @@ const Fleet = observer(() => {
 
 
   const images = [
-    { id: 0, name: 'partner', alt: '' },
-    { id: 1, name: 'transport', alt: '' },
-    { id: 2, name: 'add_partner', alt: '' },
-    { id: 3, name: 'profile', alt: '' },
-    { id: 4, name: 'canceled_orders', alt: '' },
-    { id: 5, name: 'orders_on_map', alt: '' },
-    { id: 6, name: 'order_form', alt: '' },
-    { id: 7, name: 'new_order', alt: '' },
-    { id: 8, name: 'drivers', alt: '' },
-    { id: 9, name: 'board', alt: '' },
+    { id: 0, name: 'partner', alt: 'Partner card' },
+    { id: 1, name: 'transport', alt: 'Transport screen' },
+    { id: 2, name: 'add_partner', alt: 'Add partner screen' },
+    { id: 3, name: 'profile', alt: 'Profile screen' },
+    { id: 4, name: 'canceled_orders', alt: 'Canceled orders screen' },
+    { id: 5, name: 'orders_on_map', alt: 'Order on map' },
+    { id: 6, name: 'order_form', alt: 'New order form' },
+    { id: 7, name: 'new_order', alt: 'New order screen' },
+    { id: 8, name: 'drivers', alt: 'Drivers screen' },
+    { id: 9, name: 'board', alt: 'Board screen' },
   ]
   const [image, setImage] = useState(images[0])
 
@@ -626,10 +626,26 @@ const Fleet = observer(() => {
 
             <div className='text_section'>
               <div className='text_middle'>
-                Создайте свой автопарк или курьерскую службу с logid
+                {SetNativeTranslate(Translate.language, {
+                  russian: ['Создайте свой автопарк или курьерскую службу с logid'],
+                  english: ['Create your own fleet or courier service with logid'],
+                  spanish: ['Crea tu propia flota o servicio de mensajería con logid'],
+                  turkish: ['logid ile kendi filonuzu veya kurye hizmetinizi oluşturun'],
+                  сhinese: ['使用 logid 创建您自己的车队或快递服务'],
+                  hindi: ['लॉजिड के साथ अपना खुद का बेड़ा या कूरियर सेवा बनाएं'],
+                }, '')}
+
               </div>
               <div className='text_small'>
-                Зарегистрируйтесь как перевозчик, добавьте водителей и транспорт, поделитесь ссылкой из раздела аккаунт с заказчиком. Заказчик выбирает вас как перевозчика, водители видят и могут брать ваши заказы. Настраивайте права водителей, отслеживайте статус заказов, следите за местоположением водителей на основе данных их браузера и многое другое. Согласуем индивидуальные условия и лимиты, отличающиеся от доступных подписок. Регистрируйтесь, или звоните <a style={{ color: Setting.app_theme === 'light' ? 'grey' : '' }} href='tel:+79011016250'>+79011016250</a>
+                {SetNativeTranslate(Translate.language, {
+                  russian: ['Зарегистрируйтесь как перевозчик, добавьте водителей и транспорт, поделитесь ссылкой из раздела аккаунт с заказчиком. Заказчик выбирает вас как перевозчика, водители видят и могут брать ваши заказы. Настраивайте права водителей, отслеживайте статус заказов, следите за местоположением водителей на основе данных их браузера и многое другое. Согласуем индивидуальные условия и лимиты, отличающиеся от доступных подписок'],
+                  english: ['Register as a carrier, add drivers and vehicles, share the link from the account section with the customer. The customer chooses you as a carrier, drivers see and can take your orders. Set up driver permissions, track order status, track drivers locations based on their browser data, and much more. We agree on individual conditions and limits that differ from the available subscriptions'],
+                  spanish: ['Regístrese como transportista, agregue conductores y vehículos, comparta el enlace de la sección de cuenta con el cliente. El cliente te elige como transportista, los conductores ven y pueden tomar tus pedidos. Configure permisos de conductores, realice un seguimiento del estado de los pedidos, realice un seguimiento de las ubicaciones de los conductores en función de los datos de su navegador y mucho más. Acordamos condiciones y límites individuales que difieren de las suscripciones disponibles.'],
+                  turkish: ['Taşıyıcı olarak kaydolun, sürücü ve araç ekleyin, hesap bölümünden bağlantıyı müşteriyle paylaşın. Müşteri sizi taşıyıcı olarak seçer, sürücüler görür ve siparişlerinizi alabilir. Sürücü izinlerini ayarlayın, sipariş durumunu takip edin, tarayıcı verilerine göre sürücülerin konumlarını takip edin ve çok daha fazlasını yapın. Mevcut aboneliklerden farklı olan bireysel koşullar ve limitler üzerinde anlaşıyoruz'],
+                  сhinese: ['注册为承运人，添加司机和车辆，与客户共享帐户部分的链接。 客户选择您作为承运人，司机看到并可以接受您的订单。 设置驾驶员权限、跟踪订单状态、根据驾驶员的浏览器数据跟踪驾驶员的位置等等。 我们同意与可用订阅不同的个别条件和限制'],
+                  hindi: ['एक वाहक के रूप में पंजीकरण करें, ड्राइवर और वाहन जोड़ें, ग्राहक के साथ खाता अनुभाग से लिंक साझा करें। ग्राहक आपको वाहक के रूप में चुनता है, ड्राइवर देखते हैं और आपका ऑर्डर ले सकते हैं। ड्राइवर अनुमतियाँ सेट करें, ऑर्डर की स्थिति ट्रैक करें, ड्राइवरों के ब्राउज़र डेटा के आधार पर उनके स्थान को ट्रैक करें, और भी बहुत कुछ। हम अलग-अलग शर्तों और सीमाओं पर सहमत हैं जो उपलब्ध सदस्यताओं से भिन्न हैं'],
+                }, '')}
+
               </div>
             </div>
 
@@ -638,7 +654,7 @@ const Fleet = observer(() => {
                 !modalActive && setModalActive(true)
                 modalActive && setModalActive(false)
               }
-              }>Регистрация</AdButton>
+              }>{SetNativeTranslate(Translate.language, {},'sign_up')}</AdButton>
           </div>
           <div className='banner_section'>
             <Slider images={images} />
