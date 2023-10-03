@@ -91,24 +91,24 @@ const Fleet = observer(() => {
     //   type: 'text',
     //   role: 'both'
     // },
-    // {
-    //   id: 2, header: SetNativeTranslate(Translate.language, {
-    //     russian: ['Возможности', 'для заказчиков'],
-    //     english: ['Сapabilities', 'for customers'],
-    //     spanish: ['Oportunidades para los clientes'],
-    //     turkish: ['Müşteriler için fırsatlar'],
-    //     сhinese: ['客户的机会'],
-    //     hindi: ['ग्राहकों के लिए अवसर'],
-    //   }), header_comment: SetNativeTranslate(Translate.language, {
-    //     russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
-    //     english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service'],
-    //     spanish: ['Ofrecemos todas las opciones para cualquier nivel de suscripción. Los niveles de suscripción están personalizados para diferentes tipos de usuarios de nuestro servicio'],
-    //     turkish: ['Her abonelik düzeyi için tüm seçenekleri sunuyoruz. Abonelik seviyeleri, hizmetimizin farklı kullanıcı türleri için özelleştirilmiştir'],
-    //     сhinese: ['我们为任何订阅级别提供所有选项。 订阅级别是针对我们服务的不同类型的用户定制的'],
-    //     hindi: ['हम किसी भी सदस्यता स्तर के लिए सभी विकल्प प्रदान करते हैं। हमारी सेवा के विभिन्न प्रकार के उपयोगकर्ताओं के लिए सदस्यता स्तर अनुकूलित किए गए हैं'],
-    //   }), description: '', class: 'even', type: 'options',
-    //   role: 'customer'
-    // },
+    {
+      id: 2, header: SetNativeTranslate(Translate.language, {
+        russian: ['Возможности', 'для заказчиков'],
+        english: ['Сapabilities', 'for customers'],
+        spanish: ['Oportunidades para los clientes'],
+        turkish: ['Müşteriler için fırsatlar'],
+        сhinese: ['客户的机会'],
+        hindi: ['ग्राहकों के लिए अवसर'],
+      }), header_comment: SetNativeTranslate(Translate.language, {
+        russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
+        english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service'],
+        spanish: ['Ofrecemos todas las opciones para cualquier nivel de suscripción. Los niveles de suscripción están personalizados para diferentes tipos de usuarios de nuestro servicio'],
+        turkish: ['Her abonelik düzeyi için tüm seçenekleri sunuyoruz. Abonelik seviyeleri, hizmetimizin farklı kullanıcı türleri için özelleştirilmiştir'],
+        сhinese: ['我们为任何订阅级别提供所有选项。 订阅级别是针对我们服务的不同类型的用户定制的'],
+        hindi: ['हम किसी भी सदस्यता स्तर के लिए सभी विकल्प प्रदान करते हैं। हमारी सेवा के विभिन्न प्रकार के उपयोगकर्ताओं के लिए सदस्यता स्तर अनुकूलित किए गए हैं'],
+      }), description: '', class: 'even', type: 'options',
+      role: 'customer'
+    },
     {
       id: 3, header: SetNativeTranslate(Translate.language, {
         russian: ['Возможности', 'для перевозчиков'],
