@@ -211,7 +211,7 @@
 
     .main_banner_container {
         flex-direction: column;
-        gap: 10px;
+        gap: 30px;
         padding-top: 0px;
         padding-bottom: 0px;
         min-height: 250px;
