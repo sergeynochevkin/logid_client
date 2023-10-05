@@ -28,6 +28,10 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
     const { Management } = useContext(ManagementContext)
     const { user } = useContext(UserContext)
     const [images, setImages] = useState([])
+    const [image, setImage] = useState('')
+    const [modalActive1, setModalActive1] = useState(false)
+
+
 
 
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
@@ -62,8 +66,15 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
             >
                 <div className={`management_row ${Setting.app_theme}`}>
 
-                    <div className={`user_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
-                        {!images[0] && !oneUser.user_info.email ? 'N' : !images[0] && oneUser.user_info.email ?  oneUser.user_info.email.charAt().toUpperCase() : ''}
+                    <div onClick={(e) => {
+                        if (images[0]) {
+                            e.stopPropagation()
+                            setModalActive1(true);
+                            setImage(image)
+                        }
+                    }}
+                        className={`user_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
+                        {!images[0] && !oneUser.user_info.email ? 'N' : !images[0] && oneUser.user_info.email ? oneUser.user_info.email.charAt().toUpperCase() : ''}
                     </div>
 
                     <div className='management_item'>{oneUser.user_info.id}</div>
@@ -95,6 +106,11 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                         <UsersItemActionMenu formData={formData} setFormData={setFormData} oneUser={oneUser} setActionMenuActive={setActionMenuActive} setAction={setAction} action={action} setActionIcons={setActionIcons} actionIcons={actionIcons} modalActive={modalActive} setModalActive={setModalActive} setGroup={setGroup} /> : <></>
                     }
                 </div>
+                <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
+                    <div className='image_modal_container'>
+                        <img src={image} className='image_modal'></img>
+                    </div>
+                </Modal>
             </div>
         </>
     )

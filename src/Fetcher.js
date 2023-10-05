@@ -140,7 +140,6 @@ const Fetcher = observer(() => {
         }
     }
     let managementUserImageHandler = async (objects) => {
-        console.log(JSON.stringify(objects));
         for (const object of objects) {
             if (!Management.user_images.find(el => el.id === object.id) || JSON.stringify(Management.images.find(el => el.id === object.id).urlsArray) !== JSON.stringify(object.files)) {
                 let imageObject = {
