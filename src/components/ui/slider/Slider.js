@@ -53,7 +53,7 @@ const Slider = observer(({ images }) => {
                     src={Setting.app_theme === 'light' ? arrow_left_dark : arrow_left} />
 
                 <img src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.webp`)} className='slider_image' alt={image.alt} />
-                <img className='icon active'  style={{left:'90%'}}
+                <img className='icon active'  style={{left:'91%'}}
                     onClick={() => {
                         changeSlide('forward')
                     }}
