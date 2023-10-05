@@ -63,7 +63,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                 <div className={`management_row ${Setting.app_theme}`}>
 
                     <div className={`user_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
-                        {!images[0] && oneUser.user_info.email.charAt().toUpperCase()}
+                        {!images[0] && !oneUser.user_info.email ? 'N' : !images[0] && oneUser.user_info.email ?  oneUser.user_info.email.charAt().toUpperCase() : ''}
                     </div>
 
                     <div className='management_item'>{oneUser.user_info.id}</div>
