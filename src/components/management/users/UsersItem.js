@@ -70,7 +70,7 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                         if (images[0]) {
                             e.stopPropagation()
                             setModalActive1(true);
-                            setImage(image)
+                            setImage(images[0])
                         }
                     }}
                         className={`user_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
