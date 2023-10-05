@@ -185,8 +185,8 @@
 }
 
 .user_avatar_container {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
     display: flex;
     align-items: center;
