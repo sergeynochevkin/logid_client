@@ -67,6 +67,8 @@ const UsersList = observer(() => {
 
     const [searchActive, setSearchActive] = useState(false)
 
+    console.log(JSON.stringify(Management.user_images));
+
     return (
         <>
             <div className='management_actions_container'>
