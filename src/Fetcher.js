@@ -139,6 +139,25 @@ const Fetcher = observer(() => {
             }
         }
     }
+    let managementUserImageHandler = async (objects) => {
+        for (const object of objects) {
+            if (!Management.user_images.find(el => el.id === object.id) || JSON.stringify(Management.images.find(el => el.id === object.id).urlsArray) !== JSON.stringify(object.files)) {
+                let imageObject = {
+                    id: object.id,
+                    urlsArray: []
+                }
+                if (object.files) {
+                    let fileNames = JSON.parse(object.files)
+                    for (const file of fileNames) {
+                        let url = await fetchImages('avatar', object, file)
+                        imageObject.urlsArray.push(url)
+                    }
+                    let data = [...Management.user_images.filter(el => el.id !== object.id), imageObject]
+                    Management.setUserImages(data)
+                }
+            }
+        }
+    }
 
 
 
@@ -377,6 +396,7 @@ const Fetcher = observer(() => {
             await fetchAdTransports(FilterAndSort.boardFilters, Ad.transport_option, user.isAuth ? UserInfo.userInfo.id : '').then(data => {
                 adImageHandler(data.rows, Ad.transport_option)
                 Ad.setUsers(data.users, Ad.transport_option)
+                managementUserImageHandler(data.map(el => el.user_info))
                 Ad.setTransports(data.rows, Ad.transport_option)
             })
         }

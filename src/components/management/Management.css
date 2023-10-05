@@ -184,6 +184,24 @@
     background-color: grey;
 }
 
+.user_avatar_container {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    background-color: rgb(31, 31, 31, 0.5);
+}
+
+.user_avatar_container.dark{
+    color: black;
+    background-color: rgb(245, 245, 245, 0.5);
+}
+
 
 @media screen and (max-width: 425px) {
     .management_action_menu_modal_container {

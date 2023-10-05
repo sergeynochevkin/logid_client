@@ -27,6 +27,8 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
     const { Translate } = useContext(TranslateContext)
     const { Management } = useContext(ManagementContext)
     const { user } = useContext(UserContext)
+    const [images, setImages] = useState([])
+
 
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
@@ -35,6 +37,12 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
             setActionMenuActive(false)
         }
     }, [isComponentVisible])
+
+    useEffect(() => {
+        if (Management.user_images.find(el => el.id === oneUser.user_info.id)) {
+            setImages(Management.user_images.find(el => el.id === oneUser.user_info.id).urlsArray)
+        }
+    }, [])
 
     return (
         <>
@@ -53,6 +61,11 @@ const UsersItem = observer(({ oneUser, selected, setSelected, initialValue, acti
                 }}
             >
                 <div className={`management_row ${Setting.app_theme}`}>
+
+                    <div className={`user_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
+                        {!images[0] && oneUser.user_info.email.charAt().toUpperCase()}
+                    </div>
+
                     <div className='management_item'>{oneUser.user_info.id}</div>
                     <div className='management_item'>{oneUser.email}</div>
                     <div className='management_item'>{SetNativeTranslate(Translate.language, '', oneUser.role)}</div>

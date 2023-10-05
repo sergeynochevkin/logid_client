@@ -36,7 +36,7 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
         if (user.isAuth) {
             if (option === 'add_transport_form') {
                 ComponentFunction.setPageFunction('transport')
-            }       
+            }
             navigate(USER_ROUTE)
         } else {
             setModalActive1(true)
@@ -54,19 +54,22 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
         { id: 7, name: 'new_order', alt: 'New order screen' },
         { id: 8, name: 'drivers', alt: 'Drivers screen' },
         { id: 9, name: 'board', alt: 'Board screen' },
-      ]
+    ]
 
 
 
 
     return (
-        <div className={'main_banner_container'} 
+        <div className={'main_banner_container'}
         // style={{ backgroundImage: `url(${target !== 'courier' ? logistics : courier})`, width: '100%', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPositionX: 'center' }}
         >
-         
-         <div className={Setting.app_theme === 'light' ? 'main_banner_half_2_container' : 'main_banner_half_2_container dark'}>
-         <div className={Setting.app_theme === 'light' ? 'main_banner_slogan' : 'main_banner_slogan main_banner_slogan_dark'}>{SetNativeTranslate(Translate.language, {}, 'main_slogan')}</div>
-         <BannerActionContent callRequested={callRequested} setCallRequested={setCallRequested} />
+
+            <div className={Setting.app_theme === 'light' ? 'main_banner_half_2_container' : 'main_banner_half_2_container dark'}>
+                {!user.isAuth &&
+                    <div className={Setting.app_theme === 'light' ? 'main_banner_slogan' : 'main_banner_slogan main_banner_slogan_dark'}>{SetNativeTranslate(Translate.language, {}, 'main_slogan')}</div>
+                }
+
+                <BannerActionContent callRequested={callRequested} setCallRequested={setCallRequested} />
 
             </div>
 
@@ -110,12 +113,12 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
             }
 
             <div className={'main_banner_half_1_container'}>
-            <Slider images = {images}/>
+                <Slider images={images} />
 
-               
+
             </div>
 
-          
+
 
             <Modal modalActive={modalActive1} setModalActive={setModalActive1}>
                 <Auth enterPoint={'isRegister'} modalActive={modalActive1} setModalActive={setModalActive1} after_action={{ action: action }} />

@@ -5,6 +5,7 @@ export default class ManagementStore {
         this._users = []
         this._transports = []
         this._transport_images = []
+        this._user_images = []
         this._orders = []
         this._visits = {}
         this._registrations = {}
@@ -24,6 +25,9 @@ export default class ManagementStore {
     setTransportImages(value) {
         this._transport_images = value
     }
+    setUserImages(value) {
+        this._user_images = value
+    }
     setVisits(value) {
         this._visits = value
     }
@@ -42,6 +46,9 @@ export default class ManagementStore {
     }
     get transport_images() {
         return this._transport_images
+    }
+    get user_images() {
+        return this._user_images
     }
     get visits() {
         return this._visits

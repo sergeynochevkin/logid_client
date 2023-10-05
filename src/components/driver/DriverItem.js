@@ -64,18 +64,10 @@ const DriverItem = observer(({ driver }) => {
 
 
 
-        {images[0] ?
-          <div
-            onClick={(event) => {
-              event.stopPropagation()
-              setImage(images[0])
-              setModalActive(true)
-            }}
-            className='driver_avatar_container' style={{ backgroundImage: `url(${images[0]})`, backgroundPosition: 'center', backgroundSize: 'contain' }}>
-          </div> : <div className={`driver_avatar_container ${Setting.app_theme} ${!images[0] && 'disabled'}`}>
-          {!images[0] && driver.email.charAt().toUpperCase()}
-          </div>
-        }
+        <div className={`driver_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
+          {!images[0] && driver.user_info.email.charAt().toUpperCase()}
+        </div>
+
 
 
         <CardColValue>{driver.id}</CardColValue>
