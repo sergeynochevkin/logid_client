@@ -397,7 +397,6 @@ const Fetcher = observer(() => {
             await fetchAdTransports(FilterAndSort.boardFilters, Ad.transport_option, user.isAuth ? UserInfo.userInfo.id : '').then(data => {
                 adImageHandler(data.rows, Ad.transport_option)
                 Ad.setUsers(data.users, Ad.transport_option)
-                managementUserImageHandler(data.map(el => el.user_info))
                 Ad.setTransports(data.rows, Ad.transport_option)
             })
         }
@@ -412,6 +411,8 @@ const Fetcher = observer(() => {
         async function fetch() {
             await fetchManagementUsers(user.user.id).then(data => {
                 data && Management.setUsers(data)
+                data && managementUserImageHandler(data.map(el => el.user_info))
+
             })
         }
         fetcher.management_users && fetch()

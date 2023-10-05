@@ -75,7 +75,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   }
 
   useEffect(() => {
-    console.log('works');
     enterAction(enterPoint)
   }, [])
 
