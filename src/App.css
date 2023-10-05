@@ -41,15 +41,11 @@
     gap: 50px;
 }
 
-.slider {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
 
 
-.icon {}
+.icon {
+    position: absolute; 
+}
 
 .icon:hover {
     filter: brightness(0.5);
@@ -59,16 +55,14 @@
     cursor: pointer;
 }
 
-
-.slider_image {
-    width: 100%;
-    height: auto;
-    /* cursor: pointer; */
-    border-radius: 20px;
-    object-fit: contain;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
-
+.relative_anchor{
+    width: 0px;
+    height: 0px;
+    overflow:auto;
 }
+
+
+
 
 .text_large {
     font-size: 2.1rem;

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../../App.css'
+import './Slider.css'
 import { SettingContext } from '../../..'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
@@ -45,18 +46,18 @@ const Slider = observer(({ images }) => {
     return (
         <>
             <div className='slider'>
-                <img className='icon active'
+                <img className='icon active'   style={{right:'90%'}}
                     onClick={() => {
                         changeSlide('backward')
                     }}
-                    src={Setting.app_theme === 'light' ? arrow_left : arrow_left_dark} />
+                    src={Setting.app_theme === 'light' ? arrow_left_dark : arrow_left} />
 
                 <img src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.webp`)} className='slider_image' alt={image.alt} />
-                <img className='icon active'
+                <img className='icon active'  style={{left:'90%'}}
                     onClick={() => {
                         changeSlide('forward')
                     }}
-                    src={Setting.app_theme === 'light' ? arrow_right : arrow_right_dark} />
+                    src={Setting.app_theme === 'light' ? arrow_right_dark : arrow_right} />
             </div>           
         </>
     )
