@@ -7,7 +7,7 @@
 }
 
 .slider_image {
-    width: 100%;
+    width:96%;
     height: auto;
     /* cursor: pointer; */
     border-radius: 20px;
@@ -17,7 +17,8 @@
 }
 
 @media screen and (max-width: 425px) {
-    .slider {
+    .slider_image {
         width: 90vw;
+        height:auto;
     }
 }

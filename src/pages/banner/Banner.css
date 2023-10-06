@@ -24,7 +24,8 @@
 .main_banner_container {
     height: max-content;
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: space-evenly;
     align-items: center;
     z-index: 1;
     flex-wrap: wrap;
@@ -88,6 +89,7 @@
     align-items: center;
     gap: 20px;
     padding-bottom: 20px;
+    height: 100%;
 }
 
 .banner_promo_message {
