@@ -484,7 +484,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                                 hindi: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
                             })
                             if (!driverMarkers.find(el => el.getTitle() === title)) {
-                                let icon = Driver.images.find(el=>el.id===driver.user_info.id).urlsArray[1]
+                                let icon = Driver.images.find(el=>el.id===driver.user_info.id) ? Driver.images.find(el=>el.id===driver.user_info.id).urlsArray[1] : undefined
                                 //eslint-disable-next-line no-undef
                                 let marker = new google.maps.Marker({
                                     position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
