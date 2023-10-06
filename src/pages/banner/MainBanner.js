@@ -12,6 +12,7 @@ import { USER_ROUTE } from '../../utils/consts';
 import Modal from '../../components/ui/modal/Modal';
 import Auth from '../../components/auth/Auth';
 import Slider from '../../components/ui/slider/Slider';
+import '../../App.css'
 
 const MainBanner = observer(({ callRequested, setCallRequested }) => {
     const { Setting } = useContext(SettingContext)
@@ -60,14 +61,11 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
 
 
     return (
-        <div className={'main_banner_container'}
+        <div className={'banner'}
         // style={{ backgroundImage: `url(${target !== 'courier' ? logistics : courier})`, width: '100%', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPositionX: 'center' }}
         >
 
-            <div className={Setting.app_theme === 'light' ? 'main_banner_half_2_container' : 'main_banner_half_2_container dark'}>
-                {!user.isAuth &&
-                    <div className={Setting.app_theme === 'light' ? 'main_banner_slogan' : 'main_banner_slogan main_banner_slogan_dark'}>{SetNativeTranslate(Translate.language, {}, 'main_slogan')}</div>
-                }
+            <div className={`banner_section main ${Setting.app_theme}`}>            
 
                 <BannerActionContent callRequested={callRequested} setCallRequested={setCallRequested} />
 
@@ -112,7 +110,7 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
                 </AdButton>
             }
 
-            <div className={'main_banner_half_1_container'}>
+            <div className={`banner_section ${Setting.app_theme}`}>
                 <Slider images={images} />
 
 

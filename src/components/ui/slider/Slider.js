@@ -1,6 +1,5 @@
 import React from 'react'
 import '../../../App.css'
-import './Slider.css'
 import { SettingContext } from '../../..'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'

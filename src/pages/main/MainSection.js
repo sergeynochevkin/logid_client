@@ -19,11 +19,11 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
     <div className={`section_container ${section.class} ${Setting.app_theme === 'light' ? '' : 'dark'}`}>
 
 
-      <div className='section_header'>{section.header}</div>
-      <div className='section_header_comment'>{section.header_comment}</div>
+      <div className='text_middle'>{section.header}</div>
+      <div className='text_small'>{section.header_comment}</div>
 
       {section.type === 'text' ?
-        <div className='section_text'>{section.description}</div> :
+        <div className='text_small'>{section.description}</div> :
         section.type === 'options' ?
           <div>
             <div className='section_content_container'>

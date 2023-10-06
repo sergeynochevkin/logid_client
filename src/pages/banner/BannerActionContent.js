@@ -1,36 +1,34 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { AdressContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import RatingView from '../../components/rating/RatingView'
-import { Button } from '../../components/ui/button/Button'
 import { FieldName } from '../../components/ui/page/FieldName'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts'
-import './Banner.css'
 import '../../components/account/Account.css'
-import CaptureForm from '../../components/captureForm/CaptureForm'
 import FastSignUp from '../../components/fastSignUp/FastSignUp'
 
 
-const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
+const BannerActionContent = observer(() => {
 
     const { user } = useContext(UserContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
-    const navigate = useNavigate()
-    const location = useLocation()
     const { Setting } = useContext(SettingContext)
 
     return (
-        <div className='banner_action_container'>
+        <div className='banner_section action'>
+
+            {!user.isAuth &&
+                <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {}, 'main_slogan')}</div>
+            }
+            
             {!user.user.role ?
                 <>
                     {Adress.country.value === 'russia' ?
                         <>
-                            <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
+                            <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
                                 russian: ['Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно. Предложение ограничено!'],
                                 english: ['Register now, we give you a year of professional subscription for free. The offer is limited!'],
                                 spanish: ['Regístrate ahora, te regalamos un año de suscripción profesional. ¡La oferta es limitada!'],
@@ -40,7 +38,7 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                             })}</div>
                         </> :
                         <>
-                            <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
+                            <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
                                 russian: [`В настоящий момент наш сервис в полностью бесплатный!`],
                                 english: ['At the moment our service in', SetNativeTranslate(Translate.language, {}, Adress.country.value), 'is absolutely free!'],
                                 spanish: ['¡Por el momento nuestro servicio en ', SetNativeTranslate(Translate.language, {}, Adress.country.value), ' es absolutamente gratuito!'],
@@ -51,7 +49,7 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                         </>}
 
 
-                 
+
 
                     <FastSignUp />
 
@@ -74,7 +72,7 @@ const BannerActionContent = observer(({ callRequested, setCallRequested }) => {
                     </div> */}
                 </> :
                 <>
-                    <div className='banner_promo_message'>{SetNativeTranslate(Translate.language, {
+                    <div className='text_middle'>{SetNativeTranslate(Translate.language, {
                         russian: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, успешных доставок!`],
                         english: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, happy deliveries!`],
                         spanish: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, entregas exitosas!`],

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import './Main.css'
+import '../../App.css'
 
 const MainSectionItem = observer(({ item }) => {
     return (
@@ -14,8 +15,8 @@ const MainSectionItem = observer(({ item }) => {
 
                 <div >  <img className='section_item_icon' src={item.icon} /></div>
             }
-            <div className='section_item_name'>{item.name}</div>
-            <div className='section_item_description'>{item.description}</div>
+            <div className='text_middle'>{item.name}</div>
+            <div className='text_small'>{item.description}</div>
         </div>
     )
 })

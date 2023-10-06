@@ -8,7 +8,6 @@ import { CardColName } from '../ui/card/CardColName'
 import { CardRow } from '../ui/card/CardRow'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
 
-import './Rating.css'
 
 const RatingView = observer(({ onePartnerInfo, user, parent }) => {
     const ratingScale = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

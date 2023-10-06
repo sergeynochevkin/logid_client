@@ -656,7 +656,7 @@ const Fleet = observer(() => {
               }
               }>{SetNativeTranslate(Translate.language, {},'sign_up')}</AdButton>
           </div>
-          <div className='banner_section'>
+          <div className='banner_section main'>
             <Slider images={images} />
           </div>
         </div>

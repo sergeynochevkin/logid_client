@@ -5,11 +5,11 @@ import MainBanner from '../banner/MainBanner'
 import { v4 } from "uuid";
 import { deleteNotification, fetchNotification } from '../../http/notificationApi'
 import './Main.css'
+import '../../App.css'
 import '../board/Board.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import MainSection from './MainSection'
 
-import { useJsApiLoader } from '@react-google-maps/api'
 
 import av1 from '../../assets/avatars/av1.webp';
 import av3 from '../../assets/avatars/av3.webp';
@@ -635,7 +635,7 @@ const Main = observer(() => {
     <>
       {user.user.role !== 'admin' && user.user.role !== 'manager' ?
         <>
-          <div className={`main_page_container ${Setting.app_theme}`}>
+          <div className={`page_container ${Setting.app_theme}`}>
             <title>{`logid`}</title>
             <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
