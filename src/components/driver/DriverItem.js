@@ -51,7 +51,7 @@ const DriverItem = observer(({ driver }) => {
     if (Driver.images.find(el => el.id === driver.user_info.id)) {
       setImages(Driver.images.find(el => el.id === driver.user_info.id).urlsArray)
     }
-  }, [])
+  }, [Driver.images])
 
 
 
@@ -63,15 +63,13 @@ const DriverItem = observer(({ driver }) => {
 
 
 
-
         <div className={`driver_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
           {!images[0] && driver.user_info.email.charAt().toUpperCase()}
         </div>
 
 
 
-        <CardColValue>{driver.id}</CardColValue>
-        {/* <CardColValue>{driver.email}</CardColValue> */}
+        <CardColValue>{driver.user_info.id}</CardColValue>
         <CardColValue>{driver.user_info.name_surname_fathersname}</CardColValue>
         <CardColValue>{driver.user_info.phone}</CardColValue>
         <CardColValue>{driver.user_info.email}</CardColValue>
