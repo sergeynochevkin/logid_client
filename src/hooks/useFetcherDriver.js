@@ -12,7 +12,7 @@ export const useFetcherDriver = (driverImageHandler) => {
     async function fetch() {
         await fetchDrivers(user.user.id).then(data => {
             Driver.setDrivers(data)
-            driverImageHandler(data.map(el=>el.user_info))
+            driverImageHandler(data)
         }
         )
     }

@@ -173,7 +173,7 @@ const Fetcher = observer(() => {
                 if (object.user_info.files) {
                     let fileNames = JSON.parse(object.user_info.files)
                     for (const file of fileNames) {
-                        let url = await fetchImages('avatar', object, file)
+                        let url = await fetchImages('avatar', object.user_info, file)
                         imageObject.urlsArray.push(url)
                     }
                     let data = [...Driver.images.filter(el => el.id !== object.id), imageObject]
