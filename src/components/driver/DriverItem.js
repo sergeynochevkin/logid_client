@@ -74,6 +74,7 @@ const DriverItem = observer(({ driver }) => {
         {/* <CardColValue>{driver.email}</CardColValue> */}
         <CardColValue>{driver.user_info.name_surname_fathersname}</CardColValue>
         <CardColValue>{driver.user_info.phone}</CardColValue>
+        <CardColValue>{driver.user_info.email}</CardColValue>
         {driver.isActivated ?
           <>
             <CardColName>{SetNativeTranslate(Translate.language, {
