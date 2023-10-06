@@ -7,6 +7,7 @@
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
     "axios": "^0.27.2",
+    "buffer": "^6.0.3",
     "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
     "jwt-decode": "^3.1.2",

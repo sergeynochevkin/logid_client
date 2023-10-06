@@ -29,10 +29,11 @@ const DriverModalContent = observer(({ setModalActive, onePartnerInfo }) => {
         >
             <div className='partner_view_container'>
 
-
-                <div className={`patner_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
-                    {!images[0] && onePartnerInfo.email.charAt().toUpperCase()}
-                </div>
+                {onePartnerInfo.email &&
+                    <div className={`patner_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
+                        {!images[0] && onePartnerInfo.email.charAt().toUpperCase()}
+                    </div>
+                }
 
 
 

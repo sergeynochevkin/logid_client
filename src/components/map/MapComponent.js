@@ -369,13 +369,13 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
 
     //delete and add when updated!
-    const setMarker = (title, gMap, location, index) => {
+    const setMarker = (title, gMap, location, icon) => {
         //eslint-disable-next-line no-undef
         let marker = new google.maps.Marker({
             position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
             gMap,
             title: title,
-            icon: Setting.app_theme === 'light' ? nav : nav_dark
+            icon: icon ?  icon : Setting.app_theme === 'light' ? nav : nav_dark
         })
         marker.setMap(gMap)
         setLocationMarker(marker)
@@ -386,6 +386,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
         () => {
             if (user.user.role === 'customer' && thisOrder && thisOrder.order_status === 'inWork') {
                 let driverInfo = Driver.drivers.find(el => el.user_info.id === thisOrder.driver_id)
+                let icon = Driver.images.find(el=>el.id===thisOrder.driver_id).urlsArray[1]
                 if (gMap && driverInfo && driverInfo.user_info.location) {
                     let location = JSON.parse(driverInfo.user_info.location)
                     let title = SetNativeTranslate(Translate.language, {
@@ -397,16 +398,16 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         hindi: [`अद्यतन ${setTime(new Date(location.updated), 0, 'show')}`],
                     })
                     if (!locationMarker) {
-                        setMarker(title, gMap, location)
+                        setMarker(title, gMap, location, icon)
                     }
                     else if (locationMarker && locationMarker.getTitle() !== title) {
                         locationMarker.setMap(null)
-                        setMarker(title, gMap, location)
+                        setMarker(title, gMap, location, icon)
                     }
                 }
             }
         }
-        , [Driver.drivers, gMap])
+        , [Driver.drivers, order._divided_orders,gMap])
 
 
 
@@ -416,6 +417,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             if (user.user.role === 'carrier') {
                 if (thisOrder && thisOrder.order_status === 'inWork') {
                     let driverInfo = Driver.drivers.find(el => el.user_info.id === thisOrder.driver_id)
+                    let icon = Driver.images.find(el=>el.id===thisOrder.driver_id).urlsArray[1]
                     if (gMap && driverInfo && driverInfo.user_info.location) {
                         let location = JSON.parse(driverInfo.user_info.location)
                         let title = SetNativeTranslate(Translate.language, {
@@ -427,11 +429,11 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                             hindi: [`अद्यतन ${setTime(new Date(location.updated), 0, 'show')}`],
                         })
                         if (!locationMarker) {
-                            setMarker(title, gMap, location)
+                            setMarker(title, gMap, location, icon)
                         }
                         else if (locationMarker && locationMarker.getTitle() !== title) {
                             locationMarker.setMap(null)
-                            setMarker(title, gMap, location)
+                            setMarker(title, gMap, location, icon)
                         }
                     }
                 } else {
@@ -444,7 +446,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                                 if (!Driver.drivers.map(el => el.user_info).find(el => el.name_surname_fathersname === driver)) {
                                     marker.setMap(null)
                                     let data = [...driverMarkers]
-                                    data.filter(el => el.getTitle() === driver)
+                                    data.filter(el => el.getTitle().split(':')[0] === driver)
                                     setDriverMarkers([...data])
                                 }
                             }
@@ -465,7 +467,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                                 if (marker.getTitle() !== title) {
                                     marker.setMap(null)
                                     let data = [...driverMarkers]
-                                    data.filter(el => el.getTitle() === driver)
+                                    data.filter(el => el.getTitle().split(':')[0] === title.split(':')[0])
                                     setDriverMarkers([...data])
                                 }
                             }
@@ -482,12 +484,13 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                                 hindi: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
                             })
                             if (!driverMarkers.find(el => el.getTitle() === title)) {
+                                let icon = Driver.images.find(el=>el.id===driver.user_info.id).urlsArray[1]
                                 //eslint-disable-next-line no-undef
                                 let marker = new google.maps.Marker({
                                     position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
                                     gMap,
                                     title: title,
-                                    icon: Setting.app_theme === 'light' ? nav : nav_dark
+                                    icon: icon
                                 })
                                 marker.setMap(gMap)
                                 setDriverMarkers([...driverMarkers, marker]
@@ -496,9 +499,10 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         }
                     }
                 }
+               
             }
         }
-        , [UserInfo.userInfo, Driver.drivers, gMap])
+        , [UserInfo.userInfo, Driver.drivers, gMap, order._divided_orders])
 
 
     //self position for driver drivers positions for cerrier at order in work map, all drivers position for orders map
@@ -508,6 +512,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             if (user.user.role === 'driver' || (user.user.role === 'carrier' && Driver.drivers.length === 0) ) {
                 if (gMap && UserInfo.userInfo.location) {
                     let location = JSON.parse(UserInfo.userInfo.location)
+                    let icon = UserInfo.images.find(el => el.id === UserInfo.userInfo.id).urlsArray[1]
                     let title = SetNativeTranslate(Translate.language, {
                         russian: [`Обновлено ${setTime(new Date(location.updated), 0, 'show')}`],
                         english: [`Updated ${setTime(new Date(location.updated), 0, 'show')}`],
@@ -517,11 +522,11 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         hindi: [`अद्यतन ${setTime(new Date(location.updated), 0, 'show')}`],
                     })
                     if (!locationMarker) {
-                        setMarker(title, gMap, location)
+                        setMarker(title, gMap, location, icon)
                     }
                     else if (locationMarker && locationMarker.getTitle() !== title) {
                         locationMarker.setMap(null)
-                        setMarker(title, gMap, location)
+                        setMarker(title, gMap, location, icon)
                     }
                 }
             }
