@@ -132,7 +132,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
 
     useEffect(() => {
         if (link.after_actions.add_order) {
-            if (UserInfo.userInfo.legal) {
+            if (!UserInfo.userInfo.legal) {
                 setModalActive(true)
                 link.setAfterActions(false, 'add_order')
             }
@@ -880,14 +880,14 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                         color: 'rgb(254, 111, 103,0.8)'
                     }}
                 >
-                    {!UserInfo.userInfo.legal && SetNativeTranslate(Translate.language, {
+                    {!UserInfo.userInfo.legal && !modalActive  ? SetNativeTranslate(Translate.language, {
                         russian: ['Для отправки заказа, заполните профиль в разделе Аккаунт'],
                         english: ['To send an order, fill out your profile in the Account section'],
                         spanish: ['Para enviar un pedido, complete su perfil en la sección Cuenta'],
                         turkish: ['Sipariş göndermek için Hesap bölümünde profilinizi doldurun'],
                         сhinese: ['要发送订单，请在“帐户”部分填写您的个​​人资料'],
                         hindi: ['ऑर्डर भेजने के लिए, खाता अनुभाग में अपना प्रोफ़ाइल भरें'],
-                    }, '')
+                    }, '') : ''
                     }
                 </FieldName>
             </Form>

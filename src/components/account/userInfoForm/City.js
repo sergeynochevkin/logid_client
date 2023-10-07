@@ -8,10 +8,14 @@ import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
 import AdressComponent from './AdressComponent'
 
-const City = ({ formData, setFormData, cityEditable }) => {
+const City = ({ formData, setFormData, cityEditable, id }) => {
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
 
+    if (!id) {
+        id = 'city'
+    }
+    
     let autocomplete
     function initAutocomplete(id, country) {
         //eslint-disable-next-line no-undef
@@ -21,18 +25,18 @@ const City = ({ formData, setFormData, cityEditable }) => {
                 types: ['locality', 'administrative_area_level_3'],
                 componentRestrictions: { 'country': [`${country}`] },
                 fields: ['geometry', 'name'],
-                language:Adress.country.google_language
+                language: Adress.country.google_language
             },
         )
         autocomplete.addListener('place_changed', onPlaceChanged)
     }
 
     useEffect(() => {
-        initAutocomplete('city', Adress.country.google_code)
+        initAutocomplete(id, Adress.country.google_code)
     }, [])
 
     useEffect(() => {
-        initAutocomplete('city', Adress.country.google_code)
+        initAutocomplete(id, Adress.country.google_code)
         dataReset()
     }, [Adress.country])
 
@@ -56,7 +60,7 @@ const City = ({ formData, setFormData, cityEditable }) => {
         var place = autocomplete.getPlace()
         if (place) {
             if (!place.geometry) {
-                document.getElementById(id).placeholder = SetNativeTranslate(Translate.language,{},'enter_city')
+                document.getElementById(id).placeholder = SetNativeTranslate(Translate.language, {}, 'enter_city')
             } else {
                 let data = { ...formData }
                 data.city.value = place.name
@@ -74,8 +78,9 @@ const City = ({ formData, setFormData, cityEditable }) => {
             <VerticalContainer
                 style={{ gap: '0px' }}>
                 <Input
-                    placeholder={SetNativeTranslate(Translate.language,{},'enter_city')}
-                    defaultValue={formData.city.value} name="city" id='city'
+                    placeholder={SetNativeTranslate(Translate.language, {}, 'enter_city')}
+                    defaultValue={formData.city.value} name="city"
+                    id={id}
                     onChange={() => {
                         if (formData.city.value !== '') {
                             dataReset()
@@ -96,7 +101,7 @@ const City = ({ formData, setFormData, cityEditable }) => {
                     }}
                 >
                     {formData.city.notValid && formData.city.isDirty ?
-                        SetNativeTranslate(Translate.language,{},'select_city').toLowerCase() :
+                        SetNativeTranslate(Translate.language, {}, 'select_city').toLowerCase() :
                         ''
                     }
                 </FieldName>

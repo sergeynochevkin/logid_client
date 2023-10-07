@@ -48,12 +48,12 @@ const FastSignUp = observer(() => {
     const role = queryParams.get("role")
 
 
-
     // useEffect(() => {
     //     if (width < 770) {
     //         setFormVisible(false)
     //     } else { setFormVisible(true) }
     // }, [])
+
 
     let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
@@ -242,7 +242,7 @@ const FastSignUp = observer(() => {
 
 
                     <div className='fast_sign_up_section'>
-                        <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
+                        <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} id='city' />
                     </div>
 
                     <div className='fast_sign_up_section'>

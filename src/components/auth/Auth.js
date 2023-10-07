@@ -52,6 +52,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { fetcher } = useContext(FetcherContext)
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const order_status = queryParams.get("o_s")
+  const role = queryParams.get("role")
 
   let ip = localStorage.getItem('currentIp')
 
@@ -221,9 +222,12 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   })
 
   formData.country.value = Adress.country.value
-  formData.role.value = !link.after_actions.add_transport_form ? '' : 'carrier'
-  formData.role.isEmpty = !link.after_actions.add_transport_form ? true : false
-  formData.role.notValid = !link.after_actions.add_transport_form ? true : false
+  useEffect(()=>{
+    formData.role.value = !role ? '' : role
+    formData.role.isEmpty = !role ? true : false
+    formData.role.notValid = !role ? true : false
+  },[])
+
 
   const [fetching, error] = useFetching(async () => {
 
@@ -353,7 +357,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
 
 
-        if ((parent === 'navBar' || parent ==='fleet' ) && !after_action) {
+        if ((parent === 'navBar' || parent === 'fleet') && !after_action) {
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
           else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
@@ -549,7 +553,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
         {isRegister &&
           <div className='fast_sign_up_section'>
-            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
+            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData}  id={'city_1'}/>
           </div>}
 
         {isRegister &&
@@ -660,7 +664,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               </FieldName>
             </VerticalContainer>
 
-            {isRegister ? <>
+            {isRegister && !role? <>
               {!link.after_actions.add_transport_form ?
                 <VerticalContainer
                   style={{ gap: '0px' }}
@@ -690,7 +694,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                   </FieldName>
                 </VerticalContainer> : <></>}
 
-              {formData.role.value === 'carrier' && formData.role.value !== '' && !link.after_actions.add_transport_form ?
+              {formData.role.value === 'carrier'  && !link.after_actions.add_transport_form ?
                 <div className='fast_sign_up_section'>
                   <TransportFormSection parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
                 </div>
