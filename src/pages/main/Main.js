@@ -107,6 +107,7 @@ const Main = observer(() => {
     }
     if (uuid) {
       handleUrlNotification()
+      fetcher.setUserInfo(true)
     }
   }, [])
 
@@ -695,7 +696,7 @@ const Main = observer(() => {
             } */}
 
         </> : user.user.role === 'admin' ?
-          <div className={`main_page_container ${Setting.app_theme}`}>
+          <div className={`page_container ${Setting.app_theme}`}>
 
             <div className={`admin_console_container ${Setting.app_theme}`}>
 

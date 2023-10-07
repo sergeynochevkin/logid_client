@@ -39,7 +39,7 @@
     width: 100%;
     background-color: rgb(245, 245, 245, 0.3);
     position: absolute;
-    z-index: 2;
+    z-index: 3;
 }
 
 .loader.page {

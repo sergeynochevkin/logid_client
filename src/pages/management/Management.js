@@ -18,7 +18,7 @@ const Admin = observer(() => {
   const { Translate } = useContext(TranslateContext)
 
   return (
-    <div className={`main_page_container ${Setting.app_theme}`}>
+    <div className={`page_container ${Setting.app_theme}`}>
       <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
         <div className='scroll_content_container'>
 

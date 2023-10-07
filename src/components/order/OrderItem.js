@@ -362,7 +362,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         <CardColValue>{thisOrder.cost === 0 ? SetNativeTranslate(Translate.language, {}, 'not_specified') : `${thisOrder.cost} ${Adress.country.currency}`}</CardColValue>
                     </CardRow>
 
-                    {((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && user.user.role !== 'driver') &&
+                    {((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && user.user.role !== 'driver' &&  Partner.partnerInfos.length > 0  ) &&
                         <CardRow>
                             <CardColName>{SetNativeTranslate(Translate.language, {}, 'available')}</CardColName>
                             {user.user.role === 'customer' && Partner.partnerInfos.length > 0 && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?

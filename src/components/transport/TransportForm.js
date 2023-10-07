@@ -77,7 +77,7 @@ const TransportForm = observer(({ setModalActive, formData, formReset, setFormDa
     try {
       let data;
 
-      if (formFunction === 'create') {
+      if (formFunction === 'create' || !formFunction) {
         data = await createTransport(
           formData
         )

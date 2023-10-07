@@ -5,11 +5,11 @@ import { Input } from '../ui/form/Input'
 import { Name } from '../ui/text/Name'
 import { Select } from '../ui/form/Select'
 import { Comment } from '../ui/form/Comment'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, MANAGER_ROUTE } from '../../utils/consts';
 import { activateDriver, code, fast_registration, login, restore } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LinkContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, LinkContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useFetching } from '../../hooks/useFetching'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import { useInput } from '../../hooks/useInput'
@@ -35,7 +35,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { link } = useContext(LinkContext)
   const { UserInfo } = useContext(UserInfoContext)
   const queryParams = new URLSearchParams(window.location.search)
-
+  const { order } = useContext(OrderContext)
+  let location = useLocation()
   const [isRegister, setIsRegister] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
   const [isRecovery, setIsRecovery] = useState(false)
@@ -222,11 +223,19 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   })
 
   formData.country.value = Adress.country.value
-  useEffect(()=>{
+
+  if (enterPoint === 'isRegister' && location.pathname !== "/board") {
     formData.role.value = !role ? '' : role
     formData.role.isEmpty = !role ? true : false
     formData.role.notValid = !role ? true : false
-  },[])
+  }
+
+  if (location.pathname === "/board" && enterPoint === 'isRegister') {
+    formData.role.value = 'carrier'
+    formData.role.isEmpty = false
+    formData.role.notValid = false
+  }
+
 
 
   const [fetching, error] = useFetching(async () => {
@@ -348,6 +357,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                 id: v4(), type: 'error', message: message
               }])
             } else if (user.user.role === 'customer') {
+              order.setIntegrationId()
               ComponentFunction.setPageFunction('orderForm')
               ComponentFunction.setOrderFormFunction('newOrder')
             }
@@ -553,7 +563,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
         {isRegister &&
           <div className='fast_sign_up_section'>
-            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData}  id={'city_1'}/>
+            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} id={'city_1'} />
           </div>}
 
         {isRegister &&
@@ -664,7 +674,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               </FieldName>
             </VerticalContainer>
 
-            {isRegister && !role? <>
+            {isRegister && !role ? <>
               {!link.after_actions.add_transport_form ?
                 <VerticalContainer
                   style={{ gap: '0px' }}
@@ -679,7 +689,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                     <option disabled hidden value={formData.role.value}>{SetNativeTranslate(Translate.language, {}, 'who_are_you')}</option>
                     <option value='customer'>{SetNativeTranslate(Translate.language, {}, 'customer')}</option>
                     <option value='carrier'>{SetNativeTranslate(Translate.language, {}, 'carrier')}</option>
-                    {/* <option value='admin'>admin</option> */}
                   </Select>
                   <FieldName
                     style={{
@@ -694,7 +703,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                   </FieldName>
                 </VerticalContainer> : <></>}
 
-              {formData.role.value === 'carrier'  && !link.after_actions.add_transport_form ?
+              {formData.role.value === 'carrier' && !link.after_actions.add_transport_form ?
                 <div className='fast_sign_up_section'>
                   <TransportFormSection parent={'fast_sign_up'} formData={formData} setFormData={setFormData} />
                 </div>

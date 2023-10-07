@@ -74,8 +74,9 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
     const parent = 'orderForm'
 
     useEffect(() => {
-        fetcher.setPartners(true)
+            fetcher.setPartners(true)
     }, [])
+
 
     let initialTime = new Date();
 
@@ -493,6 +494,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
             afterAction('')
         } catch (e) {
             Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
+            fetcher.setCustomLoading(false)
         }
     }
 
@@ -829,7 +831,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                             (formData.load_capacity.isEmpty && formData.type === 'truck') ||
                             (formData.load_capacity.isEmpty && formData.type === 'minibus') ||
                             (formData.side_type.isEmpty && formData.type === 'truck')
-                            || (formData.cost.notValid && formData.order_type.value === 'order') || !UserInfo.userInfo.legal
+                            || (formData.cost.notValid && formData.order_type.value === 'order') 
 
                         }
                     >{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language, {}, 'save') : SetNativeTranslate(Translate.language, {}, 'send')}</Button>
@@ -853,7 +855,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
                                 (formData.load_capacity.isEmpty && formData.type === 'minibus') ||
                                 (formData.side_type.isEmpty && formData.type === 'truck')
-                                || (formData.cost.notValid && formData.order_type.value === 'order') || !UserInfo.userInfo.legal
+                                || (formData.cost.notValid && formData.order_type.value === 'order') 
                             }
                         >{SetNativeTranslate(Translate.language, {}, 'postpone')}</Button>
                         : <></>}
@@ -867,29 +869,15 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
                                 (formData.load_capacity.isEmpty && formData.type === 'minibus') ||
                                 (formData.side_type.isEmpty && formData.type === 'truck')
-                                || (formData.cost.notValid && formData.order_type.value === 'order') || !UserInfo.userInfo.legal
+                                || (formData.cost.notValid && formData.order_type.value === 'order') 
                             }
                         >{SetNativeTranslate(Translate.language, {}, 'create_template')}</Button>
                         : <></>}
 
 
                 </Container>
-                <FieldName
-                    style={{
-                        fontWeight: 'normal',
-                        color: 'rgb(254, 111, 103,0.8)'
-                    }}
-                >
-                    {!UserInfo.userInfo.legal && !modalActive  ? SetNativeTranslate(Translate.language, {
-                        russian: ['Для отправки заказа, заполните профиль в разделе Аккаунт'],
-                        english: ['To send an order, fill out your profile in the Account section'],
-                        spanish: ['Para enviar un pedido, complete su perfil en la sección Cuenta'],
-                        turkish: ['Sipariş göndermek için Hesap bölümünde profilinizi doldurun'],
-                        сhinese: ['要发送订单，请在“帐户”部分填写您的个​​人资料'],
-                        hindi: ['ऑर्डर भेजने के लिए, खाता अनुभाग में अपना प्रोफ़ाइल भरें'],
-                    }, '') : ''
-                    }
-                </FieldName>
+         
+      
             </Form>
 
             <MapComponent

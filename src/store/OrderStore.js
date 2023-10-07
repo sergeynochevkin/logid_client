@@ -6,6 +6,7 @@ export default class OrderStore {
     constructor() {
         this._orders = []
         this._order_images = []
+        this._integrationId = ''
 
         this._files = []
         this._pairs = []
