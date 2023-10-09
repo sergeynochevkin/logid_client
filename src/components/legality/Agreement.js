@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite'
-import React, { Suspense, useContext } from 'react'
-import { ComponentFunctionContext } from '../..'
+import React, { Suspense, useContext, useEffect } from 'react'
+import { ComponentFunctionContext, SettingContext } from '../..'
 import './Legality.css'
+import { useLocation } from 'react-router-dom'
 
 // import UserAgreementRussia from './UserAgreementRussia'
 // import PersonalDataAgreementRussia from './PersonalDataAgreementRussia'
@@ -13,17 +14,24 @@ const UserAgreementRussia = React.lazy(() => import('./UserAgreementRussia'))
 
 
 const Agreement = observer(() => {
+    let location = useLocation()
 
     const { ComponentFunction } = useContext(ComponentFunctionContext)
+    const{Setting} = useContext(SettingContext)
+
+    useEffect(() => {
+        location.pathname === '/privacy_policy' && ComponentFunction.setAgreement('PrivacyPolicy')
+        location.pathname === '/user_agreement' && ComponentFunction.setAgreement('UserAgeement')
+    }, [])
 
     return (
-        <>
+        <div className={location.pathname === '/privacy_policy' || location.pathname === '/user_agreement' ? `page_container ${Setting.app_theme}` : ''}>
             {
                 ComponentFunction.agreement === 'UserAgeement' ? <Suspense><UserAgreementRussia /></Suspense> :
                     ComponentFunction.agreement === 'PersonalDataAgreement' ? <Suspense><PersonalDataAgreementRussia /></Suspense> :
                         ComponentFunction.agreement === 'PrivacyPolicy' ? <Suspense><PrivacyPolicyRussia /></Suspense> : <></>
             }
-        </>
+        </div>
 
     )
 })

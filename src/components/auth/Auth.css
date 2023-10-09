@@ -44,6 +44,7 @@
 .auth_checkbox_text {
     display: flex;
     gap: 3px;
+    flex-wrap: wrap;
 }
 
 .auth_checkbox {

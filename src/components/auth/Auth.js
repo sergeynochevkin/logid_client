@@ -55,6 +55,10 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const order_status = queryParams.get("o_s")
   const role = queryParams.get("role")
 
+  const [agreements, setAgreements] = useState(false)
+
+
+
   let ip = localStorage.getItem('currentIp')
 
   const enterAction = (enterPoint) => {
@@ -116,7 +120,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
 
 
-  let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
+  // let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
   let initialValue = {
     email: '',
@@ -128,7 +132,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     privacy_policy_accepted: false,
     age_accepted: false,
     personal_data_agreement_accepted: false,
-    cookies_accepted: cookies_accepted,
+    cookies_accepted: {total:false},
 
     //user info
     userId: undefined,
@@ -236,6 +240,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     formData.role.notValid = false
   }
 
+  useEffect(() => {
+    let data = {...formData}
+    data.cookies_accepted.total = agreements
+    setFormData({ ...data, user_agreement_accepted: agreements, privacy_policy_accepted: agreements, age_accepted: agreements, personal_data_agreement_accepted: agreements })
+  }, [agreements])
 
 
   const [fetching, error] = useFetching(async () => {
@@ -438,6 +447,16 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     }
   }
 
+  useEffect(()=>{
+
+    console.log(   formData.user_agreement_accepted);
+    console.log(   formData.privacy_policy_accepted);
+    console.log(   formData.age_accepted);
+    console.log(   formData.personal_data_agreement_accepted);
+    console.log(   formData.cookies_accepted);
+ 
+  },[formData])
+
   const click = async () => {
     try {
       let data;
@@ -516,18 +535,18 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
             {
-              russian: ['Вы зарегистрированы, ссылка для активации аккаунта отрправлена на указанный email'],
-              english: ['You are registered, a link to activate your account has been sent to the specified email'],
-              spanish: ['Está registrado, se ha enviado un enlace para activar su cuenta al correo electrónico especificado'],
-              turkish: ['Kayıt oldunuz, hesabınızı etkinleştirmek için bir bağlantı belirtilen e-postaya gönderildi'],
-              сhinese: ['您已注册，激活帐户的链接已发送到指定的电子邮件。'],
-              hindi: ['आप पंजीकृत हैं, आपके खाते को सक्रिय करने के लिए एक लिंक निर्दिष्ट ईमेल पर भेज दिया गया है।'],
+              russian: ['Вы зарегистрированы, ссылка для активации аккаунта и пароль отрправлены на указанный email'],
+              english: ['You are registered, a link to activate your account and password have been sent to the specified email'],
+              spanish: ['Estás registrado, se ha enviado un enlace para activar tu cuenta y contraseña al correo electrónico especificado'],
+              turkish: ['Kayıt oldunuz, hesabınızı etkinleştirmeniz için bir bağlantı ve şifreniz belirtilen e-posta adresinize gönderildi'],
+              сhinese: ['您已注册，激活您帐户的链接和密码已发送至指定电子邮件。'],
+              hindi: ['आप पंजीकृत हैं, आपके खाते को सक्रिय करने के लिए एक लिंक और पासवर्ड निर्दिष्ट ईमेल पर भेज दिया गया है।'],
             }
           )
         }])
       }
       fetching()
-      localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
+      // localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
       fetcher.setCustomLoading(false)
 
@@ -624,7 +643,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           </VerticalContainer>
           : <></>}
 
-        {isLogin || isRegister || (isRecovery && codeSend) ?
+        {isLogin || (isRecovery && codeSend) ?
           <VerticalContainer
             style={{ gap: '0px' }}
           >
@@ -650,29 +669,32 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
         {isRegister || (isRecovery && codeSend) ?
           <>
-            <VerticalContainer
-              style={{ gap: '0px' }}
-            >
-              <Input placeholder={SetNativeTranslate(Translate.language, {}, 'password_repeat')} value={comparePassword} onChange={(e) => {
-                setComparePassword(e.target.value)
-                setComparePasswordActive(true)
-              }}
-                style={{ borderLeft: formData.password.value !== comparePassword || !comparePassword ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                onBlur={e => formData.password.onBlur(e)}
-                type="password"
-                autoComplete='new-password'
-              ></Input>
-              <FieldName
-                style={{
-                  fontWeight: 'normal',
-                  color: 'rgb(254, 111, 103,0.8)'
-                }}
+            {!isRegister &&
+              <VerticalContainer
+                style={{ gap: '0px' }}
               >
-                {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
-                  SetNativeTranslate(Translate.language, {}, 'compare_passwords') : ''
-                }
-              </FieldName>
-            </VerticalContainer>
+                <Input placeholder={SetNativeTranslate(Translate.language, {}, 'password_repeat')} value={comparePassword} onChange={(e) => {
+                  setComparePassword(e.target.value)
+                  setComparePasswordActive(true)
+                }}
+                  style={{ borderLeft: formData.password.value !== comparePassword || !comparePassword ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
+                  onBlur={e => formData.password.onBlur(e)}
+                  type="password"
+                  autoComplete='new-password'
+                ></Input>
+                <FieldName
+                  style={{
+                    fontWeight: 'normal',
+                    color: 'rgb(254, 111, 103,0.8)'
+                  }}
+                >
+                  {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
+                    SetNativeTranslate(Translate.language, {}, 'compare_passwords') : ''
+                  }
+                </FieldName>
+              </VerticalContainer>
+            }
+
 
             {isRegister && !role ? <>
               {!link.after_actions.add_transport_form ?
@@ -745,9 +767,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                 <>
                   <CheckBoxContainer >
                     <CheckBoxSection >
-                      <input type='checkbox' className='auth_checkbox' checked={formData.user_agreement_accepted && 'checked'} value={formData.user_agreement_accepted} onChange={() => {
-                        formData.user_agreement_accepted === false ? setFormData({ ...formData, user_agreement_accepted: true }) :
-                          setFormData({ ...formData, user_agreement_accepted: false })
+                      <input type='checkbox' className='auth_checkbox' checked={agreements && 'checked'} value={agreements} onChange={() => {
+                        !agreements ? setAgreements(true) :
+                          setAgreements(false)
                       }}></input>
                       <label className='auth_check_box_label' >
                         <div className='auth_checkbox_text'>
@@ -776,26 +798,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                               hindi: ['用户协议'],
                             })}
                           </div>
-                        </div>
-                      </label>
-                    </CheckBoxSection>
-                  </CheckBoxContainer>
-                  <CheckBoxContainer >
-                    <CheckBoxSection >
-                      <input type='checkbox' className='auth_checkbox' checked={formData.privacy_policy_accepted && 'checked'} value={formData.privacy_policy_accepted} onChange={() => {
-                        formData.privacy_policy_accepted === false ? setFormData({ ...formData, privacy_policy_accepted: true }) :
-                          setFormData({ ...formData, privacy_policy_accepted: false })
-                      }}></input>
-                      <label className='auth_check_box_label' >
-                        <div className='auth_checkbox_text'>
-                          <div>{SetNativeTranslate(Translate.language, {
-                            russian: [`подтвердите согласие с`],
-                            english: [`confirm your agreement with`],
-                            spanish: [`confirma tu acuerdo con`],
-                            turkish: [`ile anlaşmanızı onaylayın`],
-                            сhinese: ['确认您同意'],
-                            hindi: ['के साथ अपने समझौते की पुष्टि करें'],
-                          })}</div>
+                          ,
                           <div className='auth_agreement_link'
                             onClick={() => {
                               ComponentFunction.setAgreement('PrivacyPolicy')
@@ -811,27 +814,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                               hindi: ['गोपनीयता नीति'],
                             })}
                           </div>
-                        </div>
-                      </label>
-                    </CheckBoxSection>
-                  </CheckBoxContainer>
-
-                  <CheckBoxContainer >
-                    <CheckBoxSection >
-                      <input type='checkbox' className='auth_checkbox' checked={formData.personal_data_agreement_accepted && 'checked'} value={formData.personal_data_agreement_accepted} onChange={() => {
-                        formData.personal_data_agreement_accepted === false ? setFormData({ ...formData, personal_data_agreement_accepted: true }) :
-                          setFormData({ ...formData, personal_data_agreement_accepted: false })
-                      }}></input>
-                      <label className='auth_check_box_label' >
-                        <div className='auth_checkbox_text'>
-                          <div>{SetNativeTranslate(Translate.language, {
-                            russian: [`подтвердите`],
-                            english: [`confirm your`],
-                            spanish: [`confirmar tu`],
-                            turkish: [`onayla`],
-                            сhinese: ['确认你的'],
-                            hindi: ['आपकी पुष्टि'],
-                          })}</div>
+                          ,
                           <div className='auth_agreement_link'
                             onClick={() => {
                               ComponentFunction.setAgreement('PersonalDataAgreement')
@@ -847,59 +830,35 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                               hindi: ['व्यक्तिगत डेटा के प्रसंस्करण के लिए सहमति'],
                             })}
                           </div>
+                          ,
+                          <div>
+                            {SetNativeTranslate(Translate.language, {
+                              russian: [`согласие на сбор cookies`],
+                              english: [`consent to the collection of cookies`],
+                              spanish: [`consentimiento para la recopilación de cookies`],
+                              turkish: [`çerezlerin toplanmasına izin ver`],
+                              сhinese: ['同意收集 cookie'],
+                              hindi: ['कुकीज़ के संग्रह के लिए सहमति'],
+                            })}
+                          </div>
+                          ,
+                          <div>
+                            {SetNativeTranslate(Translate.language, {
+                              russian: [`а также, что вам исполнилось 18 лет`],
+                              english: [`and also that you are over 18 years old`],
+                              spanish: [`y además que seas mayor de 18 años`],
+                              turkish: [`ve ayrıca 18 yaşın üzerinde olduğunuzu`],
+                              сhinese: ['并且您已年满 18 岁'],
+                              hindi: ['और यह भी कि आपकी उम्र 18 वर्ष से अधिक है'],
+                            })}
+                          </div>
+
                         </div>
                       </label>
                     </CheckBoxSection>
                   </CheckBoxContainer>
 
-                  <CheckBoxContainer >
-                    <CheckBoxSection >
-                      <input type='checkbox' className='auth_checkbox' checked={formData.age_accepted && 'checked'} value={formData.age_accepted} onChange={() => {
-                        formData.age_accepted === false ? setFormData({ ...formData, age_accepted: true }) :
-                          setFormData({ ...formData, age_accepted: false })
-                      }}></input>
-                      <>
-                        <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
-                          russian: [`подтвердите, что вам исполнилось 18 лет`],
-                          english: [`confirm that you are over 18 years old`],
-                          spanish: [`confirma que eres mayor de 18 años`],
-                          turkish: [`18 yaşından büyük olduğunuzu onaylayın`],
-                          сhinese: ['确认您已年满 18 岁'],
-                          hindi: ['पुष्टि करें कि आपकी आयु 18 वर्ष से अधिक है'],
-                        })}</label>
-                      </>
-                    </CheckBoxSection>
-                  </CheckBoxContainer>
                 </>}
-              {!cookies_accepted.auth &&
-                <CheckBoxContainer >
-                  <CheckBoxSection >
-                    <input type='checkbox' className='auth_checkbox' checked={formData.cookies_accepted.total && 'checked'} value={formData.cookies_accepted.total}
-
-                      onChange={() => {
-                        let data = { ...formData }
-                        if (!data.cookies_accepted.total) {
-                          data.cookies_accepted.total = true
-                        } else {
-                          data.cookies_accepted.total = false
-                        }
-                        setFormData(data)
-                      }}
-
-                    ></input>
-                    <>
-                      <label className='auth_check_box_label' >{SetNativeTranslate(Translate.language, {
-                        russian: [`подтвердите, cсогласие на сбор cookies`],
-                        english: [`confirm your consent to the collection of cookies`],
-                        spanish: [`confirme su consentimiento para la recopilación de cookies`],
-                        turkish: [`çerezlerin toplanmasına onay verdiğinizi onaylayın`],
-                        сhinese: ['确认您同意收集 cookie'],
-                        hindi: ['कुकीज़ के संग्रह के लिए अपनी सहमति की पुष्टि करें'],
-                      })}</label>
-                    </>
-                  </CheckBoxSection>
-                </CheckBoxContainer>
-              }
 
             </div>
           </div>
@@ -916,10 +875,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             disabled={
               formData.email.notValid ||
               formData.phone.notValid && isRegister ||
-              (formData.password.notValid && (isRegister || isLogin || (isRecovery && codeSend))) ||
+              (formData.password.notValid && (isLogin || (isRecovery && codeSend))) ||
               (formData.role.notValid && isRegister) ||
-              (formData.password.value !== comparePassword && (isRegister ||
-                (isRecovery && codeSend))) ||
+              (formData.password.value !== comparePassword && ((isRecovery && codeSend))) ||
               !reCapchaChecked ||
               (isRecovery && codeSend && formData.code.isEmpty) ||
               (isRegister && !formData.user_agreement_accepted && Adress.country.value === 'russia') ||

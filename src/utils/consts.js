@@ -4,5 +4,6 @@ export const USER_ROUTE = '/user'
 export const BOARD_ROUTE = '/board'
 export const BOARD_ITEM_ROUTE = '/board/item/:id'
 export const MAIN_ROUTE = '/'
-
 export const FLEET_ROUTE = '/fleet'
+export const PRIVACY_POlICY_ROUTE = '/privacy_policy'
+export const USER_AGREEMENT_ROUTE = '/user_agreement'
