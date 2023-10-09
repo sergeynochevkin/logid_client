@@ -571,7 +571,7 @@ const Fleet = observer(() => {
         сhinese: ['安娜，24岁，卖化妆品'],
         hindi: ['24 साल की अन्ना सौंदर्य प्रसाधन बेच रही हैं'],
       }), description: SetNativeTranslate(Translate.language, {
-        russian: ['Не знаю другого сервиса, гже можно заказать своего курьера в такое большое количество точек подряд, расписать ему комментарии, маршрут и видеть как он отмечает и комментирует каждую из них, когда выполнил. Я отбираю курьеров и даю заказы в logid только своей группе курьеров'],
+        russian: ['Не знаю другого сервиса, где можно заказать своего курьера в такое большое количество точек подряд, расписать ему комментарии, маршрут и видеть как он отмечает и комментирует каждую из них, когда выполнил. Я отбираю курьеров и даю заказы в logid только своей группе курьеров'],
         english: ['I don’t know any other service, where you can order your courier to such a large number of points in a row, write comments, a route for him, and see how he notes and comments on each of them when he completed it. I select couriers and give orders in logid only to my group of couriers'],
         spanish: ['No conozco ningún otro servicio donde puedas ordenar a tu mensajero un número tan grande de puntos seguidos, escribir comentarios, una ruta para él y ver cómo anota y comenta cada uno de ellos cuando lo completa. Selecciono mensajeros y doy pedidos en logid solo a mi grupo de mensajeros'],
         turkish: ['Kuryenizi bu kadar çok noktaya art arda sipariş edebileceğiniz, ona yorum, rota yazabileceğiniz, tamamladığında her birine nasıl not aldığını, yorum yaptığını görebileceğiniz başka bir hizmet bilmiyorum. Kuryeleri seçiyorum ve sadece kendi kurye grubuma logid üzerinden sipariş veriyorum'],
