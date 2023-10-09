@@ -74,7 +74,7 @@ const Board = observer(() => {
 
     return (
         <div className={`board_container ${Setting.app_theme}`}>
-            <title>logid - доска объявлений</title>
+            <title>logid - доска объявлений перевозчиков и курьеров</title>
 
             <BoardMainBanner addAdAction={addAdAction} />
             <div className={`board_content_container`}>
