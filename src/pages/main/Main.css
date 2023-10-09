@@ -49,6 +49,7 @@
     gap: 20px;
 }
 
+
 .main_section_items_container {
     display: flex;
     flex-wrap: wrap;
@@ -71,7 +72,10 @@
 .section_item_container {
     min-height: 200px;
     width: 200px;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    gap: 10px;
 }
 
 .section_item_container:hover {
