@@ -621,6 +621,7 @@ const Fleet = observer(() => {
   return (
     <>
       <div className={`page_container ${Setting.app_theme}`}>
+      <title>logid - иструмент управления доставкой</title>
         <div className='banner'>
           <div className='banner_section'>
 

@@ -637,7 +637,7 @@ const Main = observer(() => {
       {user.user.role !== 'admin' && user.user.role !== 'manager' ?
         <>
           <div className={`page_container ${Setting.app_theme}`}>
-            <title>{`logid`}</title>
+            <title>logid - биржа заказов, доска объявлений, инструмент управления доставкой</title>
             <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
 

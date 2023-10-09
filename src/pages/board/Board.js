@@ -74,14 +74,7 @@ const Board = observer(() => {
 
     return (
         <div className={`board_container ${Setting.app_theme}`}>
-            <title>{SetNativeTranslate(Translate.language, {
-                russian: ['Доска объявлений'],
-                english: ['Bulletin board'],
-                spanish: ['Tablón de anuncios'],
-                turkish: ['Bülten tahtası'],
-                сhinese: ['布告栏'],
-                hindi: ['बुलेटिन बोर्ड'],
-            })}</title>
+            <title>logid - доска объявлений</title>
 
             <BoardMainBanner addAdAction={addAdAction} />
             <div className={`board_content_container`}>
