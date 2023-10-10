@@ -27,6 +27,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     height: max-content;
+    gap: 20px;
 }
 
 .banner_section {
@@ -105,6 +106,7 @@
     gap: 20px;
     align-items: center;
     justify-content: center;
+    width: 80%;
 }
 
 .item_container {
@@ -149,7 +151,6 @@
         flex-direction: column;
         margin-bottom: 20px;
         margin-top: 20px;
-        gap: 20px;
     }
 
     .banner_section.action {
@@ -166,7 +167,6 @@
         flex-direction: column;
         margin-bottom: 20px;
         margin-top: 20px;
-        gap: 20px;
     }
 
     .banner_section.action {
@@ -184,7 +184,6 @@
         flex-direction: column;
         margin-bottom: 20px;
         margin-top: 20px;
-        gap: 20px;
     }
 
     .banner_section.main {
@@ -221,7 +220,6 @@
         flex-direction: column;
         margin-bottom: 20px;
         margin-top: 20px;
-        gap: 20px;
     }
 
     .banner_section.main {
