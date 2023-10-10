@@ -17,6 +17,8 @@ import av5 from '../../assets/avatars/av5.webp';
 import av6 from '../../assets/avatars/av6.webp';
 import av8 from '../../assets/avatars/av8.webp';
 import av9 from '../../assets/avatars/av9.webp';
+import av12 from '../../assets/avatars/av12.webp';
+import av13 from '../../assets/avatars/av13.webp';
 
 import alert from '../../assets/icons/alert.png';
 import alert_dark from '../../assets/icons/alert_dark.png';
@@ -560,7 +562,7 @@ const Main = observer(() => {
         turkish: ['Geçerek sipariş alıyorum, haritada siparişleri görüyorum, logid iyi bir hizmet! Evet, henüz çok fazla sipariş yok ama siparişlerle ilgili mektuplar geliyor, başarılı bir gelişme!'],
         сhinese: ['我接的是路过的订单，看订单在地图上，服务不错！ 是的，订单还不是很多，但是订单信来了，开发成功！'],
         hindi: ['मैं पासिंग ऑर्डर लेता हूं, मैप पर ऑर्डर देखता हूं, अच्छी सेवा दर्ज करता हूं! हां, अभी ज्यादा ऑर्डर नहीं हैं, लेकिन ऑर्डर के बारे में पत्र आ रहे हैं, सफल विकास!'],
-      }), section_id: 6, class: 'user_review', av: av5
+      }), section_id: 6, class: 'user_review', av: av12
     },
     {
       id: 19, icon: '', name: SetNativeTranslate(Translate.language, {
@@ -571,7 +573,7 @@ const Main = observer(() => {
         сhinese: ['Ludmila，37 岁，运输调度员'],
         hindi: ['ल्यूडमिला, 37, ट्रांसपोर्ट डिस्पैचर'],
       }), description: SetNativeTranslate(Translate.language, {
-        russian: ['Добавила своих перевозчиков, поделила по группам. Могу дать заказ одному перевозчику могу группе или просто сделать аукцион достцупный для всех. Круто очень'],
+        russian: ['Добавила своих перевозчиков, поделила по группам. Могу дать заказ одному перевозчику могу группе или просто сделать аукцион доступный для всех. Круто очень'],
         english: ['I added my carriers, divided them into groups. I can give an order to one carrier, I can group or just make the auction available to everyone. very cool'],
         spanish: ['Agregué mis transportistas, los dividí en grupos. Puedo dar un pedido a un transportista, puedo agruparlo o simplemente hacer que la subasta esté disponible para todos. muy genial'],
         turkish: ['Taşıyıcılarımı ekledim, gruplara ayırdım. Tek bir taşıyıcıya sipariş verebilirim, gruplandırabilirim veya açık artırmayı herkesin kullanımına sunabilirim. çok havalı'],
@@ -594,7 +596,7 @@ const Main = observer(() => {
         turkish: ['Görsel olarak net bir rota, birkaç siparişi birleştirebilirsiniz, siparişleri kuryelere dağıtmak uygundur. R-Keeper ile entegrasyonunuzu sabırsızlıkla bekliyorum'],
         сhinese: ['路线直观清晰，可以合并多个订单，方便将订单分发给快递员。 我期待您与 R-Keeper 的集成'],
         hindi: ['एक स्पष्ट रूप से स्पष्ट मार्ग, आप कई ऑर्डर जोड़ सकते हैं, और कोरियर को ऑर्डर वितरित करना सुविधाजनक है। मैं आपसे आर-कीपर के साथ एकीकरण की आशा करता हूं'],
-      }), section_id: 6, class: 'user_review', av: av8
+      }), section_id: 6, class: 'user_review', av: av13
     },
     {
       id: 21, icon: '', name: SetNativeTranslate(Translate.language, {
