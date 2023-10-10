@@ -19,34 +19,22 @@ const BannerActionContent = observer(() => {
 
     return (
         <div className='banner_section action'>
-
+            {/* 
             {!user.isAuth &&
                 <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {}, 'main_slogan')}</div>
-            }
-            
+            } */}
+
             {!user.user.role ?
                 <>
-                    {Adress.country.value === 'russia' ?
-                        <>
-                            <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
-                                russian: ['Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно. Предложение ограничено!'],
-                                english: ['Register now, we give you a year of professional subscription for free. The offer is limited!'],
-                                spanish: ['Regístrate ahora, te regalamos un año de suscripción profesional. ¡La oferta es limitada!'],
-                                turkish: ['Şimdi kaydolun, size bir yıllık profesyonel aboneliği ücretsiz veriyoruz. Teklif sınırlıdır!'],
-                                сhinese: ['立即注册，我们将免费为您提供一年的专业订阅。 限量优惠！'],
-                                hindi: ['अभी पंजीकरण करें और हम आपको एक वर्ष की व्यावसायिक सदस्यता निःशुल्क देंगे। सीमित ऑफ़र!'],
-                            })}</div>
-                        </> :
-                        <>
-                            <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
-                                russian: [`В настоящий момент наш сервис в полностью бесплатный!`],
-                                english: ['At the moment our service in', SetNativeTranslate(Translate.language, {}, Adress.country.value), 'is absolutely free!'],
-                                spanish: ['¡Por el momento nuestro servicio en ', SetNativeTranslate(Translate.language, {}, Adress.country.value), ' es absolutamente gratuito!'],
-                                turkish: ['Şu anda ', SetNativeTranslate(Translate.language, {}, Adress.country.value), ' hizmetimiz tamamen ücretsizdir!'],
-                                сhinese: ['目前我们的服务是完全免费的！'],
-                                hindi: ['फिलहाल हमारी सेवा पूरी तरह से निःशुल्क है!'],
-                            })}</div>
-                        </>}
+
+                    <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
+                        russian: ['Биржа грузоперевозок и курьерских заказов, доска объявлений перевозчиков и курьеров, инструмент управления доставкой для автопарков и курьерских служб'],
+                        english: ['Exchange of freight and courier orders, bulletin board for carriers and couriers, delivery management tool for fleets and courier services'],
+                        spanish: ['Intercambio de pedidos de carga y mensajería, tablón de anuncios para transportistas y mensajería, herramienta de gestión de entregas para flotas y servicios de mensajería.'],
+                        turkish: ['Navlun ve kurye siparişlerinin değişimi, taşıyıcılar ve kuryeler için ilan panosu, filolar ve kurye hizmetleri için teslimat yönetimi aracı'],
+                        сhinese: ['货运和快递订单交换、承运人和快递公司公告板、车队和快递服务的配送管理工具'],
+                        hindi: ['माल ढुलाई और कूरियर आदेशों का आदान-प्रदान, वाहक और कूरियर के लिए बुलेटिन बोर्ड, बेड़े और कूरियर सेवाओं के लिए वितरण प्रबंधन उपकरण'],
+                    })}</div>
 
 
 

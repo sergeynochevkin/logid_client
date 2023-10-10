@@ -24,6 +24,7 @@ import { MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE } from '../../utils/consts'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
+import PromoCodeComponent from '../auth/PromoCodeComponent'
 
 
 const ReCAPTCHA = React.lazy(() => import('react-google-recaptcha'))
@@ -46,6 +47,7 @@ const FastSignUp = observer(() => {
     const [formVisible, setFormVisible] = useState(true)
     const queryParams = new URLSearchParams(window.location.search)
     const role = queryParams.get("role")
+    const promo_code = queryParams.get("promo_code")
 
     const [agreements, setAgreements] = useState(false)
 
@@ -112,9 +114,7 @@ const FastSignUp = observer(() => {
                 formData.refrigerator_plus,
                 formData.thermo_van,
                 formData.tag,
-
-
-
+                formData.promo_code
             )
             user.setUser(data)
 
@@ -159,7 +159,8 @@ const FastSignUp = observer(() => {
         privacy_policy_accepted: false,
         age_accepted: false,
         personal_data_agreement_accepted: false,
-        cookies_accepted: {total:false},
+        cookies_accepted: { total: false },
+        promo_code: '',
 
         //user info
         userId: undefined,
@@ -239,10 +240,10 @@ const FastSignUp = observer(() => {
     })
 
     useEffect(() => {
-        let data = {...formData}
+        let data = { ...formData }
         data.cookies_accepted.total = agreements
         setFormData({ ...data, user_agreement_accepted: agreements, privacy_policy_accepted: agreements, age_accepted: agreements, personal_data_agreement_accepted: agreements })
-      }, [agreements])
+    }, [agreements])
 
 
     return (
@@ -496,6 +497,8 @@ const FastSignUp = observer(() => {
                         sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
                         onChange={onRecaptchaChange}
                     />
+
+                    <PromoCodeComponent formData = {formData} setFormData={setFormData}/>
 
                     <Button
 

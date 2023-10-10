@@ -41,6 +41,7 @@ export const fast_registration = async (
     refrigerator_plus,
     thermo_van,
     tag,
+    promo_code
 
 ) => {
     const { data } = await $host.post('api/user/fast_registration', {

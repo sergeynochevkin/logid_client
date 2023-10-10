@@ -28,6 +28,7 @@ import { CheckBoxSection } from '../ui/form/CheckBoxSection'
 import TransportFormSection from '../transport/TransportFormSection'
 import City from '../account/userInfoForm/City'
 import { addContactView } from '../../http/adApi'
+import PromoCodeComponent from './PromoCodeComponent'
 
 
 const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
@@ -54,6 +55,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const order_status = queryParams.get("o_s")
   const role = queryParams.get("role")
+
 
   const [agreements, setAgreements] = useState(false)
 
@@ -132,7 +134,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     privacy_policy_accepted: false,
     age_accepted: false,
     personal_data_agreement_accepted: false,
-    cookies_accepted: {total:false},
+    cookies_accepted: { total: false },
+    promo_code:'',
 
     //user info
     userId: undefined,
@@ -241,7 +244,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
   }
 
   useEffect(() => {
-    let data = {...formData}
+    let data = { ...formData }
     data.cookies_accepted.total = agreements
     setFormData({ ...data, user_agreement_accepted: agreements, privacy_policy_accepted: agreements, age_accepted: agreements, personal_data_agreement_accepted: agreements })
   }, [agreements])
@@ -447,15 +450,15 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    console.log(   formData.user_agreement_accepted);
-    console.log(   formData.privacy_policy_accepted);
-    console.log(   formData.age_accepted);
-    console.log(   formData.personal_data_agreement_accepted);
-    console.log(   formData.cookies_accepted);
- 
-  },[formData])
+    console.log(formData.user_agreement_accepted);
+    console.log(formData.privacy_policy_accepted);
+    console.log(formData.age_accepted);
+    console.log(formData.personal_data_agreement_accepted);
+    console.log(formData.cookies_accepted);
+
+  }, [formData])
 
   const click = async () => {
     try {
@@ -529,6 +532,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           formData.refrigerator_plus,
           formData.thermo_van,
           formData.tag,
+          formData.promo_code
         )
         user.setUser(data)
 
@@ -869,6 +873,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
           onChange={onRecaptchaChange}
         />
+
+        {isRegister ?
+          <PromoCodeComponent formData = {formData} setFormData={setFormData} />
+          : <></>
+        }
 
         <HorizontalContainer>
           <Button
