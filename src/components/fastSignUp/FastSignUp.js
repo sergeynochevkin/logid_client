@@ -558,21 +558,7 @@ const FastSignUp = observer(() => {
                         })
                     }
                 </Button>
-
-                    {!role || role === 'customer' ?
-                        <Link to={`/board`} >
-                            <Button>
-                                {SetNativeTranslate(Translate.language, {
-                                    russian: ['Предложения перевозчиков'],
-                                    english: ['Carrier offers'],
-                                    spanish: ['Ofertas de transportistas'],
-                                    turkish: ['Operatör teklifleri'],
-                                    сhinese: ['承运人优惠'],
-                                    hindi: ['कैरियर ऑफर'],
-                                })}
-                            </Button>
-                        </Link> : <></>
-                    }
+ 
 
                 </div>
             }
