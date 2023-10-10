@@ -31,7 +31,7 @@ const BannerActionContent = observer(() => {
                     <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
                         russian: ['Биржа грузоперевозок и курьерских заказов, доска объявлений перевозчиков и курьеров, инструмент управления доставкой для автопарков и курьерских служб'],
                         english: ['Exchange of freight and courier orders, bulletin board for carriers and couriers, delivery management tool for fleets and courier services'],
-                        spanish: ['Intercambio de pedidos de carga y mensajería, tablón de anuncios para transportistas y mensajería, herramienta de gestión de entregas para flotas y servicios de mensajería.'],
+                        spanish: ['Intercambio de pedidos de carga y mensajería, tablón de anuncios para transportistas y mensajería, herramienta de gestión de entregas para flotas y servicios de mensajería'],
                         turkish: ['Navlun ve kurye siparişlerinin değişimi, taşıyıcılar ve kuryeler için ilan panosu, filolar ve kurye hizmetleri için teslimat yönetimi aracı'],
                         сhinese: ['货运和快递订单交换、承运人和快递公司公告板、车队和快递服务的配送管理工具'],
                         hindi: ['माल ढुलाई और कूरियर आदेशों का आदान-प्रदान, वाहक और कूरियर के लिए बुलेटिन बोर्ड, बेड़े और कूरियर सेवाओं के लिए वितरण प्रबंधन उपकरण'],
