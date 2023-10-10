@@ -4,6 +4,7 @@ import { AdressContext, SettingContext, TranslateContext, UserContext, UserInfoC
 import RatingView from '../../components/rating/RatingView'
 import { FieldName } from '../../components/ui/page/FieldName'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import '../../App.css'
 
 import '../../components/account/Account.css'
 import FastSignUp from '../../components/fastSignUp/FastSignUp'
@@ -25,7 +26,7 @@ const BannerActionContent = observer(() => {
             } */}
 
             {!user.user.role ?
-                <>
+                <div className='text_section'>
 
                     <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
                         russian: ['Биржа грузоперевозок и курьерских заказов, доска объявлений перевозчиков и курьеров, инструмент управления доставкой для автопарков и курьерских служб'],
@@ -58,7 +59,7 @@ const BannerActionContent = observer(() => {
                             english: ['Please note that the logid service does not conduct any legal due diligence of users and is not responsible for their reliability. To work with a customer or carrier, we strongly recommend that you always build contractual relationships, check documents, and maintain the necessary document flow']
                         })}
                     </div> */}
-                </> :
+                </div> :
                 <>
                     <div className='text_middle'>{SetNativeTranslate(Translate.language, {
                         russian: [`${UserInfo.userInfo.legal === 'person' ? UserInfo.userInfo.name_surname_fathersname : UserInfo.userInfo.company_name ? UserInfo.userInfo.company_name : UserInfo.userInfo.email}, успешных доставок!`],
