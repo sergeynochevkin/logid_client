@@ -87,7 +87,7 @@ const NavBar = observer(() => {
         </Modal>
 
         <Modal setModalActive={setModalActive1} modalActive={modalActive1}>
-          <Auth enterPoint={'isRegister'} setModalActive={setModalActive1} modalActive={modalActive1} parent={'navBar'} />
+          <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} parent={'navBar'} />
         </Modal>
 
         <div className='nav_bar_logo_container' onClick={() =>
