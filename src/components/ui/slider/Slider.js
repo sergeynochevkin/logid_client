@@ -45,14 +45,14 @@ const Slider = observer(({ images }) => {
     return (
         <>
             <div className='slider'>
-                <img className='icon active'   style={{right:'90%'}}
+                <img loading='lazy' className='icon active'   style={{right:'90%'}}
                     onClick={() => {
                         changeSlide('backward')
                     }}
                     src={Setting.app_theme === 'light' ? arrow_left_dark : arrow_left} />
 
-                <img src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.webp`)} className='slider_image' alt={image.alt} />
-                <img className='icon active'  style={{left:'91%'}}
+                <img loading='lazy' src={require(`../../../assets/screenshots/${image.name}_${Setting.app_theme}.webp`)} className='slider_image' alt={image.alt} />
+                <img loading='lazy' className='icon active'  style={{left:'91%'}}
                     onClick={() => {
                         changeSlide('forward')
                     }}

@@ -13,7 +13,7 @@ const MainSectionItem = observer(({ item }) => {
 
                 :
 
-                <div >  <img className='section_item_icon' src={item.icon} /></div>
+                <div >  <img className='section_item_icon' src={item.icon} loading='lazy'/></div>
             }
             <div className='text_middle'>{item.name}</div>
             <div className='text_small'>{item.description}</div>
