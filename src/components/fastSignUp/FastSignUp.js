@@ -121,7 +121,7 @@ const FastSignUp = observer(() => {
             )
             user.setUser(data)
 
-            ym('reachGoal', 'fastSignUp')
+            ym('reachGoal', '//HTML/BODY/DIV/DIV/DIV[5]/DIV/DIV/DIV/DIV/FORM')
 
             Notification.addNotification([{
                 id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
