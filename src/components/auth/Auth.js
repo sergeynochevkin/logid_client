@@ -466,8 +466,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           formData.cookies_accepted)
         user.setUser(data)
 
-        // for testing
-        ym(91943409, 'reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
 
         if (link.after_actions.driver_activation && !data.isActivated) {
           try {
@@ -493,10 +491,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             }
           )
         }])
-        fetching()
       }
       else {
-
 
         data = await fast_registration(
           Translate.language,
@@ -548,16 +544,13 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           )
         }])
       }
-      ym(91943409, 'reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
+      console.log('yes');
+      ym('reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
+
       fetching()
       // localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
       fetcher.setCustomLoading(false)
-
-
-
-
-
       if (parent === 'navBar') {
         if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
         else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
