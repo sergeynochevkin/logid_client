@@ -479,6 +479,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
           }
         }
+
+        if (!link.after_actions.driver_activation) {
+          ym('reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
+        }
+
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
             {
@@ -544,8 +549,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           )
         }])
       }
-      console.log('yes');
-      ym('reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
+
 
       fetching()
       // localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
