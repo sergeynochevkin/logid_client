@@ -490,8 +490,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               hindi: ['आप लोग्ड इन हो चुके हैं'],
             }
           )
-        }])
-        ym('reachGoal', location.pathname === '/board' ? '//HTML/BODY/DIV[1]/DIV/DIV[6]/DIV[2]/DIV/DIV/DIV/FORM' : location.pathname === '/fleet' ? '//HTML/BODY/DIV[1]/DIV/DIV[7]/DIV/DIV/DIV/FORM' : '//HTML/BODY/DIV[1]/DIV/DIV[4]/DIV[1]/DIV/DIV/DIV/FORM')
+        }])       
       }
       else {
         data = await fast_registration(
