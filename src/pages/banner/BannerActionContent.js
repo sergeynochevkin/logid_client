@@ -39,7 +39,7 @@ const BannerActionContent = observer(() => {
 
                     {Adress.country.value === 'russia' && 
                     <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
-                        russian: ['Регистрируйтесь сейчас! 1 год бесплатно! Акция завершется!'],
+                        russian: ['Регистрируйтесь сейчас! 1 год бесплатно! Акция завершается!'],
                         english: ['Register now! 1 year free! The promotion will end!'],
                         spanish: ['¡Regístrate ahora! ¡1 año gratis! ¡La promoción terminará!'],
                         turkish: ['Şimdi üye Ol! 1 yıl ücretsiz! Promosyon sona erecek!'],
