@@ -26,6 +26,8 @@ import LocationStatus from './LocationStatus';
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import LanguageSwitcher from './LanguageSwitcher';
 
+
+
 const NavBar = observer(() => {
   const { user } = useContext(UserContext)
   const { order } = useContext(OrderContext)
@@ -66,6 +68,8 @@ const NavBar = observer(() => {
 
   return (
     <>
+
+
       <InternedSpeed />
       <LocationStatus />
       <div className={Setting.app_theme === 'light' ? 'nav_bar_container' : 'nav_bar_container nav_bar_container_dark'}>

@@ -30,6 +30,9 @@ import City from '../account/userInfoForm/City'
 import { addContactView } from '../../http/adApi'
 import PromoCodeComponent from './PromoCodeComponent'
 
+import ym from 'react-yandex-metrika';
+
+
 
 const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
   const { user } = useContext(UserContext)
@@ -135,7 +138,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     age_accepted: false,
     personal_data_agreement_accepted: false,
     cookies_accepted: { total: false },
-    promo_code:'',
+    promo_code: '',
 
     //user info
     userId: undefined,
@@ -450,15 +453,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     }
   }
 
-  useEffect(() => {
-
-    console.log(formData.user_agreement_accepted);
-    console.log(formData.privacy_policy_accepted);
-    console.log(formData.age_accepted);
-    console.log(formData.personal_data_agreement_accepted);
-    console.log(formData.cookies_accepted);
-
-  }, [formData])
 
   const click = async () => {
     try {
@@ -471,6 +465,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           formData.personal_data_agreement_accepted,
           formData.cookies_accepted)
         user.setUser(data)
+
+        // for testing
+        ym(91943409, 'reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
 
         if (link.after_actions.driver_activation && !data.isActivated) {
           try {
@@ -499,6 +496,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         fetching()
       }
       else {
+
+
         data = await fast_registration(
           Translate.language,
           formData.phone.value,
@@ -549,6 +548,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           )
         }])
       }
+      ym(91943409, 'reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
       fetching()
       // localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
@@ -875,7 +875,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         />
 
         {isRegister ?
-          <PromoCodeComponent formData = {formData} setFormData={setFormData} />
+          <PromoCodeComponent formData={formData} setFormData={setFormData} />
           : <></>
         }
 

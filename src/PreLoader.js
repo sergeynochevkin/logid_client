@@ -11,6 +11,8 @@ import axios from "axios";
 import PageLoader from './components/ui/loader/PageLoader '
 import { addVisit } from './http/adApi'
 import { useJsApiLoader } from '@react-google-maps/api'
+import {YMInitializer} from 'react-yandex-metrika';
+
 
 
 const PreLoader = observer(({ children, ...props }) => {
@@ -235,7 +237,15 @@ const PreLoader = observer(({ children, ...props }) => {
 
 
     return (
-        <div{...props}>{dataLoaded && isLoaded ? children : <PageLoader />}</div>
+        <div{...props}>
+        <YMInitializer accounts={[91943409]} options={{
+            defer: true,
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+          }}  version="2"/>
+        {dataLoaded && isLoaded ? children : <PageLoader />}</div>
     )
 
 })

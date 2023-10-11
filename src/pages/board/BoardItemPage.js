@@ -17,6 +17,8 @@ import arrow_back_dark from '../../assets/icons/arrow_back_dark.png';
 import { addContactView } from '../../http/adApi'
 import ShareComponent from '../../components/share/ShareComponent'
 import { setTime } from '../../modules/setTime'
+import ym from 'react-yandex-metrika';
+
 
 
 const BoardItemPage = observer(() => {
@@ -37,6 +39,10 @@ const BoardItemPage = observer(() => {
     const [showContact, setShowContact] = useState(false)
 
     let ip = localStorage.getItem('currentIp')
+
+    useEffect(() => {
+        ym('hit', `/board/item/${id}`);        
+    }, [])
 
     useEffect(() => {
         Ad.setTransportOption('board')

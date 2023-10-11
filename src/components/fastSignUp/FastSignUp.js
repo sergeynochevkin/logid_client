@@ -26,6 +26,9 @@ import { fetchUserInfo } from '../../http/userInfoApi'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import PromoCodeComponent from '../auth/PromoCodeComponent'
 
+import ym from 'react-yandex-metrika';
+
+
 
 const ReCAPTCHA = React.lazy(() => import('react-google-recaptcha'))
 
@@ -118,7 +121,7 @@ const FastSignUp = observer(() => {
             )
             user.setUser(data)
 
-
+            ym(91943409,'reachGoal', 'fastSignUp')
 
             Notification.addNotification([{
                 id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,

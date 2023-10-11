@@ -10,6 +10,8 @@ import '../board/Board.css'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import MainSection from './MainSection'
 
+import ym from 'react-yandex-metrika';
+
 
 import av1 from '../../assets/avatars/av1.webp';
 import av3 from '../../assets/avatars/av3.webp';
@@ -70,6 +72,9 @@ const Main = observer(() => {
 
   let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
+  useEffect(() => {
+    ym('hit', '/');
+  }, [])
 
   useEffect(() => {
     fetcher.setMainCounters(true)
@@ -636,6 +641,7 @@ const Main = observer(() => {
 
   return (
     <>
+
       {user.user.role !== 'admin' && user.user.role !== 'manager' ?
         <>
           <div className={`page_container ${Setting.app_theme}`}>

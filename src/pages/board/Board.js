@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { v4 } from "uuid";
 import Modal from '../../components/ui/modal/Modal'
 import Auth from '../../components/auth/Auth'
+import ym from 'react-yandex-metrika';
 
 
 const Board = observer(() => {
@@ -29,7 +30,9 @@ const Board = observer(() => {
     const [modalActive, setModalActive] = useState(false)
 
 
-
+    useEffect(() => {
+        ym('hit', '/board');
+    }, [])
 
     useEffect(() => {
         Ad.setTransportOption('board')
@@ -74,6 +77,7 @@ const Board = observer(() => {
 
     return (
         <div className={`board_container ${Setting.app_theme}`}>
+
             <title>logid - доска объявлений перевозчиков и курьеров</title>
 
             <BoardMainBanner addAdAction={addAdAction} />

@@ -45,7 +45,10 @@ import { AdButton } from '../../components/ui/button/AdButton'
 import Modal from '../../components/ui/modal/Modal'
 import Auth from '../../components/auth/Auth'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
+import ym from 'react-yandex-metrika';
 import MainSection from '../main/MainSection'
+import { useEffect } from 'react'
+
 
 
 
@@ -62,6 +65,9 @@ const Fleet = observer(() => {
 
   const [callRequested, setCallRequested] = useState(false)
 
+  useEffect(() => {
+    ym('hit', '/fleet');
+}, [])
 
   let sections = [
     // {
@@ -623,6 +629,7 @@ const Fleet = observer(() => {
   return (
     <>
       <div className={`page_container ${Setting.app_theme}`}>
+      
       <title>logid - инструмент управления доставкой для автопарков и курьерских служб</title>
         <div className='banner'>
           <div className='banner_section'>
