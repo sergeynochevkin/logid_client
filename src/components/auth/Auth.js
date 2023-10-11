@@ -466,7 +466,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           formData.cookies_accepted)
         user.setUser(data)
 
-
         if (link.after_actions.driver_activation && !data.isActivated) {
           try {
             await activateDriver(data.id, Translate.language).then(data => {
@@ -478,10 +477,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           } catch (error) {
             Notification.addNotification([{ id: v4(), type: 'error', message: error.response.data.message }])
           }
-        }
-
-        if (!link.after_actions.driver_activation) {
-          ym('reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
         }
 
         Notification.addNotification([{
@@ -498,7 +493,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         }])
       }
       else {
-
         data = await fast_registration(
           Translate.language,
           formData.phone.value,
@@ -535,6 +529,8 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           formData.promo_code
         )
         user.setUser(data)
+
+        ym('reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
 
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
