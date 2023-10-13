@@ -491,7 +491,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             }
           )
         }])   
-        ym('reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')    
       }
       else {
         data = await fast_registration(
