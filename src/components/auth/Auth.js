@@ -530,7 +530,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         )
         user.setUser(data)
 
-        ym('reachGoal', location.pathname === '/board' ? '//HTML/BODY/DIV[1]/DIV/DIV[6]/DIV[2]/DIV/DIV/DIV/FORM' : location.pathname === '/fleet' ? '//HTML/BODY/DIV[1]/DIV/DIV[7]/DIV/DIV/DIV/FORM' : '//HTML/BODY/DIV[1]/DIV/DIV[4]/DIV[1]/DIV/DIV/DIV/FORM')
+        ym('reachGoal', location.pathname === '/board' ? 'boardSignUp' : location.pathname === '/fleet' ? 'fleetSignUp' : 'mainSignUp')
 
         Notification.addNotification([{
           id: v4(), type: 'success', message: SetNativeTranslate(Translate.language,
