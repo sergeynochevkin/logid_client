@@ -157,12 +157,12 @@ const Main = observer(() => {
         сhinese: ['客户的机会'],
         hindi: ['ग्राहकों के लिए अवसर'],
       }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
-        english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service'],
-        spanish: ['Ofrecemos todas las opciones para cualquier nivel de suscripción. Los niveles de suscripción están personalizados para diferentes tipos de usuarios de nuestro servicio'],
-        turkish: ['Her abonelik düzeyi için tüm seçenekleri sunuyoruz. Abonelik seviyeleri, hizmetimizin farklı kullanıcı türleri için özelleştirilmiştir'],
-        сhinese: ['我们为任何订阅级别提供所有选项。 订阅级别是针对我们服务的不同类型的用户定制的'],
-        hindi: ['हम किसी भी सदस्यता स्तर के लिए सभी विकल्प प्रदान करते हैं। हमारी सेवा के विभिन्न प्रकार के उपयोगकर्ताओं के लिए सदस्यता स्तर अनुकूलित किए गए हैं'],
+        russian: [''],
+        english: [''],
+        spanish: [''],
+        turkish: [''],
+        сhinese: [''],
+        hindi: [''],
       }), description: '', class: 'even', type: 'options',
       role: 'customer'
     },
@@ -175,12 +175,13 @@ const Main = observer(() => {
         сhinese: ['运营商的机会'],
         hindi: ['वाहकों के लिए अवसर'],
       }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: ['Мы предаставляем все опции для любого уровня подписки. Уровни подписки настроены для разных типов пользователей нашего сервиса'],
-        english: ['We provide all options for any subscription level. Subscription levels are configured for different types of users of our service'],
-        spanish: ['Ofrecemos todas las opciones para cualquier nivel de suscripción. Los niveles de suscripción están configurados para diferentes tipos de usuarios de nuestro servicio'],
-        сhinese: ['我们为任何订阅级别提供所有选项。 订阅级别是针对我们服务的不同类型的用户定制的'],
-        hindi: ['हम किसी भी सदस्यता स्तर के लिए सभी विकल्प प्रदान करते हैं। हमारी सेवा के विभिन्न प्रकार के उपयोगकर्ताओं के लिए सदस्यता स्तर अनुकूलित किए गए हैं'],
-        turkish: ['Her abonelik düzeyi için tüm seçenekleri sunuyoruz. Abonelik seviyeleri, hizmetimizin farklı kullanıcı türleri için yapılandırılmıştır'],
+        //change
+        russian: [''],
+        english: [''],
+        spanish: [''],
+        turkish: [''],
+        сhinese: [''],
+        hindi: [''],
       }), description: '', class: 'even', type: 'options',
       role: 'carrier'
     },
@@ -202,42 +203,42 @@ const Main = observer(() => {
       }), description: '', class: 'uneven', type: 'reviews',
       role: 'both'
     },
-    {
-      id: 4, header: SetNativeTranslate(Translate.language, {
-        russian: ['Тарифные планы', 'для перевозчика'],
-        english: ['Tariff plans', 'for the carrier'],
-        spanish: ['Planes tarifarios para transportistas'],
-        turkish: ['Taşıyıcılar için tarife planları'],
-        сhinese: ['承运人的资费计划'],
-        hindi: ['वाहक के लिए टैरिफ योजनाएँ'],
-      }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
-        english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-        spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-        turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
-        сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
-        hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
-      }), description: '', class: 'even', type: 'self_content',
-      role: 'carrier'
-    },
-    {
-      id: 5, header: SetNativeTranslate(Translate.language, {
-        russian: ['Тарифные планы', 'для заказчика'],
-        english: ['Tariff plans', 'for the customer'],
-        spanish: ['Planes tarifarios para el cliente'],
-        turkish: ['Müşteri için tarife planları'],
-        сhinese: ['客户的资费计划'],
-        hindi: ['ग्राहक के लिए टैरिफ योजनाएँ'],
-      }), header_comment: SetNativeTranslate(Translate.language, {
-        russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
-        english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-        spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-        turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
-        сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
-        hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
-      }), description: '', class: 'even', type: 'self_content',
-      role: 'customer'
-    },
+    // {
+    //   id: 4, header: SetNativeTranslate(Translate.language, {
+    //     russian: ['Тарифные планы', 'для перевозчика'],
+    //     english: ['Tariff plans', 'for the carrier'],
+    //     spanish: ['Planes tarifarios para transportistas'],
+    //     turkish: ['Taşıyıcılar için tarife planları'],
+    //     сhinese: ['承运人的资费计划'],
+    //     hindi: ['वाहक के लिए टैरिफ योजनाएँ'],
+    //   }), header_comment: SetNativeTranslate(Translate.language, {
+    //     russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
+    //     english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
+    //     spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
+    //     turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
+    //     сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
+    //     hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
+    //   }), description: '', class: 'even', type: 'self_content',
+    //   role: 'carrier'
+    // },
+    // {
+    //   id: 5, header: SetNativeTranslate(Translate.language, {
+    //     russian: ['Тарифные планы', 'для заказчика'],
+    //     english: ['Tariff plans', 'for the customer'],
+    //     spanish: ['Planes tarifarios para el cliente'],
+    //     turkish: ['Müşteri için tarife planları'],
+    //     сhinese: ['客户的资费计划'],
+    //     hindi: ['ग्राहक के लिए टैरिफ योजनाएँ'],
+    //   }), header_comment: SetNativeTranslate(Translate.language, {
+    //     russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
+    //     english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
+    //     spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
+    //     turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
+    //     сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
+    //     hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
+    //   }), description: '', class: 'even', type: 'self_content',
+    //   role: 'customer'
+    // },
   ]
 
   const items = [

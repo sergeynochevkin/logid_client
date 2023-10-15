@@ -36,17 +36,19 @@ const BannerActionContent = observer(() => {
                         сhinese: ['货运和快递订单交换、承运人和快递公司公告板、车队和快递服务的配送管理工具'],
                         hindi: ['माल ढुलाई और कूरियर आदेशों का आदान-प्रदान, वाहक और कूरियर के लिए बुलेटिन बोर्ड, बेड़े और कूरियर सेवाओं के लिए वितरण प्रबंधन उपकरण'],
                     })}</div>
-
-                    {Adress.country.value === 'russia' && 
-                    <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
-                        russian: ['Регистрируйтесь сейчас! 1 год бесплатно! Акция завершается!'],
-                        english: ['Register now! 1 year free! The promotion will end!'],
-                        spanish: ['¡Regístrate ahora! ¡1 año gratis! ¡La promoción terminará!'],
-                        turkish: ['Şimdi üye Ol! 1 yıl ücretsiz! Promosyon sona erecek!'],
-                        сhinese: ['货运和快递订单交换、承运人和快递公司公告板、车队和快递服务的配送管理工具'],
-                        hindi: ['现在注册！ 1年免费！ 促销活动将结束！'],
-                    })}</div>
-                }
+                    {/* 
+                    {Adress.country.value === 'russia' &&
+                        <div className='text_middle dark'>{SetNativeTranslate(Translate.language, {
+                            russian: ['Регистрируйтесь сейчас! 1 год бесплатно! Акция завершается!'],
+                            english: ['Register now! 1 year free! The promotion will end!'],
+                            spanish: ['¡Regístrate ahora! ¡1 año gratis! ¡La promoción terminará!'],
+                            turkish: ['Şimdi üye Ol! 1 yıl ücretsiz! Promosyon sona erecek!'],
+                            сhinese: ['货运和快递订单交换、承运人和快递公司公告板、车队和快递服务的配送管理工具'],
+                            hindi: ['现在注册！ 1年免费！ 促销活动将结束！'],
+                        }
+                        )}
+                        </div>
+                    } */}
 
 
 
