@@ -22,7 +22,15 @@ const Admin = observer(() => {
     <div className={`page_container ${Setting.app_theme}`}>
       <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
         <div className='scroll_content_container'>
-
+        <BookMark onClick={() => {
+            Management.setStatisticsComponentFunction('')
+            ComponentFunction.setPageFunction('admin_statistics')
+          }} style={{
+            color: ComponentFunction.PageFunction === 'admin_statistics' && 'grey',
+          }}>{SetNativeTranslate(Translate.language, {
+            russian: ['Статистика'],
+            english: ['Statistics']
+          })}</BookMark>
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('admin_users')
           }} style={{
@@ -55,17 +63,7 @@ const Admin = observer(() => {
           }}>{SetNativeTranslate(Translate.language, {
             russian: ['Транспорт'],
             english: ['Transports']
-          })}</BookMark>
-
-          <BookMark onClick={() => {
-            Management.setStatisticsComponentFunction('')
-            ComponentFunction.setPageFunction('admin_statistics')
-          }} style={{
-            color: ComponentFunction.PageFunction === 'admin_statistics' && 'grey',
-          }}>{SetNativeTranslate(Translate.language, {
-            russian: ['Статистика'],
-            english: ['Statistics']
-          })}</BookMark>
+          })}</BookMark> 
           <BookMark onClick={() => {
             ComponentFunction.setPageFunction('admin_settings')
           }} style={{
