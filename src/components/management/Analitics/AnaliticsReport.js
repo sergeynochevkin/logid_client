@@ -18,7 +18,7 @@ const AnaliticsReport = observer(() => {
     const dataHandler = () => {
 
         let data = []
-        for (const city of new Set(Management.users.filter(el => Management.report_roles.includes(el.role)).map(el => el.user_info.city))) {
+        for (const city of new Set(Management.users.filter(el => el.user_info.city && Management.report_roles.includes(el.role)).map(el => el.user_info.city))) {
             let obj = {
                 id: undefined,
                 name: '',
