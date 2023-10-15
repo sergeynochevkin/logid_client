@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 5 0px;
+    padding-top: 50px;
 }
 
 .page_container.dark {
@@ -142,6 +142,11 @@
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
+.row {
+    display: flex;
+    gap: 5px;
+}
+
 @media screen and (max-width: 1920px) and (min-width: 1381px) {}
 
 
@@ -155,7 +160,7 @@
 
     .banner_section.action {
         width: 670px;
-    }    
+    }
 }
 
 
@@ -171,7 +176,7 @@
 
     .banner_section.action {
         width: 420px;
-    }       
+    }
 
     .slider_image {
         width: 420px;
@@ -215,7 +220,7 @@
     }
 }
 
-@media screen and (max-width: 350px){
+@media screen and (max-width: 350px) {
     .banner {
         flex-direction: column;
         margin-bottom: 20px;

@@ -10,6 +10,9 @@ export default class ManagementStore {
         this._visits = {}
         this._registrations = {}
 
+        this._statistics_component_function = ''
+        this._report_roles = []
+
         makeAutoObservable(this)
     }
 
@@ -34,6 +37,12 @@ export default class ManagementStore {
     setRegistrations(value) {
         this._registrations = value
     }
+    setStatisticsComponentFunction(value) {
+        this._statistics_component_function = value
+    }
+    setReportRoles(value) {
+        this._report_roles = value
+    }
 
     get users() {
         return this._users
@@ -55,5 +64,11 @@ export default class ManagementStore {
     }
     get registrations() {
         return this._registrations
+    }
+    get statistics_component_function() {
+        return this._statistics_component_function
+    }
+    get report_roles() {
+        return this._report_roles
     }
 }

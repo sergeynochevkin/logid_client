@@ -128,7 +128,7 @@
 .admin_console_container {
     min-width: 400px;
     max-width: 800px;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     margin-bottom: 50px;
     height: 100%;
 
@@ -150,6 +150,10 @@
     position: relative;
     display: inline-block;
     transform: scale(0.85);
+}
+
+.admin_console_progress.active {
+    cursor: pointer;
 }
 
 .admin_console_progress_circle {
@@ -346,14 +350,14 @@
     width: 200px;
     height: 100px;
     object-fit: cover;
-    border-radius: 10px 10px  0px 0px;
+    border-radius: 10px 10px 0px 0px;
     cursor: pointer;
 }
 
 
 .ad_transport_item_ad_text_action_container {
     font-size: 8px;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 .ad_transport_item_contacts_container {
@@ -395,14 +399,14 @@
 
 }
 
-.image_modal_container_ad_main{
+.image_modal_container_ad_main {
     z-index: 3;
 }
 
-.image_modal_ad_main{
+.image_modal_ad_main {
     width: 100%;
     height: auto;
-   
+
 }
 
 
@@ -570,20 +574,20 @@
         gap: 10px;
     }
 
-    .image_modal_container_ad_main{
+    .image_modal_container_ad_main {
         width: 100vw;
     }
 
-    .how_to_add_text_container{
+    .how_to_add_text_container {
         font-size: 10px;
     }
 
 
-    .ad_transport_container {      
+    .ad_transport_container {
         margin-top: 15px;
         border-radius: 20px;
         width: 100%;
     }
-    
+
 
 }

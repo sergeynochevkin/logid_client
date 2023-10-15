@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { ManagementContext, SettingContext } from '../..'
 
-const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence }) => {
+const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence, active, component_function }) => {
 
     const { Setting } = useContext(SettingContext)
     const { Management } = useContext(ManagementContext)
@@ -56,7 +56,15 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
 
     return (
         <div className='admin_console_item'>
-            <div className='admin_console_progress'>
+            <div className={`admin_console_progress ${active && 'active'}`}
+                onClick={() => {
+                    if (active && component_function) {
+                        component_function === 'user' ? Management.setReportRoles(['carrier', 'customer'])
+                            : Management.setReportRoles([component_function])
+                        Management.setStatisticsComponentFunction(component_function)
+                    }
+                }}
+            >
                 <div className={`admin_console_progress_circle ${Setting.app_theme}`}>
                     <div className='admin_console_progress_segment' style={{ background: `conic-gradient(${color} ${rate}%,1%,rgba(194, 194, 194, 0.822)` }}></div>
                     <div className={`admin_console_progress_inner ${Setting.app_theme}`}></div>
