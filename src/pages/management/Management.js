@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
-import { ComponentFunctionContext, SettingContext, TranslateContext } from '../..'
+import { ComponentFunctionContext, ManagementContext, SettingContext, TranslateContext } from '../..'
 import { BookMark } from '../../components/ui/button/BookMark'
 import Users from '../../components/management/users/Users'
 import Managers from '../../components/management/Managers'
@@ -16,6 +16,7 @@ const Admin = observer(() => {
   const { ComponentFunction } = useContext(ComponentFunctionContext)
   const { Setting } = useContext(SettingContext)
   const { Translate } = useContext(TranslateContext)
+  const {Management} = useContext(ManagementContext)
 
   return (
     <div className={`page_container ${Setting.app_theme}`}>
@@ -57,6 +58,7 @@ const Admin = observer(() => {
           })}</BookMark>
 
           <BookMark onClick={() => {
+            Management.setStatisticsComponentFunction('')
             ComponentFunction.setPageFunction('admin_statistics')
           }} style={{
             color: ComponentFunction.PageFunction === 'admin_statistics' && 'grey',
