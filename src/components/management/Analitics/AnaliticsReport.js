@@ -16,13 +16,14 @@ const AnaliticsReport = observer(() => {
         }
     }
     const dataHandler = () => {
-        let obj = {
-            id: undefined,
-            name: '',
-            count: 0
-        }
+
         let data = []
         for (const city of new Set(Management.users.filter(el => Management.report_roles.includes(el.role)).map(el => el.user_info.city))) {
+            let obj = {
+                id: undefined,
+                name: '',
+                count: 0
+            }
             obj.id = data.length + 1
             obj.name = city
             obj.count = Management.users.filter(el => Management.report_roles.includes(el.role)).filter(el => el.user_info.city === city).length
