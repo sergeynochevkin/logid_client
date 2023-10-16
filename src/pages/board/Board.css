@@ -291,7 +291,7 @@
 .board_item_page_modal_image {
     height: 100%;
     width: auto;
-    /* object-fit: contain; */
+    object-fit: contain;
 }
 
 .board_item_page_equipment_row {
