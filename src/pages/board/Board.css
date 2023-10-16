@@ -290,7 +290,7 @@
 }
 
 .board_item_page_modal_image {
-    height: auto;
+    height: 100%;
     width: auto;
     object-fit: contain;
 }
