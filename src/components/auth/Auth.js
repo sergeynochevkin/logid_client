@@ -353,6 +353,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
                 id: v4(), type: 'error', message: message
               }])
             }
+            navigate(USER_ROUTE)
           }
 
           //problems!
@@ -376,9 +377,10 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               ComponentFunction.setPageFunction('orderForm')
               ComponentFunction.setOrderFormFunction('newOrder')
             }
+            navigate(USER_ROUTE)
+
           }
-          console.log('yes');
-          navigate(USER_ROUTE)
+    
         }
 
 
@@ -491,7 +493,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               hindi: ['आप लोग्ड इन हो चुके हैं'],
             }
           )
-        }])   
+        }])
       }
       else {
         data = await fast_registration(
