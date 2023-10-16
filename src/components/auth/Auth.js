@@ -384,16 +384,15 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
         }
 
         if ((parent === 'navBar' || parent === 'fleet') && !after_action) {
+          console.log(user.user.role);
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
           else if (user.user.role === 'admin') {
-            console.log('yes');
             navigate(ADMIN_ROUTE)
             ComponentFunction.setPageFunction('admin_statistics')
           }
           else { navigate(MAIN_ROUTE) }
         }
-
       }
     })
   })
