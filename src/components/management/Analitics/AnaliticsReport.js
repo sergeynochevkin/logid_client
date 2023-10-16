@@ -96,7 +96,7 @@ const AnaliticsReport = observer(() => {
 
 
     return (
-        <div className='wrapper'>
+        <div className={`wrapper ${Management.statistics_component_function === 'transports' && 'wrap'}`}>
             {items.sort(sortItems).map(el => <AnaliticsReportItem key={el.id} oneItem={el} />)}
         </div>
     )
