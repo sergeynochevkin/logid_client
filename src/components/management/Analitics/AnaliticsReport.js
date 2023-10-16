@@ -60,7 +60,7 @@ const AnaliticsReport = observer(() => {
             obj.count = transports.length
             obj.walk = transports.filter(el => el.type === 'walk').length
             obj.bike = transports.filter(el => el.type === 'bike').length
-            obj.electric_scooter = transports.filter(el => el.type === 'electric_scelectric_scooterooter').length
+            obj.electric_scooter = transports.filter(el => el.type === 'electric_scooter').length
             obj.scooter = transports.filter(el => el.type === 'scooter').length
             obj.car = transports.filter(el => el.type === 'car').length
             obj.combi = transports.filter(el => el.type === 'combi').length
