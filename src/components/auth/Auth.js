@@ -552,6 +552,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       user.setIsAuth(true)
       fetcher.setCustomLoading(false)
       if ((parent === 'navBar' || parent === 'fleet') && !after_action.action) {
+        console.log('yes');
         if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
         else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
         else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
