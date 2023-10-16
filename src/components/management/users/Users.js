@@ -7,9 +7,7 @@ const Users = () => {
 
   return (
     <>
-      <UsersList>
-
-      </UsersList>
+      <UsersList/>
     </>
   )
 }

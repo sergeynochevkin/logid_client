@@ -96,7 +96,7 @@ const AnaliticsReport = observer(() => {
 
 
     return (
-        <div>
+        <div className='wrapper'>
             {items.sort(sortItems).map(el => <AnaliticsReportItem key={el.id} oneItem={el} />)}
         </div>
     )
