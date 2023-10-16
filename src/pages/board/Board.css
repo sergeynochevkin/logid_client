@@ -286,12 +286,13 @@
     width: 700px;
     max-height: 700px;
     display: flex;
+    overflow: hidden;
 }
 
 .board_item_page_modal_image {
-    height: 100%;
+    height: auto;
     width: auto;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .board_item_page_equipment_row {
