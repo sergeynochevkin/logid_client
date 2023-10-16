@@ -287,8 +287,6 @@
 }
 
 .board_item_page_modal_image {
-    /* width: 100%; */
-    max-height: 700px;
     object-fit: contain;
 }
 
@@ -414,11 +412,6 @@
     .board_item_page_image_modal_container {
         width: 100vw;
     }
-    .board_item_page_modal_image{
-        max-height: 500px;
-        object-fit: contain;
-
-    }
 }
 
 @media screen and (max-width: 425px) and (min-width: 380px) {
@@ -469,11 +462,6 @@
     .board_item_ad_container{
         width: 95vw;
     }
-    .board_item_page_modal_image{
-        max-height: 500px;
-        object-fit: contain;
-
-    }
 }
 
 @media screen and (max-width: 379px) {
@@ -523,11 +511,6 @@
     
     .board_item_ad_container{
         width: 95vw;
-    }
-    .board_item_page_modal_image{
-        max-height: 500px;
-        object-fit: contain;
-        
     }
 
 }
