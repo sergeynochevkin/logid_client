@@ -16,7 +16,6 @@ const AnaliticsReport = observer(() => {
         }
     }
     const dataHandler = () => {
-
         let data = []
         for (const city of new Set(Management.users.filter(el => el.user_info.city && Management.report_roles.includes(el.role)).map(el => el.user_info.city))) {
             let obj = {
@@ -31,12 +30,70 @@ const AnaliticsReport = observer(() => {
         }
         setItems([...data])
     }
+    const transportsDataHandler = () => {
+        let data = []
+        let userInfos = Management.users.filter(el => el.user_info.city && Management.report_roles.includes(el.role))
+
+        for (const city of new Set(userInfos.map(el => el.user_info.city))) {
+            let cityUserInfoIds = userInfos.map(el => el.id)
+            console.log(JSON.stringify(cityUserInfoIds));
+            console.log(JSON.stringify(Management.tranports));
+          
+
+            let transports = Management.transports.filter(el => cityUserInfoIds.includes(el.userInfoId))
+
+            let obj = {
+                id: undefined,
+                name: '',
+                count: 0,
+                for_courier_delivery: 0,
+                for_cargo_delivery: 0,
+                walk: 0,
+                bike: 0,
+                electric_scooter: 0,
+                scooter: 0,
+                car: 0,
+                combi: 0,
+                minibus: 0,
+                truck: 0,
+            }
+            obj.id = data.length + 1
+            obj.name = city
+            obj.count = transports.length
+            obj.walk = transports.filter(el => el.type === 'walk').length
+            obj.bike = transports.filter(el => el.type === 'walk').length
+            obj.electric_scooter = transports.filter(el => el.type === 'electric_scooter').length
+            obj.scooter = transports.filter(el => el.type === 'scooter').length
+            obj.car = transports.filter(el => el.type === 'car').length
+            obj.combi = transports.filter(el => el.type === 'combi').length
+            obj.minibus = transports.filter(el => el.type === 'minibus').length
+            obj.truck = transports.filter(el => el.type === 'truck').length
+            obj.for_courier_delivery = obj.walk + obj.bike + obj.electric_scooter + obj.scooter + obj.car
+            obj.for_cargo_delivery = obj.minibus + obj.combi + obj.truck
+            data.push(obj)
+        }
+        setItems([...data])
+    }
+
+
+
     useEffect(() => {
-        dataHandler()
+        if (Management.statistics_component_function === 'user' || Management.statistics_component_function === 'carrier' || Management.statistics_component_function === 'customer'   ) {
+            dataHandler()
+
+        }
+        if (Management.statistics_component_function === 'transports' ) {
+            transportsDataHandler()
+        }
     }, [])
-    useEffect(() => {
-        dataHandler()
-    }, [Management.users])
+
+    // useEffect(() => {
+    //     dataHandler()
+    // }, [Management.users])
+
+    // useEffect(() => {
+    //     transportsDataHandler()
+    // }, [Management.tranports])
 
 
 

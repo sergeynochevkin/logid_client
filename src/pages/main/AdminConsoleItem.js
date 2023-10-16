@@ -60,7 +60,7 @@ const AdminConsoleItem = observer(({ plan, currentRate, comment, type, influence
                 onClick={() => {
                     if (active && component_function) {
                         component_function === 'user' ? Management.setReportRoles(['carrier', 'customer'])
-                            : Management.setReportRoles([component_function])
+                            : component_function === 'transports' ?   Management.setReportRoles(['carrier']) : Management.setReportRoles([component_function])
                         Management.setStatisticsComponentFunction(component_function)
                     }
                 }}

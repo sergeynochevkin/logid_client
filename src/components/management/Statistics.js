@@ -91,7 +91,7 @@ const Statistics = observer(() => {
                 english: ['Customers']
               }, '')
           } />
-          <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.transports.length} currentRate={Management.transports.length} comment={
+          <AdminConsoleItem active={true} component_function={'transports'}  type={'value'} influence={'positive'} plan={Management.transports.length} currentRate={Management.transports.length} comment={
             SetNativeTranslate(Translate.language,
               {
                 russian: ['Транспорт'],
@@ -125,7 +125,7 @@ const Statistics = observer(() => {
               russian: ['Завершенные заказы'],
               english: ['Completed orders']
             }, '')} />
-        </div> : Management.statistics_component_function === 'user' || Management.statistics_component_function === 'carrier' || Management.statistics_component_function === 'customer'  ? <AnaliticsList /> : <></>}
+        </div> : Management.statistics_component_function === 'user' || Management.statistics_component_function === 'carrier' || Management.statistics_component_function === 'customer' || Management.statistics_component_function === 'transports'? <AnaliticsList /> : <></>}
 
     </div>
 
