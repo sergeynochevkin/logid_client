@@ -377,7 +377,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               ComponentFunction.setOrderFormFunction('newOrder')
             }
           }
-          navigate(USER_ROUTE)
+          // navigate(USER_ROUTE)
         }
 
 
