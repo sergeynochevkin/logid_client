@@ -29,6 +29,10 @@
     flex-wrap: wrap;
 }
 
+.wrapper.column {
+    flex-direction: column;
+}
+
 .banner {
     width: 100%;
     display: flex;
