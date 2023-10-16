@@ -285,10 +285,11 @@
 .board_item_page_image_modal_container {
     width: 700px;
     max-height: 700px;
-    object-fit: contain;
 }
 
 .board_item_page_modal_image {
+    object-fit: contain;
+
 }
 
 .board_item_page_equipment_row {
