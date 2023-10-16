@@ -6,7 +6,7 @@ import { Name } from '../ui/text/Name'
 import { Select } from '../ui/form/Select'
 import { Comment } from '../ui/form/Comment'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { MAIN_ROUTE, USER_ROUTE, MANAGER_ROUTE } from '../../utils/consts';
+import { MAIN_ROUTE, USER_ROUTE, MANAGER_ROUTE, ADMIN_ROUTE } from '../../utils/consts';
 import { activateDriver, code, fast_registration, login, restore } from '../../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { AdressContext, ComponentFunctionContext, FetcherContext, LinkContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..'
@@ -380,13 +380,16 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
             navigate(USER_ROUTE)
 
           }
-    
+
         }
 
         if ((parent === 'navBar' || parent === 'fleet') && !after_action) {
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
-          else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
+          else if (user.user.role === 'admin') {
+            navigate(ADMIN_ROUTE)
+            ComponentFunction.setPageFunction('admin_statistics')
+          }
           else { navigate(MAIN_ROUTE) }
         }
 
