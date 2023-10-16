@@ -534,4 +534,8 @@
         width: 100%;
     }
 
+    .board_content_container{
+        width: 95%;
+    }
+
 }
