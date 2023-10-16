@@ -285,6 +285,7 @@
 .board_item_page_image_modal_container {
     width: 700px;
     max-height: 700px;
+    display: flex;
 }
 
 .board_item_page_modal_image {
