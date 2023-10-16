@@ -50,7 +50,16 @@ const MainSection = observer(({ section, items, callRequested, setCallRequested 
                 <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark} />
               </div>
             </div>
-            : <></>
+            : <>              
+                {/* <div className='self_content_container'>
+                  <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
+                    <SubscriptionForm parent={'main'} mainRole={section.role} />
+                  </div>
+                  <div className='swipe_icon_container'>
+                    <img className='swipe_icon' src={Setting.app_theme === 'light' ? swipe : swipe_dark} />
+                  </div>
+                </div> */}
+            </>
       }
       {!user.user.role && !callRequested ? <CaptureForm setCallRequested={setCallRequested} section={section} /> : <></>}
 
