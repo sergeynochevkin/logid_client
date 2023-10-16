@@ -284,6 +284,7 @@
 
 .board_item_page_image_modal_container {
     width: 700px;
+    max-height: 700px;
 }
 
 .board_item_page_modal_image {
@@ -411,6 +412,7 @@
 
     .board_item_page_image_modal_container {
         width: 100vw;
+        max-height: 500px;
     }
 }
 
@@ -457,6 +459,7 @@
 
     .board_item_page_image_modal_container {
         width: 100vw;
+        max-height: 500px;
     }
 
     .board_item_ad_container{
@@ -507,6 +510,7 @@
 
     .board_item_page_image_modal_container {
         width: 100vw;
+        max-height: 500px;
     }
     
     .board_item_ad_container{
