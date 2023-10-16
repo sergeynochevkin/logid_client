@@ -16,7 +16,7 @@ const Statistics = observer(() => {
 
   return (
 
-    <div className={`page_container ${Setting.app_theme}`}>
+    <div className={`management_container`}>
 
       {!Management.statistics_component_function ?
         <div className={`admin_console_container ${Setting.app_theme}`}>
