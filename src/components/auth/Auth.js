@@ -383,8 +383,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
     
         }
 
-
-
         if ((parent === 'navBar' || parent === 'fleet') && !after_action) {
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
@@ -440,12 +438,6 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
       fetching()
 
-      if (parent === 'navBar') {
-        if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
-        else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
-        else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
-        else { navigate(MAIN_ROUTE) }
-      }
 
 
       setModalActive(false)
@@ -554,12 +546,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       // localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
       fetcher.setCustomLoading(false)
-      if (parent === 'navBar') {
-        if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
-        else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
-        else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
-        else { navigate(MAIN_ROUTE) }
-      }
+
       setModalActive(false)
     } catch (e) {
       Notification.addNotification([{ id: v4(), type: 'error', message: e.response.data.message }])
