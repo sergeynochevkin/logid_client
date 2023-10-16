@@ -286,6 +286,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .board_item_page_modal_image {
