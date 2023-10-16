@@ -383,8 +383,11 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
         }
 
+        console.log(user.user.role);
+        console.log(JSON.stringify(after_action));
+
         if ((parent === 'navBar' || parent === 'fleet') && !after_action) {
-          console.log(user.user.role);
+      
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
           else if (user.user.role === 'admin') {
