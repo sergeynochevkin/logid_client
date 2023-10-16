@@ -287,8 +287,9 @@
 }
 
 .board_item_page_modal_image {
-    width: 100%;
+    /* width: 100%; */
     max-height: 700px;
+    object-fit: contain;
 }
 
 .board_item_page_equipment_row {
@@ -415,6 +416,8 @@
     }
     .board_item_page_modal_image{
         max-height: 500px;
+        object-fit: contain;
+
     }
 }
 
@@ -468,6 +471,8 @@
     }
     .board_item_page_modal_image{
         max-height: 500px;
+        object-fit: contain;
+
     }
 }
 
@@ -521,6 +526,8 @@
     }
     .board_item_page_modal_image{
         max-height: 500px;
+        object-fit: contain;
+        
     }
 
 }
