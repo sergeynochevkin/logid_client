@@ -10,7 +10,7 @@ const AnaliticsReportItem = observer(({ oneItem }) => {
   console.log(JSON.stringify(oneItem));
 
   return (
-    <div className='row'>
+    <div className='management_row'>
       {Object.entries(oneItem).map((([k, v]) => <div>{k}: {v}</div>))}
     </div>
   )
