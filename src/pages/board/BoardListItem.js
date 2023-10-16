@@ -55,7 +55,7 @@ const BoardListItem = observer(({ transport }) => {
                 </div>
             </Modal> */}
             {mainImage ?
-                <Link to={`/board/item/${transport.id}`} className='board_list_link'
+                <a href={`/board/item/${transport.id}`} className='board_list_link'
                     onClick={() => {
                         viewedAction()
                     }}
@@ -112,7 +112,7 @@ const BoardListItem = observer(({ transport }) => {
                         </div>
 
                     </div>
-                </Link>
+                </a>
                 : <></>}
         </>
     )
