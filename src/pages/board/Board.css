@@ -285,14 +285,14 @@
 .board_item_page_image_modal_container {
     width: 700px;
     max-height: 700px;
-    display: flex;
-    overflow: hidden;
+    /* display: flex; */
+    /* overflow: hidden; */
 }
 
 .board_item_page_modal_image {
     height: auto;
     width: auto;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .board_item_page_equipment_row {
