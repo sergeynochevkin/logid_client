@@ -32,11 +32,10 @@ const AnaliticsReport = observer(() => {
     }
     const transportsDataHandler = () => {
         let data = []
-        let userInfos = Management.users.filter(el => el.user_info.city && Management.report_roles.includes(el.role))
+        let userInfos = Management.users.filter(el => el.user_info.city && Management.report_roles.includes(el.role)).map(el=>el.user_info)
 
-        for (const city of new Set(userInfos.map(el => el.user_info.city))) {
-            let cityUserInfoIds = userInfos.filter(el=>el.city === city).map(el => el.id)
-          
+        for (const city of new Set(userInfos.map(el => el.city))) {
+            let cityUserInfoIds = userInfos.filter(el=>el.city === city).map(el => el.id)         
           
 
             let transports = Management.transports.filter(el => cityUserInfoIds.includes(el.userInfoId))
