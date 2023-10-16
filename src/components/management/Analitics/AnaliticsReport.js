@@ -35,9 +35,8 @@ const AnaliticsReport = observer(() => {
         let userInfos = Management.users.filter(el => el.user_info.city && Management.report_roles.includes(el.role))
 
         for (const city of new Set(userInfos.map(el => el.user_info.city))) {
-            let cityUserInfoIds = userInfos.map(el => el.id)
-            console.log(JSON.stringify(cityUserInfoIds));
-            console.log(JSON.stringify(Management.tranports));
+            let cityUserInfoIds = userInfos.filter(el=>el.city === city).map(el => el.id)
+          
           
 
             let transports = Management.transports.filter(el => cityUserInfoIds.includes(el.userInfoId))
