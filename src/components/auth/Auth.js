@@ -377,12 +377,12 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
               ComponentFunction.setOrderFormFunction('newOrder')
             }
           }
-          // navigate(USER_ROUTE)
+          navigate(USER_ROUTE)
         }
 
 
 
-        if ((parent === 'navBar' || parent === 'fleet') && !after_action.action) {
+        if ((parent === 'navBar' || parent === 'fleet') && !after_action) {
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
           else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
@@ -437,7 +437,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
       fetching()
 
-      if ((parent === 'navBar' || parent === 'fleet') && !after_action.action) {
+      if (parent === 'navBar') {
         if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
         else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
         else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
@@ -551,8 +551,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
       // localStorage.setItem('cookies_accepted', JSON.stringify({ total: true, auth: true, main: true }))
       user.setIsAuth(true)
       fetcher.setCustomLoading(false)
-      if ((parent === 'navBar' || parent === 'fleet') && !after_action.action) {
-        console.log('yes');
+      if (parent === 'navBar') {
         if (user.user.role === 'carrier' || user.user.role === 'customer') { navigate(USER_ROUTE) }
         else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
         else if (user.user.role === 'admin') { navigate(MAIN_ROUTE) }
