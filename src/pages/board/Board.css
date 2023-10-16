@@ -288,9 +288,9 @@
 }
 
 .board_item_page_modal_image {
-    height: auto;
-    width: 100%;
-    /* object-fit: cover; */
+    height: 100%;
+    width: auto;
+    /* object-fit: contain; */
 }
 
 .board_item_page_equipment_row {
