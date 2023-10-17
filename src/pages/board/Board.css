@@ -62,8 +62,8 @@
     justify-content: center;
     gap: 5px;
     position: sticky;
-    top: 50px;
-    z-index: 5;
+    top: 65px;
+    z-index: 4;
 }
 
 .board_items_container {
