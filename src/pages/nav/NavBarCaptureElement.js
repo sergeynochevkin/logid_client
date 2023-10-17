@@ -35,23 +35,23 @@ const NavBarCaptureElement = observer(() => {
                 <div id="scroll-to-top">
                     <Button
                         onClick={() => {
-                            if ( role === 'carrier' || location.pathname === '/board' ) {
+                            if (role === 'carrier' || location.pathname === '/board') {
                                 addAdAction('add_transport_form')
                             }
                             role === 'customer' && addAdAction('add_order')
                             !role && setModalActive(true)
                         }}
                     >
-                        { role === 'carrier' || location.pathname==='/board' ? 'Добавить транспорт' : role === 'customer' ? 'Добавить заказ' : 'Быстра регистрация'}
+                        {role === 'carrier' || location.pathname === '/board' ? 'Добавить транспорт' : role === 'customer' ? 'Добавить заказ' : 'Быстра регистрация'}
                     </Button>
                 </div> : <></>}
 
             <Modal modalActive={modalActive} setModalActive={setModalActive}>
-                {!role ?
-                    <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} />
-                    :
-                    role === 'carrier' ? <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} after_action={{ action: 'add_ad' }} /> :
-                        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} after_action={{ action: 'add_order' }} />}
+                {
+                    role === 'carrier' || location.pathname === '/board' ? <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} after_action={{ action: 'add_ad' }} /> : role === 'customer' ?
+                        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} after_action={{ action: 'add_order' }} /> :
+                        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} />
+                }
             </Modal>
         </>
     )
