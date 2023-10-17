@@ -19,7 +19,7 @@ const Admin = observer(() => {
   const {Management} = useContext(ManagementContext)
 
   return (
-    <div className={`page_container ${Setting.app_theme}`}>
+    <div className={`page_container ${Setting.app_theme}`} style={{paddingTop:'70px'}}>
       <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
         <div className='scroll_content_container'>
         <BookMark onClick={() => {
