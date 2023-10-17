@@ -42,7 +42,7 @@ const NavBarCaptureElement = observer(() => {
                             !role && setModalActive(true)
                         }}
                     >
-                        { role === 'carrier' || location.pathname==='/board' ? 'Добавить транспорт' : role === 'customer' ? 'Добавить заказ' : 'Быстра регистрация' :}
+                        { role === 'carrier' || location.pathname==='/board' ? 'Добавить транспорт' : role === 'customer' ? 'Добавить заказ' : 'Быстра регистрация'}
                     </Button>
                 </div> : <></>}
 
