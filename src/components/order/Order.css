@@ -12,6 +12,8 @@
     overflow-x: auto;
     margin-bottom: 3px;
     padding: 5px;
+    position: sticky;
+    top: 50px;
 }
 
 .scroll_bar_container::-webkit-scrollbar {
