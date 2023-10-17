@@ -9,7 +9,7 @@ import Auth from '../../components/auth/Auth';
 
 const showButton = () => document.querySelector("#scroll-to-top").classList.add("visible");
 const hideButton = () => document.querySelector("#scroll-to-top").classList.remove("visible");
-document.addEventListener("scroll", (e) => window.scrollY < 100 ? hideButton() : showButton());
+
 
 const NavBarCaptureElement = observer(() => {
     const { user } = useContext(UserContext)
@@ -22,6 +22,9 @@ const NavBarCaptureElement = observer(() => {
         link.setAfterActions(true, option)
         setModalActive(true)
     }
+
+
+    role && document.addEventListener("scroll", (e) => window.scrollY < 100 ? hideButton() : showButton());
 
     return (
         <>
