@@ -128,8 +128,8 @@
 .internet_speed_container {
     position: fixed;
     left: 5px;
-    top: 5px;
-    z-index: 3;
+    top: 7px;
+    z-index: 5;
 }
 
 .internet_speed_icon {
