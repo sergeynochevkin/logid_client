@@ -31,7 +31,7 @@ const NavBarCaptureElement = observer(() => {
 
     return (
         <>
-            {!user.isAuth && role ?
+            {!user.isAuth && (role || location.pathname === 'board') ?
                 <div id="scroll-to-top">
                     <Button
                         onClick={() => {
