@@ -28,14 +28,16 @@ const NavBarCaptureElement = observer(() => {
     if (role || location.pathname === '/board') {
         document.addEventListener("scroll", (e) => window.scrollY < 100 ? hideButton() : showButton())
     }
-    
+
     return (
         <>
             {!user.isAuth && role ?
                 <div id="scroll-to-top">
                     <Button
                         onClick={() => {
-                            role === 'carrier' && addAdAction('add_transport_form')
+                            if ( role === 'carrier' || location.pathname === '/board' ) {
+                                addAdAction('add_transport_form')
+                            }
                             role === 'customer' && addAdAction('add_order')
                             !role && setModalActive(true)
                         }}
