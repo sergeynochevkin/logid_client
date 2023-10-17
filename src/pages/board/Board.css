@@ -63,7 +63,7 @@
     gap: 5px;
     position: sticky;
     top: 65px;
-    z-index: 4;
+    z-index: 3;
 }
 
 .board_items_container {
