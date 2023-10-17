@@ -6,6 +6,7 @@ import { LinkContext, UserContext } from '../..';
 import Modal from '../../components/ui/modal/Modal';
 import { useState } from 'react';
 import Auth from '../../components/auth/Auth';
+import { useLocation } from 'react-router-dom';
 
 const showButton = () => document.querySelector("#scroll-to-top").classList.add("visible");
 const hideButton = () => document.querySelector("#scroll-to-top").classList.remove("visible");
@@ -17,15 +18,17 @@ const NavBarCaptureElement = observer(() => {
     const queryParams = new URLSearchParams(window.location.search)
     const role = queryParams.get("role")
     const { link } = useContext(LinkContext)
+    const location = useLocation()
 
     const addAdAction = (option) => {
         link.setAfterActions(true, option)
         setModalActive(true)
     }
 
-
-    role && document.addEventListener("scroll", (e) => window.scrollY < 100 ? hideButton() : showButton());
-
+    if (role || location.pathname === '/board') {
+        document.addEventListener("scroll", (e) => window.scrollY < 100 ? hideButton() : showButton())
+    }
+    
     return (
         <>
             {!user.isAuth && role ?
