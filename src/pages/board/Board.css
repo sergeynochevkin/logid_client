@@ -61,6 +61,8 @@
     align-items: center;
     justify-content: center;
     gap: 5px;
+    position: sticky;
+    top: 50px;
 }
 
 .board_items_container {
