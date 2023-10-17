@@ -165,14 +165,14 @@
 
 #scroll-to-top {
     display: none;
-    min-width: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #scroll-to-top.visible {
-    display: block;
+    /* display: block; */
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+   
 }
 
 @media screen and (max-width: 1920px)and (min-width: 769px) {}
