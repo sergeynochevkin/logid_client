@@ -48,6 +48,8 @@
     /* align-items: flex-end; */
     border-radius: 20px;
     padding-bottom: 20px;
+    position: sticky;
+    top: 50px;
 }
 
 .board_right_container.dark {

@@ -28,7 +28,7 @@ const BoardFilter = observer(({ modalActive, setModalActive, addAdAction }) => {
                 <FilterAndSortSeparateSearchAndSort parent={'board'} modalActive={modalActive} setModalActive={setModalActive} />
 
                 {!user || !user.isAuth || user.user.role === 'carrier' ? <>
-                    {width > 770 ?
+                    {width <0 ?
                         <></> :
                         <img
                             onClick={() => {
