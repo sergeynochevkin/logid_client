@@ -3,6 +3,7 @@ import React, { Suspense, useContext, useEffect } from 'react'
 import { ComponentFunctionContext, SettingContext } from '../..'
 import './Legality.css'
 import { useLocation } from 'react-router-dom'
+import PageFallBack from '../ui/loader/PageFallBack'
 
 // import UserAgreementRussia from './UserAgreementRussia'
 // import PersonalDataAgreementRussia from './PersonalDataAgreementRussia'
@@ -27,9 +28,9 @@ const Agreement = observer(() => {
     return (
         <div className={location.pathname === '/privacy_policy' || location.pathname === '/user_agreement' ? `page_container ${Setting.app_theme}` : ''}>
             {
-                ComponentFunction.agreement === 'UserAgeement' ? <Suspense><UserAgreementRussia /></Suspense> :
-                    ComponentFunction.agreement === 'PersonalDataAgreement' ? <Suspense><PersonalDataAgreementRussia /></Suspense> :
-                        ComponentFunction.agreement === 'PrivacyPolicy' ? <Suspense><PrivacyPolicyRussia /></Suspense> : <></>
+                ComponentFunction.agreement === 'UserAgeement' ? <Suspense fallback={<PageFallBack />}><UserAgreementRussia /></Suspense> :
+                    ComponentFunction.agreement === 'PersonalDataAgreement' ? <Suspense fallback={<PageFallBack />}><PersonalDataAgreementRussia /></Suspense> :
+                        ComponentFunction.agreement === 'PrivacyPolicy' ? <Suspense fallback={<PageFallBack />}><PrivacyPolicyRussia /></Suspense> : <></>
             }
         </div>
 

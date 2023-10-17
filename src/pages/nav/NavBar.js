@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { startTransition, useContext, useEffect, useState } from 'react'
 import { AdressContext, LinkContext, OrderContext, SettingContext, StateContext, TranslateContext, UserContext, UserInfoContext } from '../..';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { MAIN_ROUTE, USER_ROUTE, ADMIN_ROUTE, MANAGER_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
@@ -90,8 +90,12 @@ const NavBar = observer(() => {
           <Auth enterPoint={'isLogin'} setModalActive={setModalActive1} modalActive={modalActive1} parent={'navBar'} />
         </Modal>
 
-        <div className='nav_bar_logo_container' onClick={() =>
-          navigate(MAIN_ROUTE)}>
+        <div className='nav_bar_logo_container' onClick={() => {
+          startTransition(() => {
+            navigate(MAIN_ROUTE)
+          })
+        }}
+        >
 
           <img src={Setting.app_theme === 'light' && Translate.language === 'russian' ? logo_light :
             Setting.app_theme === 'light' && Translate.language !== 'russian' ? logo_light :

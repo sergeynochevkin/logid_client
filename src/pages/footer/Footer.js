@@ -74,7 +74,7 @@ const Footer = observer(() => {
     //   }</a>, description: '', section_id: 1, class: 'footer_email'
     // },
     {
-      id: 10, icon: '', name: <a href="https://logid.app/fleet">{
+      id: 10, icon: '', name: <a href="/fleet">{
         SetNativeTranslate(Translate.language, {
           russian: ['Автопаркам и курьерским службам'],
           english: ['Vehicle fleets and courier services'],
