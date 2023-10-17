@@ -138,7 +138,7 @@
 }
 
 .internet_speed_container.location {
-    top: 25px;
+    top: 30px;
 }
 
 .language_switcher_anchor {
@@ -165,7 +165,7 @@
 
 #scroll-to-top {
     display: none;
-    min-width: 150px;
+    min-width: 250px;
 }
 
 #scroll-to-top.visible {
