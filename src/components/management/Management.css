@@ -198,9 +198,18 @@
     background-color: rgb(31, 31, 31, 0.5);
 }
 
-.user_avatar_container.dark{
+.user_avatar_container.dark {
     color: black;
     background-color: rgb(245, 245, 245, 0.5);
+}
+
+.management_wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 
@@ -227,6 +236,15 @@
 
     .item_action_menu {
         bottom: 130px;
-        right: -20px;       
+        right: -20px;
+    }
+
+    .management_wrapper {
+        flex-direction: row;
+    }
+
+    .management_wrapper.column {
+        flex-direction: column;
     }
 }
+

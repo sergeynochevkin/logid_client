@@ -18,20 +18,7 @@
     color: white;
 }
 
-.wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.wrapper.wrap {
-    flex-wrap: wrap;
-}
-
-.wrapper.column {
-    flex-direction: column;
-}
 
 .banner {
     width: 100%;
