@@ -19,8 +19,6 @@
     align-items: center;
     justify-content: center;
     gap:20px;
-    position: sticky;
-    top: -50px;
 }
 
 .board_content_container {

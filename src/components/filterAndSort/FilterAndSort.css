@@ -59,6 +59,9 @@
     gap: 10px;
     border-radius: 20px;
     width: 50%;
+    position: sticky;
+    top: 50px;
+
 }
 
 .board_filters_selectors_container {
@@ -129,10 +132,10 @@
         width: 100vw;
         flex-direction: column;
         justify-content: center;
-
+   
     }
 
     .board_filters_search_string_container {
-        width: 80%;
+        width: 80%;        
     }
 }
