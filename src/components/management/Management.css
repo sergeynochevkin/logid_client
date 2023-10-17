@@ -220,6 +220,7 @@
 
     .management_row {
         max-width: 170px;
+        min-width: unset;
     }
 
     .management_container {
