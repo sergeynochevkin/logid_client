@@ -236,10 +236,10 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
 
   if (enterPoint === 'isRegister' && location.pathname !== "/board") {
-    formData.role.value = !role  ? '' : role
+    formData.role.value = !role ? '' : role
     formData.role.isEmpty = !role ? true : false
     formData.role.notValid = !role ? true : false
-  } 
+  }
 
 
   if (location.pathname === "/board" && enterPoint === 'isRegister') {
@@ -384,9 +384,9 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
           }
 
         }
-       
 
-        if ((parent === 'navBar' || parent === 'fleet') && !after_action) {      
+
+        if ((parent === 'navBar' || parent === 'fleet') && !after_action) {
           if (user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') { navigate(USER_ROUTE) }
           else if (user.user.role === 'manager') { navigate(MANAGER_ROUTE) }
           else if (user.user.role === 'admin') {
@@ -574,7 +574,7 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
         {isRegister &&
           <div className='fast_sign_up_section'>
-            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} id={'city_1'} />
+            <City parent={'fast_sign_up'} formData={formData} setFormData={setFormData} id={v4()} />
           </div>}
 
         {isRegister &&
