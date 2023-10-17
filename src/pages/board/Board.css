@@ -47,9 +47,7 @@
     flex-direction: column;
     /* align-items: flex-end; */
     border-radius: 20px;
-    padding-bottom: 20px;
-    position: sticky;
-    top: 50px;
+    padding-bottom: 20px;    
 }
 
 .board_right_container.dark {

@@ -25,6 +25,8 @@
 .filters_container {
     align-items: center;
     display: flex;
+    position: sticky;
+    top: 50px;
 }
 
 
