@@ -426,6 +426,10 @@
     .board_item_page_modal_image {
         width: 100%;
     }
+
+    .board_filter_container {
+        top: 75px;
+    }
 }
 
 @media screen and (max-width: 425px) and (min-width: 380px) {
@@ -481,6 +485,9 @@
     .board_item_page_modal_image {
         width: 100%;
     }
+    .board_filter_container {
+        top: 75px;
+    }
 }
 
 @media screen and (max-width: 379px) {
@@ -535,6 +542,10 @@
 
     .board_item_page_modal_image {
         width: 100%;
+    }
+
+    .board_filter_container {
+        top: 75px;
     }
 
 }
