@@ -234,11 +234,13 @@ const Auth = observer(({ enterPoint, setModalActive, modalActive, parent, after_
 
   formData.country.value = Adress.country.value
 
+
   if (enterPoint === 'isRegister' && location.pathname !== "/board") {
-    formData.role.value = !role ? '' : role
+    formData.role.value = !role  ? '' : role
     formData.role.isEmpty = !role ? true : false
     formData.role.notValid = !role ? true : false
-  }
+  } 
+
 
   if (location.pathname === "/board" && enterPoint === 'isRegister') {
     formData.role.value = 'carrier'

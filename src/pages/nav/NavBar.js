@@ -25,6 +25,7 @@ import InternedSpeed from './InternedSpeed';
 import LocationStatus from './LocationStatus';
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import LanguageSwitcher from './LanguageSwitcher';
+import NavBarCaptureElement from './NavBarCaptureElement';
 
 
 
@@ -240,7 +241,7 @@ const NavBar = observer(() => {
           }>{Translate.language && SetNativeTranslate(Translate.language, {}, Adress.country.value)}
         </div>
 
-
+        <NavBarCaptureElement />
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive} >
         <CountrySelector name={name} setModalActive={setModalActive} />

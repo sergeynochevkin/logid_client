@@ -9,6 +9,8 @@
     flex-wrap: wrap;
     position: fixed;
     z-index: 2;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .nav_bar_container_dark {
@@ -159,6 +161,14 @@
 
 .language_switcher_container.dark {
     background-color: rgb(31, 31, 31, 0.8);
+}
+
+#scroll-to-top {
+    display: none;
+}
+
+#scroll-to-top.visible {
+    display: block;
 }
 
 @media screen and (max-width: 1920px)and (min-width: 769px) {}
