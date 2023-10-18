@@ -85,15 +85,6 @@ const AnaliticsReport = observer(() => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     dataHandler()
-    // }, [Management.users])
-
-    // useEffect(() => {
-    //     transportsDataHandler()
-    // }, [Management.tranports])
-
-
 
     return (
         <div className={`management_wrapper ${Management.statistics_component_function !== 'transports' && 'column'}`}>
