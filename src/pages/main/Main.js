@@ -65,6 +65,7 @@ const Main = observer(() => {
   const [loaded, setLoaded] = useState(false)
   const [callRequested, setCallRequested] = useState(false)
   const { Setting } = useContext(SettingContext)
+  const { Management } = useContext(ManagementContext)
 
   let location = useLocation()
 
@@ -641,69 +642,122 @@ const Main = observer(() => {
 
   return (
     <div className={`page_container ${Setting.app_theme}`}>
-
-      {user.user.role !== 'admin' && user.user.role !== 'manager' ?
-        <>
-
-          <title>logid - биржа грузоперевозок и курьерских заказов, доска объявлений перевозчиков и курьеров, инструмент управления доставкой для автопарков и курьерских служб</title>
-          <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
+      <title>logid - биржа грузоперевозок и курьерских заказов, доска объявлений перевозчиков и курьеров, инструмент управления доставкой для автопарков и курьерских служб</title>
 
 
-          {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ?
-            <div className='adv_rate_section'>
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Активных перевозчиков'],
-                  english: ['Active carriers'],
-                  spanish: ['Portadores activos'],
-                  turkish: ['Aktif taşıyıcılar'],
-                  сhinese: ['活跃运营商'],
-                  hindi: ['सक्रिय वाहक'],
-                }, '')} />
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Активных заказчиков'],
-                  english: ['Active customers'],
-                  spanish: ['Clientes activos'],
-                  turkish: ['Aktif müşteriler'],
-                  сhinese: ['活跃客户'],
-                  hindi: ['सक्रिय ग्राहक'],
-                }, '')} />
+      {user.user.role !== 'admin' && user.user.role !== 'manager' ? <>
 
-              <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.finished_orders_count} comment={SetNativeTranslate(Translate.language,
-                {
-                  russian: ['Завершенных заказов'],
-                  english: ['Completed orders'],
-                  spanish: ['Orden completada'],
-                  turkish: ['Sipariş tamamlandı'],
-                  сhinese: ['已完成订单'],
-                  hindi: ['पूर्ण आदेश'],
-                }, '')} />
-            </div>
-            : <></>}
-
-          {Ad.transports.main.length > 0 && <AdTransportSection />}
+        <MainBanner callRequested={callRequested} setCallRequested={setCallRequested} />
 
 
-          {Adress.country.value === 'russia' && user?.user?.role !== 'driver' ?
-            sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-              <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
-            ) :
-            sections.filter(el => el.id !== 4 && el.id !== 5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
-              <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
-            )
-          }
+        {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ?
+          <div className='adv_rate_section'>
+            <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.carriers_count} currentRate={Ad.carriers_count} comment={SetNativeTranslate(Translate.language,
+              {
+                russian: ['Активных перевозчиков'],
+                english: ['Active carriers'],
+                spanish: ['Portadores activos'],
+                turkish: ['Aktif taşıyıcılar'],
+                сhinese: ['活跃运营商'],
+                hindi: ['सक्रिय वाहक'],
+              }, '')} />
+            <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.customers_count} currentRate={Ad.customers_count} comment={SetNativeTranslate(Translate.language,
+              {
+                russian: ['Активных заказчиков'],
+                english: ['Active customers'],
+                spanish: ['Clientes activos'],
+                turkish: ['Aktif müşteriler'],
+                сhinese: ['活跃客户'],
+                hindi: ['सक्रिय ग्राहक'],
+              }, '')} />
+
+            <AdminConsoleItem type={'value'} influence={'positive'} plan={Ad.finished_orders_count} currentRate={Ad.finished_orders_count} comment={SetNativeTranslate(Translate.language,
+              {
+                russian: ['Завершенных заказов'],
+                english: ['Completed orders'],
+                spanish: ['Orden completada'],
+                turkish: ['Sipariş tamamlandı'],
+                сhinese: ['已完成订单'],
+                hindi: ['पूर्ण आदेश'],
+              }, '')} />
+          </div>
+          : <></>}
+
+        {Ad.transports.main.length > 0 && <AdTransportSection />}
+
+
+        {Adress.country.value === 'russia' && user?.user?.role !== 'driver' ?
+          sections.filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+            <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+          ) :
+          sections.filter(el => el.id !== 4 && el.id !== 5).filter(el => (user.user.role && (el.role === 'both' || el.role === user.user.role)) || (!user.user.role && role ? (el.role === 'both' || el.role === role) : (el.role === 'both' || el.role === 'carrier' || el.role === 'customer'))).map(section =>
+            <MainSection section={section} key={section.id} items={items.filter(el => el.section_id === section.id)} callRequested={callRequested} setCallRequested={setCallRequested} />
+          )
+        }
 
 
 
-          {/* {!cookies_accepted.main && loaded ?
+        {/* {!cookies_accepted.main && loaded ?
               <ModalBottom modalActive={modalActive2} >
                 <CookiesModalContent setModalActive={setModalActive2} cookies_accepted={cookies_accepted} />
               </ModalBottom>
               : <></>
             } */}
 
-        </> : <></>}
+      </> :
+        <>
+          <div className={`admin_console_container ${Setting.app_theme}`}>
+
+            {Management.visits.month > 0 ?
+              <>
+                <AdminConsoleItem plan={70} currentRate={Management.visits.toDay} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Визиты сегодня'],
+                      english: ['Today visits']
+                    }, '')} />
+                <AdminConsoleItem plan={490} currentRate={Management.visits.week} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Визиты за неделю'],
+                      english: ['Visits per week']
+                    }, '')
+                } />
+                <AdminConsoleItem plan={2170} currentRate={Management.visits.month} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Визиты за месяц'],
+                      english: ['Visits per month']
+                    }, '')
+                } />
+              </> : <></>
+            }
+
+            {Management.registrations.month > 0 ?
+              <>
+                <AdminConsoleItem plan={5} currentRate={Management.registrations.toDay} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Регистрации сегодня'],
+                      english: ['Today registrationss']
+                    }, '')} />
+                <AdminConsoleItem plan={35} currentRate={Management.registrations.week} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Регистрации за неделю'],
+                      english: ['Registrationss per week']
+                    }, '')
+                } />
+                <AdminConsoleItem plan={150} currentRate={Management.registrations.month} comment={
+                  SetNativeTranslate(Translate.language,
+                    {
+                      russian: ['Регистрации за месяц'],
+                      english: ['Registrationss per month']
+                    }, '')
+                } />
+              </> : <></>}
+          </div>
+        </>}
 
     </div>
   )
