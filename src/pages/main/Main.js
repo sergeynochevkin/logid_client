@@ -756,6 +756,23 @@ const Main = observer(() => {
                     }, '')
                 } />
               </> : <></>}
+
+              <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'new').length} currentRate={Management.orders.filter(el => el.order_status === 'new').length} comment={SetNativeTranslate(Translate.language,
+            {
+              russian: ['Новые заказы'],
+              english: ['New orders']
+            }, '')} />
+          <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'inWork').length} currentRate={Management.orders.filter(el => el.order_status === 'inWork').length} comment={SetNativeTranslate(Translate.language,
+            {
+              russian: ['Заказы в работе'],
+              english: ['In work orders']
+            }, '')} />
+          <AdminConsoleItem type={'value'} influence={'positive'} plan={Management.orders.filter(el => el.order_status === 'completed').length} currentRate={Management.orders.filter(el => el.order_status === 'completed').length} comment={SetNativeTranslate(Translate.language,
+            {
+              russian: ['Завершенные заказы'],
+              english: ['Completed orders']
+            }, '')} />
+
           </div>
         </>}
 
