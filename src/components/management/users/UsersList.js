@@ -6,8 +6,7 @@ import UsersItem from './UsersItem'
 
 import sync from '../../../assets/icons/sync.png'
 import sync_dark from '../../../assets/icons/sync_dark.png'
-import search from '../../../assets/icons/search.png'
-import search_dark from '../../../assets/icons/search_dark.png'
+
 import arrow_back from '../../../assets/icons/arrow_back.png'
 import arrow_back_dark from '../../../assets/icons/arrow_back_dark.png'
 import mail from '../../../assets/icons/mail.png'
@@ -66,7 +65,6 @@ const UsersList = observer(() => {
         }
     }
 
-    const [searchActive, setSearchActive] = useState(false)
 
 
     return (
@@ -95,18 +93,7 @@ const UsersList = observer(() => {
                     }
                 </>}
 
-                {/* {!searchActive ?
-                    <img src={Setting.app_theme === 'light' ? search : search_dark} className='management_sync_icon' alt='search'
-                        onClick={() => {
-                            setSearchActive(true)
-                        }}
-                    ></img> :
-                    <img src={Setting.app_theme === 'light' ? arrow_back : arrow_back_dark} className='management_sync_icon' alt='search'
-                        onClick={() => {
-                            setSearchActive(false)
-                        }}
-                    ></img>} */}
-
+   
 
                 {formData.members.length >= 2 ? <>
                     <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'
@@ -124,7 +111,6 @@ const UsersList = observer(() => {
                     <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
                 </> : <></>}
 
-                {/* {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>} */}
 
                 <FilterAndSortComponentForStore />
 

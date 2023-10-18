@@ -85,6 +85,14 @@
     background-color: rgb(31, 31, 31, 0.5);
 }
 
+.filters_row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
 
 @media screen and (max-width: 769px) and (min-width: 426px) {
 

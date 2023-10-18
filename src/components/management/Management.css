@@ -16,9 +16,11 @@
 .management_actions_container {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 5px;
-    height: 20px;
+    /* height: 20px; */
+    margin-bottom: 20px;
 }
 
 .management_more_icon {
@@ -67,7 +69,7 @@
     border-radius: 5px;
     background-color: transparent;
     border: 1px solid rgb(105, 105, 105, 0.5);
-    width: 300px;
+    width: 200px;
     padding: 1px;
 }
 
