@@ -5,6 +5,8 @@ import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { ManagementContext, SettingContext, TranslateContext } from '../..'
 import filter_off from '../../assets/icons/filter_off.png';
 import filter_off_dark from '../../assets/icons/filter_off_dark.png';
+import '../order/Order.css'
+import './FilterAndSort.css'
 
 const FilterAndSortComponentForStore = observer(() => {
     const { Translate } = useContext(TranslateContext)
