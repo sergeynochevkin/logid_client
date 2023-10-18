@@ -9,9 +9,16 @@ export default class ManagementStore {
         this._orders = []
         this._visits = {}
         this._registrations = {}
-
         this._statistics_component_function = ''
         this._report_roles = []
+
+        this._filters = {
+            user: {
+                role: '',
+                city: '',
+                transport: ''
+            }
+        }
 
         makeAutoObservable(this)
     }
@@ -43,9 +50,14 @@ export default class ManagementStore {
     setReportRoles(value) {
         this._report_roles = value
     }
+    setFilters(value, option) {
+        this._filters[option] = value
+    }
+
 
     get users() {
         return this._users
+        //with filters!        
     }
     get transports() {
         return this._transports

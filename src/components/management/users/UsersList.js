@@ -24,6 +24,7 @@ import send from '../../../assets/icons/send.png'
 import send_dark from '../../../assets/icons/send_dark.png'
 import Modal from '../../ui/modal/Modal'
 import UsersItemActionModalContent from './UsersItemActionModalContent'
+import FilterAndSortComponentForStore from '../../filterAndSort/FilterAndSortComponentForStore'
 
 const UsersList = observer(() => {
     const { Setting } = useContext(SettingContext)
@@ -94,7 +95,7 @@ const UsersList = observer(() => {
                     }
                 </>}
 
-                {!searchActive ?
+                {/* {!searchActive ?
                     <img src={Setting.app_theme === 'light' ? search : search_dark} className='management_sync_icon' alt='search'
                         onClick={() => {
                             setSearchActive(true)
@@ -104,7 +105,9 @@ const UsersList = observer(() => {
                         onClick={() => {
                             setSearchActive(false)
                         }}
-                    ></img>}
+                    ></img>} */}
+
+
                 {formData.members.length >= 2 ? <>
                     <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'
                         onClick={() => {
@@ -121,7 +124,10 @@ const UsersList = observer(() => {
                     <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
                 </> : <></>}
 
-                {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>}
+                {/* {searchActive && <input type='text' className={`management_search ${Setting.app_theme}`}></input>} */}
+
+                <FilterAndSortComponentForStore />
+
             </div>
             <div className='management_container'>
                 {Management.users.slice().sort(sortUsers).map(oneUser => <UsersItem initialValue={initialValue} formData={formData} setFormData={setFormData} key={oneUser.id} oneUser={oneUser} modalActive={modalActive} setModalActive={setModalActive}

@@ -111,7 +111,6 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                                     turkish: ['Şehir'],
                                     сhinese: ['城市'],
                                     hindi: ['शहर'],
-
                                 },)}
                                 filterSet={'boardFilters'}
                                 filterSection={'transports'}
