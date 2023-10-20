@@ -71,7 +71,7 @@ const Statistics = observer(() => {
             </> : <></>}
 
 
-          <AdminConsoleItem plan={510} active={true} component_function={'user'} currentRate={Management.users.length} comment={
+          <AdminConsoleItem plan={550} active={true} component_function={'user'} currentRate={Management.users.length} comment={
             SetNativeTranslate(Translate.language,
               {
                 russian: ['Пользователи'],
@@ -84,7 +84,7 @@ const Statistics = observer(() => {
                 english: ['Carriers']
               }, '')
           } />
-          <AdminConsoleItem active={true} component_function={'customer'} plan={10} currentRate={Management.users.filter(el => el.role === 'customer').length} comment={
+          <AdminConsoleItem active={true} component_function={'customer'} plan={50} currentRate={Management.users.filter(el => el.role === 'customer').length} comment={
             SetNativeTranslate(Translate.language,
               {
                 russian: ['Заказчики'],
