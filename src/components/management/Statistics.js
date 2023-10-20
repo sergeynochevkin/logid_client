@@ -12,7 +12,7 @@ const Statistics = observer(() => {
   const { Management } = useContext(ManagementContext)
   const { Translate } = useContext(TranslateContext)
   const { Setting } = useContext(SettingContext)
-  
+
 
   return (
 
@@ -21,7 +21,7 @@ const Statistics = observer(() => {
       {!Management.statistics_component_function ?
         <div className={`admin_console_container ${Setting.app_theme}`}>
 
-          {Management.visits.month > 0 ?
+          {/* {Management.visits.month > 0 ?
             <>
               <AdminConsoleItem plan={70} currentRate={Management.visits.toDay} comment={
                 SetNativeTranslate(Translate.language,
@@ -68,6 +68,29 @@ const Statistics = observer(() => {
                     english: ['Registrationss per month']
                   }, '')
               } />
+            </> : <></>} */}
+
+          {Object.keys(Management.clicks).length > 0 ?
+            <>
+              <AdminConsoleItem plan={Management.clicks.transport_contact.toDay} currentRate={Management.clicks.transport_contact.toDay} comment={
+                SetNativeTranslate(Translate.language,
+                  {
+                    russian: ['Контакты сегодня'],
+                    english: ['Contacts today']
+                  }, '')} />
+              <AdminConsoleItem plan={Management.clicks.transport_contact.week} currentRate={Management.clicks.transport_contact.week} comment={
+                SetNativeTranslate(Translate.language,
+                  {
+                    russian: ['Контакты неделя'],
+                    english: ['Contacts week']
+                  }, '')} />
+              <AdminConsoleItem plan={Management.clicks.transport_contact.month} currentRate={Management.clicks.transport_contact.month} comment={
+                SetNativeTranslate(Translate.language,
+                  {
+                    russian: ['Контакты месяц'],
+                    english: ['Contacts month']
+                  }, '')} />
+
             </> : <></>}
 
 
@@ -91,7 +114,7 @@ const Statistics = observer(() => {
                 english: ['Customers']
               }, '')
           } />
-          <AdminConsoleItem active={true} component_function={'transports'}  type={'value'} influence={'positive'} plan={Management.transports.length} currentRate={Management.transports.length} comment={
+          <AdminConsoleItem active={true} component_function={'transports'} type={'value'} influence={'positive'} plan={Management.transports.length} currentRate={Management.transports.length} comment={
             SetNativeTranslate(Translate.language,
               {
                 russian: ['Транспорт'],
@@ -125,7 +148,7 @@ const Statistics = observer(() => {
               russian: ['Завершенные заказы'],
               english: ['Completed orders']
             }, '')} />
-        </div> : Management.statistics_component_function === 'user' || Management.statistics_component_function === 'carrier' || Management.statistics_component_function === 'customer' || Management.statistics_component_function === 'transports'? <AnaliticsList /> : <></>}
+        </div> : Management.statistics_component_function === 'user' || Management.statistics_component_function === 'carrier' || Management.statistics_component_function === 'customer' || Management.statistics_component_function === 'transports' ? <AnaliticsList /> : <></>}
 
     </div>
 
