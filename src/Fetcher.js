@@ -13,7 +13,7 @@ import { fetchPoints } from './http/pointApi'
 import { fetchOrderConnections, fetchOrders, setOrderViewed } from './http/orderApi'
 import { fetchTransport } from './http/transportApi'
 import { fetchDrivers, fetchUser } from './http/userAPI'
-import { fetchManagementOrders, fetchManagementRegistrations, fetchManagementTransports, fetchManagementUsers, fetchManagementVisits } from './http/managementApi'
+import { fetchManagementClicks, fetchManagementOrders, fetchManagementRegistrations, fetchManagementTransports, fetchManagementUsers, fetchManagementVisits } from './http/managementApi'
 import { fetchAdTransports, fetchMainCounters } from './http/adApi'
 import { fetchSettings } from './http/settingApi'
 import { fetchFile } from './http/fileApi'
@@ -462,9 +462,12 @@ const Fetcher = observer(() => {
 
 
     //orders
-    //visits
+    //visits && clicks
     useEffect(() => {
         async function fetch() {
+            await fetchManagementClicks().then(data => {
+                data && Management.setClicks(data)
+            })
             await fetchManagementVisits().then(data => {
                 data && Management.setVisits(data)
             })

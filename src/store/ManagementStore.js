@@ -11,6 +11,7 @@ export default class ManagementStore {
         this._registrations = {}
         this._statistics_component_function = ''
         this._report_roles = []
+        this._clicks = {}
 
         this._filters = {
             user: {
@@ -50,6 +51,9 @@ export default class ManagementStore {
     setReportRoles(value) {
         this._report_roles = value
     }
+    setClicks(value) {
+        this._clicks = value
+    }
     setFilters(value, option) {
         this._filters[option] = value
     }
@@ -82,5 +86,8 @@ export default class ManagementStore {
     }
     get report_roles() {
         return this._report_roles
+    }
+    get clicks() {
+        return this._clicks
     }
 }

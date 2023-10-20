@@ -30,6 +30,12 @@ export const fetchManagementRegistrations = async () => {
     )
     return data
 }
+export const fetchManagementClicks = async () => {
+    const { data } = await $authHost.get('api/management/get_clicks',
+        {}
+    )
+    return data
+}
 
 export const sendManagementNotification = async (
     formData
