@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useContext, useState } from 'react'
 import { FilterSelect } from '../ui/form/FilterSelect'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
-import { ManagementContext, SettingContext, TranslateContext } from '../..'
+import { AdressContext, ManagementContext, SettingContext, TranslateContext } from '../..'
 import filter_off from '../../assets/icons/filter_off.png';
 import filter_off_dark from '../../assets/icons/filter_off_dark.png';
 import '../order/Order.css'
@@ -18,9 +18,12 @@ const FilterAndSortComponentForStore = observer(() => {
     const { Management } = useContext(ManagementContext)
     const { Setting } = useContext(SettingContext)
     const [searchActive, setSearchActive] = useState(false)
+    const { Adress } = useContext(AdressContext)
+
+    console.log(JSON.stringify(Adress.cities));
 
 
-    const inputHandler = (e) => { }
+    const inputHandler = (e) => { Management.setFilters({ ...Management.filters, [e.target.name]: e.target.value }, 'user') }
 
     return (
         <div className='filters_row'>
@@ -48,9 +51,10 @@ const FilterAndSortComponentForStore = observer(() => {
                         },)}
                         fieldName='city'
                         sortOptions={[
-
+                            'all', ...Adress.cities
                         ]}
                         filterSet='managementStoreFilters'
+                        inputHandler={inputHandler}
                     />
                     <FilterSelect
                         defaultvalue={SetNativeTranslate(Translate.language, {
@@ -59,9 +63,10 @@ const FilterAndSortComponentForStore = observer(() => {
                         },)}
                         fieldName='role'
                         sortOptions={[
-
+                            'all', 'carrier', 'customer', 'driver'
                         ]}
                         filterSet='managementStoreFilters'
+                        inputHandler={inputHandler}
                     />
                     <FilterSelect
                         defaultvalue={SetNativeTranslate(Translate.language, {
@@ -70,9 +75,10 @@ const FilterAndSortComponentForStore = observer(() => {
                         },)}
                         fieldName='delivery_group'
                         sortOptions={[
-
+                            'all', 'for_courier_delivery', 'for_cargo_delivery'
                         ]}
                         filterSet='managementStoreFilters'
+                        inputHandler={inputHandler}
                     />
 
                 </>}

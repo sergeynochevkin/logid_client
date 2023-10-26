@@ -17,7 +17,7 @@ export default class ManagementStore {
             user: {
                 role: '',
                 city: '',
-                transport: ''
+                delivery_group: ''
             }
         }
 
@@ -89,5 +89,8 @@ export default class ManagementStore {
     }
     get clicks() {
         return this._clicks
+    }
+    get filters() {
+        return this._filters
     }
 }
