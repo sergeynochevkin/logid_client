@@ -385,7 +385,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
                   user={user}
                   orderItemFunction={orderItemFunction}
                   setOrderItemFunction={setOrderItemFunction}
-                  driverInfo={(Driver.drivers.length>0 && (user.user.role === 'carrier' && order.order.driver_id !== UserInfo.userInfo.id) || user.user.role === 'customer') && order.order.order_status !== 'new' && order.order.order_status !== 'postponed' && order.order.order_status !== 'canceled' && order.order.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === order.order.driver_id).userInfo : ''}
+                  driverInfo={((Driver.drivers.length>0 && (user.user.role === 'carrier' && order.order.driver_id !== UserInfo.userInfo.id)) || user.user.role === 'customer') && order.order.order_status !== 'new' && order.order.order_status !== 'postponed' && order.order.order_status !== 'canceled' && order.order.order_status !== 'arc' ? Driver.drivers.find(el => el.user_info.id === order.order.driver_id).userInfo : ''}
                   onePartnerInfo={user.user.role === 'carrier' || user.user.role === 'driver' ? Partner.partnerInfos.find(el => el.id === order.order.userInfoId) :
                     user.user.role === 'customer' ? Partner.partnerInfos.find(el => el.id === order.order.carrierId) : ''}
                   onePartner={user.user.role === 'carrier' || user.user.role === 'driver' ? Partner.partners.find(el => el.partnerUserInfoId === order.order.userInfoId) :

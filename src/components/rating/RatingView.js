@@ -51,7 +51,7 @@ const RatingView = observer(({ onePartnerInfo, user, parent }) => {
                         </> :
                         <CardColName
                             style={{ backgroundColor: onePartnerInfo.total_solvency == 0 ? '' : onePartnerInfo.total_solvency < 4 ? 'rgb(254, 111, 103,0.3)' : onePartnerInfo.total_solvency < 7 ? 'rgb(241,196,15,0.3)' : 'rgb(129, 199, 132,0.3)' }}
-                        ></CardColName>
+                        >{onePartnerInfo.total_solvency}</CardColName>
                     }
                     <CardColName>{SetNativeTranslate(Translate.language,{},'number_of_ratings')}</CardColName>
                     <CardColName

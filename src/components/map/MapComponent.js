@@ -413,11 +413,12 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
 
     useEffect(
+        
         () => {
             if (user.user.role === 'carrier') {
                 if (thisOrder && thisOrder.order_status === 'inWork') {
                     let driverInfo = Driver.drivers.find(el => el.user_info.id === thisOrder.driver_id)
-                    let icon = Driver.images.find(el=>el.id===thisOrder.driver_id).urlsArray[1]
+                    let icon = Driver.images.find(el=>el.id===thisOrder.driver_id)  ? Driver.images.find(el=>el.id===thisOrder.driver_id).urlsArray[1] : nav //не учитывает отсутсвие водителей
                     if (gMap && driverInfo && driverInfo.user_info.location) {
                         let location = JSON.parse(driverInfo.user_info.location)
                         let title = SetNativeTranslate(Translate.language, {

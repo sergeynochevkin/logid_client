@@ -277,7 +277,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         </> : <></>
                     }
 
-                    {thisDriverInfo && onePartnerInfo && thisDriverInfo.id !== onePartnerInfo.id ? <CardRow style={{ cursor: 'pointer' }}
+                    {(thisDriverInfo && onePartnerInfo) && thisDriverInfo.id !== onePartnerInfo.id ? <CardRow style={{ cursor: 'pointer' }}
                         onClick={() => {
                             setModalActive3(true)
                         }}
@@ -362,7 +362,7 @@ const OrderItem = observer(({ oneOrder, oneOrderOffers, oneOrderPoints, onePartn
                         <CardColValue>{thisOrder.cost === 0 ? SetNativeTranslate(Translate.language, {}, 'not_specified') : `${thisOrder.cost} ${Adress.country.currency}`}</CardColValue>
                     </CardRow>
 
-                    {((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && user.user.role !== 'driver' &&  Partner.partnerInfos.length > 0  ) &&
+                    {((ComponentFunction.Function === 'new' || ComponentFunction.Function === 'postponed') && user.user.role !== 'driver' && Partner.partnerInfos.length > 0) &&
                         <CardRow>
                             <CardColName>{SetNativeTranslate(Translate.language, {}, 'available')}</CardColName>
                             {user.user.role === 'customer' && Partner.partnerInfos.length > 0 && (thisOrder.order_status === 'new' || thisOrder.order_status === 'postponed') ?
