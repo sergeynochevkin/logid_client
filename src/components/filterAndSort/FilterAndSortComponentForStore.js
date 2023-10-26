@@ -23,7 +23,7 @@ const FilterAndSortComponentForStore = observer(() => {
     console.log(JSON.stringify(Adress.cities));
 
 
-    const inputHandler = (e) => { Management.setFilters({ ...Management.filters, [e.target.name]: e.target.value }, 'user') }
+    const inputHandler = (e) => {Management.setFilters({...Management.filters.user, [e.target.name]:e.target.value }, 'user')}
 
     return (
         <div className='filters_row'>
@@ -51,10 +51,10 @@ const FilterAndSortComponentForStore = observer(() => {
                         },)}
                         fieldName='city'
                         sortOptions={[
-                            'all', ...Adress.cities
+                            'all',...Adress.cities
                         ]}
                         filterSet='managementStoreFilters'
-                        inputHandler={inputHandler}
+                        inputHandler= {inputHandler}
                     />
                     <FilterSelect
                         defaultvalue={SetNativeTranslate(Translate.language, {
@@ -66,7 +66,7 @@ const FilterAndSortComponentForStore = observer(() => {
                             'all', 'carrier', 'customer', 'driver'
                         ]}
                         filterSet='managementStoreFilters'
-                        inputHandler={inputHandler}
+                        inputHandler= {inputHandler}
                     />
                     <FilterSelect
                         defaultvalue={SetNativeTranslate(Translate.language, {
@@ -78,7 +78,7 @@ const FilterAndSortComponentForStore = observer(() => {
                             'all', 'for_courier_delivery', 'for_cargo_delivery'
                         ]}
                         filterSet='managementStoreFilters'
-                        inputHandler={inputHandler}
+                        inputHandler= {inputHandler}
                     />
 
                 </>}
