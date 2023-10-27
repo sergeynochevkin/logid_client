@@ -119,9 +119,9 @@ export default class FilterAndSortStore {
 
         this._managementFilters = localStorage.getItem('managementFilters') ? JSON.parse(localStorage.getItem('managementFilters')) : {
             users: {
-                role: 'all',
-                city: 'all',
-                delivery_group: 'all',
+                role: '',
+                city: '',
+                delivery_group: '',
                 searchString: ''
             }
         }

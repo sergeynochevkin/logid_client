@@ -97,9 +97,9 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
             fetcher.setAdTransports(true)
         }
         if (parent === 'management_users') {
-            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, role: 'all' }, 'users')
-            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, city: 'all' }, 'users')
-            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, delivery_group: 'all' }, 'users')
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, role: '' }, 'users')
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, city: '' }, 'users')
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, delivery_group: '' }, 'users')
             FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, searchString: '' }, 'users')
             setSearchActive(false)
             fetcher.setManagementUsers(true)
@@ -174,7 +174,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                     }
                 </>}
 
-                {FilterAndSort.managementFilters.users.city !== 'all' || FilterAndSort.managementFilters.users.role !== 'all' || FilterAndSort.managementFilters.users.delivery_group !== 'all' || FilterAndSort.managementFilters.users.searchString !== '' ?
+                {FilterAndSort.managementFilters.users.city !== 'all' || FilterAndSort.managementFilters.users.city !== '' || FilterAndSort.managementFilters.users.role !== 'all' || FilterAndSort.managementFilters.users.role !== '' || FilterAndSort.managementFilters.users.delivery_group !== 'all' || FilterAndSort.managementFilters.users.delivery_group !== '' || FilterAndSort.managementFilters.users.searchString !== '' ?
                     <img onClick={() => {
                         resetFilters()
                     }} className={`filter_reset_icon`}
