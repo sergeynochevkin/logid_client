@@ -108,7 +108,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
     }
 
     return (
-        <div className={`filters_container ${parent === 'management_users' && 'row'}`}
+        <div className={`filters_container`}
             style={{ flexDirection: 'unset' }}>
 
 

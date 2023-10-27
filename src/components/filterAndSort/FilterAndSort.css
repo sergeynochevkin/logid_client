@@ -114,11 +114,6 @@
         justify-content: center;
     }
 
-    .filters_container.row {
-        flex-direction: row;
-    }
-
-
     .board_filters_search_string_container {
         width: 80%;
     }
@@ -145,11 +140,7 @@
         justify-content: center;
 
     }
-
-    .filters_container.row {
-        flex-direction: row;
-    }
-
+   
     .board_filters_search_string_container {
         width: 80%;
     }
