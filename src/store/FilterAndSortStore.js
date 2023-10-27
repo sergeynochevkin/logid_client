@@ -117,7 +117,7 @@ export default class FilterAndSortStore {
             }
         }
 
-        this._managementFilters = {
+        this._managementFilters = localStorage.getItem('managementFilters') ? JSON.parse(localStorage.getItem('managementFilters')) : {
             users: {
                 role: 'all',
                 city: 'all',
@@ -158,7 +158,7 @@ export default class FilterAndSortStore {
 
     setManagementFilters(value, option) {
         this._managementFilters[option] = value
-        // localStorage.setItem('boardFilters', JSON.stringify(this._boardFilters))
+        localStorage.setItem('managementFilters', JSON.stringify(this._managementFilters))
     }
 
     get managementFilters() {
