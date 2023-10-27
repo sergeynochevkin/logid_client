@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useState } from 'react'
-import { FetcherContext, ManagementContext, SettingContext, UserContext } from '../../..'
+import React, { useContext, useEffect, useState } from 'react'
+import { FetcherContext, FilterAndSortContext, ManagementContext, SettingContext, UserContext } from '../../..'
 import '../Management.css'
 import UsersItem from './UsersItem'
 
@@ -23,7 +23,7 @@ import send from '../../../assets/icons/send.png'
 import send_dark from '../../../assets/icons/send_dark.png'
 import Modal from '../../ui/modal/Modal'
 import UsersItemActionModalContent from './UsersItemActionModalContent'
-import FilterAndSortComponentForStore from '../../filterAndSort/FilterAndSortComponentForStore'
+import FilterAndSortComponentForServer from '../../filterAndSort/FilterAndSortComponentForServer'
 
 const UsersList = observer(() => {
     const { Setting } = useContext(SettingContext)
@@ -36,6 +36,7 @@ const UsersList = observer(() => {
         one: '',
         two: '',
     })
+    const { FilterAndSort } = useContext(FilterAndSortContext)
 
     let initialValue = {
         type: '',
@@ -54,6 +55,10 @@ const UsersList = observer(() => {
         setAction(action)
         setModalActive(true)
     }
+
+    useEffect(() => {
+        setFormData({ ...formData, members: [] })
+    }, [FilterAndSort.managementFilters.users])
 
     const sortUsers = (a, b) => {
         if (a.id > b.id) {
@@ -93,7 +98,7 @@ const UsersList = observer(() => {
                     }
                 </>}
 
-   
+
 
                 {formData.members.length >= 2 ? <>
                     <img src={Setting.app_theme === 'light' ? mail : mail_dark} className='management_sync_icon' alt='mail'
@@ -111,8 +116,7 @@ const UsersList = observer(() => {
                     <img src={Setting.app_theme === 'light' ? block : block_dark} className='management_sync_icon' alt='block'></img>
                 </> : <></>}
 
-
-                <FilterAndSortComponentForStore />
+                <FilterAndSortComponentForServer parent={'management_users'} />
 
             </div>
             <div className='management_container'>

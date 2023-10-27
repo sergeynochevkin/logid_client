@@ -13,7 +13,7 @@ export const FilterSelect = observer(({ fieldName, inputHandler, defaultvalue, s
     return (
         <select
             className={Setting.app_theme === 'light' ? 'filter_select' : 'filter_select dark'}
-            value={filterSet ==='managementStoreFilters' ? Management.filters.user[fieldName] :  filterSet !== 'boardFilters' ? FilterAndSort[filterSet][ComponentFunction.Function][fieldName] : FilterAndSort[filterSet][filterSection][fieldName]}
+            value={filterSet ==='managementFilters' ? FilterAndSort.managementFilters.users[fieldName] :  filterSet !== 'boardFilters' ? FilterAndSort[filterSet][ComponentFunction.Function][fieldName] : FilterAndSort[filterSet][filterSection][fieldName]}
             onChange={e => inputHandler(e)}
             name={fieldName}
         >

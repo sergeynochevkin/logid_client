@@ -20,10 +20,9 @@ const FilterAndSortComponentForStore = observer(() => {
     const [searchActive, setSearchActive] = useState(false)
     const { Adress } = useContext(AdressContext)
 
-    console.log(JSON.stringify(Adress.cities));
 
 
-    const inputHandler = (e) => {Management.setFilters({...Management.filters.user, [e.target.name]:e.target.value }, 'user')}
+    const inputHandler = (e) => {Management.setFilters({...Management.filters.user, [e.target.name]:e.target.value }, 'users')}
 
     return (
         <div className='filters_row'>
@@ -53,7 +52,7 @@ const FilterAndSortComponentForStore = observer(() => {
                         sortOptions={[
                             'all',...Adress.cities
                         ]}
-                        filterSet='managementStoreFilters'
+                        filterSet='managementFilters'
                         inputHandler= {inputHandler}
                     />
                     <FilterSelect
@@ -65,7 +64,7 @@ const FilterAndSortComponentForStore = observer(() => {
                         sortOptions={[
                             'all', 'carrier', 'customer', 'driver'
                         ]}
-                        filterSet='managementStoreFilters'
+                        filterSet='managementFilters'
                         inputHandler= {inputHandler}
                     />
                     <FilterSelect
@@ -77,7 +76,7 @@ const FilterAndSortComponentForStore = observer(() => {
                         sortOptions={[
                             'all', 'for_courier_delivery', 'for_cargo_delivery'
                         ]}
-                        filterSet='managementStoreFilters'
+                        filterSet='managementFilters'
                         inputHandler= {inputHandler}
                     />
 

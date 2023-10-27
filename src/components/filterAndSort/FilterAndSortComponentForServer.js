@@ -18,6 +18,11 @@ import { FilterCheckBox } from '../ui/form/FilterCheckBox'
 import { CardButton } from '../ui/button/CardButton'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 
+import search from '../../assets/icons/search.png'
+import search_dark from '../../assets/icons/search_dark.png'
+import arrow_back from '../../assets/icons/arrow_back.png'
+import arrow_back_dark from '../../assets/icons/arrow_back_dark.png'
+
 const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModalActive }) => {
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const { FilterAndSort } = useContext(FilterAndSortContext)
@@ -32,6 +37,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
     const { EquipmentType } = useContext(EquipmentTypeContext)
     const { fetcher } = useContext(FetcherContext)
     const { height, width } = useWindowDimensions();
+    const [searchActive, setSearchActive] = useState(false)
 
 
 
@@ -50,6 +56,10 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
         if (parent === 'board') {
             FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, [e.target.name]: e.target.value }, 'transports')
             fetcher.setAdTransports(true)
+        }
+        if (parent === 'management_users') {
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, [e.target.name]: e.target.value }, 'users')
+            fetcher.setManagementUsers(true)
         }
     }
 
@@ -86,11 +96,91 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
             FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, thermo_van: '' }, 'transports')
             fetcher.setAdTransports(true)
         }
+        if (parent === 'management_users') {
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, role: 'all' }, 'users')
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, city: 'all' }, 'users')
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, delivery_group: 'all' }, 'users')
+            FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, searchString: '' }, 'users')
+            setSearchActive(false)
+            fetcher.setManagementUsers(true)
+        }
+
     }
 
     return (
         <div className='filters_container'
             style={{ flexDirection: 'unset' }}>
+
+
+            {parent === 'management_users' && <>
+                {!searchActive ?
+                    <img src={Setting.app_theme === 'light' ? search : search_dark} className='management_sync_icon' alt='search'
+                        onClick={() => {
+                            setSearchActive(true)
+                        }}
+                    ></img> :
+                    <img src={Setting.app_theme === 'light' ? arrow_back : arrow_back_dark} className='management_sync_icon' alt='search'
+                        onClick={() => {
+                            setSearchActive(false)
+                        }}
+                    ></img>}
+
+                {searchActive && <input type='text' value={FilterAndSort.managementFilters.users.searchString}
+                    onChange={(e) => {
+                        FilterAndSort.setManagementFilters({ ...FilterAndSort.managementFilters.users, searchString: e.target.value }, 'users')
+                        fetcher.setManagementUsers(true)
+                    }}
+                    className={`management_search ${Setting.app_theme}`}></input>}
+
+                {!searchActive && <>
+                    <FilterSelect
+                        defaultvalue={SetNativeTranslate(Translate.language, {
+                            russian: ['Город'],
+                            english: ['City']
+                        },)}
+                        fieldName='city'
+                        sortOptions={[
+                            'all', ...Adress.cities
+                        ]}
+                        filterSet='managementFilters'
+                        inputHandler={inputHandler}
+                    />
+                    <FilterSelect
+                        defaultvalue={SetNativeTranslate(Translate.language, {
+                            russian: ['Роль'],
+                            english: ['Role']
+                        },)}
+                        fieldName='role'
+                        sortOptions={[
+                            'all', 'carrier', 'customer', 'driver'
+                        ]}
+                        filterSet='managementFilters'
+                        inputHandler={inputHandler}
+                    />
+
+                    {FilterAndSort.managementFilters.users.role === 'carrier' &&
+                        <FilterSelect
+                            defaultvalue={SetNativeTranslate(Translate.language, {
+                                russian: ['Группа доставки'],
+                                english: ['Delivery group']
+                            },)}
+                            fieldName='delivery_group'
+                            sortOptions={[
+                                'all', 'for_courier_delivery', 'for_cargo_delivery'
+                            ]}
+                            filterSet='managementFilters'
+                            inputHandler={inputHandler}
+                        />
+                    }
+                </>}
+
+                {FilterAndSort.managementFilters.users.city !== 'all' || FilterAndSort.managementFilters.users.role !== 'all' || FilterAndSort.managementFilters.users.delivery_group !== 'all' || FilterAndSort.managementFilters.users.searchString !== '' ?
+                    <img onClick={() => {
+                        resetFilters()
+                    }} className={`filter_reset_icon`}
+                        src={Setting.app_theme === 'light' ? filter_off : filter_off_dark}
+                    /> : <></>}
+            </>}
 
 
             {parent === 'board' && <>
@@ -289,7 +379,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
             }
             <div className={Setting.app_theme === 'light' ? 'scroll_bar_container' : 'scroll_bar_container_dark'}>
                 <div className='scroll_content_container'>
-                    {parent !== 'board' &&
+                    {parent !== 'board' && parent !== 'management_users' ?
                         <FilterInput
                             fieldName='id'
                             inputHandler={inputHandler}
@@ -297,6 +387,7 @@ const FilterAndSortComponentForServer = observer(({ parent, modalActive, setModa
                             type='number'
                             filterSet={parent === 'orders' ? 'filters' : parent === 'partners' ? 'partnerFilters' : ''}
                         />
+                        : <></>
                     }
                     {parent === 'orders' ? <>
                         <FilterInput

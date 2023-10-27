@@ -60,11 +60,7 @@ export default class ManagementStore {
 
 
     get users() {
-        // this._users.filter(el => (this._filters.user.city !== 'all' ? el.user_info.city === this._filters.user.city : el.user_info.city))
-        return this._users.filter(el => (this._filters.user.role !== 'all'  && this._filters.user.city !== 'all') ? (el.role === this._filters.user.role && el.user_info.city === this._filters.user.city)  : this._filters.user.city !== 'all' ?  el.user_info.city === this._filters.user.city : this._filters.user.role !== 'all' ?  el.role === this._filters.user.role : el.role !== '')
-
-
-        //with filters!        
+        return this._users
     }
     get transports() {
         return this._transports

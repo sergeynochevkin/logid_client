@@ -1,8 +1,8 @@
 import { $authHost } from "./index";
 
-export const fetchManagementUsers = async (userId) => {
-    const { data } = await $authHost.get('api/management/get_users',
-        { params: { userId } }
+export const fetchManagementUsers = async (userId, filters) => {
+    const { data } = await $authHost.post('api/management/get_users',
+        { userId, filters }
     )
     return data
 }

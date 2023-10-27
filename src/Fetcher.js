@@ -408,7 +408,7 @@ const Fetcher = observer(() => {
     //users
     useEffect(() => {
         async function fetch() {
-            await fetchManagementUsers(user.user.id).then(data => {
+            await fetchManagementUsers(user.user.id, FilterAndSort.managementFilters).then(data => {
                 data && Management.setUsers(data)
                 data && managementUserImageHandler(data.map(el => el.user_info))
 

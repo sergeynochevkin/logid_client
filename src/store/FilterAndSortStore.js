@@ -84,7 +84,7 @@ export default class FilterAndSortStore {
             selected: [],
             partnersByGroups: [],
             intercity: false,
-            city:''
+            city: ''
         }
 
         this._partnerFilters = localStorage.getItem('partnerFilters') ? JSON.parse(localStorage.getItem('partnerFilters')) : {
@@ -97,7 +97,7 @@ export default class FilterAndSortStore {
         }
 
         this._boardFilters = localStorage.getItem('boardFilters') ? JSON.parse(localStorage.getItem('boardFilters')) : {
-            transports: {                
+            transports: {
                 limit: 30,
                 main_limit: 5,
                 searchString: '',
@@ -114,6 +114,15 @@ export default class FilterAndSortStore {
                 refrigerator_minus: '',
                 refrigerator_plus: '',
                 thermo_van: ''
+            }
+        }
+
+        this._managementFilters = {
+            users: {
+                role: 'all',
+                city: 'all',
+                delivery_group: 'all',
+                searchString: ''
             }
         }
 
@@ -145,6 +154,15 @@ export default class FilterAndSortStore {
 
     get boardFilters() {
         return this._boardFilters
+    }
+
+    setManagementFilters(value, option) {
+        this._managementFilters[option] = value
+        // localStorage.setItem('boardFilters', JSON.stringify(this._boardFilters))
+    }
+
+    get managementFilters() {
+        return this._managementFilters
     }
 }
 
