@@ -60,7 +60,7 @@
     justify-content: center;
     gap: 10px;
     border-radius: 20px;
-    width: 50%;   
+    width: 50%;
 }
 
 .board_filters_selectors_container {
@@ -85,7 +85,7 @@
     background-color: rgb(31, 31, 31, 0.5);
 }
 
-.filters_row{
+.filters_row {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,8 +112,12 @@
     .filters_container {
         flex-direction: column;
         justify-content: center;
-
     }
+
+    .filters_container.row {
+        flex-direction: row;
+    }
+
 
     .board_filters_search_string_container {
         width: 80%;
@@ -139,10 +143,14 @@
         width: 100vw;
         flex-direction: column;
         justify-content: center;
-   
+
+    }
+
+    .filters_container.row {
+        flex-direction: row;
     }
 
     .board_filters_search_string_container {
-        width: 80%;        
+        width: 80%;
     }
 }
