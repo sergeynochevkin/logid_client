@@ -79,7 +79,7 @@ const Account = observer(() => {
                         <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'name_surname_fathersname_validation')} fieldValue={UserInfo.userInfo.name_surname_fathersname} editable={true} attachedField={'name_surname_fathersname'} /> : <></>}
                     {user.user.role !== 'driver' && <>
                         <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'country_content')} fieldValue={SetNativeTranslate(Translate.language, {}, UserInfo.userInfo.country)} editable={false} attachedField={'country'} />
-                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'city_content')} fieldValue={UserInfo.userInfo.city} editable={Driver.drivers.length <0 ? false : true} attachedField={'city'} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} /></>}
+                        <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'city_content')} fieldValue={UserInfo.userInfo.city} editable={Driver.drivers.length >0 ? false : true} attachedField={'city'} cityEditable={cityEditable} setCityEditable={setCityEditable} adressEditable={adressEditable} setAdressEditable={setAdressEditable} /></>}
                     {UserInfo.userInfo.phone ? <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'phone_content')} fieldValue={UserInfo.userInfo.phone} editable={true} attachedField={'phone'} /> : <></>}
 
                     <AccountItem fieldName={SetNativeTranslate(Translate.language, {}, 'notification_email_content')} fieldValue={UserInfo.userInfo.email} editable={true} attachedField={'email'} />
