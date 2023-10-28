@@ -60,19 +60,6 @@ const Footer = observer(() => {
   const items = [
     { id: 1, icon: logo_dark, name: 'logid', description: '', section_id: 1, class: 'footer_logo' },
     { id: 2, icon: '', name: 'logid 2023 © all rights reserved', description: '', section_id: 1, class: 'footer_copyright' },
-    // {
-    //   id: 9, icon: '', name: <a href="https://logid.app/fleet">{
-    //     SetNativeTranslate(Translate.language, {
-    //       russian: ['Стоимость подписки'],
-    //       english: [''],
-    //       spanish: [''],
-    //       turkish: [''],
-    //       сhinese: [''],
-    //       hindi: [''],
-
-    //     })
-    //   }</a>, description: '', section_id: 1, class: 'footer_email'
-    // },
     {
       id: 10, icon: '', name: <a href="/fleet">{
         SetNativeTranslate(Translate.language, {
@@ -82,7 +69,18 @@ const Footer = observer(() => {
           turkish: ['Araç filoları ve kurye hizmetleri'],
           сhinese: ['车队和快递服务'],
           hindi: ['वाहन बेड़े और कूरियर सेवाएँ'],
-
+        })
+      }</a>, description: '', section_id: 1, class: 'footer_email'
+    },
+    {
+      id: 9, icon: '', name: <a href="./subscriptions">{
+        SetNativeTranslate(Translate.language, {
+          russian: ['Цены'],
+          english: ['Prices'],
+          spanish: ['Precios'],
+          turkish: ['Fiyat:% s'],
+          сhinese: ['价格'],
+          hindi: ['कीमतों'],
         })
       }</a>, description: '', section_id: 1, class: 'footer_email'
     },

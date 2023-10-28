@@ -1,4 +1,4 @@
-import { ADMIN_ROUTE, USER_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, BOARD_ROUTE, BOARD_ITEM_ROUTE,FLEET_ROUTE, PRIVACY_POlICY_ROUTE, USER_AGREEMENT_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, USER_ROUTE, MAIN_ROUTE, MANAGER_ROUTE, BOARD_ROUTE, BOARD_ITEM_ROUTE,FLEET_ROUTE, PRIVACY_POlICY_ROUTE, USER_AGREEMENT_ROUTE, SUBSCRIPTIONS_ROUTE } from "./utils/consts"
 import Main from './pages/main/Main'
 import { Suspense, lazy } from "react"
 import PageFallBack from "./components/ui/loader/PageFallBack";
@@ -9,6 +9,7 @@ const Board = lazy(() => import('./pages/board/Board'));
 const User = lazy(() => import('./pages/user/User'));
 const Management = lazy(() => import('./pages/management/Management'));
 const BoardItemPage = lazy(() => import('./pages/board/BoardItemPage'));
+const SubscriptionsPage = lazy(() => import('./pages/subscriptions/SubscriptionsPage'));
 
 export const authRoutes = [
     {
@@ -50,5 +51,9 @@ export const publicRoutes = [
     {
         path: USER_AGREEMENT_ROUTE,
         Component: <Agreement/>
+    },
+    {
+        path: SUBSCRIPTIONS_ROUTE,
+        Component: <Suspense fallback={<PageFallBack />}><SubscriptionsPage /></Suspense>
     },
 ]

@@ -204,42 +204,7 @@ const Main = observer(() => {
       }), description: '', class: 'uneven', type: 'reviews',
       role: 'both'
     },
-    // {
-    //   id: 4, header: SetNativeTranslate(Translate.language, {
-    //     russian: ['Тарифные планы', 'для перевозчика'],
-    //     english: ['Tariff plans', 'for the carrier'],
-    //     spanish: ['Planes tarifarios para transportistas'],
-    //     turkish: ['Taşıyıcılar için tarife planları'],
-    //     сhinese: ['承运人的资费计划'],
-    //     hindi: ['वाहक के लिए टैरिफ योजनाएँ'],
-    //   }), header_comment: SetNativeTranslate(Translate.language, {
-    //     russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
-    //     english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-    //     spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-    //     turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
-    //     сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
-    //     hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
-    //   }), description: '', class: 'even', type: 'self_content',
-    //   role: 'carrier'
-    // },
-    // {
-    //   id: 5, header: SetNativeTranslate(Translate.language, {
-    //     russian: ['Тарифные планы', 'для заказчика'],
-    //     english: ['Tariff plans', 'for the customer'],
-    //     spanish: ['Planes tarifarios para el cliente'],
-    //     turkish: ['Müşteri için tarife planları'],
-    //     сhinese: ['客户的资费计划'],
-    //     hindi: ['ग्राहक के लिए टैरिफ योजनाएँ'],
-    //   }), header_comment: SetNativeTranslate(Translate.language, {
-    //     russian: [Adress.country.value === 'russia' ? 'Регистрируйтесь сейчас, дарим год профессиональной подписки бесплатно! Предложение ограничено!' : 'В настоящий момент наш сервис в полностью бесплатный!'],
-    //     english: [Adress.country.value === 'russia' ? 'Register now, get a year of professional subscription for free! The offer is limited!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-    //     spanish: [Adress.country.value === 'russia' ? '¡Regístrese ahora y obtenga un año de suscripción profesional gratis! ¡La oferta es limitada!' : `At the moment our service in ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} is absolutely free!`],
-    //     turkish: [Adress.country.value === 'russia' ? 'Şimdi kaydolun, bir yıllık profesyonel aboneliği ücretsiz kazanın! Teklif sınırlıdır!' : `¡Por el momento nuestro servicio en ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} es absolutamente gratuito!`],
-    //     сhinese: [Adress.country.value === 'russia' ? '立即注册，免费获得一年的专业订阅！ 优惠有限！' : `目前我们的服务在 ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} 是完全免费的！`],
-    //     hindi: [Adress.country.value === 'russia' ? 'अभी पंजीकरण करें, एक वर्ष की व्यावसायिक सदस्यता निःशुल्क प्राप्त करें! ऑफर सीमित है!' : `फिलहाल हमारी सेवा ${SetNativeTranslate(Translate.language, {}, Adress.country.value)} बिल्कुल मुफ़्त है!`],
-    //   }), description: '', class: 'even', type: 'self_content',
-    //   role: 'customer'
-    // },
+   
   ]
 
   const items = [
