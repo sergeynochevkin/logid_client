@@ -59,6 +59,10 @@
 
 .self_content_container {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .section_text {
