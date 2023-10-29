@@ -67,7 +67,7 @@ const Fleet = observer(() => {
 
   useEffect(() => {
     ym('hit', '/fleet');
-}, [])
+  }, [])
 
   let sections = [
     // {
@@ -629,8 +629,8 @@ const Fleet = observer(() => {
   return (
     <>
       <div className={`page_container ${Setting.app_theme}`}>
-      
-      <title>logid - инструмент управления доставкой для автопарков и курьерских служб</title>
+
+        <title>logid - инструмент управления доставкой для автопарков и курьерских служб</title>
         <div className='banner'>
           <div className='banner_section'>
 
@@ -659,12 +659,16 @@ const Fleet = observer(() => {
               </div>
             </div>
 
-            <AdButton
-              onClick={() => {
-                !modalActive && setModalActive(true)
-                modalActive && setModalActive(false)
-              }
-              }>{SetNativeTranslate(Translate.language, {},'sign_up')}</AdButton>
+            {!user.isAuth &&
+              <AdButton
+                onClick={() => {
+                  !modalActive && setModalActive(true)
+                  modalActive && setModalActive(false)
+                }
+                }>{SetNativeTranslate(Translate.language, {}, 'sign_up')}</AdButton>
+            }
+
+
           </div>
           <div className='banner_section main'>
             <Slider images={images} />
@@ -683,7 +687,7 @@ const Fleet = observer(() => {
       </div>
 
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
-        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} parent ='fleet' />
+        <Auth enterPoint={'isRegister'} modalActive={modalActive} setModalActive={setModalActive} parent='fleet' />
       </Modal>
     </>
 

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useContext } from 'react'
-import { AdressContext, SettingContext, TranslateContext } from '../..'
+import { AdressContext, SettingContext, TranslateContext, UserContext } from '../..'
 import SubscriptionForm from '../../components/subscription/SubscriptionForm'
 
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
@@ -11,7 +11,7 @@ import SubscriptionsSection from './SubscriptionsSection'
 
 const SubscriptionsPage = observer(() => {
     const { Setting } = useContext(SettingContext)
-
+    const { user } = useContext(UserContext)
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
 
@@ -62,7 +62,8 @@ const SubscriptionsPage = observer(() => {
 
             </div>
 
-            {sections.map(section => <SubscriptionsSection key={section.id} section={section} />)}
+            {user.user.role === 'carrier' ? sections.filter(el => el.id === 4).map(section => <SubscriptionsSection key={section.id} section={section} />) : user.user.role === 'customer' ? sections.filter(el => el.id === 5).map(section => <SubscriptionsSection key={section.id} section={section} />) :  sections.map(section => <SubscriptionsSection key={section.id} section={section} />) }
+
         </div>
     )
 })

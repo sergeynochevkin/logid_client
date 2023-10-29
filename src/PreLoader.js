@@ -220,8 +220,10 @@ const PreLoader = observer(({ children, ...props }) => {
                         data && fetcher.setUserAppSetting(true)
                     })
 
-                    if ((user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') && location.pathname !== "/board") {
-                        navigate(USER_ROUTE)
+                    if ((user.user.role === 'carrier' || user.user.role === 'customer' || user.user.role === 'driver') && location.pathname !== "/board" 
+                    // && location.pathname !=='/subscriptions' && location.pathname !=='/fleet'
+                    ) {
+                        // navigate(USER_ROUTE)
                     }
                     user.user.role === 'admin' && navigate(MAIN_ROUTE)
                     user.user.role === 'manager' && navigate(MAIN_ROUTE)

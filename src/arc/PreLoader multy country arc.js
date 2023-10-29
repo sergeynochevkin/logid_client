@@ -268,7 +268,7 @@ const PreLoader = observer(({ children, ...props }) => {
 
                     })
 
-                    if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board") {
+                    if ((user.user.role === 'carrier' || user.user.role === 'customer') && location.pathname !== "/board" ) {
                         navigate(USER_ROUTE)
                     }
                     user.user.role === 'admin' && navigate(MAIN_ROUTE)

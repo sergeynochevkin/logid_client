@@ -245,7 +245,7 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                                 setAdressEditable(false)
                             }
                         }}
-                    >Отменить</CardButton>
+                    >{SetNativeTranslate(Translate.language, {}, 'cancel')}</CardButton>
 
                     {attachedField !== 'password' && attachedField !== 'authEmail' ?
                         <CardButton
@@ -255,15 +255,15 @@ const AccountItem = observer(({ fieldName, fieldValue, editable, attachedField, 
                                 || (formData[attachedField].value === 'person' && (formData.passport_issued_by.notValid || formData.passport_number.notValid || formData.passport_date_of_issue.notValid))
                                 || ((formData[attachedField].value === 'entity' || formData[attachedField].value === 'sole_trader') && (formData.company_inn.notValid || formData.company_name.notValid || (formData.website.notValid && !formData.website.isEmpty))) || (attachedField === 'city' && formData.company_adress.notValid)
                             )}
-                        >Сохранить</CardButton> : <></>}
+                        >{SetNativeTranslate(Translate.language, {}, 'save')}</CardButton> : <></>}
 
-                    {attachedField == 'password' || attachedField == 'authEmail' ?
+                    {attachedField === 'password' || attachedField === 'authEmail' ?
                         <CardButton
                             style={{ height: '15px' }}
                             onClick={updateUserAction}
                             disabled={(authFormData.email.notValid && attachedField === 'authEmail')
                                 || (authFormData.password.notValid && attachedField === 'password') || (authFormData.password.value !== comparePassword && attachedField === 'password')}
-                        >Сохранить</CardButton> : <></>}
+                        >{SetNativeTranslate(Translate.language, {}, 'save')}</CardButton> : <></>}
 
                 </HorizontalContainer> : <></>}
         </VerticalContainer>

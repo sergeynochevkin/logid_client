@@ -815,9 +815,9 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         </div>
                     }
 
-                    {Limit.user_limits.customer_new_order_range > 1000 &&
+                    {Limit.user_limits.customer_new_order_range    &&
                         <div className={'scale_container'}>
-                            {mapScaleSteps.map(step =>
+                            {mapScaleSteps.filter(el=>el <=Limit.user_limits.customer_new_order_range).map(step =>
                                 <div className='button_row' key={step}>
                                     <button
                                         className={Setting.user_map_scale === step ? 'map_scale_button active only' : Setting.app_theme === 'light' ? 'map_scale_button only' : 'map_scale_button map_scale_button_dark only'}
