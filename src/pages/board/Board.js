@@ -80,7 +80,7 @@ const Board = observer(() => {
 
             <title>logid - доска объявлений перевозчиков и курьеров</title>
 
-            <BoardMainBanner addAdAction={addAdAction} />
+            {/* <BoardMainBanner addAdAction={addAdAction} /> */}
             <div className={`board_content_container`}>
                 <div className='board_left_container'>
                     <BoardFilter modalActive={modalActive} modalActive1={modalActive1} setModalActive1={setModalActive1} setModalActive={setModalActive} addAdAction={addAdAction} />
