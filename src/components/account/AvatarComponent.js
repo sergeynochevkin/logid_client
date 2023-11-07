@@ -41,7 +41,6 @@ const AvatarComponent = observer(() => {
                         hindi: ['तस्वीर जोड़ो'],
                     }, '') : ''}</CardButton>
                 </div>
-
             </div>
             <Modal modalActive={modalActive} setModalActive={setModalActive} formReset={formReset} >
                 <AvatarModalContent modalActive={setModalActive} files={files} pairs={pairs} setFiles={setFiles} setPairs={setPairs} formReset={formReset} setModalActive={setModalActive} option={images[0] ? 'update' : ''} />

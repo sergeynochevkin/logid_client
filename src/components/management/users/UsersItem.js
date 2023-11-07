@@ -6,18 +6,9 @@ import useComponentVisible from '../../../hooks/useComponentVisible'
 
 import more from '../../../assets/icons/more.png'
 import more_dark from '../../../assets/icons/more_dark.png'
-import block from '../../../assets/icons/block.png'
-import block_dark from '../../../assets/icons/block_dark.png'
-import remove from '../../../assets/icons/remove.png'
-import remove_dark from '../../../assets/icons/remove_dark.png'
-import mail from '../../../assets/icons/mail.png'
-import mail_dark from '../../../assets/icons/mail_dark.png'
-import alert from '../../../assets/icons/alert.png'
-import alert_dark from '../../../assets/icons/alert_dark.png'
 import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import UsersItemActionMenu from './UsersItemActionMenu'
 import Modal from '../../ui/modal/Modal'
-import UsersItemActionModalContent from './UsersItemActionModalContent'
 
 
 

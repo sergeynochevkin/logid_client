@@ -53,3 +53,8 @@ export const updateField = async (formData) => {
     })
     return data
 }
+
+export const deleteUser = async (id) => {
+    const { data } = await $authHost.delete('api/management/delete_user', { params: { id } })
+    return data
+}
