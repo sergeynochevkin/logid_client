@@ -22,8 +22,6 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole,
     const { fetcher } = useContext(FetcherContext)
 
     let optionsByPlan
-    let initialTime
-    let paid_to
     let updateSubscriptionAction
 
     const sortOptions = (a, b) => {

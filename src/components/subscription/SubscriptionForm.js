@@ -21,32 +21,34 @@ const SubscriptionForm = observer(({ setModalActive, parent, mainRole, setYoomon
     }
 
     return (
-        <div
-            className={'container'}
-        >
-            {/* {parent !== 'main' &&
+        <div className='scroll_bar_container'>
+            <div
+                className={'container'}
+            >
+                {/* {parent !== 'main' &&
                 <div className={Setting.app_theme === 'light' ? 'plan_form_name' : 'plan_form_name plan_form_name_dark'}>{SetNativeTranslate(Translate.language,{},'choose_subscription_plan')}</div>
             } */}
-            <div
-                className={'plans_container'}
-            >
-                {parent !== 'main' ?
-                    Subscription.plans.filter(el => el.plan_id !== 0 && el.country === UserInfo.userInfo.country).sort(sortPlans).map(plan =>
-                        <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2}  activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId}/>
-                    ) :
-                    mainRole === 'carrier' ?
-
-                        Subscription.plans.filter(el => el.plan_id !== 0 && el.country === Adress.country.value).sort(sortPlans).map(plan =>
-                            <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2} activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId}/>
-                        )
-                        : mainRole === 'customer' ?
+                <div
+                    className={'plans_container'}
+                >
+                    {parent !== 'main' ?
+                        Subscription.plans.filter(el => el.plan_id !== 0 && el.country === UserInfo.userInfo.country).sort(sortPlans).map(plan =>
+                            <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2} activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId} />
+                        ) :
+                        mainRole === 'carrier' ?
 
                             Subscription.plans.filter(el => el.plan_id !== 0 && el.country === Adress.country.value).sort(sortPlans).map(plan =>
-                                <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2} activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId}/>
+                                <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2} activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId} />
                             )
-                            : <></>
-                }
+                            : mainRole === 'customer' ?
 
+                                Subscription.plans.filter(el => el.plan_id !== 0 && el.country === Adress.country.value).sort(sortPlans).map(plan =>
+                                    <SubscriptionPlanItem key={plan.id} plan={plan} setModalActive={setModalActive} parent={parent} mainRole={mainRole} setYoomoneyToken={setYoomoneyToken} setModalActive2={setModalActive2} activateForm={activateForm} setActivateForm={setActivateForm} paymentId={paymentId} setPaymentId={setPaymentId} />
+                                )
+                                : <></>
+                    }
+
+                </div>
             </div>
         </div>
     )
