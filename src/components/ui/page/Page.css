@@ -17,6 +17,7 @@
     font-weight: bold;
     white-space: wrap;
     max-width: 260px;
+    text-align: left;
 }
 
 .field_name_dark {
