@@ -12,7 +12,7 @@ const SettingItem = observer(({ setting, disabled, updateSettingAction }) => {
         <HorizontalContainer
             style={{ alignItems: 'center', justifyContent: 'flex-start' }}
         >
-            <div style={{ whiteSpace: 'normal', fontSize: '10px', width: '70%', color: disabled ? 'grey' : '' }}>{SetNativeTranslate(Translate.language, {}, setting.name)}</div><Toggle updateSettingAction={updateSettingAction} disabled={disabled} setting={setting} />
+            <div style={{ whiteSpace: 'normal', fontSize: '10px', width: '50%', color: disabled ? 'grey' : '' }}>{SetNativeTranslate(Translate.language, {}, setting.name)}</div><Toggle updateSettingAction={updateSettingAction} disabled={disabled} setting={setting} />
         </HorizontalContainer>
     )
 })

@@ -18,9 +18,6 @@ display: flex;
 flex-direction: column;
 gap: 5px;
 }
-
-
-
 .driver_avatar_container {
     height: 50px;
     width: 50px;

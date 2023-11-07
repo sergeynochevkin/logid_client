@@ -53,16 +53,9 @@ const DriverItem = observer(({ driver }) => {
     }
   }, [Driver.images])
 
-
-
-
-
   return (
     <>
       <div className={`item_container driver ${Setting.app_theme} `}>
-
-
-
         <div className={`driver_avatar_container ${Setting.app_theme}`} style={{ backgroundImage: images[0] ? `url(${images[0]})` : '', backgroundPosition: 'center', backgroundSize: 'contain' }}>
           {!images[0] && driver.user_info.email.charAt().toUpperCase()}
         </div>
