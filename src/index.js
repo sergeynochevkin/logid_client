@@ -29,6 +29,7 @@ import LinkStore from './store/LinkStore';
 import '../src/fonts/Jost-VariableFont_wght.ttf'
 import DriverStore from './store/DriverStore';
 import { createRoot } from 'react-dom/client';
+import CarriagePriceStore from './store/CarriagePriceStore';
 
 
 export const UserContext = createContext(null)
@@ -56,6 +57,7 @@ export const ManagementContext = createContext(null)
 export const AdContext = createContext(null)
 export const LinkContext = createContext(null)
 export const DriverContext = createContext(null)
+export const CarriagePriceContext = createContext(null)
 
 let domNode = document.getElementById('root')
 
@@ -162,18 +164,22 @@ root && root.render(
                                                 <AdressContext.Provider value={{
                                                   Adress: new AdressStore(),
                                                 }}>
-                                                  <ManagementContext.Provider value={{
-                                                    Management: new ManagementStore(),
+                                                  <CarriagePriceContext.Provider value={{
+                                                    CarriagePrice: new CarriagePriceStore(),
                                                   }}>
-                                                    {/* <React.StrictMode> */}
-                                                    <ThemeProvider theme={theme}>
-                                                      <Global />
+                                                    <ManagementContext.Provider value={{
+                                                      Management: new ManagementStore(),
+                                                    }}>
+                                                      {/* <React.StrictMode> */}
+                                                      <ThemeProvider theme={theme}>
+                                                        <Global />
 
-                                                      <App />
+                                                        <App />
 
-                                                    </ThemeProvider>
-                                                    {/* </React.StrictMode> */}
-                                                  </ManagementContext.Provider>
+                                                      </ThemeProvider>
+                                                      {/* </React.StrictMode> */}
+                                                    </ManagementContext.Provider>
+                                                  </CarriagePriceContext.Provider>
                                                 </AdressContext.Provider>
                                               </TransportContext.Provider>
                                             </DriverContext.Provider>

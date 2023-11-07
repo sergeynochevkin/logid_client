@@ -269,6 +269,13 @@
     align-items: center;
 }
 
+.recommend_cost_container{
+    position: relative;
+    font-size: 10px;
+    top: -23px;
+    left:210px;
+    height: 0px;
+}
 
 @media screen and (max-width: 1920px) and (min-width: 769px) {}
 

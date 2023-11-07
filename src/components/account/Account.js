@@ -152,8 +152,7 @@ const Account = observer(() => {
             </>
 
 
-        </HorizontalContainer> : <></>
-
+        </HorizontalContainer> 
     </>
     )
 })

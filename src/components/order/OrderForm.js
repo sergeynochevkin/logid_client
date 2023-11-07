@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Form } from '../ui/form/Form'
 import { Button } from '../ui/button/Button'
 import styled from 'styled-components'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, LinkContext, NotificationContext, OrderContext, PartnerContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, CarriagePriceContext, ComponentFunctionContext, FetcherContext, LimitContext, LinkContext, NotificationContext, OrderContext, PartnerContext, PointContext, SettingContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { createOrder } from '../../http/orderApi'
 import { observer } from 'mobx-react-lite'
 import OrderComment from './orderForm/OrderComment'
@@ -65,6 +65,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
     const arrival_time = SetNativeTranslate(Translate.language, {}, 'arrival_time')
     const finish_time = SetNativeTranslate(Translate.language, {}, 'finish_time')
     const symbols = SetNativeTranslate(Translate.language, {}, 'symbols')
+    const [recommended, setRecommended] = useState(false)
 
     const [files, setFiles] = useState(order.files)
     const [pairs, setPairs] = useState(order.pairs)
@@ -74,7 +75,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
     const parent = 'orderForm'
 
     useEffect(() => {
-            fetcher.setPartners(true)
+        fetcher.setPartners(true)
     }, [])
 
 
@@ -804,6 +805,9 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                 <Cost
                     formData={formData}
                     setFormData={setFormData}
+                    setCalculate={setCalculate}
+                    recommended={recommended}
+                    setRecommended={setRecommended}
                 />
                 <OrderType
                     formData={formData}
@@ -831,7 +835,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                             (formData.load_capacity.isEmpty && formData.type === 'truck') ||
                             (formData.load_capacity.isEmpty && formData.type === 'minibus') ||
                             (formData.side_type.isEmpty && formData.type === 'truck')
-                            || (formData.cost.notValid && formData.order_type.value === 'order') 
+                            || (formData.cost.notValid && formData.order_type.value === 'order')
 
                         }
                     >{ComponentFunction.orderFormFunction === 'edit' ? SetNativeTranslate(Translate.language, {}, 'save') : SetNativeTranslate(Translate.language, {}, 'send')}</Button>
@@ -855,7 +859,7 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
                                 (formData.load_capacity.isEmpty && formData.type === 'minibus') ||
                                 (formData.side_type.isEmpty && formData.type === 'truck')
-                                || (formData.cost.notValid && formData.order_type.value === 'order') 
+                                || (formData.cost.notValid && formData.order_type.value === 'order')
                             }
                         >{SetNativeTranslate(Translate.language, {}, 'postpone')}</Button>
                         : <></>}
@@ -869,18 +873,19 @@ const OrderForm = observer(({ modalActive, setModalActive }) => {
                                 (formData.load_capacity.isEmpty && formData.type === 'truck') ||
                                 (formData.load_capacity.isEmpty && formData.type === 'minibus') ||
                                 (formData.side_type.isEmpty && formData.type === 'truck')
-                                || (formData.cost.notValid && formData.order_type.value === 'order') 
+                                || (formData.cost.notValid && formData.order_type.value === 'order')
                             }
                         >{SetNativeTranslate(Translate.language, {}, 'create_template')}</Button>
                         : <></>}
 
 
                 </Container>
-         
-      
+
+
             </Form>
 
             <MapComponent
+            setRecommended = {setRecommended}
                 calculateTime={calculateTime}
                 calculate={calculate}
                 setCalculate={setCalculate}

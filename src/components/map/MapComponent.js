@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Map.css'
-import { AdressContext, ComponentFunctionContext, DriverContext, FetcherContext, LimitContext, OrderContext, PartnerContext, PointContext, SettingContext, StateContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, CarriagePriceContext, ComponentFunctionContext, DriverContext, FetcherContext, LimitContext, OrderContext, PartnerContext, PointContext, SettingContext, StateContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import CitySelector from './CitySelector'
 import { setTime } from '../../modules/setTime'
@@ -25,8 +25,10 @@ import minibus from '../../assets/icons/minibus.webp';
 import minibus_dark from '../../assets/icons/minibus_dark.webp';
 import star from '../../assets/icons/star.webp';
 import star_dark from '../../assets/icons/star_dark.webp';
+import { setCarriagePrice } from '../../modules/setCarriagePrice'
 
-const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime, thisOrder }) => {
+
+const MapComponent = observer(({ pointFormData, formData, setFormData, setCalculate, setPointFormData, pointInitialValue, calculate, calculateTime, thisOrder, setRecommended }) => {
     const { UserInfo } = useContext(UserInfoContext)
     const { Transport } = useContext(TransportContext)
     const { Limit } = useContext(LimitContext)
@@ -50,6 +52,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
     const [refreshMap, setRefreshMap] = useState(false)
     const { Adress } = useContext(AdressContext)
     const { Translate } = useContext(TranslateContext)
+    const { CarriagePrice } = useContext(CarriagePriceContext)
 
 
     function refreshMapAction() {
@@ -375,7 +378,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
             gMap,
             title: title,
-            icon: icon ?  icon : Setting.app_theme === 'light' ? nav : nav_dark
+            icon: icon ? icon : Setting.app_theme === 'light' ? nav : nav_dark
         })
         marker.setMap(gMap)
         setLocationMarker(marker)
@@ -386,7 +389,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
         () => {
             if (user.user.role === 'customer' && thisOrder && thisOrder.order_status === 'inWork') {
                 let driverInfo = Driver.drivers.find(el => el.user_info.id === thisOrder.driver_id)
-                let icon = Driver.images.find(el=>el.id===thisOrder.driver_id).urlsArray[1]
+                let icon = Driver.images.find(el => el.id === thisOrder.driver_id).urlsArray[1]
                 if (gMap && driverInfo && driverInfo.user_info.location) {
                     let location = JSON.parse(driverInfo.user_info.location)
                     let title = SetNativeTranslate(Translate.language, {
@@ -407,18 +410,18 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 }
             }
         }
-        , [Driver.drivers, order._divided_orders,gMap])
+        , [Driver.drivers, order._divided_orders, gMap])
 
 
 
 
     useEffect(
-        
+
         () => {
             if (user.user.role === 'carrier') {
                 if (thisOrder && thisOrder.order_status === 'inWork') {
                     let driverInfo = Driver.drivers.find(el => el.user_info.id === thisOrder.driver_id)
-                    let icon = Driver.images.find(el=>el.id===thisOrder.driver_id)  ? Driver.images.find(el=>el.id===thisOrder.driver_id).urlsArray[1] : nav //не учитывает отсутсвие водителей
+                    let icon = Driver.images.find(el => el.id === thisOrder.driver_id) ? Driver.images.find(el => el.id === thisOrder.driver_id).urlsArray[1] : nav //не учитывает отсутсвие водителей
                     if (gMap && driverInfo && driverInfo.user_info.location) {
                         let location = JSON.parse(driverInfo.user_info.location)
                         let title = SetNativeTranslate(Translate.language, {
@@ -485,7 +488,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                                 hindi: [`${driver.user_info.name_surname_fathersname}:${setTime(new Date(location.updated), 0, 'show')}`],
                             })
                             if (!driverMarkers.find(el => el.getTitle() === title)) {
-                                let icon = Driver.images.find(el=>el.id===driver.user_info.id) ? Driver.images.find(el=>el.id===driver.user_info.id).urlsArray[1] : undefined
+                                let icon = Driver.images.find(el => el.id === driver.user_info.id) ? Driver.images.find(el => el.id === driver.user_info.id).urlsArray[1] : undefined
                                 //eslint-disable-next-line no-undef
                                 let marker = new google.maps.Marker({
                                     position: { lat: parseFloat(location.lat), lng: parseFloat(location.lng) },
@@ -500,7 +503,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         }
                     }
                 }
-               
+
             }
         }
         , [UserInfo.userInfo, Driver.drivers, gMap, order._divided_orders])
@@ -510,7 +513,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
 
     useEffect(
         () => {
-            if (user.user.role === 'driver' || (user.user.role === 'carrier' && Driver.drivers.length === 0) ) {
+            if (user.user.role === 'driver' || (user.user.role === 'carrier' && Driver.drivers.length === 0)) {
                 if (gMap && UserInfo.userInfo.location) {
                     let location = JSON.parse(UserInfo.userInfo.location)
                     let icon = UserInfo.images.find(el => el.id === UserInfo.userInfo.id).urlsArray[1]
@@ -739,6 +742,14 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                 calculatedDuration = calculatedDuration + leg.duration.value
             }
             setRouteDistance(calculatedDistance)
+
+            //set cost if...
+            if (Adress.country.value === 'russia') {
+                formData.cost.setValue(setCarriagePrice(CarriagePrice.prices, calculatedDistance, formData))
+                setRecommended(true)
+            }
+
+
             setRouteDuration(calculatedDuration)
             formData.mileage = calculatedDistance
             setFormData({ ...formData, direction_response: JSON.stringify(results) })
@@ -753,6 +764,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
         setDirectionsResponse(null)
         setRouteDistance('')
         setRouteDuration('')
+        formData.cost.setValue('')
         //does not clear form fields but removes added fields
         setPointFormData(ComponentFunction.orderFormFunction === 'newOrder' ? pointInitialValue : JSON.parse(Point.pattern))
         initMap('map')
@@ -815,9 +827,9 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
                         </div>
                     }
 
-                    {Limit.user_limits.customer_new_order_range    &&
+                    {Limit.user_limits.customer_new_order_range &&
                         <div className={'scale_container'}>
-                            {mapScaleSteps.filter(el=>el <=Limit.user_limits.customer_new_order_range).map(step =>
+                            {mapScaleSteps.filter(el => el <= Limit.user_limits.customer_new_order_range).map(step =>
                                 <div className='button_row' key={step}>
                                     <button
                                         className={Setting.user_map_scale === step ? 'map_scale_button active only' : Setting.app_theme === 'light' ? 'map_scale_button only' : 'map_scale_button map_scale_button_dark only'}
@@ -838,7 +850,7 @@ const MapComponent = observer(({ pointFormData, formData, setFormData, setCalcul
             }
 
             {/* for driver upervisor transport and self transport dependency */}
-            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && (user.user.role === 'carrier' || (user.user.role === 'driver' && (Transport.transports.find(el => el.type === 'combi' || el.type === 'truck' || el.type === 'car' || el.type === 'minibus')))) && (user.user.role !== 'driver' && Limit.user_limits.carrier_take_order_city_limit !== 0 )) &&
+            {(ComponentFunction.PageFunction === 'orderList' && ComponentFunction.OrdersComponentFunction !== 'orderItem' && (user.user.role === 'carrier' || (user.user.role === 'driver' && (Transport.transports.find(el => el.type === 'combi' || el.type === 'truck' || el.type === 'car' || el.type === 'minibus')))) && (user.user.role !== 'driver' && Limit.user_limits.carrier_take_order_city_limit !== 0)) &&
                 <>
                     <div className={'map_info_container'}>
                         <CitySelector calcAllCities={calcAllCities} calcСityOrderBounds={calcСityOrderBounds} setRefreshMap={setRefreshMap} />

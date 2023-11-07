@@ -61,6 +61,18 @@ const Footer = observer(() => {
     { id: 1, icon: logo_dark, name: 'logid', description: '', section_id: 1, class: 'footer_logo' },
     { id: 2, icon: '', name: 'logid 2023 © all rights reserved', description: '', section_id: 1, class: 'footer_copyright' },
     {
+      id: 11, icon: '', name: <a href="./board">{
+        SetNativeTranslate(Translate.language, {
+          russian: ['Доска объявлений'],
+          english: ['Bulletin board'],
+          spanish: ['Tablón de anuncios'],
+          turkish: ['Bülten tahtası'],
+          сhinese: ['布告栏'],
+          hindi: ['बुलेटिन बोर्ड'],
+        })
+      }</a>, description: '', section_id: 1, class: 'footer_email'
+    },
+    {
       id: 10, icon: '', name: <a href="/fleet">{
         SetNativeTranslate(Translate.language, {
           russian: ['Автопаркам и курьерским службам'],
