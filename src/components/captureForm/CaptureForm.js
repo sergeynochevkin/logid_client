@@ -96,14 +96,23 @@ const CaptureForm = observer(({ setCallRequested, section }) => {
                         hindi: ['एक कॉल का अनुरोध करें'],
                     })}</Button>
                 </>
-                : <div className='capture_form_title'>{SetNativeTranslate(Translate.language, {
+                : Adress.country.value === 'russia' ? <div className='capture_form_title'>{SetNativeTranslate(Translate.language, {
                     russian: ['Мы свяжемся с вами в течении 24 часов'],
                     english: ['We will contact you within 24 hours'],
                     spanish: ['Lo contactaremos dentro de las 24 horas'],
                     turkish: ['24 saat içinde sizinle iletişime geçeceğiz'],
                     сhinese: ['我们将在24小时内联系您'],
                     hindi: ['हम आपसे 24 घंटों के भीतर संपर्क करेंगे'],
-                })}</div>}
+                })}</div> : 
+                <div className='capture_form_title'>{SetNativeTranslate(Translate.language, {
+                    russian: ['Мы свяжемся с вами в течении 24 часов через Telegram'],
+                    english: ['We will contact you within 24 hours via Telegram'],
+                    spanish: ['Nos pondremos en contacto contigo en un plazo de 24 horas a través de Telegram'],
+                    turkish: ['Telegram aracılığıyla 24 saat içinde sizinle iletişime geçeceğiz'],
+                    сhinese: ['我们将在 24 小时内通过 Telegram 与您联系'],
+                    hindi: ['हम टेलीग्राम के माध्यम से 24 घंटे के भीतर आपसे संपर्क करेंगे'],
+                })}</div> 
+                }
         </div>
     )
 })
