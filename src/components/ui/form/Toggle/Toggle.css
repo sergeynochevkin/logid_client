@@ -19,7 +19,7 @@
     font-weight: bold;
     font-size: 35px;
     color: #BDBDBD;
-    text-shadow: 0px 2px 0px #f6f6f6;
+    text-shadow: 0 2px 0 #f6f6f6;
     transform: scale(0.3, 0.3);
 }
 
@@ -30,7 +30,7 @@
     font-weight: bold;
     font-size: 35px;
     color:black;
-    text-shadow: 0px 2px 0px RGB(193 205 255/15%);
+    text-shadow: 0 2px 0 RGB(193 205 255/15%);
     transform: scale(0.3, 0.3);
 }
 
@@ -69,7 +69,7 @@
     background-color: #ebebeb;
     border-radius: 500rem;
     box-shadow: 5px 5px 5px #c2c2c2;
-    box-shadow: 0px 0px 0px #ebebeb;
+    box-shadow: 0 0 0 #ebebeb;
     transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
     transform: scale(0.3, 0.3);
 }
@@ -103,7 +103,7 @@
     font-weight: bold;
     font-size: 35px;
     color: #BDBDBD;
-    text-shadow: 0px 2px 0px #f6f6f6;
+    text-shadow: 0 2px 0 #f6f6f6;
 }
 
 .toggle label h1 {
@@ -113,7 +113,7 @@
     font-weight: bold;
     font-size: 35px;
     color: #0E35D8;
-    text-shadow: 0px 2px 0px RGB(193 205 255/15%);
+    text-shadow: 0 2px 0 RGB(193 205 255/15%);
 }
 
 .toggle input+label:before {
@@ -148,7 +148,7 @@
     background-color: #ebebeb;
     border-radius: 500rem;
     box-shadow: 5px 5px 5px #c2c2c2;
-    box-shadow:  0px 0px 0px #ebebeb;
+    box-shadow:  0 0 0 #ebebeb;
     transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
 }
 

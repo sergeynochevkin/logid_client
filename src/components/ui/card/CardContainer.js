@@ -18,7 +18,7 @@ const CardContainer = observer(({ children, thisOrder, ...props }) => {
       {thisOrder ?
         <div className={Setting.app_theme === 'light' ? 'card_container' : 'card_container card_container_dark'}
           style={{
-            boxShadow: `0px 5px 10px 0px ${ order.group.includes(thisOrder.id) ? 'grey' : color}`,
+            boxShadow: `0px 5px 10px 0 ${ order.group.includes(thisOrder.id) ? 'grey' : color}`,
             minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
             marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
             cursor: ComponentFunction.OrdersComponentFunction === 'orderItem' ? 'default' : 'pointer',
@@ -30,7 +30,7 @@ const CardContainer = observer(({ children, thisOrder, ...props }) => {
         :
         <div className={Setting.app_theme === 'light' ? 'card_container' : 'card_container card_container_dark'}
           style={{
-            boxShadow: `0px 5px 10px 0px  'grey`,
+            boxShadow: `0px 5px 10px 0  'grey`,
             minWidth: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '200px' : '',
             marginTop: ComponentFunction.OrdersComponentFunction === 'orderItem' ? '10px' : '',
           }}

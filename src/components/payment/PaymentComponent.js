@@ -26,8 +26,6 @@ const PaymentComponent = observer(({ modalActive2, setModalActive2, yoomoneyToke
     });
 
     useEffect(() => {
-
-
         if (yoomoneyToken !== 'empty_token') {
             checkout.render('payment-form')
                 //Метод возвращает Promise, исполнение которого говорит о полной загрузке платежной формы (можно не использовать).

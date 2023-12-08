@@ -76,9 +76,9 @@
 
 @media screen and (max-width: 1200px) and (min-width: 769px) and (max-height: 500px) {}
 
-@media screen and (max-width: 768px)and (min-width: 426px) {}
+@media screen and (max-width: 768px)and (min-width: 501px) {}
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     .transport_form_container {
         width: 100vw;
     }

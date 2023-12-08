@@ -72,7 +72,7 @@ const SubscriptionPlanItem = observer(({ plan, parent, setModalActive, mainRole,
                 <div className={parent === 'status' && plan.name === 'none' ? 'plan_item_container height padding' : parent === 'status' ? 'plan_item_container height' : plan.plan_id === Subscription.subscription?.planId && user.user.role ? 'plan_item_container current' :
                     'plan_item_container'}
                     style={{
-                        boxShadow: `0px 5px 10px 0px ${setColor(plan.name)}`,
+                        boxShadow: `0px 5px 10px 0 ${setColor(plan.name)}`,
 
                         color: Setting.app_theme === 'dark' ? 'white' : 'black'
                     }}>

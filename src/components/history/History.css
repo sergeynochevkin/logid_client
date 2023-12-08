@@ -1,7 +1,7 @@
 .adress_history_container {
     color: grey;
     position: relative;
-    height: 0px;
+    height: 0;
     font-size: 10px;
     display: flex;
     left: 160px;
@@ -20,7 +20,7 @@
 }
 
 .adress_history_list_container {
-    height: 0px;
+    height: 0;
     width: 305px;
 }
 
@@ -54,7 +54,7 @@
     white-space: nowrap;
     line-height: 30px;
     text-align: left;
-    border-top: 0px solid #e6e6e6;
+    border-top: 0 solid #e6e6e6;
     font-size: 13px;
     font-weight: 700
 }

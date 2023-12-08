@@ -25,7 +25,7 @@
     justify-content: center;
     animation: SlideLeft 0.5s;
     animation-fill-mode: forwards;
-    box-shadow: 0px 2.5px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2.5px 5px 0 rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
@@ -59,8 +59,8 @@
     height: 5px;
     border-radius: 5px;
     font-size: 10px;
-    border: solid rgb(129, 199, 132, 0) 0px;
-    padding: 0px;
+    border: solid rgb(129, 199, 132, 0) 0;
+    padding: 0;
     background-color: none;
     overflow: hidden;
 }
@@ -141,7 +141,7 @@
     background-color: rgb(105, 105, 105, 0.5);
     border-radius: 5px;
     /* padding: 5px; */
-    box-shadow: 0px 1.25px 2.5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1.25px 2.5px 0 rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: space-around;
     width: 80%;
@@ -177,9 +177,9 @@
 
 @media screen and (max-width: 1200px) and (min-width: 769px) and (max-height: 500px) {}
 
-@media screen and (max-width: 768px)and (min-width: 426px) {}
+@media screen and (max-width: 768px)and (min-width: 501px) {}
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     .list_item_container {
         width: 100vw;
     }

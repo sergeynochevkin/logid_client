@@ -29,7 +29,7 @@
     cursor: pointer;
     position: relative;
     bottom: 28px;
-    right: 0px;
+    right: 0;
 }
 
 .management_more_icon:hover {
@@ -61,8 +61,8 @@
 }
 
 .management_more_icon_container {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
 }
 
 .management_search {
@@ -128,7 +128,7 @@
     gap: 5px;
     font-size: 10px;
     flex-wrap: wrap;
-    box-shadow: 0px 2.5px 5px 0px rgba(127, 127, 127, 0.5);
+    box-shadow: 0 2.5px 5px 0 rgba(127, 127, 127, 0.5);
     border-radius: 5px;
     background-color: transparent;
     padding: 5px 5px 5px 20px;
@@ -144,7 +144,7 @@
 
 .management_item.activated {
     cursor: pointer;
-    box-shadow: 0px 2.5px 5px 0px rgba(127, 127, 127, 0.5)
+    box-shadow: 0 2.5px 5px 0 rgba(127, 127, 127, 0.5)
 }
 
 .management_item:hover {
@@ -215,7 +215,7 @@
 }
 
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     .management_action_menu_modal_container {
         width: 100vw;
     }
@@ -234,7 +234,7 @@
 
     .management_more_icon {
         bottom: 30px;
-        right: 0px;
+        right: 0;
     }
 
     .item_action_menu {

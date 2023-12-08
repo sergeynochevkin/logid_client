@@ -18,7 +18,7 @@ const AccountInfoStatus = observer(({ containerClassName }) => {
     return (
         <div
             className={containerClassName}
-            style={{ boxShadow: `0px 5px 10px 0px ${setColor(`not_activated`)}` }}
+            style={{ boxShadow: `0px 5px 10px 0 ${setColor(`not_activated`)}` }}
         >
             <div
                 className='account_info_status_content_container'

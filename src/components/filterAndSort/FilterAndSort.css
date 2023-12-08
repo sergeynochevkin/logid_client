@@ -119,7 +119,7 @@
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
 
     .vertical_filters_container {
         flex-direction: column;

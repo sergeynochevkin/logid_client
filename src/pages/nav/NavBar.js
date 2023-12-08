@@ -107,7 +107,7 @@ const NavBar = observer(() => {
         </div>
         {/* <Item onClick={() =>
         navigate(MAIN_ROUTE)}>Main</Item> */}
-        {width > 425 ?
+        {width > 500 ?
           <>
             {user.user.role === "customer" && user.isAuth ?
               <div className='nav_bar_item' onClick={() =>

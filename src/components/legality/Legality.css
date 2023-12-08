@@ -74,7 +74,7 @@
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     .accept_cookie_text_container {
         font-size: 12px;
     }

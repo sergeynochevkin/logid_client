@@ -55,7 +55,7 @@ const Orders = observer(({ orderItemFunction, setOrderItemFunction }) => {
     } else {
       if (width > 768) {
         FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 30 }, ComponentFunction.Function)
-      } else if (width > 425) {
+      } else if (width > 500) {
         FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 20 }, ComponentFunction.Function)
       } else {
         FilterAndSort.setFilters({ ...FilterAndSort.filters[ComponentFunction.Function], limit: 10 }, ComponentFunction.Function)

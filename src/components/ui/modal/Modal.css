@@ -80,7 +80,7 @@
 .modal_bottom.active {
     animation-fill-mode: forwards;
     animation: SlideTop 1s;
-    bottom: 0px;
+    bottom: 0;
 }
 
 .modal_close_icon {
@@ -102,7 +102,7 @@
 
 @keyframes SlideBottom {
     0% {
-        bottom: 0px;
+        bottom: 0;
     }
 
     100% {
@@ -116,7 +116,7 @@
     }
 
     100% {
-        bottom: 0px;
+        bottom: 0;
     }
 }
 
@@ -124,7 +124,7 @@
 
 @media screen and (max-width: 769px) {}
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     .modal {
         justify-content: stretch;
     }

@@ -130,7 +130,7 @@
 
 @media screen and (max-width: 769px) {}
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     .plans_container{
         width: max-content;
         height: max-content;

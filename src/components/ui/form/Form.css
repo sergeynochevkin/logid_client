@@ -162,7 +162,7 @@
     color: white;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     /* .custom_input{
         min-width: 220px;
     }   

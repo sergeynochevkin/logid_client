@@ -14,7 +14,7 @@ const AdTransportSection = observer(() => {
   const { FilterAndSort } = useContext(FilterAndSortContext)
 
   useEffect(() => {
-    FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, main_limit: width < 425 ? 2 : width < 770 ? 3 : 6 }, 'transports')
+    FilterAndSort.setBoardFilters({ ...FilterAndSort.boardFilters.transports, main_limit: width < 501 ? 2 : width < 770 ? 3 : 6 }, 'transports')
   }, [])
 
   return (

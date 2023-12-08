@@ -23,7 +23,7 @@
 
 .calculated_data_container {
     background-color: rgb(245, 245, 245, 0.5);
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     padding: 5px;
     color: black;
@@ -42,7 +42,7 @@
     padding: 5px 10px 5px 10px;
     cursor: pointer;
     background-color: rgb(105, 105, 105, 0.8);
-    box-shadow: 0px 2.5px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2.5px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .map_button.dark {
@@ -59,7 +59,7 @@
     min-width: 150px;
     text-align: center;
     background-color: rgb(245, 245, 245, 0.8);
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .remove_city_icon{
@@ -145,7 +145,7 @@
     cursor: pointer;
     border-radius: 5px;
     background-color: rgb(245, 245, 245, 0.8);
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .map_action_icon_container.dark {
@@ -180,7 +180,7 @@
 .pac-logo:after {
     content: "";
     padding: 1px 1px 1px 0;
-    height: 0px;
+    height: 0;
     text-align: right;
     display: block;
     background-image: none;
@@ -201,7 +201,7 @@
     white-space: nowrap;
     line-height: 30px;
     text-align: left;
-    border-top: 0px solid #e6e6e6;
+    border-top: 0 solid #e6e6e6;
     font-size: 11px;
     color: #999
 }
@@ -226,7 +226,7 @@
 }
 
 .pac-icon {
-    width: 0px;
+    width: 0;
     height: 20px;
     margin-right: 7px;
     margin-top: 6px;
@@ -279,9 +279,9 @@
     }
 }
 
-@media screen and (max-width: 768px)and (min-width: 426px) {}
+@media screen and (max-width: 768px)and (min-width: 501px) {}
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 500px) {
     .map_scale_button.only {
         min-width: 50px;
     }
