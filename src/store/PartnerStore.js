@@ -1,108 +1,107 @@
 import { makeAutoObservable } from "mobx";
 
 export default class PartnerStore {
-    constructor() {
-        this._partners = []
-        this._partnerInfos = []
-        this._images = []
-        this._partner = {}
-        this._partnerInfo = {}
+  constructor() {
+    this._partners = [];
+    this._partnerInfos = [];
+    this._images = [];
+    this._partner = {};
+    this._partnerInfo = {};
 
-        this._noPartnerInfos = []
-        this._noPartnerInfo = {}
+    this._noPartnerInfos = [];
+    this._noPartnerInfo = {};
 
-        this._myBlocked = []
-        this._myFavorite = []
-        this._iAmBlocked = []
-        this._iAmFavorite = []
+    this._myBlocked = [];
+    this._myFavorite = [];
+    this._iAmBlocked = [];
+    this._iAmFavorite = [];
 
-        this._groups = []
+    this._groups = [];
 
-        makeAutoObservable(this)
-    }
+    makeAutoObservable(this);
+  }
 
-    setGroups(value) {
-        this._groups = value
-    }
+  setGroups(value) {
+    this._groups = value;
+  }
 
-    get groups() {
-        return this._groups
-    }
+  get groups() {
+    return this._groups;
+  }
 
-    setPartners(partners) {
-        this._partners = partners
-    }
+  setPartners(partners) {
+    this._partners = partners;
+  }
 
-    setPartnerInfos(partnerInfos) {
-        this._partnerInfos = partnerInfos
-    }
+  setPartnerInfos(partnerInfos) {
+    this._partnerInfos = partnerInfos;
+  }
 
-    setPartner(partner) {
-        this._partner = partner
-    }
+  setPartner(partner) {
+    this._partner = partner;
+  }
 
-    setPartnerInfo(partnerInfo) {
-        this._partnerInfo = partnerInfo
-    }
+  setPartnerInfo(partnerInfo) {
+    this._partnerInfo = partnerInfo;
+  }
 
-    setNoPartnerInfos(noPartnerInfos) {
-        this._noPartnerInfos = noPartnerInfos
-    }
+  setNoPartnerInfos(noPartnerInfos) {
+    this._noPartnerInfos = noPartnerInfos;
+  }
 
-    setMyBlocked(myBlocked) {
-        this._myBlocked = myBlocked
-    }
+  setMyBlocked(myBlocked) {
+    this._myBlocked = myBlocked;
+  }
 
-    setMyFavorite(myFavorite) {
-        this._myFavorite = myFavorite
+  setMyFavorite(myFavorite) {
+    this._myFavorite = myFavorite;
+  }
+  setIAmBlocked(iAmBlocked) {
+    this._iAmBlocked = iAmBlocked;
+  }
+  setIAmFavorite(iAmFavorite) {
+    this._iAmFavorite = iAmFavorite;
+  }
+  setImages(value) {
+    this._images = value;
+  }
 
-    }
-    setIAmBlocked(iAmBlocked) {
-        this._iAmBlocked = iAmBlocked
-    }
-    setIAmFavorite(iAmFavorite) {
-        this._iAmFavorite = iAmFavorite
-    }
-    setImages(value) {
-        this._images = value
-    }
+  get partners() {
+    return this._partners;
+  }
 
-    get partners() {
-        return this._partners
-    }
+  get partnerInfos() {
+    return this._partnerInfos;
+  }
 
-    get partnerInfos() {
-        return this._partnerInfos
-    }
+  get partner() {
+    return this._partner;
+  }
 
-    get partner() {
-        return this._partner
-    }
+  get partnerInfo() {
+    return this._partnerInfo;
+  }
 
-    get partnerInfo() {
-        return this._partnerInfo
-    }
+  get noPartnerInfos() {
+    return this._noPartnerInfos;
+  }
 
-    get noPartnerInfos() {
-        return this._noPartnerInfos
-    }
+  get myBlocked() {
+    return this._myBlocked;
+  }
 
-    get myBlocked() {
-        return this._myBlocked
-    }
+  get myFavorite() {
+    return this._myFavorite;
+  }
 
-    get myFavorite() {
-        return this._myFavorite
-    }
+  get iAmBlocked() {
+    return this._iAmBlocked;
+  }
 
-    get iAmBlocked() {
-        return this._iAmBlocked
-    }
-
-    get iAmFavorite() {
-        return this._iAmFavorite
-    }
-    get images() {
-        return this._images
-    }
+  get iAmFavorite() {
+    return this._iAmFavorite;
+  }
+  get images() {
+    return this._images;
+  }
 }

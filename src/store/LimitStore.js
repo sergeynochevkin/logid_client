@@ -1,27 +1,27 @@
 import { makeAutoObservable } from "mobx";
 
 export default class LimitStore {
-    constructor() {
-        this._user_limits = {}
-        
-        this._app_limits = {}
+  constructor() {
+    this._user_limits = {};
 
-        makeAutoObservable(this)
-    }
+    this._app_limits = {};
 
-    setUserLimits(value) {
-        this._user_limits = value
-    }
+    makeAutoObservable(this);
+  }
 
-    setAppLimits(value) {
-        this._app_limits = value
-    }
+  setUserLimits(value) {
+    this._user_limits = value;
+  }
 
-    get user_limits() {
-        return this._user_limits
-    }
+  setAppLimits(value) {
+    this._app_limits = value;
+  }
 
-    get app_limits() {
-        return this._app_limits
-    }
+  get user_limits() {
+    return this._user_limits;
+  }
+
+  get app_limits() {
+    return this._app_limits;
+  }
 }

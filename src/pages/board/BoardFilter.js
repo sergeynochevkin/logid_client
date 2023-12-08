@@ -2,11 +2,7 @@ import React, { useContext } from "react";
 import FilterAndSortSeparateSearchAndSort from "../../components/filterAndSort/FilterAndSortSeparateSearchAndSort";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 import { observer } from "mobx-react-lite";
-import {
-  SettingContext,
-  TranslateContext,
-  UserContext,
-} from "../..";
+import { SettingContext, TranslateContext, UserContext } from "../..";
 import board_add from "../../assets/icons/board_add.png";
 import board_add_dark from "../../assets/icons/board_add_dark.png";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
@@ -16,7 +12,7 @@ const BoardFilter = observer(({ modalActive, setModalActive, addAdAction }) => {
   const { Setting } = useContext(SettingContext);
   const { user } = useContext(UserContext);
 
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   return (
     <>

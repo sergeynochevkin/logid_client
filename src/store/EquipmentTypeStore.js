@@ -1,19 +1,17 @@
 import { makeAutoObservable } from "mobx";
 
 export default class EquipmentTypeStore {
+  constructor() {
+    this._types = [];
 
-    constructor() {
-        this._types = []
+    makeAutoObservable(this);
+  }
 
-        makeAutoObservable(this)
-    }
+  setTypes(value) {
+    this._types = value;
+  }
 
-    setTypes(value) {
-        this._types = value
-    }
-
-    get types() {
-        return this._types
-    }
+  get types() {
+    return this._types;
+  }
 }
-

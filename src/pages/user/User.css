@@ -1,13 +1,11 @@
-
-    .user_page_container{
-        width: 100%;
-        min-height: 80vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 50px;
-    }
-    .user_page_container.dark{
-        background-color: #121212;    
-    }
-    
+.user_page_container {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+.user_page_container.dark {
+  background-color: #121212;
+}

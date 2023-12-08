@@ -1,67 +1,61 @@
 import { makeAutoObservable } from "mobx";
 
 export default class AdressStore {
+  constructor() {
+    this._countries = [];
+    this._cities = [];
+    this._country = {};
+    this._country_detected = true;
 
-    constructor() {
+    this._location = {
+      lat: "",
+      lng: "",
+      speed: "",
+      status: "",
+      fetch: false,
+    };
 
-        this._countries = []
-        this._cities = []
-        this._country = {}
-        this._country_detected = true
-        // this._country = localStorage.getItem('country') ? JSON.parse(localStorage.getItem('country')) : {}
+    makeAutoObservable(this);
+  }
 
-        this._location = {
-            lat: '',
-            lng: '',
-            speed: '',
-            status: '',
-            fetch:false
-        }
+  setCountries(value) {
+    this._countries = value;
+  }
 
-        makeAutoObservable(this)
-    }
+  get countries() {
+    return this._countries;
+  }
 
-    setCountries(value) {
-        this._countries = value
-    }
+  setCountry(value) {
+    this._country = value;
+    localStorage.setItem("country", JSON.stringify(value));
+  }
 
-    get countries() {
-        return this._countries
-    }
+  get country() {
+    return this._country;
+  }
 
-    setCountry(value) {
-        this._country = value
-        localStorage.setItem('country', JSON.stringify(value))
-    }
+  setCountryDetected(value) {
+    this._country_detected = value;
+  }
 
-    get country() {
-        return this._country
-    }
+  get country_detected() {
+    return this._country_detected;
+  }
 
-    setCountryDetected(value) {
-        this._country_detected = value
-    }
+  setCities(value) {
+    this._cities = value;
+  }
 
-    get country_detected() {
-        return this._country_detected
-    }
+  get cities() {
+    return this._cities;
+  }
 
-    setCities(value) {
-        this._cities = value
-    }
+  setLocation(value, option) {
+    this._location[option] = value;
+  }
 
-    get cities() {
-        return this._cities
-    }
-
-    setLocation(value, option) {
-        this._location[option] = value
-    }
-
-    get location() {
-        return this._location
-    }
+  get location() {
+    return this._location;
+  }
 }
-
-
-
