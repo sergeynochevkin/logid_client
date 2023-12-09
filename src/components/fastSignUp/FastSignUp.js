@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { AdressContext, ComponentFunctionContext, FetcherContext, LimitContext, NotificationContext, SettingContext, SubscriptionContext, TranslateContext, TransportContext, UserContext, UserInfoContext } from '../..'
+import { AdressContext, ComponentFunctionContext, FetcherContext, NotificationContext, TranslateContext, UserContext, UserInfoContext } from '../..'
 import { useInput } from '../../hooks/useInput'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import TransportFormSection from '../transport/TransportFormSection'
@@ -11,9 +11,7 @@ import { Input } from '../ui/form/Input'
 import { Select } from '../ui/form/Select'
 import { FieldName } from '../ui/page/FieldName'
 import { VerticalContainer } from '../ui/page/VerticalContainer'
-// import ReCAPTCHA from "react-google-recaptcha";
 import { v4 } from "uuid";
-import arrow_up from '../../assets/icons/arrow_up_.png';
 import arrow_up_dark from '../../assets/icons/arrow_up_dark_.png';
 
 import './FastSignUp.css'
@@ -21,7 +19,7 @@ import City from '../account/userInfoForm/City'
 import { useFetching } from '../../hooks/useFetching'
 import { fast_registration } from '../../http/userAPI'
 import { MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE } from '../../utils/consts'
-import { Link, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import { fetchUserInfo } from '../../http/userInfoApi'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import PromoCodeComponent from '../auth/PromoCodeComponent'
@@ -35,10 +33,8 @@ const ReCAPTCHA = React.lazy(() => import('react-google-recaptcha'))
 
 const FastSignUp = observer(() => {
     const { Translate } = useContext(TranslateContext)
-    const { Setting } = useContext(SettingContext)
     const { Adress } = useContext(AdressContext)
     const [comparePassword, setComparePassword] = useState('')
-    const [comparePasswordActive, setComparePasswordActive] = useState(false)
     const { ComponentFunction } = useContext(ComponentFunctionContext)
     const [reCapchaChecked, setReCapchaChecked] = useState(false)
     const { user } = useContext(UserContext)
@@ -46,24 +42,11 @@ const FastSignUp = observer(() => {
     const { Notification } = useContext(NotificationContext)
     const { UserInfo } = useContext(UserInfoContext)
     const { fetcher } = useContext(FetcherContext)
-    const { height, width } = useWindowDimensions();
+    const {  width } = useWindowDimensions();
     const [formVisible, setFormVisible] = useState(true)
-    const queryParams = new URLSearchParams(window.location.search)
-    const role = queryParams.get("role")
-    const promo_code = queryParams.get("promo_code")
 
     const [agreements, setAgreements] = useState(false)
 
-
-
-    // useEffect(() => {
-    //     if (width < 770) {
-    //         setFormVisible(false)
-    //     } else { setFormVisible(true) }
-    // }, [])
-
-
-    let cookies_accepted = JSON.parse(localStorage.getItem('cookies_accepted'))
 
     function onRecaptchaChange() {
         setReCapchaChecked(true)

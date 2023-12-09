@@ -54,7 +54,7 @@ const NavBar = observer(() => {
   const [modalActive1, setModalActive1] = useState(false);
   const [modalActive2, setModalActive2] = useState(false);
   const [name, setName] = useState("");
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     !Adress.country_detected && setModalActive(true);

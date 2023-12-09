@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext, useState } from 'react'
-import { SettingContext, UserInfoContext } from '../../../..'
-import { updateSetting } from '../../../../http/settingApi'
+import React from 'react'
 import './Toggle.css'
 
 const Toggle = ({ setting, disabled, updateSettingAction }) => {
