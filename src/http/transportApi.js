@@ -1,5 +1,4 @@
 import { $authHost } from "./index";
-import { $host } from "./index";
 
 export const createTransport = async (formData) => {
     const { data } = await $authHost.post('api/transport', {

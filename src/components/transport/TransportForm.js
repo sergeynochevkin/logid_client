@@ -102,10 +102,8 @@ const TransportForm = observer(
     const click = async (event) => {
       event.preventDefault();
       try {
-        let data;
-
         if (formFunction === "create" || !formFunction) {
-          data = await createTransport(formData).then(async (data) => {
+          await createTransport(formData).then(async (data) => {
             dataInit(files);
             await uploadFiles(
               "transport",
@@ -133,7 +131,7 @@ const TransportForm = observer(
         }
 
         if (formFunction === "update" || formFunction === "update_from_fast") {
-          data = await updateTransport(formData).then(async (data) => {
+          await updateTransport(formData).then(async (data) => {
             dataInit(files);
             await uploadFiles(
               "transport",

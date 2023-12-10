@@ -25,7 +25,6 @@ const Footer = observer(() => {
   const { Setting } = useContext(SettingContext);
   const { Translate } = useContext(TranslateContext);
   const { Adress } = useContext(AdressContext);
-  const [modalActive, setModalActive] = useState(null);
 
   const [agreement, setAgreement] = useState("");
   const { ComponentFunction } = useContext(ComponentFunctionContext);
@@ -285,7 +284,6 @@ const Footer = observer(() => {
             section={section}
             items={items.filter((el) => el.section_id === section.id)}
             key={section.id}
-            setModalActive={setModalActive}
             setAgreement={setAgreement}
           />
         ))}

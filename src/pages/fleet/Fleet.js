@@ -870,27 +870,6 @@ const Fleet = observer(() => {
     { id: 8, name: "drivers", alt: "Drivers screen" },
     { id: 9, name: "board", alt: "Board screen" },
   ];
-  const [image, setImage] = useState(images[0]);
-
-  const changeSlide = (action) => {
-    let index;
-    if (action === "forward") {
-      if (image.id === images.length - 1) {
-        index = 0;
-      } else {
-        index = image.id + 1;
-      }
-      setImage(images[index]);
-    }
-    if (action === "backward") {
-      if (image.id === 0) {
-        index = images.length - 1;
-      } else {
-        index = image.id - 1;
-      }
-    }
-    setImage(images[index]);
-  };
 
   return (
     <>

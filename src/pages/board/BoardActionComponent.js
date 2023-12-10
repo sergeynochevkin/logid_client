@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import FilterAndSortComponentForServer from "../../components/filterAndSort/FilterAndSortComponentForServer";
 import { SettingContext } from "../..";
 
-const BoardActionComponent = observer(({}) => {
+const BoardActionComponent = observer(() => {
   const { Setting } = useContext(SettingContext);
 
   return (

@@ -57,7 +57,6 @@ import transport from "../../assets/icons/transport.png";
 import transport_dark from "../../assets/icons/transport_dark.png";
 import AdminConsoleItem from "./AdminConsoleItem";
 import AdTransportSection from "./AdTransportSection";
-import { useLocation } from "react-router-dom";
 
 const Main = observer(() => {
   const { fetcher } = useContext(FetcherContext);
@@ -69,15 +68,9 @@ const Main = observer(() => {
   const uuid = queryParams.get("uuid");
   const { user } = useContext(UserContext);
   const { Adress } = useContext(AdressContext);
-  const [modalActive2, setModalActive2] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const [callRequested, setCallRequested] = useState(false);
   const { Setting } = useContext(SettingContext);
   const { Management } = useContext(ManagementContext);
-
-  let location = useLocation();
-
-  let cookies_accepted = JSON.parse(localStorage.getItem("cookies_accepted"));
 
   useEffect(() => {
     ym("hit", "/");
@@ -93,19 +86,6 @@ const Main = observer(() => {
     Ad.setTransports([], "main");
     Ad.setTransportImages([], "main");
     fetcher.setAdTransports(true);
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoaded(true);
-    }, 100);
-    if (!cookies_accepted.total) {
-      localStorage.setItem(
-        "cookies_accepted",
-        JSON.stringify({ total: false, auth: false, main: false })
-      );
-      setModalActive2(true);
-    }
   }, []);
 
   useEffect(() => {

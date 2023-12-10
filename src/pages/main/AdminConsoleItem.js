@@ -15,7 +15,7 @@ const AdminConsoleItem = observer(
     const { Setting } = useContext(SettingContext);
     const { Management } = useContext(ManagementContext);
     const [rate, setRate] = useState(0);
-    const [currenGrow, setCurrentGrow] = useState(0);
+    const [currentGrow, setCurrentGrow] = useState(0);
     const [color, setColor] = useState("rgba(90, 90, 90, 0.792)");
     let delayValue = (currentRate / plan) * 10;
 
@@ -32,15 +32,15 @@ const AdminConsoleItem = observer(
 
     useEffect(() => {
       const timeout = setTimeout(() => {
-        if (currenGrow < currentRate) {
-          setCurrentGrow(currenGrow + 1);
+        if (currentGrow < currentRate) {
+          setCurrentGrow(currentGrow + 1);
         }
       }, delayValue);
       return () => {
         clearTimeout(timeout);
       };
     }, [
-      currenGrow,
+      currentGrow,
       Management.users,
       Management.orders,
       Management.transports,
@@ -48,9 +48,9 @@ const AdminConsoleItem = observer(
 
     useEffect(() => {
       if (type !== "value") {
-        if (currenGrow < plan * 0.33) {
+        if (currentGrow < plan * 0.33) {
           setColor("rgb(254, 111, 103,0.8)");
-        } else if (currenGrow < plan * 0.66) {
+        } else if (currentGrow < plan * 0.66) {
           {
             setColor("rgb(241,196,15,0.8)");
           }
@@ -59,14 +59,14 @@ const AdminConsoleItem = observer(
         }
       }
       if (type === "value") {
-        if (influence === "positive" && currenGrow > 0) {
+        if (influence === "positive" && currentGrow > 0) {
           setColor("rgb(129, 199, 132,0.8)");
         }
-        if (influence === "negative" && currenGrow > 0) {
+        if (influence === "negative" && currentGrow > 0) {
           setColor("rgb(254, 111, 103,0.8)");
         }
       }
-    }, [currenGrow]);
+    }, [currentGrow]);
 
     return (
       <div className="admin_console_item">
@@ -99,7 +99,7 @@ const AdminConsoleItem = observer(
             <div
               className={`admin_console_level_circle_value ${Setting.app_theme}`}
             >
-              {currenGrow}
+              {currentGrow}
               {type !== "value" && `/${plan}`}
             </div>
             <div

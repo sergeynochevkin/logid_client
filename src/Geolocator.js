@@ -1,12 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useGeolocated } from "react-geolocated";
-import {
-  AdressContext,
-  FetcherContext,
-  OrderContext,
-  UserContext,
-  UserInfoContext,
-} from ".";
+import { AdressContext, FetcherContext, UserContext, UserInfoContext } from ".";
 import { observer } from "mobx-react-lite";
 import { updateLocation } from "./http/userInfoApi";
 

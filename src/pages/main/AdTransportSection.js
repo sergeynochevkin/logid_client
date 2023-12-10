@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   AdContext,
   FilterAndSortContext,
@@ -13,7 +13,6 @@ import BoardListItem from "../board/BoardListItem";
 const AdTransportSection = observer(() => {
   const { Ad } = useContext(AdContext);
   const { Setting } = useContext(SettingContext);
-  const [transports, setTransports] = useState([]);
   const { width } = useWindowDimensions();
   const { Translate } = useContext(TranslateContext);
   const { FilterAndSort } = useContext(FilterAndSortContext);

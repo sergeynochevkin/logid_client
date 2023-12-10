@@ -250,7 +250,6 @@ const OrderForm = observer(({ setModalActive }) => {
     orderPattern.carrier_arc_status = "";
     orderPattern.order_final_status = "";
     orderPattern.updated_by_role = "";
-    // thermo_bag    // hydraulic_platform    // side_loading    // glass_stand    // refrigerator_minus    // refrigerator_plus    // thermo_van     //mileage   //userId     //country     //city     // userInfoId    // option    // files
 
     pointPattern = JSON.parse(Point.pattern);
     for (const point of pointPattern) {
@@ -277,7 +276,6 @@ const OrderForm = observer(({ setModalActive }) => {
       point.updated_by = undefined;
       point.orderIntegrationId = order.integrationId;
       pointPatternInitialValue.push(point);
-      // id    //latitude    //longitude    //name     //services
     }
   }
 
@@ -587,7 +585,6 @@ const OrderForm = observer(({ setModalActive }) => {
       formData.cost.value = 0;
     }
     try {
-      let orderId;
       fetcher.setCustomLoading(true);
       await editOrder(
         formData.id,
@@ -628,7 +625,6 @@ const OrderForm = observer(({ setModalActive }) => {
           fileList
         );
       });
-      // await createPoint(pointFormData)
       fetcher.setNewStatus("postponed");
       fetcher.setDividedOrders(true);
       Notification.addNotification([
@@ -659,7 +655,7 @@ const OrderForm = observer(({ setModalActive }) => {
         formData.cost.value = 0;
       }
       fetcher.setCustomLoading(true);
-      data = await createOrder(
+      await createOrder(
         Translate.language,
         formData.order_comment.value,
         formData.cost.value,

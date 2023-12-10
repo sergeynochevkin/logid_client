@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ComponentFunctionContext } from "../..";
 import "./Footer.css";
 
-const FooterItem = observer(({ item, setModalActive, setAgreement }) => {
+const FooterItem = observer(({ item }) => {
   const { ComponentFunction } = useContext(ComponentFunctionContext);
 
   return (
