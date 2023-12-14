@@ -74,11 +74,11 @@ const Global = createGlobalStyle`
   font-family: "Jost";
      }
  a{
-  color:lightgrey;
+  color:grey;
   text-decoration:none;
      }
   a:hover{
-  color:grey;
+  color:lightgray;
      }
 `;
 const theme = {

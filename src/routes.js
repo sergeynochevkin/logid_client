@@ -9,12 +9,15 @@ import {
   PRIVACY_POlICY_ROUTE,
   USER_AGREEMENT_ROUTE,
   SUBSCRIPTIONS_ROUTE,
+  MAIN_ORDER_ROUTE,
 } from "./utils/consts";
 import Main from "./pages/main/Main";
 import { Suspense, lazy } from "react";
 import PageFallBack from "./components/ui/loader/PageFallBack";
 import Fleet from "./pages/fleet/Fleet";
 import Agreement from "./components/legality/Agreement";
+import React from "react";
+import MainOrder from './pages/main_order/MainOrder';
 
 const Board = lazy(() => import("./pages/board/Board"));
 const User = lazy(() => import("./pages/user/User"));
@@ -23,6 +26,7 @@ const BoardItemPage = lazy(() => import("./pages/board/BoardItemPage"));
 const SubscriptionsPage = lazy(() =>
   import("./pages/subscriptions/SubscriptionsPage")
 );
+
 
 export const authRoutes = [
   {
@@ -76,6 +80,10 @@ export const publicRoutes = [
   {
     path: FLEET_ROUTE,
     Component: <Fleet />,
+  },
+  {
+    path: MAIN_ORDER_ROUTE,
+    Component: <MainOrder />,
   },
   {
     path: PRIVACY_POlICY_ROUTE,

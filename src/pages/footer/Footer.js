@@ -81,7 +81,7 @@ const Footer = observer(() => {
       ),
       description: "",
       section_id: 1,
-      class: "footer_email",
+      class: "",
     },
     {
       id: 10,

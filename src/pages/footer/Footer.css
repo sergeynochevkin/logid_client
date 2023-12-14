@@ -3,8 +3,8 @@
   min-height: 550px;
   height: max-content;
   /* min-height: 400px; */
-  background-color: black;
-  color: white;
+  background-color: white;
+  /* color: white; */
   display: flex;
   gap: 20px;
   justify-content: space-around;
@@ -13,7 +13,8 @@
 }
 
 .footer_container.dark {
-  background-color: black;
+  background-color: #121212;
+    color: white;
 }
 
 .footer_logo {
@@ -48,6 +49,7 @@
   font-size: 12px;
   margin-top: 0;
   margin-bottom: 2px;
+  color: black;
 }
 
 .legality_link {
