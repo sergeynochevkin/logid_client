@@ -17,16 +17,15 @@ import PageFallBack from "./components/ui/loader/PageFallBack";
 import Fleet from "./pages/fleet/Fleet";
 import Agreement from "./components/legality/Agreement";
 import React from "react";
-import MainOrder from './pages/main_order/MainOrder';
+import MainOrder from "./pages/main_order/MainOrder";
 
 const Board = lazy(() => import("./pages/board/Board"));
 const User = lazy(() => import("./pages/user/User"));
 const Management = lazy(() => import("./pages/management/Management"));
-const BoardItemPage = lazy(() => import("./pages/board/BoardItemPage"));
 const SubscriptionsPage = lazy(() =>
   import("./pages/subscriptions/SubscriptionsPage")
 );
-
+import BoardItemPage from "./pages/board/BoardItemPage";
 
 export const authRoutes = [
   {
@@ -71,11 +70,7 @@ export const publicRoutes = [
   },
   {
     path: BOARD_ITEM_ROUTE,
-    Component: (
-      <Suspense fallback={<PageFallBack />}>
-        <BoardItemPage />
-      </Suspense>
-    ),
+    Component: <BoardItemPage />,
   },
   {
     path: FLEET_ROUTE,
