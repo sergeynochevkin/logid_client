@@ -62,11 +62,17 @@ export const publicRoutes = [
   {
     path: BOARD_ROUTE,
     Component: <Board />,
+    children: [
+      {
+        path: BOARD_ITEM_ROUTE,
+        element: <BoardItemPage />,
+      },
+    ],
   },
-  {
-    path: BOARD_ITEM_ROUTE,
-    Component: <BoardItemPage />,
-  },
+  // {
+  //   path: BOARD_ITEM_ROUTE,
+  //   Component: <BoardItemPage />,
+  // },
   {
     path: FLEET_ROUTE,
     Component: <Fleet />,
