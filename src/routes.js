@@ -18,8 +18,8 @@ import Fleet from "./pages/fleet/Fleet";
 import Agreement from "./components/legality/Agreement";
 import React from "react";
 import MainOrder from "./pages/main_order/MainOrder";
+import Board from "./pages/board/Board";
 
-const Board = lazy(() => import("./pages/board/Board"));
 const User = lazy(() => import("./pages/user/User"));
 const Management = lazy(() => import("./pages/management/Management"));
 const SubscriptionsPage = lazy(() =>
@@ -61,11 +61,7 @@ export const publicRoutes = [
   },
   {
     path: BOARD_ROUTE,
-    Component: (
-      <Suspense fallback={<PageFallBack />}>
-        <Board />
-      </Suspense>
-    ),
+    Component: <Board />,
   },
   {
     path: BOARD_ITEM_ROUTE,
