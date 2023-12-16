@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Outlet } from "react-router-dom";
 import AppRouter from "./AppRouter";
 import Footer from "./pages/footer/Footer";
 import NavBar from "./pages/nav/NavBar";
@@ -18,7 +18,9 @@ const App = observer(() => {
         <Notificator />
         <NavBar />
         <AppRouter>
-          <div className="App"></div>
+          <div className="App">
+          <Outlet />
+          </div>
         </AppRouter>
         <Footer />
       </PreLoader>

@@ -226,15 +226,12 @@ root &&
                                                             new ManagementStore(),
                                                         }}
                                                       >
-                                                        {/* <React.StrictMode> */}
                                                         <ThemeProvider
                                                           theme={theme}
                                                         >
                                                           <Global />
-
                                                           <App />
                                                         </ThemeProvider>
-                                                        {/* </React.StrictMode> */}
                                                       </ManagementContext.Provider>
                                                     </CarriagePriceContext.Provider>
                                                   </AdressContext.Provider>
