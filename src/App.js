@@ -19,7 +19,6 @@ const App = observer(() => {
         <NavBar />
         <AppRouter>
           <div className="App">
-          <Outlet />
           </div>
         </AppRouter>
         <Footer />
