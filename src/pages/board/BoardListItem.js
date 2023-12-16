@@ -68,7 +68,7 @@ const BoardListItem = observer(({ transport }) => {
     <>
       {mainImage ? (
         <Link
-          to={`./item/${transport.id}`}
+          to={`/board/item/${transport.id}`}
           className="board_list_link"
           onClick={() => {
             viewedAction();
