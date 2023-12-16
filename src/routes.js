@@ -63,7 +63,6 @@ export const publicRoutes = [
     path: BOARD_ROUTE,
     Component: (
       <Suspense fallback={<PageFallBack />}>
-        {" "}
         <Board />
       </Suspense>
     ),
