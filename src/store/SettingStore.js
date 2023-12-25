@@ -11,7 +11,7 @@ export default class StateStore {
     this._app_theme = "light";
     this._center = {};
     this._bounds = {};
-    this._bounds_limit = undefined;
+    this._bounds_limit = 0.5;
     this._zoom = undefined;
     this._adress_history = [];
 

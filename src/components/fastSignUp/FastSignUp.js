@@ -34,7 +34,9 @@ import PromoCodeComponent from "../auth/PromoCodeComponent";
 
 import ym from "react-yandex-metrika";
 
+
 const ReCAPTCHA = React.lazy(() => import("react-google-recaptcha"));
+import { initialValue } from './constants';
 
 const FastSignUp = observer(() => {
   const { Translate } = useContext(TranslateContext);
@@ -156,54 +158,6 @@ const FastSignUp = observer(() => {
       ]);
       fetcher.setCustomLoading(false);
     }
-  };
-
-  let initialValue = {
-    //auth
-    email: "",
-    password: "",
-    role: "",
-    code: "",
-    country: "",
-    user_agreement_accepted: false,
-    privacy_policy_accepted: false,
-    age_accepted: false,
-    personal_data_agreement_accepted: false,
-    cookies_accepted: { total: false },
-    promo_code: "",
-
-    //user info
-    userId: undefined,
-    legal: "",
-    city: { value: "", isDirty: false, notValid: true },
-    city_place_id: "",
-    city_latitude: "",
-    city_longitude: "",
-    phone: "",
-    website: "",
-    company_name: "",
-    company_inn: "",
-    company_adress: { value: "", isDirty: false, notValid: true },
-    company_adress_latitude: "",
-    company_adress_longitude: "",
-    type_of_customer: "",
-    name_surname_fathersname: "",
-    passport_number: "",
-    passport_date_of_issue: "",
-    passport_issued_by: "",
-    from_fast: true,
-
-    //transport
-    thermo_bag: false,
-    hydraulic_platform: false,
-    side_loading: false,
-    glass_stand: false,
-    refrigerator_minus: false,
-    refrigerator_plus: false,
-    thermo_van: false,
-    userInfoId: undefined,
-    tag: "",
-    type: "",
   };
 
   const [formData, setFormData] = useState(initialValue);

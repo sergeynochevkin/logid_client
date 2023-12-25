@@ -1,15 +1,6 @@
-import React, { startTransition, useContext, useEffect, useState } from "react";
-import {
-  AdressContext,
-  LinkContext,
-  OrderContext,
-  SettingContext,
-  StateContext,
-  TranslateContext,
-  UserContext,
-  UserInfoContext,
-} from "../..";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { startTransition, useEffect } from "react";
+
+import { Link } from "react-router-dom";
 import {
   MAIN_ROUTE,
   USER_ROUTE,
@@ -35,30 +26,43 @@ import Auth from "../../components/auth/Auth";
 import ShareComponent from "../../components/share/ShareComponent";
 import InternedSpeed from "./InternedSpeed";
 import LocationStatus from "./LocationStatus";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 import LanguageSwitcher from "./LanguageSwitcher";
 import NavBarCaptureElement from "./NavBarCaptureElement";
+import CitySelector from "./components/citySelector/CitySelector";
+import { useNavBar } from "./hooks/useNavBar";
 
 const NavBar = observer(() => {
-  const { user } = useContext(UserContext);
-  const { order } = useContext(OrderContext);
-  const { State } = useContext(StateContext);
-  const navigate = useNavigate();
-  let location = useLocation();
-  const { UserInfo } = useContext(UserInfoContext);
-  const { Setting } = useContext(SettingContext);
-  const { link } = useContext(LinkContext);
-  const { Translate } = useContext(TranslateContext);
-  const { Adress } = useContext(AdressContext);
-  const [modalActive, setModalActive] = useState(false);
-  const [modalActive1, setModalActive1] = useState(false);
-  const [modalActive2, setModalActive2] = useState(false);
-  const [name, setName] = useState("");
-  const { width } = useWindowDimensions();
+  const {
+    Adress,
+    user,
+    order,
+    State,
+    Setting,
+    link,
+    UserInfo,
+    Translate,
+    modalActive,
+    setModalActive,
+    modalActive1,
+    setModalActive1,
+    modalActive2,
+    setModalActive2,
+    modalActive3,
+    setModalActive3,
+    name,
+    setName,
+    navigate,
+    location,
+    width,
+  } = useNavBar();
 
   useEffect(() => {
     !Adress.country_detected && setModalActive(true);
   }, []);
+
+  // useEffect(() => {
+  //   !Adress.country_detected && setModalActive(true);
+  // }, []);
 
   useEffect(() => {
     if (
@@ -337,35 +341,49 @@ const NavBar = observer(() => {
 
         <LanguageSwitcher />
 
-        <div
-          className={!user.isAuth ? "nav_bar_item" : "nav_bar_item disabled"}
-          disabled={user.isAuth}
-          onClick={() => {
-            if (!modalActive && !user.isAuth) {
-              setModalActive(true);
-              setName(
-                SetNativeTranslate(Translate.language, {
-                  russian: ["Выберите страну из списка"],
-                  english: ["Select your country"],
-                  spanish: ["Selecciona tu pais"],
-                  turkish: ["Ülkeni seç"],
-                  сhinese: ["从列表中选择一个国家"],
-                  hindi: ["सूची से एक देश चुनें"],
-                })
-              );
-            } else if (modalActive) {
-              setModalActive(false);
-            }
-          }}
-        >
-          {Translate.language &&
-            SetNativeTranslate(Translate.language, {}, Adress.country.value)}
-        </div>
+        {Adress.city.value ? (
+          <div
+            className="nav_bar_item"
+            onClick={() => {
+              setModalActive3(true);
+            }}
+          >
+            {Adress.city.value}
+          </div>
+        ) : (
+          <div
+            className={!user.isAuth ? "nav_bar_item" : "nav_bar_item disabled"}
+            disabled={user.isAuth}
+            onClick={() => {
+              if (!modalActive && !user.isAuth) {
+                setModalActive(true);
+                setName(
+                  SetNativeTranslate(Translate.language, {
+                    russian: ["Выберите страну из списка"],
+                    english: ["Select your country"],
+                    spanish: ["Selecciona tu pais"],
+                    turkish: ["Ülkeni seç"],
+                    сhinese: ["从列表中选择一个国家"],
+                    hindi: ["सूची से एक देश चुनें"],
+                  })
+                );
+              } else if (modalActive) {
+                setModalActive(false);
+              }
+            }}
+          >
+            {Translate.language &&
+              SetNativeTranslate(Translate.language, {}, Adress.country.value)}
+          </div>
+        )}
 
         <NavBarCaptureElement />
       </div>
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
         <CountrySelector name={name} setModalActive={setModalActive} />
+      </Modal>
+      <Modal setModalActive={setModalActive3} modalActive={modalActive3}>
+        <CitySelector setModalActive={setModalActive3} />
       </Modal>
     </>
   );

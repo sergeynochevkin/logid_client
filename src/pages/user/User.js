@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import OrderForm from "../../components/order/OrderForm";
+import OrderForm from "../../components/order/orderForm/OrderForm";
 import OrderList from "../../components/order/OrderList";
 import { Area50 } from "../../components/ui/area/Area50";
 import PageBanner from "../banner/PageBanner";

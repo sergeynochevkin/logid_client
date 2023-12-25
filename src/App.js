@@ -8,10 +8,12 @@ import Fetcher from "./Fetcher";
 import Notificator from "./Notificator";
 import "./App.css";
 import Geolocator from "./Geolocator";
+import AppWrapper from './hoc/AppWrapper';
 
 const App = observer(() => {
   return (
     <BrowserRouter>
+    <AppWrapper>
       <PreLoader>
         <Fetcher />
         <Geolocator />
@@ -23,6 +25,7 @@ const App = observer(() => {
         </AppRouter>
         <Footer />
       </PreLoader>
+      </AppWrapper>
     </BrowserRouter>
   );
 });
