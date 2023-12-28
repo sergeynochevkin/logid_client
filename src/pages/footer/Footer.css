@@ -2,6 +2,7 @@
   width: 100%;
   min-height: 550px;
   height: max-content;
+  margin-top: 30px;
   background-color: white;
   display: flex;
   gap: 20px;
