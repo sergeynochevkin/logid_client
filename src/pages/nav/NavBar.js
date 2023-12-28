@@ -473,9 +473,9 @@ const NavBar = observer(() => {
           )}
         </div>
 
-        {width < 1500 && (      
+        {/* {width < 1500 && (      
              <BurgerMenu />
-        )}
+        )} */}
 
         <NavBarCaptureElement />
       </div>
