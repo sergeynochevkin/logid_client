@@ -164,5 +164,5 @@ export const usePreOrderForm = () => {
 
   console.log(JSON.stringify(preOrder));
 
-  return { preOrder, toOrderForm, disabled, dataReset, setPreOrder };
+  return { preOrder, toOrderForm, disabled, dataReset, setPreOrder, Translate };
 };

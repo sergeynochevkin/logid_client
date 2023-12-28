@@ -14,7 +14,7 @@ import "../../App.css";
 import PreOrderForm from "../../components/order/preOrderForm/PreOrderForm";
 
 import "../../components/account/Account.css";
-import FastSignUp from "../../components/fastSignUp/FastSignUp";
+
 
 const BannerActionContent = observer(() => {
   const { user } = useContext(UserContext);
@@ -50,7 +50,14 @@ const BannerActionContent = observer(() => {
           </div> */}
 
           <div  className={classes.MainSlogan}>
-          Биржа грузоперевозок и курьерских заказов
+          {SetNativeTranslate(Translate.language,{
+            russian: ["Биржа грузоперевозок и курьерских заказов"],
+              english: ["Exchange of cargo transportation and courier orders"],
+              spanish: ["Intercambio de transporte de carga y pedidos de mensajería"],
+              turkish: ["Kargo taşımacılığı ve kurye siparişlerinin değişimi"],
+              сhinese: ["货物运输及快递单交换"],
+              hindi: ["कार्गो परिवहन और कूरियर ऑर्डर का आदान-प्रदान"],
+          })}          
         </div>
           <PreOrderForm />
 

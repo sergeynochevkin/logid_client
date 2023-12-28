@@ -379,7 +379,15 @@ const NavBar = observer(() => {
                   navigate(COURIER_ROUTE);
                 }}
               >
-                Стать курьером
+                {" "}
+                {SetNativeTranslate(Translate.language, {
+                  russian: ["Стать курьером"],
+                  english: ["Become a courier"],
+                  spanish: ["Conviértete en mensajero"],
+                  turkish: ["Kurye ol"],
+                  сhinese: ["成为一名快递员"],
+                  hindi: ["एक कूरियर बनें"],
+                })}
               </button>
               <button
                 className={classes.NavBarItem}
@@ -387,7 +395,14 @@ const NavBar = observer(() => {
                   navigate(CARRIER_ROUTE);
                 }}
               >
-                Стать перевозчиком
+                {SetNativeTranslate(Translate.language, {
+                  russian: ["Стать перевозчиком"],
+                  english: ["Become a carrier"],
+                  spanish: ["Conviértete en transportista"],
+                  turkish: ["Taşıyıcı olun"],
+                  сhinese: ["成为载体"],
+                  hindi: ["एक वाहक बनें"],
+                })}
               </button>
             </>
           )}
@@ -399,7 +414,14 @@ const NavBar = observer(() => {
                   navigate(DISPATCHER_ROUTE);
                 }}
               >
-                Стать диспетчером
+                {SetNativeTranslate(Translate.language, {
+                  russian: ["Стать диспетчером"],
+                  english: ["Become a dispatcher"],
+                  spanish: ["Conviértete en despachador"],
+                  turkish: ["Gönderici olun"],
+                  сhinese: ["成为调度员"],
+                  hindi: ["डिस्पैचर बनें"],
+                })}
               </button>
               <button
                 className={classes.NavBarItem}
@@ -407,7 +429,14 @@ const NavBar = observer(() => {
                   navigate(BUSINESS_ROUTE);
                 }}
               >
-                Доставка для бизнеса
+                {SetNativeTranslate(Translate.language, {
+                  russian: ["Доставка для бизнеса"],
+                  english: ["Delivery for business"],
+                  spanish: ["Entrega para negocios"],
+                  turkish: ["İş için teslimat"],
+                  сhinese: ["商业送货"],
+                  hindi: ["व्यवसाय के लिए डिलिवरी"],
+                })}
               </button>
             </>
           )}
@@ -421,7 +450,14 @@ const NavBar = observer(() => {
                   navigate(BOARD_ROUTE);
                 }}
               >
-                Объявления перевозчиков
+                {SetNativeTranslate(Translate.language, {
+                  russian: ["Объявления перевозчиков"],
+                  english: ["Carrier announcements"],
+                  spanish: ["Anuncios del operador"],
+                  turkish: ["Operatör duyuruları"],
+                  сhinese: ["运营商公告"],
+                  hindi: ["वाहक घोषणाएँ"],
+                })}
               </button>
               <button
                 className={classes.NavBarItem}
@@ -429,7 +465,14 @@ const NavBar = observer(() => {
                   navigate(FLEET_ROUTE);
                 }}
               >
-                Автопаркам
+                {SetNativeTranslate(Translate.language, {
+                  russian: ["Автопаркам"],
+                  english: ["For fleets"],
+                  spanish: ["Para flotas"],
+                  turkish: ["Filolar için"],
+                  сhinese: ["对于车队"],
+                  hindi: ["बेड़े के लिए"],
+                })}
               </button>
             </>
           )}
@@ -444,7 +487,14 @@ const NavBar = observer(() => {
                   navigate(MAIN_ORDER_ROUTE);
                 }}
               >
-                Заказать доставку
+                  {SetNativeTranslate(Translate.language, {
+                  russian: ["Заказать доставку"],
+                  english: ["Order delivery"],
+                  spanish: ["Entrega del pedido"],
+                  turkish: ["Sipariş teslim"],
+                  сhinese: ["订单发货"],
+                  hindi: ["आदेश वितरण"],
+                })}
               </button>
             </>
           )}
@@ -485,7 +535,6 @@ const NavBar = observer(() => {
       <Modal setModalActive={setModalActive3} modalActive={modalActive3}>
         <CitySelector setModalActive={setModalActive3} />
       </Modal>
-   
     </>
   );
 });
