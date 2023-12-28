@@ -21,7 +21,6 @@ import { editOrder } from "../../../../http/orderApi";
 import { sendMail } from "../../../../http/mailApi";
 import { useFiles } from "./useFiles";
 import { useOrderFormTranslate } from "./useOrderFormTranslate";
-import { initialValue, pointInitialValue } from "../constants";
 
 export const useOrderFormFormData = () => {
   const { order } = useContext(OrderContext);
@@ -44,6 +43,108 @@ export const useOrderFormFormData = () => {
   const from_lng = queryParams.get("from_lng");
   const to_lng = queryParams.get("to_lng");
   const type = queryParams.get("type");
+
+   const initialValue = {
+    order_comment: "",
+    cost: undefined,
+    mileage: undefined,
+    carrierId: undefined,
+    order_status: "",
+    final_status: "",
+    userId: undefined,
+    country: "",
+    city: "",
+    type: "",
+    load_capacity: "",
+    side_type: "",
+    thermo_bag: false,
+    hydraulic_platform: false,
+    side_loading: false,
+    glass_stand: false,
+    refrigerator_minus: false,
+    refrigerator_plus: false,
+    thermo_van: false,
+    order_type: "",
+    userInfoId: undefined,
+    pointsIntegrationId: "",
+    option: "new",
+    files: "",
+    for_partner: undefined,
+    for_group: undefined,
+    direction_response: JSON.stringify([]),
+    for_who: undefined,
+  };
+  
+  const initialTime = new Date();
+  
+   const pointInitialValue = [
+    {
+      id: 1,
+      sequence: 1,
+      point: {
+        value: "",
+        isDirty: false,
+        isEmptyError: true,
+        errorMessage: "",
+      },
+      latitude: undefined,
+      longitude: undefined,
+      time: {
+        value: setTime(initialTime, 60, "form"),
+        isDirty: false,
+        isEmptyError: false,
+        errorMessage: "",
+      },
+      status: "new",
+      name: "",
+      customer_comment: {
+        value: "",
+        isDirty: false,
+        minLengthError: false,
+        maxLengthError: false,
+        isEmptyError: true,
+        errorMessage: "",
+      },
+      carrier_comment: "",
+      services: "",
+      updated_by: undefined,
+      orderIntegrationId: '',
+      city: "",
+    },
+    {
+      id: 2,
+      sequence: 50,
+      point: {
+        value: "",
+        isDirty: false,
+        isEmptyError: true,
+        errorMessage: "",
+      },
+      latitude: undefined,
+      longitude: undefined,
+      time: {
+        value: setTime(initialTime, 90, "form"),
+        isDirty: false,
+        isEmptyError: false,
+        errorMessage: "",
+      },
+      status: "new",
+      name: "",
+      customer_comment: {
+        value: "",
+        isDirty: false,
+        minLengthError: false,
+        maxLengthError: false,
+        isEmptyError: true,
+        errorMessage: "",
+      },
+      carrier_comment: "",
+      services: "",
+      updated_by: undefined,
+      orderIntegrationId: '',
+      city: "",
+    },
+  ];
 
   const [pointsNotValid, setPointsNotValid] = useState<boolean>(false);
   const [timeNotValid, setTimeNotValid] = useState<boolean>(false);
@@ -68,7 +169,6 @@ export const useOrderFormFormData = () => {
     select_adress,
   } = useOrderFormTranslate();
 
-  let initialTime = new Date();
 
   pointInitialValue[0].orderIntegrationId = order.integrationId;
   pointInitialValue[1].orderIntegrationId = order.integrationId;
@@ -238,6 +338,7 @@ export const useOrderFormFormData = () => {
 
 
   const [pointFormData, setPointFormData] = useState(
+    from_lat ? pointInitialValue: 
     localStorage.getItem("pointFormData")
       ? JSON.parse(localStorage.getItem("pointFormData"))
       : ComponentFunction.orderFormFunction === "newOrder"

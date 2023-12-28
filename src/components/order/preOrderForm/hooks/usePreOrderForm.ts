@@ -5,7 +5,7 @@ import {
   TranslateContext,
   SettingContext,
   UserContext,
-  ComponentFunctionContext
+  ComponentFunctionContext,
   //@ts-ignore
 } from "../../../..";
 //@ts-ignore
@@ -14,13 +14,34 @@ import { useNavigate } from "react-router-dom";
 //@ts-ignore
 import { MAIN_ORDER_ROUTE } from "../../../../utils/consts";
 import { PreOrderData } from "../types";
-import { initialValue } from "../constants";
-
 
 export const usePreOrderForm = () => {
+  
+  const initialValue = {
+    point_1: {
+      value: "",
+      isDirty: false,
+      isEmptyError: true,
+      errorMessage: "",
+      lat: undefined,
+      lng: undefined,
+    },
+
+    point_2: {
+      value: "",
+      isDirty: false,
+      isEmptyError: true,
+      errorMessage: "",
+      lat: undefined,
+      lng: undefined,
+    },
+    type: "car",
+  }
+
+
   const [preOrder, setPreOrder] = useState<PreOrderData>({...initialValue});
   const navigate = useNavigate();
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   //@ts-ignore
   const { user } = useContext(UserContext);
   //@ts-ignore
@@ -36,7 +57,6 @@ export const usePreOrderForm = () => {
     point_1: {},
     point_2: {},
   });
-
   //@ts-ignore
   function initAutocomplete(id: string) {
     if (Adress.country) {
@@ -90,12 +110,12 @@ export const usePreOrderForm = () => {
   }
 
   const toOrderForm = () => {
-    delete preOrder.point_1.isDirty
-    delete preOrder.point_1.isEmptyError
-    delete preOrder.point_1.errorMessage
-    delete preOrder.point_2.isDirty
-    delete preOrder.point_2.isEmptyError
-    delete preOrder.point_2.errorMessage
+    delete preOrder.point_1.isDirty;
+    delete preOrder.point_1.isEmptyError;
+    delete preOrder.point_1.errorMessage;
+    delete preOrder.point_2.isDirty;
+    delete preOrder.point_2.isEmptyError;
+    delete preOrder.point_2.errorMessage;
     const from = Object.keys(preOrder.point_1)
       //@ts-ignore
       .map((key) => "from_" + key + "=" + preOrder.point_1[key])
@@ -104,7 +124,8 @@ export const usePreOrderForm = () => {
       //@ts-ignore
       .map((key) => "to_" + key + "=" + preOrder.point_2[key])
       .join("&&");
-    const params = from + "&&" + to + "&&type=" + preOrder.type;  
+    const params = from + "&&" + to + "&&type=" + preOrder.type;
+    setPreOrder({...initialValue});
     navigate(`${MAIN_ORDER_ROUTE}?${params}`);
   };
 
@@ -138,8 +159,10 @@ export const usePreOrderForm = () => {
   }, [Adress.city.value]);
 
   useEffect(() => {
-    setDisabled(!(preOrder.point_2.value && preOrder.point_1.value));
-  }, [preOrder.point_2.value, preOrder.point_1]);
+    setDisabled(!(preOrder.point_1.lat && preOrder.point_2.lat));
+  }, [preOrder.point_1.lat, preOrder.point_2.lat, location.pathname]);
+
+  console.log(JSON.stringify(preOrder));
 
   return { preOrder, toOrderForm, disabled, dataReset, setPreOrder };
 };
