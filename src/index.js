@@ -72,6 +72,7 @@ const Global = createGlobalStyle`
   margin:0;
   padding:0;
   font-family: "Jost";
+  user-select: none; 
      }
  a{
   color:grey;

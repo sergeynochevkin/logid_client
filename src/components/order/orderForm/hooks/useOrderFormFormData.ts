@@ -35,6 +35,16 @@ export const useOrderFormFormData = () => {
   const [calculate, setCalculate] = useState<boolean>(false);
   const { Limit } = useContext(LimitContext);
 
+  const queryParams = new URLSearchParams(window.location.search);
+  
+  const from_value = queryParams.get("from_value");
+  const to_value = queryParams.get("to_value");
+  const from_lat = queryParams.get("from_lat");
+  const to_lat = queryParams.get("to_lat");
+  const from_lng = queryParams.get("from_lng");
+  const to_lng = queryParams.get("to_lng");
+  const type = queryParams.get("type");
+
   const [pointsNotValid, setPointsNotValid] = useState<boolean>(false);
   const [timeNotValid, setTimeNotValid] = useState<boolean>(false);
   const [commentsNotValid, setCommentsNotValid] = useState<boolean>(false);
@@ -191,8 +201,10 @@ export const useOrderFormFormData = () => {
     { isEmpty: true }
   );
   formData.type = useInput(
-    ComponentFunction.orderFormFunction === "newOrder" ||
-      parent === "fast_sign_up"
+    type
+      ? type
+      : ComponentFunction.orderFormFunction === "newOrder" ||
+        parent === "fast_sign_up"
       ? ""
       : orderPattern.type.value,
     { isEmpty: true }
@@ -223,6 +235,8 @@ export const useOrderFormFormData = () => {
   formData.userInfoId = UserInfo.userInfo.id;
   formData.pointsIntegrationId = order.integrationId;
 
+
+
   const [pointFormData, setPointFormData] = useState(
     localStorage.getItem("pointFormData")
       ? JSON.parse(localStorage.getItem("pointFormData"))
@@ -230,6 +244,19 @@ export const useOrderFormFormData = () => {
       ? pointInitialValue
       : pointPatternInitialValue
   );
+
+  useEffect(() => {
+    if (from_value) {
+      let data = [...pointFormData]
+      data[0].point.value = from_value;
+      data[0].longitude = from_lng;
+      data[0].latitude = from_lat;
+      data[1].point.value = to_value;
+      data[1].longitude = to_lng;
+      data[1].latitude = to_lat;      
+      setPointFormData(data)
+    }
+  }, []);
 
   useEffect(() => {
     if (

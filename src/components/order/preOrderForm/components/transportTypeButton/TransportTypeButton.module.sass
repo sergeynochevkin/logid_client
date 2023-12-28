@@ -1,0 +1,22 @@
+.TypeButton
+    font-size: 12px
+    padding: 5px
+    cursor: pointer
+    font-weight: bold
+    border: 0px
+    border-radius: 10px
+    background-color: transparent
+    color: white
+    &:hover
+        filter: opacity(0.7)
+    &:active
+        filter: opacity(0.7)
+    &:disabled
+        cursor: not-allowed
+
+.TypeButtonSelected
+    @extend .TypeButton
+    border: solid 1px lightgray
+ 
+    
+    

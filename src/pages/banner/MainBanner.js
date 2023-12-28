@@ -1,5 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
+import classes from "./Banner.module.sass";
+import image from '../../assets/girl_banner.webp'
 import {
   ComponentFunctionContext,
   LinkContext,
@@ -16,6 +18,7 @@ import Modal from "../../components/ui/modal/Modal";
 import Auth from "../../components/auth/Auth";
 import Slider from "../../components/ui/slider/Slider";
 import "../../App.css";
+import PreOrderForm from "../../components/order/preOrderForm/PreOrderForm";
 
 const MainBanner = observer(({ callRequested, setCallRequested }) => {
   const { Setting } = useContext(SettingContext);
@@ -100,7 +103,10 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
       )}
 
       <div className={`banner_section ${Setting.app_theme}`}>
-        <Slider images={images} />
+        {/* <Slider images={images} /> */}
+ 
+
+        <img className={classes.MainImage} src={image}></img>
       </div>
 
       <Modal modalActive={modalActive1} setModalActive={setModalActive1}>

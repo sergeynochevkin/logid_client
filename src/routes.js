@@ -10,6 +10,10 @@ import {
   USER_AGREEMENT_ROUTE,
   SUBSCRIPTIONS_ROUTE,
   MAIN_ORDER_ROUTE,
+  CARRIER_ROUTE,
+  COURIER_ROUTE,
+  DISPATCHER_ROUTE,
+  BUSINESS_ROUTE,
 } from "./utils/consts";
 import Main from "./pages/main/Main";
 import { Suspense, lazy } from "react";
@@ -26,6 +30,10 @@ const SubscriptionsPage = lazy(() =>
   import("./pages/subscriptions/SubscriptionsPage")
 );
 import BoardItemPage from "./pages/board/BoardItemPage";
+import Carrier from './pages/carrier/Carrier';
+import Courier from './pages/courier/Courier';
+import Dispatcher from './pages/dispatcher/Dispatcher';
+import Business from './pages/business/Business';
 
 export const authRoutes = [
   {
@@ -58,6 +66,22 @@ export const publicRoutes = [
   {
     path: MAIN_ROUTE,
     Component: <Main />,
+  },
+  {
+    path: CARRIER_ROUTE,
+    Component: <Carrier />,
+  },
+  {
+    path: COURIER_ROUTE,
+    Component: <Courier />,
+  },
+  {
+    path: DISPATCHER_ROUTE,
+    Component: <Dispatcher />,
+  },
+  {
+    path: BUSINESS_ROUTE,
+    Component: <Business />,
   },
   {
     path: BOARD_ROUTE,

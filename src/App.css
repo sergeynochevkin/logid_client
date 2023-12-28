@@ -6,11 +6,12 @@
 
 .page_container {
   width: 100%;
-  min-height: 80vh;
   display: flex;
+  gap: 50px;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 .page_container.dark {
@@ -23,26 +24,25 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-top: 20px;
-  margin-bottom: 20px;
   height: max-content;
   gap: 20px;
 }
 
 .banner_section {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   flex-direction: column;
   text-align: center;
   gap: 20px;
+  height: 100%
 }
 
 .banner_section.main {
   width: 35%;
-  height: 570px;
+  /* height: 570px; */
 }
 
 .banner_section.action {
@@ -145,11 +145,7 @@
 }
 
 @media screen and (max-width: 1380px) and (min-width: 769px) {
-  .banner {
-    flex-direction: column;
-    margin-bottom: 20px;
-    margin-top: 20px;
-  }
+
 
   .banner_section.action {
     width: 670px;

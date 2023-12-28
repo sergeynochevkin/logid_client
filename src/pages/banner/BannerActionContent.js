@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
+import classes from "./Banner.module.sass";
 import {
   SettingContext,
   TranslateContext,
@@ -10,6 +11,7 @@ import RatingView from "../../components/rating/RatingView";
 import { FieldName } from "../../components/ui/page/FieldName";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 import "../../App.css";
+import PreOrderForm from "../../components/order/preOrderForm/PreOrderForm";
 
 import "../../components/account/Account.css";
 import FastSignUp from "../../components/fastSignUp/FastSignUp";
@@ -21,10 +23,10 @@ const BannerActionContent = observer(() => {
   const { Setting } = useContext(SettingContext);
 
   return (
-    <div className="banner_section action">
+    <div className={classes.BannerActionSection}>
       {!user.user.role ? (
         <div className="text_section">
-          <div className="text_middle dark">
+          {/* <div className="text_middle dark">
             {SetNativeTranslate(Translate.language, {
               russian: [
                 "Биржа грузоперевозок и курьерских заказов, доска объявлений перевозчиков и курьеров, инструмент управления доставкой для автопарков и курьерских служб",
@@ -45,9 +47,14 @@ const BannerActionContent = observer(() => {
                 "माल ढुलाई और कूरियर आदेशों का आदान-प्रदान, वाहक और कूरियर के लिए बुलेटिन बोर्ड, बेड़े और कूरियर सेवाओं के लिए वितरण प्रबंधन उपकरण",
               ],
             })}
-          </div>
+          </div> */}
 
-          <FastSignUp />
+          <div  className={classes.MainSlogan}>
+          Биржа грузоперевозок и курьерских заказов
+        </div>
+          <PreOrderForm />
+
+          {/* <FastSignUp /> */}
         </div>
       ) : (
         <>

@@ -1,4 +1,5 @@
 import React, { startTransition, useEffect } from "react";
+import classes from "./Nav.module.sass";
 
 import { Link } from "react-router-dom";
 import {
@@ -6,6 +7,13 @@ import {
   USER_ROUTE,
   ADMIN_ROUTE,
   MANAGER_ROUTE,
+  COURIER_ROUTE,
+  CARRIER_ROUTE,
+  DISPATCHER_ROUTE,
+  BUSINESS_ROUTE,
+  FLEET_ROUTE,
+  BOARD_ROUTE,
+  MAIN_ORDER_ROUTE,
 } from "../../utils/consts";
 import { observer } from "mobx-react-lite";
 import NotificationComponent from "../../components/notification/NotificationComponent";
@@ -30,6 +38,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import NavBarCaptureElement from "./NavBarCaptureElement";
 import CitySelector from "./components/citySelector/CitySelector";
 import { useNavBar } from "./hooks/useNavBar";
+import BurgerMenu from "./components/burgerMenu/BurgerMenu";
 
 const NavBar = observer(() => {
   const {
@@ -59,10 +68,6 @@ const NavBar = observer(() => {
   useEffect(() => {
     !Adress.country_detected && setModalActive(true);
   }, []);
-
-  // useEffect(() => {
-  //   !Adress.country_detected && setModalActive(true);
-  // }, []);
 
   useEffect(() => {
     if (
@@ -118,30 +123,75 @@ const NavBar = observer(() => {
           />
         </Modal>
 
-        <div
-          className="nav_bar_logo_container"
-          onClick={() => {
-            startTransition(() => {
-              navigate(MAIN_ROUTE);
-            });
-          }}
-        >
-          <img
-            src={
-              Setting.app_theme === "light" && Translate.language === "russian"
-                ? logo_light
-                : Setting.app_theme === "light" &&
-                  Translate.language !== "russian"
-                ? logo_light
-                : Setting.app_theme === "dark" &&
-                  Translate.language === "russian"
-                ? logo_dark
-                : Setting.app_theme === "dark"
-                ? logo_dark
-                : logo_light
-            }
-            className="nav_bar_logo"
-          />
+        <div className={classes.ButtonsBlock}>
+          <div
+            className="nav_bar_logo_container"
+            onClick={() => {
+              startTransition(() => {
+                navigate(MAIN_ROUTE);
+              });
+            }}
+          >
+            <img
+              src={
+                Setting.app_theme === "light" &&
+                Translate.language === "russian"
+                  ? logo_light
+                  : Setting.app_theme === "light" &&
+                    Translate.language !== "russian"
+                  ? logo_light
+                  : Setting.app_theme === "dark" &&
+                    Translate.language === "russian"
+                  ? logo_dark
+                  : Setting.app_theme === "dark"
+                  ? logo_dark
+                  : logo_light
+              }
+              className="nav_bar_logo"
+            />
+          </div>
+
+          {Adress.city.value ? (
+            <div
+              className="nav_bar_item"
+              onClick={() => {
+                setModalActive3(true);
+              }}
+            >
+              {Adress.city.value}
+            </div>
+          ) : (
+            <div
+              className={
+                !user.isAuth ? "nav_bar_item" : "nav_bar_item disabled"
+              }
+              disabled={user.isAuth}
+              onClick={() => {
+                if (!modalActive && !user.isAuth) {
+                  setModalActive(true);
+                  setName(
+                    SetNativeTranslate(Translate.language, {
+                      russian: ["Выберите страну из списка"],
+                      english: ["Select your country"],
+                      spanish: ["Selecciona tu pais"],
+                      turkish: ["Ülkeni seç"],
+                      сhinese: ["从列表中选择一个国家"],
+                      hindi: ["सूची से एक देश चुनें"],
+                    })
+                  );
+                } else if (modalActive) {
+                  setModalActive(false);
+                }
+              }}
+            >
+              {Translate.language &&
+                SetNativeTranslate(
+                  Translate.language,
+                  {},
+                  Adress.country.value
+                )}
+            </div>
+          )}
         </div>
 
         {width > 500 ? (
@@ -267,114 +317,164 @@ const NavBar = observer(() => {
           </>
         )}
 
-        {user.isAuth ? (
-          <div
-            className="nav_bar_item"
-            onClick={async () => {
-              await logout();
-              order.setOrders([]);
-              user.setIsAuth(false);
-              user.setUser({});
-              UserInfo.setUserInfo({});
-              localStorage.clear();
-              localStorage.setItem(
-                "cookies_accepted",
-                JSON.stringify({ total: false, auth: false, main: true })
-              );
-            }}
-          >
-            {SetNativeTranslate(Translate.language, {}, "sign_out")}
-          </div>
-        ) : (
-          <div className="nav_bar_item" onClick={() => setModalActive1(true)}>
-            {SetNativeTranslate(Translate.language, {}, "sign_in")}
+        {width > 450 && (
+          <div className={classes.ButtonsBlock}>
+            <div
+              className="nav_bar_theme_icon"
+              onClick={() => {
+                if (Setting.app_theme === "dark") {
+                  Setting.setAppTheme("light");
+                  if (user && user.isAuth) {
+                    State.setUserStateField(
+                      "light",
+                      "app_theme",
+                      UserInfo.userInfo.id
+                    );
+                  }
+                } else {
+                  Setting.setAppTheme("dark");
+                  if (user && user.isAuth) {
+                    State.setUserStateField(
+                      "dark",
+                      "app_theme",
+                      UserInfo.userInfo.id
+                    );
+                  }
+                }
+              }}
+            >
+              {Setting.app_theme === "light" ? (
+                <img src={dark_mode} className="nav_bar_theme_icon" />
+              ) : (
+                <img src={light_mode} className="nav_bar_theme_icon" />
+              )}
+            </div>
+
+            {/* {location.pathname !== "/board" && (
+            <Link to={`/board`}>
+              <div className="nav_bar_theme_icon">
+                <img
+                  className="nav_bar_theme_icon"
+                  src={Setting.app_theme === "light" ? board : board_dark}
+                ></img>
+              </div>
+            </Link>
+          )} */}
+
+            {!user.isAuth && (
+              <ShareComponent
+                parent={location.pathname === "/board" ? "nav_board" : ""}
+              />
+            )}
+            <LanguageSwitcher />
           </div>
         )}
 
-        <div
-          className="nav_bar_theme_icon"
-          onClick={() => {
-            if (Setting.app_theme === "dark") {
-              Setting.setAppTheme("light");
-              if (user && user.isAuth) {
-                State.setUserStateField(
-                  "light",
-                  "app_theme",
-                  UserInfo.userInfo.id
-                );
-              }
-            } else {
-              Setting.setAppTheme("dark");
-              if (user && user.isAuth) {
-                State.setUserStateField(
-                  "dark",
-                  "app_theme",
-                  UserInfo.userInfo.id
-                );
-              }
-            }
-          }}
-        >
-          {Setting.app_theme === "light" ? (
-            <img src={dark_mode} className="nav_bar_theme_icon" />
-          ) : (
-            <img src={light_mode} className="nav_bar_theme_icon" />
+        <div className={classes.ButtonsBlock}>
+          {width > 960 && (
+            <>
+              <button
+                className={classes.NavBarItem}
+                onClick={() => {
+                  navigate(COURIER_ROUTE);
+                }}
+              >
+                Стать курьером
+              </button>
+              <button
+                className={classes.NavBarItem}
+                onClick={() => {
+                  navigate(CARRIER_ROUTE);
+                }}
+              >
+                Стать перевозчиком
+              </button>
+            </>
+          )}
+          {width > 1500 && (
+            <>
+              <button
+                className={classes.NavBarItem}
+                onClick={() => {
+                  navigate(DISPATCHER_ROUTE);
+                }}
+              >
+                Стать диспетчером
+              </button>
+              <button
+                className={classes.NavBarItem}
+                onClick={() => {
+                  navigate(BUSINESS_ROUTE);
+                }}
+              >
+                Доставка для бизнеса
+              </button>
+            </>
+          )}
+
+          {width > 1200 && (
+            <>
+              {" "}
+              <button
+                className={classes.NavBarItem}
+                onClick={() => {
+                  navigate(BOARD_ROUTE);
+                }}
+              >
+                Объявления перевозчиков
+              </button>
+              <button
+                className={classes.NavBarItem}
+                onClick={() => {
+                  navigate(FLEET_ROUTE);
+                }}
+              >
+                Автопаркам
+              </button>
+            </>
           )}
         </div>
 
-        {location.pathname !== "/board" && (
-          <Link to={`/board`}>
-            <div className="nav_bar_theme_icon">
-              <img
-                className="nav_bar_theme_icon"
-                src={Setting.app_theme === "light" ? board : board_dark}
-              ></img>
-            </div>
-          </Link>
-        )}
-
-        {!user.isAuth && (
-          <ShareComponent
-            parent={location.pathname === "/board" ? "nav_board" : ""}
-          />
-        )}
-
-        <LanguageSwitcher />
-
-        {Adress.city.value ? (
-          <div
-            className="nav_bar_item"
-            onClick={() => {
-              setModalActive3(true);
-            }}
-          >
-            {Adress.city.value}
-          </div>
-        ) : (
-          <div
-            className={!user.isAuth ? "nav_bar_item" : "nav_bar_item disabled"}
-            disabled={user.isAuth}
-            onClick={() => {
-              if (!modalActive && !user.isAuth) {
-                setModalActive(true);
-                setName(
-                  SetNativeTranslate(Translate.language, {
-                    russian: ["Выберите страну из списка"],
-                    english: ["Select your country"],
-                    spanish: ["Selecciona tu pais"],
-                    turkish: ["Ülkeni seç"],
-                    сhinese: ["从列表中选择一个国家"],
-                    hindi: ["सूची से एक देश चुनें"],
-                  })
+        <div className={classes.ButtonsBlock}>
+          {width > 600 && (
+            <>
+              <button
+                className={classes.NavBarItem}
+                onClick={() => {
+                  navigate(MAIN_ORDER_ROUTE);
+                }}
+              >
+                Заказать доставку
+              </button>
+            </>
+          )}
+          {user.isAuth ? (
+            <div
+              className="nav_bar_item"
+              onClick={async () => {
+                await logout();
+                order.setOrders([]);
+                user.setIsAuth(false);
+                user.setUser({});
+                UserInfo.setUserInfo({});
+                localStorage.clear();
+                localStorage.setItem(
+                  "cookies_accepted",
+                  JSON.stringify({ total: false, auth: false, main: true })
                 );
-              } else if (modalActive) {
-                setModalActive(false);
-              }
-            }}
-          >
-            {Translate.language &&
-              SetNativeTranslate(Translate.language, {}, Adress.country.value)}
-          </div>
+              }}
+            >
+              {SetNativeTranslate(Translate.language, {}, "sign_out")}
+            </div>
+          ) : (
+            <div className="nav_bar_item" onClick={() => setModalActive1(true)}>
+              {SetNativeTranslate(Translate.language, {}, "sign_in")}
+            </div>
+          )}
+        </div>
+
+        {width < 1500 && (      
+             <BurgerMenu />
         )}
 
         <NavBarCaptureElement />
@@ -385,6 +485,7 @@ const NavBar = observer(() => {
       <Modal setModalActive={setModalActive3} modalActive={modalActive3}>
         <CitySelector setModalActive={setModalActive3} />
       </Modal>
+   
     </>
   );
 });

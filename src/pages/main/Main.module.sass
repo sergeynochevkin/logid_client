@@ -1,0 +1,42 @@
+.AdBlock
+    width: 1080px
+    height: 700px
+    display: flex
+    margin-bottom: 200px
+    justify-content: space-between
+    border-radius: 40px 40px 100px 0px
+    background-color: #FFF5EE
+    overflow: hidden
+
+.AdBlockSection
+    width: 15%
+    height: 700px
+
+.AdBlockSectionActive
+    @extend .AdBlockSection
+    width: 70%
+    background-color: #8FBC8F
+    transform: rotate(5deg)
+    animation-duration: 3s
+    animation-name: goActive
+    @keyframes goActive
+        0%
+            width: 15%
+             transform: rotate(0deg)
+        100%
+             width: 70%
+             transform: rotate(5deg)
+
+    
+
+.AdBlockSectionTitle
+    text-align: center
+    font-size: 18px
+    font-weight: 600
+    line-height: 2
+    color: black
+    cursor: pointer
+    &:hover
+        filter: opacity(0.5)
+    &:active
+        filter: opacity(0.7)

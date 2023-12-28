@@ -22,7 +22,7 @@ const CitySelector = ({setModalActive}:Props) => {
           Setting.app_theme === "dark" ? classes.TitleDark : classes.Title
         }
       >
-        Начните вводить название вашего города и выбирете город из списка
+        Начните вводить название вашего города и выберите город из списка
       </div>
       <Input
         id={id}
