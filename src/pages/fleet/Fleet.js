@@ -48,7 +48,6 @@ import Modal from "../../components/ui/modal/Modal";
 import Auth from "../../components/auth/Auth";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 import ym from "react-yandex-metrika";
-import MainSection from "../main/MainSection";
 import { useEffect } from "react";
 
 const Fleet = observer(() => {
@@ -874,123 +873,7 @@ const Fleet = observer(() => {
   return (
     <>
       <div className={`page_container ${Setting.app_theme}`}>
-        <title>
-          logid - инструмент управления доставкой для автопарков и курьерских
-          служб
-        </title>
-        <div className="banner">
-          <div className="banner_section">
-            <div className="text_section">
-              <div className="text_middle">
-                {SetNativeTranslate(
-                  Translate.language,
-                  {
-                    russian: [
-                      "Создайте свой автопарк или курьерскую службу с logid",
-                    ],
-                    english: [
-                      "Create your own fleet or courier service with logid",
-                    ],
-                    spanish: [
-                      "Crea tu propia flota o servicio de mensajería con logid",
-                    ],
-                    turkish: [
-                      "logid ile kendi filonuzu veya kurye hizmetinizi oluşturun",
-                    ],
-                    сhinese: ["使用 logid 创建您自己的车队或快递服务"],
-                    hindi: [
-                      "लॉजिड के साथ अपना खुद का बेड़ा या कूरियर सेवा बनाएं",
-                    ],
-                  },
-                  ""
-                )}
-              </div>
-              <div className="text_small">
-                {SetNativeTranslate(
-                  Translate.language,
-                  {
-                    russian: [
-                      "Зарегистрируйтесь как перевозчик, добавьте водителей и транспорт, поделитесь ссылкой из раздела аккаунт с заказчиком. Заказчик выбирает вас как перевозчика, водители видят и могут брать ваши заказы. Настраивайте права водителей, отслеживайте статус заказов, следите за местоположением водителей на основе данных их браузера и многое другое. Согласуем индивидуальные условия и лимиты, отличающиеся от доступных подписок",
-                    ],
-                    english: [
-                      "Register as a carrier, add drivers and vehicles, share the link from the account section with the customer. The customer chooses you as a carrier, drivers see and can take your orders. Set up driver permissions, track order status, track drivers locations based on their browser data, and much more. We agree on individual conditions and limits that differ from the available subscriptions",
-                    ],
-                    spanish: [
-                      "Regístrese como transportista, agregue conductores y vehículos, comparta el enlace de la sección de cuenta con el cliente. El cliente te elige como transportista, los conductores ven y pueden tomar tus pedidos. Configure permisos de conductores, realice un seguimiento del estado de los pedidos, realice un seguimiento de las ubicaciones de los conductores en función de los datos de su navegador y mucho más. Acordamos condiciones y límites individuales que difieren de las suscripciones disponibles.",
-                    ],
-                    turkish: [
-                      "Taşıyıcı olarak kaydolun, sürücü ve araç ekleyin, hesap bölümünden bağlantıyı müşteriyle paylaşın. Müşteri sizi taşıyıcı olarak seçer, sürücüler görür ve siparişlerinizi alabilir. Sürücü izinlerini ayarlayın, sipariş durumunu takip edin, tarayıcı verilerine göre sürücülerin konumlarını takip edin ve çok daha fazlasını yapın. Mevcut aboneliklerden farklı olan bireysel koşullar ve limitler üzerinde anlaşıyoruz",
-                    ],
-                    сhinese: [
-                      "注册为承运人，添加司机和车辆，与客户共享帐户部分的链接。 客户选择您作为承运人，司机看到并可以接受您的订单。 设置驾驶员权限、跟踪订单状态、根据驾驶员的浏览器数据跟踪驾驶员的位置等等。 我们同意与可用订阅不同的个别条件和限制",
-                    ],
-                    hindi: [
-                      "एक वाहक के रूप में पंजीकरण करें, ड्राइवर और वाहन जोड़ें, ग्राहक के साथ खाता अनुभाग से लिंक साझा करें। ग्राहक आपको वाहक के रूप में चुनता है, ड्राइवर देखते हैं और आपका ऑर्डर ले सकते हैं। ड्राइवर अनुमतियाँ सेट करें, ऑर्डर की स्थिति ट्रैक करें, ड्राइवरों के ब्राउज़र डेटा के आधार पर उनके स्थान को ट्रैक करें, और भी बहुत कुछ। हम अलग-अलग शर्तों और सीमाओं पर सहमत हैं जो उपलब्ध सदस्यताओं से भिन्न हैं",
-                    ],
-                  },
-                  ""
-                )}
-              </div>
-            </div>
 
-            {!user.isAuth && (
-              <AdButton
-                onClick={() => {
-                  !modalActive && setModalActive(true);
-                  modalActive && setModalActive(false);
-                }}
-              >
-                {SetNativeTranslate(Translate.language, {}, "sign_up")}
-              </AdButton>
-            )}
-          </div>
-          <div className="banner_section main">
-            <Slider images={images} />
-          </div>
-        </div>
-
-        {Adress.country.value === "russia" && user?.user?.role !== "driver"
-          ? sections
-              .filter(
-                (el) =>
-                  (user.user.role &&
-                    (el.role === "both" || el.role === user.user.role)) ||
-                  (!user.user.role && role
-                    ? el.role === "both" || el.role === role
-                    : el.role === "both" ||
-                      el.role === "carrier" ||
-                      el.role === "customer")
-              )
-              .map((section) => (
-                <MainSection
-                  section={section}
-                  key={section.id}
-                  items={items.filter((el) => el.section_id === section.id)}
-                  callRequested={callRequested}
-                  setCallRequested={setCallRequested}
-                />
-              ))
-          : sections
-              .filter((el) => el.id !== 4 && el.id !== 5)
-              .filter(
-                (el) =>
-                  (user.user.role &&
-                    (el.role === "both" || el.role === user.user.role)) ||
-                  (!user.user.role && role
-                    ? el.role === "both" || el.role === role
-                    : el.role === "both" ||
-                      el.role === "carrier" ||
-                      el.role === "customer")
-              )
-              .map((section) => (
-                <MainSection
-                  section={section}
-                  key={section.id}
-                  items={items.filter((el) => el.section_id === section.id)}
-                  callRequested={callRequested}
-                  setCallRequested={setCallRequested}
-                />
-              ))}
       </div>
 
       <Modal modalActive={modalActive} setModalActive={setModalActive}>

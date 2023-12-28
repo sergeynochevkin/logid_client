@@ -21,6 +21,7 @@ import { editOrder } from "../../../../http/orderApi";
 import { sendMail } from "../../../../http/mailApi";
 import { useFiles } from "./useFiles";
 import { useOrderFormTranslate } from "./useOrderFormTranslate";
+import { initialTime, initialValue, pointInitialValue } from "../constants";
 
 export const useOrderFormFormData = () => {
   const { order } = useContext(OrderContext);
@@ -35,7 +36,7 @@ export const useOrderFormFormData = () => {
   const { Limit } = useContext(LimitContext);
 
   const queryParams = new URLSearchParams(window.location.search);
-  
+
   const from_value = queryParams.get("from_value");
   const to_value = queryParams.get("to_value");
   const from_lat = queryParams.get("from_lat");
@@ -44,7 +45,30 @@ export const useOrderFormFormData = () => {
   const to_lng = queryParams.get("to_lng");
   const type = queryParams.get("type");
 
-   const initialValue = {
+  const [pointsNotValid, setPointsNotValid] = useState<boolean>(false);
+  const [timeNotValid, setTimeNotValid] = useState<boolean>(false);
+  const [commentsNotValid, setCommentsNotValid] = useState<boolean>(false);
+  const { files, setFiles, pairs, setPairs, dataInit } = useFiles();
+  const {
+    created_and_postponed,
+    created_and_send,
+    Template,
+    Created,
+    Edited,
+    Order,
+    Auction,
+    you_can_change_subscription,
+    point_limit,
+    comment_cant_be_empty,
+    comment_cannot_be_shorter,
+    comment_cannot_be_longer,
+    arrival_time,
+    finish_time,
+    symbols,
+    select_adress,
+  } = useOrderFormTranslate();
+
+  const initialValue = {
     order_comment: "",
     cost: undefined,
     mileage: undefined,
@@ -74,10 +98,10 @@ export const useOrderFormFormData = () => {
     direction_response: JSON.stringify([]),
     for_who: undefined,
   };
-  
+
   const initialTime = new Date();
-  
-   const pointInitialValue = [
+
+  const pointInitialValue = [
     {
       id: 1,
       sequence: 1,
@@ -108,7 +132,7 @@ export const useOrderFormFormData = () => {
       carrier_comment: "",
       services: "",
       updated_by: undefined,
-      orderIntegrationId: '',
+      orderIntegrationId: "",
       city: "",
     },
     {
@@ -141,34 +165,10 @@ export const useOrderFormFormData = () => {
       carrier_comment: "",
       services: "",
       updated_by: undefined,
-      orderIntegrationId: '',
+      orderIntegrationId: "",
       city: "",
     },
   ];
-
-  const [pointsNotValid, setPointsNotValid] = useState<boolean>(false);
-  const [timeNotValid, setTimeNotValid] = useState<boolean>(false);
-  const [commentsNotValid, setCommentsNotValid] = useState<boolean>(false);
-  const { files, setFiles, pairs, setPairs, dataInit } = useFiles();
-  const {
-    created_and_postponed,
-    created_and_send,
-    Template,
-    Created,
-    Edited,
-    Order,
-    Auction,
-    you_can_change_subscription,
-    point_limit,
-    comment_cant_be_empty,
-    comment_cannot_be_shorter,
-    comment_cannot_be_longer,
-    arrival_time,
-    finish_time,
-    symbols,
-    select_adress,
-  } = useOrderFormTranslate();
-
 
   pointInitialValue[0].orderIntegrationId = order.integrationId;
   pointInitialValue[1].orderIntegrationId = order.integrationId;
@@ -335,11 +335,10 @@ export const useOrderFormFormData = () => {
   formData.userInfoId = UserInfo.userInfo.id;
   formData.pointsIntegrationId = order.integrationId;
 
-
-
   const [pointFormData, setPointFormData] = useState(
-    from_lat ? pointInitialValue: 
-    localStorage.getItem("pointFormData")
+    from_lat
+      ? pointInitialValue
+      : localStorage.getItem("pointFormData")
       ? JSON.parse(localStorage.getItem("pointFormData"))
       : ComponentFunction.orderFormFunction === "newOrder"
       ? pointInitialValue
@@ -348,14 +347,14 @@ export const useOrderFormFormData = () => {
 
   useEffect(() => {
     if (from_value) {
-      let data = [...pointFormData]
+      let data = [...pointFormData];
       data[0].point.value = from_value;
       data[0].longitude = from_lng;
       data[0].latitude = from_lat;
       data[1].point.value = to_value;
       data[1].longitude = to_lng;
-      data[1].latitude = to_lat;      
-      setPointFormData(data)
+      data[1].latitude = to_lat;
+      setPointFormData(data);
     }
   }, []);
 

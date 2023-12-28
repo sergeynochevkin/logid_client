@@ -1,0 +1,13 @@
+.slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: max-content;
+  }
+  
+  .slider_image {
+    height: 570px;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  }

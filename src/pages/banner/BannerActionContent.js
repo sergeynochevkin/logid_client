@@ -25,7 +25,7 @@ const BannerActionContent = observer(() => {
   return (
     <div className={classes.BannerActionSection}>
       {!user.user.role ? (
-        <div className="text_section">
+        <div className={classes.TextSection}>
           {/* <div className="text_middle dark">
             {SetNativeTranslate(Translate.language, {
               russian: [
@@ -58,7 +58,7 @@ const BannerActionContent = observer(() => {
         </div>
       ) : (
         <>
-          <div className="text_middle">
+          <div className={classes.TextMiddle}>
             {SetNativeTranslate(Translate.language, {
               russian: [
                 `${

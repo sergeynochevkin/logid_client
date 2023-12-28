@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import AdminConsoleItem from '../../pages/main/AdminConsoleItem'
+import AdminConsoleItem from '../../pages/main/components/adminConsole/AdminConsoleItem'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { ManagementContext, SettingContext, TranslateContext } from '../..'
 import { observer } from 'mobx-react-lite'

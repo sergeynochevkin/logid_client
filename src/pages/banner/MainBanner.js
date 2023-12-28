@@ -59,8 +59,8 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
   ];
 
   return (
-    <div className={"banner"}>
-      <div className={`banner_section main ${Setting.app_theme}`}>
+    <div className={classes.Container}>
+      <div className={classes.BannerSection}>
         <BannerActionContent
           callRequested={callRequested}
           setCallRequested={setCallRequested}
@@ -102,7 +102,7 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
         </AdButton>
       )}
 
-      <div className={`banner_section ${Setting.app_theme}`}>
+      <div className={classes.BannerSection}>
         {/* <Slider images={images} /> */}
  
 

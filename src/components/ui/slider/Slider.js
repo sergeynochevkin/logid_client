@@ -4,6 +4,7 @@ import { SettingContext } from "../../..";
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
+import './Slider.css'
 
 import arrow_left from "../../../assets/icons/arrow_left.webp";
 import arrow_left_dark from "../../../assets/icons/arrow_left_dark.webp";

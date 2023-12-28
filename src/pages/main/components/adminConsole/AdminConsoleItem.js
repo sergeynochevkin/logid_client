@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { ManagementContext, SettingContext } from "../..";
+import { ManagementContext, SettingContext } from "../../../..";
+import './AdminConsole.css'
 
 const AdminConsoleItem = observer(
   ({
@@ -69,7 +70,7 @@ const AdminConsoleItem = observer(
     }, [currentGrow]);
 
     return (
-      <div className="admin_console_item">
+      <div className={'admin_console_item'}>
         <div
           className={`admin_console_progress ${active && "active"}`}
           onClick={() => {

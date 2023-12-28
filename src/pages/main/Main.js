@@ -2,13 +2,11 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 
 import MainBanner from "../banner/MainBanner";
-
-import "./Main.css";
 import "../../App.css";
 import "../board/Board.css";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 
-import AdminConsoleItem from "./AdminConsoleItem";
+import AdminConsoleItem from "./components/adminConsole/AdminConsoleItem";
 import classes from "./Main.module.sass";
 import AdBlock from "./components/adBlock/AdBlock";
 import { useMain } from "./hooks/useMain";
@@ -30,7 +28,7 @@ const Main = observer(() => {
           setCallRequested={setCallRequested}
         />
         {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ? (
-          <div className="adv_rate_section">
+          <div className={classes.AdminConsoleItemsContainer}>
             <AdminConsoleItem
               type={"value"}
               influence={"positive"}
