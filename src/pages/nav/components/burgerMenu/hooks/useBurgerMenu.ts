@@ -4,7 +4,7 @@ import { SettingContext, TranslateContext } from "../../../../..";
 import { useNavigate } from "react-router-dom";
 
 export const useBurgerMenu = (width: number) => {
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   //@ts-ignore
   const { Setting } = useContext(SettingContext);
   //@ts-ignore
