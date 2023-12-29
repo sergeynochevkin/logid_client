@@ -350,16 +350,7 @@ const NavBar = observer(() => {
               )}
             </div>
 
-            {/* {location.pathname !== "/board" && (
-            <Link to={`/board`}>
-              <div className="nav_bar_theme_icon">
-                <img
-                  className="nav_bar_theme_icon"
-                  src={Setting.app_theme === "light" ? board : board_dark}
-                ></img>
-              </div>
-            </Link>
-          )} */}
+       
 
             {!user.isAuth && (
               <ShareComponent
