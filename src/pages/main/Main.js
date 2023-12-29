@@ -36,7 +36,7 @@ const Main = observer(() => {
         setCallRequested={setCallRequested}
       />
 
-      <AdminConsole />
+      {/* <AdminConsole /> */}
 
       <AdBlock />
     </div>

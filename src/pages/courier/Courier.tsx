@@ -26,7 +26,7 @@ const {Translate}  = useCourier()
           hindi: ["कार्गो परिवहन और कूरियर ऑर्डर का आदान-प्रदान"],
         })}
       />
-      <AdminConsole/>
+      {/* <AdminConsole/> */}
       <AdBlock />
     </div>
   );
