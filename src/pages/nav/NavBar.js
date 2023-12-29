@@ -373,6 +373,7 @@ const NavBar = observer(() => {
           {width > 960 && (
             <>
               <button
+              disabled={location.pathname === COURIER_ROUTE}
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(COURIER_ROUTE);
@@ -389,6 +390,7 @@ const NavBar = observer(() => {
                 })}
               </button>
               <button
+              disabled={location.pathname === CARRIER_ROUTE}
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(CARRIER_ROUTE);
@@ -408,6 +410,7 @@ const NavBar = observer(() => {
           {width > 1500 && (
             <>
               <button
+                 disabled={location.pathname === DISPATCHER_ROUTE}
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(DISPATCHER_ROUTE);
@@ -423,6 +426,8 @@ const NavBar = observer(() => {
                 })}
               </button>
               <button
+                 disabled={location.pathname === BUSINESS_ROUTE}
+
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(BUSINESS_ROUTE);
@@ -444,6 +449,8 @@ const NavBar = observer(() => {
             <>
               {" "}
               <button
+                 disabled={location.pathname === BOARD_ROUTE}
+              
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(BOARD_ROUTE);
@@ -459,6 +466,8 @@ const NavBar = observer(() => {
                 })}
               </button>
               <button
+                 disabled={location.pathname === FLEET_ROUTE}
+
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(FLEET_ROUTE);
@@ -481,6 +490,8 @@ const NavBar = observer(() => {
           {width > 600 && (
             <>
               <button
+                 disabled={location.pathname === MAIN_ORDER_ROUTE}
+
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(MAIN_ORDER_ROUTE);

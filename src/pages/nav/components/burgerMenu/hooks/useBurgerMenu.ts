@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 //@ts-ignore
 import { SettingContext, TranslateContext } from "../../../../..";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 //@ts-ignore
 import useComponentVisible from '../../../../../hooks/useComponentVisible';
 
@@ -12,6 +12,7 @@ export const useBurgerMenu = (width: number) => {
   const { Translate } = useContext(TranslateContext);
   const navigate = useNavigate();
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
+  const location = useLocation()
 
   const navigateAndClose = (path: string) => {
     setIsComponentVisible(false) 
@@ -20,5 +21,5 @@ export const useBurgerMenu = (width: number) => {
 
 
 
-  return {  Setting, Translate, navigateAndClose, ref, isComponentVisible, setIsComponentVisible };
+  return {  Setting, Translate, navigateAndClose, ref, isComponentVisible, setIsComponentVisible, location };
 };
