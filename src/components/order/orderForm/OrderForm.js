@@ -1,11 +1,9 @@
 import React from "react";
-import { Form } from "../../ui/form/Form";
 import { Button } from "../../ui/button/Button";
 import { observer } from "mobx-react-lite";
 import OrderComment from "./OrderComment";
 import OrderType from "./OrderType";
 import Cost from "./Cost";
-import { VerticalContainer } from "../../ui/page/VerticalContainer";
 import { v4 } from "uuid";
 import DragDropUpload from "../../dragDropUpload/DragDropUpload";
 import OrderForWho from "./OrderForWho";
@@ -51,31 +49,20 @@ const OrderForm = observer(({ setModalActive }) => {
     dragEndHandler,
     calculate,
     setCalculate,
-    Translate
+    Translate,
   } = useOrderFormFormData();
 
   const { order_editing_canceled, auction_editing_canceled } =
     useOrderFormTranslate();
 
-  const {
-    ComponentFunction,
-    Partner,
-    recommended,
-    setRecommended,
-    parent,
-  } = useOrderForm(setModalActive);
-
+  const { ComponentFunction, Partner, recommended, setRecommended, parent } =
+    useOrderForm(setModalActive);
 
   return (
-    <VerticalContainer style={{ width: "100%", alignItems: "center" }}>
-      <Form style={{ marginTop: "10px" }}>
-        <VerticalContainer
-          style={{
-            flexDirection: pointFormData.length > 4 ? "row" : "column",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
+    <div className={classes.Container}>
+      <div className={classes.FormBlock}>
+        {" "}
+        <div className={classes.FormBlock}>
           {pointFormData.sort(sortPoints).map((pointItem, index) => (
             <OrderFormPointItem
               formData={formData}
@@ -99,8 +86,7 @@ const OrderForm = observer(({ setModalActive }) => {
               setCalculate={setCalculate}
             />
           ))}
-        </VerticalContainer>
-
+        </div>
         <OrderComment formData={formData} setFormData={setFormData} />
         <TransportFormSection
           formData={formData}
@@ -117,11 +103,9 @@ const OrderForm = observer(({ setModalActive }) => {
           setRecommended={setRecommended}
         />
         <OrderType formData={formData} setFormData={setFormData} />
-
         {Partner.partners.length > 0 && (
           <OrderForWho formData={formData} setFormData={setFormData} />
         )}
-
         <DragDropUpload
           formData={formData}
           setFormData={setFormData}
@@ -134,8 +118,7 @@ const OrderForm = observer(({ setModalActive }) => {
           min_length={0}
           parent={"orderForm"}
         ></DragDropUpload>
-
-        <div className={classes.Container}>
+        <div className={classes.ButtonsBlock}>
           <Button
             onClick={send}
             disabled={
@@ -245,7 +228,7 @@ const OrderForm = observer(({ setModalActive }) => {
             <></>
           )}
         </div>
-      </Form>
+      </div>
 
       <MapComponent
         setRecommended={setRecommended}
@@ -258,7 +241,7 @@ const OrderForm = observer(({ setModalActive }) => {
         setPointFormData={setPointFormData}
         pointInitialValue={pointInitialValue}
       />
-    </VerticalContainer>
+    </div>
   );
 });
 

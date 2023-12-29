@@ -12,6 +12,7 @@ const RecommendCost = observer(({ recommended, setCalculate }) => {
     return (
         <>
             {!recommended ?
+            <div className='recommend_cost_container_anchor'>
                 <div className='recommend_cost_container'>
                     <CardButton onClick={(e) => {
                         e.preventDefault()
@@ -26,6 +27,7 @@ const RecommendCost = observer(({ recommended, setCalculate }) => {
                                 hindi: [`अनुशंसा करना`],
                             })
                         }</CardButton>
+                </div>
                 </div> : <></>
             }
         </>

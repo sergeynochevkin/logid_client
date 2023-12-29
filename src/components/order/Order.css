@@ -1,315 +1,321 @@
 .orders_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .scroll_bar_container {
-    display: flex;
-    overflow-x: auto;
-    margin-bottom: 3px;
-    padding: 5px;
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 3px;
+  padding: 5px;
 }
 
 .scroll_bar_container::-webkit-scrollbar {
-    width: 0;
-    /* Remove scrollbar space */
-    background: transparent;
-    height: 2px;
-    /* Optional: just make scrollbar invisible */
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  height: 2px;
+  /* Optional: just make scrollbar invisible */
 }
 
 /* Optional: show position indicator in red */
 .scroll_bar_container::-webkit-scrollbar-thumb {
-    background: rgba(211, 211, 211, 0.3);
+  background: rgba(211, 211, 211, 0.3);
 }
 
 .scroll_bar_container_dark {
-    display: flex;
-    overflow-x: auto;
-    margin-bottom: 3px;
-    padding: 5px;
-    color: white;
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 3px;
+  padding: 5px;
+  color: white;
 }
 
-
 .scroll_bar_container_dark::-webkit-scrollbar {
-    width: 0;
-    /* Remove scrollbar space */
-    background: transparent;
-    height: 2px;
-    /* Optional: just make scrollbar invisible */
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  height: 2px;
+  /* Optional: just make scrollbar invisible */
 }
 
 /* Optional: show position indicator in red */
 .scroll_bar_container_dark::-webkit-scrollbar-thumb {
-    background: rgba(61, 61, 61, 0.3);
+  background: rgba(61, 61, 61, 0.3);
 }
 
-
 .order_table {
-    min-width: max-content;
+  min-width: max-content;
 }
 
 .scroll_content_container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    /* min-width: max-content; */
-    /* width: 100%; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  /* min-width: max-content; */
+  /* width: 100%; */
 }
 
 .number_of_orders {
-    display: inline-block;
-    position: relative;
-    font-size: 10px;
-    top: -10px;
+  display: inline-block;
+  position: relative;
+  font-size: 10px;
+  top: -10px;
 }
 
 .arc_table_row :hover {
-    /* background-color: rgb(31, 31, 31, 0.8);
+  /* background-color: rgb(31, 31, 31, 0.8);
     color: white; */
-    /* cursor: pointer; */
+  /* cursor: pointer; */
 }
 
 .order_td {
-    background-color: rgb(210, 219, 236, 0.8);
-    padding: 5px 10px 5px 5px;
-    font-size: 10px;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 2.5px 5px 0 rgba(0, 0, 0, 0.5)
+  background-color: rgb(210, 219, 236, 0.8);
+  padding: 5px 10px 5px 5px;
+  font-size: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2.5px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .order_td_dark {
-    background-color: rgb(42, 48, 59, 0.8);
-    color: white;
+  background-color: rgb(42, 48, 59, 0.8);
+  color: white;
 }
 
 .order_th {
-    background-color: rgb(245, 245, 245, 0.8);
-    padding: 5px 10px 5px 5px;
-    font-size: 10px;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 2.5px 5px 0 rgba(0, 0, 0, 0.5)
+  background-color: rgb(245, 245, 245, 0.8);
+  padding: 5px 10px 5px 5px;
+  font-size: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 2.5px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .order_th_dark {
-    background-color: rgb(31, 31, 31, 0.8);
-    color: white;
+  background-color: rgb(31, 31, 31, 0.8);
+  color: white;
 }
 
 .orders_with_more_button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
 }
 
 .more_orders_buttons_container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .point_action_buttons_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .order_action_icon {
-    color: black;
-    cursor: pointer;
-    font-size: 22px;
-    background-color: transparent;
+  color: black;
+  cursor: pointer;
+  font-size: 22px;
+  background-color: transparent;
 
-    height: 20px;
-    width: 20px;
+  height: 20px;
+  width: 20px;
 }
 
 .order_action_icon.dark {
-    color: white;
+  color: white;
 }
 
 .order_action_icon:hover {
-    color: grey;
+  color: grey;
 
-    filter: invert(50%);
+  filter: invert(50%);
 }
 
 .point_container {
-    display: flex;
-    /* flex-direction: column; */
-    gap: 5px;
-    padding: 10px;
-    border-radius: 10px 10px 10px 20px;
-    align-items: center;
-    cursor: grab;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-    background-color:  rgba(143,188,143, 0.8)
+  display: flex;
+  /* flex-direction: column; */
+  gap: 5px;
+  padding: 10px;
+  border-radius: 10px 10px 10px 20px;
+  align-items: center;
+  cursor: grab;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+  background-color: rgba(143, 188, 143, 0.8);
 }
 
 .point_fields_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
 .point_field_container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .point_action_icon {
-    cursor: pointer;
-    font-size: 22px;
-    background-color: transparent;
+  cursor: pointer;
+  font-size: 22px;
+  background-color: transparent;
 }
 
 .point_action_icon:hover {
-    color: grey;
+  color: grey;
 }
 
 .point_container_dark {
-    color: white;
+  color: white;
 }
 
 .change_time_buttons_container {
-    font-size: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
-    align-items: center;
-    justify-content: center;
+  font-size: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
 }
 
 .now_container {
-    height: 22px;
-    width: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 22px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input_row {
-    display: flex;
-    justify-content: stretch;
-    align-items: center;
-    /* gap: 2px; */
-    width: 310px;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  /* gap: 2px; */
+  width: 310px;
 }
 
 .now_icon {
-    font-size: 21px;
-    cursor: pointer;
+  font-size: 21px;
+  cursor: pointer;
 }
 
 .now_icon:hover {
-    color: grey;
+  color: grey;
 }
 
 .change_time_button {
-    cursor: pointer;
-    width: 30%;
-    height: 14px;
-    text-align: center;
-    /* border: solid 1px white; */
+  cursor: pointer;
+  width: 30%;
+  height: 14px;
+  text-align: center;
+  /* border: solid 1px white; */
 }
 
 .change_time_button:hover {
-    color: grey;
+  color: grey;
 }
 
 .viwes_counter {
-    font-size: 10px;
-    padding-left: 4px;
+  font-size: 10px;
+  padding-left: 4px;
 }
 
 .in_order_transport_image_icon {
-    width: 20px;
-    height: auto;
-    cursor: pointer;
+  width: 20px;
+  height: auto;
+  cursor: pointer;
 }
 
 .in_order_transport_image_icon_container {
-    width: max-content;
-    display: flex;
-    gap: 2px;
-    align-items: center;
-    justify-content: center;
+  width: max-content;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
 }
 
-.order_transport_info_icon_container {}
+.order_transport_info_icon_container {
+}
 
 .order_transport_info_icon {
-    height: 20px;
-    width: auto;
-    cursor: pointer;
+  height: 20px;
+  width: auto;
+  cursor: pointer;
 }
 
-.order_actions_container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.order_actions_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.nav_links_container{
-    display: flex;
-    gap: 5px;
-    align-items: center;
+.nav_links_container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
-.recommend_cost_container{
-    position: relative;
-    font-size: 10px;
-    top: -23px;
-    left:210px;
-    height: 0;
+.recommend_cost_container_anchor {
+  height: 0px;
+  position: absolute;
+  left: 0;
 }
 
-@media screen and (max-width: 1920px) and (min-width: 769px) {}
+.recommend_cost_container {
+  position: relative;
+  font-size: 10px;
+  top: 7px;
+  left: 350px;
+  height: 0;
+}
+
+@media screen and (max-width: 1920px) and (min-width: 769px) {
+}
 
 @media screen and (max-width: 769px) and (min-width: 501px) {
-    .scroll_content_container {
-        /* flex-wrap: nowrap; */
-        max-width: 700px;
-        overflow-x: visible;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px
-    }
+  .scroll_content_container {
+    /* flex-wrap: nowrap; */
+    max-width: 700px;
+    overflow-x: visible;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
 
-    .scroll_bar_container_dark {
-        /* max-width: 380px; */
-        /* color: white; */
-        max-width: 700px;
-        overflow-x: visible;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
+  .scroll_bar_container_dark {
+    /* max-width: 380px; */
+    /* color: white; */
+    max-width: 700px;
+    overflow-x: visible;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
 }
 
 @media screen and (max-width: 500px) {
-    .scroll_content_container {
-        flex-wrap: nowrap;
-    }
+  .scroll_content_container {
+    flex-wrap: nowrap;
+  }
 
-    .scroll_bar_container_dark {
-        max-width: 90vw;
-        /* color: white; */
-    }
+  .scroll_bar_container_dark {
+    max-width: 90vw;
+    /* color: white; */
+  }
 
-    .scroll_bar_container {
-        max-width: 90vw;
-    }
+  .scroll_bar_container {
+    max-width: 90vw;
+  }
 }

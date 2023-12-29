@@ -5,7 +5,6 @@ import OrderForm from '../../components/order/orderForm/OrderForm';
 
 
 const MainOrder = () => {
-  const [modalActive, setModalActive] = useState<boolean>(false);
   return (
     <div className={classes.Container}>
       <OrderForm />      
