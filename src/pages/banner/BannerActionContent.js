@@ -40,7 +40,7 @@ const BannerActionContent = observer(() => {
           <PreOrderForm />
         </div>
       ) : (
-        <div className={classes.TextSection}>
+        <div className={classes.RatingSection}>
           <div className={classes.MainSlogan}>
             {SetNativeTranslate(Translate.language, {
               russian: [
