@@ -317,7 +317,7 @@ const NavBar = observer(() => {
           </>
         )}
 
-        {width > 450 && (
+      
           <div className={classes.ButtonsBlock}>
             <div
               className="nav_bar_theme_icon"
@@ -368,8 +368,7 @@ const NavBar = observer(() => {
             )}
             <LanguageSwitcher />
           </div>
-        )}
-
+        
         <div className={classes.ButtonsBlock}>
           {width > 960 && (
             <>
@@ -523,9 +522,9 @@ const NavBar = observer(() => {
           )}
         </div>
 
-        {/* {width < 1500 && (      
-             <BurgerMenu />
-        )} */}
+        {width < 1500 && (      
+             <BurgerMenu width={width} />
+        )}
 
         <NavBarCaptureElement />
       </div>
