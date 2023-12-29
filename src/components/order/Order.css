@@ -269,15 +269,16 @@
 
 .recommend_cost_container_anchor {
   height: 0px;
-  position: absolute;
+  position: relative;
   left: 0;
+  display: flex;
 }
 
 .recommend_cost_container {
   position: relative;
   font-size: 10px;
-  top: 7px;
-  left: 340px;
+  top: -25px;
+  left: 220px;
   height: 0;
 }
 

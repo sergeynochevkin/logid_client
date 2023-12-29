@@ -3,7 +3,6 @@ import styled from "styled-components";
 import OrderForm from "../../components/order/orderForm/OrderForm";
 import OrderList from "../../components/order/OrderList";
 import { Area50 } from "../../components/ui/area/Area50";
-import PageBanner from "../banner/PageBanner";
 import { BookMark } from "../../components/ui/button/BookMark";
 import {
   ComponentFunctionContext,
@@ -28,6 +27,7 @@ import AccountCompletionForm from "../../components/account/AccountCompletionFor
 import { v4 } from "uuid";
 import "./User.css";
 import DriverComponent from "../../components/driver/DriverComponent";
+import PageBanner from '../../components/banner/PageBanner';
 
 const Container = styled.div`
   display: flex;

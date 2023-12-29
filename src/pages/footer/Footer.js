@@ -84,25 +84,25 @@ const Footer = observer(() => {
       section_id: 1,
       class: "",
     },
-    {
-      id: 10,
-      icon: "",
-      name: (
-        <a href="/fleet">
-          {SetNativeTranslate(Translate.language, {
-            russian: ["Автопаркам и курьерским службам"],
-            english: ["Vehicle fleets and courier services"],
-            spanish: ["Flotas de vehículos y servicios de mensajería"],
-            turkish: ["Araç filoları ve kurye hizmetleri"],
-            сhinese: ["车队和快递服务"],
-            hindi: ["वाहन बेड़े और कूरियर सेवाएँ"],
-          })}
-        </a>
-      ),
-      description: "",
-      section_id: 1,
-      class: "footer_email",
-    },
+    // {
+    //   id: 10,
+    //   icon: "",
+    //   name: (
+    //     <a href="/fleet">
+    //       {SetNativeTranslate(Translate.language, {
+    //         russian: ["Автопаркам и курьерским службам"],
+    //         english: ["Vehicle fleets and courier services"],
+    //         spanish: ["Flotas de vehículos y servicios de mensajería"],
+    //         turkish: ["Araç filoları ve kurye hizmetleri"],
+    //         сhinese: ["车队和快递服务"],
+    //         hindi: ["वाहन बेड़े और कूरियर सेवाएँ"],
+    //       })}
+    //     </a>
+    //   ),
+    //   description: "",
+    //   section_id: 1,
+    //   class: "footer_email",
+    // },
     {
       id: 9,
       icon: "",

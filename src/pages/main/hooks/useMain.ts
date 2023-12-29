@@ -1,10 +1,9 @@
 import { v4 } from "uuid";
 import {
-  AdContext,
   FetcherContext,
   NotificationContext,
   SettingContext,
-  TranslateContext,
+  TranslateContext
   //@ts-ignore
 } from "../../..";
 
@@ -17,11 +16,9 @@ export const useMain = () => {
   //@ts-ignore
   const { fetcher } = useContext(FetcherContext);
   //@ts-ignore
-  const { Notification } = useContext(NotificationContext);
-  //@ts-ignore
-  const { Ad } = useContext(AdContext);
-  //@ts-ignore
   const { Translate } = useContext(TranslateContext);
+  //@ts-ignore
+  const { Notification } = useContext(NotificationContext);
   //@ts-ignore
   const queryParams = new URLSearchParams(window.location.search);
   const uuid = queryParams.get("uuid");
@@ -53,5 +50,5 @@ export const useMain = () => {
   }, []);
 
 
-  return {Ad, Translate, callRequested, setCallRequested, Setting};
+  return { callRequested, setCallRequested, Setting,Translate};
 };

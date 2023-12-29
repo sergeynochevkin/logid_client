@@ -5,7 +5,7 @@ import { Input } from "../../ui/form/Input";
 import { FieldName } from "../../ui/page/FieldName";
 import { VerticalContainer } from "../../ui/page/VerticalContainer";
 
-const City = ({ formData, setFormData, cityEditable, id }) => {
+const City = ({ formData, setFormData, id }) => {
   const { Adress } = useContext(AdressContext);
   const { Translate } = useContext(TranslateContext);
 

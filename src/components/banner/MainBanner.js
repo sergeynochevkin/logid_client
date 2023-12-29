@@ -20,7 +20,7 @@ import Slider from "../../components/ui/slider/Slider";
 import "../../App.css";
 import PreOrderForm from "../../components/order/preOrderForm/PreOrderForm";
 
-const MainBanner = observer(({ callRequested, setCallRequested }) => {
+const MainBanner = observer(({ callRequested, setCallRequested, slogan }) => {
   const { Setting } = useContext(SettingContext);
   const { Translate } = useContext(TranslateContext);
   const { link } = useContext(LinkContext);
@@ -64,6 +64,7 @@ const MainBanner = observer(({ callRequested, setCallRequested }) => {
         <BannerActionContent
           callRequested={callRequested}
           setCallRequested={setCallRequested}
+          slogan={slogan}
         />
       </div>
 

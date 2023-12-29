@@ -39,7 +39,7 @@ const BurgerMenu = ({ width }: Props) => {
         <div className={classes.Container}>
           {width < 1500 && (
             <>
-              <button
+              {/* <button
                 disabled={location.pathname === DISPATCHER_ROUTE}
                 className={classes.BurgerMenuItem}
                 onClick={() => {
@@ -71,7 +71,7 @@ const BurgerMenu = ({ width }: Props) => {
                   сhinese: ["商业送货"],
                   hindi: ["व्यवसाय के लिए डिलिवरी"],
                 })}
-              </button>
+              </button> */}
             </>
           )}
           {width < 1200 && (
@@ -93,7 +93,7 @@ const BurgerMenu = ({ width }: Props) => {
                   hindi: ["वाहक घोषणाएँ"],
                 })}
               </button>
-              <button
+              {/* <button
                 disabled={location.pathname === FLEET_ROUTE}
                 className={classes.BurgerMenuItem}
                 onClick={() => {
@@ -108,7 +108,7 @@ const BurgerMenu = ({ width }: Props) => {
                   сhinese: ["对于车队"],
                   hindi: ["बेड़े के लिए"],
                 })}
-              </button>
+              </button> */}
             </>
           )}
           {width < 960 && (

@@ -1,27 +1,28 @@
 //@ts-nocheck
-import { SetNativeTranslate } from "../../../../../modules/SetNativeTranslate";
-import { TranslateContext, SettingContext } from "../../../../..";
 
-import av1 from "../../../../../assets/avatars/av1.webp";
-import av3 from "../../../../../assets/avatars/av3.webp";
-import av6 from "../../../../../assets/avatars/av6.webp";
-import av9 from "../../../../../assets/avatars/av9.webp";
-import av12 from "../../../../../assets/avatars/av12.webp";
-import av13 from "../../../../../assets/avatars/av13.webp";
-import alert from "../../../../../assets/icons/alert.png";
-import city from "../../../../../assets/icons/city.png";
-import filter from "../../../../../assets/icons/filter.png";
-import flag from "../../../../../assets/icons/flag.png";
-import group_add from "../../../../../assets/icons/group_add.png";
-import like_up_down from "../../../../../assets/icons/like_up_down.png";
-import list from "../../../../../assets/icons/list.png";
-import location_icon from "../../../../../assets/icons/location.png";
-import on_map from "../../../../../assets/icons/on_map.png";
-import point_status from "../../../../../assets/icons/point_status.png";
-import route from "../../../../../assets/icons/route.png";
-import transport from "../../../../../assets/icons/transport.png";
+import { TranslateContext, SettingContext } from "../../..";
+
+import av1 from "../../../assets/avatars/av1.webp";
+import av3 from "../../../assets/avatars/av3.webp";
+import av6 from "../../../assets/avatars/av6.webp";
+import av9 from "../../../assets/avatars/av9.webp";
+import av12 from "../../../assets/avatars/av12.webp";
+import av13 from "../../../assets/avatars/av13.webp";
+import alert from "../../../assets/icons/alert.png";
+import city from "../../../assets/icons/city.png";
+import filter from "../../../assets/icons/filter.png";
+import flag from "../../../assets/icons/flag.png";
+import group_add from "../../../assets/icons/group_add.png";
+import like_up_down from "../../../assets/icons/like_up_down.png";
+import list from "../../../assets/icons/list.png";
+import location_icon from "../../../assets/icons/location.png";
+import on_map from "../../../assets/icons/on_map.png";
+import point_status from "../../../assets/icons/point_status.png";
+import route from "../../../assets/icons/route.png";
+import transport from "../../../assets/icons/transport.png";
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate';
 
 export const useAdBlockContent = () => {
   const { Translate } = useContext(TranslateContext);

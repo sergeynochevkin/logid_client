@@ -82,6 +82,11 @@ const OrderFormPointItem = observer(
                 id={pointItem.id}
                 name="point"
                 defaultValue={pointItem.point.value}
+                placeholder={SetNativeTranslate(
+                  Translate.language,
+                  {},
+                  "enter_place"
+                )}
                 onChange={() => {
                   if (pointFormData[index].value !== "") {
                     dataReset();

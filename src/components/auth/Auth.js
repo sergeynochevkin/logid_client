@@ -142,10 +142,10 @@ const Auth = observer(
       //user info
       userId: undefined,
       legal: "",
-      city: { value: "", isDirty: false, notValid: true },
+      city: { value: Adress.city.value, isDirty: false, notValid: true },
       city_place_id: "",
-      city_latitude: "",
-      city_longitude: "",
+      city_latitude: Adress.city.lat,
+      city_longitude: Adress.city.lng,
       phone: "",
       website: "",
       company_name: "",
@@ -682,16 +682,6 @@ const Auth = observer(
               : ""}{" "}
           </Name>
 
-          {isRegister && (
-            <div className="fast_sign_up_section">
-              <City
-                parent={"fast_sign_up"}
-                formData={formData}
-                setFormData={setFormData}
-                id={v4()}
-              />
-            </div>
-          )}
 
           {isRegister && (
             <VerticalContainer style={{ gap: "0px" }}>

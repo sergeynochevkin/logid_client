@@ -36,7 +36,7 @@ import ym from "react-yandex-metrika";
 
 
 const ReCAPTCHA = React.lazy(() => import("react-google-recaptcha"));
-import { initialValue } from './constants';
+
 
 const FastSignUp = observer(() => {
   const { Translate } = useContext(TranslateContext);
@@ -52,6 +52,55 @@ const FastSignUp = observer(() => {
   const [formVisible, setFormVisible] = useState(true);
 
   const [agreements, setAgreements] = useState(false);
+
+  const initialValue = {
+    //auth
+    email: "",
+    password: "",
+    role: "",
+    code: "",
+    country: "",
+    user_agreement_accepted: false,
+    privacy_policy_accepted: false,
+    age_accepted: false,
+    personal_data_agreement_accepted: false,
+    cookies_accepted: { total: false },
+    promo_code: "",
+  
+    //user info
+    userId: undefined,
+    legal: "",
+    city: { value: Adress.city.value, isDirty: false, notValid: true },
+    city_place_id: "",
+    city_latitude: Adress.city.lat,
+    city_longitude: Adress.city.lng,
+    phone: "",
+    website: "",
+    company_name: "",
+    company_inn: "",
+    company_adress: { value: "", isDirty: false, notValid: true },
+    company_adress_latitude: "",
+    company_adress_longitude: "",
+    type_of_customer: "",
+    name_surname_fathersname: "",
+    passport_number: "",
+    passport_date_of_issue: "",
+    passport_issued_by: "",
+    from_fast: true,
+  
+    //transport
+    thermo_bag: false,
+    hydraulic_platform: false,
+    side_loading: false,
+    glass_stand: false,
+    refrigerator_minus: false,
+    refrigerator_plus: false,
+    thermo_van: false,
+    userInfoId: undefined,
+    tag: "",
+    type: "",
+  };
+  
 
   function onRecaptchaChange() {
     setReCapchaChecked(true);
@@ -230,14 +279,6 @@ const FastSignUp = observer(() => {
     <>
       {formVisible ? (
         <form className="fast_sign_up_container">
-          <div className="fast_sign_up_section">
-            <City
-              parent={"fast_sign_up"}
-              formData={formData}
-              setFormData={setFormData}
-              id="city"
-            />
-          </div>
 
           <div className="fast_sign_up_section">
             <VerticalContainer style={{ gap: "0px" }}>
@@ -316,50 +357,6 @@ const FastSignUp = observer(() => {
                   : ""}
               </FieldName>
             </VerticalContainer>
-            {/* <VerticalContainer
-                            style={{ gap: '0px' }}
-                        >
-                            <Input placeholder={SetNativeTranslate(Translate.language, {}, 'your_password')}
-                                style={{ borderLeft: formData.password.notValid || formData.password.isEmpty ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                                value={formData.password.value}
-                                onChange={(e) => formData.password.onChange(e)} onBlur={e => formData.password.onBlur(e)} type="password" name="password"
-                                autoComplete='current-password'
-                            ></Input>
-                            <FieldName
-                                style={{
-                                    fontWeight: 'normal',
-                                    color: 'rgb(254, 111, 103,0.8)'
-                                }}
-                            >
-                                {(formData.password.isEmpty && formData.password.isDirty) || (formData.password.minLengthError) || (formData.password.maxLengthError) ?
-                                    formData.password.errorMessage : (formData.password.formatError) ? SetNativeTranslate(Translate.language, {}, 'password_hint') :
-                                        ''
-                                }
-                            </FieldName>
-                        </VerticalContainer> */}
-            {/* <VerticalContainer
-                            style={{ gap: '0px' }}
-                        >
-                            <Input placeholder={SetNativeTranslate(Translate.language, {}, 'password_repeat')} value={comparePassword} onChange={(e) => {
-                                setComparePassword(e.target.value)
-                                setComparePasswordActive(true)
-                            }}
-                                style={{ borderLeft: formData.password.value !== comparePassword || !comparePassword ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
-                                onBlur={e => formData.password.onBlur(e)}
-                                type="password"
-                                autoComplete='new-password'
-                            ></Input>
-                            <FieldName
-                                style={{
-                                    fontWeight: 'normal',
-                                    color: 'rgb(254, 111, 103,0.8)'
-                                }}
-                            >
-                                {formData.password.value !== comparePassword && comparePasswordActive && !formData.password.isEmpty ?
-                                    SetNativeTranslate(Translate.language, {}, 'compare_passwords') : ''
-                                }
-                            </FieldName>
-                        </VerticalContainer> */}
             <VerticalContainer style={{ gap: "0px" }}>
               <Select
                 defaultValue={formData.role.value}

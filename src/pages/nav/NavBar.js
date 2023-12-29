@@ -400,7 +400,7 @@ const NavBar = observer(() => {
           )}
           {width > 1500 && (
             <>
-              <button
+              {/* <button
                  disabled={location.pathname === DISPATCHER_ROUTE}
                 className={classes.NavBarItem}
                 onClick={() => {
@@ -415,8 +415,8 @@ const NavBar = observer(() => {
                   сhinese: ["成为调度员"],
                   hindi: ["डिस्पैचर बनें"],
                 })}
-              </button>
-              <button
+              </button> */}
+              {/* <button
                  disabled={location.pathname === BUSINESS_ROUTE}
 
                 className={classes.NavBarItem}
@@ -432,7 +432,7 @@ const NavBar = observer(() => {
                   сhinese: ["商业送货"],
                   hindi: ["व्यवसाय के लिए डिलिवरी"],
                 })}
-              </button>
+              </button> */}
             </>
           )}
 
@@ -456,7 +456,7 @@ const NavBar = observer(() => {
                   hindi: ["वाहक घोषणाएँ"],
                 })}
               </button>
-              <button
+              {/* <button
                  disabled={location.pathname === FLEET_ROUTE}
 
                 className={classes.NavBarItem}
@@ -472,7 +472,7 @@ const NavBar = observer(() => {
                   сhinese: ["对于车队"],
                   hindi: ["बेड़े के लिए"],
                 })}
-              </button>
+              </button> */}
             </>
           )}
         </div>

@@ -15,6 +15,8 @@ import { useOrderForm } from "./hooks/useOrderForm";
 import { useOrderFormTranslate } from "./hooks/useOrderFormTranslate";
 import classes from "./OrderForm.module.sass";
 import { useOrderFormFormData } from "./hooks/useOrderFormFormData";
+import { MAIN_ORDER_ROUTE } from "../../../utils/consts";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const OrderForm = observer(({ setModalActive }) => {
   const {
@@ -55,8 +57,16 @@ const OrderForm = observer(({ setModalActive }) => {
   const { order_editing_canceled, auction_editing_canceled } =
     useOrderFormTranslate();
 
-  const { ComponentFunction, Partner, recommended, setRecommended, parent } =
-    useOrderForm(setModalActive);
+  const {
+    ComponentFunction,
+    Partner,
+    recommended,
+    setRecommended,
+    parent,
+    location,
+    onRecaptchaChange,
+    reCapchaChecked
+  } = useOrderForm(setModalActive);
 
   return (
     <div className={classes.Container}>
@@ -118,6 +128,10 @@ const OrderForm = observer(({ setModalActive }) => {
           min_length={0}
           parent={"orderForm"}
         ></DragDropUpload>
+        <ReCAPTCHA
+          sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
+          onChange={onRecaptchaChange}
+        />
         <div className={classes.ButtonsBlock}>
           <Button
             onClick={send}
@@ -137,7 +151,8 @@ const OrderForm = observer(({ setModalActive }) => {
               (formData.load_capacity.isEmpty && formData.type === "truck") ||
               (formData.load_capacity.isEmpty && formData.type === "minibus") ||
               (formData.side_type.isEmpty && formData.type === "truck") ||
-              (formData.cost.notValid && formData.order_type.value === "order")
+              (formData.cost.notValid && formData.order_type.value === "order") ||
+              !reCapchaChecked && location.pathname === MAIN_ORDER_ROUTE 
             }
           >
             {ComponentFunction.orderFormFunction === "edit"
@@ -168,7 +183,8 @@ const OrderForm = observer(({ setModalActive }) => {
             <></>
           )}
 
-          {ComponentFunction.orderFormFunction !== "edit" ? (
+          {ComponentFunction.orderFormFunction !== "edit" &&
+          location.pathname !== MAIN_ORDER_ROUTE ? (
             <Button
               onClick={postpone}
               disabled={
@@ -198,7 +214,8 @@ const OrderForm = observer(({ setModalActive }) => {
             <></>
           )}
           {ComponentFunction.orderFormFunction !== "pattern" &&
-          ComponentFunction.orderFormFunction !== "edit" ? (
+          ComponentFunction.orderFormFunction !== "edit" &&
+          location.pathname !== MAIN_ORDER_ROUTE ? (
             <Button
               onClick={pattern}
               disabled={

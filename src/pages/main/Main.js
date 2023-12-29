@@ -1,95 +1,44 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-
-import MainBanner from "../banner/MainBanner";
 import "../../App.css";
 import "../board/Board.css";
+
+import { useMain } from "./hooks/useMain";
+import AdBlock from "../../components/adBlock/AdBlock";
+import MainBanner from "../../components/banner/MainBanner";
+import AdminConsole from "../../components/adminConsole/AdminConsole";
+import classes from "./Main.module.sass";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 
-import AdminConsoleItem from "./components/adminConsole/AdminConsoleItem";
-import classes from "./Main.module.sass";
-import AdBlock from "./components/adBlock/AdBlock";
-import { useMain } from "./hooks/useMain";
-
 const Main = observer(() => {
-  const { Ad, Translate, callRequested, setCallRequested, Setting } = useMain();
+  const { callRequested, setCallRequested, Translate } = useMain();
 
   return (
-    <div className={`page_container ${Setting.app_theme}`}>
+    <div className={classes.Container}>
       <title>
         logid - биржа грузоперевозок и курьерских заказов, доска объявлений
         перевозчиков и курьеров, инструмент управления доставкой для автопарков
         и курьерских служб
       </title>
 
-      <>
-        <MainBanner
-          callRequested={callRequested}
-          setCallRequested={setCallRequested}
-        />
-        {Ad.carriers_count && Ad.customers_count && Ad.finished_orders_count ? (
-          <div className={classes.AdminConsoleItemsContainer}>
-            <AdminConsoleItem
-              type={"value"}
-              influence={"positive"}
-              plan={Ad.carriers_count}
-              currentRate={Ad.carriers_count}
-              comment={SetNativeTranslate(
-                Translate.language,
-                {
-                  russian: ["Активных перевозчиков"],
-                  english: ["Active carriers"],
-                  spanish: ["Portadores activos"],
-                  turkish: ["Aktif taşıyıcılar"],
-                  сhinese: ["活跃运营商"],
-                  hindi: ["सक्रिय वाहक"],
-                },
-                ""
-              )}
-            />
-            <AdminConsoleItem
-              type={"value"}
-              influence={"positive"}
-              plan={Ad.customers_count}
-              currentRate={Ad.customers_count}
-              comment={SetNativeTranslate(
-                Translate.language,
-                {
-                  russian: ["Активных заказчиков"],
-                  english: ["Active customers"],
-                  spanish: ["Clientes activos"],
-                  turkish: ["Aktif müşteriler"],
-                  сhinese: ["活跃客户"],
-                  hindi: ["सक्रिय ग्राहक"],
-                },
-                ""
-              )}
-            />
-            <AdminConsoleItem
-              type={"value"}
-              influence={"positive"}
-              plan={Ad.finished_orders_count}
-              currentRate={Ad.finished_orders_count}
-              comment={SetNativeTranslate(
-                Translate.language,
-                {
-                  russian: ["Завершенных заказов"],
-                  english: ["Completed orders"],
-                  spanish: ["Orden completada"],
-                  turkish: ["Sipariş tamamlandı"],
-                  сhinese: ["已完成订单"],
-                  hindi: ["पूर्ण आदेश"],
-                },
-                ""
-              )}
-            />
-          </div>
-        ) : (
-          <></>
-        )}
+      <MainBanner
+        slogan={SetNativeTranslate(Translate.language, {
+          russian: ["Биржа грузоперевозок и курьерских заказов"],
+          english: ["Exchange of cargo transportation and courier orders"],
+          spanish: [
+            "Intercambio de transporte de carga y pedidos de mensajería",
+          ],
+          turkish: ["Kargo taşımacılığı ve kurye siparişlerinin değişimi"],
+          сhinese: ["货物运输及快递单交换"],
+          hindi: ["कार्गो परिवहन और कूरियर ऑर्डर का आदान-प्रदान"],
+        })}
+        callRequested={callRequested}
+        setCallRequested={setCallRequested}
+      />
 
-        <AdBlock />
-      </>
+      <AdminConsole />
+
+      <AdBlock />
     </div>
   );
 });
