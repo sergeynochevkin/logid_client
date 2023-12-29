@@ -11,5 +11,10 @@ export const useBurgerMenu = (width: number) => {
   const { Translate } = useContext(TranslateContext);
   const navigate = useNavigate();
 
-  return { active, setActive, Setting, Translate, navigate };
+  const navigateAndClose = (path: string) => {
+    setActive(false);
+    navigate(path);
+  };
+
+  return { active, setActive, Setting, Translate, navigateAndClose };
 };

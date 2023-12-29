@@ -15,7 +15,7 @@ type Props = {
 };
 
 const BurgerMenu = ({ width }: Props) => {
-  const { active, setActive, Setting, Translate, navigate } =
+  const { active, setActive, Setting, Translate, navigateAndClose } =
     useBurgerMenu(width);
 
   return (
@@ -25,9 +25,9 @@ const BurgerMenu = ({ width }: Props) => {
           {width < 1500 && (
             <>
               <div
-                className={classes.NavBarItem}
+                className={classes.BurgerMenuItem}
                 onClick={() => {
-                  navigate(DISPATCHER_ROUTE);
+                  navigateAndClose(DISPATCHER_ROUTE);
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -40,9 +40,9 @@ const BurgerMenu = ({ width }: Props) => {
                 })}
               </div>
               <div
-                className={classes.NavBarItem}
+                className={classes.BurgerMenuItem}
                 onClick={() => {
-                  navigate(BUSINESS_ROUTE);
+                  navigateAndClose(BUSINESS_ROUTE);
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -60,9 +60,9 @@ const BurgerMenu = ({ width }: Props) => {
             <>
               {" "}
               <div
-                className={classes.NavBarItem}
+                className={classes.BurgerMenuItem}
                 onClick={() => {
-                  navigate(BOARD_ROUTE);
+                  navigateAndClose(BOARD_ROUTE);
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -75,9 +75,9 @@ const BurgerMenu = ({ width }: Props) => {
                 })}
               </div>
               <div
-                className={classes.NavBarItem}
+                className={classes.BurgerMenuItem}
                 onClick={() => {
-                  navigate(FLEET_ROUTE);
+                  navigateAndClose(FLEET_ROUTE);
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -94,9 +94,9 @@ const BurgerMenu = ({ width }: Props) => {
                     {width < 960 && (
             <>
               <div
-                className={classes.NavBarItem}
+                className={classes.BurgerMenuItem}
                 onClick={() => {
-                  navigate(COURIER_ROUTE);
+                  navigateAndClose(COURIER_ROUTE);
                 }}
               >
                 {" "}
@@ -110,9 +110,9 @@ const BurgerMenu = ({ width }: Props) => {
                 })}
               </div>
               <div
-                className={classes.NavBarItem}
+                className={classes.BurgerMenuItem}
                 onClick={() => {
-                  navigate(CARRIER_ROUTE);
+                  navigateAndClose(CARRIER_ROUTE);
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -129,9 +129,9 @@ const BurgerMenu = ({ width }: Props) => {
              {width < 600 && (
             <>
               <div
-                className={classes.NavBarItem}
+                className={classes.BurgerMenuItem}
                 onClick={() => {
-                  navigate(MAIN_ORDER_ROUTE);
+                  navigateAndClose(MAIN_ORDER_ROUTE);
                 }}
               >
                   {SetNativeTranslate(Translate.language, {
