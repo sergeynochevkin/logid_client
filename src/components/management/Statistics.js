@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import AdminConsoleItem from '../../pages/main/components/adminConsole/AdminConsoleItem'
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate'
 import { ManagementContext, SettingContext, TranslateContext } from '../..'
 import { observer } from 'mobx-react-lite'
 import '../../App.css'
 import AnaliticsList from './Analitics/AnaliticsReport'
+import AdminConsoleItem from '../adminConsole/components/adminConsole/AdminConsoleItem';
 
 
 const Statistics = observer(() => {

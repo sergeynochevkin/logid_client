@@ -1,10 +1,10 @@
 import React from "react";
 import { useAdminConsole } from "./hooks/useAdminConsole";
 //@ts-ignore
-import AdminConsoleItem from '../../pages/main/components/adminConsole/AdminConsoleItem';
-//@ts-ignore
 import { SetNativeTranslate } from '../../modules/SetNativeTranslate';
 import classes from './AdminConsole.module.sass'
+//@ts-ignore
+import AdminConsoleItem from './components/adminConsole/AdminConsoleItem';
 
 const AdminConsole = () => {
   const {Ad, Translate} = useAdminConsole()
