@@ -21,22 +21,26 @@ import { FieldName } from "../ui/page/FieldName";
 import { VerticalContainer } from "../ui/page/VerticalContainer";
 import { v4 } from "uuid";
 import arrow_up_dark from "../../assets/icons/arrow_up_dark_.png";
-
 import "./FastSignUp.css";
 import City from "../account/userInfoForm/City";
 import { useFetching } from "../../hooks/useFetching";
 import { fast_registration } from "../../http/userAPI";
-import { MAIN_ROUTE, MANAGER_ROUTE, USER_ROUTE } from "../../utils/consts";
+import {
+  CARRIER_ROUTE,
+  MAIN_ROUTE,
+  MANAGER_ROUTE,
+  USER_ROUTE,
+} from "../../utils/consts";
 import { useNavigate } from "react-router-dom";
 import { fetchUserInfo } from "../../http/userInfoApi";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import PromoCodeComponent from "../auth/PromoCodeComponent";
-
 import ym from "react-yandex-metrika";
-
+import classes from "./FastSignUp.module.sass";
 
 const ReCAPTCHA = React.lazy(() => import("react-google-recaptcha"));
-
+import { useFastSignUp } from "./hooks/useFastSignUp";
+import { COURIER_ROUTE } from "./../../utils/consts";
 
 const FastSignUp = observer(() => {
   const { Translate } = useContext(TranslateContext);
@@ -53,6 +57,8 @@ const FastSignUp = observer(() => {
 
   const [agreements, setAgreements] = useState(false);
 
+  const { location } = useFastSignUp();
+
   const initialValue = {
     //auth
     email: "",
@@ -66,7 +72,7 @@ const FastSignUp = observer(() => {
     personal_data_agreement_accepted: false,
     cookies_accepted: { total: false },
     promo_code: "",
-  
+
     //user info
     userId: undefined,
     legal: "",
@@ -87,7 +93,7 @@ const FastSignUp = observer(() => {
     passport_date_of_issue: "",
     passport_issued_by: "",
     from_fast: true,
-  
+
     //transport
     thermo_bag: false,
     hydraulic_platform: false,
@@ -100,7 +106,6 @@ const FastSignUp = observer(() => {
     tag: "",
     type: "",
   };
-  
 
   function onRecaptchaChange() {
     setReCapchaChecked(true);
@@ -249,7 +254,12 @@ const FastSignUp = observer(() => {
     SetNativeTranslate(Translate.language, {}, "phone_content")
   );
 
-  formData.role = useInput("", { isEmpty: true });
+  formData.role = useInput(
+    location.pathname === COURIER_ROUTE || location.pathname === CARRIER_ROUTE
+      ? "carrier"
+      : "",
+    { isEmpty: true }
+  );
 
   formData.load_capacity = useInput("", { isEmpty: true });
   formData.side_type = useInput("", { isEmpty: true });
@@ -278,8 +288,7 @@ const FastSignUp = observer(() => {
   return (
     <>
       {formVisible ? (
-        <form className="fast_sign_up_container">
-
+        <form className={classes.Container}>
           <div className="fast_sign_up_section">
             <VerticalContainer style={{ gap: "0px" }}>
               <Input
@@ -357,42 +366,54 @@ const FastSignUp = observer(() => {
                   : ""}
               </FieldName>
             </VerticalContainer>
-            <VerticalContainer style={{ gap: "0px" }}>
-              <Select
-                defaultValue={formData.role.value}
-                onChange={(e) => formData.role.onChange(e)}
-                onBlur={(e) => formData.role.onBlur(e)}
-                name="role"
-                id="role"
-                style={{
-                  borderLeft:
-                    formData.role.notValid || formData.role.isEmpty
-                      ? "solid 1px rgb(254, 111, 103,0.8)"
-                      : "",
-                }}
-              >
-                <option disabled hidden value={formData.role.value}>
-                  {SetNativeTranslate(Translate.language, {}, "who_are_you")}
-                </option>
-                <option value="customer">
-                  {SetNativeTranslate(Translate.language, {}, "customer")}
-                </option>
-                <option value="carrier">
-                  {SetNativeTranslate(Translate.language, {}, "carrier")}
-                </option>
-                {/* <option value='admin'>admin</option> */}
-              </Select>
-              <FieldName
-                style={{
-                  fontWeight: "normal",
-                  color: "rgb(254, 111, 103,0.8)",
-                }}
-              >
-                {formData.role.isEmpty && formData.role.isDirty
-                  ? SetNativeTranslate(Translate.language, {}, "select_role")
-                  : ""}
-              </FieldName>
-            </VerticalContainer>
+
+            {location.pathname !== COURIER_ROUTE &&
+              (location.pathname !== CARRIER_ROUTE && (
+                <VerticalContainer style={{ gap: "0px" }}>
+                  <Select
+                    defaultValue={formData.role.value}
+                    onChange={(e) => formData.role.onChange(e)}
+                    onBlur={(e) => formData.role.onBlur(e)}
+                    name="role"
+                    id="role"
+                    style={{
+                      borderLeft:
+                        formData.role.notValid || formData.role.isEmpty
+                          ? "solid 1px rgb(254, 111, 103,0.8)"
+                          : "",
+                    }}
+                  >
+                    <option disabled hidden value={formData.role.value}>
+                      {SetNativeTranslate(
+                        Translate.language,
+                        {},
+                        "who_are_you"
+                      )}
+                    </option>
+                    <option value="customer">
+                      {SetNativeTranslate(Translate.language, {}, "customer")}
+                    </option>
+                    <option value="carrier">
+                      {SetNativeTranslate(Translate.language, {}, "carrier")}
+                    </option>
+                    {/* <option value='admin'>admin</option> */}
+                  </Select>
+                  <FieldName
+                    style={{
+                      fontWeight: "normal",
+                      color: "rgb(254, 111, 103,0.8)",
+                    }}
+                  >
+                    {formData.role.isEmpty && formData.role.isDirty
+                      ? SetNativeTranslate(
+                          Translate.language,
+                          {},
+                          "select_role"
+                        )
+                      : ""}
+                  </FieldName>
+                </VerticalContainer>
+              ))}
           </div>
 
           {formData.role.value === "carrier" && formData.role.value !== "" ? (

@@ -16,7 +16,7 @@ const {Translate}  = useCourier()
     <div className={classes.Container}>
       <MainBanner
         slogan={SetNativeTranslate(Translate.language, {
-          russian: ["Биржа грузоперевозок и курьерских заказов"],
+          russian: ["Получайте уведомления о новых заказах"],
           english: ["Exchange of cargo transportation and courier orders"],
           spanish: [
             "Intercambio de transporte de carga y pedidos de mensajería",

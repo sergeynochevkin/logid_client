@@ -16,9 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { USER_ROUTE } from "../../utils/consts";
 import Modal from "../../components/ui/modal/Modal";
 import Auth from "../../components/auth/Auth";
-import Slider from "../../components/ui/slider/Slider";
 import "../../App.css";
-import PreOrderForm from "../../components/order/preOrderForm/PreOrderForm";
 
 const MainBanner = observer(({ callRequested, setCallRequested, slogan }) => {
   const { Setting } = useContext(SettingContext);

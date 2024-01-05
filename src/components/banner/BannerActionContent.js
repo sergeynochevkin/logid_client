@@ -14,8 +14,9 @@ import "../../App.css";
 import PreOrderForm from "../../components/order/preOrderForm/PreOrderForm";
 
 import "../../components/account/Account.css";
+import FastSignUp from "../fastSignUp/FastSignUp";
 
-const BannerActionContent = observer(({slogan}) => {
+const BannerActionContent = observer(({ slogan }) => {
   const { user } = useContext(UserContext);
   const { UserInfo } = useContext(UserInfoContext);
   const { Translate } = useContext(TranslateContext);
@@ -25,10 +26,9 @@ const BannerActionContent = observer(({slogan}) => {
     <div className={classes.BannerActionSection}>
       {!user.user.role ? (
         <div className={classes.TextSection}>
-          <div className={classes.MainSlogan}>
-       {slogan}
-          </div>
-          <PreOrderForm />
+          <div className={classes.MainSlogan}>{slogan}</div>
+          {/* <PreOrderForm /> */}
+          <FastSignUp />
         </div>
       ) : (
         <div className={classes.RatingSection}>
