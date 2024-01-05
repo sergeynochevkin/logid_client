@@ -27,7 +27,7 @@ import AccountCompletionForm from "../../components/account/AccountCompletionFor
 import { v4 } from "uuid";
 import "./User.css";
 import DriverComponent from "../../components/driver/DriverComponent";
-import PageBanner from '../../components/banner/PageBanner';
+import classes from './User.module.sass'
 
 const Container = styled.div`
   display: flex;
@@ -161,7 +161,7 @@ const User = observer(() => {
         )}
       </title>
 
-      <PageBanner>
+      <div className={classes.Title}>
         {SetNativeTranslate(
           Translate.language,
           {},
@@ -173,7 +173,7 @@ const User = observer(() => {
             ? "drivers_office"
             : ""
         )}
-      </PageBanner>
+      </div>
 
       <Container>
         <div
@@ -244,7 +244,8 @@ const User = observer(() => {
             ) : (
               <></>
             )}
-            {user.user.role === "carrier" && (
+            
+            {/* {user.user.role === "carrier" && (
               <BookMark
                 onClick={() => {
                   ComponentFunction.PageFunction !== "drivers" &&
@@ -265,7 +266,7 @@ const User = observer(() => {
                   hindi: ["ड्राइवरों"],
                 })}
               </BookMark>
-            )}
+            )} */}
 
             {user.user.role !== "driver" && (
               <BookMark
