@@ -570,7 +570,7 @@ const FastSignUp = observer(() => {
             disabled={
               formData.email.notValid ||
               // formData.password.notValid ||
-              formData.role.notValid ||
+              (formData.role.notValid && location.pathname === MAIN_ROUTE) ||
               formData.phone.notValid || //check!
               // formData.password.value !== comparePassword ||
               !reCapchaChecked ||
