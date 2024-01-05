@@ -14,19 +14,17 @@ type Props = {
 const BurgerMenu = ({ width }: Props) => {
   const {
     Setting,
-    Translate,
     navigateAndClose,
     ref,
     isComponentVisible,
     setIsComponentVisible,
-    location,
   } = useBurgerMenu(width);
 
   return (
     <div ref={ref}>
       {isComponentVisible && (
         <div className={classes.Container}>
-          <Links parent={"burger"} />
+          <Links parent={"burger"} setIsComponentVisible = {setIsComponentVisible}/>
         </div>
       )}
 

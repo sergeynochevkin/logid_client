@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 //@ts-ignore
 import { SetNativeTranslate } from "../../../../modules/SetNativeTranslate";
 import { useLinks } from "./hooks/useLinks";
@@ -13,9 +13,10 @@ import classes from "./Links.module.sass";
 
 type Props = {
   parent?: string;
+  setIsComponentVisible?: Dispatch<SetStateAction<boolean>>;
 };
 
-const Links = ({ parent }: Props) => {
+const Links = ({ parent, setIsComponentVisible }: Props) => {
   const { Translate, width, navigate, user } = useLinks();
 
   return (
@@ -29,6 +30,7 @@ const Links = ({ parent }: Props) => {
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(DISPATCHER_ROUTE);
+                  setIsComponentVisible && setIsComponentVisible(false)
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -46,6 +48,7 @@ const Links = ({ parent }: Props) => {
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(BUSINESS_ROUTE);
+                  setIsComponentVisible && setIsComponentVisible(false)
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -63,6 +66,7 @@ const Links = ({ parent }: Props) => {
                 className={classes.NavBarItem}
                 onClick={() => {
                   navigate(FLEET_ROUTE);
+                  setIsComponentVisible && setIsComponentVisible(false)
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -75,13 +79,15 @@ const Links = ({ parent }: Props) => {
                 })}
               </button> */}
 
-      {(width > 1200 && !parent && !user.isAuth) || (width < 1200 && parent === "burger"  && !user.isAuth) ? (
+      {(width > 1200 && !parent && !user.isAuth) ||
+      (width < 1200 && parent === "burger" && !user.isAuth) ? (
         <>
           <button
             disabled={location.pathname === COURIER_ROUTE}
             className={classes.NavBarItem}
             onClick={() => {
               navigate(COURIER_ROUTE);
+              setIsComponentVisible && setIsComponentVisible(false)
             }}
           >
             {" "}
@@ -99,6 +105,7 @@ const Links = ({ parent }: Props) => {
             className={classes.NavBarItem}
             onClick={() => {
               navigate(CARRIER_ROUTE);
+              setIsComponentVisible && setIsComponentVisible(false)
             }}
           >
             {SetNativeTranslate(Translate.language, {
@@ -116,13 +123,15 @@ const Links = ({ parent }: Props) => {
       )}
 
       <div className={classes.ButtonsBlock}>
-        {(width > 600 && !parent   && !user.isAuth) || (width < 600 && parent === "burger"  && !user.isAuth) ? (
+        {(width > 600 && !parent && !user.isAuth) ||
+        (width < 600 && parent === "burger" && !user.isAuth) ? (
           <>
             <button
               disabled={location.pathname === MAIN_ORDER_ROUTE}
               className={classes.NavBarItem}
               onClick={() => {
                 navigate(MAIN_ORDER_ROUTE);
+                setIsComponentVisible && setIsComponentVisible(false)
               }}
             >
               {SetNativeTranslate(Translate.language, {
@@ -139,7 +148,7 @@ const Links = ({ parent }: Props) => {
           <></>
         )}
       </div>
-      {(width > 600 && !parent)|| (width < 600 && parent === "burger") ? (
+      {(width > 600 && !parent) || (width < 600 && parent === "burger") ? (
         <>
           {" "}
           <button
@@ -147,6 +156,7 @@ const Links = ({ parent }: Props) => {
             className={classes.NavBarItem}
             onClick={() => {
               navigate(BOARD_ROUTE);
+              setIsComponentVisible && setIsComponentVisible(false)
             }}
           >
             {SetNativeTranslate(Translate.language, {
