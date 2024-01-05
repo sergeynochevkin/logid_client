@@ -22,7 +22,6 @@ import { VerticalContainer } from "../ui/page/VerticalContainer";
 import { v4 } from "uuid";
 import arrow_up_dark from "../../assets/icons/arrow_up_dark_.png";
 import "./FastSignUp.css";
-import City from "../account/userInfoForm/City";
 import { useFetching } from "../../hooks/useFetching";
 import { fast_registration } from "../../http/userAPI";
 import {
@@ -76,7 +75,7 @@ const FastSignUp = observer(() => {
     //user info
     userId: undefined,
     legal: "",
-    city: { value: Adress.city.value, isDirty: false, notValid: true },
+    city: { value: Adress.city.value, isDirty: false, notValid: false },
     city_place_id: "",
     city_latitude: Adress.city.lat,
     city_longitude: Adress.city.lng,
