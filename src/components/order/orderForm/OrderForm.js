@@ -15,7 +15,7 @@ import { useOrderForm } from "./hooks/useOrderForm";
 import { useOrderFormTranslate } from "./hooks/useOrderFormTranslate";
 import classes from "./OrderForm.module.sass";
 import { useOrderFormFormData } from "./hooks/useOrderFormFormData";
-import { MAIN_ORDER_ROUTE } from "../../../utils/consts";
+import { MAIN_ORDER_ROUTE, USER_ROUTE } from "../../../utils/consts";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const OrderForm = observer(({ setModalActive }) => {
@@ -128,10 +128,14 @@ const OrderForm = observer(({ setModalActive }) => {
           min_length={0}
           parent={"orderForm"}
         ></DragDropUpload>
+
+
+        {location.pathname !==USER_ROUTE &&
         <ReCAPTCHA
           sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
           onChange={onRecaptchaChange}
         />
+        }
         <div className={classes.ButtonsBlock}>
           <Button
             onClick={send}
@@ -152,7 +156,7 @@ const OrderForm = observer(({ setModalActive }) => {
               (formData.load_capacity.isEmpty && formData.type === "minibus") ||
               (formData.side_type.isEmpty && formData.type === "truck") ||
               (formData.cost.notValid && formData.order_type.value === "order") ||
-              !reCapchaChecked && location.pathname === MAIN_ORDER_ROUTE 
+              !reCapchaChecked && location.pathname !== USER_ROUTE 
             }
           >
             {ComponentFunction.orderFormFunction === "edit"
