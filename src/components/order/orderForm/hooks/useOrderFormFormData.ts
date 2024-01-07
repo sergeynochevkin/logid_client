@@ -34,6 +34,7 @@ export const useOrderFormFormData = () => {
   const { Notification } = useContext(NotificationContext);
   const [calculate, setCalculate] = useState<boolean>(false);
   const { Limit } = useContext(LimitContext);
+  const [modalActive1, setModalActive1] = useState(false);
 
   const queryParams = new URLSearchParams(window.location.search);
 
@@ -279,7 +280,7 @@ export const useOrderFormFormData = () => {
     { isEmpty: true, minLength: 6, maxLength: 200 },
     SetNativeTranslate(Translate.language, {}, "comment").toLowerCase()
   );
-  formData.order_type = useInput(
+  formData.order_type = useInput(location.pathname ==='/main_order' ?  'order' : 
     ComponentFunction.orderFormFunction === "newOrder"
       ? ""
       : orderPattern.order_type.value,
@@ -500,9 +501,23 @@ export const useOrderFormFormData = () => {
     order.setFiles([]);
   };
 
+  const registerAndSensOrder = async (registerAction) => {
+    try {
+      await registerAction().then((data) => {
+        //setUserId
+        //setUserInfoId
+        click();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const send = (event) => {
     event.preventDefault();
-    if (ComponentFunction.orderFormFunction === "edit") {
+    if (location.pathname === "/main_order") {
+      setModalActive1(true);
+    } else if (ComponentFunction.orderFormFunction === "edit") {
       formData.order_status = "postponed";
       update();
     } else {
@@ -948,5 +963,8 @@ export const useOrderFormFormData = () => {
     setCalculate,
     Translate,
     Notification,
+    modalActive1,
+    setModalActive1,
+    registerAndSensOrder
   };
 };

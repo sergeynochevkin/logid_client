@@ -11,6 +11,7 @@ import {
   USER_ROUTE,
   MANAGER_ROUTE,
   ADMIN_ROUTE,
+  MAIN_ORDER_ROUTE,
 } from "../../utils/consts";
 import {
   activateDriver,
@@ -52,15 +53,23 @@ import { addContactView } from "../../http/adApi";
 import PromoCodeComponent from "./PromoCodeComponent";
 
 import ym from "react-yandex-metrika";
+import { useAuth } from "./hooks/useAuth";
 
 const Auth = observer(
-  ({ enterPoint, setModalActive, modalActive, parent, after_action }) => {
+  ({
+    enterPoint,
+    setModalActive,
+    modalActive,
+    parent,
+    after_action,
+    registerAndSensOrder,
+  }) => {
     const { user } = useContext(UserContext);
     const { link } = useContext(LinkContext);
     const { UserInfo } = useContext(UserInfoContext);
+    const { location } = useAuth();
     const queryParams = new URLSearchParams(window.location.search);
     const { order } = useContext(OrderContext);
-    let location = useLocation();
     const [isRegister, setIsRegister] = useState(false);
     const [isLogin, setIsLogin] = useState(false);
     const [isRecovery, setIsRecovery] = useState(false);
@@ -78,7 +87,6 @@ const Auth = observer(
     const { ComponentFunction } = useContext(ComponentFunctionContext);
     const order_status = queryParams.get("o_s");
     const role = queryParams.get("role");
-
     const [agreements, setAgreements] = useState(false);
 
     let ip = localStorage.getItem("currentIp");
@@ -244,7 +252,11 @@ const Auth = observer(
 
     formData.country.value = Adress.country.value;
 
-    if (enterPoint === "isRegister" && location.pathname !== "/board") {
+    if (
+      enterPoint === "isRegister" &&
+      location.pathname !== "/board" &&
+      location.pathname !== MAIN_ORDER_ROUTE
+    ) {
       formData.role.value = !role ? "" : role;
       formData.role.isEmpty = !role ? true : false;
       formData.role.notValid = !role ? true : false;
@@ -252,6 +264,11 @@ const Auth = observer(
 
     if (location.pathname === "/board" && enterPoint === "isRegister") {
       formData.role.value = "carrier";
+      formData.role.isEmpty = false;
+      formData.role.notValid = false;
+    }
+    if (location.pathname === MAIN_ORDER_ROUTE) {
+      formData.role.value = "customer";
       formData.role.isEmpty = false;
       formData.role.notValid = false;
     }
@@ -287,7 +304,6 @@ const Auth = observer(
         } else {
           UserInfo.setUserInfo(data);
           data && fetcher.setUserAppSetting(true);
-
           fetcher.setUserInfo(true);
 
           if (user.user.role === "driver") {
@@ -590,19 +606,15 @@ const Auth = observer(
             formData.age_accepted,
             formData.cookies_accepted.total,
             formData.personal_data_agreement_accepted,
-
             // value?
             formData.city.value,
             formData.city_place_id,
             formData.city_latitude,
             formData.city_longitude,
-
             formData.load_capacity.value,
             formData.side_type.value,
             formData.type.value,
-
             formData.from_fast,
-
             formData.thermo_bag,
             formData.hydraulic_platform,
             formData.side_loading,
@@ -681,7 +693,6 @@ const Auth = observer(
               ? SetNativeTranslate(Translate.language, {}, "password_recovery")
               : ""}{" "}
           </Name>
-
 
           {isRegister && (
             <VerticalContainer style={{ gap: "0px" }}>
@@ -852,7 +863,7 @@ const Auth = observer(
                 </VerticalContainer>
               )}
 
-              {isRegister && !role ? (
+              {isRegister && !role && location.pathname !== MAIN_ORDER_ROUTE ? (
                 <>
                   {!link.after_actions.add_transport_form ? (
                     <VerticalContainer style={{ gap: "0px" }}>
@@ -1192,10 +1203,21 @@ const Auth = observer(
                 }
               }}
             >
+              {/* send order!!! */}
+
               {isLogin
                 ? SetNativeTranslate(Translate.language, {}, "sign_in")
-                : isRegister
+                : isRegister && location.pathname !== MAIN_ORDER_ROUTE
                 ? SetNativeTranslate(Translate.language, {}, "sign_up")
+                : isRegister && location.pathname === MAIN_ORDER_ROUTE
+                ? SetNativeTranslate(Translate.language, {
+                    russian: ["Отправить заказ"],
+                    english: ["Send an order"],
+                    spanish: ["Enviar un pedido"],
+                    turkish: ["Sipariş gönder"],
+                    сhinese: ["发送订单"],
+                    hindi: ["एक आदेश भेजें"],
+                  })
                 : isRecovery && !codeSend
                 ? SetNativeTranslate(Translate.language, {}, "send_code")
                 : isRecovery && codeSend
@@ -1239,7 +1261,7 @@ const Auth = observer(
                 )}
               </div>
             </div>
-          ) : isRegister ? (
+          ) : isRegister && location.pathname !== MAIN_ORDER_ROUTE ? (
             <Comment>
               {SetNativeTranslate(Translate.language, {}, "have_an_account")}
               <div className="auth_link" onClick={() => enterAction("isLogin")}>

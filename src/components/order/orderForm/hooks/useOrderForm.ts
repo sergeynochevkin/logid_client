@@ -10,26 +10,17 @@ import {
 } from "../../../..";
 import { useLocation } from "react-router-dom";
 
-export const useOrderForm = (
-  setModalActive,
-) => {
+export const useOrderForm = (setModalActive) => {
   const { user } = useContext(UserContext);
   const { UserInfo } = useContext(UserInfoContext);
   const { ComponentFunction } = useContext(ComponentFunctionContext);
   const { link } = useContext(LinkContext);
   const { Partner } = useContext(PartnerContext);
   const { fetcher } = useContext(FetcherContext);
-  const location = useLocation()
-  const [reCapchaChecked, setReCapchaChecked] = useState(false);
-
+  const location = useLocation();
 
   const [recommended, setRecommended] = useState<boolean>(false);
   const [parent] = useState<string>("orderForm");
-
-  function onRecaptchaChange() {
-    setReCapchaChecked(true);
-  }
-
 
   useEffect(() => {
     fetcher.setPartners(true);
@@ -51,8 +42,6 @@ export const useOrderForm = (
     recommended,
     setRecommended,
     parent,
-    location,
-    onRecaptchaChange,
-    reCapchaChecked
+    location
   };
 };

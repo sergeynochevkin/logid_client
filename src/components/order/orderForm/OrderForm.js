@@ -16,7 +16,8 @@ import { useOrderFormTranslate } from "./hooks/useOrderFormTranslate";
 import classes from "./OrderForm.module.sass";
 import { useOrderFormFormData } from "./hooks/useOrderFormFormData";
 import { MAIN_ORDER_ROUTE, USER_ROUTE } from "../../../utils/consts";
-import ReCAPTCHA from "react-google-recaptcha";
+import Modal from "../../ui/modal/Modal";
+import Auth from "../../auth/Auth";
 
 const OrderForm = observer(({ setModalActive }) => {
   const {
@@ -52,6 +53,9 @@ const OrderForm = observer(({ setModalActive }) => {
     calculate,
     setCalculate,
     Translate,
+    modalActive1,
+    setModalActive1,
+    registerAndSensOrder,
   } = useOrderFormFormData();
 
   const { order_editing_canceled, auction_editing_canceled } =
@@ -64,8 +68,6 @@ const OrderForm = observer(({ setModalActive }) => {
     setRecommended,
     parent,
     location,
-    onRecaptchaChange,
-    reCapchaChecked
   } = useOrderForm(setModalActive);
 
   return (
@@ -128,14 +130,6 @@ const OrderForm = observer(({ setModalActive }) => {
           min_length={0}
           parent={"orderForm"}
         ></DragDropUpload>
-
-
-        {location.pathname !==USER_ROUTE &&
-        <ReCAPTCHA
-          sitekey="6LclICciAAAAALsvyUMJwZq8Rk2GJOL3YQqN4syk"
-          onChange={onRecaptchaChange}
-        />
-        }
         <div className={classes.ButtonsBlock}>
           <Button
             onClick={send}
@@ -155,8 +149,7 @@ const OrderForm = observer(({ setModalActive }) => {
               (formData.load_capacity.isEmpty && formData.type === "truck") ||
               (formData.load_capacity.isEmpty && formData.type === "minibus") ||
               (formData.side_type.isEmpty && formData.type === "truck") ||
-              (formData.cost.notValid && formData.order_type.value === "order") ||
-              !reCapchaChecked && location.pathname !== USER_ROUTE 
+              (formData.cost.notValid && formData.order_type.value === "order")
             }
           >
             {ComponentFunction.orderFormFunction === "edit"
@@ -262,6 +255,15 @@ const OrderForm = observer(({ setModalActive }) => {
         setPointFormData={setPointFormData}
         pointInitialValue={pointInitialValue}
       />
+
+      <Modal setModalActive={setModalActive1} modalActive={modalActive1}>
+        <Auth
+          registerAndSensOrder={registerAndSensOrder}
+          enterPoint={"isRegister"}
+          setModalActive={setModalActive1}
+          modalActive={modalActive1}
+        />
+      </Modal>
     </div>
   );
 });
