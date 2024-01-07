@@ -10,7 +10,7 @@ import {
   UserContext,
 } from "../..";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
-import BannerActionContent from "./BannerActionContent";
+import BannerActionContent from "./components/bannerActionContent/BannerActionContent";
 import { AdButton } from "../../components/ui/button/AdButton";
 import { useNavigate } from "react-router-dom";
 import { USER_ROUTE } from "../../utils/consts";
@@ -19,7 +19,6 @@ import Auth from "../../components/auth/Auth";
 import "../../App.css";
 
 const MainBanner = observer(({ callRequested, setCallRequested, slogan }) => {
-  const { Setting } = useContext(SettingContext);
   const { Translate } = useContext(TranslateContext);
   const { link } = useContext(LinkContext);
   const { user } = useContext(UserContext);

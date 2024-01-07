@@ -16,13 +16,13 @@ const Carrier = () => {
       <MainBanner
         slogan={SetNativeTranslate(Translate.language, {
           russian: ["Получайте уведомления о доступных перевозках"],
-          english: ["Exchange of cargo transportation and courier orders"],
+          english: ["Receive notifications about available transportation"],
           spanish: [
-            "Intercambio de transporte de carga y pedidos de mensajería",
+            "Recibir notificaciones sobre transporte disponible.",
           ],
-          turkish: ["Kargo taşımacılığı ve kurye siparişlerinin değişimi"],
-          сhinese: ["货物运输及快递单交换"],
-          hindi: ["कार्गो परिवहन और कूरियर ऑर्डर का आदान-प्रदान"],
+          turkish: ["Mevcut ulaşımla ilgili bildirimler alın"],
+          сhinese: ["接收有关可用交通的通知"],
+          hindi: ["उपलब्ध परिवहन के बारे में सूचनाएं प्राप्त करें"],
         })}
       />
       {/* <AdminConsole /> */}

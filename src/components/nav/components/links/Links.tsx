@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, startTransition } from "react";
 //@ts-ignore
 import { SetNativeTranslate } from "../../../../modules/SetNativeTranslate";
 import { useLinks } from "./hooks/useLinks";
@@ -29,8 +29,10 @@ const Links = ({ parent, setIsComponentVisible }: Props) => {
                  disabled={location.pathname === DISPATCHER_ROUTE}
                 className={classes.NavBarItem}
                 onClick={() => {
+                         startTransition(() => {
                   navigate(DISPATCHER_ROUTE);
                   setIsComponentVisible && setIsComponentVisible(false)
+                         })
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -47,8 +49,10 @@ const Links = ({ parent, setIsComponentVisible }: Props) => {
 
                 className={classes.NavBarItem}
                 onClick={() => {
+                         startTransition(() => {
                   navigate(BUSINESS_ROUTE);
                   setIsComponentVisible && setIsComponentVisible(false)
+                         })
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -65,8 +69,10 @@ const Links = ({ parent, setIsComponentVisible }: Props) => {
 
                 className={classes.NavBarItem}
                 onClick={() => {
+                         startTransition(() => {
                   navigate(FLEET_ROUTE);
                   setIsComponentVisible && setIsComponentVisible(false)
+                         })
                 }}
               >
                 {SetNativeTranslate(Translate.language, {
@@ -86,8 +92,10 @@ const Links = ({ parent, setIsComponentVisible }: Props) => {
             disabled={location.pathname === COURIER_ROUTE}
             className={classes.NavBarItem}
             onClick={() => {
+              startTransition(() => {
               navigate(COURIER_ROUTE);
               setIsComponentVisible && setIsComponentVisible(false)
+              })
             }}
           >
             {" "}
@@ -104,8 +112,10 @@ const Links = ({ parent, setIsComponentVisible }: Props) => {
             disabled={location.pathname === CARRIER_ROUTE}
             className={classes.NavBarItem}
             onClick={() => {
+              startTransition(() => {
               navigate(CARRIER_ROUTE);
               setIsComponentVisible && setIsComponentVisible(false)
+              })
             }}
           >
             {SetNativeTranslate(Translate.language, {
@@ -130,8 +140,10 @@ const Links = ({ parent, setIsComponentVisible }: Props) => {
               disabled={location.pathname === MAIN_ORDER_ROUTE}
               className={classes.NavBarItem}
               onClick={() => {
+                startTransition(() => {
                 navigate(MAIN_ORDER_ROUTE);
                 setIsComponentVisible && setIsComponentVisible(false)
+                })
               }}
             >
               {SetNativeTranslate(Translate.language, {
@@ -155,8 +167,10 @@ const Links = ({ parent, setIsComponentVisible }: Props) => {
             disabled={location.pathname === BOARD_ROUTE}
             className={classes.NavBarItem}
             onClick={() => {
+              startTransition(() => {
               navigate(BOARD_ROUTE);
               setIsComponentVisible && setIsComponentVisible(false)
+              })
             }}
           >
             {SetNativeTranslate(Translate.language, {

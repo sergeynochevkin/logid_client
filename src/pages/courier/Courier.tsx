@@ -17,13 +17,13 @@ const {Translate}  = useCourier()
       <MainBanner
         slogan={SetNativeTranslate(Translate.language, {
           russian: ["Получайте уведомления о новых заказах"],
-          english: ["Exchange of cargo transportation and courier orders"],
+          english: ["Receive notifications about new orders"],
           spanish: [
-            "Intercambio de transporte de carga y pedidos de mensajería",
+            "Recibir notificaciones sobre nuevos pedidos",
           ],
-          turkish: ["Kargo taşımacılığı ve kurye siparişlerinin değişimi"],
-          сhinese: ["货物运输及快递单交换"],
-          hindi: ["कार्गो परिवहन और कूरियर ऑर्डर का आदान-प्रदान"],
+          turkish: ["Yeni siparişlerle ilgili bildirimler alın"],
+          сhinese: ["接收有关新订单的通知"],
+          hindi: ["नए आदेशों के बारे में सूचनाएं प्राप्त करें"],
         })}
       />
       {/* <AdminConsole/> */}

@@ -16,6 +16,8 @@ import { CardButton } from "../ui/button/CardButton";
 import { HorizontalContainer } from "../ui/page/HorizontalContainer";
 
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
+import { useLocation } from "react-router-dom";
+import { CARRIER_ROUTE, COURIER_ROUTE } from "../../utils/consts";
 
 const Container = styled.div`
   display: flex;
@@ -33,12 +35,13 @@ const TransportFormSection = ({
   formReset,
   setCalculate,
   files,
-  formFunction
+  formFunction,
 }) => {
   const { TransportType } = useContext(TransportTypeContext);
   const { EquipmentType } = useContext(EquipmentTypeContext);
   const { user } = useContext(UserContext);
   const { Translate } = useContext(TranslateContext);
+  const location = useLocation();
 
   useEffect(() => {
     localStorage.setItem("orderFormData", JSON.stringify(formData));
@@ -114,11 +117,24 @@ const TransportFormSection = ({
                 hindi: ["डिलिवरी विधि"],
               })}
             </option>
-            {TransportType.types.map((type) => (
-              <option value={type.type} key={type.id}>
-                {SetNativeTranslate(Translate.language, {}, type.type)}
-              </option>
-            ))}
+
+            {location.pathname === COURIER_ROUTE
+              ? TransportType.types.slice(0, 6).map((type) => (
+                  <option value={type.type} key={type.id}>
+                    {SetNativeTranslate(Translate.language, {}, type.type)}
+                  </option>
+                ))
+              : location.pathname === CARRIER_ROUTE
+              ? TransportType.types.slice(5, 8).map((type) => (
+                  <option value={type.type} key={type.id}>
+                    {SetNativeTranslate(Translate.language, {}, type.type)}
+                  </option>
+                ))
+              : TransportType.types.slice(0, 5).map((type) => (
+                  <option value={type.type} key={type.id}>
+                    {SetNativeTranslate(Translate.language, {}, type.type)}
+                  </option>
+                ))}
           </Select>
           <FieldName
             style={{

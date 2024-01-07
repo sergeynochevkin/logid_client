@@ -1,34 +1,36 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import classes from "./Banner.module.sass";
+import classes from "../../Banner.module.sass";
 import {
   SettingContext,
   TranslateContext,
   UserContext,
   UserInfoContext,
-} from "../..";
-import RatingView from "../../components/rating/RatingView";
-import { FieldName } from "../../components/ui/page/FieldName";
-import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
-import "../../App.css";
-import PreOrderForm from "../../components/order/preOrderForm/PreOrderForm";
+} from "../../../..";
+import RatingView from "../../../rating/RatingView";
+import { FieldName } from "../../../ui/page/FieldName";
+import { SetNativeTranslate } from "../../../../modules/SetNativeTranslate";
+import "../../../../App.css";
+import PreOrderForm from "../../../order/preOrderForm/PreOrderForm";
 
-import "../../components/account/Account.css";
-import FastSignUp from "../fastSignUp/FastSignUp";
+import "../../../../components/account/Account.css";
+import FastSignUp from "../../../fastSignUp/FastSignUp";
+import { useBannerActionContent } from "./hooks/useBannerActionContent";
+import { MAIN_ROUTE } from "../../../../utils/consts";
 
 const BannerActionContent = observer(({ slogan }) => {
   const { user } = useContext(UserContext);
   const { UserInfo } = useContext(UserInfoContext);
   const { Translate } = useContext(TranslateContext);
   const { Setting } = useContext(SettingContext);
+  const { location } = useBannerActionContent();
 
   return (
     <div className={classes.BannerActionSection}>
       {!user.user.role ? (
         <div className={classes.TextSection}>
           <div className={classes.MainSlogan}>{slogan}</div>
-          {/* <PreOrderForm /> */}
-          <FastSignUp />
+          {location.pathname === MAIN_ROUTE ? <PreOrderForm /> : <FastSignUp />}
         </div>
       ) : (
         <div className={classes.RatingSection}>
