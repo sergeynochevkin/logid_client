@@ -103,25 +103,25 @@ const Footer = observer(() => {
     //   section_id: 1,
     //   class: "footer_email",
     // },
-    {
-      id: 9,
-      icon: "",
-      name: (
-        <a href="./subscriptions">
-          {SetNativeTranslate(Translate.language, {
-            russian: ["Цены"],
-            english: ["Prices"],
-            spanish: ["Precios"],
-            turkish: ["Fiyat:% s"],
-            сhinese: ["价格"],
-            hindi: ["कीमतों"],
-          })}
-        </a>
-      ),
-      description: "",
-      section_id: 1,
-      class: "footer_email",
-    },
+    // {
+    //   id: 9,
+    //   icon: "",
+    //   name: (
+    //     <a href="./subscriptions">
+    //       {SetNativeTranslate(Translate.language, {
+    //         russian: ["Цены"],
+    //         english: ["Prices"],
+    //         spanish: ["Precios"],
+    //         turkish: ["Fiyat:% s"],
+    //         сhinese: ["价格"],
+    //         hindi: ["कीमतों"],
+    //       })}
+    //     </a>
+    //   ),
+    //   description: "",
+    //   section_id: 1,
+    //   class: "footer_email",
+    // },
     {
       id: 3,
       icon: "",
