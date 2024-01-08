@@ -62,7 +62,7 @@ const Auth = observer(
     modalActive,
     parent,
     after_action,
-    registerAndSensOrder,
+    registerAndSendOrder,
   }) => {
     const { user } = useContext(UserContext);
     const { link } = useContext(LinkContext);
@@ -667,8 +667,8 @@ const Auth = observer(
         fetching();
         user.setIsAuth(true);
         fetcher.setCustomLoading(false);
-
         setModalActive(false);
+        return data;
       } catch (e) {
         Notification.addNotification([
           { id: v4(), type: "error", message: e.response.data.message },
@@ -1190,7 +1190,13 @@ const Auth = observer(
               }
               onClick={(event) => {
                 event.preventDefault();
-                if (isRegister || isLogin) {
+                if (isRegister && location.pathname === MAIN_ORDER_ROUTE) {
+                  registerAndSendOrder(click);
+                }
+                if (
+                  (isRegister && location.pathname !== MAIN_ORDER_ROUTE) ||
+                  isLogin
+                ) {
                   click();
                 }
                 if (isRecovery && !codeSend) {

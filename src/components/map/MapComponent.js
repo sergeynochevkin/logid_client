@@ -21,8 +21,6 @@ const MapComponent = observer(
     thisOrder,
     setRecommended,
   }) => {
-
-
     const {
       UserInfo,
       Transport,
@@ -52,6 +50,8 @@ const MapComponent = observer(
       thisOrder,
       setRecommended
     );
+
+ 
 
     return (
       <div className="map_container">

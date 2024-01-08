@@ -162,7 +162,6 @@ export const usePreOrderForm = () => {
     setDisabled(!(preOrder.point_1.lat && preOrder.point_2.lat));
   }, [preOrder.point_1.lat, preOrder.point_2.lat, location.pathname]);
 
-  console.log(JSON.stringify(preOrder));
 
   return { preOrder, toOrderForm, disabled, dataReset, setPreOrder, Translate };
 };

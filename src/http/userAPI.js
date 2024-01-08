@@ -17,13 +17,10 @@ export const fast_registration = async (
   city_place_id,
   city_latitude,
   city_longitude,
-
   load_capacity,
   side_type,
   type,
-
   from_fast,
-
   thermo_bag,
   hydraulic_platform,
   side_loading,
@@ -50,13 +47,10 @@ export const fast_registration = async (
     city_place_id,
     city_latitude,
     city_longitude,
-
     load_capacity,
     side_type,
     type,
-
     from_fast,
-
     thermo_bag,
     hydraulic_platform,
     side_loading,

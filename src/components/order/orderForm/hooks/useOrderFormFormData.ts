@@ -22,6 +22,9 @@ import { sendMail } from "../../../../http/mailApi";
 import { useFiles } from "./useFiles";
 import { useOrderFormTranslate } from "./useOrderFormTranslate";
 import { initialTime, initialValue, pointInitialValue } from "../constants";
+import { fetchUserInfo } from "../../../../http/userInfoApi";
+import { useNavigate } from "react-router-dom";
+import { USER_ROUTE, MAIN_ORDER_ROUTE } from '../../../../utils/consts';
 
 export const useOrderFormFormData = () => {
   const { order } = useContext(OrderContext);
@@ -45,6 +48,7 @@ export const useOrderFormFormData = () => {
   const from_lng = queryParams.get("from_lng");
   const to_lng = queryParams.get("to_lng");
   const type = queryParams.get("type");
+  const navigate = useNavigate();
 
   const [pointsNotValid, setPointsNotValid] = useState<boolean>(false);
   const [timeNotValid, setTimeNotValid] = useState<boolean>(false);
@@ -280,8 +284,10 @@ export const useOrderFormFormData = () => {
     { isEmpty: true, minLength: 6, maxLength: 200 },
     SetNativeTranslate(Translate.language, {}, "comment").toLowerCase()
   );
-  formData.order_type = useInput(location.pathname ==='/main_order' ?  'order' : 
-    ComponentFunction.orderFormFunction === "newOrder"
+  formData.order_type = useInput(
+    location.pathname === MAIN_ORDER_ROUTE
+      ? "order"
+      : ComponentFunction.orderFormFunction === "newOrder"
       ? ""
       : orderPattern.order_type.value,
     { isEmpty: true }
@@ -501,13 +507,18 @@ export const useOrderFormFormData = () => {
     order.setFiles([]);
   };
 
-  const registerAndSensOrder = async (registerAction) => {
+  const registerAndSendOrder = async (registerAction) => {
     try {
       await registerAction().then((data) => {
-        //setUserId
-        //setUserInfoId
-        click();
+        console.log(JSON.stringify(data));
+        formData.userId = data.id;
       });
+      const userInfo = await fetchUserInfo(formData.userId);
+      formData.userInfoId = userInfo.id;
+      console.log(userInfo.id);
+      formData.order_status = "new";
+      click();
+      navigate(USER_ROUTE);
     } catch (error) {
       console.log(error);
     }
@@ -515,7 +526,7 @@ export const useOrderFormFormData = () => {
 
   const send = (event) => {
     event.preventDefault();
-    if (location.pathname === "/main_order") {
+    if (location.pathname === MAIN_ORDER_ROUTE) {
       setModalActive1(true);
     } else if (ComponentFunction.orderFormFunction === "edit") {
       formData.order_status = "postponed";
@@ -610,6 +621,7 @@ export const useOrderFormFormData = () => {
       if (formData.cost.isEmpty) {
         formData.cost.value = 0;
       }
+
       fetcher.setCustomLoading(true);
       await createOrder(
         Translate.language,
@@ -965,6 +977,6 @@ export const useOrderFormFormData = () => {
     Notification,
     modalActive1,
     setModalActive1,
-    registerAndSensOrder
+    registerAndSendOrder,
   };
 };

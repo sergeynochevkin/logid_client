@@ -55,7 +55,7 @@ const OrderForm = observer(({ setModalActive }) => {
     Translate,
     modalActive1,
     setModalActive1,
-    registerAndSensOrder,
+    registerAndSendOrder,
   } = useOrderFormFormData();
 
   const { order_editing_canceled, auction_editing_canceled } =
@@ -258,7 +258,7 @@ const OrderForm = observer(({ setModalActive }) => {
 
       <Modal setModalActive={setModalActive1} modalActive={modalActive1}>
         <Auth
-          registerAndSensOrder={registerAndSensOrder}
+          registerAndSendOrder={registerAndSendOrder}
           enterPoint={"isRegister"}
           setModalActive={setModalActive1}
           modalActive={modalActive1}

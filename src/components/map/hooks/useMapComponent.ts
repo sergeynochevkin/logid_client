@@ -329,13 +329,14 @@ export const useMapComponent = (
     setDirectionsResponse(null);
     setRouteDistance("");
     setRouteDuration("");
-    formData.cost.setValue("");
+    formData && formData.cost.setValue("");
     //does not clear form fields but removes added fields
-    setPointFormData(
-      ComponentFunction.orderFormFunction === "newOrder"
-        ? pointInitialValue
-        : JSON.parse(Point.pattern)
-    );
+    setPointFormData &&
+      setPointFormData(
+        ComponentFunction.orderFormFunction === "newOrder"
+          ? pointInitialValue
+          : JSON.parse(Point.pattern)
+      );
     initMap("map");
   }
 
@@ -425,8 +426,8 @@ export const useMapComponent = (
     }
 
     if (
-      user.user.role === "customer" &&
-      ComponentFunction.PageFunction === "orderForm"
+      user.user.role === "customer"
+      // && ComponentFunction.PageFunction === "orderForm"
     ) {
       Setting.setCenter({
         lat: parseFloat(UserInfo.userInfo.city_latitude),
