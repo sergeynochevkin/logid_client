@@ -352,7 +352,6 @@ export const useOrderFormFormData = () => {
       : pointPatternInitialValue
   );  
 
-  console.log(JSON.stringify(pointPatternInitialValue));
   
 
   useEffect(() => {
