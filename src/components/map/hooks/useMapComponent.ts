@@ -210,6 +210,7 @@ export const useMapComponent = (
     setMapTheme(map);
     setGMap(map);
     if (ComponentFunction.OrdersComponentFunction === "orderItem" && response) {
+      
       //eslint-disable-next-line no-undef
       new google.maps.DirectionsRenderer({
         suppressMarkers: false,
@@ -1144,9 +1145,9 @@ export const useMapComponent = (
     setShowMarkers(false);
   }, [showMarkers]);
 
-  useEffect(() => {
-    clearRoute();
-  }, [Adress.city.value]);
+  // useEffect(() => {
+  //   clearRoute();
+  // }, [Adress.city.value]);
 
   return {
     UserInfo,

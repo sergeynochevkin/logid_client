@@ -145,14 +145,15 @@ const NavBar = observer(() => {
           </div>
 
           {Adress.city.value ? (
-            <div
-              className="nav_bar_item"
+            <button
+            disabled= {user.isAuth}
+              className={classes.NavBarItem}
               onClick={() => {
-                setModalActive3(true);
+                !user.isAuth && setModalActive3(true);
               }}
             >
               {Adress.city.value}
-            </div>
+            </button>
           ) : (
             <div
               className={

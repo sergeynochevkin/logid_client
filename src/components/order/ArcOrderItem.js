@@ -82,6 +82,7 @@ const ArcOrderItem = observer(({ thisPoints, oneArcOrder }) => {
                                                 ComponentFunction.setOrderFormFunction('pattern')
                                             }
                                             localStorage.removeItem('orderFormData')
+                                            localStorage.removeItem('pointFormData')
                                             ComponentFunction.setPageFunction('orderForm')
                                             Notification.addNotification([{ id: v4(), type: 'success', message: `${you_opened} ${ComponentFunction.Function === 'arc' ? form_from_order : form_from_template} ${oneArcOrder.id}, ${check_restored_arc}` }])
                                         }}

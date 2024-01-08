@@ -70,6 +70,8 @@ const OrderForm = observer(({ setModalActive }) => {
     location,
   } = useOrderForm(setModalActive);
 
+  console.log(JSON.stringify(pointFormData));
+
   return (
     <div className={classes.Container}>
       <div className={classes.FormBlock}>

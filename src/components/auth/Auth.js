@@ -303,6 +303,12 @@ const Auth = observer(
           }
         } else {
           UserInfo.setUserInfo(data);
+          Adress.setCity({
+            lat: data.city_latitude,
+            lng: data.city_longitude,
+            value: data.city,
+            selected: true,
+          });
           data && fetcher.setUserAppSetting(true);
           fetcher.setUserInfo(true);
 

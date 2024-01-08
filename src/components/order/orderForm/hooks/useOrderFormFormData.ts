@@ -21,7 +21,6 @@ import { editOrder } from "../../../../http/orderApi";
 import { sendMail } from "../../../../http/mailApi";
 import { useFiles } from "./useFiles";
 import { useOrderFormTranslate } from "./useOrderFormTranslate";
-import { initialTime, initialValue, pointInitialValue } from "../constants";
 import { fetchUserInfo } from "../../../../http/userInfoApi";
 import { useNavigate } from "react-router-dom";
 import { USER_ROUTE, MAIN_ORDER_ROUTE } from '../../../../utils/consts';
@@ -181,7 +180,8 @@ export const useOrderFormFormData = () => {
   let orderPattern;
   let pointPatternInitialValue = [];
   let pointPattern;
-
+  
+  
   if (ComponentFunction.orderFormFunction !== "newOrder") {
     orderPattern = JSON.parse(order.pattern);
     orderPattern.for_who = {
@@ -232,7 +232,7 @@ export const useOrderFormFormData = () => {
     orderPattern.updated_by_role = "";
 
     pointPattern = JSON.parse(Point.pattern);
-    for (const point of pointPattern) {
+    for (const point of pointPattern) {      
       point.point = { value: point.point, isDirty: false, isEmptyError: false };
       point.time = {
         value:
@@ -350,7 +350,10 @@ export const useOrderFormFormData = () => {
       : ComponentFunction.orderFormFunction === "newOrder"
       ? pointInitialValue
       : pointPatternInitialValue
-  );
+  );  
+
+  console.log(JSON.stringify(pointPatternInitialValue));
+  
 
   useEffect(() => {
     if (from_value) {
@@ -510,12 +513,10 @@ export const useOrderFormFormData = () => {
   const registerAndSendOrder = async (registerAction) => {
     try {
       await registerAction().then((data) => {
-        console.log(JSON.stringify(data));
         formData.userId = data.id;
       });
       const userInfo = await fetchUserInfo(formData.userId);
       formData.userInfoId = userInfo.id;
-      console.log(userInfo.id);
       formData.order_status = "new";
       click();
       navigate(USER_ROUTE);
