@@ -354,10 +354,6 @@ export const useOrderFormFormData = () => {
     );
   }, []);
 
-  console.log(
-    JSON.stringify(pointPatternInitialValue) === JSON.stringify(pointFormData)
-  );
-
   useEffect(() => {
     if (from_value) {
       let data = [...pointFormData];

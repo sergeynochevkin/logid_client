@@ -4,12 +4,14 @@ import { SetNativeTranslate } from '../../../modules/SetNativeTranslate'
 import { Input } from '../../ui/form/Input'
 import { FieldName } from '../../ui/page/FieldName'
 import { VerticalContainer } from '../../ui/page/VerticalContainer'
+import { v4 } from 'uuid'
 
 const AdressComponent = ({ formData, setFormData, parent }) => {
 
   const { Adress } = useContext(AdressContext)
   const { UserInfo } = useContext(UserInfoContext)
   const { Translate } = useContext(TranslateContext)
+  const id = v4()
 
   let lat
   let lng
@@ -47,11 +49,11 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
   }
 
   useEffect(() => {
-    initAutocomplete('company_adress', Adress.country.google_code)
+    initAutocomplete(id, Adress.country.google_code)
   }, [])
 
   useEffect(() => {
-    initAutocomplete('company_adress', Adress.country.google_code)
+    initAutocomplete(id, Adress.country.google_code)
   }, [formData.city_latitude, formData.city_longitude])
 
   function onPlaceChanged(id) {
@@ -79,6 +81,8 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
     setFormData(data)
   }
 
+  
+
   return (
     <>
       <VerticalContainer
@@ -96,7 +100,7 @@ const AdressComponent = ({ formData, setFormData, parent }) => {
             setFormData(data)
           }}
           style={{ borderLeft: formData.company_adress.notValid ? 'solid 1px rgb(254, 111, 103,0.8)' : '' }}
-          type="text" name="company_adress" id='company_adress'></Input>
+          type="text" name="company_adress" id={id}></Input>
 
         <FieldName
           style={{

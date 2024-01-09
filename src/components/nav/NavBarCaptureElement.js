@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { Button } from "../../components/ui/button/Button";
 import { observer } from "mobx-react-lite";
 import { useContext } from "react";
@@ -8,11 +8,7 @@ import { useState } from "react";
 import Auth from "../../components/auth/Auth";
 import { useLocation } from "react-router-dom";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
-
-const showButton = () =>
-  document.querySelector("#scroll-to-top").classList.add("visible");
-const hideButton = () =>
-  document.querySelector("#scroll-to-top").classList.remove("visible");
+import { BOARD_ROUTE } from "../../utils/consts";
 
 const NavBarCaptureElement = observer(() => {
   const { user } = useContext(UserContext);
@@ -23,16 +19,27 @@ const NavBarCaptureElement = observer(() => {
   const location = useLocation();
   const { Translate } = useContext(TranslateContext);
 
+  const showButton = () => {
+    document.querySelector("#scroll-to-top") && document.querySelector("#scroll-to-top").classList.add("visible");
+  };
+  const hideButton = () => {
+    document.querySelector("#scroll-to-top") &&  document.querySelector("#scroll-to-top").classList.remove("visible");
+  };
+
   const addAdAction = (option) => {
     link.setAfterActions(true, option);
     setModalActive(true);
   };
 
-  if (role || location.pathname === "/board") {
-    document.addEventListener("scroll", (e) =>
-      window.scrollY < 100 ? hideButton() : showButton()
-    );
-  }
+  const showHide = useCallback((e) => {
+    window.scrollY  < 100 ? hideButton() : showButton();
+  },[]);
+
+  useEffect(() => {
+    location.pathname !== BOARD_ROUTE
+      ? document.removeEventListener("scroll", showHide)
+      : document.addEventListener("scroll", showHide);
+  }, [location.pathname]);
 
   return (
     <>

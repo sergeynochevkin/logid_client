@@ -146,7 +146,7 @@ const NavBar = observer(() => {
 
           {Adress.city.value ? (
             <button
-            disabled= {user.isAuth}
+              disabled={user.isAuth}
               className={classes.NavBarItem}
               onClick={() => {
                 !user.isAuth && setModalActive3(true);
