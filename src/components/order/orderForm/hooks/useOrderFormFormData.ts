@@ -23,7 +23,7 @@ import { useFiles } from "./useFiles";
 import { useOrderFormTranslate } from "./useOrderFormTranslate";
 import { fetchUserInfo } from "../../../../http/userInfoApi";
 import { useNavigate } from "react-router-dom";
-import { USER_ROUTE, MAIN_ORDER_ROUTE } from '../../../../utils/consts';
+import { USER_ROUTE, MAIN_ORDER_ROUTE } from "../../../../utils/consts";
 
 export const useOrderFormFormData = () => {
   const { order } = useContext(OrderContext);
@@ -178,10 +178,8 @@ export const useOrderFormFormData = () => {
   pointInitialValue[1].orderIntegrationId = order.integrationId;
 
   let orderPattern;
-  let pointPatternInitialValue = [];
-  let pointPattern;
-  
-  
+  const pointPatternInitialValue = [];
+
   if (ComponentFunction.orderFormFunction !== "newOrder") {
     orderPattern = JSON.parse(order.pattern);
     orderPattern.for_who = {
@@ -231,8 +229,8 @@ export const useOrderFormFormData = () => {
     orderPattern.order_final_status = "";
     orderPattern.updated_by_role = "";
 
-    pointPattern = JSON.parse(Point.pattern);
-    for (const point of pointPattern) {      
+    let pointPattern = JSON.parse(Point.pattern);
+    for (const point of pointPattern) {
       point.point = { value: point.point, isDirty: false, isEmptyError: false };
       point.time = {
         value:
@@ -342,17 +340,23 @@ export const useOrderFormFormData = () => {
   formData.userInfoId = UserInfo.userInfo.id;
   formData.pointsIntegrationId = order.integrationId;
 
-  const [pointFormData, setPointFormData] = useState(
-    from_lat
-      ? pointInitialValue
-      : localStorage.getItem("pointFormData")
-      ? JSON.parse(localStorage.getItem("pointFormData"))
-      : ComponentFunction.orderFormFunction === "newOrder"
-      ? pointInitialValue
-      : pointPatternInitialValue
-  );  
+  const [pointFormData, setPointFormData] = useState(pointInitialValue);
 
-  
+  useEffect(() => {
+    setPointFormData(
+      from_lat
+        ? pointInitialValue
+        : localStorage.getItem("pointFormData")
+        ? JSON.parse(localStorage.getItem("pointFormData"))
+        : ComponentFunction.orderFormFunction === "newOrder"
+        ? pointInitialValue
+        : pointPatternInitialValue
+    );
+  }, []);
+
+  console.log(
+    JSON.stringify(pointPatternInitialValue) === JSON.stringify(pointFormData)
+  );
 
   useEffect(() => {
     if (from_value) {

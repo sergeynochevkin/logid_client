@@ -1145,9 +1145,7 @@ export const useMapComponent = (
     setShowMarkers(false);
   }, [showMarkers]);
 
-  // useEffect(() => {
-  //   clearRoute();
-  // }, [Adress.city.value]);
+
 
   return {
     UserInfo,

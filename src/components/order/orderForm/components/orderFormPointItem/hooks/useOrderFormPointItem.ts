@@ -144,9 +144,7 @@ export const useOrderFormPointItem = (
     setCalculate(true);
   };
 
-  useEffect(() => {
-    dataReset();
-  }, [Adress.city.value]);
+
 
   return {
     UserInfo,

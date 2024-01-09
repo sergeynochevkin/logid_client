@@ -693,7 +693,7 @@ const Auth = observer(
           <Name>
             {isLogin
               ? SetNativeTranslate(Translate.language, {}, "authorization")
-              : isRegister
+              : isRegister && location.pathname !== MAIN_ORDER_ROUTE
               ? SetNativeTranslate(Translate.language, {}, "registration")
               : isRecovery
               ? SetNativeTranslate(Translate.language, {}, "password_recovery")
