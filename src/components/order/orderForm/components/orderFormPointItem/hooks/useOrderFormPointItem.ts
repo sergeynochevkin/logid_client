@@ -46,6 +46,10 @@ export const useOrderFormPointItem = (
     }
   }, []);
 
+  const queryParams = new URLSearchParams(window.location.search);
+
+  const from_value = queryParams.get("from_value");
+
   const [autocomplete, setAutoComplete] = useState({});
 
   const initAutocomplete = useCallback((id) => {
@@ -74,6 +78,7 @@ export const useOrderFormPointItem = (
     const regex = new RegExp("[0-9]");
     if (pointItem.point.value.length > 5 && regex.test(pointItem.point.value) &&     Object.keys(autocomplete).length === 0 ) {
   initAutocomplete(`id_${pointItem.id}`);
+  if(!from_value){
          //@ts-ignore
          document.querySelector(`#id_${pointItem.id}`).blur();
          setTimeout(() => {
@@ -81,6 +86,7 @@ export const useOrderFormPointItem = (
            document.querySelector(`#id_${pointItem.id}`).focus();
          }, 100);
     }
+  }
   }, [pointItem.point.value]);
 
   const onPlaceChanged = useCallback((id) => {
