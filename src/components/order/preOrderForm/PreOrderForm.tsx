@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import classes from "./PreOrderForm.module.sass";
 //@ts-ignore
 import { Input } from "../../ui/form/Input";
@@ -31,16 +31,17 @@ const PreOrderForm = observer(() => {
           <Input
             id={"point_1"}
             name="point_1"
+            defaultValue={preOrder.point_1.value}
             placeholder={SetNativeTranslate(Translate.language, {
-              russian: ["Откуда"],
-              english: ["Wherefrom"],
-              spanish: ["De donde"],
-              turkish: ["Nereden"],
-              сhinese: ["从哪里来"],
-              hindi: ["कहां से"],
+              russian: ["Введите улицу и номер дома"],
+              english: ["Enter street and house number"],
+              spanish: ["Introduzca la calle y el número de casa"],
+              turkish: ["Sokak ve ev numarasını girin"],
+              сhinese: ["输入街道和门牌号"],
+              hindi: ["सड़क और मकान नंबर दर्ज करें"],
             })}
-            onChange={() => {
-              dataReset("point_1");
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              dataReset("point_1", e);
             }}
             style={{
               borderLeft: preOrder["point_1"].isEmptyError
@@ -66,16 +67,17 @@ const PreOrderForm = observer(() => {
           <Input
             id={"point_2"}
             name="point_2"
+            defaultValue={preOrder.point_2.value}
             placeholder={SetNativeTranslate(Translate.language, {
-              russian: ["Куда"],
-              english: ["Whereto"],
-              spanish: ["A donde"],
-              turkish: ["Nereye"],
-              сhinese: ["去哪儿"],
-              hindi: ["कहाँ जाना है"],
+              russian: ["Введите улицу и номер дома"],
+              english: ["Enter street and house number"],
+              spanish: ["Introduzca la calle y el número de casa"],
+              turkish: ["Sokak ve ev numarasını girin"],
+              сhinese: ["输入街道和门牌号"],
+              hindi: ["सड़क और मकान नंबर दर्ज करें"],
             })}
-            onChange={() => {
-              dataReset("point_2");
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              dataReset("point_2", e);
             }}
             style={{
               borderLeft: preOrder["point_2"].isEmptyError
@@ -140,14 +142,14 @@ const PreOrderForm = observer(() => {
       </div>
 
       <Button disabled={disabled} onClick={toOrderForm}>
-      {SetNativeTranslate(Translate.language, {
-              russian: ["Рассчитать стоимость доставки"],
-              english: ["Calculate shipping cost"],
-              spanish: ["Calcular el costo de envío"],
-              turkish: ["Gönderim maliyetini hesaplayın"],
-              сhinese: ["计算运费"],
-              hindi: ["शिपिंग लागत की गणना करें"],
-            })}
+        {SetNativeTranslate(Translate.language, {
+          russian: ["Рассчитать стоимость доставки"],
+          english: ["Calculate shipping cost"],
+          spanish: ["Calcular el costo de envío"],
+          turkish: ["Gönderim maliyetini hesaplayın"],
+          сhinese: ["计算运费"],
+          hindi: ["शिपिंग लागत की गणना करें"],
+        })}
       </Button>
     </div>
   );

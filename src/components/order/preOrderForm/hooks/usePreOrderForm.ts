@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 //@ts-ignore
 import {
   AdressContext,
@@ -16,7 +16,6 @@ import { MAIN_ORDER_ROUTE } from "../../../../utils/consts";
 import { PreOrderData } from "../types";
 
 export const usePreOrderForm = () => {
-  
   const initialValue = {
     point_1: {
       value: "",
@@ -36,10 +35,12 @@ export const usePreOrderForm = () => {
       lng: undefined,
     },
     type: "car",
-  }
+  };
+
+  const [test, setTest] = useState("");
 
 
-  const [preOrder, setPreOrder] = useState<PreOrderData>({...initialValue});
+  const [preOrder, setPreOrder] = useState<PreOrderData>({ ...initialValue });
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
   //@ts-ignore
@@ -53,7 +54,7 @@ export const usePreOrderForm = () => {
   //@ts-ignore
   const { ComponentFunction } = useContext(ComponentFunctionContext);
 
-  const [autocomplete] = useState({
+  const [autocomplete, setAutocomplete] = useState({
     point_1: {},
     point_2: {},
   });
@@ -125,16 +126,16 @@ export const usePreOrderForm = () => {
       .map((key) => "to_" + key + "=" + preOrder.point_2[key])
       .join("&&");
     const params = from + "&&" + to + "&&type=" + preOrder.type;
-    setPreOrder({...initialValue});
+    setPreOrder({ ...initialValue });
     navigate(`${MAIN_ORDER_ROUTE}?${params}`);
   };
 
-  const dataReset = (id: string) => {
+  const dataReset = (id: string, e:ChangeEvent<HTMLInputElement> ) => {
     setPreOrder({
       ...preOrder,
       //@ts-ignore
       [id]: {
-        value: "",
+        value: e.target.value,
         isDirty: true,
         isEmptyError: true,
         errorMessage: "",
@@ -153,15 +154,37 @@ export const usePreOrderForm = () => {
         east: Setting.center.lng + parseFloat(Setting.bounds_limit) * 2,
         west: Setting.center.lng - parseFloat(Setting.bounds_limit) * 2,
       });
-      initAutocomplete("point_1");
-      initAutocomplete("point_2");
     }
-  }, [Adress.city.value]);
+  }, []);
+
+  useEffect(() => {    
+    if (!user.isAuth) {
+      const regex = new RegExp("[0-9]");
+      if (preOrder.point_1.value.length > 5 && regex.test(preOrder.point_1.value)) {
+        Object.keys(autocomplete.point_1).length === 0 &&
+          initAutocomplete("point_1");
+      }
+      if (preOrder.point_2.value.length > 5 && regex.test(preOrder.point_2.value)) {
+        Object.keys(autocomplete.point_2).length === 0 &&
+          initAutocomplete("point_2");
+      }
+    }
+  }, [preOrder.point_1.value, preOrder.point_2.value]);
 
   useEffect(() => {
     setDisabled(!(preOrder.point_1.lat && preOrder.point_2.lat));
-  }, [preOrder.point_1.lat, preOrder.point_2.lat, location.pathname]);
+  }, [
+    preOrder.point_1.lat,
+    preOrder.point_2.lat,
+    location.pathname,
+   ]);
 
-
-  return { preOrder, toOrderForm, disabled, dataReset, setPreOrder, Translate };
+  return {
+    preOrder,
+    toOrderForm,
+    disabled,
+    dataReset,
+    setPreOrder,
+    Translate,
+  };
 };

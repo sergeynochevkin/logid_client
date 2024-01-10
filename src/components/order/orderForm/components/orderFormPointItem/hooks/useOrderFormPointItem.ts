@@ -1,6 +1,12 @@
 //@ts-nocheck
 
-import { useContext, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   AdressContext,
   SettingContext,
@@ -40,14 +46,13 @@ export const useOrderFormPointItem = (
     }
   }, []);
 
-  let autocomplete;
-  let autocompleteListener;
-  function initAutocomplete(id) {
+  const [autocomplete, setAutoComplete] = useState({});
+
+  const initAutocomplete = useCallback((id) => {
     if (Adress.country) {
       //eslint-disable-next-line no-undef
-      autocomplete = new google.maps.places.Autocomplete(
-        document.getElementById(id),
-        {
+      setAutoComplete(
+        new google.maps.places.Autocomplete(document.getElementById(id), {
           bounds: Setting.bounds,
           strictBounds: true,
           types: ["geocode"],
@@ -56,24 +61,23 @@ export const useOrderFormPointItem = (
           },
           fields: ["geometry", "address_components", "name"],
           language: Adress.country.google_language,
-        }
+        })
       );
-      autocompleteListener = autocomplete.addListener(
+      autocomplete.addListener && autocomplete.addListener(
         "place_changed",
         onPlaceChanged
       );
     }
-  }
+  }, []);
 
   useEffect(() => {
-    initAutocomplete(pointItem.id);
-  }, [Setting.bounds]);
+    const regex = new RegExp("[0-9]");
+    if (pointItem.point.value.length > 5 && regex.test(pointItem.point.value)) {
+      Object.keys(autocomplete).length === 0 && initAutocomplete(pointItem.id);
+    }
+  }, [pointItem.point.value]);
 
-  useEffect(() => {
-    initAutocomplete(pointItem.id);
-  }, [pointFormData.length, Setting.bounds_limit, pointItem.sequence]);
-
-  function onPlaceChanged(id) {
+  const onPlaceChanged = useCallback((id) => {
     var place = autocomplete.getPlace();
     var address_components = autocomplete.getPlace().address_components;
     if (!place.geometry) {
@@ -117,22 +121,20 @@ export const useOrderFormPointItem = (
       setPointFormData(data);
       setCalculate(true);
     }
-  }
+  }, []);
 
-  const dataReset = () => {
+  const dataReset = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     let data = [...pointFormData];
-    if (data[index].latitude && data[index].longitude) {
-      data[index].point.value = "";
-      data[index].latitude = undefined;
-      data[index].longitude = undefined;
-      data[index].city = "";
-      data[index].point.isEmptyError = true;
-      setPointFormData(data);
-      // autocomplete.set('place', null) // whether it is necessary?
-    }
-  };
+    data[index].point.value = e.target.value;
+    data[index].latitude = undefined;
+    data[index].longitude = undefined;
+    data[index].city = "";
+    data[index].point.isEmptyError = true;
+    setPointFormData(data);
+    // autocomplete.set('place', null) // whether it is necessary?
+  }, []);
 
-  const selectFromHistoryAction = (point) => {
+  const selectFromHistoryAction = useCallback((point) => {
     let data = [...pointFormData];
     data[index].point.value = point.value;
     data[index].latitude = point.latitude;
@@ -142,9 +144,7 @@ export const useOrderFormPointItem = (
     setPointFormData(data);
     document.getElementById(`${pointItem.id}`).value = pointItem.point.value;
     setCalculate(true);
-  };
-
-
+  }, []);
 
   return {
     UserInfo,

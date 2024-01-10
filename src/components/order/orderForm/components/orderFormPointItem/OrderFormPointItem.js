@@ -82,14 +82,19 @@ const OrderFormPointItem = observer(
                 id={pointItem.id}
                 name="point"
                 defaultValue={pointItem.point.value}
-                placeholder={SetNativeTranslate(
-                  Translate.language,
-                  {},
-                  "enter_place"
-                )}
-                onChange={() => {
+                placeholder={SetNativeTranslate(Translate.language, {
+                  russian: ["Введите улицу и номер дома"],
+                  english: ["Enter street and house number"],
+                  spanish: [
+                    "Introduzca la calle y el número de casa",
+                  ],
+                  turkish: ["Sokak ve ev numarasını girin"],
+                  сhinese: ["输入街道和门牌号"],
+                  hindi: ["सड़क और मकान नंबर दर्ज करें"],
+                })}
+                onChange={(e) => {
                   if (pointFormData[index].value !== "") {
-                    dataReset();
+                    dataReset(e);
                   }
                 }}
                 onBlur={(event) => {
