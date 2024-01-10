@@ -40,6 +40,7 @@ import star from "../../../assets/icons/star.webp";
 import star_dark from "../../../assets/icons/star_dark.webp";
 import { calculateTime } from "../../order/orderForm/functions/pointFunctions";
 import { setCarriagePrice } from "../../../modules/setCarriagePrice";
+import { SetNativeTranslate } from '../../../modules/SetNativeTranslate';
 
 export const useMapComponent = (
   pointFormData,

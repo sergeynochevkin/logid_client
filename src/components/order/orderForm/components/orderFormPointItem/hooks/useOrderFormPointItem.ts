@@ -50,12 +50,12 @@ export const useOrderFormPointItem = (
 
   const from_value = queryParams.get("from_value");
 
-  const [autocomplete, setAutoComplete] = useState({});
+  const [autocomplete] = useState({value:{}});
 
   const initAutocomplete = useCallback((id) => {
     if (Adress.country) {
       //eslint-disable-next-line no-undef
-      setAutoComplete(
+      autocomplete.value = 
         new google.maps.places.Autocomplete(document.getElementById(id), {
           bounds: Setting.bounds,
           strictBounds: true,
@@ -66,8 +66,8 @@ export const useOrderFormPointItem = (
           fields: ["geometry", "address_components", "name"],
           language: Adress.country.google_language,
         })
-      );
-      autocomplete.addListener && autocomplete.addListener(
+    
+    autocomplete.value.addListener(
         "place_changed",
         onPlaceChanged
       );
@@ -76,7 +76,7 @@ export const useOrderFormPointItem = (
 
   useEffect(() => {
     const regex = new RegExp("[0-9]");
-    if (pointItem.point.value.length > 5 && regex.test(pointItem.point.value) &&     Object.keys(autocomplete).length === 0 ) {
+    if (pointItem.point.value.length > 5 && regex.test(pointItem.point.value) &&     Object.keys(autocomplete.value).length === 0 ) {
   initAutocomplete(`id_${pointItem.id}`);
   if(!from_value){
          //@ts-ignore
@@ -90,8 +90,8 @@ export const useOrderFormPointItem = (
   }, [pointItem.point.value]);
 
   const onPlaceChanged = useCallback((id) => {
-    var place = autocomplete.getPlace();
-    var address_components = autocomplete.getPlace().address_components;
+    var place = autocomplete.value.getPlace();
+    var address_components = autocomplete.value.getPlace().address_components;
     if (!place.geometry) {
       document.getElementById(id).placeholder = SetNativeTranslate(
         Translate.language,

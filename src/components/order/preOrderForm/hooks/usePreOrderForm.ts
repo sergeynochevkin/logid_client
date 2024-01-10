@@ -53,7 +53,7 @@ export const usePreOrderForm = () => {
   //@ts-ignore
   const { ComponentFunction } = useContext(ComponentFunctionContext);
 
-  const [autocomplete, setAutocomplete] = useState({
+  const [autocomplete] = useState({
     point_1: {},
     point_2: {},
   });

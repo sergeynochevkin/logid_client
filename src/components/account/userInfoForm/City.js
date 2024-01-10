@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { AdressContext, TranslateContext } from "../../..";
 import { SetNativeTranslate } from "../../../modules/SetNativeTranslate";
 import { Input } from "../../ui/form/Input";
@@ -13,10 +13,10 @@ const City = ({ formData, setFormData, id }) => {
     id = "city";
   }
 
-  let autocomplete;
-  function initAutocomplete(id, country) {
+  const [autocomplete] = useState({ value: {} });
+  const initAutocomplete = useCallback((id, country) => {
     //eslint-disable-next-line no-undef
-    autocomplete = new google.maps.places.Autocomplete(
+    autocomplete.value = new google.maps.places.Autocomplete(
       document.getElementById(id),
       {
         types: ["locality", "administrative_area_level_3"],
@@ -25,21 +25,25 @@ const City = ({ formData, setFormData, id }) => {
         language: Adress.country.google_language,
       }
     );
-    autocomplete.addListener("place_changed", onPlaceChanged);
-  }
-
-  useEffect(() => {
-    initAutocomplete(id, Adress.country.google_code);
+    autocomplete.value.addListener("place_changed", onPlaceChanged);
   }, []);
 
   useEffect(() => {
-    initAutocomplete(id, Adress.country.google_code);
-    dataReset();
-  }, [Adress.country]);
+    if (
+      formData.city.value.length > 2 &&
+      Object.keys(autocomplete.value).length === 0
+    ) {
+      initAutocomplete(id, Adress.country.google_code);
+      document.querySelector(`#${id}`).blur();
+      setTimeout(() => {
+        document.querySelector(`#${id}`).focus();
+      }, 100);
+    }
+  }, [formData.city.value]);
 
-  const dataReset = () => {
+  const dataReset = useCallback((e) => {
     let data = { ...formData };
-    data.city.value = "";
+    data.city.value = e.target.value;
     data.city_latitude = undefined;
     data.city_longitude = undefined;
     data.city.notValid = true;
@@ -50,10 +54,10 @@ const City = ({ formData, setFormData, id }) => {
     data.company_adress.notValid = true;
 
     setFormData(data);
-  };
+  }, []);
 
-  function onPlaceChanged(id) {
-    var place = autocomplete.getPlace();
+  const onPlaceChanged = useCallback((id) => {
+    var place = autocomplete.value.getPlace();
     if (place) {
       if (!place.geometry) {
         document.getElementById(id).placeholder = SetNativeTranslate(
@@ -67,11 +71,10 @@ const City = ({ formData, setFormData, id }) => {
         data.city_latitude = place.geometry.location.lat();
         data.city_longitude = place.geometry.location.lng();
         data.city.notValid = false;
-
         setFormData(data);
       }
     }
-  }
+  }, []);
 
   return (
     <>
@@ -81,10 +84,8 @@ const City = ({ formData, setFormData, id }) => {
           defaultValue={formData.city.value}
           name="city"
           id={id}
-          onChange={() => {
-            if (formData.city.value !== "") {
-              dataReset();
-            }
+          onChange={(e) => {
+            dataReset(e);
           }}
           onBlur={() => {
             let data = { ...formData };

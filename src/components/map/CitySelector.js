@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   AdressContext,
   FetcherContext,
@@ -33,16 +33,17 @@ const CitySelector = observer(
     const { Translate } = useContext(TranslateContext);
     const { fetcher } = useContext(FetcherContext);
     const { user } = useContext(UserContext);
+    const [cityValue, setCityValue] = useState("");
 
     let userCity = { lat: undefined, lng: undefined, name: "" };
     userCity.name = UserInfo.userInfo.city;
     userCity.lat = parseFloat(UserInfo.userInfo.city_latitude);
     userCity.lng = parseFloat(UserInfo.userInfo.city_longitude);
 
-    let autocomplete;
-    function initAutocomplete(id, country) {
+    const [autocomplete] = useState({ value: {} });
+    const initAutocomplete = useCallback((id, country) => {
       //eslint-disable-next-line no-undef
-      autocomplete = new google.maps.places.Autocomplete(
+      autocomplete.value = new google.maps.places.Autocomplete(
         document.getElementById(id),
         {
           types: ["locality", "administrative_area_level_3"],
@@ -50,8 +51,8 @@ const CitySelector = observer(
           fields: ["geometry", "name"],
         }
       );
-      autocomplete.addListener("place_changed", onPlaceChanged);
-    }
+      autocomplete.value.addListener("place_changed", onPlaceChanged);
+    }, []);
 
     const subscription_cities_limit = SetNativeTranslate(
       Translate.language,
@@ -79,8 +80,8 @@ const CitySelector = observer(
       "your_default_city"
     );
 
-    function onPlaceChanged(id) {
-      var place = autocomplete.getPlace();
+    const onPlaceChanged = useCallback((id) => {
+      var place = autocomplete.value.getPlace();
       let pattern = { lat: undefined, lng: undefined, name: "" };
       if (!place.geometry) {
         document.getElementById(id).placeholder = SetNativeTranslate(
@@ -146,10 +147,9 @@ const CitySelector = observer(
           fetcher.setOrders(true);
         }
       }
-    }
+    }, []);
 
     useEffect(() => {
-      initAutocomplete("city", Adress.country.google_code);
       Setting.setUserMapCity(
         State.user_state.user_map_citу &&
           Object.keys(State.user_state.user_map_citу).length !== 0
@@ -160,6 +160,17 @@ const CitySelector = observer(
         State.user_state.user_map_cities ? State.user_state.user_map_cities : []
       );
     }, []);
+
+    useEffect(() => {
+      if (cityValue.length > 2 && Object.keys(autocomplete.value).length === 0) {
+        console.log("yes");
+        initAutocomplete("city", Adress.country.google_code);
+        document.querySelector(`#city`).blur();
+        setTimeout(() => {
+          document.querySelector(`#city`).focus();
+        }, 100);
+      }
+    }, [cityValue]);
 
     function resetAllCities() {
       Setting.setAllCities(false);
@@ -177,6 +188,10 @@ const CitySelector = observer(
       <>
         {user.user.role !== "driver" ? (
           <input
+            value={cityValue}
+            onChange={(e) => {
+              setCityValue(e.target.value);
+            }}
             className="city_selector_input"
             id="city"
             placeholder={SetNativeTranslate(

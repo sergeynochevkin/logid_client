@@ -1,4 +1,4 @@
-import React, {Dispatch,SetStateAction } from "react";
+import React, {ChangeEvent, Dispatch,SetStateAction } from "react";
 import classes from "./CitySelector.module.sass";
 import { useCitySelector } from "./hooks/useCitySelector";
 //@ts-ignore
@@ -13,7 +13,7 @@ type Props = {
 
 
 const CitySelector = ({setModalActive}:Props) => {
-  const { Setting,  id, Translate } = useCitySelector(setModalActive);
+  const { Setting,  id, Translate,cityValue, setCityValue } = useCitySelector(setModalActive);
 
   return (
     <div className={classes.Container}>
@@ -27,6 +27,8 @@ const CitySelector = ({setModalActive}:Props) => {
       <Input
         id={id}
         placeholder={SetNativeTranslate(Translate.language, {}, "enter_city")}
+        value = {cityValue}
+        onChange={(e:ChangeEvent<HTMLInputElement>)=>{setCityValue(e.target.value)}}
       />
     </div>
   );
