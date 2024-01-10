@@ -79,7 +79,7 @@ const OrderFormPointItem = observer(
           <div className="point_field_container" style={{ gap: "0px" }}>
             <div className="input_row">
               <Input
-                id={pointItem.id}
+                id={`id_${pointItem.id}`}
                 name="point"
                 defaultValue={pointItem.point.value}
                 placeholder={SetNativeTranslate(Translate.language, {

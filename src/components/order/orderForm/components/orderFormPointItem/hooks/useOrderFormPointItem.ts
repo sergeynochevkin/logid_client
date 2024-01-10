@@ -72,8 +72,14 @@ export const useOrderFormPointItem = (
 
   useEffect(() => {
     const regex = new RegExp("[0-9]");
-    if (pointItem.point.value.length > 5 && regex.test(pointItem.point.value)) {
-      Object.keys(autocomplete).length === 0 && initAutocomplete(pointItem.id);
+    if (pointItem.point.value.length > 5 && regex.test(pointItem.point.value) &&     Object.keys(autocomplete).length === 0 ) {
+  initAutocomplete(`id_${pointItem.id}`);
+         //@ts-ignore
+         document.querySelector(`#id_${pointItem.id}`).blur();
+         setTimeout(() => {
+           //@ts-ignore
+           document.querySelector(`#id_${pointItem.id}`).focus();
+         }, 100);
     }
   }, [pointItem.point.value]);
 
@@ -142,7 +148,7 @@ export const useOrderFormPointItem = (
     data[index].city = point.city;
     data[index].point.isEmptyError = false;
     setPointFormData(data);
-    document.getElementById(`${pointItem.id}`).value = pointItem.point.value;
+    document.getElementById(`id_${pointItem.id}`).value = pointItem.point.value;
     setCalculate(true);
   }, []);
 

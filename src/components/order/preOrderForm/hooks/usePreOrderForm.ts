@@ -39,7 +39,6 @@ export const usePreOrderForm = () => {
 
   const [test, setTest] = useState("");
 
-
   const [preOrder, setPreOrder] = useState<PreOrderData>({ ...initialValue });
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
@@ -130,7 +129,7 @@ export const usePreOrderForm = () => {
     navigate(`${MAIN_ORDER_ROUTE}?${params}`);
   };
 
-  const dataReset = (id: string, e:ChangeEvent<HTMLInputElement> ) => {
+  const dataReset = (id: string, e: ChangeEvent<HTMLInputElement>) => {
     setPreOrder({
       ...preOrder,
       //@ts-ignore
@@ -157,27 +156,41 @@ export const usePreOrderForm = () => {
     }
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!user.isAuth) {
       const regex = new RegExp("[0-9]");
-      if (preOrder.point_1.value.length > 5 && regex.test(preOrder.point_1.value)) {
-        Object.keys(autocomplete.point_1).length === 0 &&
-          initAutocomplete("point_1");
+      if (
+        preOrder.point_1.value.length > 4 &&
+        regex.test(preOrder.point_1.value) &&
+        Object.keys(autocomplete.point_1).length === 0
+      ) {
+        initAutocomplete("point_1");
+        //@ts-ignore
+        document.querySelector("#point_1").blur();
+        setTimeout(() => {
+          //@ts-ignore
+          document.querySelector("#point_1").focus();
+        }, 100);
       }
-      if (preOrder.point_2.value.length > 5 && regex.test(preOrder.point_2.value)) {
-        Object.keys(autocomplete.point_2).length === 0 &&
-          initAutocomplete("point_2");
+      if (
+        preOrder.point_2.value.length > 4 &&
+        regex.test(preOrder.point_2.value) &&
+        Object.keys(autocomplete.point_2).length === 0
+      ) {
+        initAutocomplete("point_2");
+        //@ts-ignore
+        document.querySelector("#point_2").blur();
+        setTimeout(() => {
+          //@ts-ignore
+          document.querySelector("#point_2").focus();
+        }, 100);
       }
     }
   }, [preOrder.point_1.value, preOrder.point_2.value]);
 
   useEffect(() => {
     setDisabled(!(preOrder.point_1.lat && preOrder.point_2.lat));
-  }, [
-    preOrder.point_1.lat,
-    preOrder.point_2.lat,
-    location.pathname,
-   ]);
+  }, [preOrder.point_1.lat, preOrder.point_2.lat, location.pathname]);
 
   return {
     preOrder,
