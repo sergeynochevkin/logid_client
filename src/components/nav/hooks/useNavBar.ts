@@ -40,9 +40,15 @@ export const useNavBar = () => {
   const navigate = useNavigate();
   let location = useLocation();
   const { width } = useWindowDimensions();
+  const queryParams = new URLSearchParams(window.location.search);
+  const city = queryParams.get("city");
 
   useEffect(() => {
-    if (!Adress.city.selected && Object.keys(UserInfo.userInfo).length === 0) {
+    if (
+      !Adress.city.selected &&
+      Object.keys(UserInfo.userInfo).length === 0 &&
+      !city
+    ) {
       setModalActive3(true);
       Adress.setCity({ ...Adress.city, selected: true });
     }
