@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import {
   AdContext,
+  AdressContext,
   ComponentFunctionContext,
   DriverContext,
   FetcherContext,
@@ -71,6 +72,7 @@ const Fetcher = observer(() => {
   const { Management } = useContext(ManagementContext);
   const { Ad } = useContext(AdContext);
   const { Setting } = useContext(SettingContext);
+  const { Adress } = useContext(AdressContext);
 
   let fetchImages = async (type, item, file) => {
     let serverFile = await fetchFile(item.id, type, file);
@@ -484,6 +486,14 @@ const Fetcher = observer(() => {
     async function fetch() {
       await fetchUserInfo(user.user.id).then((data) => {
         data && UserInfo.setUserInfo(data);
+        // compare city and set
+        data.city !== Adress.city.value &&
+          Adress.setCity({
+            lat: data.city_latitude,
+            lng: data.city_longitude,
+            value: data.city,
+            selected: true,
+          });
       });
     }
     fetcher.account_user_info && fetch();
