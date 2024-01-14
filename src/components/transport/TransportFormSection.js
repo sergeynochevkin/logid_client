@@ -17,7 +17,7 @@ import { HorizontalContainer } from "../ui/page/HorizontalContainer";
 
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 import { useLocation } from "react-router-dom";
-import { CARRIER_ROUTE, COURIER_ROUTE } from "../../utils/consts";
+import { CARRIER_ROUTE, COURIER_ROUTE, MAIN_ORDER_ROUTE } from "../../utils/consts";
 
 const Container = styled.div`
   display: flex;
@@ -60,7 +60,8 @@ const TransportFormSection = ({
 
   //make the restriction not recalculate if car changes to car
   useEffect(() => {
-    if (user.user.role === "customer") {
+    if (user.user.role === "customer" || location.pathname === MAIN_ORDER_ROUTE) {
+      // добавить условия по типам, когда пересчет не нужен!
       if (formData.type.value !== "") {
         setCalculate(true);
       }
@@ -130,7 +131,7 @@ const TransportFormSection = ({
                     {SetNativeTranslate(Translate.language, {}, type.type)}
                   </option>
                 ))
-              : TransportType.types.map((type) => (
+              : TransportType.types.slice(0, 5).map((type) => (
                   <option value={type.type} key={type.id}>
                     {SetNativeTranslate(Translate.language, {}, type.type)}
                   </option>

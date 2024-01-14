@@ -8,6 +8,7 @@ import { setDuration } from "../../modules/setDuration";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 import { useMapComponent } from "./hooks/useMapComponent";
 import { mapScaleSteps } from "./constants";
+import { MAIN_ORDER_ROUTE } from "../../utils/consts";
 
 const MapComponent = observer(
   ({
@@ -56,7 +57,7 @@ const MapComponent = observer(
     return (
       <div className="map_container">
         <div id="map" className="map"></div>
-        {ComponentFunction.PageFunction === "orderForm" && (
+        {ComponentFunction.PageFunction === "orderForm" || location.pathname === MAIN_ORDER_ROUTE &&  (
           <div className={"map_info_container"}>
             <div className={"button_container"}>
               {ComponentFunction.orderFormFunction === "newOrder" && (
