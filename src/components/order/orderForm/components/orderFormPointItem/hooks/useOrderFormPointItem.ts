@@ -15,6 +15,7 @@ import {
   UserInfoContext,
 } from "../../../../../..";
 import { v4 } from "uuid";
+import { mainOrderPointsLength } from "../../../../../../constants";
 
 export const useOrderFormPointItem = (
   setPointFormData,
@@ -30,6 +31,7 @@ export const useOrderFormPointItem = (
   const [showHistory, setShowHistory] = useState(false);
   const [customInput, setCustomInput] = useState(false);
   const { State } = useContext(StateContext);
+  const [addPointDisabled, setAddPointDisabled] = useState(false);
 
   useEffect(() => {
     if (location.pathname === "/user") {
@@ -46,17 +48,24 @@ export const useOrderFormPointItem = (
     }
   }, []);
 
+  useEffect(() => {
+    if (location.pathname === "/main_order") {    
+      setAddPointDisabled((pointFormData.length >= mainOrderPointsLength));
+    }
+  }, [pointFormData.length]);
+
   const queryParams = new URLSearchParams(window.location.search);
 
   const from_value = queryParams.get("from_value");
 
-  const [autocomplete] = useState({value:{}});
+  const [autocomplete] = useState({ value: {} });
 
   const initAutocomplete = useCallback((id) => {
     if (Adress.country) {
       //eslint-disable-next-line no-undef
-      autocomplete.value = 
-        new google.maps.places.Autocomplete(document.getElementById(id), {
+      autocomplete.value = new google.maps.places.Autocomplete(
+        document.getElementById(id),
+        {
           bounds: Setting.bounds,
           strictBounds: true,
           types: ["geocode"],
@@ -65,28 +74,30 @@ export const useOrderFormPointItem = (
           },
           fields: ["geometry", "address_components", "name"],
           language: Adress.country.google_language,
-        })
-    
-    autocomplete.value.addListener(
-        "place_changed",
-        onPlaceChanged
+        }
       );
+
+      autocomplete.value.addListener("place_changed", onPlaceChanged);
     }
   }, []);
 
   useEffect(() => {
     const regex = new RegExp("[0-9]");
-    if (pointItem.point.value.length > 5 && regex.test(pointItem.point.value) &&     Object.keys(autocomplete.value).length === 0 ) {
-  initAutocomplete(`id_${pointItem.id}`);
-  if(!from_value){
-         //@ts-ignore
-         document.querySelector(`#id_${pointItem.id}`).blur();
-         setTimeout(() => {
-           //@ts-ignore
-           document.querySelector(`#id_${pointItem.id}`).focus();
-         }, 100);
+    if (
+      pointItem.point.value.length > 5 &&
+      regex.test(pointItem.point.value) &&
+      Object.keys(autocomplete.value).length === 0
+    ) {
+      initAutocomplete(`id_${pointItem.id}`);
+      if (!from_value) {
+        //@ts-ignore
+        document.querySelector(`#id_${pointItem.id}`).blur();
+        setTimeout(() => {
+          //@ts-ignore
+          document.querySelector(`#id_${pointItem.id}`).focus();
+        }, 100);
+      }
     }
-  }
   }, [pointItem.point.value]);
 
   const onPlaceChanged = useCallback((id) => {
@@ -169,5 +180,6 @@ export const useOrderFormPointItem = (
     setCustomInput,
     selectFromHistoryAction,
     dataReset,
+    addPointDisabled,
   };
 };

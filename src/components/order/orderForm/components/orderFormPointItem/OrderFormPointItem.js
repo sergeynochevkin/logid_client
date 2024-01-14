@@ -39,7 +39,8 @@ const OrderFormPointItem = observer(
     setCalculate,
     move_up,
     move_down,
-    setCurrentPoint,
+    setCurrentPoint
+    
   }) => {
     const {
       UserInfo,
@@ -52,6 +53,7 @@ const OrderFormPointItem = observer(
       setCustomInput,
       selectFromHistoryAction,
       dataReset,
+      addPointDisabled
     } = useOrderFormPointItem(
       setPointFormData,
       pointFormData,
@@ -59,6 +61,8 @@ const OrderFormPointItem = observer(
       pointItem,
       index
     );
+
+
 
     return (
       <div
@@ -85,9 +89,7 @@ const OrderFormPointItem = observer(
                 placeholder={SetNativeTranslate(Translate.language, {
                   russian: ["Введите улицу и номер дома"],
                   english: ["Enter street and house number"],
-                  spanish: [
-                    "Introduzca la calle y el número de casa",
-                  ],
+                  spanish: ["Introduzca la calle y el número de casa"],
                   turkish: ["Sokak ve ev numarasını girin"],
                   сhinese: ["输入街道和门牌号"],
                   hindi: ["सड़क और मकान नंबर दर्ज करें"],
@@ -362,7 +364,7 @@ const OrderFormPointItem = observer(
           ) : (
             <></>
           )}
-          {pointFormData.length !== 50 ? (
+          {pointFormData.length !== 50 && !addPointDisabled ? (
             <img
               className={"order_action_icon"}
               src={Setting.app_theme === "light" ? add : add_dark}

@@ -24,6 +24,7 @@ import { useOrderFormTranslate } from "./useOrderFormTranslate";
 import { fetchUserInfo } from "../../../../http/userInfoApi";
 import { useNavigate } from "react-router-dom";
 import { USER_ROUTE, MAIN_ORDER_ROUTE } from "../../../../utils/consts";
+import ym from "react-yandex-metrika";
 
 export const useOrderFormFormData = () => {
   const { order } = useContext(OrderContext);
@@ -518,6 +519,7 @@ export const useOrderFormFormData = () => {
       formData.userInfoId = userInfo.id;
       formData.order_status = "new";
       click();
+      ym("reachGoal", "mainOrderSignUp");
       navigate(USER_ROUTE);
     } catch (error) {
       console.log(error);
