@@ -130,7 +130,7 @@ const TransportFormSection = ({
                     {SetNativeTranslate(Translate.language, {}, type.type)}
                   </option>
                 ))
-              : TransportType.types.slice(0, 5).map((type) => (
+              : TransportType.types.map((type) => (
                   <option value={type.type} key={type.id}>
                     {SetNativeTranslate(Translate.language, {}, type.type)}
                   </option>
