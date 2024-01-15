@@ -128,64 +128,66 @@ const NavBar = observer(() => {
             <img
               src={
                 Setting.app_theme === "light" &&
-                Translate.language === "russian"
+                  Translate.language === "russian"
                   ? logo_light
                   : Setting.app_theme === "light" &&
                     Translate.language !== "russian"
-                  ? logo_light
-                  : Setting.app_theme === "dark" &&
-                    Translate.language === "russian"
-                  ? logo_dark
-                  : Setting.app_theme === "dark"
-                  ? logo_dark
-                  : logo_light
+                    ? logo_light
+                    : Setting.app_theme === "dark" &&
+                      Translate.language === "russian"
+                      ? logo_dark
+                      : Setting.app_theme === "dark"
+                        ? logo_dark
+                        : logo_light
               }
               className="nav_bar_logo"
             />
+            {Adress.city.value ? (
+              <button
+                disabled={user.isAuth}
+                className={classes.NavBarItem}
+                onClick={() => {
+                  !user.isAuth && setModalActive3(true);
+                }}
+              >
+                {Adress.city.value}
+              </button>
+            ) : (
+              <div
+                className={
+                  !user.isAuth ? "nav_bar_item" : "nav_bar_item disabled"
+                }
+                disabled={user.isAuth}
+                onClick={() => {
+                  if (!modalActive && !user.isAuth) {
+                    setModalActive(true);
+                    setName(
+                      SetNativeTranslate(Translate.language, {
+                        russian: ["Выберите страну из списка"],
+                        english: ["Select your country"],
+                        spanish: ["Selecciona tu pais"],
+                        turkish: ["Ülkeni seç"],
+                        сhinese: ["从列表中选择一个国家"],
+                        hindi: ["सूची से एक देश चुनें"],
+                      })
+                    );
+                  } else if (modalActive) {
+                    setModalActive(false);
+                  }
+                }}
+              >
+                {Translate.language &&
+                  SetNativeTranslate(
+                    Translate.language,
+                    {},
+                    Adress.country.value
+                  )}
+              </div>
+            )}
+
           </div>
 
-          {Adress.city.value ? (
-            <button
-              disabled={user.isAuth}
-              className={classes.NavBarItem}
-              onClick={() => {
-                !user.isAuth && setModalActive3(true);
-              }}
-            >
-              {Adress.city.value}
-            </button>
-          ) : (
-            <div
-              className={
-                !user.isAuth ? "nav_bar_item" : "nav_bar_item disabled"
-              }
-              disabled={user.isAuth}
-              onClick={() => {
-                if (!modalActive && !user.isAuth) {
-                  setModalActive(true);
-                  setName(
-                    SetNativeTranslate(Translate.language, {
-                      russian: ["Выберите страну из списка"],
-                      english: ["Select your country"],
-                      spanish: ["Selecciona tu pais"],
-                      turkish: ["Ülkeni seç"],
-                      сhinese: ["从列表中选择一个国家"],
-                      hindi: ["सूची से एक देश चुनें"],
-                    })
-                  );
-                } else if (modalActive) {
-                  setModalActive(false);
-                }
-              }}
-            >
-              {Translate.language &&
-                SetNativeTranslate(
-                  Translate.language,
-                  {},
-                  Adress.country.value
-                )}
-            </div>
-          )}
+
         </div>
 
         {width > 500 ? (
