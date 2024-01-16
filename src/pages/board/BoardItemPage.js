@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   AdContext,
   FetcherContext,
@@ -41,11 +41,12 @@ const BoardItemPage = observer(() => {
   const [modalActive, setModalActive] = useState(false);
   const [modalActive1, setModalActive1] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const location = useLocation()
 
   let ip = localStorage.getItem("currentIp");
 
   useEffect(() => {
-    ym("hit", `/board/item/${id}`);
+    ym("hit", `${location.pathname + location.search }`);
   }, []);
 
   useEffect(() => {

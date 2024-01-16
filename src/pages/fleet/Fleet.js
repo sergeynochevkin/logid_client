@@ -1,10 +1,8 @@
 import React from "react";
 import "../../App.css";
 import {
-  AdressContext,
   SettingContext,
   TranslateContext,
-  UserContext,
 } from "../..";
 import { useContext } from "react";
 import { observer } from "mobx-react-lite";
@@ -42,27 +40,24 @@ import route_dark from "../../assets/icons/route_dark.png";
 import transport from "../../assets/icons/transport.png";
 import transport_dark from "../../assets/icons/transport_dark.png";
 
-import Slider from "../../components/ui/slider/Slider";
-import { AdButton } from "../../components/ui/button/AdButton";
 import Modal from "../../components/ui/modal/Modal";
 import Auth from "../../components/auth/Auth";
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 import ym from "react-yandex-metrika";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Fleet = observer(() => {
   const { Setting } = useContext(SettingContext);
   const [modalActive, setModalActive] = useState(false);
-  const { user } = useContext(UserContext);
   const { Translate } = useContext(TranslateContext);
-  const { Adress } = useContext(AdressContext);
   const queryParams = new URLSearchParams(window.location.search);
-  const role = queryParams.get("role");
+  const location = useLocation();
 
   const [callRequested, setCallRequested] = useState(false);
 
   useEffect(() => {
-    ym("hit", "/fleet");
+    ym("hit", `${location.pathname + location.search}`);
   }, []);
 
   let sections = [
@@ -872,9 +867,7 @@ const Fleet = observer(() => {
 
   return (
     <>
-      <div className={`page_container ${Setting.app_theme}`}>
-
-      </div>
+      <div className={`page_container ${Setting.app_theme}`}></div>
 
       <Modal modalActive={modalActive} setModalActive={setModalActive}>
         <Auth

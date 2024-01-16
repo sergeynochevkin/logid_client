@@ -17,7 +17,7 @@ import {
 import { SetNativeTranslate } from "../../modules/SetNativeTranslate";
 import BoardActionComponent from "./BoardActionComponent";
 import { USER_ROUTE } from "../../utils/consts";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
 import Modal from "../../components/ui/modal/Modal";
 import Auth from "../../components/auth/Auth";
@@ -35,9 +35,10 @@ const Board = observer(() => {
   const { Translate } = useContext(TranslateContext);
   const { fetcher } = useContext(FetcherContext);
   const [modalActive, setModalActive] = useState(false);
+  const location = useLocation()
 
   useEffect(() => {
-    ym("hit", "/board");
+    ym("hit", `${location.pathname + location.search }`);
   }, []);
 
   useEffect(() => {

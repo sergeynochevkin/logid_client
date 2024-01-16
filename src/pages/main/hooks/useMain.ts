@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import ym from "react-yandex-metrika";
  //@ts-ignore
 import { fetchNotification, deleteNotification } from '../../../http/notificationApi';
+import { useLocation } from "react-router-dom";
 
 export const useMain = () => {
   //@ts-ignore
@@ -25,9 +26,8 @@ export const useMain = () => {
   const [callRequested, setCallRequested] = useState(false);
   //@ts-ignore
   const { Setting } = useContext(SettingContext);
+  const location = useLocation()
 
-
-  console.log(location.pathname + location.search);
   
   useEffect(() => {
     ym("hit", `${location.pathname + location.search }`);
