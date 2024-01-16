@@ -26,8 +26,11 @@ export const useMain = () => {
   //@ts-ignore
   const { Setting } = useContext(SettingContext);
 
+
+  console.log(location.pathname + location.search);
+  
   useEffect(() => {
-    ym("hit", "/");
+    ym("hit", `${location.pathname + location.search }`);
   }, []);
 
   useEffect(() => {
