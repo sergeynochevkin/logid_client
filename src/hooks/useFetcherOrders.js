@@ -17,6 +17,7 @@ import { fetchPoints } from "../http/pointApi";
 import { fetchOrderRatings } from "../http/ratingApi";
 import { fetchOffers } from "../http/offerApi";
 import { fetchUserInfos } from "../http/userInfoApi";
+import useInterval from "@use-it/interval";
 
 export const useFetcherOrders = (orderImageHandler, transportImageHandler) => {
   const { fetcher } = useContext(FetcherContext);
@@ -213,16 +214,17 @@ export const useFetcherOrders = (orderImageHandler, transportImageHandler) => {
     fetcher.setLoading(false);
   }, [fetcher.orders_in_work]);
 
-  useEffect(() => {
+
+  useInterval(() => {
     if (user && user.user.role !== "admin") {
-      setInterval(() => {
-        fetcher.setOrdersNew(true);
-      }, 10000);
-      setInterval(() => {
-        fetcher.setOrdersInWork(true);
-      }, 60000);
+      !fetcher.orders_in_work && fetcher.setOrdersInWork(true);
     }
-  }, []);
+  }, 60000);
+  useInterval(() => {
+    if (user && user.user.role !== "admin") {
+      !fetcher.orders_new && fetcher.setOrdersNew(true);
+    }
+  }, 10000);
 
   return [];
 };

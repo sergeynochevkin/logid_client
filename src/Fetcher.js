@@ -52,6 +52,7 @@ import { useFetcherTransport } from "./hooks/useFetcherTransport";
 import { useFetcherDriver } from "./hooks/useFetcherDriver";
 import { useFetcherOrders } from "./hooks/useFetcherOrders";
 import { useFetcherUserInfo } from "./hooks/useFetcherUserInfo";
+import useInterval from "@use-it/interval";
 
 const Fetcher = observer(() => {
   const { fetcher } = useContext(FetcherContext);
@@ -289,11 +290,9 @@ const Fetcher = observer(() => {
     fetcher.setServerNotifications(false);
   }, [fetcher.server_notifications]);
 
-  useEffect(() => {
-    setInterval(() => {
-      fetcher.setServerNotifications(true);
-    }, 10000);
-  }, []);
+  useInterval(() => {
+    !fetcher.server_notifications && fetcher.setServerNotifications(true);
+  }, 10000);
 
   useEffect(() => {
     Notification.new_server_notifications.forEach(async (element) => {
@@ -460,13 +459,11 @@ const Fetcher = observer(() => {
     fetcher.partners && fetcher.setPartners(true);
   }, [ComponentFunction.PageFunction]);
 
-  useEffect(() => {
+  useInterval(() => {
     if (user.user.role === "carrier" || user.user.role === "customer") {
-      setInterval(() => {
-        fetcher.setPartners(true);
-      }, 60000);
+      !fetcher.partners && fetcher.setPartners(true);
     }
-  }, []);
+  }, 60000);
 
   //drivers done!
   useFetcherDriver(driverImageHandler);
@@ -613,17 +610,16 @@ const Fetcher = observer(() => {
     fetcher.setManagementRegistrations(false);
   }, [fetcher.management_registrations]);
 
-  useEffect(() => {
+  useInterval(() => {
     if (user.user.role === "admin") {
-      setInterval(() => {
-        fetcher.setManagementVisits(true);
+      !fetcher.management_visits && fetcher.setManagementVisits(true);
+      !fetcher.management_registrations &&
         fetcher.setManagementRegistrations(true);
-        fetcher.setManagementUsers(true);
-        fetcher.setManagementOrders(true);
-        fetcher.setManagementTransports(true);
-      }, 60000);
+      !fetcher.management_users && fetcher.setManagementUsers(true);
+      !fetcher.management_orders && fetcher.setManagementOrders(true);
+      !fetcher.management_transports && fetcher.setManagementTransports(true);
     }
-  }, []);
+  }, 60000);
 
   //settings
   useEffect(() => {
@@ -636,13 +632,11 @@ const Fetcher = observer(() => {
     fetcher.setUserAppSetting(false);
   }, [fetcher.user_app_setting]);
 
-  useEffect(() => {
+  useInterval(() => {
     if (user.user.role === "driver") {
-      setInterval(() => {
-        fetcher.setUserAppSetting(true);
-      }, 60000);
+      !fetcher.user_app_setting && fetcher.setUserAppSetting(true);
     }
-  }, []);
+  }, 60000);
 
   return (
     <>

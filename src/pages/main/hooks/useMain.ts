@@ -3,15 +3,19 @@ import {
   FetcherContext,
   NotificationContext,
   SettingContext,
-  TranslateContext
+  TranslateContext,
   //@ts-ignore
 } from "../../..";
 
 import { useContext, useEffect, useState } from "react";
 import ym from "react-yandex-metrika";
- //@ts-ignore
-import { fetchNotification, deleteNotification } from '../../../http/notificationApi';
 import { useLocation } from "react-router-dom";
+
+import {
+  deleteNotification,
+  fetchNotification,
+  //@ts-ignore
+} from "../../../http/notificationApi";
 
 export const useMain = () => {
   //@ts-ignore
@@ -26,18 +30,16 @@ export const useMain = () => {
   const [callRequested, setCallRequested] = useState(false);
   //@ts-ignore
   const { Setting } = useContext(SettingContext);
-  const location = useLocation()
+  const location = useLocation();
 
-  
   useEffect(() => {
-    ym("hit", `${location.pathname + location.search }`);
+    ym("hit", `${location.pathname + location.search}`);
   }, []);
 
   useEffect(() => {
     fetcher.setMainCounters(true);
   }, []);
 
-  
   useEffect(() => {
     async function handleUrlNotification() {
       let notification = await fetchNotification(uuid);
@@ -52,6 +54,5 @@ export const useMain = () => {
     }
   }, []);
 
-
-  return { callRequested, setCallRequested, Setting,Translate};
+  return { callRequested, setCallRequested, Setting, Translate };
 };

@@ -303,12 +303,12 @@ const TransportItem = observer(
               style={{ backgroundColor: "rgb(129, 199, 132,0.8)" }}
             >
               {SetNativeTranslate(Translate.language, {
-                english: ["Shown on main page"],
-                russian: ["Показывается на главной"],
-                spanish: ["Mostrado en la página principal"],
-                turkish: ["Ana sayfada gösterilir"],
-                сhinese: ["显示在主页上"],
-                hindi: ["मुख्य पृष्ठ पर दिखाया गया है"],
+                english: ["Shown in ads"],
+                russian: ["Показывается в объявлениях"],
+                spanish: ["Mostrado en anuncios"],
+                turkish: ["Reklamlarda gösterilen"],
+                сhinese: ["出现在广告中"],
+                hindi: ["विज्ञापनों में दिखाया जाता है"],
               })}
             </CardEquipment>
           ) : oneTransport.ad_show &&

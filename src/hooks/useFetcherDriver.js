@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { DriverContext, FetcherContext, OrderContext, UserContext } from "..";
 import { fetchDrivers } from "../http/userAPI";
+import useInterval from "@use-it/interval";
 
 export const useFetcherDriver = (driverImageHandler) => {
   const { Driver } = useContext(DriverContext);
@@ -24,14 +25,11 @@ export const useFetcherDriver = (driverImageHandler) => {
     fetcher.setDrivers(false);
   }, [order.divided_orders.inWork]);
 
-  useEffect(() => {
-    fetcher.setDrivers(true);
+  useInterval(() => {
     if (user.user.role === "carrier" || user.user.role === "customer") {
-      setInterval(() => {
-        fetcher.setDrivers(true);
-      }, 60000);
+      !fetcher.drivers && fetcher.setDrivers(true);
     }
-  }, []);
+  }, 60000);
 
   return [];
 };
