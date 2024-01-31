@@ -25,6 +25,7 @@ import PageLoader from "./components/ui/loader/PageLoader ";
 import { addVisit } from "./http/adApi";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { YMInitializer } from "react-yandex-metrika";
+import ComingSoon from './components/comingSoon/ComingSoon';
 
 const PreLoader = observer(({ children, ...props }) => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -270,7 +271,8 @@ const PreLoader = observer(({ children, ...props }) => {
         }}
         version="2"
       />
-      {dataLoaded && isLoaded ? children : <PageLoader />}
+      {/* {dataLoaded && isLoaded ? children : <PageLoader />} */}
+      <ComingSoon/>
     </div>
   );
 });
