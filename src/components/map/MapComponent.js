@@ -50,9 +50,7 @@ const MapComponent = observer(
       calculate,
       thisOrder,
       setRecommended
-    );
-
- 
+    ); 
 
     return (
       <div className="map_container">

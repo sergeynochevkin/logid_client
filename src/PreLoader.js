@@ -271,8 +271,8 @@ const PreLoader = observer(({ children, ...props }) => {
         }}
         version="2"
       />
-      {/* {dataLoaded && isLoaded ? children : <PageLoader />} */}
-      <ComingSoon/>
+       {dataLoaded && isLoaded ? children : <PageLoader />} 
+      {/* <ComingSoon/>/ */}
     </div>
   );
 });
